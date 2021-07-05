@@ -25,10 +25,10 @@
     "@nuxtjs/auth-next": "5.0.0-1622918202.e815752",
     "@nuxtjs/axios": "^5.13.1",
     "core-js": "^3.9.1",
-    "nuxt": "^2.15.3"
+    "nuxt": "^2.15.7"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.15.3",
+    "@nuxt/types": "^2.15.7",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config-typescript": "^6.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
