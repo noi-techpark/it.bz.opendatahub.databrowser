@@ -57,26 +57,33 @@ export default {
       keycloak: {
         scheme: 'oauth2',
         endpoints: {
-          authorization: `${process.env.KEYCLOAK_REMOTE_HOST}/auth/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/auth`,
-          token: `${process.env.KEYCLOAK_REMOTE_HOST}/auth/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/token`,
-          userInfo: `${process.env.KEYCLOAK_REMOTE_HOST}/auth/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/userinfo`,
-          // eslint-disable-next-line
-          logout: `${process.env.KEYCLOAK_REMOTE_HOST}/auth/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/logout?redirect_uri=${encodeURIComponent(String(process.env.REMOTE_API))}`,
+          authorization:
+            process.env.KEYCLOAK_AUTHORIZATION_URI ||
+            'http://localhost:8080/auth/realms/noi/protocol/openid-connect/auth',
+          token:
+            process.env.KEYCLOAK_TOKEN_URI ||
+            'http://localhost:8080/auth/realms/noi/protocol/openid-connect/token',
+          userInfo:
+            process.env.KEYCLOAK_USERINFO_URI ||
+            'http://localhost:8080/auth/realms/noi/protocol/openid-connect/userinfo',
+          logout:
+            process.env.KEYCLOAK_LOGOUT_URI ||
+            'http://localhost:8080/auth/realms/noi/protocol/openid-connect/logout?redirect_uri=http://localhost:3000',
         },
         token: {
           property: 'access_token',
           type: 'Bearer',
           name: 'Authorization',
-          maxAge: 1800, // Can be dynamic ?
+          maxAge: 1800,
         },
         refreshToken: {
           property: 'refresh_token',
-          maxAge: 60 * 60 * 24 * 30, // Can be dynamic ?
+          maxAge: 60 * 60 * 24 * 30,
         },
         responseType: 'code',
         grantType: 'authorization_code',
-        clientId: process.env.KEYCLOAK_CLIENT_ID,
-        scope: ['openid', 'profile', 'email'],
+        clientId: process.env.KEYCLOAK_CLIENT_ID || 'odh-databrowser',
+        scope: ['profile', 'email'],
         codeChallengeMethod: 'S256',
       },
     },
