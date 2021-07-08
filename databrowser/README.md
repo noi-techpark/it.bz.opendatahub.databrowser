@@ -1,6 +1,6 @@
-# OpenDataHub Databrowser
+# OpenDataHub Databrowser - Application
 
-This project provides the [OpenDataHub](https://noi.bz.it/en/services/open-data-hub) Databrowser.
+This project provides the [OpenDataHub](https://noi.bz.it/en/services/open-data-hub) Databrowser Application.
 
 It is part of a mono repository, together with the [Databrowser Web Components](../web-components).
 
@@ -76,7 +76,7 @@ branch. Pull requests are warmly welcome.
 ### Versioning
 
 This project uses [SemVer](https://semver.org/) for versioning. For the versions available,
-see the [tags on this repository](https://github.com/idm-suedtirol/odh-alpinebits/tags). 
+see the [tags on this repository](https://github.com/noi-techpark/it.bz.opendatahub.databrowser/tags).
 
 ### License
 

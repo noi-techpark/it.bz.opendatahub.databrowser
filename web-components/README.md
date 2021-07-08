@@ -1,4 +1,4 @@
-# Databrowser Web components
+# OpenDataHub Databrowser - Web Components
 
 This project contains different Web Components for the [OpenDataHub](https://noi.bz.it/en/services/open-data-hub) Databrowser.
 
@@ -101,7 +101,7 @@ branch. Pull requests are warmly welcome.
 ### Versioning
 
 This project uses [SemVer](https://semver.org/) for versioning. For the versions available,
-see the [tags on this repository](https://github.com/idm-suedtirol/odh-alpinebits/tags). 
+see the [tags on this repository](https://github.com/noi-techpark/it.bz.opendatahub.databrowser/tags).
 
 ### License
 
