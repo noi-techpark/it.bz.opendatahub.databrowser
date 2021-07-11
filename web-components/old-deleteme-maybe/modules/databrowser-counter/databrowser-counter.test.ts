@@ -1,7 +1,7 @@
 import { html, fixture, expect } from '@open-wc/testing';
 
-import { DatabrowserCounter } from './DatabrowserCounter.js';
-import './databrowser-counter.js';
+import { DatabrowserCounter } from './DatabrowserCounter';
+import './databrowser-counter';
 
 describe('DatabrowserLabel', () => {
   it('has a default title "Hey there" and counter 5', async () => {

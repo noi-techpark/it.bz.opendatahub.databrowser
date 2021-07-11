@@ -18,9 +18,7 @@
         bg-white
         border-r
         shadow-lg
-        lg:z-auto
-        lg:static
-        lg:shadow-none
+        lg:z-auto lg:static lg:shadow-none
       "
       :class="{ '-translate-x-full lg:translate-x-0 lg:w-20': !isSidebarOpen }"
     >

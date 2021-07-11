@@ -20,8 +20,7 @@
             py-2
             border
             rounded-md
-            focus:outline-none
-            focus:ring
+            focus:outline-none focus:ring
           "
         />
       </form>

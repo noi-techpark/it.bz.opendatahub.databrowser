@@ -11,7 +11,7 @@
 <script lang="ts">
 import Vue from 'vue';
 
-import '../../../web-components/modules/databrowser-counter/databrowser-counter';
+import '../../web-component.import';
 
 export default Vue.extend({
   props: {

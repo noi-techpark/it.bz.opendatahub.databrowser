@@ -10,10 +10,8 @@
       transition-colors
       bg-gray-100
       rounded-full
-      focus:outline-none
-      focus:ring
-      hover:bg-gray-200
-      hover:text-gray-500
+      focus:outline-none focus:ring
+      hover:bg-gray-200 hover:text-gray-500
     "
     @click="$emit('click', $event)"
   >

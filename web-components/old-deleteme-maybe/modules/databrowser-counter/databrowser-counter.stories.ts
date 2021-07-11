@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html';
-import './databrowser-counter.js';
+import './databrowser-counter';
 
 export default {
   title: 'Databrowser counter',

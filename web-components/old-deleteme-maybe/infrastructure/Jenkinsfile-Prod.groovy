@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'yarn run storybook:build'
+                sh 'yarn run build-storybook'
             }
         }
         stage('Upload') {

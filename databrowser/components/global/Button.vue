@@ -10,8 +10,7 @@
       font-medium
       transition-colors
       rounded-md
-      focus:outline-none
-      focus:ring
+      focus:outline-none focus:ring
     "
     @click="$emit('click', $event)"
   >

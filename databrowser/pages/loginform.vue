@@ -22,8 +22,7 @@
             px-3
             text-gray-700
             leading-tight
-            focus:outline-none
-            focus:shadow-outline
+            focus:outline-none focus:shadow-outline
           "
           type="text"
           placeholder="Username"
@@ -51,8 +50,7 @@
             text-gray-700
             mb-3
             leading-tight
-            focus:outline-none
-            focus:shadow-outline
+            focus:outline-none focus:shadow-outline
           "
           type="password"
           placeholder="******************"
@@ -69,8 +67,7 @@
             py-2
             px-4
             rounded
-            focus:outline-none
-            focus:shadow-outline
+            focus:outline-none focus:shadow-outline
           "
           type="button"
           @click="login"

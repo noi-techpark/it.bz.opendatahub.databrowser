@@ -9,9 +9,7 @@
         pb-6
         space-y-4
         border-b
-        lg:items-center
-        lg:space-y-0
-        lg:flex-row
+        lg:items-center lg:space-y-0 lg:flex-row
       "
     >
       <h1 class="text-2xl font-semibold whitespace-nowrap">Dashboard</h1>
@@ -219,8 +217,7 @@
                 bg-blue-600
                 rounded-md
                 hover:bg-blue-700
-                focus:outline-none
-                focus:ring
+                focus:outline-none focus:ring
               "
             >
               <span>Launch</span>
@@ -275,8 +272,7 @@
                 bg-blue-600
                 rounded-md
                 hover:bg-blue-700
-                focus:outline-none
-                focus:ring
+                focus:outline-none focus:ring
               "
             >
               <span>Launch</span>

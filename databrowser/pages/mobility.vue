@@ -8,9 +8,7 @@
         pb-6
         space-y-4
         border-b
-        lg:items-center
-        lg:space-y-0
-        lg:flex-row
+        lg:items-center lg:space-y-0 lg:flex-row
       "
     >
       <h1 class="text-2xl font-semibold whitespace-nowrap">Mobility</h1>

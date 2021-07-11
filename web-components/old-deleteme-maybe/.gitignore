@@ -16,8 +16,8 @@
 /.tmp/
 
 # build
+/.rollup.cache/
 /_site/
 /dist/
 /out-tsc/
-
-storybook-static
+/storybook-static/
