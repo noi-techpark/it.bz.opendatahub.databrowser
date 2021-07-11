@@ -1,0 +1,11 @@
+{
+  "name": "databrowser-monorepo",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap --hoist",
+    "release-components": "lerna publish"
+  }
+}

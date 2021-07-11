@@ -1,11 +1,17 @@
 {
   "name": "databrowser-heading",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Webcomponent databrowser-heading following open-wc recommendations",
   "author": "databrowser-heading",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "types": "dist/index.d.js",
+  "files": [
+    "/dist/**",
+    "!/dist/stories/**",
+    "!/dist/test/**"
+  ],
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc",

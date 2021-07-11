@@ -1,11 +1,14 @@
 {
   "name": "databrowser-web-components",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Web Components for the databrowser, following open-wc recommendations",
   "author": "NOI",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc && rollup -c",

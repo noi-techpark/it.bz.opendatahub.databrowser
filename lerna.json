@@ -1,0 +1,14 @@
+{
+  "version": "independent",
+  "packages": [
+    "databrowser",
+    "web-components/**"
+  ],
+  "publish": {
+    "ignoreChanges": [
+      "ignored-file",
+      "*.md"
+    ],
+    "registry": "http://locahost:4873"
+  }
+}
