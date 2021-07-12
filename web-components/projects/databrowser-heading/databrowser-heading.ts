@@ -1,3 +1,3 @@
-import { DatabrowserHeading } from './src/DatabrowserHeading.js';
+import { DatabrowserHeading } from './src/DatabrowserHeading';
 
 window.customElements.define('databrowser-heading', DatabrowserHeading);

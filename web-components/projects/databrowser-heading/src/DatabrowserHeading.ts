@@ -19,7 +19,7 @@ export class DatabrowserHeading extends LitElement {
 
   render() {
     return html`
-      <h2>${this.title} Nr. ${this.counter}!</h2>
+      <h2>!!Databrowser heading says: ${this.title} Nr. ${this.counter}!</h2>
       <button @click=${this.__increment}>increment</button>
     `;
   }
