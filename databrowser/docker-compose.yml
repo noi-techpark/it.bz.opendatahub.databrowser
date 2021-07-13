@@ -5,8 +5,8 @@ services:
       context: .
       dockerfile: infrastructure/docker/dockerfile-node
     volumes:
-      - ./:/code
-    working_dir: /code
+      - ../:/code
+    working_dir: /code/databrowser
     command: npm run dev
     environment:
       HOST: 0.0.0.0

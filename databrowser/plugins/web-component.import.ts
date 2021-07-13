@@ -17,10 +17,7 @@
 // appear on app reload (note: hot-reload not supported)
 const importFromMonorepo = async () => {
   await import(
-    '../../web-components/projects/databrowser-heading/databrowser-heading'
-  );
-  await import(
-    '../../web-components/projects/databrowser-link/databrowser-link'
+    '../../web-components/projects/databrowser-example/databrowser-example'
   );
 };
 
@@ -28,8 +25,7 @@ const importFromMonorepo = async () => {
 // to something different than true (e.g. undefined).
 // Use it if you want to import Web-Components from packages (e.g. npm).
 const importFromPackages = async () => {
-  await import('databrowser-heading/dist/databrowser-heading');
-  await import('databrowser-link/dist/databrowser-link');
+  await import('databrowser-example/dist/databrowser-example');
 };
 
 export default async ({ $config: { isMonorepoImport } }: any) => {
