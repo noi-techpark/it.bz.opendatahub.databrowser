@@ -8,7 +8,6 @@
     "ignoreChanges": [
       "ignored-file",
       "*.md"
-    ],
-    "registry": "http://locahost:4873"
+    ]
   }
 }
