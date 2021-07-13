@@ -7,7 +7,7 @@ services:
     volumes:
       - ../:/code
     working_dir: /code/databrowser
-    command: npm run dev
+    command: tail -f /dev/null
     environment:
       HOST: 0.0.0.0
       KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
