@@ -60,7 +60,7 @@ On successful start, the demo application can be found at [http://localhost:8000
 
 ### Demoing with Storybook
 
-[Storybook](https://storybook.js.org/) is an app that provides a nice overview about the Web Component and its capabilities. Storybook provides hot reload capabilities, so it is very well suited for development purposes.
+[Storybook](https://storybook.js.org/) is an app that provides a nice overview about the Web Component and its capabilities.
 
 To run a local development instance of Storybook for your component, run:
 
@@ -78,6 +78,13 @@ npm run storybook:build
 
 The result can be found in the `storybook-static` folder.
 
+> Storybook provides hot reload capabilities, so it is suited for development purposes. Unfortunately, hot reload doesn't
+> work when Storybook is started in a Docker container. You have to start Storybook on your machine (not in a Docker container)
+> in order for hot reload to work. This seems to be a bug either in the Docker configuration (maybe volume mounts) or in
+> Storybook itself.
+>
+> If you have an idea on how to fix this, please let us know.
+
 ## Test
 
 To run the suite of Web Test Runner tests, run:
@@ -93,6 +100,8 @@ npm run test:watch
 ```
 
 > Note that the tests can not be run in a Docker container due to dependencies on an installed Chrome browser.
+>
+> If you have an idea on how to fix this, please let us know.
 
 ## Build and deploy
 
@@ -206,15 +215,8 @@ docker-compose exec node /bin/bash -c "npm run start"
 
 # or
 
-docker-compose exec node /bin/bash -c "npm run storybook"
-
-# or
-
 docker-compose exec node /bin/bash -c "npm run build"
 ```
-
-> Please note, that you can not run the tests inside Docker containers, because they need the Chrome Browser to be
-> installed. If you have an idea on how to fix this, please let us know.
 
 ## Information
 
