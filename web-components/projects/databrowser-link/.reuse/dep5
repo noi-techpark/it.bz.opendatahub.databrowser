@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: databrowser-link
+Upstream-Contact: NOI <help@opendatahub.bz.it>
+Source: https://github.com/noi-techpark/it.bz.opendatahub.databrowser
+
+Files: src/*
+Copyright: 2021 NOI <help@opendatahub.bz.it>
+License: AGPL-3.0-or-later
