@@ -20,16 +20,6 @@ to take care of the dependencies.
 If you have any dependencies issues, consider removing all `node_modules` folders of all projects and try to invoke
 `npm run bootstrap` in the repository root.
 
-## What about the `MONOREPO_IMPORT` environment variable?
+## Where do I import / register my Web Component for the Databrowser application?
 
-The `MONOREPO_IMPORT` environment variable can be used to control the location from where the [Databrowser app](./databrowser)
-imports its Web Components. The configuration can be found in [web-component.import.ts](./databrowser/plugins/web-component.import.ts)
-and should be extended with your Web Components.
-
-When the `MONOREPO_IMPORT` environment variable is set to `true`, the Databrowser app imports its Web Components using file references, e.g.
-`import ../../web-components/projects/databrowser-example/databrowser-example`. This simplifies development, because changes to a Web
-Component are available to the app instantly. Otherwise, the Web Component must be compiled, published and installed with `npm install ...`
-before its changes are visible to the app.
-
-After the initial development efforts stabilize and the Web Components are released to an npm registry, it may be a good idea to remove
-the file references and to use the standard `npm install` mechanisms, making the `MONOREPO_IMPORT` environment variable obsolete.
+You can import and register your Web Component globally in the [web-component.import.ts](./databrowser/plugins/web-component.import.ts) file.
