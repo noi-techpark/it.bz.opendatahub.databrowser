@@ -85,6 +85,8 @@ export default {
         clientId: process.env.KEYCLOAK_CLIENT_ID || 'odh-databrowser',
         scope: ['profile', 'email'],
         codeChallengeMethod: 'S256',
+        redirectUri:
+          process.env.KEYCLOAK_REDIRECT_URI || 'http://localhost:3000',
       },
     },
   },

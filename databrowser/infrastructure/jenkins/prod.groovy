@@ -14,7 +14,8 @@ pipeline {
         KEYCLOAK_AUTHORIZATION_URI = "https://auth.opendatahub.bz.it/auth/realms/noi/protocol/openid-connect/auth"
         KEYCLOAK_TOKEN_URI = "https://auth.opendatahub.bz.it/auth/realms/noi/protocol/openid-connect/token"
         KEYCLOAK_USERINFO_URI = "https://auth.opendatahub.bz.it/auth/realms/noi/protocol/openid-connect/userinfo"
-        KEYCLOAK_LOGOUT_URI = "https://auth.opendatahub.bz.it/auth/realms/noi/protocol/openid-connect/logout?redirect_uri=http://localhost:3000"
+        KEYCLOAK_LOGOUT_URI = "https://auth.opendatahub.bz.it/auth/realms/noi/protocol/openid-connect/logout"
+        KEYCLOAK_REDIRECT_URI = "__INSERT_URI__"
     }
 
     stages {
