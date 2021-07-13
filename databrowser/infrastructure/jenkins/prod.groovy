@@ -35,7 +35,7 @@ pipeline {
         }
         stage('Upload') {
             steps {
-                s3Upload(bucket: 'prod-databrowser', acl: 'PublicRead', file: './dist')
+                s3Upload(bucket: 'databrowser-app-prod', acl: 'PublicRead', file: './dist')
             }
         }
     }

@@ -9,12 +9,6 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-
-        KEYCLOAK_CLIENT_ID = "odh-databrowser"
-        KEYCLOAK_AUTHORIZATION_URI = "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/auth"
-        KEYCLOAK_TOKEN_URI = "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/token"
-        KEYCLOAK_USERINFO_URI = "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/userinfo"
-        KEYCLOAK_LOGOUT_URI = "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/logout?redirect_uri=http://localhost:3000"
     }
 
     stages {
@@ -30,12 +24,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'yarn run generate'
+                sh 'yarn run build'
             }
         }
         stage('Upload') {
             steps {
-                s3Upload(bucket: 'test-databrowser', acl: 'PublicRead', file: './dist')
+                s3Upload(bucket: 'databrowser-heading', acl: 'PublicRead', file: './dist')
             }
         }
     }
