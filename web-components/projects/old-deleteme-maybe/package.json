@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Web Components for the databrowser, following open-wc recommendations",
   "author": "NOI",
-  "license": "MIT",
+  "license": "AGPLv3",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [

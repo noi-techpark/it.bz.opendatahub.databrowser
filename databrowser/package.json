@@ -2,6 +2,7 @@
   "name": "databrowser",
   "version": "0.0.1",
   "private": true,
+  "license": "AGPLv3",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
