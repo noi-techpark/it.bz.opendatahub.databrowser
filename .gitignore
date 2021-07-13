@@ -1,3 +1,5 @@
+.rollup.cache
+dist-browser
 /node_modules/
 
 .npmrc
