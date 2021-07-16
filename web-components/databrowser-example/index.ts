@@ -1,1 +1,5 @@
-export { DatabrowserExample } from './src/DatabrowserExample.js';
+export {
+  DatabrowserExample,
+  DatabrowserExampleProps,
+  UserType,
+} from './src/DatabrowserExample.js';
