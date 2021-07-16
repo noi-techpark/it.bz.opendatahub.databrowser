@@ -50,25 +50,20 @@ export default {
 
   // Authentication
   auth: {
-    redirect: {
-      login: '/',
-    },
     strategies: {
       keycloak: {
         scheme: 'oauth2',
         endpoints: {
           authorization:
             process.env.KEYCLOAK_AUTHORIZATION_URI ||
-            'http://localhost:8080/auth/realms/noi/protocol/openid-connect/auth',
+            'https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/auth',
           token:
             process.env.KEYCLOAK_TOKEN_URI ||
-            'http://localhost:8080/auth/realms/noi/protocol/openid-connect/token',
-          userInfo:
-            process.env.KEYCLOAK_USERINFO_URI ||
-            'http://localhost:8080/auth/realms/noi/protocol/openid-connect/userinfo',
+            'https://auth.opendatahub.testingmachine.euauth/realms/noi/protocol/openid-connect/token',
+          userInfo: process.env.KEYCLOAK_USERINFO_URI,
           logout:
             process.env.KEYCLOAK_LOGOUT_URI ||
-            'http://localhost:8080/auth/realms/noi/protocol/openid-connect/logout?redirect_uri=http://localhost:3000',
+            'https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/logout',
         },
         token: {
           property: 'access_token',
@@ -80,13 +75,12 @@ export default {
           property: 'refresh_token',
           maxAge: 60 * 60 * 24 * 30,
         },
-        responseType: 'code',
+        responseType: 'token',
         grantType: 'authorization_code',
         clientId: process.env.KEYCLOAK_CLIENT_ID || 'odh-databrowser',
         scope: ['profile', 'email'],
         codeChallengeMethod: 'S256',
-        redirectUri:
-          process.env.KEYCLOAK_REDIRECT_URI || 'http://localhost:3000',
+        redirectUri: process.env.KEYCLOAK_REDIRECT_URI,
       },
     },
   },
