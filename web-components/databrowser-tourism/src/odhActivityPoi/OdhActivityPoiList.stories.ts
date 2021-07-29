@@ -5,7 +5,7 @@ export default {
   title: 'OdhActivityPoiList',
   component: 'databrowser-odh-activity-poi-list',
   argTypes: {
-    list: { control: 'object' },
+    data: { control: 'object' },
     paginationChanges: { action: 'paginationChanges' },
     detailRequested: { action: 'detailRequested' },
   },
@@ -18,19 +18,19 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  list?: any;
+  data?: any;
   paginationChanges?: () => void;
   detailRequested?: () => void;
 }
 
 const Template: Story<ArgTypes> = ({
   // eslint-disable-next-line no-use-before-define
-  list = null,
+  data = null,
   paginationChanges = () => {},
   detailRequested = () => {},
 }: ArgTypes) => html`
   <databrowser-odh-activity-poi-list
-    .list="${list}"
+    .data="${data}"
     @paginationChanges="${paginationChanges}"
     @detailRequested="${detailRequested}"
   ></databrowser-odh-activity-poi-list>
@@ -38,7 +38,7 @@ const Template: Story<ArgTypes> = ({
 
 export const Regular = Template.bind({});
 Regular.args = {
-  list: {
+  data: {
     TotalResults: 12414,
     TotalPages: 1242,
     CurrentPage: 1,

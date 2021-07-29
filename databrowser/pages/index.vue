@@ -45,7 +45,7 @@
       "
     >
       <databrowser-odh-activity-poi-list
-        :list.prop="odhActivityPoiList"
+        :data.prop="odhActivityPoiList"
         @paginationChanges="paginationChanges"
         @detailRequested="detailRequested"
       ></databrowser-odh-activity-poi-list>

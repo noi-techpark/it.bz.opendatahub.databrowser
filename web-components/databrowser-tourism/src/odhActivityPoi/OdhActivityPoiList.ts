@@ -65,7 +65,7 @@ export interface DetailRequested {
  */
 export class OdhActivityPoiList extends LitElement {
   @property({ type: Object })
-  list?: ODHActivityPoiJsonResult;
+  data?: ODHActivityPoiJsonResult;
 
   private paginationChanges(url: string | null) {
     if (url == null) {
@@ -95,11 +95,11 @@ export class OdhActivityPoiList extends LitElement {
     this.dispatchEvent(event);
   }
 
-  private renderResultHeader(list: ODHActivityPoiJsonResult) {
+  private renderResultHeader(data: ODHActivityPoiJsonResult) {
     return html`<ul>
-      <li>TotalResults: ${list.TotalResults}</li>
-      <li>TotalPages: ${list.TotalPages}</li>
-      <li>CurrentPage: ${list.CurrentPage}</li>
+      <li>TotalResults: ${data.TotalResults}</li>
+      <li>TotalPages: ${data.TotalPages}</li>
+      <li>CurrentPage: ${data.CurrentPage}</li>
     </ul>`;
   }
 
@@ -118,26 +118,26 @@ export class OdhActivityPoiList extends LitElement {
     </tr>`;
   }
 
-  private renderResultBody(list: ODHActivityPoiJsonResult) {
+  private renderResultBody(data: ODHActivityPoiJsonResult) {
     return html`<div>
-      ${list.PreviousPage != null
+      ${data.PreviousPage != null
         ? html`<button
-            @click="${() => this.paginationChanges(list.PreviousPage)}"
+            @click="${() => this.paginationChanges(data.PreviousPage)}"
           >
             Previous
           </button>`
         : null}
-      ${list.NextPage != null
-        ? html`<button @click="${() => this.paginationChanges(list.NextPage)}">
+      ${data.NextPage != null
+        ? html`<button @click="${() => this.paginationChanges(data.NextPage)}">
             Next
           </button>`
         : null}
     </div>`;
   }
 
-  private renderResult(list: ODHActivityPoiJsonResult) {
+  private renderResult(data: ODHActivityPoiJsonResult) {
     return html`
-      <div>${this.renderResultHeader(list)}</div>
+      <div>${this.renderResultHeader(data)}</div>
       <table>
         <thead>
           <tr>
@@ -149,17 +149,17 @@ export class OdhActivityPoiList extends LitElement {
             <th>Details</th>
           </tr>
         </thead>
-        ${list.Items.map(this.renderResultItem, this)}
+        ${data.Items.map(this.renderResultItem, this)}
       </table>
-      <div>${this.renderResultBody(list)}</div>
+      <div>${this.renderResultBody(data)}</div>
     `;
   }
 
   render() {
-    return html`${this.list != null &&
-    Object.entries(this.list).length &&
-    typeof this.list !== 'string'
-      ? this.renderResult(this.list)
+    return html`${this.data != null &&
+    Object.entries(this.data).length &&
+    typeof this.data !== 'string'
+      ? this.renderResult(this.data)
       : html`<span>No data</span>`} `;
   }
 }
