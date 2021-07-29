@@ -86,21 +86,25 @@ export default Vue.extend({
     };
   },
   methods: {
-    filterChanges(event: CustomEvent<FilterChanges>) {
+    async filterChanges(event: CustomEvent<FilterChanges>) {
       const filterChangesValues = event.detail;
-      this.$axios
-        .$get('https://api.tourism.testingmachine.eu/v1/ODHActivityPoi?', {
+      const data = await this.$axios.$get(
+        'https://api.tourism.testingmachine.eu/v1/ODHActivityPoi?',
+        {
           params: filterChangesValues,
-        })
-        .then((data) => (this.odhActivityPoiList = data));
+        }
+      );
+      this.odhActivityPoiList = data;
     },
-    paginationChanges(event: CustomEvent<PaginationChanges>) {
+    async paginationChanges(event: CustomEvent<PaginationChanges>) {
       const url = event.detail.url;
-      this.$axios.$get(url).then((data) => (this.odhActivityPoiList = data));
+      const data = await this.$axios.$get(url);
+      this.odhActivityPoiList = data;
     },
-    detailRequested(event: CustomEvent<DetailRequested>) {
+    async detailRequested(event: CustomEvent<DetailRequested>) {
       const url = event.detail.url;
-      this.$axios.$get(url).then((data) => (this.odhActivityPoiDetail = data));
+      const data = await this.$axios.$get(url);
+      this.odhActivityPoiDetail = data;
     },
   },
 });
