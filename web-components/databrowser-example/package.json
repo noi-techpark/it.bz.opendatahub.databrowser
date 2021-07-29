@@ -23,8 +23,8 @@
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "test": "tsc && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "start-storybook -p 8000",
-    "storybook:build": "rimraf storybook-static && build-storybook"
+    "storybook": "npm run clean:dist && tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"start-storybook -p 8000\"",
+    "storybook:build": "rimraf storybook-static && tsc && build-storybook"
   },
   "dependencies": {
     "lit-html": "^1.4.1",
@@ -34,7 +34,6 @@
     "@open-wc/eslint-config": "^4.3.0",
     "@open-wc/testing": "^2.5.33",
     "@rollup/plugin-node-resolve": "^13.0.0",
-    "@storybook/addon-actions": "^6.3.4",
     "@storybook/addon-essentials": "^6.3.4",
     "@storybook/addon-links": "^6.3.4",
     "@storybook/web-components": "^6.3.4",

@@ -74,9 +74,6 @@ On successful start, the demo application can be found at [http://localhost:8000
 
 ### Demoing with Storybook
 
-> Note that at the moment there are some issues with Storybook. You can skip this section if you are not sure how to
-> handle those problems. The usage of Storybook should be further discussed.
-
 [Storybook](https://storybook.js.org/) is an app that provides a nice overview about the Web Component and its capabilities.
 
 To run a local development instance of Storybook for your component, run:
