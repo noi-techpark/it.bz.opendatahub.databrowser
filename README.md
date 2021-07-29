@@ -15,7 +15,7 @@ It contains the [Databrowser application](./databrowser) and its [Web Components
 These instructions will get you a copy of this mono repository and prepare it for development.
 
 Please take a look at the projects and their corresponding `README.md` files inside this mono repository to see
-how to do develop, tests and build.
+how to do develop, test and build.
 
 ### Prerequisites
 
@@ -36,7 +36,7 @@ git clone https://github.com/noi-techpark/it.bz.opendatahub.databrowser
 Change directory:
 
 ```bash
-cd it.bz.opendatahub.databrowser/
+cd it.bz.opendatahub.databrowser
 ```
 
 Install the dependencies of all projects in this mono repository:
@@ -69,6 +69,8 @@ Start the databrowser app in development mode:
 npm run dev
 ```
 
+The databrowser will be started at [http://localhost:3000](http://localhost:3000) by default.
+
 > Take a look at the `README.md` file in the `databrowser` folder for further details.
 
 #### Example: Start web-component development environment with Storybook
@@ -82,8 +84,10 @@ cd web-components/databrowser-example
 Start the databrowser app in development mode:
 
 ```bash
-npm run storybook
+npm run start
 ```
+
+A simple website with the `databrowser-example` Web Component will be started at [http://localhost:8000/demo/](http://localhost:8000/demo/) by default.
 
 > Take a look at the `README.md` file in the `databrowser-example` folder for further details.
 

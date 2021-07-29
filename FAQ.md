@@ -23,3 +23,14 @@ If you have any dependencies issues, consider removing all `node_modules` folder
 ## Where do I import / register my Web Component for the Databrowser application?
 
 You can import and register your Web Component globally in the [web-component.import.ts](./databrowser/plugins/web-component.import.ts) file.
+
+## How to pass data to Web Components from Vue?
+
+If you want to pass any data other than Strings to a Web Component, you must pass it as property. Vue provides a `:name.prop` binding, where `name` is the name of the property, and `.prop` tells Vue to pass the data as property.
+
+For example, if you want to pass the object `currentUser` to the `user` property of the `my-user` Web Component:
+
+```html
+<my-user :user.prop="currentUser"></my-user>
+```
+

@@ -133,7 +133,11 @@ Fortunately many frameworks provide solutions to this. In [lit](https://lit.dev/
 <my-user .user="currentUser"></my-user>
 ```
 
-Vue supports [custom directives](https://v3.vuejs.org/guide/custom-directive.html), that can be used to implement something similar.
+To pass properties from Vue to a Web Component you must use the `:name.prop` binding, where `name` is the name of the property, and `.prop` tells Vue to pass the data as property. For example:
+
+```html
+<my-user :user.prop="currentUser"></my-user>
+```
 
 ## Browser build vs ES module
 
@@ -170,9 +174,11 @@ Frameworks (e.g. Vue) solve that problem with variables / state that is easily a
 
 Another example is state. Lets suppose, a Web Component should display the number of unread emails. How do you provide that data to the Web Component? Again, what if the component is buried deep down in the DOM? Frameworks usually provide ways to solve that problem, e.g. with state management tools and libraries (e.g. [vuex](https://vuex.vuejs.org/)). Something similar could be done with Web Components, but that again ties the Web Component to those tools and libraries.
 
+> This point is still work in progress, if you have an idea on how to solve the problem, please let us know.
+
 ## Functional components
 
-The most straight forward use case for Web Components are functional components. Functional components are components whose behavior and visualization depend solely on their input parameters. This removes the necessity of shared variables / state, making them easier to be reused.
+The most straight forward use case for Web Components are functional components. Functional components are components whose behavior and visualization depend solely on their input parameters. This removes the necessity of shared variables / state, reuse is simplified.
 
 Of course it is possible to write more complicated Web Components, but there should be good reasons to create them as they may have drawbacks like shared variables / state and other dependencies.
 

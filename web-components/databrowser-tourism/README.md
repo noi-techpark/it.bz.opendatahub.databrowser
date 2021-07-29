@@ -37,16 +37,30 @@ git clone https://github.com/noi-techpark/it.bz.opendatahub.databrowser.git
 Change directory:
 
 ```bash
-cd it.bz.opendatahub.databrowser/web-components/databrowser-tourism
+cd it.bz.opendatahub.databrowser
 ```
 
-Install project dependencies:
+Install the dependencies of all projects in this mono repository:
+
+> This is a mono repository. That means, that many projects are located in this repository. Some of
+> those projects depend on each other (e.g. the Databrowser Application depends on the Web Components).
+>
+> In order to simplify development, test and build, this repository provides [lerna](https://lerna.js.org/)
+> tasks e.g. to install all dependencies at once as seen below.
 
 ```bash
-npm install
+# Install dependencies of all projects. This may take some time!
+
+npm run bootstrap
 ```
 
 ### Start development
+
+If you are in the root folder of this mono repository, change to the databrowser-example folder:
+
+```bash
+cd web-components/databrowser-tourism
+```
 
 To start the development server, run:
 
