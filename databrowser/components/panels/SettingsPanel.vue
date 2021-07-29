@@ -3,7 +3,7 @@
     <div class="flex-1 max-h-full p-4 overflow-hidden hover:overflow-y-auto">
       <span>Settings Content</span>
       <databrowser-example
-        v-passref:user="user"
+        :user.prop="user"
         title="Static example user data for <databrowser-example> Web Component"
       ></databrowser-example>
       <!-- Settings Panel Content ... -->

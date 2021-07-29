@@ -45,7 +45,7 @@
       "
     >
       <databrowser-odh-activity-poi-list
-        v-passref:list="odhActivityPoiList"
+        :list.prop="odhActivityPoiList"
         @paginationChanges="paginationChanges"
         @detailRequested="detailRequested"
       ></databrowser-odh-activity-poi-list>
@@ -64,7 +64,7 @@
       "
     >
       <databrowser-odh-activity-poi-detail
-        v-passref:data="odhActivityPoiDetail"
+        :data.prop="odhActivityPoiDetail"
       ></databrowser-odh-activity-poi-detail>
     </div>
   </div>
