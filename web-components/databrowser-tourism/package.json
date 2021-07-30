@@ -1,7 +1,7 @@
 {
-  "name": "databrowser-example",
+  "name": "databrowser-tourism",
   "version": "0.0.1",
-  "description": "Web Component databrowser-example",
+  "description": "Web Components to render Tourism data from Open Data Hub",
   "author": "NOI",
   "license": "AGPLv3",
   "main": "dist/index.js",

@@ -1,8 +1,6 @@
-# Databrowser Web Component: databrowser-example
+# Databrowser Tourism Web Component: databrowser-tourism
 
-This project contains the `databrowser-example` Web Component.
-
-It is a simple example to demonstrate how a Web Component can be implemented with [lit](https://lit.dev/);
+This project contains Web Components to render Tourism data from [Open Data Hub](https://opendatahub.bz.it/).
 
 ## Table of Contents
 
@@ -61,7 +59,7 @@ npm run bootstrap
 If you are in the root folder of this mono repository, change to the databrowser-example folder:
 
 ```bash
-cd web-components/databrowser-example
+cd web-components/databrowser-tourism
 ```
 
 To start the development server, run:
@@ -158,33 +156,34 @@ The result can be found in the `./dist-browser` folder.
 
 ## Usage
 
-Below you can find some examples on how to use the Web Component in your applications. Note, that the
-import from `databrowser-example/dist/databrowser-example.js` registers the Web Component using
-`window.customElements.define`. If you don't want to register the Web Component or you want to register
-it by your own, just import `databrowser-example`.
+Below you can find some examples on how to use the Web Components in your applications based on the
+Web Components for the `ODHActivityPoi` endpoint. Note, that the import from
+`databrowser-tourism/dist/databrowser-odhActivityPoi.js` registers the Web Components using
+`window.customElements.define`. If you don't want to register the Web Components or you want to register
+them by your own, just import `databrowser-tourism`.
 
-Example usage for the `databrowser-example` component when compiled to an ES module using the `<script>` tag:
+Example usage for the `databrowser-odh-activity-poi-filter` component when compiled to an ES module using the `<script>` tag:
 
 ```html
 <script type="module">
-  import 'databrowser-example/dist/databrowser-example.js';
+  import 'databrowser-tourism/dist/databrowser-odh-activity-poi-filter.js';
 </script>
 
-<databrowser-example></databrowser-example>
+<databrowser-odh-activity-poi-filter></databrowser-odh-activity-poi-filter>
 ```
 
-Example usage for the `databrowser-example` component when compiled to an ES module using the ES module import:
+Example usage for the `databrowser-odh-activity-poi-filter` component when compiled to an ES module using the ES module import:
 
 ```js
-import from 'databrowser-example/dist/databrowser-example.js';
+import from 'databrowser-tourism/dist/databrowser-odh-activity-poi-filter.js';
 ```
 
-Example usage for the `databrowser-example` component when compiled for the browser using the `<script>` tag:
+Example usage for the `databrowser-odh-activity-poi-filter` component when compiled for the browser using the `<script>` tag:
 
 ```html
-<script src="__PATH_TO_FILE__/databrowser-example.js"></script>
+<script src="__PATH_TO_FILE__/databrowser-odh-activity-poi-filter.js"></script>
 
-<databrowser-example></databrowser-example>
+<databrowser-odh-activity-poi-filter></databrowser-odh-activity-poi-filter>
 ```
 
 ## Docker environment
