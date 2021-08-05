@@ -40,6 +40,12 @@ export interface ODHActivityPoi {
       Self: string;
     };
   };
+  Detail: Record<
+    string,
+    {
+      Title: string;
+    }
+  >;
 }
 
 export interface ODHActivityPoiJsonResult {
@@ -105,7 +111,7 @@ export class OdhActivityPoiList extends LitElement {
 
   private renderResultItem(item: ODHActivityPoi) {
     return html`<tr>
-      <td>${item.ContactInfos.en?.CompanyName}</td>
+      <td>${item.Detail.en?.Title}</td>
       <td>${item.LocationInfo.RegionInfo.Name?.en}</td>
       <td>${item.HasLanguage != null ? item.HasLanguage.join(', ') : ''}</td>
       <td>${item.Source}</td>
