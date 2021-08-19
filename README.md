@@ -120,6 +120,8 @@ For support, please contact [Christian Gapp](https://github.com/gappc) or
 If you'd like to contribute, please fork the repository and use a feature
 branch. Pull requests are warmly welcome.
 
+You can find an introduction on how to start developing in the [contribute-to-development](./doc/contribute-to-development.md) file.
+
 ### Versioning
 
 This project uses [SemVer](https://semver.org/) for versioning. For the versions available,
