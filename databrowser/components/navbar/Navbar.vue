@@ -14,7 +14,7 @@
         @click="toggleSidebar"
       >
         <span class="sr-only">Toggle sidebar</span>
-        <IconsChevronDoubleRight
+        <IconsChevronDoubleRightIcon
           aria-hidden="true"
           class="w-4 h-4 text-gray-600"
           :class="{
@@ -33,7 +33,7 @@
 
       <!-- Settings Button -->
       <NavbarIconButton label="Open settings" @click="openSettingsPanel">
-        <IconsSettingsIcon aria-hidden="true" class="w-6 h-6" />
+        <IconsCogIcon aria-hidden="true" class="w-6 h-6" />
       </NavbarIconButton>
 
       <!-- User Button -->
