@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { html, TemplateResult } from 'lit-html';
 import '../../databrowser-odhActivityPoi';
 
