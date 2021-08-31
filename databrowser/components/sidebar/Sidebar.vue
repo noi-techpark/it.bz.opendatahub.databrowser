@@ -53,6 +53,28 @@
               >
             </router-link>
           </li>
+          <li>
+            <router-link
+              :to="{ name: 'generic' }"
+              class="
+                flex
+                items-center
+                p-2
+                overflow-hidden
+                rounded-md
+                hover:bg-gray-100
+              "
+              :class="{ 'justify-center': !isSidebarOpen }"
+            >
+              <IconsGlobeAltIcon
+                aria-hidden="true"
+                class="flex-shrink-0 w-6 h-6 text-gray-400"
+              />
+              <span class="ml-2" :class="{ 'lg:hidden': !isSidebarOpen }"
+                >Generic Browser</span
+              >
+            </router-link>
+          </li>
           <li v-if="$auth.loggedIn">
             <router-link
               :to="{ name: 'mobility' }"
