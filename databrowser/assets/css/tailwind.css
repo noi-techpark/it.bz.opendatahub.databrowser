@@ -14,3 +14,10 @@
   @apply bg-blue-700;
 }
 
+.select-blue {
+  @apply bg-blue-500 text-white;
+}
+
+.select-blue:hover {
+  @apply bg-blue-700;
+}
