@@ -5,3 +5,4 @@ dist-browser
 .npmrc
 lerna-debug.log
 vetur.config.js
+swagger.json
