@@ -27,7 +27,7 @@
       <!-- Sidebar links -->
       <nav
         aria-label="Main"
-        class="flex-1 overflow-hidden hover:overflow-y-auto"
+        class="sidebar-left flex-1 overflow-hidden hover:overflow-y-auto"
       >
         <!-- Sidebar Links... -->
         <ul class="p-2">

@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sidebar-left .nuxt-link-exact-active {
+  background-color: theme('backgroundColor.gray.200');
+}
