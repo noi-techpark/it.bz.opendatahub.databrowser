@@ -23,7 +23,7 @@
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "test": "tsc && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "storybook": "npm run clean:dist && tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"start-storybook -p 8000\"",
+    "storybook": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"start-storybook -p 8000\"",
     "storybook:build": "rimraf storybook-static && tsc && build-storybook"
   },
   "dependencies": {

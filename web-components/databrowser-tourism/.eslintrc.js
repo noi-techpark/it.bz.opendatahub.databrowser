@@ -18,6 +18,9 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": [
       "error"
     ],
+    // Need to configure eslint "no-shadow" rule for typescript
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
     "import/no-unresolved": "off",
     "import/extensions": ["off"],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.ts"] }],
