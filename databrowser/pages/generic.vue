@@ -45,16 +45,23 @@
       ></Alert>
     </div>
 
+    <div v-if="filteredData != null">
+      <div v-if="filteredData['TotalResults'] != null">
+        <h3 class="text-xl mt-4">List data</h3>
+        <databrowser-generic-list
+          :data.prop="filteredData"
+          @paginationChanges="paginationChanges"
+        ></databrowser-generic-list>
+      </div>
+      <div v-else>{{ JSON.stringify(filteredData) }}</div>
+    </div>
+
     <div v-if="endpointMethod != null">
       <h3 class="text-xl mt-4">{{ endpointMethod.summary }}</h3>
       <databrowser-generic-filter
         :parameters.prop="endpointMethod.parameters"
         @filterChanges="filterChanges"
       ></databrowser-generic-filter>
-    </div>
-
-    <div v-if="filteredData != null">
-      {{ JSON.stringify(filteredData) }}
     </div>
   </div>
 </template>
@@ -65,6 +72,7 @@ import Button from '~/components/global/Button.vue';
 import Select from '~/components/global/Select.vue';
 import * as OpenApi from '~/../web-components/databrowser-tourism/src/generic/endpoint.interface';
 import { FilterChanges } from '~/../web-components/databrowser-tourism/src/generic/GenericFilter';
+import { PaginationChanges } from '~/../web-components/databrowser-tourism/src/generic/GenericList';
 
 const concatFilters = (values: string[]) =>
   values != null ? values.join(',') : '';
@@ -101,8 +109,21 @@ export default Vue.extend({
         this.endpointMethod = this.endpointPath.get;
       }
 
+      // Reset previous data
+      this.filteredData = null;
       // Reset previous error information
       this.fetchError = null;
+    },
+    async fetchData(url: string) {
+      try {
+        this.fetchError = null;
+        this.filteredData = await this.$axios.$get(url);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(`Error while fetching ${url}`, e);
+        this.filteredData = null;
+        this.fetchError = e.message ?? e;
+      }
     },
     async filterChanges(event: CustomEvent<FilterChanges>) {
       let url = this.endpointUrl;
@@ -134,16 +155,11 @@ export default Vue.extend({
       }
 
       const fullUrl = this.$store.state.tourism.openapi.basePath + url;
-
-      try {
-        this.fetchError = null;
-        this.filteredData = await this.$axios.$get(fullUrl);
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error(`Error while fetching ${fullUrl}`, e);
-        this.filteredData = null;
-        this.fetchError = e.message ?? e;
-      }
+      await this.fetchData(fullUrl);
+    },
+    async paginationChanges(event: CustomEvent<PaginationChanges>) {
+      const url = event.detail.url;
+      await this.fetchData(url);
     },
   },
 });
