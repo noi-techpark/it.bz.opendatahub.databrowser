@@ -161,7 +161,7 @@ export class GenericFilter extends LitElement {
       type="number"
       name="${parameter.name}"
       ?required=${parameter.required}
-      value="${ifDefined(parameter.schema.default)}"
+      value="${ifDefined(parameter.schema?.default)}"
       @keyup="${debounce(this.validateFilters, 50)}"
     />`;
   }
@@ -170,17 +170,17 @@ export class GenericFilter extends LitElement {
     return html`<input
       name="${parameter.name}"
       ?required=${parameter.required}
-      value="${ifDefined(parameter.schema.default)}"
+      value="${ifDefined(parameter.schema?.default)}"
       @keyup="${debounce(this.validateFilters, 50)}"
     />`;
   }
 
   private renderDefault(parameter: EndpointParameter) {
-    return html`<span>Type "${parameter.schema.type}" not supported</span>`;
+    return html`<span>Type "${parameter.schema?.type}" not supported</span>`;
   }
 
   private renderParameter(parameter: EndpointParameter) {
-    switch (parameter.schema.type) {
+    switch (parameter.schema?.type) {
       case 'array':
         return this.renderArray(parameter);
       case 'boolean':
@@ -209,8 +209,8 @@ export class GenericFilter extends LitElement {
                       : null}
                   </div>
                   <div>
-                    ${parameter.schema.type}${parameter.schema.format != null
-                      ? html`($${parameter.schema.format})`
+                    ${parameter.schema?.type}${parameter.schema?.format != null
+                      ? html`($${parameter.schema?.format})`
                       : null}
                   </div>
                   <div>(${parameter.in})</div>
@@ -221,8 +221,8 @@ export class GenericFilter extends LitElement {
                       ? unsafeHTML(parameter.description)
                       : null}
                   </div>
-                  ${parameter.schema.default != null
-                    ? html`<div>Default: ${parameter.schema.default}</div>`
+                  ${parameter.schema?.default != null
+                    ? html`<div>Default: ${parameter.schema?.default}</div>`
                     : null}
                   ${this.renderParameter(parameter)}
                 </td>

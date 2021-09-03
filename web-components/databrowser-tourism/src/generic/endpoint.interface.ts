@@ -70,7 +70,7 @@ export interface EndpointParameter {
   description?: string;
   required?: boolean;
   deprecated?: boolean;
-  schema: EndpointSchema;
+  schema?: EndpointSchema;
 }
 
 export interface EndpointMethod {
