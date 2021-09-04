@@ -16,7 +16,7 @@ const configTemplate = {
 };
 
 const config = [
-    './dist/databrowser-odhActivityPoi.js',
+    './dist/databrowser-generic.js',
 ].map(input => ({ ...configTemplate, input }));
 
 export default config;

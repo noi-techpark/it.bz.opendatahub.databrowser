@@ -70,9 +70,9 @@
 import Vue from 'vue';
 import Button from '~/components/global/Button.vue';
 import Select from '~/components/global/Select.vue';
-import * as OpenApi from '~/../web-components/databrowser-tourism/src/generic/endpoint.interface';
-import { FilterChanges } from '~/../web-components/databrowser-tourism/src/generic/GenericFilter';
-import { PaginationChanges } from '~/../web-components/databrowser-tourism/src/generic/GenericList';
+import * as OpenApi from '~/../web-components/databrowser-generic/src/generic/endpoint.interface';
+import { FilterChanges } from '~/../web-components/databrowser-generic/src/generic/GenericFilter';
+import { PaginationChanges } from '~/../web-components/databrowser-generic/src/generic/GenericList';
 
 const concatFilters = (values: string[]) =>
   values != null ? values.join(',') : '';

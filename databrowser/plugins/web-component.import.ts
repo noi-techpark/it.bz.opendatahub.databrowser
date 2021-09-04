@@ -7,6 +7,8 @@ import { DatabrowserExample } from '~/../web-components/databrowser-example/src/
 import {
   GenericFilter,
   GenericList,
+} from '~/../web-components/databrowser-generic';
+import {
   OdhActivityPoiDetail,
   OdhActivityPoiFilter,
   OdhActivityPoiList,
