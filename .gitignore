@@ -6,3 +6,4 @@ dist-browser
 lerna-debug.log
 vetur.config.js
 .vscode/settings.json
+swagger.json

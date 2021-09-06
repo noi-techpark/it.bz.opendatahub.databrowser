@@ -5,12 +5,18 @@
 // Import from Web Component src to enable auto reload on changes during dev
 import { DatabrowserExample } from '~/../web-components/databrowser-example/src/DatabrowserExample';
 import {
+  GenericFilter,
+  GenericList,
+} from '~/../web-components/databrowser-generic';
+import {
   OdhActivityPoiDetail,
   OdhActivityPoiFilter,
   OdhActivityPoiList,
 } from '~/../web-components/databrowser-tourism';
 
 window.customElements.define('databrowser-example', DatabrowserExample);
+window.customElements.define('databrowser-generic-filter', GenericFilter);
+window.customElements.define('databrowser-generic-list', GenericList);
 window.customElements.define(
   'databrowser-odh-activity-poi-detail',
   OdhActivityPoiDetail
