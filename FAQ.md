@@ -1,5 +1,11 @@
 # FAQ
 
+## How to contribute or give feedback
+
+We are very happy if you decide to contribute to the project or if you provide feedback. Please take a look at the [Support](./README.md#support) and [Contributing](./README.md#contributing) sections in [README.md](./README) for information about how to do so.
+
+You can find an introduction on how to start developing in the [contribute-to-development](./doc/contribute-to-development.md) file.
+
 ## Why a mono repository?
 
 The reason to use a mono repository is to speed up initial development. In the future, the projects in the repository may
@@ -33,4 +39,3 @@ For example, if you want to pass the object `currentUser` to the `user` property
 ```html
 <my-user :user.prop="currentUser"></my-user>
 ```
-
