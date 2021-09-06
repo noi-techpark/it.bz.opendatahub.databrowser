@@ -1,7 +1,7 @@
 {
-  "name": "databrowser-tourism",
+  "name": "databrowser-generic",
   "version": "0.0.1",
-  "description": "Web Components to render Tourism data from Open Data Hub",
+  "description": "Web Components to render generic OpenAPI data (e.g. tourism and mobility data from Open Data Hub)",
   "author": "NOI",
   "license": "AGPLv3",
   "main": "dist/index.js",

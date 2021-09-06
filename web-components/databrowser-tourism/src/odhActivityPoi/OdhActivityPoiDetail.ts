@@ -1,4 +1,5 @@
-import { html, LitElement, property } from 'lit-element';
+import { html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 export interface ODHActivityPoi {
   Id: string;

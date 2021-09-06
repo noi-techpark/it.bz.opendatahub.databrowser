@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "tags": [
+    {
+      "name": "databrowser-generic-filter",
+      "description": "The databrowser-generic-filter Web Component",
+      "properties": [
+        {
+          "name": "TODO",
+          "type": "String",
+          "description": "TODO",
+          "default": "TODO"
+        }
+      ],
+      "events": [],
+      "slots": []
+    }
+  ]
+}

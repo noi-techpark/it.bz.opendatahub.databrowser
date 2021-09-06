@@ -1,4 +1,5 @@
-import { css, html, LitElement, property, query } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, query } from 'lit/decorators.js';
 
 export interface FilterChanges {
   type: string | null;
