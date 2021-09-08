@@ -56,10 +56,10 @@
       <div v-else>{{ JSON.stringify(filteredData) }}</div>
     </div>
 
-    <div v-if="endpointMethod != null">
-      <h3 class="text-xl mt-4">{{ endpointMethod.summary }}</h3>
+    <div v-if="openApiEndpointPath != null">
+      <h3 class="text-xl mt-4">{{ openApiEndpointPath.summary }}</h3>
       <databrowser-generic-filter
-        :parameters.prop="endpointMethod.parameters"
+        :parameters.prop="filterParameters"
         @filterChanges="filterChanges"
       ></databrowser-generic-filter>
     </div>
@@ -68,9 +68,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { OpenAPIV3 } from 'openapi-types';
 import Button from '~/components/global/Button.vue';
 import Select from '~/components/global/Select.vue';
-import * as OpenApi from '~/../web-components/databrowser-generic/src/generic/endpoint.interface';
 import { FilterChanges } from '~/../web-components/databrowser-generic/src/generic/GenericFilter';
 import { PaginationChanges } from '~/../web-components/databrowser-generic/src/generic/GenericList';
 
@@ -82,8 +82,11 @@ export default Vue.extend({
   data() {
     return {
       endpointUrl: null as unknown as string,
-      endpointPath: null as OpenApi.EndpointPath | null | undefined,
-      endpointMethod: null as OpenApi.EndpointMethod | null | undefined,
+      openApiEndpointPath: null as OpenAPIV3.PathItemObject | null | undefined,
+      filterParameters: null as
+        | (OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject)[]
+        | null
+        | undefined,
       fetchError: null as string | null,
       filteredData: null,
     };
@@ -95,18 +98,24 @@ export default Vue.extend({
     endpointChanges(event: Event) {
       this.endpointUrl = (event.target as HTMLSelectElement).value;
 
-      const tmpEndpointPath =
-        this.$store.state.tourism.openapi.api.paths[this.endpointUrl];
+      const openApiDocument = this.$store.state.tourism.openapi
+        .api as OpenAPIV3.Document;
+      const openApiPaths = openApiDocument.paths;
+      this.openApiEndpointPath = openApiPaths[this.endpointUrl];
 
-      if (tmpEndpointPath == null || tmpEndpointPath.get == null) {
-        this.endpointPath = null;
-        this.endpointMethod = null;
+      if (
+        this.openApiEndpointPath == null ||
+        this.openApiEndpointPath.get == null
+      ) {
+        this.openApiEndpointPath = null;
+        this.filterParameters = null;
+        this.fetchError = null;
       } else {
-        // Make defensive deep copy of data
-        this.endpointPath = JSON.parse(
-          JSON.stringify(tmpEndpointPath)
-        ) as OpenApi.EndpointPath;
-        this.endpointMethod = this.endpointPath.get;
+        const deepCopy = JSON.parse(
+          JSON.stringify(this.openApiEndpointPath)
+        ) as OpenAPIV3.PathItemObject<number>;
+
+        this.filterParameters = deepCopy.get?.parameters;
       }
 
       // Reset previous data

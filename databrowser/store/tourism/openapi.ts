@@ -1,26 +1,22 @@
-import { load } from 'js-yaml';
+import SwaggerParser from '@apidevtools/swagger-parser';
+import { OpenAPI } from 'openapi-types';
 import { GetterTree } from 'vuex';
 export interface State {
   basePath: string;
   openApiDocumentPath: string;
-  api: {
-    components?: any;
-    info?: any;
-    openapi?: string;
-    paths?: Record<string, any>;
-  };
+  api: OpenAPI.Document;
   loading: boolean;
   loaded: boolean;
   error?: {};
 }
 
 export const state: () => State = () => ({
-  basePath: 'https://api.tourism.testingmachine.eu',
-  openApiDocumentPath:
-    'https://api.tourism.testingmachine.eu/swagger/v1/swagger.json',
-  // basePath: 'https://mobility.api.opendatahub.bz.it/v2',
-  // openApiDocumentPath: 'https://mobility.api.opendatahub.bz.it/v2/apispec',
-  api: {},
+  // basePath: 'https://api.tourism.testingmachine.eu',
+  // openApiDocumentPath:
+  //   'https://api.tourism.testingmachine.eu/swagger/v1/swagger.json',
+  basePath: 'https://mobility.api.opendatahub.bz.it',
+  openApiDocumentPath: 'https://mobility.api.opendatahub.bz.it/v2/apispec',
+  api: {} as OpenAPI.Document,
   loading: false,
   loaded: false,
 });
@@ -50,8 +46,7 @@ export const actions = {
   async loadTourismData({ commit, state }: { commit: any; state: State }) {
     try {
       commit('loadStart');
-      const openApiResponse = await fetch(state.openApiDocumentPath);
-      const openApi = await parseOpenApiResponse(openApiResponse);
+      const openApi = await SwaggerParser.validate(state.openApiDocumentPath);
       commit('loadSuccess', openApi);
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -59,29 +54,4 @@ export const actions = {
       commit('loadError', err);
     }
   },
-};
-
-const parseOpenApiResponse = async (response: Response): Promise<unknown> => {
-  const contentType = response.headers.get('content-type');
-
-  // Parse OpenAPI document based on response content-type
-  if (contentType != null) {
-    const lowerCasedContentType = contentType.toLowerCase();
-
-    // If OpenAPI document is JSON, parse it with JSON parser
-    if (lowerCasedContentType.includes('application/json')) {
-      return await response.json();
-    }
-
-    // If OpenAPI document is YAML, parse it with YAML parser
-    if (lowerCasedContentType.includes('application/yaml')) {
-      const text = await response.text();
-      return load(text);
-    }
-  }
-
-  // Throw exception on unknown content type
-  throw new Error(
-    'Unknown Content-Type for OpenAPI document (no Content-Type in response, must be one of "application/json" or "application/yaml")'
-  );
 };

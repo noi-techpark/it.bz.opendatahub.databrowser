@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { html, TemplateResult } from 'lit-html';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { OpenAPIV3 } from 'openapi-types';
 import '../../databrowser-generic';
-import { EndpointParameter } from './endpoint.interface';
 
 export default {
   title: 'GenericFilter',
@@ -19,7 +20,7 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  parameters?: EndpointParameter[];
+  parameters?: OpenAPIV3.ParameterObject[];
   filterChanges?: () => void;
 }
 
