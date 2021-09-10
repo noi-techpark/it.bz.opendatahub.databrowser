@@ -4,6 +4,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import * as MarkdownIt from 'markdown-it';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { OpenAPIV3 } from 'openapi-types';
 import { debounce } from '../lib/debounce';
@@ -31,6 +32,8 @@ export class GenericFilter extends LitElement {
 
   @query('form')
   private _form!: HTMLFormElement;
+
+  private md = new MarkdownIt('default', { html: true });
 
   updated(changedProperties: PropertyValues): void {
     if (changedProperties.has('parameters')) {
@@ -239,7 +242,7 @@ export class GenericFilter extends LitElement {
                 <td>
                   <div>
                     ${parameter.description != null
-                      ? unsafeHTML(parameter.description)
+                      ? unsafeHTML(this.md.render(parameter.description))
                       : null}
                   </div>
                   ${(parameter.schema as OpenAPIV3.SchemaObject)?.default !=
