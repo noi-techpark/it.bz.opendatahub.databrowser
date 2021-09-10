@@ -15,23 +15,30 @@
       <h1 class="text-2xl font-semibold whitespace-nowrap">Generic Browser</h1>
     </div>
 
-    <div class="py-4">
-      <Button
-        v-if="!$store.state.tourism.openapi.loaded"
-        class="btn-blue"
-        @click="loadData"
-        ><span v-if="!$store.state.tourism.openapi.loading"
-          >Click here to load information about Open Data Hub Tourism
-          endpoints</span
-        ><span v-else>Loading...</span></Button
-      >
-      <Select v-else class="select-blue" @change="endpointChanges">
-        <option :key="null" :value="null">Select an endpoint</option>
+    <div class="py-2">
+      <h3>Select an API{{ apiLoading ? ' (Loading...)' : null }}</h3>
+      <Select class="select-blue" @change="apiChanges">
+        <option :key="null" :value="null">-- Select an API --</option>
         <option
-          v-for="item in $store.getters['tourism/openapi/openApiPaths']"
-          :key="item"
-          :value="item"
+          v-for="key in $store.getters['openapi/apiKeys']"
+          :key="key"
+          :value="key"
         >
+          {{ $store.getters['openapi/apiDescriptionByKey'](key) }}
+        </option>
+      </Select>
+    </div>
+    <div class="py-2">
+      <h3>
+        {{ 'Select an Endpoint' }}
+      </h3>
+      <Select
+        class="select-blue"
+        :disabled="currentDocument == null"
+        @change="pathChanges"
+      >
+        <option :key="null" :value="null">-- Select an endpoint --</option>
+        <option v-for="item in currentDocumentPaths" :key="item" :value="item">
           {{ item }}
         </option>
       </Select>
@@ -56,8 +63,8 @@
       <div v-else>{{ JSON.stringify(filteredData) }}</div>
     </div>
 
-    <div v-if="openApiEndpointPath != null">
-      <h3 class="text-xl mt-4">{{ openApiEndpointPath.summary }}</h3>
+    <div v-if="openApiEndpointPathItem != null">
+      <h3 class="text-xl mt-4">{{ openApiEndpointPathItem.summary }}</h3>
       <databrowser-generic-filter
         :parameters.prop="filterParameters"
         @filterChanges="filterChanges"
@@ -69,54 +76,75 @@
 <script lang="ts">
 import Vue from 'vue';
 import { OpenAPIV3 } from 'openapi-types';
-import Button from '~/components/global/Button.vue';
 import Select from '~/components/global/Select.vue';
 import { FilterChanges } from '~/../web-components/databrowser-generic/src/generic/GenericFilter';
 import { PaginationChanges } from '~/../web-components/databrowser-generic/src/generic/GenericList';
+import { ApiState } from '~/store/openapi';
 
 const concatFilters = (values: string[]) =>
   values != null ? values.join(',') : '';
 
 export default Vue.extend({
-  components: { Button, Select },
+  components: { Select },
   data() {
     return {
-      endpointUrl: null as unknown as string,
-      openApiEndpointPath: null as OpenAPIV3.PathItemObject | null | undefined,
+      currentApiKey: null as unknown as string,
+      currentApiUrl: null as unknown as string,
+      fetchError: null as string | null,
+      filteredData: null,
       filterParameters: null as
         | (OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject)[]
         | null
         | undefined,
-      fetchError: null as string | null,
-      filteredData: null,
+      openApiEndpointPath: null as string | null,
+      openApiEndpointPathItem: null as
+        | OpenAPIV3.PathItemObject
+        | null
+        | undefined,
     };
   },
-  methods: {
-    loadData() {
-      this.$store.dispatch('tourism/openapi/loadTourismData');
+  computed: {
+    apiLoading(): boolean {
+      return this.currentApi != null && this.currentApi?.loading;
     },
-    endpointChanges(event: Event) {
-      this.endpointUrl = (event.target as HTMLSelectElement).value;
-
-      const openApiDocument = this.$store.state.tourism.openapi
-        .api as OpenAPIV3.Document;
-      const openApiPaths = openApiDocument.paths;
-      this.openApiEndpointPath = openApiPaths[this.endpointUrl];
-
-      if (
-        this.openApiEndpointPath == null ||
-        this.openApiEndpointPath.get == null
-      ) {
+    currentApi(): ApiState | undefined {
+      return this.$store.getters['openapi/apiByKey'](this.currentApiKey);
+    },
+    currentDocument(): OpenAPIV3.Document | undefined {
+      return this.$store.getters['openapi/documentByKey'](this.currentApiKey);
+    },
+    currentDocumentPaths(): string[] {
+      return this.currentDocument == null || this.currentDocument.paths == null
+        ? []
+        : Object.keys(this.currentDocument.paths);
+    },
+  },
+  methods: {
+    apiChanges(event: Event) {
+      this.currentApiKey = (event.target as HTMLSelectElement).value;
+      this.$store.dispatch('openapi/selectApi', {
+        key: this.currentApiKey,
+      });
+    },
+    pathChanges(event: Event) {
+      // Return early if no current docuement is set or if the current document has no paths
+      if (this.currentDocument == null || this.currentDocument.paths == null) {
         this.openApiEndpointPath = null;
+        this.openApiEndpointPathItem = null;
         this.filterParameters = null;
         this.fetchError = null;
-      } else {
-        const deepCopy = JSON.parse(
-          JSON.stringify(this.openApiEndpointPath)
-        ) as OpenAPIV3.PathItemObject<number>;
-
-        this.filterParameters = deepCopy.get?.parameters;
+        return;
       }
+
+      this.openApiEndpointPath = (event.target as HTMLSelectElement).value;
+      this.openApiEndpointPathItem =
+        this.currentDocument.paths[this.openApiEndpointPath];
+
+      const deepCopy = JSON.parse(
+        JSON.stringify(this.openApiEndpointPathItem)
+      ) as OpenAPIV3.PathItemObject<number>;
+
+      this.filterParameters = deepCopy.get?.parameters;
 
       // Reset previous data
       this.filteredData = null;
@@ -135,13 +163,13 @@ export default Vue.extend({
       }
     },
     async filterChanges(event: CustomEvent<FilterChanges>) {
-      let url = this.endpointUrl;
+      let path = this.openApiEndpointPath ?? '';
 
       // Replace path params in URL
       const pathFilters = event.detail.filter?.path;
       if (pathFilters != null) {
         Object.keys(pathFilters).forEach((filterName) => {
-          url = url.replaceAll(
+          path = path.replaceAll(
             `{${filterName}}`,
             concatFilters(pathFilters[filterName])
           );
@@ -159,12 +187,21 @@ export default Vue.extend({
           [] as string[]
         );
         if (queryParams.length) {
-          url += `?${queryParams.join('&')}`;
+          path += `?${queryParams.join('&')}`;
         }
       }
 
-      const fullUrl = this.$store.state.tourism.openapi.basePath + url;
-      await this.fetchData(fullUrl);
+      if (
+        this.currentDocument?.servers != null &&
+        this.currentDocument.servers.length > 0
+      ) {
+        // Take first server URL from OpenAPI document. Maybe this should be configurable
+        const fullUrl = this.currentDocument.servers[0].url + path;
+        await this.fetchData(fullUrl);
+      } else {
+        this.fetchError =
+          'No server URL found for current API (see OpenAPI document)';
+      }
     },
     async paginationChanges(event: CustomEvent<PaginationChanges>) {
       const url = event.detail.url;
