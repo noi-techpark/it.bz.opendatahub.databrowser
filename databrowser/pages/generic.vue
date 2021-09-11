@@ -20,11 +20,11 @@
       <Select class="select-blue" @change="apiChanges">
         <option :key="null" :value="null">-- Select an API --</option>
         <option
-          v-for="key in $store.getters['openapi/apiKeys']"
+          v-for="key in $store.getters['remoteapi/apiKeys']"
           :key="key"
           :value="key"
         >
-          {{ $store.getters['openapi/apiDescriptionByKey'](key) }}
+          {{ $store.getters['remoteapi/apiDescriptionByKey'](key) }}
         </option>
       </Select>
     </div>
@@ -79,7 +79,7 @@ import { OpenAPIV3 } from 'openapi-types';
 import Select from '~/components/global/Select.vue';
 import { FilterChanges } from '~/../web-components/databrowser-generic/src/generic/GenericFilter';
 import { PaginationChanges } from '~/../web-components/databrowser-generic/src/generic/GenericList';
-import { ApiState } from '~/store/openapi';
+import { OpenApiState } from '~/store/remoteapi';
 
 const concatFilters = (values: string[]) =>
   values != null ? values.join(',') : '';
@@ -91,7 +91,7 @@ export default Vue.extend({
       currentApiKey: null as unknown as string,
       currentApiUrl: null as unknown as string,
       fetchError: null as string | null,
-      filteredData: null,
+      filteredData: null as any,
       filterParameters: null as
         | (OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject)[]
         | null
@@ -107,11 +107,11 @@ export default Vue.extend({
     apiLoading(): boolean {
       return this.currentApi != null && this.currentApi?.loading;
     },
-    currentApi(): ApiState | undefined {
-      return this.$store.getters['openapi/apiByKey'](this.currentApiKey);
+    currentApi(): OpenApiState | undefined {
+      return this.$store.getters['remoteapi/apiByKey'](this.currentApiKey);
     },
     currentDocument(): OpenAPIV3.Document | undefined {
-      return this.$store.getters['openapi/documentByKey'](this.currentApiKey);
+      return this.$store.getters['remoteapi/documentByKey'](this.currentApiKey);
     },
     currentDocumentPaths(): string[] {
       return this.currentDocument == null || this.currentDocument.paths == null
@@ -122,7 +122,7 @@ export default Vue.extend({
   methods: {
     apiChanges(event: Event) {
       this.currentApiKey = (event.target as HTMLSelectElement).value;
-      this.$store.dispatch('openapi/selectApi', {
+      this.$store.dispatch('remoteapi/selectApi', {
         key: this.currentApiKey,
       });
     },
@@ -159,7 +159,7 @@ export default Vue.extend({
         // eslint-disable-next-line no-console
         console.error(`Error while fetching ${url}`, e);
         this.filteredData = null;
-        this.fetchError = e.message ?? e;
+        this.fetchError = e instanceof Error ? e.message : (e as string);
       }
     },
     async filterChanges(event: CustomEvent<FilterChanges>) {

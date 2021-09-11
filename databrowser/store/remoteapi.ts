@@ -1,8 +1,9 @@
-import SwaggerParser from '@apidevtools/swagger-parser';
+import * as SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPIV3 } from 'openapi-types';
-import { ActionContext, GetterTree } from 'vuex';
+import { ActionTree, GetterTree, MutationTree } from 'vuex';
+import { RootState } from '.';
 
-export interface ApiState {
+export interface OpenApiState {
   description: string;
   documentUrl: string;
   document: OpenAPIV3.Document | null;
@@ -11,12 +12,12 @@ export interface ApiState {
   error: Error | null;
 }
 
-export interface State {
-  apis: Record<string, ApiState>;
+export interface RemoteApiState {
+  apis: Record<string, OpenApiState>;
   error?: Error | null;
 }
 
-export const state: () => State = () => ({
+export const state: () => RemoteApiState = () => ({
   apis: {
     tourism: {
       description: 'Open Data Hub Tourism API',
@@ -36,24 +37,24 @@ export const state: () => State = () => ({
       error: null,
     },
   },
+  error: undefined,
 });
 
-export const getters: GetterTree<State, any> = {
-  apiKeys: (state: State) => Object.keys(state.apis),
-  apiByKey: (state: State) => (key: string) => state.apis[key],
-  apiDescriptionByKey: (state: State) => (key: string) =>
-    state.apis[key]?.description,
-  documentByKey: (state: State) => (key: string) => state.apis[key]?.document,
+export const getters: GetterTree<RemoteApiState, any> = {
+  apiKeys: (state) => Object.keys(state.apis),
+  apiByKey: (state) => (key: string) => state.apis[key],
+  apiDescriptionByKey: (state) => (key: string) => state.apis[key]?.description,
+  documentByKey: (state) => (key: string) => state.apis[key]?.document,
   serverUrlsByApiKey:
-    (state: State) =>
+    (state) =>
     (key: string): string[] =>
       state.apis[key].document?.servers?.map((server) => server.url) ?? [
         'none',
       ],
 };
 
-export const mutations = {
-  loadApiStart(state: State, { key }: { key: string }) {
+export const mutations: MutationTree<RemoteApiState> = {
+  loadApiStart(state, { key }: { key: string }) {
     const api = state.apis[key];
     if (api == null) {
       state.error = buildUnknownApiKeyError(key);
@@ -64,7 +65,7 @@ export const mutations = {
     }
   },
   loadApiSuccess(
-    state: State,
+    state,
     { key, document }: { key: string; document: OpenAPIV3.Document }
   ) {
     const api = state.apis[key];
@@ -77,7 +78,7 @@ export const mutations = {
       state.apis = { ...state.apis, [key]: api };
     }
   },
-  loadApiError(state: State, { key, error }: { key: string; error: Error }) {
+  loadApiError(state, { key, error }: { key: string; error: Error }) {
     const api = state.apis[key];
     if (api == null) {
       state.error = buildUnknownApiKeyError(key);
@@ -88,16 +89,13 @@ export const mutations = {
       state.apis = { ...state.apis, [key]: api };
     }
   },
-  setError(state: State, error: Error) {
+  setError(state, error: Error) {
     state.error = error;
   },
 };
 
-export const actions = {
-  async loadApi(
-    { commit, state }: ActionContext<State, any>,
-    { key }: { key: string }
-  ) {
+export const actions: ActionTree<RemoteApiState, RootState> = {
+  async loadApi({ commit, state }, { key }: { key: string }) {
     // If key is empty, do nothing
     if (key == null || key.length === 0) {
       // eslint-disable-next-line no-console
@@ -120,10 +118,7 @@ export const actions = {
       commit('loadApiError', { key, err });
     }
   },
-  async selectApi(
-    { dispatch, commit, state }: ActionContext<State, any>,
-    { key }: { key: string }
-  ) {
+  async selectApi({ dispatch, commit, state }, { key }: { key: string }) {
     // If key is empty, do nothing
     if (key == null || key.length === 0) {
       // eslint-disable-next-line no-console
@@ -145,7 +140,7 @@ export const actions = {
   },
 };
 
-const getApiOrThrow = (state: State, key: string) => {
+const getApiOrThrow = (state: RemoteApiState, key: string) => {
   const api = state.apis[key];
   if (api != null) {
     return api;
