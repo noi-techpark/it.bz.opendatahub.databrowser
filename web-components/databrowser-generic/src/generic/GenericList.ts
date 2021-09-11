@@ -1,14 +1,17 @@
 /* eslint-disable lit/no-value-attribute */
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { html as staticHtml, unsafeStatic } from 'lit/static-html.js';
+import { get } from 'lodash-es';
+import { TableConfig } from '../renderer/config.model';
 
-export interface ResultList {
+export interface PageableList {
   TotalResults: number;
   TotalPages: number;
   CurrentPage: number;
   PreviousPage: string | null;
   NextPage: string | null;
-  Seed: string | null;
+  Seed?: string | null;
   Items: any[];
 }
 
@@ -25,7 +28,10 @@ export interface DetailRequested {
  */
 export class GenericList extends LitElement {
   @property({ type: Object })
-  data?: ResultList;
+  data?: PageableList;
+
+  @property({ type: Object })
+  config?: TableConfig;
 
   private paginationChanges(url: string | null) {
     if (url == null) {
@@ -55,7 +61,7 @@ export class GenericList extends LitElement {
     this.dispatchEvent(event);
   }
 
-  private renderResultHeader(data: ResultList) {
+  private renderResultHeader(data: PageableList) {
     return html`<ul>
       <li>TotalResults: ${data.TotalResults}</li>
       <li>TotalPages: ${data.TotalPages}</li>
@@ -78,7 +84,7 @@ export class GenericList extends LitElement {
     </tr>`;
   }
 
-  private renderPagination(data: ResultList) {
+  private renderPagination(data: PageableList) {
     return html`<div>
       ${data.PreviousPage != null
         ? html`<button
@@ -95,25 +101,60 @@ export class GenericList extends LitElement {
     </div>`;
   }
 
-  private renderResult(data: ResultList) {
+  private renderTableHeader(config: TableConfig) {
+    return html`<thead>
+      <tr>
+        ${config.columns.map(col => html`<th>${col.title}</th>`)}
+      </tr>
+    </thead>`;
+  }
+
+  private renderElement(name: string, data: any) {
+    return staticHtml`<${unsafeStatic(name)} .data="${data}" />`;
+  }
+
+  private renderTableBody(data: PageableList, config: TableConfig) {
+    return html`
+      <tbody>
+        ${data.Items.map(
+          item => html`<tr>
+            ${config.columns.map(
+              col =>
+                html`<td>
+                  ${this.renderElement(
+                    col.rendererTagName,
+                    get(item, col.field)
+                  )}
+                </td>`
+            )}
+          </tr>`
+        )}
+      </tbody>
+    `;
+  }
+
+  private renderTable(data: PageableList, config?: TableConfig) {
+    if (data == null || config == null) {
+      return null;
+    }
+    return html`
+      <table>
+        ${this.renderTableHeader(config)} ${this.renderTableBody(data, config)}
+      </table>
+    `;
+  }
+
+  private renderResult(data: PageableList, config?: TableConfig) {
     return html`<div>${this.renderResultHeader(data)}</div>
       <div>${this.renderPagination(data)}</div>
-      ${this.data?.Items.map(
-        item =>
-          html`<div style="border: 1px dotted black">
-            <div>
-              <a href="${item.Self}" target="_blank">Open in new tab</a>
-            </div>
-            <pre>${JSON.stringify(item, null, 2)}</pre>
-          </div>`
-      )}
+      ${this.renderTable(data, config)}
       <div>${this.renderPagination(data)}</div>`;
   }
 
   render() {
     return html`
       ${this.data != null
-        ? this.renderResult(this.data)
+        ? this.renderResult(this.data, this.config)
         : html`<span>No data</span>`}
     `;
   }

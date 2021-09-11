@@ -1,7 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { html, TemplateResult } from 'lit-html';
 import '../../databrowser-generic';
-import { ResultList } from './GenericList';
+import '../../databrowser-renderer';
+import { TableConfig } from '../renderer/config.model';
+import { PageableList } from './GenericList';
 
 export default {
   title: 'GenericList',
@@ -20,19 +22,21 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  data?: ResultList | null;
+  data?: PageableList | null;
+  config?: TableConfig | null;
   paginationChanges?: () => void;
   detailRequested?: () => void;
 }
 
 const Template: Story<ArgTypes> = ({
-  // eslint-disable-next-line no-use-before-define
   data = null,
+  config = null,
   paginationChanges = () => {},
   detailRequested = () => {},
 }: ArgTypes) => html`
   <databrowser-generic-list
     .data="${data}"
+    .config="${config}"
     @paginationChanges="${paginationChanges}"
     @detailRequested="${detailRequested}"
   ></databrowser-generic-list>
@@ -40,6 +44,35 @@ const Template: Story<ArgTypes> = ({
 
 export const Regular = Template.bind({});
 Regular.args = {
+  config: {
+    columns: [
+      {
+        field: 'Id',
+        rendererTagName: 'databrowser-render-string',
+        title: 'ID',
+      },
+      {
+        field: 'Shortname',
+        rendererTagName: 'databrowser-render-string',
+        title: 'Shortname',
+      },
+      {
+        field: 'AccoType.Id',
+        rendererTagName: 'databrowser-render-string',
+        title: 'AccoType ID',
+      },
+      {
+        field: 'ODHTags[1].Id',
+        rendererTagName: 'databrowser-render-string',
+        title: 'ODHTags[1] ID',
+      },
+      {
+        field: 'ThemeIds',
+        rendererTagName: 'databrowser-render-json',
+        title: 'ThemeIds',
+      },
+    ],
+  },
   data: {
     TotalResults: 9639,
     TotalPages: 964,

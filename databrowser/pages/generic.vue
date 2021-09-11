@@ -52,15 +52,16 @@
       ></Alert>
     </div>
 
-    <div v-if="filteredData != null">
-      <div v-if="filteredData['TotalResults'] != null">
-        <h3 class="text-xl mt-4">List data</h3>
-        <databrowser-generic-list
-          :data.prop="filteredData"
-          @paginationChanges="paginationChanges"
-        ></databrowser-generic-list>
-      </div>
-      <div v-else>{{ JSON.stringify(filteredData) }}</div>
+    <div v-if="isPageableList(filteredData)">
+      <h3 class="text-xl mt-4">List data</h3>
+      <databrowser-generic-list
+        :data.prop="filteredData"
+        :config.prop="currentOpenApiRenderConfig"
+        @paginationChanges="paginationChanges"
+      ></databrowser-generic-list>
+    </div>
+    <div v-else-if="filteredData != null">
+      {{ JSON.stringify(filteredData) }}
     </div>
 
     <div v-if="openApiEndpointPathItem != null">
@@ -78,8 +79,13 @@ import Vue from 'vue';
 import { OpenAPIV3 } from 'openapi-types';
 import Select from '~/components/global/Select.vue';
 import { FilterChanges } from '~/../web-components/databrowser-generic/src/generic/GenericFilter';
-import { PaginationChanges } from '~/../web-components/databrowser-generic/src/generic/GenericList';
+import {
+  PaginationChanges,
+  PageableList,
+} from '~/../web-components/databrowser-generic/src/generic/GenericList';
 import { OpenApiState } from '~/store/remoteapi';
+import { openApiRenderConfig } from '~/generic-renderer/openapi.renderconfig';
+import { TableConfig } from '~/../web-components/databrowser-generic/src/renderer/config.model';
 
 const concatFilters = (values: string[]) =>
   values != null ? values.join(',') : '';
@@ -91,7 +97,7 @@ export default Vue.extend({
       currentApiKey: null as unknown as string,
       currentApiUrl: null as unknown as string,
       fetchError: null as string | null,
-      filteredData: null as any,
+      filteredData: null as unknown as PageableList | null,
       filterParameters: null as
         | (OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject)[]
         | null
@@ -118,6 +124,11 @@ export default Vue.extend({
         ? []
         : Object.keys(this.currentDocument.paths);
     },
+    currentOpenApiRenderConfig(): TableConfig | undefined {
+      return openApiRenderConfig[this.currentApiKey]?.[
+        this.openApiEndpointPath as string
+      ];
+    },
   },
   methods: {
     apiChanges(event: Event) {
@@ -125,6 +136,12 @@ export default Vue.extend({
       this.$store.dispatch('remoteapi/selectApi', {
         key: this.currentApiKey,
       });
+    },
+    isPageableList(data?: PageableList | null) {
+      if (data == null) {
+        return false;
+      }
+      return data.TotalResults != null;
     },
     pathChanges(event: Event) {
       // Return early if no current docuement is set or if the current document has no paths
@@ -154,7 +171,32 @@ export default Vue.extend({
     async fetchData(url: string) {
       try {
         this.fetchError = null;
-        this.filteredData = await this.$axios.$get(url);
+        const responseData = await this.$axios.$get(url);
+
+        // Check response type
+        if (responseData == null) {
+          // If respone is null or undefined, throw an error
+          throw new Error(`Response data from is empty, url was ${url}`);
+        } else if (responseData.TotalItems != null) {
+          // If respone contains a TotalItems property, we suspect that the result is
+          // a pageable result from Open Data Hub Tourim API
+          this.filteredData = responseData;
+        } else if (responseData instanceof Array) {
+          // If the result is an array, we suspect that the result is a non-pageable list.
+          // In that case, set the pagination data to being one page
+          this.filteredData = {
+            TotalResults: responseData.length,
+            TotalPages: 1,
+            CurrentPage: 1,
+            PreviousPage: null,
+            NextPage: null,
+            Items: responseData,
+          };
+        } else if (responseData instanceof Object) {
+          // The response may be an object (e.g. the response for a single entity)
+          // In that case, just use the respone data as it is.
+          this.filteredData = responseData;
+        }
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(`Error while fetching ${url}`, e);
