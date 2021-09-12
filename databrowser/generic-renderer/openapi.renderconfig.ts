@@ -1,9 +1,15 @@
 // This file contains base render configurations for known OpenAPI endpoints
 
 import { GenericRendererElement } from './renderer.enum';
-import { RenderConfig } from '~/../web-components/databrowser-generic/src/generic/GenericList';
+import {
+  ListConfig,
+  ResourceConfig,
+} from '~/../web-components/databrowser-generic/src/renderer/config.model';
 
-export type OpenApiPathRenderConfig = Record<string, RenderConfig>;
+export type OpenApiPathRenderConfig = Record<
+  string,
+  ListConfig | ResourceConfig
+>;
 
 export type OpenApiRenderConfig = Record<string, OpenApiPathRenderConfig>;
 
@@ -35,6 +41,20 @@ export const openApiRenderConfig: OpenApiRenderConfig = {
           field: 'ThemeIds',
           rendererTagName: GenericRendererElement.JSON,
           title: 'ThemeIds',
+        },
+      ],
+    },
+    '/v1/Accommodation/{id}': {
+      props: [
+        {
+          field: 'Id',
+          rendererTagName: 'databrowser-render-string',
+          title: 'ID',
+        },
+        {
+          field: 'Self',
+          rendererTagName: 'databrowser-render-string',
+          title: 'Self',
         },
       ],
     },

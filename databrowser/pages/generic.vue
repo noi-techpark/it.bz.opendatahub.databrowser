@@ -52,6 +52,7 @@
       ></Alert>
     </div>
 
+    <!-- If result is a pageable list, use generic list Web Component -->
     <div v-if="isPageableList(filteredData)">
       <h3 class="text-xl mt-4">List data</h3>
       <databrowser-generic-list
@@ -60,7 +61,22 @@
         @paginationChanges="paginationChanges"
       ></databrowser-generic-list>
     </div>
+    <!-- If result is a resource, use generic resource Web Component -->
+    <div v-else-if="isResource(filteredData)">
+      <h3 class="text-xl mt-4">Resource data</h3>
+      <databrowser-generic-resource
+        :data.prop="filteredData"
+        :config.prop="currentOpenApiRenderConfig"
+        @paginationChanges="paginationChanges"
+      ></databrowser-generic-resource>
+    </div>
+    <!--
+      If result is not null and no other option before matches, render as JSON.
+      Note that this case should not happen, but nevertheless it is better to
+      show some output in case the assumtion is not correct
+    -->
     <div v-else-if="filteredData != null">
+      <h3 class="text-xl mt-4">Unknown data, rendering as JSON</h3>
       {{ JSON.stringify(filteredData) }}
     </div>
 
@@ -85,7 +101,10 @@ import {
 } from '~/../web-components/databrowser-generic/src/generic/GenericList';
 import { OpenApiState } from '~/store/remoteapi';
 import { openApiRenderConfig } from '~/generic-renderer/openapi.renderconfig';
-import { TableConfig } from '~/../web-components/databrowser-generic/src/renderer/config.model';
+import {
+  ListConfig,
+  ResourceConfig,
+} from '~/../web-components/databrowser-generic/src/renderer/config.model';
 
 const concatFilters = (values: string[]) =>
   values != null ? values.join(',') : '';
@@ -124,7 +143,7 @@ export default Vue.extend({
         ? []
         : Object.keys(this.currentDocument.paths);
     },
-    currentOpenApiRenderConfig(): TableConfig | undefined {
+    currentOpenApiRenderConfig(): ListConfig | ResourceConfig | undefined {
       return openApiRenderConfig[this.currentApiKey]?.[
         this.openApiEndpointPath as string
       ];
@@ -136,6 +155,9 @@ export default Vue.extend({
       this.$store.dispatch('remoteapi/selectApi', {
         key: this.currentApiKey,
       });
+    },
+    isResource(data?: PageableList | null) {
+      return data != null && data instanceof Object;
     },
     isPageableList(data?: PageableList | null) {
       if (data == null) {

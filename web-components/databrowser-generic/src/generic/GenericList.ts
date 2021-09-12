@@ -1,9 +1,9 @@
 /* eslint-disable lit/no-value-attribute */
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { html as staticHtml, unsafeStatic } from 'lit/static-html.js';
 import { get } from 'lodash-es';
-import { TableConfig } from '../renderer/config.model';
+import { renderElement } from '../lib/render.helper';
+import { ListConfig } from '../renderer/config.model';
 
 export interface PageableList {
   TotalResults: number;
@@ -24,14 +24,14 @@ export interface DetailRequested {
 }
 
 /**
- * This is the generic filter for OpenAPI described data.
+ * This is the generic list Web Component for OpenAPI described data.
  */
 export class GenericList extends LitElement {
   @property({ type: Object })
   data?: PageableList;
 
   @property({ type: Object })
-  config?: TableConfig;
+  config?: ListConfig;
 
   private paginationChanges(url: string | null) {
     if (url == null) {
@@ -62,26 +62,14 @@ export class GenericList extends LitElement {
   }
 
   private renderResultHeader(data: PageableList) {
+    if (data.TotalPages === 1) {
+      return null;
+    }
     return html`<ul>
       <li>TotalResults: ${data.TotalResults}</li>
       <li>TotalPages: ${data.TotalPages}</li>
       <li>CurrentPage: ${data.CurrentPage}</li>
     </ul>`;
-  }
-
-  private renderResultItem(item: any) {
-    return html`<tr>
-      <td>${item.Detail.en?.Title}</td>
-      <td>${item.LocationInfo.RegionInfo.Name?.en}</td>
-      <td>${item.HasLanguage != null ? item.HasLanguage.join(', ') : ''}</td>
-      <td>${item.Source}</td>
-      <td>${item.Active}</td>
-      <td>
-        <button @click="${() => this.detailRequested(item.Self)}">
-          Load Detail
-        </button>
-      </td>
-    </tr>`;
   }
 
   private renderPagination(data: PageableList) {
@@ -101,7 +89,7 @@ export class GenericList extends LitElement {
     </div>`;
   }
 
-  private renderTableHeader(config: TableConfig) {
+  private renderTableHeader(config: ListConfig) {
     return html`<thead>
       <tr>
         ${config.columns.map(col => html`<th>${col.title}</th>`)}
@@ -109,11 +97,7 @@ export class GenericList extends LitElement {
     </thead>`;
   }
 
-  private renderElement(name: string, data: any) {
-    return staticHtml`<${unsafeStatic(name)} .data="${data}" />`;
-  }
-
-  private renderTableBody(data: PageableList, config: TableConfig) {
+  private renderTableBody(data: PageableList, config: ListConfig) {
     return html`
       <tbody>
         ${data.Items.map(
@@ -121,10 +105,7 @@ export class GenericList extends LitElement {
             ${config.columns.map(
               col =>
                 html`<td>
-                  ${this.renderElement(
-                    col.rendererTagName,
-                    get(item, col.field)
-                  )}
+                  ${renderElement(col.rendererTagName, get(item, col.field))}
                 </td>`
             )}
           </tr>`
@@ -133,7 +114,7 @@ export class GenericList extends LitElement {
     `;
   }
 
-  private renderTable(data: PageableList, config?: TableConfig) {
+  private renderList(data: PageableList, config?: ListConfig) {
     if (data == null || config == null) {
       return null;
     }
@@ -144,11 +125,9 @@ export class GenericList extends LitElement {
     `;
   }
 
-  private renderResult(data: PageableList, config?: TableConfig) {
-    return html`<div>${this.renderResultHeader(data)}</div>
-      <div>${this.renderPagination(data)}</div>
-      ${this.renderTable(data, config)}
-      <div>${this.renderPagination(data)}</div>`;
+  private renderResult(data: PageableList, config?: ListConfig) {
+    return html`${this.renderResultHeader(data)} ${this.renderPagination(data)}
+    ${this.renderList(data, config)} ${this.renderPagination(data)}`;
   }
 
   render() {

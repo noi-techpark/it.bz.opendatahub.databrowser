@@ -7,6 +7,7 @@ import { DatabrowserExample } from '~/../web-components/databrowser-example/src/
 import {
   GenericFilter,
   GenericList,
+  GenericResource,
 } from '~/../web-components/databrowser-generic';
 import {
   OdhActivityPoiDetail,
@@ -17,6 +18,7 @@ import {
 window.customElements.define('databrowser-example', DatabrowserExample);
 window.customElements.define('databrowser-generic-filter', GenericFilter);
 window.customElements.define('databrowser-generic-list', GenericList);
+window.customElements.define('databrowser-generic-resource', GenericResource);
 
 window.customElements.define(
   'databrowser-odh-activity-poi-detail',

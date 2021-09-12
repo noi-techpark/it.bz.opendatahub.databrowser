@@ -1,9 +1,13 @@
-export interface TableColumn {
+export interface RendererConfig {
   field: string;
   rendererTagName: string;
   title: string;
 }
 
-export interface TableConfig {
-  columns: TableColumn[];
+export interface ListConfig {
+  columns: RendererConfig[];
+}
+
+export interface ResourceConfig {
+  props: RendererConfig[];
 }

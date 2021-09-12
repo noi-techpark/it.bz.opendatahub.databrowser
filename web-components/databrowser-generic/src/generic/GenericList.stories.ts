@@ -2,7 +2,7 @@
 import { html, TemplateResult } from 'lit-html';
 import '../../databrowser-generic';
 import '../../databrowser-renderer';
-import { TableConfig } from '../renderer/config.model';
+import { ListConfig } from '../renderer/config.model';
 import { PageableList } from './GenericList';
 
 export default {
@@ -10,6 +10,7 @@ export default {
   component: 'databrowser-generic-list',
   argTypes: {
     data: { control: 'object' },
+    config: { control: 'object' },
     paginationChanges: { action: 'paginationChanges' },
     detailRequested: { action: 'detailRequested' },
   },
@@ -23,7 +24,7 @@ interface Story<T> {
 
 interface ArgTypes {
   data?: PageableList | null;
-  config?: TableConfig | null;
+  config?: ListConfig | null;
   paginationChanges?: () => void;
   detailRequested?: () => void;
 }
