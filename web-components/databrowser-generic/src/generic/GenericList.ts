@@ -115,8 +115,20 @@ export class GenericList extends LitElement {
   }
 
   private renderList(data: PageableList, config?: ListConfig) {
-    if (data == null || config == null) {
+    if (data == null) {
       return null;
+    }
+    if (config == null) {
+      return html`<table>
+        <tbody>
+          ${data.Items.map(
+            item =>
+              html`<tr>
+                <td><pre>${JSON.stringify(item, null, 2)}</pre></td>
+              </tr>`
+          )}
+        </tbody>
+      </table>`;
     }
     return html`
       <table>
