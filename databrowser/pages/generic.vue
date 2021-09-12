@@ -52,37 +52,44 @@
       ></Alert>
     </div>
 
-    <!-- If result is a pageable list, use generic list Web Component -->
-    <div v-if="isPageableList(filteredData)">
-      <h3 class="text-xl mt-4">List data</h3>
-      <databrowser-generic-list
-        :data.prop="filteredData"
-        :config.prop="currentOpenApiRenderConfig"
-        @paginationChanges="paginationChanges"
-      ></databrowser-generic-list>
-    </div>
-    <!-- If result is a resource, use generic resource Web Component -->
-    <div v-else-if="isResource(filteredData)">
-      <h3 class="text-xl mt-4">Resource data</h3>
-      <databrowser-generic-resource
-        :data.prop="filteredData"
-        :config.prop="currentOpenApiRenderConfig"
-        @paginationChanges="paginationChanges"
-      ></databrowser-generic-resource>
-    </div>
-    <!--
-      If result is not null and no other option before matches, render as JSON.
-      Note that this case should not happen, but nevertheless it is better to
-      show some output in case the assumtion is not correct
-    -->
-    <div v-else-if="filteredData != null">
-      <h3 class="text-xl mt-4">Unknown data, rendering as JSON</h3>
-      {{ JSON.stringify(filteredData) }}
+    <div v-if="filteredData != null" class="bg-gray-100">
+      <!-- If result is a pageable list, use generic list Web Component -->
+      <div v-if="isPageableList(filteredData)">
+        <h3 class="text-xl mt-4">List data</h3>
+        <databrowser-generic-list
+          class="generic-element"
+          :data.prop="filteredData"
+          :config.prop="currentOpenApiRenderConfig"
+          @paginationChanges="paginationChanges"
+        ></databrowser-generic-list>
+      </div>
+      <!-- If result is a resource, use generic resource Web Component -->
+      <div v-else-if="isResource(filteredData)">
+        <h3 class="text-xl mt-4">Resource data</h3>
+        <databrowser-generic-resource
+          class="generic-element"
+          :data.prop="filteredData"
+          :config.prop="currentOpenApiRenderConfig"
+          @paginationChanges="paginationChanges"
+        ></databrowser-generic-resource>
+      </div>
+      <!--
+        If result is not null and no other option before matches, render as JSON.
+        Note that this case should not happen, but nevertheless it is better to
+        show some output in case the assumtion is not correct
+      -->
+      <div v-else>
+        <h3 class="text-xl mt-4">Unknown data, rendering as JSON</h3>
+        <div class="block overflow-auto" style="height: calc(100vh - 250px)">
+          {{ JSON.stringify(filteredData) }}
+        </div>
+      </div>
     </div>
 
-    <div v-if="openApiEndpointPathItem != null">
-      <h3 class="text-xl mt-4">{{ openApiEndpointPathItem.summary }}</h3>
+    <div v-if="openApiEndpointPathItem != null" class="bg-gray-100">
+      <h3 class="text-xl mt-4">Filter</h3>
       <databrowser-generic-filter
+        class="generic-element"
         :parameters.prop="filterParameters"
         @filterChanges="filterChanges"
       ></databrowser-generic-filter>
@@ -274,3 +281,11 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style>
+.generic-element {
+  display: block;
+  height: calc(100vh - 250px);
+  overflow: auto;
+}
+</style>
