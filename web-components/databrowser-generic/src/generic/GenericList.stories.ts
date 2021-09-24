@@ -48,6 +48,15 @@ Regular.args = {
   config: {
     columns: [
       {
+        field: {
+          alt: 'Shortname',
+          href: 'Self',
+          text: 'Shortname',
+        },
+        component: 'databrowser-render-link',
+        title: 'Link',
+      },
+      {
         field: 'Id',
         component: 'databrowser-render-string',
         title: 'ID',
