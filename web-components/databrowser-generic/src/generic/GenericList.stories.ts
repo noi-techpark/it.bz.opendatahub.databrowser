@@ -49,27 +49,27 @@ Regular.args = {
     columns: [
       {
         field: 'Id',
-        rendererTagName: 'databrowser-render-string',
+        component: 'databrowser-render-string',
         title: 'ID',
       },
       {
         field: 'Shortname',
-        rendererTagName: 'databrowser-render-string',
+        component: 'databrowser-render-string',
         title: 'Shortname',
       },
       {
         field: 'AccoType.Id',
-        rendererTagName: 'databrowser-render-string',
+        component: 'databrowser-render-string',
         title: 'AccoType ID',
       },
       {
         field: 'ODHTags[1].Id',
-        rendererTagName: 'databrowser-render-string',
+        component: 'databrowser-render-string',
         title: 'ODHTags[1] ID',
       },
       {
         field: 'ThemeIds',
-        rendererTagName: 'databrowser-render-json',
+        component: 'databrowser-render-json',
         title: 'ThemeIds',
       },
     ],

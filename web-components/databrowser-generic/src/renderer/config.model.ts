@@ -1,6 +1,15 @@
+export type FieldConfig = string | Record<string, string>;
+
+export type ComponentConfig =
+  | string
+  | {
+      name: string;
+      config?: any;
+    };
+
 export interface RendererConfig {
-  field: string;
-  rendererTagName: string;
+  field: FieldConfig;
+  component: ComponentConfig;
   title: string;
 }
 

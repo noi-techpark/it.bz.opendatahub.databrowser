@@ -13,33 +13,36 @@ export type OpenApiPathRenderConfig = Record<
 
 export type OpenApiRenderConfig = Record<string, OpenApiPathRenderConfig>;
 
+// TODO: this config is suitable for databrowser-generic-list and databrowser-generic-resource
+// Web-Components only. Think about further generalizing the rendering in order to replace
+// those generic renderers with other facilities
 export const openApiRenderConfig: OpenApiRenderConfig = {
   tourism: {
     '/v1/Accommodation': {
       columns: [
         {
           field: 'Id',
-          rendererTagName: GenericRendererElement.STRING,
+          component: GenericRendererElement.STRING,
           title: 'ID',
         },
         {
           field: 'Shortname',
-          rendererTagName: GenericRendererElement.STRING,
+          component: GenericRendererElement.STRING,
           title: 'Shortname',
         },
         {
           field: 'AccoType.Id',
-          rendererTagName: GenericRendererElement.STRING,
+          component: GenericRendererElement.STRING,
           title: 'AccoType ID',
         },
         {
           field: 'ODHTags[1].Id',
-          rendererTagName: GenericRendererElement.STRING,
+          component: GenericRendererElement.STRING,
           title: 'ODHTags[1] ID',
         },
         {
           field: 'ThemeIds',
-          rendererTagName: GenericRendererElement.JSON,
+          component: GenericRendererElement.JSON,
           title: 'ThemeIds',
         },
       ],
@@ -48,12 +51,12 @@ export const openApiRenderConfig: OpenApiRenderConfig = {
       props: [
         {
           field: 'Id',
-          rendererTagName: 'databrowser-render-string',
+          component: GenericRendererElement.STRING,
           title: 'ID',
         },
         {
           field: 'Self',
-          rendererTagName: 'databrowser-render-string',
+          component: GenericRendererElement.STRING,
           title: 'Self',
         },
       ],
@@ -62,28 +65,54 @@ export const openApiRenderConfig: OpenApiRenderConfig = {
       columns: [
         {
           field: 'Id',
-          rendererTagName: GenericRendererElement.STRING,
+          component: GenericRendererElement.STRING,
           title: 'ID',
         },
         {
           field: 'Key',
-          rendererTagName: GenericRendererElement.STRING,
+          component: GenericRendererElement.STRING,
           title: 'Key',
         },
         {
           field: 'Type',
-          rendererTagName: GenericRendererElement.STRING,
+          component: GenericRendererElement.STRING,
           title: 'Type',
         },
         {
           field: 'Bitmask',
-          rendererTagName: GenericRendererElement.STRING,
+          component: GenericRendererElement.STRING,
           title: 'Bitmask',
         },
         {
           field: 'TypeDesc',
-          rendererTagName: GenericRendererElement.JSON,
+          component: GenericRendererElement.JSON,
           title: 'TypeDesc',
+        },
+      ],
+    },
+  },
+  mobility: {
+    '/v1/parking/rest/get-station-details': {
+      columns: [
+        {
+          field: 'id',
+          component: GenericRendererElement.STRING,
+          title: 'ID',
+        },
+        {
+          field: 'name',
+          component: GenericRendererElement.STRING,
+          title: 'Name',
+        },
+        {
+          field: 'latitude',
+          component: GenericRendererElement.STRING,
+          title: 'Latitude',
+        },
+        {
+          field: 'longitude',
+          component: GenericRendererElement.STRING,
+          title: 'Longitude',
         },
       ],
     },

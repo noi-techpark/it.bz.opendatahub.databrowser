@@ -40,12 +40,12 @@ Regular.args = {
     props: [
       {
         field: 'Id',
-        rendererTagName: 'databrowser-render-string',
+        component: 'databrowser-render-string',
         title: 'ID',
       },
       {
         field: 'Self',
-        rendererTagName: 'databrowser-render-string',
+        component: 'databrowser-render-string',
         title: 'Self',
       },
     ],

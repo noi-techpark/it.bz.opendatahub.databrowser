@@ -1,8 +1,8 @@
 /* eslint-disable lit/no-value-attribute */
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { get } from 'lodash-es';
-import { renderElement } from '../lib/render.helper';
+import { mapAttributes } from '../lib/mapper.helper';
+import { renderElementWithDataAttribute } from '../lib/render.helper';
 import { ResourceConfig } from '../renderer/config.model';
 
 /**
@@ -22,14 +22,23 @@ export class GenericResource extends LitElement {
     if (config == null) {
       return html`${JSON.stringify(data)}`;
     }
-    return html` ${config.props.map(
-      prop =>
-        html`
-          <div>
-            ${renderElement(prop.rendererTagName, get(data, prop.field))}
-          </div>
-        `
-    )}`;
+    return html` ${config.props.map(prop => {
+      const componentName =
+        typeof prop.component === 'string'
+          ? prop.component
+          : prop.component.name;
+      const dataAttributeValue = mapAttributes(data, prop.field);
+      const configAttributeValue =
+        typeof prop.component === 'string' ? null : prop.component.config;
+
+      return html`<div>
+        ${renderElementWithDataAttribute({
+          componentName,
+          dataAttributeValue,
+          configAttributeValue,
+        })}
+      </div>`;
+    })}`;
   }
 
   render() {

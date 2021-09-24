@@ -7,4 +7,7 @@ import { property } from 'lit/decorators';
 export class BaseRenderer extends LitElement {
   @property()
   data?: any;
+
+  @property()
+  config?: any;
 }

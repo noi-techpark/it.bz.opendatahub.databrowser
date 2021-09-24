@@ -1,8 +1,8 @@
 /* eslint-disable lit/no-value-attribute */
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { get } from 'lodash-es';
-import { renderElement } from '../lib/render.helper';
+import { mapAttributes } from '../lib/mapper.helper';
+import { renderElementWithDataAttribute } from '../lib/render.helper';
 import { ListConfig } from '../renderer/config.model';
 
 export interface PageableList {
@@ -102,12 +102,23 @@ export class GenericList extends LitElement {
       <tbody>
         ${data.Items.map(
           item => html`<tr>
-            ${config.columns.map(
-              col =>
-                html`<td>
-                  ${renderElement(col.rendererTagName, get(item, col.field))}
-                </td>`
-            )}
+            ${config.columns.map(col => {
+              const componentName =
+                typeof col.component === 'string'
+                  ? col.component
+                  : col.component.name;
+              const dataAttributeValue = mapAttributes(item, col.field);
+              const configAttributeValue =
+                typeof col.component === 'string' ? null : col.component.config;
+
+              return html`<td>
+                ${renderElementWithDataAttribute({
+                  componentName,
+                  dataAttributeValue,
+                  configAttributeValue,
+                })}
+              </td>`;
+            })}
           </tr>`
         )}
       </tbody>
