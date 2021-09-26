@@ -107,7 +107,7 @@ export default Vue.extend({
     currentDocumentPaths(): string[] {
       return this.currentDocument == null || this.currentDocument.paths == null
         ? []
-        : Object.keys(this.currentDocument.paths);
+        : Object.keys(this.currentDocument.paths).sort();
     },
     currentOpenApiRenderConfig(): ListConfig | ResourceConfig | undefined {
       return genericRenderConfig[this.currentApiKey]?.[
