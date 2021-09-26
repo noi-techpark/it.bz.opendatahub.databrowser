@@ -80,13 +80,13 @@ import {
   PageableList,
 } from '~/../web-components/databrowser-generic/src/generic/GenericList';
 import { OpenApiState } from '~/store/remoteapi';
-import { genericRenderConfig } from '~/config/generic-renderer/generic-render.config';
+import { genericRenderConfig } from '~/modules/generic-renderer/config/generic-render.config';
 import {
   ListConfig,
   ResourceConfig,
 } from '~/../web-components/databrowser-generic/src/renderer/config.model';
-import GenericDataRenderer from '~/components/generic-renderer/GenericDataRenderer.vue';
-import GenericFilterRenderer from '~/components/generic-renderer/GenericFilterRenderer.vue';
+import GenericDataRenderer from '~/modules/generic-renderer/components/GenericDataRenderer.vue';
+import GenericFilterRenderer from '~/modules/generic-renderer/components/GenericFilterRenderer.vue';
 
 const concatFilters = (values: string[]) =>
   values != null ? values.join(',') : '';
