@@ -52,54 +52,27 @@
       ></Alert>
     </div>
 
-    <div v-if="filteredData != null" class="bg-gray-100">
-      <!-- If result is a pageable list, use generic list Web Component -->
-      <div v-if="isPageableList(filteredData)">
-        <h3 class="text-xl mt-4">List data</h3>
-        <databrowser-generic-list
-          class="generic-element"
-          :data.prop="filteredData"
-          :config.prop="currentOpenApiRenderConfig"
-          @paginationChanges="paginationChanges"
-        ></databrowser-generic-list>
-      </div>
-      <!-- If result is a resource, use generic resource Web Component -->
-      <div v-else-if="isResource(filteredData)">
-        <h3 class="text-xl mt-4">Resource data</h3>
-        <databrowser-generic-resource
-          class="generic-element"
-          :data.prop="filteredData"
-          :config.prop="currentOpenApiRenderConfig"
-          @paginationChanges="paginationChanges"
-        ></databrowser-generic-resource>
-      </div>
-      <!--
-        If result is not null and no other option before matches, render as JSON.
-        Note that this case should not happen, but nevertheless it is better to
-        show some output in case the assumtion is not correct
-      -->
-      <div v-else>
-        <h3 class="text-xl mt-4">Unknown data, rendering as JSON</h3>
-        <div class="block overflow-auto" style="height: calc(100vh - 250px)">
-          {{ JSON.stringify(filteredData) }}
-        </div>
-      </div>
-    </div>
+    <GenericDataRenderer
+      v-if="filteredData != null"
+      class="bg-gray-100"
+      :filtered-data="filteredData"
+      :render-config="currentOpenApiRenderConfig"
+      @paginationChanges="paginationChanges"
+    ></GenericDataRenderer>
 
-    <div v-if="openApiEndpointPathItem != null" class="bg-gray-100">
-      <h3 class="text-xl mt-4">Filter</h3>
-      <databrowser-generic-filter
-        class="generic-element"
-        :parameters.prop="filterParameters"
-        @filterChanges="filterChanges"
-      ></databrowser-generic-filter>
-    </div>
+    <GenericFilterRenderer
+      v-if="openApiEndpointPathItem != null"
+      class="bg-gray-100"
+      :filter-parameters="filterParameters"
+      @filterChanges="filterChanges"
+    ></GenericFilterRenderer>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { OpenAPIV3 } from 'openapi-types';
+import Alert from '~/components/global/Alert.vue';
 import Select from '~/components/global/Select.vue';
 import { FilterChanges } from '~/../web-components/databrowser-generic/src/generic/GenericFilter';
 import {
@@ -107,21 +80,22 @@ import {
   PageableList,
 } from '~/../web-components/databrowser-generic/src/generic/GenericList';
 import { OpenApiState } from '~/store/remoteapi';
-import { openApiRenderConfig } from '~/generic-renderer/openapi.renderconfig';
+import { genericRenderConfig } from '~/config/generic-renderer/generic-render.config';
 import {
   ListConfig,
   ResourceConfig,
 } from '~/../web-components/databrowser-generic/src/renderer/config.model';
+import GenericDataRenderer from '~/components/generic-renderer/GenericDataRenderer.vue';
+import GenericFilterRenderer from '~/components/generic-renderer/GenericFilterRenderer.vue';
 
 const concatFilters = (values: string[]) =>
   values != null ? values.join(',') : '';
 
 export default Vue.extend({
-  components: { Select },
+  components: { Alert, GenericDataRenderer, GenericFilterRenderer, Select },
   data() {
     return {
       currentApiKey: null as unknown as string,
-      currentApiUrl: null as unknown as string,
       fetchError: null as string | null,
       filteredData: null as unknown as PageableList | null,
       filterParameters: null as
@@ -151,7 +125,7 @@ export default Vue.extend({
         : Object.keys(this.currentDocument.paths);
     },
     currentOpenApiRenderConfig(): ListConfig | ResourceConfig | undefined {
-      return openApiRenderConfig[this.currentApiKey]?.[
+      return genericRenderConfig[this.currentApiKey]?.[
         this.openApiEndpointPath as string
       ];
     },
@@ -162,15 +136,6 @@ export default Vue.extend({
       this.$store.dispatch('remoteapi/selectApi', {
         key: this.currentApiKey,
       });
-    },
-    isResource(data?: PageableList | null) {
-      return data != null && data instanceof Object;
-    },
-    isPageableList(data?: PageableList | null) {
-      if (data == null) {
-        return false;
-      }
-      return data.TotalResults != null;
     },
     pathChanges(event: Event) {
       // Return early if no current docuement is set or if the current document has no paths
@@ -281,11 +246,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style>
-.generic-element {
-  display: block;
-  height: calc(100vh - 250px);
-  overflow: auto;
-}
-</style>

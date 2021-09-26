@@ -11,12 +11,12 @@ export type OpenApiPathRenderConfig = Record<
   ListConfig | ResourceConfig
 >;
 
-export type OpenApiRenderConfig = Record<string, OpenApiPathRenderConfig>;
+export type GenericRenderConfig = Record<string, OpenApiPathRenderConfig>;
 
 // TODO: this config is suitable for databrowser-generic-list and databrowser-generic-resource
 // Web-Components only. Think about further generalizing the rendering in order to replace
 // those generic renderers with other facilities
-export const openApiRenderConfig: OpenApiRenderConfig = {
+export const genericRenderConfig: GenericRenderConfig = {
   tourism: {
     '/v1/Accommodation': {
       columns: [
