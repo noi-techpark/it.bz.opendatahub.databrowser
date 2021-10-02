@@ -37,10 +37,22 @@
       ></Alert>
     </div>
 
+    <div>
+      <pre>{{ JSON.stringify(pagination) }}</pre>
+      <pre>{{ JSON.stringify(fetchedData) }}</pre>
+    </div>
+
+    <GenericPaginationRenderer
+      v-if="pagination != null"
+      :pagination="pagination"
+      @paginateNext="paginateNext"
+      @paginatePrevious="paginatePrevious"
+    ></GenericPaginationRenderer>
+
     <GenericDataRenderer
-      v-if="filteredData != null"
+      v-if="fetchedData != null"
       class="bg-gray-100"
-      :filtered-data="filteredData"
+      :data="fetchedData"
       :render-config="currentOpenApiRenderConfig"
       @paginationChanges="paginationChanges"
     ></GenericDataRenderer>
@@ -48,7 +60,7 @@
     <GenericFilterRenderer
       v-if="openApiEndpointPathItem != null"
       class="bg-gray-100"
-      :filter-parameters="filterParameters"
+      :filters="filters"
       @filterChanges="filterChanges"
     ></GenericFilterRenderer>
   </div>
@@ -57,33 +69,47 @@
 <script lang="ts">
 import Vue from 'vue';
 import { OpenAPIV3 } from 'openapi-types';
+import {
+  BasePagination,
+  PaginationUrlBuilder,
+} from '../lib/pagination/pagination';
+import { fetchData, FetchedData } from '../lib/data.provider';
+import GenericPaginationRenderer from './pagination/GenericPaginationRenderer.vue';
+import GenericDataRenderer from './GenericDataRenderer.vue';
+import GenericFilterRenderer from './GenericFilterRenderer.vue';
 import Alert from '~/components/global/Alert.vue';
 import Select from '~/components/global/Select.vue';
 import { FilterChanges } from '~/../web-components/databrowser-generic/src/generic/GenericFilter';
-import {
-  PaginationChanges,
-  PageableList,
-} from '~/../web-components/databrowser-generic/src/generic/GenericList';
+import { PaginationChanges } from '~/../web-components/databrowser-generic/src/generic/GenericList';
 import { OpenApiState } from '~/store/remoteapi';
 import { genericRenderConfig } from '~/modules/generic-renderer/config/generic-render.config';
 import {
   ListConfig,
   ResourceConfig,
 } from '~/../web-components/databrowser-generic/src/renderer/config.model';
-import GenericDataRenderer from '~/modules/generic-renderer/components/GenericDataRenderer.vue';
-import GenericFilterRenderer from '~/modules/generic-renderer/components/GenericFilterRenderer.vue';
 
 const concatFilters = (values: string[]) =>
   values != null ? values.join(',') : '';
 
 export default Vue.extend({
-  components: { Alert, GenericDataRenderer, GenericFilterRenderer, Select },
+  components: {
+    Alert,
+    GenericDataRenderer,
+    GenericFilterRenderer,
+    GenericPaginationRenderer,
+    Select,
+  },
   data() {
     return {
       currentApiKey: null as unknown as string,
       fetchError: null as string | null,
-      filteredData: null as unknown as PageableList | null,
-      filterParameters: null as
+      fetchedData: null as unknown as FetchedData | null | undefined,
+      pagination: null as unknown as BasePagination | null | undefined,
+      paginationBuilder: null as unknown as
+        | PaginationUrlBuilder
+        | null
+        | undefined,
+      filters: null as
         | (OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject)[]
         | null
         | undefined,
@@ -127,7 +153,7 @@ export default Vue.extend({
       if (this.currentDocument == null || this.currentDocument.paths == null) {
         this.openApiEndpointPath = null;
         this.openApiEndpointPathItem = null;
-        this.filterParameters = null;
+        this.fetchedData = null;
         this.fetchError = null;
         return;
       }
@@ -140,48 +166,12 @@ export default Vue.extend({
         JSON.stringify(this.openApiEndpointPathItem)
       ) as OpenAPIV3.PathItemObject<number>;
 
-      this.filterParameters = deepCopy.get?.parameters;
+      this.filters = deepCopy.get?.parameters;
 
       // Reset previous data
-      this.filteredData = null;
+      this.fetchedData = null;
       // Reset previous error information
       this.fetchError = null;
-    },
-    async fetchData(url: string) {
-      try {
-        this.fetchError = null;
-        const responseData = await this.$axios.$get(url);
-
-        // Check response type
-        if (responseData == null) {
-          // If respone is null or undefined, throw an error
-          throw new Error(`Response data from is empty, url was ${url}`);
-        } else if (responseData.TotalItems != null) {
-          // If respone contains a TotalItems property, we suspect that the result is
-          // a pageable result from Open Data Hub Tourim API
-          this.filteredData = responseData;
-        } else if (responseData instanceof Array) {
-          // If the result is an array, we suspect that the result is a non-pageable list.
-          // In that case, set the pagination data to being one page
-          this.filteredData = {
-            TotalResults: responseData.length,
-            TotalPages: 1,
-            CurrentPage: 1,
-            PreviousPage: null,
-            NextPage: null,
-            Items: responseData,
-          };
-        } else if (responseData instanceof Object) {
-          // The response may be an object (e.g. the response for a single entity)
-          // In that case, just use the respone data as it is.
-          this.filteredData = responseData;
-        }
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error(`Error while fetching ${url}`, e);
-        this.filteredData = null;
-        this.fetchError = e instanceof Error ? e.message : (e as string);
-      }
     },
     async filterChanges(event: CustomEvent<FilterChanges>) {
       let path = this.openApiEndpointPath ?? '';
@@ -218,15 +208,69 @@ export default Vue.extend({
       ) {
         // Take first server URL from OpenAPI document. Maybe this should be configurable
         const fullUrl = this.currentDocument.servers[0].url + path;
-        await this.fetchData(fullUrl);
+        const { data, pagination, paginationBuilder } = await fetchData(
+          this.$axios,
+          fullUrl
+        );
+        this.fetchedData = data;
+        this.pagination = pagination;
+        this.paginationBuilder = paginationBuilder;
       } else {
         this.fetchError =
           'No server URL found for current API (see OpenAPI document)';
       }
     },
+    // async paginateToPage(nextPage: number) {
+    //   console.log('paginateToPage', nextPage);
+
+    //   if (this.paginationBuilder != null && this.pagination != null) {
+    //     const currentPage = getCurrentPage(this.pagination);
+    //     let url = null;
+    //     if (nextPage > currentPage) {
+    //       url = this.paginationBuilder.getUrlForNextPage();
+    //       debugger;
+    //       await this.paginateToUrl(url);
+    //     }
+    //     if (nextPage < currentPage) {
+    //       url = this.paginationBuilder.getUrlForPreviousPage();
+    //       await this.paginateToUrl(url);
+    //     }
+    //     url = this.paginationBuilder.getUrlForCurrentPage();
+    //     await this.paginateToUrl(url);
+    //   }
+    //   // eslint-disable-next-line no-console
+    //   console.info('No pagination builder defined');
+    // },
+    async paginateToUrl(url: string) {
+      const { data, pagination, paginationBuilder } = await fetchData(
+        this.$axios,
+        url
+      );
+      this.fetchedData = data;
+      this.pagination = pagination;
+      this.paginationBuilder = paginationBuilder;
+    },
     async paginationChanges(event: CustomEvent<PaginationChanges>) {
       const url = event.detail.url;
-      await this.fetchData(url);
+      const { data, pagination, paginationBuilder } = await fetchData(
+        this.$axios,
+        url
+      );
+      this.fetchedData = data;
+      this.pagination = pagination;
+      this.paginationBuilder = paginationBuilder;
+    },
+    paginatePrevious() {
+      const url = this.paginationBuilder?.getUrlForPreviousPage();
+      if (url != null) {
+        this.paginateToUrl(url);
+      }
+    },
+    paginateNext() {
+      const url = this.paginationBuilder?.getUrlForNextPage();
+      if (url != null) {
+        this.paginateToUrl(url);
+      }
     },
   },
 });

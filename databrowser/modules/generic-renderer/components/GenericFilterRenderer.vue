@@ -3,7 +3,7 @@
     <h3 class="text-xl mt-4">Filter</h3>
     <databrowser-generic-filter
       class="generic-element"
-      :parameters.prop="filterParameters"
+      :parameters.prop="filters"
       @filterChanges="$emit('filterChanges', $event)"
     ></databrowser-generic-filter>
   </div>
@@ -14,7 +14,7 @@ import Vue from 'vue';
 
 export default Vue.extend({
   props: {
-    filterParameters: {
+    filters: {
       type: Array,
       default: null,
     },
