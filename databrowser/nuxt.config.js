@@ -32,6 +32,9 @@ export default {
       src: '~/modules/generic-renderer/plugins/renderer.web-component.import.ts',
     },
     {
+      src: '~/modules/error/plugins/error-handler.ts',
+    },
+    {
       src: '~/plugins/init-nuxt-accessors.ts',
     },
   ],
