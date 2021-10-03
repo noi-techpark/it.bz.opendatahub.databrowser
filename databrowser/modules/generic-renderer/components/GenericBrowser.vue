@@ -37,11 +37,6 @@
       ></Alert>
     </div>
 
-    <div>
-      <pre>{{ JSON.stringify(pagination) }}</pre>
-      <pre>{{ JSON.stringify(fetchedData) }}</pre>
-    </div>
-
     <GenericPaginationRenderer
       v-if="pagination != null"
       :pagination="pagination"
@@ -207,11 +202,8 @@ export default Vue.extend({
         this.currentDocument.servers.length > 0
       ) {
         // Take first server URL from OpenAPI document. Maybe this should be configurable
-        const fullUrl = this.currentDocument.servers[0].url + path;
-        const { data, pagination, paginationBuilder } = await fetchData(
-          this.$axios,
-          fullUrl
-        );
+        const url = this.currentDocument.servers[0].url + path;
+        const { data, pagination, paginationBuilder } = await fetchData(url);
         this.fetchedData = data;
         this.pagination = pagination;
         this.paginationBuilder = paginationBuilder;
@@ -242,20 +234,14 @@ export default Vue.extend({
     //   console.info('No pagination builder defined');
     // },
     async paginateToUrl(url: string) {
-      const { data, pagination, paginationBuilder } = await fetchData(
-        this.$axios,
-        url
-      );
+      const { data, pagination, paginationBuilder } = await fetchData(url);
       this.fetchedData = data;
       this.pagination = pagination;
       this.paginationBuilder = paginationBuilder;
     },
     async paginationChanges(event: CustomEvent<PaginationChanges>) {
       const url = event.detail.url;
-      const { data, pagination, paginationBuilder } = await fetchData(
-        this.$axios,
-        url
-      );
+      const { data, pagination, paginationBuilder } = await fetchData(url);
       this.fetchedData = data;
       this.pagination = pagination;
       this.paginationBuilder = paginationBuilder;

@@ -1,6 +1,6 @@
 <template>
-  <!-- If filteredData is a pageable list, use generic list Web Component -->
-  <div v-if="isPageableList(data)">
+  <!-- If filteredData is a list, use generic list Web Component -->
+  <div v-if="isList(data)">
     <h3 class="text-xl mt-4">List data</h3>
     <databrowser-generic-list
       class="generic-element"
@@ -33,13 +33,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { PageableList } from '~/../web-components/databrowser-generic/src/generic/GenericList';
+import Vue, { PropType } from 'vue';
+
+type DataProp = any[] | Record<string, any> | null | undefined;
 
 export default Vue.extend({
   props: {
     data: {
-      type: [Object, Array],
+      type: [Object, Array] as PropType<DataProp>,
       default: null,
     },
     renderConfig: {
@@ -48,14 +49,11 @@ export default Vue.extend({
     },
   },
   methods: {
-    isResource(data?: PageableList | null) {
-      return data != null && data instanceof Object;
+    isResource(data: DataProp) {
+      return data != null && typeof data === 'object';
     },
-    isPageableList(data?: PageableList | null) {
-      if (data == null) {
-        return false;
-      }
-      return data.TotalResults != null;
+    isList(data: DataProp) {
+      return Array.isArray(data);
     },
   },
 });

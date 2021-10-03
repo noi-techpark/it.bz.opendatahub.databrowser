@@ -1,4 +1,3 @@
-import { NuxtAxiosInstance } from '@nuxtjs/axios';
 import {
   isWithArrayPagination,
   paginationFromArrayData,
@@ -14,6 +13,7 @@ import {
   paginationBuilderForTourismData,
   paginationFromTourismData,
 } from './pagination/tourism.pagination';
+import { $axios, $loading } from '~/utils/nuxt-accessors';
 
 export type FetchedData = Record<string, any> | any[];
 
@@ -30,11 +30,10 @@ export interface FetchResult {
  * @returns A promise. When resolved it contains data of type FetchResult.
  * When rejected, it contains an error descrifption.
  */
-export const fetchData = async (
-  axios: NuxtAxiosInstance,
-  url: string
-): Promise<FetchResult> => {
-  const responseData = await axios.$get(url);
+export const fetchData = async (url: string): Promise<FetchResult> => {
+  $loading.start();
+  const responseData = await $axios.$get(url, { progress: false });
+  $loading.finish();
 
   // Check response type
   if (responseData == null) {

@@ -2,6 +2,7 @@ import * as SwaggerParser from '@apidevtools/swagger-parser';
 import { OpenAPIV3 } from 'openapi-types';
 import { ActionTree, GetterTree, MutationTree } from 'vuex';
 import { RootState } from '.';
+import { $loading } from '~/utils/nuxt-accessors';
 
 export interface OpenApiState {
   description: string;
@@ -107,9 +108,11 @@ export const actions: ActionTree<RemoteApiState, RootState> = {
       commit('loadApiStart', { key });
 
       const api = getApiOrThrow(state, key);
+      $loading.start();
       const document = await SwaggerParser.dereference(api.documentUrl, {
         dereference: { circular: 'ignore' },
       });
+      $loading.finish();
 
       commit('loadApiSuccess', { key, document });
     } catch (err) {
