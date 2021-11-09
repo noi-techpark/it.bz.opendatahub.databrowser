@@ -4,7 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "lib": ["ESNext", "ESNext.AsyncIterable", "DOM", "dom.iterable"],
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "allowJs": true,
     "sourceMap": true,
     "strict": true,
@@ -20,7 +20,8 @@
       "@nuxt/types",
       "@nuxtjs/axios",
       "@nuxtjs/auth-next",
-      "@types/node"
+      "@types/node",
+      "@types/jest"
     ]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]

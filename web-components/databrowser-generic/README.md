@@ -2,6 +2,8 @@
 
 This project contains generic Web Components to render OpenAPI data (e.g. tourism and mobility data from [Open Data Hub](https://opendatahub.bz.it/)).
 
+It contains Web Components for handling of generic data and renderer that can be used to display the data.
+
 ## Table of Contents
 
 - [Getting started](#getting-started)

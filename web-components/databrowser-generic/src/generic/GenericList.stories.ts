@@ -1,13 +1,16 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { html, TemplateResult } from 'lit-html';
 import '../../databrowser-generic';
-import { ResultList } from './GenericList';
+import '../../databrowser-renderer';
+import { ListConfig } from '../renderer/config.model';
+import { PageableList } from './GenericList';
 
 export default {
   title: 'GenericList',
   component: 'databrowser-generic-list',
   argTypes: {
     data: { control: 'object' },
+    config: { control: 'object' },
     paginationChanges: { action: 'paginationChanges' },
     detailRequested: { action: 'detailRequested' },
   },
@@ -20,19 +23,21 @@ interface Story<T> {
 }
 
 interface ArgTypes {
-  data?: ResultList | null;
+  data?: PageableList | null;
+  config?: ListConfig | null;
   paginationChanges?: () => void;
   detailRequested?: () => void;
 }
 
 const Template: Story<ArgTypes> = ({
-  // eslint-disable-next-line no-use-before-define
   data = null,
+  config = null,
   paginationChanges = () => {},
   detailRequested = () => {},
 }: ArgTypes) => html`
   <databrowser-generic-list
     .data="${data}"
+    .config="${config}"
     @paginationChanges="${paginationChanges}"
     @detailRequested="${detailRequested}"
   ></databrowser-generic-list>
@@ -40,6 +45,44 @@ const Template: Story<ArgTypes> = ({
 
 export const Regular = Template.bind({});
 Regular.args = {
+  config: {
+    columns: [
+      {
+        field: {
+          alt: 'Shortname',
+          href: 'Self',
+          text: 'Shortname',
+        },
+        component: 'databrowser-render-link',
+        title: 'Link',
+      },
+      {
+        field: 'Id',
+        component: 'databrowser-render-string',
+        title: 'ID',
+      },
+      {
+        field: 'Shortname',
+        component: 'databrowser-render-string',
+        title: 'Shortname',
+      },
+      {
+        field: 'AccoType.Id',
+        component: 'databrowser-render-string',
+        title: 'AccoType ID',
+      },
+      {
+        field: 'ODHTags[1].Id',
+        component: 'databrowser-render-string',
+        title: 'ODHTags[1] ID',
+      },
+      {
+        field: 'ThemeIds',
+        component: 'databrowser-render-json',
+        title: 'ThemeIds',
+      },
+    ],
+  },
   data: {
     TotalResults: 9639,
     TotalPages: 964,

@@ -1,5 +1,3 @@
-export interface State {}
+export const state = () => {};
 
-export const state: () => State = () => ({});
-
-export const mutations = {};
+export type RootState = ReturnType<typeof state>;

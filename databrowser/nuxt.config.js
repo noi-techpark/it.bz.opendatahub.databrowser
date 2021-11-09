@@ -2,6 +2,10 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
+  loading: {
+    continuous: true,
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'databrowser',
@@ -20,7 +24,20 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/web-component.import.ts' }],
+  plugins: [
+    {
+      src: '~/modules/generic-renderer/plugins/generic.web-component.import.ts',
+    },
+    {
+      src: '~/modules/generic-renderer/plugins/renderer.web-component.import.ts',
+    },
+    {
+      src: '~/modules/error/plugins/error-handler.ts',
+    },
+    {
+      src: '~/plugins/init-nuxt-accessors.ts',
+    },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -38,8 +55,8 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
     '@nuxtjs/auth-next',
+    '@nuxtjs/axios',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

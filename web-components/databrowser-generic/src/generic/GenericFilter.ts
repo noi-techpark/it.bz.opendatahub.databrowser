@@ -4,11 +4,15 @@ import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import * as MarkdownIt from 'markdown-it';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { OpenAPIV3 } from 'openapi-types';
 import { debounce } from '../lib/debounce';
-import { EndpointParameter, In } from './endpoint.interface';
+
+export type ParameterLocation = 'cookie' | 'query' | 'header' | 'path';
 
 export interface FilterChanges {
-  filter: Record<In, Record<string, string[]>>;
+  filter: Record<ParameterLocation, Record<string, string[]>>;
 }
 
 /**
@@ -16,7 +20,7 @@ export interface FilterChanges {
  */
 export class GenericFilter extends LitElement {
   @property()
-  private parameters?: EndpointParameter[];
+  private parameters?: OpenAPIV3.ParameterObject[];
 
   // Keep an map of array fields (note: items can be added to and removed from array fields)
   // The number array is used as an ID tp be passed to the repeat directive (see https://lit.dev/docs/api/directives/#repeat)
@@ -29,6 +33,8 @@ export class GenericFilter extends LitElement {
   @query('form')
   private _form!: HTMLFormElement;
 
+  private md = new MarkdownIt('default', { html: true });
+
   updated(changedProperties: PropertyValues): void {
     if (changedProperties.has('parameters')) {
       this.validateFilters();
@@ -40,7 +46,7 @@ export class GenericFilter extends LitElement {
 
     // Build a map of filter locations for parameters, where the filter value should be set (e.g in query, in path, ...)
     // A result could look like: {"param1": "query", "param2", "query", "param3": path}
-    const parameterLocationMap: Record<string, In> =
+    const parameterLocationMap: Record<string, ParameterLocation> =
       this.parameters == null
         ? {}
         : this.parameters.reduce(
@@ -115,7 +121,7 @@ export class GenericFilter extends LitElement {
     this.requestUpdate();
   }
 
-  private renderArray({ name, required }: EndpointParameter) {
+  private renderArray({ name, required }: OpenAPIV3.ParameterObject) {
     const ids = this.arrayFields[name] ?? [];
     return html` <div>
       ${repeat(
@@ -140,47 +146,62 @@ export class GenericFilter extends LitElement {
     </div>`;
   }
 
-  private renderBoolean(parameter: EndpointParameter) {
+  private renderBoolean(parameter: OpenAPIV3.ParameterObject) {
     return html`<select
       name="${parameter.name}"
       ?required=${parameter.required}
       @change="${debounce(this.validateFilters, 50)}"
     >
       <option value="">--</option>
-      <option value="true" ?selected="${parameter.schema?.default === true}">
+      <option
+        value="true"
+        ?selected="${(parameter.schema as OpenAPIV3.SchemaObject)?.default ===
+        true}"
+      >
         true
       </option>
-      <option value="false" ?selected="${parameter.schema?.default === false}">
+      <option
+        value="false"
+        ?selected="${(parameter.schema as OpenAPIV3.SchemaObject)?.default ===
+        false}"
+      >
         false
       </option>
     </select>`;
   }
 
-  private renderInteger(parameter: EndpointParameter) {
+  private renderInteger(parameter: OpenAPIV3.ParameterObject) {
     return html`<input
       type="number"
       name="${parameter.name}"
       ?required=${parameter.required}
-      value="${ifDefined(parameter.schema?.default)}"
+      value="${ifDefined(
+        (parameter.schema as OpenAPIV3.SchemaObject)?.default
+      )}"
       @keyup="${debounce(this.validateFilters, 50)}"
     />`;
   }
 
-  private renderString(parameter: EndpointParameter) {
+  private renderString(parameter: OpenAPIV3.ParameterObject) {
     return html`<input
       name="${parameter.name}"
       ?required=${parameter.required}
-      value="${ifDefined(parameter.schema?.default)}"
+      value="${ifDefined(
+        (parameter.schema as OpenAPIV3.SchemaObject)?.default
+      )}"
       @keyup="${debounce(this.validateFilters, 50)}"
     />`;
   }
 
-  private renderDefault(parameter: EndpointParameter) {
-    return html`<span>Type "${parameter.schema?.type}" not supported</span>`;
+  private renderDefault(parameter: OpenAPIV3.ParameterObject) {
+    return html`<span
+      >Type "${(parameter.schema as OpenAPIV3.SchemaObject)?.type}" not
+      supported</span
+    >`;
   }
 
-  private renderParameter(parameter: EndpointParameter) {
-    switch (parameter.schema?.type) {
+  private renderParameter(parameter: OpenAPIV3.ParameterObject) {
+    switch ((parameter.schema as OpenAPIV3.SchemaObject)?.type) {
       case 'array':
         return this.renderArray(parameter);
       case 'boolean':
@@ -209,8 +230,11 @@ export class GenericFilter extends LitElement {
                       : null}
                   </div>
                   <div>
-                    ${parameter.schema?.type}${parameter.schema?.format != null
-                      ? html`($${parameter.schema?.format})`
+                    ${(parameter.schema as OpenAPIV3.SchemaObject)?.type}${(
+                      parameter.schema as OpenAPIV3.SchemaObject
+                    )?.format != null
+                      ? html`($${(parameter.schema as OpenAPIV3.SchemaObject)
+                          ?.format})`
                       : null}
                   </div>
                   <div>(${parameter.in})</div>
@@ -218,11 +242,15 @@ export class GenericFilter extends LitElement {
                 <td>
                   <div>
                     ${parameter.description != null
-                      ? unsafeHTML(parameter.description)
+                      ? unsafeHTML(this.md.render(parameter.description))
                       : null}
                   </div>
-                  ${parameter.schema?.default != null
-                    ? html`<div>Default: ${parameter.schema?.default}</div>`
+                  ${(parameter.schema as OpenAPIV3.SchemaObject)?.default !=
+                  null
+                    ? html`<div>
+                        Default:
+                        ${(parameter.schema as OpenAPIV3.SchemaObject)?.default}
+                      </div>`
                     : null}
                   ${this.renderParameter(parameter)}
                 </td>

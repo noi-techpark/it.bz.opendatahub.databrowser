@@ -17,6 +17,7 @@ const configTemplate = {
 
 const config = [
     './dist/databrowser-generic.js',
+    './dist/databrowser-renderer.js',
 ].map(input => ({ ...configTemplate, input }));
 
 export default config;

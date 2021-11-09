@@ -1,14 +1,17 @@
 /* eslint-disable lit/no-value-attribute */
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { mapAttributes } from '../lib/mapper.helper';
+import { renderElementWithDataAttribute } from '../lib/render.helper';
+import { ListConfig } from '../renderer/config.model';
 
-export interface ResultList {
+export interface PageableList {
   TotalResults: number;
   TotalPages: number;
   CurrentPage: number;
   PreviousPage: string | null;
   NextPage: string | null;
-  Seed: string | null;
+  Seed?: string | null;
   Items: any[];
 }
 
@@ -21,11 +24,14 @@ export interface DetailRequested {
 }
 
 /**
- * This is the generic filter for OpenAPI described data.
+ * This is the generic list Web Component for OpenAPI described data.
  */
 export class GenericList extends LitElement {
+  @property({ type: Array })
+  data?: any[];
+
   @property({ type: Object })
-  data?: ResultList;
+  config?: ListConfig;
 
   private paginationChanges(url: string | null) {
     if (url == null) {
@@ -55,65 +61,69 @@ export class GenericList extends LitElement {
     this.dispatchEvent(event);
   }
 
-  private renderResultHeader(data: ResultList) {
-    return html`<ul>
-      <li>TotalResults: ${data.TotalResults}</li>
-      <li>TotalPages: ${data.TotalPages}</li>
-      <li>CurrentPage: ${data.CurrentPage}</li>
-    </ul>`;
+  private renderTableHeader(config: ListConfig) {
+    return html`<thead>
+      <tr>
+        ${config.columns.map(col => html`<th>${col.title}</th>`)}
+      </tr>
+    </thead>`;
   }
 
-  private renderResultItem(item: any) {
-    return html`<tr>
-      <td>${item.Detail.en?.Title}</td>
-      <td>${item.LocationInfo.RegionInfo.Name?.en}</td>
-      <td>${item.HasLanguage != null ? item.HasLanguage.join(', ') : ''}</td>
-      <td>${item.Source}</td>
-      <td>${item.Active}</td>
-      <td>
-        <button @click="${() => this.detailRequested(item.Self)}">
-          Load Detail
-        </button>
-      </td>
-    </tr>`;
+  private renderTableBody(data: any[], config: ListConfig) {
+    return html`
+      <tbody>
+        ${data.map(
+          item => html`<tr>
+            ${config.columns.map(col => {
+              const componentName =
+                typeof col.component === 'string'
+                  ? col.component
+                  : col.component.name;
+              const dataAttributeValue = mapAttributes(item, col.field);
+              const configAttributeValue =
+                typeof col.component === 'string' ? null : col.component.config;
+
+              return html`<td>
+                ${renderElementWithDataAttribute({
+                  componentName,
+                  dataAttributeValue,
+                  configAttributeValue,
+                })}
+              </td>`;
+            })}
+          </tr>`
+        )}
+      </tbody>
+    `;
   }
 
-  private renderPagination(data: ResultList) {
-    return html`<div>
-      ${data.PreviousPage != null
-        ? html`<button
-            @click="${() => this.paginationChanges(data.PreviousPage)}"
-          >
-            Previous
-          </button>`
-        : null}
-      ${data.NextPage != null
-        ? html`<button @click="${() => this.paginationChanges(data.NextPage)}">
-            Next
-          </button>`
-        : null}
-    </div>`;
-  }
-
-  private renderResult(data: ResultList) {
-    return html`<div>${this.renderResultHeader(data)}</div>
-      <div>${this.renderPagination(data)}</div>
-      ${this.data?.Items.map(
-        item =>
-          html`<div style="border: 1px dotted black">
-            <div>
-              <a href="${item.Self}" target="_blank">Open in new tab</a>
-            </div>
-            <pre>${JSON.stringify(item, null, 2)}</pre>
-          </div>`
-      )}
-      <div>${this.renderPagination(data)}</div>`;
+  private renderResult(data: any[], config?: ListConfig) {
+    if (data == null) {
+      return null;
+    }
+    if (config == null) {
+      return html`<table>
+        <tbody>
+          ${data.map(
+            item =>
+              html`<tr>
+                <td><pre>${JSON.stringify(item, null, 2)}</pre></td>
+              </tr>`
+          )}
+        </tbody>
+      </table>`;
+    }
+    return html`
+      <table>
+        ${this.renderTableHeader(config)} ${this.renderTableBody(data, config)}
+      </table>
+    `;
   }
 
   render() {
     return html`
       ${this.data != null
-        ? this.renderResult(this.data)
+        ? this.renderResult(this.data, this.config)
         : html`<span>No data</span>`}
     `;
   }
