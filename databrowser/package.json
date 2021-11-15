@@ -10,6 +10,7 @@
     "axios": "^0.24.0",
     "vue": "^3.2.16",
     "vue-axios": "^3.4.0",
+    "vue-query": "^1.13.0",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
