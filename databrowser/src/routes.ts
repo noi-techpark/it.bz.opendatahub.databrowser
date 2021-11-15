@@ -13,6 +13,10 @@ const routes = [
     component: () => import('./pages/About.vue'),
   },
   {
+    path: '/axios-example',
+    component: () => import('./pages/AxiosExample.vue'),
+  },
+  {
     path: '/error',
     component: () => import('./pages/Error.vue'),
     meta: {
