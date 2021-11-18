@@ -20,12 +20,12 @@
     <button
       type="button"
       class="
-        bg-red-500
-        hover:bg-red-700
-        text-white text-center
         py-2
         px-4
+        bg-red-500
+        hover:bg-red-700
         rounded
+        text-white text-center
       "
       @click="refetch()"
     >
@@ -42,10 +42,11 @@
 <script lang="ts">
 import { defineComponent, inject } from '@vue/runtime-core';
 import { useQuery } from 'vue-query';
+import { AxiosInstance } from 'axios';
 
 export default defineComponent({
   setup() {
-    const axios: any = inject('axios');
+    const axios: AxiosInstance | undefined = inject('axios');
 
     const fetcher = async (): Promise<string> =>
       await axios.get('https://mobility.api.opendatahub.bz.it/v2/apispec');

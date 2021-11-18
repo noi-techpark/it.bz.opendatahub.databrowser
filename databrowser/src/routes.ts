@@ -3,14 +3,14 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   {
     path: '/',
-    component: () => import('./pages/Home.vue'),
+    component: () => import('./pages/HomePage.vue'),
     meta: {
       layout: 'AppLayoutDefault',
     },
   },
   {
     path: '/about',
-    component: () => import('./pages/About.vue'),
+    component: () => import('./pages/AboutPage.vue'),
   },
   {
     path: '/axios-example',
@@ -18,7 +18,7 @@ const routes = [
   },
   {
     path: '/error',
-    component: () => import('./pages/Error.vue'),
+    component: () => import('./pages/ErrorPage.vue'),
     meta: {
       layout: 'AppLayoutError',
     },

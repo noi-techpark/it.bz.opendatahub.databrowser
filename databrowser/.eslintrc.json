@@ -1,0 +1,18 @@
+{
+    "plugins": [
+        "prettier",
+        "tailwindcss"
+    ],
+    "extends": [
+        "plugin:vue/vue3-recommended",
+        "eslint:recommended",
+        "@vue/typescript",
+        "plugin:tailwindcss/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "rules": {
+        // override/add rules settings here, such as:
+        // 'vue/no-unused-vars': 'error'
+        "tailwindcss/classnames-order": "error"
+    }
+}
