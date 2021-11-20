@@ -1,5 +1,15 @@
 {
-    "message": {
-        "hello": "'{msg} Welt'"
+    "footer": {
+        "imprint": "Impressum",
+        "legal": "Rechtliches",
+        "privacy": "Datenschutz",
+        "sitemap": "Sitemap"
+    },
+    "languageSwitch": {
+        "language": {
+            "de": "Deutsch",
+            "en": "Englisch",
+            "it": "Italienisch"
+        }
     }
 }

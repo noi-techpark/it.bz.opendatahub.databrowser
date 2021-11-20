@@ -23,6 +23,22 @@ const routes = [
       layout: 'AppLayoutError',
     },
   },
+  {
+    path: '/imprint',
+    component: () => import('./pages/ImprintPage.vue'),
+  },
+  {
+    path: '/legal',
+    component: () => import('./pages/LegalPage.vue'),
+  },
+  {
+    path: '/privacy',
+    component: () => import('./pages/PrivacyPage.vue'),
+  },
+  {
+    path: '/sitemap',
+    component: () => import('./pages/SitemapPage.vue'),
+  },
 ];
 
 export const router = createRouter({

@@ -1,5 +1,15 @@
 {
-    "message": {
-        "hello": "'{msg} mondo'"
+    "footer": {
+        "imprint": "Impressionare",
+        "legal": "Legale",
+        "privacy": "Privacy",
+        "sitemap": "Sitemap"
+    },
+    "languageSwitch": {
+        "language": {
+            "de": "Tedesco",
+            "en": "Inglese",
+            "it": "Italiano"
+        }
     }
 }
