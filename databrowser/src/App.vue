@@ -16,7 +16,13 @@ export default defineComponent({
   name: 'App',
   components: { AppLayout, VueQueryDevTools },
   setup() {
-    useQueryProvider();
+    useQueryProvider({
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+        },
+      },
+    });
   },
 });
 </script>

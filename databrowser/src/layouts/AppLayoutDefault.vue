@@ -2,9 +2,9 @@
   <div class="flex flex-col h-full">
     <AppHeader />
 
-    <div class="overflow-auto flex-auto">
+    <main class="overflow-auto flex-auto h-full">
       <router-view></router-view>
-    </div>
+    </main>
 
     <AppFooter />
   </div>

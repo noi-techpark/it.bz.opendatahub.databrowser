@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('./pages/HomePage.vue'),
@@ -22,6 +22,14 @@ const routes = [
     meta: {
       layout: 'AppLayoutError',
     },
+  },
+  {
+    path: '/dataset/:datasetType',
+    component: () => import('./pages/DatasetListPage.vue'),
+  },
+  {
+    path: '/dataset/:datasetType/:datasetId',
+    component: () => import('./pages/DatasetDetailPage.vue'),
   },
   {
     path: '/imprint',
