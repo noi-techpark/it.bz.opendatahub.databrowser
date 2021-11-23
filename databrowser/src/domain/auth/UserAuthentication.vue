@@ -1,9 +1,8 @@
 <template>
-  <div v-if="authenticated === undefined">...</div>
-  <div v-if="authenticated === true">
-    User is authenticated <button @click="onLogout">Logout</button>
+  <div v-if="isAuthenticated === true">
+    {{ user?.email }}<button @click="onLogout">Logout</button>
   </div>
-  <div v-else-if="authenticated === false">
+  <div v-else>
     <button @click="onLogin">Login</button>
     <button @click="onRegister">Register</button>
   </div>
@@ -11,39 +10,44 @@
 
 <script lang="ts">
 import Keycloak from 'keycloak-js';
-import { ref, watchEffect } from 'vue';
-
-const keycloak = Keycloak({
-  url: 'https://auth.opendatahub.testingmachine.eu/auth',
-  realm: 'noi',
-  clientId: 'it.bz.opendatahub.databrowser',
-});
+import { computed, watchEffect } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   name: 'UserAuthentication',
   setup() {
-    const authenticated = ref<boolean | undefined>(undefined);
+    const keycloak = Keycloak({
+      url: import.meta.env.VITE_APP_KEYCLOAK_URL,
+      realm: import.meta.env.VITE_APP_KEYCLOAK_REALM,
+      clientId: import.meta.env.VITE_APP_KEYCLOAK_CLIENT_ID,
+    });
 
-    const verifyUserAuthentication = () => {
+    const store = useStore();
+
+    const user = computed(() => store.getters['auth/user']);
+    const isAuthenticated = computed(() => store.state.auth.isAuthenticated);
+    const accessToken = computed(() => store.state.auth.accessToken);
+
+    const initKeycloakAdapter = () => {
       keycloak
         .init({
           onLoad: 'check-sso',
-          silentCheckSsoRedirectUri:
-            'http://localhost:3000/silent-check-sso.html',
+          // eslint-disable-next-line no-undef
+          silentCheckSsoRedirectUri: import.meta.env
+            .VITE_APP_KEYCLOAK_REDIRECT_URI,
           pkceMethod: 'S256',
         })
-        .then(function (isAuthenticated: boolean) {
-          authenticated.value = isAuthenticated;
-        })
-        .catch(function () {
-          console.log(
-            'ERROR: Failed to initialize. Is your resource server running? See README for details.'
-          );
+        .then(function (authenticated) {
+          if (authenticated) {
+            store.commit('auth/authenticated', keycloak.token);
+          } else {
+            store.commit('auth/unauthenticated');
+          }
         });
     };
 
     watchEffect(() => {
-      verifyUserAuthentication();
+      initKeycloakAdapter();
     });
 
     function onLogin() {
@@ -62,7 +66,9 @@ export default {
       onLogin,
       onRegister,
       onLogout,
-      authenticated,
+      user,
+      accessToken,
+      isAuthenticated,
     };
   },
 };

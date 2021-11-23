@@ -6,3 +6,14 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
+
+interface ImportMetaEnv extends Readonly<Record<string, string>> {
+  readonly VITE_APP_KEYCLOAK_URL: string;
+  readonly VITE_APP_KEYCLOAK_REALM: string;
+  readonly VITE_APP_KEYCLOAK_CLIENT_ID: string;
+  readonly VITE_APP_KEYCLOAK_REDIRECT_URI: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
