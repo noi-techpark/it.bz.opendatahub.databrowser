@@ -9,46 +9,34 @@
 </template>
 
 <script lang="ts">
-import Keycloak from 'keycloak-js';
-import { computed, watchEffect } from 'vue';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
+import { keycloak } from './init';
 
 export default {
   name: 'UserAuthentication',
   setup() {
-    const keycloak = Keycloak({
-      url: import.meta.env.VITE_APP_KEYCLOAK_URL,
-      realm: import.meta.env.VITE_APP_KEYCLOAK_REALM,
-      clientId: import.meta.env.VITE_APP_KEYCLOAK_CLIENT_ID,
-    });
-
     const store = useStore();
 
     const user = computed(() => store.getters['auth/user']);
     const isAuthenticated = computed(() => store.state.auth.isAuthenticated);
     const accessToken = computed(() => store.state.auth.accessToken);
 
-    const initKeycloakAdapter = () => {
-      keycloak
-        .init({
-          onLoad: 'check-sso',
-          // eslint-disable-next-line no-undef
-          silentCheckSsoRedirectUri: import.meta.env
-            .VITE_APP_KEYCLOAK_REDIRECT_URI,
-          pkceMethod: 'S256',
-        })
-        .then(function (authenticated) {
-          if (authenticated) {
-            store.commit('auth/authenticated', keycloak.token);
-          } else {
-            store.commit('auth/unauthenticated');
-          }
-        });
+    keycloak.onAuthSuccess = () => {
+      store.commit('auth/authenticated', keycloak.token);
     };
 
-    watchEffect(() => {
-      initKeycloakAdapter();
-    });
+    keycloak.onAuthError = () => {
+      store.commit('auth/unauthenticated');
+    };
+
+    keycloak.onAuthRefreshSuccess = () => {
+      store.commit('auth/authenticated', keycloak.token);
+    };
+
+    keycloak.onAuthRefreshError = () => {
+      store.commit('auth/unauthenticated');
+    };
 
     function onLogin() {
       keycloak.login();
