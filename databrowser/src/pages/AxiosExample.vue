@@ -46,18 +46,22 @@ import { AxiosInstance } from 'axios';
 
 export default defineComponent({
   setup() {
-    const axios: AxiosInstance | undefined = inject('axios');
+    const axios = inject<AxiosInstance>('axios');
 
-    const fetcher = async (): Promise<string> =>
-      await axios.get('https://mobility.api.opendatahub.bz.it/v2/apispec');
+    if (axios != null) {
+      const fetcher = async (): Promise<string> =>
+        await axios.get('https://mobility.api.opendatahub.bz.it/v2/apispec');
 
-    const { isLoading, isError, isFetching, data, error, refetch } = useQuery(
-      'mobilityOpenApi',
-      fetcher,
-      { enabled: false }
-    );
+      const { isLoading, isError, isFetching, data, error, refetch } = useQuery(
+        'mobilityOpenApi',
+        fetcher,
+        { enabled: false }
+      );
 
-    return { isLoading, isError, isFetching, data, error, refetch };
+      return { isLoading, isError, isFetching, data, error, refetch };
+    }
+
+    throw new Error('Injected axios instance is undefined');
   },
 });
 </script>

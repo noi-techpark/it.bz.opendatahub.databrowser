@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createApp } from 'vue';
 import VueAxios from 'vue-axios';
 import App from './App.vue';
+import { loadLocaleMessages, setupI18n } from './i18n';
 import './index.css';
 import { router } from './routes';
 import store from './store';
@@ -15,6 +16,10 @@ app.use(router);
 app.use(VueAxios, axios);
 app.use(store);
 app.provide('axios', app.config.globalProperties.axios);
+
+const i18n = setupI18n({ locale: 'en' });
+loadLocaleMessages(i18n, i18n.global.locale);
+app.use(i18n);
 
 // Mount the app
 app.mount('#app');
