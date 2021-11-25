@@ -2,7 +2,7 @@
   <header>
     <router-link to="/" class="text-2xl">OPENDATAHUB!</router-link>
     <LanguageSwitcher></LanguageSwitcher>
-    <user-authentication />
+    <UserAuthentication />
   </header>
 </template>
 
