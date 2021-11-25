@@ -31,7 +31,6 @@ const getters = {
   },
 };
 
-// mutations
 const mutations = {
   authenticated(state: State, accessToken: string) {
     state.isAuthenticated = true;
