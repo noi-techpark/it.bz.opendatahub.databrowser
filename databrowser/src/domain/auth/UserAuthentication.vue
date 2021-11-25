@@ -11,7 +11,7 @@
 <script lang="ts">
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-import { keycloak } from './init';
+import { keycloak } from './keycloak';
 
 export default {
   name: 'UserAuthentication',
