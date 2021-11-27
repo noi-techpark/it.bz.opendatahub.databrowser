@@ -7,3 +7,8 @@ lerna-debug.log
 vetur.config.js
 .vscode/settings.json
 swagger.json
+
+# IDE
+/.idea
+.idea
+*.iml

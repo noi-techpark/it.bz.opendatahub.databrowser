@@ -1,28 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "lib": ["ESNext", "ESNext.AsyncIterable", "DOM", "dom.iterable"],
-    "esModuleInterop": false,
-    "allowJs": true,
-    "sourceMap": true,
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
     "strict": true,
-    "noEmit": true,
-    "experimentalDecorators": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"],
-      "@wc/*": ["../web-components/*"]
-    },
-    "types": [
-      "@nuxt/types",
-      "@nuxtjs/axios",
-      "@nuxtjs/auth-next",
-      "@types/node",
-      "@types/jest"
-    ]
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"]
   },
-  "exclude": ["node_modules", ".nuxt", "dist"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

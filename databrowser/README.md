@@ -19,7 +19,7 @@ on your local machine for development and testing purposes.
 
 To build the project, the following prerequisites must be met:
 
-- Node.js, at least v12 (see [https://nodejs.org/en/about/releases/](https://nodejs.org/en/about/releases/))
+- Node.js, at least v14.16 or v16 LTS (see [https://nodejs.org/en/about/releases/](https://nodejs.org/en/about/releases/))
 
 > If you want to use Docker instead, take a look at the [Docker environment](#docker-environment) section.
 
@@ -66,20 +66,6 @@ npm run dev
 ```
 
 On successful start, the demo application can be found at [http://localhost:3000](http://localhost:3000).
-
-## Test
-
-To run the suite of Web Test Runner tests, run:
-
-```bash
-npm run test
-```
-
-To run the tests in watch mode, run:
-
-```bash
-npm run test:watch
-```
 
 ## Build and deploy
 
@@ -139,10 +125,6 @@ docker-compose exec node /bin/bash -c "npm run dev"
 
 # or
 
-docker-compose exec node /bin/bash -c "npm run test"
-
-# or
-
 docker-compose exec node /bin/bash -c "npm run build"
 ```
 
@@ -150,18 +132,15 @@ docker-compose exec node /bin/bash -c "npm run build"
 
 ### Support
 
-For support, please contact [Christian Gapp](https://github.com/gappc) or
-[NOI Techpark Südtirol - Alto Adige](https://noi.bz.it/en).
+For support, please contact [Christian Gapp](https://github.com/gappc), [AboutBits](https://aboutbits.it) or [NOI Techpark Südtirol - Alto Adige](https://noi.bz.it/en).
 
 ### Contributing
 
-If you'd like to contribute, please fork the repository and use a feature
-branch. Pull requests are warmly welcome.
+If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.
 
 ### Versioning
 
-This project uses [SemVer](https://semver.org/) for versioning. For the versions available,
-see the [tags on this repository](https://github.com/noi-techpark/it.bz.opendatahub.databrowser/tags).
+This project uses [SemVer](https://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/noi-techpark/it.bz.opendatahub.databrowser/tags).
 
 ### License
 
@@ -170,6 +149,8 @@ The code in this project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE
 ### Authors
 
 - **Christian Gapp** - *Initial work* - [gappc](https://github.com/gappc)
+- **Alex Lanz** - *Initial work* - [Alex Lanz](https://aboutbits.it/)
+- **Martin Malfertheiner** - *Initial work* - [gappc](https://aboutbits.it/)
 
 ### Acknowledgements
 
