@@ -5,30 +5,10 @@
   <div>fetching : {{ apiResult.isFetching }}</div>
   <div v-if="apiResult.isFetching">loading</div>
   <div v-else>
-    <table>
-      <thead>
-        <tr>
-          <th v-for="col in configEntry.listEndpoint.table" :key="col.title">
-            {{ col.title }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- eslint-disable-next-line vue/require-v-for-key -->
-        <tr v-for="item in getRows(apiResult.data?.data)" class="align-top">
-          <td
-            v-for="col in configEntry.listEndpoint.table"
-            :key="col.title"
-            class="bg-yellow-100"
-          >
-            <Cell
-              :tag-name="col.component"
-              :attributes="getValue(item, col.fields)"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <DataTable
+      :config="configEntry.listEndpoint.table"
+      :data="apiResult.data?.data"
+    />
   </div>
 
   <div v-if="configEntry == null">
@@ -40,10 +20,9 @@
 import { defineComponent } from '@vue/runtime-core';
 import { ref, UnwrapRef } from 'vue';
 import { useRoute } from 'vue-router';
-import { isArray } from 'lodash';
-import { apiConfigProvider, extractField } from '../domain/api/configUtils';
+import { apiConfigProvider } from '../domain/api/configUtils';
 import { GetApiSpecResult, useGetApiSpec } from '../domain/api/client';
-import Cell from '../components/cell/Cell.vue';
+import DataTable from '../components/dataTable/DataTable.vue';
 
 import '../domain/customElements/webComponentImport';
 
@@ -52,7 +31,7 @@ interface SimpleApiInterface {
 }
 
 export default defineComponent({
-  components: { Cell },
+  components: { DataTable },
   setup() {
     const apiResult = ref<UnwrapRef<GetApiSpecResult<SimpleApiInterface>>>(
       // Need typecast because initial object is not of type GetApiSpecResult<SimpleApiInterface>.
@@ -81,14 +60,6 @@ export default defineComponent({
       configEntry,
       fetchList,
     };
-  },
-  methods: {
-    getRows(data: any[] | Record<string, any> | undefined): any[] {
-      return isArray(data) ? data : data?.Items;
-    },
-    getValue(item: any, fields: Record<string, string>) {
-      return extractField(item, fields);
-    },
   },
 });
 </script>

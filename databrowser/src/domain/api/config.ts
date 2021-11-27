@@ -66,14 +66,16 @@ const config: Record<string, ApiConfigEntry> = {
   },
 };
 
+export interface TableColumnConfig {
+  title: string;
+  component: string;
+  fields: Record<string, string>;
+}
+
 export interface ApiConfigEntry {
   listEndpoint: {
     path: string;
-    table: {
-      title: string;
-      component: string;
-      fields: Record<string, string>;
-    }[];
+    table: TableColumnConfig[];
     pagination?: 'paged';
   };
   detailEndpoint: {
