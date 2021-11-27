@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import LanguageSwitcher from '../languageSwitcher/LanguageSwitcher.vue';
+import LanguageSwitcher from '../../components/languageSwitcher/LanguageSwitcher.vue';
 import UserAuthentication from '../../domain/auth/UserAuthentication.vue';
 
 export default defineComponent({
