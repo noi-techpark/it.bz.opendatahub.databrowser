@@ -45,7 +45,7 @@ import { apiConfigProvider, extractField } from '../domain/api/configUtils';
 import { GetApiSpecResult, useGetApiSpec } from '../domain/api/client';
 import Cell from '../components/cell/Cell.vue';
 
-import '../components/customElements/webComponentImport';
+import '../domain/customElements/webComponentImport';
 
 interface SimpleApiInterface {
   Items: [];
