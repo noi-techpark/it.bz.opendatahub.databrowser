@@ -1,4 +1,4 @@
-import { GenericRendererElement } from './renderer.enum';
+import { GenericRendererElement } from './types';
 
 import JsonRenderer from '../custom-elements/JsonRenderer.vue';
 window.customElements.define(GenericRendererElement.JSON, JsonRenderer);
