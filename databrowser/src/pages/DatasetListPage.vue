@@ -41,8 +41,8 @@ import { defineComponent } from '@vue/runtime-core';
 import { ref, UnwrapRef } from 'vue';
 import { useRoute } from 'vue-router';
 import { isArray } from 'lodash';
-import { apiConfigProvider, extractField } from '../config/api-config-utils';
-import { GetApiSpecResult, useGetApiSpec } from '../utils/api';
+import { apiConfigProvider, extractField } from '../domain/api/configUtils';
+import { GetApiSpecResult, useGetApiSpec } from '../domain/api/client';
 import CellRenderer from '../components/cell-renderer/CellRenderer.vue';
 
 import '../components/custom-elements/webComponentImport';
