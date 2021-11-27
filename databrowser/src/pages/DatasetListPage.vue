@@ -21,7 +21,7 @@
             :key="col.title"
             class="bg-yellow-100"
           >
-            <CellRenderer
+            <Cell
               :tag-name="col.component"
               :attributes="getValue(item, col.fields)"
             />
@@ -43,7 +43,7 @@ import { useRoute } from 'vue-router';
 import { isArray } from 'lodash';
 import { apiConfigProvider, extractField } from '../domain/api/configUtils';
 import { GetApiSpecResult, useGetApiSpec } from '../domain/api/client';
-import CellRenderer from '../components/cell-renderer/CellRenderer.vue';
+import Cell from '../components/cell/Cell.vue';
 
 import '../components/custom-elements/webComponentImport';
 
@@ -52,7 +52,7 @@ interface SimpleApiInterface {
 }
 
 export default defineComponent({
-  components: { CellRenderer },
+  components: { Cell },
   setup() {
     const apiResult = ref<UnwrapRef<GetApiSpecResult<SimpleApiInterface>>>(
       // Need typecast because initial object is not of type GetApiSpecResult<SimpleApiInterface>.

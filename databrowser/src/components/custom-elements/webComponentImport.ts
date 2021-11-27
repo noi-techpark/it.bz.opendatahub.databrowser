@@ -1,4 +1,4 @@
-import { GenericRendererElement } from '../cell-renderer/types';
+import { GenericRendererElement } from '../cell/types';
 
 import JsonRenderer from './JsonRenderer.vue';
 window.customElements.define(GenericRendererElement.JSON, JsonRenderer);
