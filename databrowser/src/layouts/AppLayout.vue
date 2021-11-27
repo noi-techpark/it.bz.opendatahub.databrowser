@@ -1,4 +1,4 @@
-<!-- 
+<!--
     This component implements the dynamic layout loading behavior.
  -->
 <template>

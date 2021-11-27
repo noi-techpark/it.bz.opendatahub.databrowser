@@ -5,6 +5,7 @@ import App from './App.vue';
 import { loadLocaleMessages, setupI18n } from './i18n';
 import './index.css';
 import { router } from './routes';
+import store from './store';
 
 const app = createApp(App);
 
@@ -13,6 +14,7 @@ app.use(router);
 
 // Add axios and provide it as injectable property (see https://www.npmjs.com/package/vue-axios)
 app.use(VueAxios, axios);
+app.use(store);
 app.provide('axios', app.config.globalProperties.axios);
 
 const i18n = setupI18n({ locale: 'en' });
