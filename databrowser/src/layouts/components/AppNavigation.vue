@@ -7,7 +7,8 @@
       mx-auto
       w-full
       max-w-5xl
-      h-20
+      h-14
+      lg:h-20
       flex flex-row
     "
   >
@@ -15,7 +16,7 @@
       <img
         src="/logo-open-data-hub-black.png"
         :alt="$t('header.logo')"
-        class="mt-5 logo"
+        class="mt-3 lg:mt-5 logo"
       />
     </router-link>
     <UserAuthentication class="self-center space-x-6" />
