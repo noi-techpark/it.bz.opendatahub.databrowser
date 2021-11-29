@@ -3,8 +3,8 @@
     {{ user?.email }}<button @click="onLogout">Logout</button>
   </div>
   <div v-else>
-    <button @click="onLogin">Login</button>
-    <button @click="onRegister">Register</button>
+    <button v-t="'auth.login'" @click="onLogin" />
+    <button v-t="'auth.register'" @click="onRegister" />
   </div>
 </template>
 

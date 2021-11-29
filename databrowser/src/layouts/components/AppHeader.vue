@@ -9,7 +9,7 @@
         class="mt-5 logo"
       />
     </router-link>
-    <UserAuthentication />
+    <UserAuthentication class="self-center space-x-6" />
   </header>
 </template>
 
