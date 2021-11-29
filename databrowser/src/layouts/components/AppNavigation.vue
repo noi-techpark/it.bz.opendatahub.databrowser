@@ -1,6 +1,15 @@
 <template>
   <div
-    class="flex flex-row justify-between mx-3 lg:mx-auto w-full max-w-5xl h-20"
+    class="
+      justify-between
+      px-3
+      lg:px-0
+      mx-auto
+      w-full
+      max-w-5xl
+      h-20
+      flex flex-row
+    "
   >
     <router-link to="/">
       <img
@@ -28,7 +37,7 @@ export default defineComponent({
   height: 27px;
 }
 
-@screen md {
+@screen lg {
   .logo {
     width: 100px;
     height: 37px;
