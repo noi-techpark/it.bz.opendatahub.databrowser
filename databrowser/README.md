@@ -59,7 +59,7 @@ If you are in the root folder of this mono repository, change to the Databrowser
 cd databrowser
 ```
 
-Provide a `.env` file with necessary configurations. You can use the `.env.example` file as basis:
+Copy the file .env.example to .env and adjust the configuration parameters:
 
 ```bash
 cp .env.example .env
