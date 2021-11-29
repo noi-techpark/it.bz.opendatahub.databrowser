@@ -6,8 +6,8 @@ const config: Record<string, ApiConfigEntry> = {
   'odh-activity-poi': {
     // type: "tourism | mobility", => do not use
     listEndpoint: {
-      path: `${apiBaseUrl}/v1/ODHActivityPoi`,
-      table: [
+      url: `${apiBaseUrl}/v1/ODHActivityPoi`,
+      tableConfig: [
         {
           title: 'ID',
           component: GenericRendererElement.STRING,
@@ -30,18 +30,18 @@ const config: Record<string, ApiConfigEntry> = {
           },
         },
       ],
-      pagination: 'paged',
+      paginationType: 'tourism',
     },
     detailEndpoint: {
-      path: `${apiBaseUrl}/v1/ODHActivityPoi/{id}`,
+      url: `${apiBaseUrl}/v1/ODHActivityPoi/{id}`,
       detail: {},
     },
   },
   'odh-activity-poi-types': {
     // type: "tourism | mobility", => do not use
     listEndpoint: {
-      path: `${apiBaseUrl}/v1/ODHActivityPoiTypes`,
-      table: [
+      url: `${apiBaseUrl}/v1/ODHActivityPoiTypes`,
+      tableConfig: [
         {
           title: 'ID',
           component: GenericRendererElement.STRING,
@@ -57,10 +57,10 @@ const config: Record<string, ApiConfigEntry> = {
           },
         },
       ],
-      pagination: 'paged',
+      paginationType: 'array',
     },
     detailEndpoint: {
-      path: `${apiBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
+      url: `${apiBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
       detail: {},
     },
   },
@@ -73,13 +73,13 @@ export interface TableColumnConfig {
 }
 
 export interface ApiConfigEntry {
-  listEndpoint: {
-    path: string;
-    table: TableColumnConfig[];
-    pagination?: 'paged';
+  listEndpoint?: {
+    url: string;
+    tableConfig: TableColumnConfig[];
+    paginationType: 'array' | 'tourism';
   };
-  detailEndpoint: {
-    path: string;
+  detailEndpoint?: {
+    url: string;
     detail: {};
   };
 }

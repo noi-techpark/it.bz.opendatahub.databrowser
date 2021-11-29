@@ -9,11 +9,11 @@
     </thead>
     <tbody>
       <!-- eslint-disable-next-line vue/require-v-for-key -->
-      <tr v-for="item in getRows(data)" class="align-top">
+      <tr v-for="row in rows" class="align-top">
         <td v-for="col in config" :key="col.title" class="bg-yellow-100">
           <Cell
             :tag-name="col.component"
-            :attributes="getValue(item, col.fields)"
+            :attributes="getValue(row, col.fields)"
           />
         </td>
       </tr>
@@ -30,10 +30,10 @@ import Cell from '../cell/Cell.vue';
 export default defineComponent({
   components: { Cell },
   props: {
-    data: {
+    rows: {
       required: false,
       default: () => [],
-      type: [Object, Array] as PropType<{ Items: any[] } | any[]>,
+      type: [Array] as PropType<any[]>,
     },
     config: {
       required: false,
@@ -42,9 +42,6 @@ export default defineComponent({
     },
   },
   methods: {
-    getRows(data: any[] | Record<string, any> | undefined): any[] {
-      return Array.isArray(data) ? data : data?.Items;
-    },
     getValue(item: any, fields: Record<string, string>) {
       return extractField(item, fields);
     },

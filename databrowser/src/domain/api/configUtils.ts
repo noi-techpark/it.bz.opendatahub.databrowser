@@ -1,8 +1,9 @@
 import { get } from 'lodash';
 import { ApiConfig, apiConfig, ApiConfigEntry } from './config';
 
-export const apiConfigProvider = (id: keyof ApiConfig): ApiConfigEntry =>
-  apiConfig[id];
+export const apiConfigProvider = (
+  id: keyof ApiConfig
+): ApiConfigEntry | undefined => apiConfig[id];
 
 export const extractField = (item: unknown, fields: Record<string, string>) =>
   Object.keys(fields).reduce((prev, key) => {

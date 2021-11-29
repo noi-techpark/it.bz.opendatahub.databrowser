@@ -1,23 +1,22 @@
-import { inject } from '@vue/runtime-core';
-import { AxiosInstance, AxiosResponse } from 'axios';
 import { useQuery } from 'vue-query';
-import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
+import { QueryFunction, QueryKey } from 'react-query/types/core';
 
-export type GetApiSpecResult<T> = UseQueryReturnType<AxiosResponse<T>, Error>;
+export const useApi = <T, Q extends QueryKey>(
+  queryKey: Q,
+  fetcher: QueryFunction<T>
+) => {
+  const result = useQuery(queryKey, fetcher, {
+    enabled: true,
+    keepPreviousData: true,
+    retry: false,
+    // TODO: check if this comment and setting can be removed
+    // Need to set cacheTime to 0, otherwise cached values will show up when the same
+    // dataset is displayed again. This would not be much of an issue, the problem is
+    // pagination, that is not synchronized together with cached data. There seems to
+    // be no easy way to restore pagination data together with the data. Setting
+    // cacheTime to 0 solves that problem by not caching at all.
+    // cacheTime: 0,
+  });
 
-export const useGetApiSpec = <T>(
-  url: string,
-  options = { immediateLoad: true }
-): GetApiSpecResult<T> => {
-  const axios = inject<AxiosInstance>('axios');
-
-  if (axios != null) {
-    const fetcher = async (): Promise<AxiosResponse<T>> => axios.get(url);
-
-    return useQuery<AxiosResponse<T>, Error, AxiosResponse<T>>(url, fetcher, {
-      enabled: options.immediateLoad,
-    });
-  }
-
-  throw new Error('Injected axios instance is undefined');
+  return result;
 };

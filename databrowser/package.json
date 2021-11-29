@@ -9,6 +9,7 @@
     "lint:fix": "eslint --ext .ts,.vue --fix src"
   },
   "dependencies": {
+    "@aboutbits/pagination": "^1.1.0",
     "axios": "^0.24.0",
     "jwt-decode": "^3.1.2",
     "keycloak-js": "^15.0.2",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.5",
+    "@types/node": "^16.11.11",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vitejs/plugin-vue": "^1.9.3",
