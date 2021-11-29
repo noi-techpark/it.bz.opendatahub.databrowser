@@ -1,6 +1,6 @@
 <template>
-  <header
-    class="flex flex-row justify-between mx-3 md:mx-auto w-full max-w-5xl h-20"
+  <div
+    class="flex flex-row justify-between mx-3 lg:mx-auto w-full max-w-5xl h-20"
   >
     <router-link to="/">
       <img
@@ -10,7 +10,7 @@
       />
     </router-link>
     <UserAuthentication class="self-center space-x-6" />
-  </header>
+  </div>
 </template>
 
 <script lang="ts">
@@ -23,10 +23,6 @@ export default defineComponent({
 </script>
 
 <style>
-header {
-  height: 80px;
-}
-
 .logo {
   width: 73px;
   height: 27px;

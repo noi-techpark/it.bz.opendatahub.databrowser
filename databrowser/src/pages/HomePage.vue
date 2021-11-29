@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-2xl">Home Page</h1>
+  <AppHeader>Home Page</AppHeader>
   <ul>
     <li><router-link to="/">Go to Home</router-link></li>
     <li><router-link to="/about">Go to About</router-link></li>
@@ -31,3 +31,9 @@
     </li>
   </ul>
 </template>
+<script>
+import AppHeader from '../components/header/AppHeader.vue';
+export default {
+  components: { AppHeader },
+};
+</script>
