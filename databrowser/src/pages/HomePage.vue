@@ -19,36 +19,44 @@
       ut metus varius laoreet.
     </HeaderCaption>
   </Header>
-  <ul>
-    <li><ButtonLink to="/">Go to Home</ButtonLink></li>
-    <li><router-link to="/about">Go to About</router-link></li>
-    <li>
-      <router-link to="/axios-example">Go to Axios Example</router-link>
-    </li>
-    <li><router-link to="/error">Go to Error</router-link></li>
-  </ul>
-  <ul>
-    <li>
-      <router-link to="/dataset/odh-activity-poi"
-        >ODH ActivityPOI List</router-link
-      >
-    </li>
-    <li>
-      <router-link to="/dataset/odh-activity-poi/smgpoi107"
-        >ODH ActivityPOI Detail (ID = smgpoi107)</router-link
-      >
-    </li>
-    <li>
-      <router-link to="/dataset/odh-activity-poi-types"
-        >ODH ActivityPOITypes List</router-link
-      >
-    </li>
-    <li class="py-4">
-      <router-link to="/dataset/xyz" class="bg-red-100"
-        >Not existing list route</router-link
-      >
-    </li>
-  </ul>
+  <ContentArea>
+    <ul class="grid lg:grid-cols-2 gap-x-5">
+      <li>
+        <CardContainer
+          ><ButtonLink to="/">Discover Dataset</ButtonLink></CardContainer
+        >
+      </li>
+      <li>
+        <CardContainer
+          ><ButtonLink to="/about">About</ButtonLink></CardContainer
+        >
+      </li>
+      <li><router-link to="/error">Go to Error</router-link></li>
+    </ul>
+
+    <ul class="grid lg:grid-cols-2 gap-x-5">
+      <li>
+        <router-link to="/dataset/odh-activity-poi"
+          >ODH ActivityPOI List</router-link
+        >
+      </li>
+      <li>
+        <router-link to="/dataset/odh-activity-poi/smgpoi107"
+          >ODH ActivityPOI Detail (ID = smgpoi107)</router-link
+        >
+      </li>
+      <li>
+        <router-link to="/dataset/odh-activity-poi-types"
+          >ODH ActivityPOITypes List</router-link
+        >
+      </li>
+      <li class="py-4">
+        <router-link to="/dataset/xyz" class="bg-red-100"
+          >Not existing list route</router-link
+        >
+      </li>
+    </ul>
+  </ContentArea>
 </template>
 <script>
 import Header from '../components/header/HeaderContainer.vue';
@@ -56,8 +64,12 @@ import HeaderTitle from '../components/header/HeaderTitle.vue';
 import HeaderSubTitle from '../components/header/HeaderSubTitle.vue';
 import HeaderCaption from '../components/header/HeaderCaption.vue';
 import ButtonLink from '../components/button/ButtonLink.vue';
+import CardContainer from '../components/card/CardContainer.vue';
+import ContentArea from '../components/content/ContentArea.vue';
 export default {
   components: {
+    ContentArea,
+    CardContainer,
     ButtonLink,
     HeaderCaption,
     HeaderSubTitle,
