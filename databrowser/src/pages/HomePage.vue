@@ -20,7 +20,7 @@
     </HeaderCaption>
   </Header>
   <ul>
-    <li><router-link to="/">Go to Home</router-link></li>
+    <li><ButtonLink to="/">Go to Home</ButtonLink></li>
     <li><router-link to="/about">Go to About</router-link></li>
     <li>
       <router-link to="/axios-example">Go to Axios Example</router-link>
@@ -55,7 +55,14 @@ import Header from '../components/header/HeaderContainer.vue';
 import HeaderTitle from '../components/header/HeaderTitle.vue';
 import HeaderSubTitle from '../components/header/HeaderSubTitle.vue';
 import HeaderCaption from '../components/header/HeaderCaption.vue';
+import ButtonLink from '../components/button/ButtonLink.vue';
 export default {
-  components: { HeaderCaption, HeaderSubTitle, HeaderTitle, Header },
+  components: {
+    ButtonLink,
+    HeaderCaption,
+    HeaderSubTitle,
+    HeaderTitle,
+    Header,
+  },
 };
 </script>
