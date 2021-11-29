@@ -1,4 +1,7 @@
 {
+    "header": {
+        "logo": "Open Data Hub - Logo"
+    },
     "footer": {
         "imprint": "Imprint",
         "legal": "Legal",
