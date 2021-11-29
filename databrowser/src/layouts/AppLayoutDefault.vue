@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
 import AppHeader from './components/AppNavigation.vue';
-import AppFooter from '../components/footer/AppFooter.vue';
+import AppFooter from './components/AppFooter.vue';
 
 export default defineComponent({
   components: { AppHeader, AppFooter },
