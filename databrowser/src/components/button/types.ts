@@ -5,7 +5,6 @@ export enum Variant {
 
 export enum Size {
   md = 'md',
-  sm = 'sm',
 }
 
 export enum Tone {
