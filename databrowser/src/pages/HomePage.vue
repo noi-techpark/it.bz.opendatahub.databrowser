@@ -28,7 +28,9 @@
       </li>
       <li>
         <CardContainer
-          ><ButtonLink to="/about">About</ButtonLink></CardContainer
+          ><ButtonLink to="/about" variant="ghost"
+            >About</ButtonLink
+          ></CardContainer
         >
       </li>
       <li><router-link to="/error">Go to Error</router-link></li>

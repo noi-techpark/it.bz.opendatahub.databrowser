@@ -7,16 +7,19 @@ import { defineComponent } from '@vue/runtime-core';
 import { Size, Tone, Variant } from './types';
 import { computed } from 'vue';
 
-const variantClass: Record<Variant, String> = {
-  [Variant.solid]: '',
+const variantClass: Record<Variant, Record<Tone, String>> = {
+  [Variant.solid]: {
+    [Tone.primary]:
+      'border border-transparent bg-green-500 text-white hover:bg-green-700 focus:bg-green-700',
+  },
+  [Variant.ghost]: {
+    [Tone.primary]:
+      'border border-green-500 bg-transparent text-green-500 hover:bg-green-500 focus:bg-green-500 hover:text-white focus:text-white',
+  },
 };
 
 const sizeClass: Record<Size, String> = {
-  [Size.md]: 'py-3 px-9 font-semibold rounded-lg',
-};
-
-const toneClass: Record<Tone, String> = {
-  [Tone.primary]: 'bg-green-500 text-white',
+  [Size.md]: 'pt-2.5 pb-3 px-9 font-semibold rounded-lg leading-tight',
 };
 
 export default defineComponent({
@@ -43,11 +46,9 @@ export default defineComponent({
     const className = computed(() => {
       return (
         'inline-block ' +
-        variantClass[props.variant] +
+        variantClass[props.variant][props.tone] +
         ' ' +
-        sizeClass[props.size] +
-        ' ' +
-        toneClass[props.tone]
+        sizeClass[props.size]
       );
     });
 
