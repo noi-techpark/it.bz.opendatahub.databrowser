@@ -20,7 +20,7 @@
     </HeaderCaption>
   </Header>
   <ContentArea>
-    <ul class="grid lg:grid-cols-2 gap-x-5 gap-y-5">
+    <CardGrid tag-name="ul">
       <li>
         <CardContainer>
           <CardTitle>Dataset 1</CardTitle>
@@ -47,10 +47,24 @@
           </CardActions>
         </CardContainer>
       </li>
-      <li><router-link to="/error">Go to Error</router-link></li>
-    </ul>
+    </CardGrid>
 
-    <ul class="grid lg:grid-cols-2 gap-x-5">
+    <CardGrid tag-name="ul">
+      <li>
+        <CardContainer>
+          <CardTitle>API Documentation</CardTitle>
+          <CardText
+            >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
+            dorlosit sit amen dorl sit amen dol dori sti ist. sit amen dorl sit
+            amen dol dori sti ist.</CardText
+          >
+          <CardDivider />
+        </CardContainer>
+      </li>
+    </CardGrid>
+
+    <CardGrid tag-name="ul">
+      <li><router-link to="/error">Go to Error</router-link></li>
       <li>
         <router-link to="/dataset/odh-activity-poi"
           >ODH ActivityPOI List</router-link
@@ -71,7 +85,7 @@
           >Not existing list route</router-link
         >
       </li>
-    </ul>
+    </CardGrid>
   </ContentArea>
 </template>
 <script>
@@ -85,8 +99,12 @@ import ContentArea from '../components/content/ContentArea.vue';
 import CardTitle from '../components/card/CardTitle.vue';
 import CardText from '../components/card/CardText.vue';
 import CardActions from '../components/card/CardActions.vue';
+import CardDivider from '../components/card/CardDivider.vue';
+import CardGrid from '../components/card/CardGrid.vue';
 export default {
   components: {
+    CardGrid,
+    CardDivider,
     CardActions,
     CardText,
     CardTitle,
