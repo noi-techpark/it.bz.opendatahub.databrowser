@@ -38,6 +38,14 @@ export default defineComponent({
 
 @font-face {
   font-family: 'SourceSansPro';
+  font-weight: 600;
+  font-style: normal;
+  font-display: auto;
+  src: url('/fonts/SourceSansPro-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SourceSansPro';
   font-weight: 700;
   font-style: normal;
   font-display: auto;
