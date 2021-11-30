@@ -3,8 +3,8 @@
     {{ user?.email }}<button @click="onLogout">Logout</button>
   </div>
   <div v-else>
-    <button @click="onLogin">Login</button>
-    <button @click="onRegister">Register</button>
+    <button v-t="'auth.login'" @click="onLogin" />
+    <button v-t="'auth.register'" @click="onRegister" />
   </div>
 </template>
 
@@ -12,9 +12,9 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { keycloak } from './keycloak';
+import { defineComponent } from '@vue/runtime-core';
 
-export default {
-  name: 'UserAuthentication',
+export default defineComponent({
   setup() {
     const store = useStore();
 
@@ -59,7 +59,7 @@ export default {
       isAuthenticated,
     };
   },
-};
+});
 </script>
 
 <style scoped></style>

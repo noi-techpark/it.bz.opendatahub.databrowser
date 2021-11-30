@@ -26,3 +26,21 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+@font-face {
+  font-family: 'SourceSansPro';
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  src: url('/fonts/SourceSansPro-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SourceSansPro';
+  font-weight: 700;
+  font-style: normal;
+  font-display: auto;
+  src: url('/fonts/SourceSansPro-Bold.ttf') format('truetype');
+}
+</style>

@@ -1,4 +1,11 @@
 {
+    "auth": {
+        "login": "Login",
+        "register": "Register now!"
+    },
+    "header": {
+        "logo": "Open Data Hub - Logo"
+    },
     "footer": {
         "imprint": "Imprint",
         "legal": "Legal",
