@@ -49,6 +49,8 @@
       </li>
     </CardGrid>
 
+    <ContentDivider />
+
     <CardGrid tag-name="ul">
       <li>
         <CardContainer>
@@ -62,6 +64,8 @@
         </CardContainer>
       </li>
     </CardGrid>
+
+    <ContentDivider />
 
     <CardGrid tag-name="ul">
       <li><router-link to="/error">Go to Error</router-link></li>
@@ -101,8 +105,10 @@ import CardText from '../components/card/CardText.vue';
 import CardActions from '../components/card/CardActions.vue';
 import CardDivider from '../components/card/CardDivider.vue';
 import CardGrid from '../components/card/CardGrid.vue';
+import ContentDivider from '../components/content/ContentDivider.vue';
 export default {
   components: {
+    ContentDivider,
     CardGrid,
     CardDivider,
     CardActions,
