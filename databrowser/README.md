@@ -59,6 +59,12 @@ If you are in the root folder of this mono repository, change to the Databrowser
 cd databrowser
 ```
 
+Copy the file .env.example to .env and adjust the configuration parameters:
+
+```bash
+cp .env.example .env
+```
+
 To start the development server, run:
 
 ```bash
