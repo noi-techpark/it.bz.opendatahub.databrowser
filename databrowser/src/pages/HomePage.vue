@@ -22,8 +22,14 @@
   <ContentArea>
     <ul class="grid lg:grid-cols-2 gap-x-5">
       <li>
-        <CardContainer
-          ><ButtonLink to="/">Discover Dataset</ButtonLink></CardContainer
+        <CardContainer>
+          <CardTitle>Dataset 1</CardTitle>
+          <CardText
+            >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
+            dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit sit amen
+            dorl sit amen dol dori sti ist.</CardText
+          >
+          <ButtonLink to="/">Discover Dataset</ButtonLink></CardContainer
         >
       </li>
       <li>
@@ -68,8 +74,12 @@ import HeaderCaption from '../components/header/HeaderCaption.vue';
 import ButtonLink from '../components/button/ButtonLink.vue';
 import CardContainer from '../components/card/CardContainer.vue';
 import ContentArea from '../components/content/ContentArea.vue';
+import CardTitle from '../components/card/CardTitle.vue';
+import CardText from '../components/card/CardText.vue';
 export default {
   components: {
+    CardText,
+    CardTitle,
     ContentArea,
     CardContainer,
     ButtonLink,
