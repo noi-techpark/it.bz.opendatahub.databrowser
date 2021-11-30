@@ -10,8 +10,8 @@ import { defineComponent } from '@vue/runtime-core';
 export default defineComponent({
   props: {
     tagName: {
-      required: true,
       type: String,
+      default: 'div',
     },
   },
 });

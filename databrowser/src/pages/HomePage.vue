@@ -21,48 +21,61 @@
   </Header>
   <ContentArea>
     <CardGrid tag-name="ul">
-      <li>
-        <CardContainer>
-          <CardTitle>Dataset 1</CardTitle>
-          <CardText
-            >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
-            dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit sit amen
-            dorl sit amen dol dori sti ist.</CardText
-          >
-          <CardActions>
-            <ButtonLink to="/">Discover Dataset</ButtonLink>
-          </CardActions>
-        </CardContainer>
-      </li>
-      <li>
-        <CardContainer>
-          <CardTitle>Dataset 2</CardTitle>
-          <CardText
-            >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
-            dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit sit amen
-            dorl sit amen dol dori sti ist.</CardText
-          >
-          <CardActions>
-            <ButtonLink to="/about" variant="ghost">About</ButtonLink>
-          </CardActions>
-        </CardContainer>
-      </li>
+      <CardContainer tag-name="li">
+        <CardTitle>Dataset 1</CardTitle>
+        <CardText
+          >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
+          dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit sit amen
+          dorl sit amen dol dori sti ist.</CardText
+        >
+        <CardActions>
+          <ButtonLink to="/">Discover Dataset</ButtonLink>
+        </CardActions>
+      </CardContainer>
+      <CardContainer tag-name="li">
+        <CardTitle>Dataset 2</CardTitle>
+        <CardText
+          >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
+          dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit sit amen
+          dorl sit amen dol dori sti ist.</CardText
+        >
+        <CardActions>
+          <ButtonLink to="/about" variant="ghost">About</ButtonLink>
+        </CardActions>
+      </CardContainer>
     </CardGrid>
 
     <ContentDivider />
 
     <CardGrid tag-name="ul">
-      <li>
-        <CardContainer>
-          <CardTitle>API Documentation</CardTitle>
-          <CardText
-            >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
-            dorlosit sit amen dorl sit amen dol dori sti ist. sit amen dorl sit
-            amen dol dori sti ist.</CardText
-          >
-          <CardDivider />
-        </CardContainer>
-      </li>
+      <CardContainer tag-name="li">
+        <CardTitle>API Documentation</CardTitle>
+        <CardText
+          >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
+          dorlosit sit amen dorl sit amen dol dori sti ist. sit amen dorl sit
+          amen dol dori sti ist.</CardText
+        >
+        <CardDivider />
+        <InternalLink to="/" tone="primary"
+          ><ArrowRight class="fill-current" /><span
+            >Show API Documentation</span
+          ></InternalLink
+        >
+      </CardContainer>
+
+      <CardContainer tag-name="li">
+        <CardTitle>Information</CardTitle>
+        <CardText
+          >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
+          dorl sit amen dol dori sti ist.</CardText
+        >
+        <CardDivider />
+        <InternalLink to="/" tone="primary"
+          ><ArrowRight class="fill-current" /><span
+            >Show Information</span
+          ></InternalLink
+        >
+      </CardContainer>
     </CardGrid>
 
     <ContentDivider />
@@ -106,8 +119,12 @@ import CardActions from '../components/card/CardActions.vue';
 import CardDivider from '../components/card/CardDivider.vue';
 import CardGrid from '../components/card/CardGrid.vue';
 import ContentDivider from '../components/content/ContentDivider.vue';
+import InternalLink from '../components/link/InternalLink.vue';
+import ArrowRight from '../components/svg/ArrowRight.vue';
 export default {
   components: {
+    ArrowRight,
+    InternalLink,
     ContentDivider,
     CardGrid,
     CardDivider,

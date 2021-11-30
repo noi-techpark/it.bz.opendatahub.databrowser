@@ -44,11 +44,11 @@ export default defineComponent({
 
   setup(props) {
     const className = computed(() => {
+      const variant = props.variant as Variant;
+      const tone = props.tone as Tone;
+      const size = props.size as Size;
       return (
-        'inline-block ' +
-        variantClass[props.variant][props.tone] +
-        ' ' +
-        sizeClass[props.size]
+        'inline-block ' + variantClass[variant][tone] + ' ' + sizeClass[size]
       );
     });
 
