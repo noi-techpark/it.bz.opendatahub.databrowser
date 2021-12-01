@@ -4,16 +4,17 @@
       Dataset Detail Page (type = {{ $route.params.datasetType }}, ID =
       {{ $route.params.datasetId }})
     </div>
-    <div v-if="apiResult.isFetching">Loading...</div>
-    <div v-else>
+    <div>
       <DataTable>
         <template #tableHeader>
           <TableHeader>Key</TableHeader>
           <TableHeader>Value</TableHeader>
         </template>
         <template #tableBody>
+          <TableLoadingRow v-if="apiResult.isFetching" />
           <TableRow
             v-for="(entry, index) in Object.entries(apiResult.data?.data)"
+            v-else
             :key="index"
           >
             <TableCell>{{ entry[0] }}</TableCell>
@@ -38,9 +39,17 @@ import DataTable from '../components/table/Table.vue';
 import TableHeader from '../components/table/TableHeader.vue';
 import TableRow from '../components/table/TableRow.vue';
 import TableCell from '../components/table/TableCell.vue';
+import TableLoadingRow from '../components/table/TableLoadingRow.vue';
 
 export default defineComponent({
-  components: { TableCell, TableRow, TableHeader, DataTable, ContentArea },
+  components: {
+    TableLoadingRow,
+    TableCell,
+    TableRow,
+    TableHeader,
+    DataTable,
+    ContentArea,
+  },
   setup() {
     const route = useRoute();
     const apiResult = ref<UnwrapRef<GetApiSpecResult<any>>>({} as any);
