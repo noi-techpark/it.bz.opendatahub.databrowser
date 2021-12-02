@@ -12,8 +12,8 @@
       }"
       class="
         overflow-hidden
-        last:pr-1.5
-        first:pl-1.5
+        last:pr-1
+        first:pl-1
         border-t border-b border-gray-500
       "
     >
