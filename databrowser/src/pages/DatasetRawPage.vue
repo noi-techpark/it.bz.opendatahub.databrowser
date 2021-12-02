@@ -52,11 +52,13 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
-    const apiResult = ref<UnwrapRef<GetApiSpecResult<any>>>({} as any);
+    const apiResult = ref<UnwrapRef<GetApiSpecResult<unknown>>>({} as any);
 
     const fetchList = async (url: string, id: string) => {
       const result = useGetApiSpec<any>(url.replace('{id}', id));
-      apiResult.value = result as unknown as UnwrapRef<GetApiSpecResult<any>>;
+      apiResult.value = result as unknown as UnwrapRef<
+        GetApiSpecResult<unknown>
+      >;
     };
 
     const configEntry = apiConfigProvider(route.params.datasetType as string);
