@@ -3,7 +3,7 @@
     <button
       :class="[
         selected
-          ? 'text-green-500 bg-opacity-10 bg-green-500'
+          ? 'text-green-500 bg-opacity-10 bg-green-500 border-green-500'
           : 'hover:bg-gray-200',
       ]"
       class="
