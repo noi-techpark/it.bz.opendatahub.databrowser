@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { inject } from 'vue';
 import { QueryFunctionContext } from 'react-query/types/core';
-import { QueryParameters } from '../../../lib/vueRouterQuery/types';
+import { QueryParameters } from '../../../lib/urlQuery/types';
 
 type FetchResult<T> = T | T[] | void;
 
