@@ -1,5 +1,7 @@
 <template>
-  <button :class="className" :disabled="disabled"><slot></slot></button>
+  <button :class="className" :disabled="disabled">
+    <slot></slot>
+  </button>
 </template>
 
 <script lang="ts">
@@ -16,6 +18,10 @@ const disabledClass: Record<Variant, Record<Tone, String>> = {
   [Variant.ghost]: {
     [Tone.primary]:
       'border border-green-500 bg-transparent text-green-500 opacity-25',
+  },
+  [Variant.tab]: {
+    [Tone.primary]:
+      'border border-green-500 bg-transparent text-green-500 opacity-25 rounded-full',
   },
 };
 
