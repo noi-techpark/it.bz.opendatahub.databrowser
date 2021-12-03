@@ -5,14 +5,14 @@
       {{ $route.params.datasetId }})
     </div>
     <div>
-      <DataTable>
+      <TableCustom>
         <template #tableHeader>
-          <TableHeader>Key</TableHeader>
-          <TableHeader>Value</TableHeader>
+          <TableHeaderCell>Key</TableHeaderCell>
+          <TableHeaderCell>Value</TableHeaderCell>
         </template>
         <template #tableBody>
           <TableLoadingRow v-if="apiResult.isFetching" />
-          <TableRow
+          <tr
             v-for="(entry, index) in Object.entries(apiResult.data?.data)"
             v-else
             :key="index"
@@ -21,9 +21,9 @@
             <TableCell class="whitespace-pre-wrap">
               {{ getEntryValue(entry[1]) }}
             </TableCell>
-          </TableRow>
+          </tr>
         </template>
-      </DataTable>
+      </TableCustom>
     </div>
   </ContentArea>
 </template>
@@ -35,9 +35,8 @@ import { GetApiSpecResult, useGetApiSpec } from '../domain/api/client';
 import { useRoute } from 'vue-router';
 import { apiConfigProvider } from '../domain/api/configUtils';
 import ContentArea from '../components/content/ContentArea.vue';
-import DataTable from '../components/table/Table.vue';
-import TableHeader from '../components/table/TableHeader.vue';
-import TableRow from '../components/table/TableRow.vue';
+import TableCustom from '../components/table/TableCustom.vue';
+import TableHeaderCell from '../components/table/TableHeaderCell.vue';
 import TableCell from '../components/table/TableCell.vue';
 import TableLoadingRow from '../components/table/TableLoadingRow.vue';
 
@@ -45,9 +44,8 @@ export default defineComponent({
   components: {
     TableLoadingRow,
     TableCell,
-    TableRow,
-    TableHeader,
-    DataTable,
+    TableHeaderCell,
+    TableCustom,
     ContentArea,
   },
   setup() {
@@ -70,7 +68,6 @@ export default defineComponent({
     }
     return {
       apiResult,
-      configEntry,
       fetchList,
     };
   },

@@ -7,7 +7,7 @@
             <slot name="tableHeader" />
           </tr>
         </thead>
-        <tbody>
+        <tbody class="divide-y divide-gray-200">
           <slot name="tableBody" />
         </tbody>
       </table>
