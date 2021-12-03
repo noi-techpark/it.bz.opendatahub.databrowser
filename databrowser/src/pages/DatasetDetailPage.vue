@@ -8,7 +8,10 @@
         <Tab>Detail view</Tab>
         <Tab>Raw Data</Tab>
         <div class="absolute right-0">
-          <LanguagePicker />
+          <LanguagePicker
+            :languages="['DE', 'IT', 'EN', 'NL', 'CS', 'PL', 'FR', 'RU']"
+            default-language="EN"
+          />
         </div>
       </TabList>
       <TabPanels>
