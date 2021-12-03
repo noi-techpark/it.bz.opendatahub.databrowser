@@ -2,14 +2,7 @@
   <div className="overflow-x-auto">
     <div class="overflow-hidden min-w-full rounded-xl border border-gray-400">
       <table class="min-w-full">
-        <thead class="bg-gray-200">
-          <tr class="text-left divide-x divide-white">
-            <slot name="tableHeader" />
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-          <slot name="tableBody" />
-        </tbody>
+        <slot />
       </table>
     </div>
   </div>

@@ -6,11 +6,11 @@
     </div>
     <div>
       <TableCustom>
-        <template #tableHeader>
+        <TableHeader>
           <TableHeaderCell>Key</TableHeaderCell>
           <TableHeaderCell>Value</TableHeaderCell>
-        </template>
-        <template #tableBody>
+        </TableHeader>
+        <TableBody>
           <TableLoadingRow v-if="apiResult.isFetching" />
           <tr
             v-for="(entry, index) in Object.entries(apiResult.data?.data)"
@@ -22,7 +22,7 @@
               {{ getEntryValue(entry[1]) }}
             </TableCell>
           </tr>
-        </template>
+        </TableBody>
       </TableCustom>
     </div>
   </ContentArea>
@@ -39,9 +39,13 @@ import TableCustom from '../components/table/TableCustom.vue';
 import TableHeaderCell from '../components/table/TableHeaderCell.vue';
 import TableCell from '../components/table/TableCell.vue';
 import TableLoadingRow from '../components/table/TableLoadingRow.vue';
+import TableHeader from '../components/table/TableHeader.vue';
+import TableBody from '../components/table/TableBody.vue';
 
 export default defineComponent({
   components: {
+    TableBody,
+    TableHeader,
     TableLoadingRow,
     TableCell,
     TableHeaderCell,
