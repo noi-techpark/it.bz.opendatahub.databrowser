@@ -36,11 +36,11 @@ import '../../domain/customElements/webComponentImport';
 import Paginator from '../../components/paginator/Paginator.vue';
 import { Pagination } from '../../domain/api/types';
 import { useApi } from '../../domain/api/client';
-import { useUrlQueryRouter } from '../../lib/vueRouterQuery/urlQueryRouter';
+import { useUrlQueryRouter } from '../../lib/urlQuery/urlQueryRouter';
+import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
 import { defaultQueryParameters, pageSizeOptions } from './defaultValues';
 import { buildListApiFetcher } from '../../domain/api/fetcher/list';
 import { useListMapper } from '../../domain/api/mapper';
-import { useUrlQueryParameter } from '../../lib/vueRouterQuery/urlQueryParameter';
 
 export default defineComponent({
   components: { DataTable, Paginator },
