@@ -18,5 +18,10 @@
             "en": "English",
             "it": "Italian"
         }
+    },
+    "datasets": {
+        "listView": {
+            "linesPerPage": "lines per page"
+        }
     }
 }

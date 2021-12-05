@@ -1,29 +1,28 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div>fetching : {{ isFetching }}</div>
-  <div>
-    <span>lines per page</span>
-    <select v-model="pageSize">
-      <option
-        v-for="option in pageSizeOptions"
-        :key="option.value"
-        :value="option.value"
-      >
-        {{ option.label }}
-      </option>
-    </select>
-  </div>
-  <div v-if="isSuccess">
-    <Paginator :pagination="pagination" @paginate-to="paginateTo" />
+  <section class="lg:px-0 pt-10 pb-8 lg:pb-10 mx-auto w-full max-w-5xl">
+    <div class="flex justify-end items-center">
+      <span v-t="'datasets.listView.linesPerPage'" class="block mr-3"></span>
+      <select v-model="pageSize" class="mr-8">
+        <option
+          v-for="option in pageSizeOptions"
+          :key="option.value"
+          :value="option.value"
+        >
+          {{ option.label }}
+        </option>
+      </select>
+      <Paginator :pagination="pagination" @paginate-to="paginateTo" />
+    </div>
 
-    <DataTable :config="tableConfig" :rows="rows" />
+    <div v-if="isSuccess" class="overflow-auto pt-6">
+      <DataTable :config="tableConfig" :rows="rows" />
+    </div>
 
-    <Paginator :pagination="pagination" @paginate-to="paginateTo" />
-  </div>
-
-  <div v-if="tableConfig == null">
-    Config was not found, ID = {{ $route.params.datasetType }}
-  </div>
+    <div v-if="tableConfig == null">
+      Config was not found, ID = {{ $route.params.datasetType }}
+    </div>
+  </section>
 </template>
 
 <script lang="ts">
