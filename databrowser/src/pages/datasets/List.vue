@@ -3,29 +3,24 @@
   <section
     class="flex flex-col lg:px-0 pt-10 pb-8 lg:pb-10 mx-auto w-full max-w-5xl"
   >
-    <div class="flex flex-col md:flex-row justify-end items-center">
-      <div class="flex items-center">
-        <span v-t="'datasets.listView.linesPerPage'" class="block mr-3"></span>
-        <SelectCustom v-model="pageSize" class="mr-8">
-          <option
-            v-for="option in pageSizeOptions"
-            :key="option.value"
-            :value="option.value"
-          >
-            {{ option.label }}
-          </option>
-        </SelectCustom>
-      </div>
-      <Paginator
-        :pagination="pagination"
-        class="pt-8 md:pt-0"
-        @paginate-to="paginateTo"
-      />
-    </div>
+    <ListNavigation
+      class="hidden md:flex"
+      :pagination="pagination"
+      :page-size-options="pageSizeOptions"
+      @paginate-to="paginateTo"
+      @page-size-changes="pageSizeChanges"
+    />
 
     <div v-if="isSuccess" class="overflow-auto pt-6">
       <DataTable :config="tableConfig" :rows="rows" />
     </div>
+
+    <ListNavigation
+      :pagination="pagination"
+      :page-size-options="pageSizeOptions"
+      @paginate-to="paginateTo"
+      @page-size-changes="pageSizeChanges"
+    />
 
     <div v-if="tableConfig == null">
       Config was not found, ID = {{ $route.params.datasetType }}
@@ -40,7 +35,6 @@ import { useRoute } from 'vue-router';
 import { apiConfigProvider } from '../../domain/api/configUtils';
 import DataTable from '../../components/dataTable/DataTable.vue';
 import '../../domain/customElements/webComponentImport';
-import Paginator from '../../components/paginator/Paginator.vue';
 import { Pagination } from '../../domain/api/types';
 import { useApi } from '../../domain/api/client';
 import { useUrlQueryRouter } from '../../lib/urlQuery/urlQueryRouter';
@@ -48,10 +42,10 @@ import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
 import { defaultQueryParameters, pageSizeOptions } from './defaultValues';
 import { buildListApiFetcher } from '../../domain/api/fetcher/list';
 import { useListMapper } from '../../domain/api/mapper';
-import SelectCustom from '../../components/select/SelectCustom.vue';
+import ListNavigation from './ListNavigation.vue';
 
 export default defineComponent({
-  components: { DataTable, Paginator, SelectCustom },
+  components: { DataTable, ListNavigation },
   setup() {
     // Use path parameters to get config for dataset
     const route = useRoute();
@@ -82,6 +76,7 @@ export default defineComponent({
 
     // Fetch API
     const result = useApi(queryKey, fetcher);
+    const { isFetching, isSuccess } = toRefs(reactive(result));
 
     // Map API result
     const paginatedData = useListMapper(
@@ -96,20 +91,22 @@ export default defineComponent({
     const paginateTo = (page: number) =>
       routerQuery.actions.updateQuery({ pagenumber: page.toString() });
 
+    // Handle page size
     const pageSize = useUrlQueryParameter('pagesize', '25', {
       defaultValue: '25',
     });
 
-    const { isFetching, isSuccess } = toRefs(result);
+    const pageSizeChanges = (value: string | undefined) =>
+      (pageSize.value = value);
 
     return {
       isFetching,
       isSuccess,
-      pageSize,
       pageSizeOptions,
       paginatedData,
       tableConfig,
       paginateTo,
+      pageSizeChanges,
     };
   },
   computed: {
