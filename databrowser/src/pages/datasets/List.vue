@@ -4,9 +4,9 @@
     class="flex flex-col lg:px-0 pt-10 pb-8 lg:pb-10 mx-auto w-full max-w-5xl"
   >
     <div class="flex flex-col md:flex-row justify-end items-center">
-      <div class="flex">
+      <div class="flex items-center">
         <span v-t="'datasets.listView.linesPerPage'" class="block mr-3"></span>
-        <select v-model="pageSize" class="mr-8">
+        <SelectCustom v-model="pageSize" class="mr-8">
           <option
             v-for="option in pageSizeOptions"
             :key="option.value"
@@ -14,7 +14,7 @@
           >
             {{ option.label }}
           </option>
-        </select>
+        </SelectCustom>
       </div>
       <Paginator
         :pagination="pagination"
@@ -48,9 +48,10 @@ import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
 import { defaultQueryParameters, pageSizeOptions } from './defaultValues';
 import { buildListApiFetcher } from '../../domain/api/fetcher/list';
 import { useListMapper } from '../../domain/api/mapper';
+import SelectCustom from '../../components/select/SelectCustom.vue';
 
 export default defineComponent({
-  components: { DataTable, Paginator },
+  components: { DataTable, Paginator, SelectCustom },
   setup() {
     // Use path parameters to get config for dataset
     const route = useRoute();
