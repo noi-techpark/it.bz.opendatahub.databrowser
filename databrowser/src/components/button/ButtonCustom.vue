@@ -19,10 +19,6 @@ const disabledClass: Record<Variant, Record<Tone, String>> = {
     [Tone.primary]:
       'border border-green-500 bg-transparent text-green-500 opacity-25',
   },
-  [Variant.tab]: {
-    [Tone.primary]:
-      'border border-green-500 bg-transparent text-green-500 opacity-25 rounded-full',
-  },
 };
 
 export default defineComponent({
