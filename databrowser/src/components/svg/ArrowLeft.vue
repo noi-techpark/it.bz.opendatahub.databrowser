@@ -11,6 +11,7 @@
       d="M5,0l5,6H0Z"
       transform="translate(0 10) rotate(-90)"
       fill="#3c4043"
+      class="fill-current"
     />
   </svg>
 </template>

@@ -5,6 +5,10 @@
     height="10"
     viewBox="0 0 6 10"
   >
-    <path d="M5,0l5,6H0Z" transform="translate(6) rotate(90)" />
+    <path
+      d="M5,0l5,6H0Z"
+      transform="translate(6) rotate(90)"
+      class="fill-current"
+    />
   </svg>
 </template>

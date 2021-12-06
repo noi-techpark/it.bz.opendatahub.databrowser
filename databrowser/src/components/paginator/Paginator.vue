@@ -86,7 +86,7 @@ export default defineComponent({
 
 <style>
 .next-previous-button {
-  @apply flex justify-center items-center rounded-full border border-gray-500 hover:bg-gray-300 h-9 w-9;
+  @apply flex justify-center items-center rounded-full border border-gray-500 hover:bg-gray-300 hover:text-green-500 h-9 w-9;
 }
 .next-previous-button:disabled {
   @apply opacity-50 cursor-not-allowed hover:bg-white;
