@@ -16,14 +16,14 @@
   </button>
   <div class="hidden md:inline-flex">
     <div
-      v-for="(language, index) in languages"
+      v-for="(language, index) in data"
       :key="language"
       :class="{
         'text-green-500 bg-opacity-10 bg-green-500 border-green-500':
           isSelected(language),
         'hover:bg-gray-300': !isSelected(language),
         'rounded-l-full border-l': index == 0,
-        'rounded-r-full border-r': index == languages.length - 1,
+        'rounded-r-full border-r': index == data.length - 1,
       }"
       class="
         overflow-hidden
@@ -36,7 +36,7 @@
         :class="{
           'border-green-500': isSelected(language),
           'border-l': index != 0,
-          'border-r': index != languages.length - 1,
+          'border-r': index != data.length - 1,
         }"
         class="border-transparent"
         role="button"
@@ -60,7 +60,7 @@
             <IconClose />
           </button>
           <ButtonCustom
-            v-for="language in languages"
+            v-for="language in data"
             :key="language"
             :class="[
               isSelected(language)
@@ -84,16 +84,16 @@ import { useRoute, useRouter } from 'vue-router';
 import { Dialog, DialogOverlay } from '@headlessui/vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import IconClose from '../svg/IconClose.vue';
-import ButtonCustom from '../button/ButtonCustom.vue';
+import ButtonCustom from './ButtonCustom.vue';
 
 export default defineComponent({
   components: { ButtonCustom, IconClose, ArrowDown, Dialog, DialogOverlay },
   props: {
-    defaultLanguage: {
+    defaultSelected: {
       type: String as PropType<string>,
       required: true,
     },
-    languages: {
+    data: {
       type: Array as PropType<Array<string>>,
       required: true,
     },
@@ -105,8 +105,8 @@ export default defineComponent({
 
     const queryLanguage = route.query.language as string;
     const initialLanguage =
-      queryLanguage == null || !props.languages.includes(queryLanguage)
-        ? props.defaultLanguage
+      queryLanguage == null || !props.data.includes(queryLanguage)
+        ? props.defaultSelected
         : queryLanguage;
     let selected = ref<string>(initialLanguage);
 

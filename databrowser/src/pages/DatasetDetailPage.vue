@@ -9,8 +9,8 @@
         <Tab>Raw Data</Tab>
         <div class="absolute right-0">
           <LanguagePicker
-            :languages="['DE', 'IT', 'EN', 'NL', 'CS', 'PL', 'FR', 'RU']"
-            default-language="EN"
+            :data="['DE', 'IT', 'EN', 'NL', 'CS', 'PL', 'FR', 'RU']"
+            default-selected="EN"
           />
         </div>
       </TabList>
@@ -31,10 +31,12 @@
 import ContentArea from '../components/content/ContentArea.vue';
 import Tab from '../components/tabs/Tab.vue';
 import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue';
-import LanguagePicker from '../components/languageSwitcher/LanguageFilter.vue';
+import LanguagePicker from '../components/button/ButtonPillGroup.vue';
+import ButtonPill from '../components/button/ButtonPill.vue';
 
 export default {
   components: {
+    ButtonPill,
     LanguagePicker,
     ContentArea,
     TabGroup,
