@@ -34,7 +34,7 @@
               'border-l': index != 0,
               'border-r': index != paginationData.pages.length - 1,
             }"
-            class="border-transparent"
+            class="hover:text-green-500 border-transparent"
             type="button"
             @click="$emit('paginateTo', item.indexNumber)"
           >
