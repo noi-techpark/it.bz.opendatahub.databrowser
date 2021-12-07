@@ -1,5 +1,5 @@
 import { useRoute, useRouter } from 'vue-router';
-import { ref, watch } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { QueryParameters, UseUrlQueryRouter } from './types';
 
 export const useUrlQueryRouter: UseUrlQueryRouter = function (config) {
@@ -52,11 +52,11 @@ export const useUrlQueryRouter: UseUrlQueryRouter = function (config) {
     { immediate: true }
   );
 
-  return {
+  return reactive({
     queryParameters,
     actions: {
       updateQuery,
       clear,
     },
-  };
+  });
 };
