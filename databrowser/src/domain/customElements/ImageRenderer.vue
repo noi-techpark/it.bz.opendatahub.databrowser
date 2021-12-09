@@ -3,12 +3,19 @@ import { defineCustomElement } from '@vue/runtime-dom';
 
 export default defineCustomElement({
   props: {
-    text: {
+    alt: {
+      required: false,
+      default: null,
+      type: String,
+    },
+    src: {
       required: false,
       default: null,
       type: String,
     },
   },
-  template: `<span v-if="text != null">{{ text }}</span>`,
+  template: `
+    <img v-if="src != null" :src="src" :alt="alt" style="width:100%"/>
+  `,
 });
 </script>

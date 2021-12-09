@@ -9,8 +9,8 @@ export default defineCustomElement({
       type: Object,
     },
   },
-  render() {
-    return JSON.stringify(this.data);
-  },
+  template: `
+    <span v-if="data != null">{{ JSON.stringify(this.data) }}</span>
+  `,
 });
 </script>

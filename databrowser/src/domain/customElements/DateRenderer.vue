@@ -3,12 +3,14 @@ import { defineCustomElement } from '@vue/runtime-dom';
 
 export default defineCustomElement({
   props: {
-    text: {
+    date: {
       required: false,
       default: null,
       type: String,
     },
   },
-  template: `<span v-if="text != null">{{ text }}</span>`,
+  template: `
+    <span v-if="date != null">{{ date }}</span>
+  `,
 });
 </script>
