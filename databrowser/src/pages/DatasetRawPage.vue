@@ -4,26 +4,11 @@
       Dataset Detail Page (type = {{ $route.params.datasetType }}, ID =
       {{ $route.params.datasetId }})
     </div>
-    <div>
-      <TableCustom>
-        <TableHeader>
-          <TableHeaderCell>Key</TableHeaderCell>
-          <TableHeaderCell>Value</TableHeaderCell>
-        </TableHeader>
-        <TableBody>
-          <TableLoadingRow v-if="apiResult.isFetching" />
-          <tr
-            v-for="(entry, index) in Object.entries(apiResult.data?.data)"
-            v-else
-            :key="index"
-          >
-            <TableCell>{{ entry[0] }}</TableCell>
-            <TableCell class="whitespace-pre-wrap">
-              {{ getEntryValue(entry[1]) }}
-            </TableCell>
-          </tr>
-        </TableBody>
-      </TableCustom>
+    <div class="p-4 rounded-xl border">
+      <div v-if="apiResult.isFetching">Loading</div>
+      <div v-else>
+        <vue-json-pretty :data="apiResult.data?.data" :deep="3" show-length />
+      </div>
     </div>
   </ContentArea>
 </template>
@@ -35,22 +20,12 @@ import { GetApiSpecResult, useGetApiSpec } from '../domain/api/client';
 import { useRoute } from 'vue-router';
 import { apiConfigProvider } from '../domain/api/configUtils';
 import ContentArea from '../components/content/ContentArea.vue';
-import TableCustom from '../components/table/TableCustom.vue';
-import TableHeaderCell from '../components/table/TableHeaderCell.vue';
-import TableCell from '../components/table/TableCell.vue';
-import TableLoadingRow from '../components/table/TableLoadingRow.vue';
-import TableHeader from '../components/table/TableHeader.vue';
-import TableBody from '../components/table/TableBody.vue';
+import VueJsonPretty from 'vue-json-pretty';
 
 export default defineComponent({
   components: {
-    TableBody,
-    TableHeader,
-    TableLoadingRow,
-    TableCell,
-    TableHeaderCell,
-    TableCustom,
     ContentArea,
+    VueJsonPretty,
   },
   setup() {
     const route = useRoute();
@@ -82,3 +57,56 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.vjs-tree__brackets {
+  @apply cursor-pointer;
+}
+
+.vjs-tree__brackets:hover {
+  @apply text-blue-500;
+}
+
+.vjs-tree__node {
+  @apply flex relative;
+}
+
+.vjs-tree__node.is-highlight,
+.vjs-tree__node:hover {
+  @apply bg-gray-100;
+}
+
+.vjs-tree__node .vjs-tree__indent {
+  @apply flex-grow-0 flex-shrink-0;
+  flex-basis: 1em;
+}
+
+.vjs-tree__node .vjs-tree__indent.has-line {
+  @apply border-l border-dashed border-gray-300;
+}
+
+.vjs-comment {
+  @apply text-gray-500 opacity-75;
+}
+
+.vjs-key {
+  @apply pr-1.5 text-gray-900;
+}
+
+.vjs-value__null {
+  @apply text-red-500;
+}
+
+.vjs-value__boolean,
+.vjs-value__number {
+  @apply text-blue-500;
+}
+
+.vjs-value__string {
+  @apply text-green-600;
+}
+
+.vjs-tree {
+  @apply text-left;
+}
+</style>
