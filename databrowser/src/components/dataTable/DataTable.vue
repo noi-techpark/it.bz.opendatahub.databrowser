@@ -1,5 +1,9 @@
 <template>
-  <table>
+  <table class="w-full table-fixed">
+    <colgroup>
+      <col v-for="col in config" :key="col.title" :class="col.class" />
+      <col class="w-28" />
+    </colgroup>
     <thead>
       <tr>
         <th v-for="col in config" :key="col.title" class="pl-3 text-left">
@@ -10,13 +14,8 @@
     </thead>
     <tbody>
       <!-- eslint-disable-next-line vue/require-v-for-key -->
-      <tr v-for="row in rows" class="align-top border">
-        <td
-          v-for="col in config"
-          :key="col.title"
-          class="p-3"
-          :class="col.class"
-        >
+      <tr v-for="row in rows" class="align-top border-t border-b">
+        <td v-for="col in config" :key="col.title" class="p-3">
           <Cell
             :tag-name="col.component"
             :attributes="getValue(row, col.fields, col.params)"

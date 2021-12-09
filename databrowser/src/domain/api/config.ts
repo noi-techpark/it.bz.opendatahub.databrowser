@@ -11,7 +11,7 @@ const config: Record<string, ApiConfigEntry> = {
         {
           title: 'Image',
           component: GenericRendererElement.IMAGE,
-          class: 'block w-40',
+          class: 'w-40',
           fields: {
             src: 'ImageGallery.[0].ImageUrl',
           },
@@ -19,6 +19,7 @@ const config: Record<string, ApiConfigEntry> = {
         {
           title: 'Title',
           component: GenericRendererElement.STRING,
+          class: 'w-48',
           fields: {
             text: 'Detail.{language}.Title',
           },
@@ -26,6 +27,7 @@ const config: Record<string, ApiConfigEntry> = {
         {
           title: 'Location',
           component: GenericRendererElement.TEXT_HIGHLIGHT,
+          class: 'w-40',
           fields: {
             title: 'LocationInfo.RegionInfo.Name.{language}',
             subtitle: 'LocationInfo.MunicipalityInfo.Name.{language}',
@@ -34,6 +36,7 @@ const config: Record<string, ApiConfigEntry> = {
         {
           title: 'Languages',
           component: GenericRendererElement.ARRAY,
+          class: 'w-40',
           fields: {
             items: 'HasLanguage',
           },
@@ -52,6 +55,7 @@ const config: Record<string, ApiConfigEntry> = {
         {
           title: 'Source',
           component: GenericRendererElement.STRING,
+          class: 'w-36',
           fields: {
             text: 'Source',
           },
@@ -59,6 +63,7 @@ const config: Record<string, ApiConfigEntry> = {
         {
           title: 'ODH state',
           component: GenericRendererElement.STATE,
+          class: 'w-36',
           fields: {
             state: 'OdhActive',
           },
