@@ -9,9 +9,9 @@
         <Tab>Raw Data</Tab>
         <div class="absolute right-0">
           <ButtonPillGroup
-            :data="['DE', 'IT', 'EN', 'NL', 'CS', 'PL', 'FR', 'RU']"
+            :data="suportedLanguages"
+            :default-selected="defaultLanguage"
             :initial-selected="initialSelected"
-            default-selected="EN"
             @selected-change="changeLanguage"
           />
         </div>
@@ -34,6 +34,7 @@ import ContentArea from '../components/content/ContentArea.vue';
 import Tab from '../components/tabs/Tab.vue';
 import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue';
 import ButtonPillGroup from '../components/button/ButtonPillGroup.vue';
+import { FilterLanguage } from '../domain/api/configFilter.ts';
 
 export default {
   components: {
@@ -44,6 +45,12 @@ export default {
     Tab,
     TabPanel,
     TabPanels,
+  },
+  data() {
+    return {
+      suportedLanguages: Object.values(FilterLanguage),
+      defaultLanguage: FilterLanguage.EN,
+    };
   },
   computed: {
     initialSelected() {
