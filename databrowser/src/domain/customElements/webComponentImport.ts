@@ -12,6 +12,9 @@ window.customElements.define(GenericRendererElement.IMAGE, ImageRenderer);
 import JsonRenderer from './JsonRenderer.vue';
 window.customElements.define(GenericRendererElement.JSON, JsonRenderer);
 
+import StateRenderer from './StateRenderer.vue';
+window.customElements.define(GenericRendererElement.STATE, StateRenderer);
+
 import StringRenderer from './StringRenderer.vue';
 window.customElements.define(GenericRendererElement.STRING, StringRenderer);
 
