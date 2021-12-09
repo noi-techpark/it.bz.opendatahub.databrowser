@@ -4,7 +4,7 @@
       Dataset Detail Page (type = {{ $route.params.datasetType }}, ID =
       {{ $route.params.datasetId }})
     </div>
-    <div class="p-4 rounded-xl border">
+    <div class="overflow-x-scroll p-4 rounded-xl border">
       <div v-if="apiResult.isFetching">Loading</div>
       <div v-else>
         <vue-json-pretty :data="apiResult.data?.data" :deep="3" show-length />
