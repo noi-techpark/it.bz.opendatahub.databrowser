@@ -41,7 +41,7 @@
         class="border-transparent"
         role="button"
         tabindex="0"
-        @click="changeLanguage(item)"
+        @click="changeSelectedItem(item)"
       >
         <span class="block py-1 px-2 font-semibold">{{ item }}</span>
       </div>
@@ -60,15 +60,15 @@
             <IconClose />
           </button>
           <ButtonPill
-            v-for="language in data"
-            :key="language"
+            v-for="item in data"
+            :key="item"
             :class="[
-              isSelected(language)
+              isSelected(item)
                 ? 'text-green-500 bg-opacity-10 bg-green-500 border-green-500'
                 : 'border-gray-500',
             ]"
-            @click="changeLanguage(language)"
-            >{{ language }}
+            @click="changeSelectedItem(item)"
+            >{{ item }}
           </ButtonPill>
         </div>
       </div>
@@ -109,17 +109,17 @@ export default defineComponent({
   setup(props, context) {
     let showMobileSelect = ref<boolean>(false);
 
-    const initialLanguage = props.data.includes(props.initialSelected)
+    const initialItem = props.data.includes(props.initialSelected)
       ? props.initialSelected
       : props.defaultSelected;
-    let selected = ref<string>(initialLanguage);
+    let selected = ref<string>(initialItem);
 
     function isSelected(current: string) {
       return selected.value == current;
     }
 
-    function changeLanguage(language: string) {
-      selected.value = language;
+    function changeSelectedItem(item: string) {
+      selected.value = item;
       context.emit('selectedChange', selected.value);
       closeDialog();
     }
@@ -132,7 +132,7 @@ export default defineComponent({
       selected,
       showMobileSelect,
       isSelected,
-      changeLanguage,
+      changeSelectedItem,
       closeDialog,
     };
   },
