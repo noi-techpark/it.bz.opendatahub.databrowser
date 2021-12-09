@@ -1,20 +1,5 @@
 <template>
-  <button
-    class="
-      inline-flex
-      md:hidden
-      items-center
-      py-1
-      px-4
-      rounded-full
-      border border-gray-500
-    "
-    @click="showMobileSelect = true"
-  >
-    <span class="pr-2">{{ selected }}</span>
-    <ArrowDown />
-  </button>
-  <div class="hidden md:inline-flex">
+  <div>
     <div
       v-for="(item, index) in data"
       :key="item"
@@ -47,56 +32,15 @@
       </div>
     </div>
   </div>
-  <Dialog
-    :open="showMobileSelect"
-    class="overflow-y-auto fixed inset-0 z-10"
-    @close="closeDialog"
-  >
-    <div class="flex items-end w-full min-h-screen">
-      <DialogOverlay class="fixed inset-0 bg-black opacity-30" />
-      <div class="relative py-3 w-full bg-white rounded-t">
-        <div class="flex flex-col justify-center px-3 space-y-3 w-full">
-          <button class="mx-auto" @click="closeDialog">
-            <IconClose />
-          </button>
-          <ButtonPill
-            v-for="item in data"
-            :key="item"
-            :class="[
-              isSelected(item)
-                ? 'text-green-500 bg-opacity-10 bg-green-500 border-green-500'
-                : 'border-gray-500',
-            ]"
-            @click="changeSelectedItem(item)"
-            >{{ item }}
-          </ButtonPill>
-        </div>
-      </div>
-    </div>
-  </Dialog>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, ref } from '@vue/runtime-core';
-import { Dialog, DialogOverlay } from '@headlessui/vue';
-import ArrowDown from '../svg/ArrowDown.vue';
-import IconClose from '../svg/IconClose.vue';
-import ButtonPill from './ButtonPill.vue';
+import { watch } from 'vue';
 
 export default defineComponent({
-  components: {
-    ButtonPill,
-    IconClose,
-    ArrowDown,
-    Dialog,
-    DialogOverlay,
-  },
   props: {
     initialSelected: {
-      type: String as PropType<string>,
-      default: '',
-    },
-    defaultSelected: {
       type: String as PropType<string>,
       required: true,
     },
@@ -107,12 +51,14 @@ export default defineComponent({
   },
   emits: ['selectedChange'],
   setup(props, context) {
-    let showMobileSelect = ref<boolean>(false);
+    let selected = ref<string>(props.initialSelected);
 
-    const initialItem = props.data.includes(props.initialSelected)
-      ? props.initialSelected
-      : props.defaultSelected;
-    let selected = ref<string>(initialItem);
+    watch(
+      () => props.initialSelected,
+      (newValue) => {
+        selected.value = newValue;
+      }
+    );
 
     function isSelected(current: string) {
       return selected.value == current;
@@ -121,19 +67,12 @@ export default defineComponent({
     function changeSelectedItem(item: string) {
       selected.value = item;
       context.emit('selectedChange', selected.value);
-      closeDialog();
-    }
-
-    function closeDialog() {
-      showMobileSelect.value = false;
     }
 
     return {
       selected,
-      showMobileSelect,
       isSelected,
       changeSelectedItem,
-      closeDialog,
     };
   },
 });
