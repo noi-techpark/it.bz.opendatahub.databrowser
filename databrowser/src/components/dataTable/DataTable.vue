@@ -2,7 +2,7 @@
   <table>
     <thead>
       <tr>
-        <th v-for="col in config" :key="col.title" :class="col.class">
+        <th v-for="col in config" :key="col.title" class="pl-3 text-left">
           {{ col.title }}
         </th>
         <th class="sticky right-0 bg-white"></th>
