@@ -16,12 +16,12 @@
   </button>
   <div class="hidden md:inline-flex">
     <div
-      v-for="(language, index) in data"
-      :key="language"
+      v-for="(item, index) in data"
+      :key="item"
       :class="{
         'text-green-500 bg-opacity-10 bg-green-500 border-green-500':
-          isSelected(language),
-        'hover:bg-gray-300': !isSelected(language),
+          isSelected(item),
+        'hover:bg-gray-300': !isSelected(item),
         'rounded-l-full border-l': index == 0,
         'rounded-r-full border-r': index == data.length - 1,
       }"
@@ -34,16 +34,16 @@
     >
       <div
         :class="{
-          'border-green-500': isSelected(language),
+          'border-green-500': isSelected(item),
           'border-l': index != 0,
           'border-r': index != data.length - 1,
         }"
         class="border-transparent"
         role="button"
         tabindex="0"
-        @click="changeLanguage(language)"
+        @click="changeLanguage(item)"
       >
-        <span class="block py-1 px-2 font-semibold">{{ language }}</span>
+        <span class="block py-1 px-2 font-semibold">{{ item }}</span>
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@
           <button class="mx-auto" @click="closeDialog">
             <IconClose />
           </button>
-          <ButtonCustom
+          <ButtonPill
             v-for="language in data"
             :key="language"
             :class="[
@@ -67,11 +67,9 @@
                 ? 'text-green-500 bg-opacity-10 bg-green-500 border-green-500'
                 : 'border-gray-500',
             ]"
-            size="sm"
-            variant="tab"
             @click="changeLanguage(language)"
             >{{ language }}
-          </ButtonCustom>
+          </ButtonPill>
         </div>
       </div>
     </div>
@@ -80,15 +78,24 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref } from '@vue/runtime-core';
-import { useRoute, useRouter } from 'vue-router';
 import { Dialog, DialogOverlay } from '@headlessui/vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import IconClose from '../svg/IconClose.vue';
-import ButtonCustom from './ButtonCustom.vue';
+import ButtonPill from './ButtonPill.vue';
 
 export default defineComponent({
-  components: { ButtonCustom, IconClose, ArrowDown, Dialog, DialogOverlay },
+  components: {
+    ButtonPill,
+    IconClose,
+    ArrowDown,
+    Dialog,
+    DialogOverlay,
+  },
   props: {
+    initialSelected: {
+      type: String as PropType<string>,
+      default: '',
+    },
     defaultSelected: {
       type: String as PropType<string>,
       required: true,
@@ -98,16 +105,13 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
-    const route = useRoute();
-    const router = useRouter();
+  emits: ['selectedChange'],
+  setup(props, context) {
     let showMobileSelect = ref<boolean>(false);
 
-    const queryLanguage = route.query.language as string;
-    const initialLanguage =
-      queryLanguage == null || !props.data.includes(queryLanguage)
-        ? props.defaultSelected
-        : queryLanguage;
+    const initialLanguage = props.data.includes(props.initialSelected)
+      ? props.initialSelected
+      : props.defaultSelected;
     let selected = ref<string>(initialLanguage);
 
     function isSelected(current: string) {
@@ -116,7 +120,7 @@ export default defineComponent({
 
     function changeLanguage(language: string) {
       selected.value = language;
-      router.replace({ query: { language } });
+      context.emit('selectedChange', selected.value);
       closeDialog();
     }
 

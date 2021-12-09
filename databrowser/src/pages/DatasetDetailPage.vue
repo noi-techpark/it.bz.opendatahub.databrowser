@@ -8,9 +8,11 @@
         <Tab>Detail view</Tab>
         <Tab>Raw Data</Tab>
         <div class="absolute right-0">
-          <LanguagePicker
+          <ButtonPillGroup
             :data="['DE', 'IT', 'EN', 'NL', 'CS', 'PL', 'FR', 'RU']"
+            :initial-selected="initialSelected"
             default-selected="EN"
+            @selected-change="changeLanguage"
           />
         </div>
       </TabList>
@@ -31,19 +33,27 @@
 import ContentArea from '../components/content/ContentArea.vue';
 import Tab from '../components/tabs/Tab.vue';
 import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue';
-import LanguagePicker from '../components/button/ButtonPillGroup.vue';
-import ButtonPill from '../components/button/ButtonPill.vue';
+import ButtonPillGroup from '../components/button/ButtonPillGroup.vue';
 
 export default {
   components: {
-    ButtonPill,
-    LanguagePicker,
+    ButtonPillGroup,
     ContentArea,
     TabGroup,
     TabList,
     Tab,
     TabPanel,
     TabPanels,
+  },
+  computed: {
+    initialSelected() {
+      return this.$route.query.language ?? '';
+    },
+  },
+  methods: {
+    changeLanguage(language) {
+      this.$router.replace({ query: { language } });
+    },
   },
 };
 </script>
