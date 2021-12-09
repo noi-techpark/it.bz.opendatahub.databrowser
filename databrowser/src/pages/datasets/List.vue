@@ -1,8 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <section
-    class="flex flex-col lg:px-0 pt-10 pb-8 lg:pb-10 mx-auto w-full max-w-5xl"
-  >
+  <section class="flex flex-col mx-auto lg:mt-8 w-full max-w-5xl min-h-0">
     <ListNavigation
       class="hidden md:flex"
       :pagination="pagination"
@@ -11,7 +9,7 @@
       @page-size-changes="pageSizeChanges"
     />
 
-    <div v-if="isSuccess" class="overflow-auto pt-6">
+    <div v-if="isSuccess" class="overflow-auto my-6">
       <DataTable :config="tableConfig" :rows="rows" />
     </div>
 

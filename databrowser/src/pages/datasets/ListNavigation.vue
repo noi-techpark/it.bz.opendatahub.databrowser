@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col md:flex-row justify-end items-center mt-7">
+  <div class="flex flex-col md:flex-row justify-end items-center">
     <div class="flex items-center">
       <span v-t="'datasets.listView.linesPerPage'" class="block mr-3"></span>
       <SelectCustom v-model="pageSize" class="mr-8">

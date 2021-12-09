@@ -10,25 +10,27 @@
     >
   </Header>
 
-  <ContentArea class="flex justify-between">
-    <div>
-      <ButtonCustom>Table view</ButtonCustom>
-      <ButtonCustom :disabled="true">Detail view</ButtonCustom>
-      <ButtonCustom :disabled="true">Raw view</ButtonCustom>
-    </div>
-    <ul class="inline-flex">
-      <li class="p-2"><button>DE</button></li>
-      <li class="p-2"><button>IT</button></li>
-      <li class="p-2"><button>EN</button></li>
-      <li class="p-2"><button>NL</button></li>
-      <li class="p-2"><button>CS</button></li>
-      <li class="p-2"><button>PL</button></li>
-      <li class="p-2"><button>FR</button></li>
-      <li class="p-2"><button>RU</button></li>
-    </ul>
-  </ContentArea>
+  <div class="flex flex-col h-full">
+    <ContentArea class="flex justify-between">
+      <div>
+        <ButtonCustom>Table view</ButtonCustom>
+        <ButtonCustom :disabled="true">Detail view</ButtonCustom>
+        <ButtonCustom :disabled="true">Raw view</ButtonCustom>
+      </div>
+      <ul class="inline-flex">
+        <li class="p-2"><button>DE</button></li>
+        <li class="p-2"><button>IT</button></li>
+        <li class="p-2"><button>EN</button></li>
+        <li class="p-2"><button>NL</button></li>
+        <li class="p-2"><button>CS</button></li>
+        <li class="p-2"><button>PL</button></li>
+        <li class="p-2"><button>FR</button></li>
+        <li class="p-2"><button>RU</button></li>
+      </ul>
+    </ContentArea>
 
-  <DatasetList></DatasetList>
+    <DatasetList></DatasetList>
+  </div>
 </template>
 
 <script lang="ts">
