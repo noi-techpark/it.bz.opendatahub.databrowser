@@ -43,13 +43,16 @@ const config: Record<string, ApiConfigEntry> = {
           params: {
             separator: ', ',
           },
-          class: 'block w-36',
         },
         {
           title: 'Edited',
-          component: GenericRendererElement.DATE,
+          component: GenericRendererElement.EDITED_DATE,
+          class: 'w-40',
           fields: {
             date: 'LastChange',
+          },
+          params: {
+            format: 'dd. MMMM yyyy',
           },
         },
         {
@@ -67,7 +70,6 @@ const config: Record<string, ApiConfigEntry> = {
           fields: {
             state: 'OdhActive',
           },
-          class: 'block w-36',
         },
       ],
     },

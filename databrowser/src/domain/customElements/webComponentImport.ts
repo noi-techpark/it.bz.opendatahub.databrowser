@@ -6,6 +6,12 @@ window.customElements.define(GenericRendererElement.ARRAY, ArrayRenderer);
 import DateRenderer from './DateRenderer.vue';
 window.customElements.define(GenericRendererElement.DATE, DateRenderer);
 
+import EditedDateRenderer from './EditedDateRenderer.vue';
+window.customElements.define(
+  GenericRendererElement.EDITED_DATE,
+  EditedDateRenderer
+);
+
 import ImageRenderer from './ImageRenderer.vue';
 window.customElements.define(GenericRendererElement.IMAGE, ImageRenderer);
 
