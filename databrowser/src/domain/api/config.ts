@@ -9,13 +9,6 @@ const config: Record<string, ApiConfigEntry> = {
       url: `${apiBaseUrl}/v1/ODHActivityPoi`,
       tableConfig: [
         {
-          title: 'Test',
-          component: 'test-renderer',
-          fields: {
-            text: 'Id',
-          },
-        },
-        {
           title: 'Image',
           component: GenericRendererElement.IMAGE,
           class: 'block w-40',
@@ -31,11 +24,11 @@ const config: Record<string, ApiConfigEntry> = {
           },
         },
         {
-          title: 'Types',
+          title: 'Location',
           component: GenericRendererElement.TEXT_HIGHLIGHT,
           fields: {
-            title: 'Type',
-            subtitle: 'SubType',
+            title: 'LocationInfo.RegionInfo.Name.{language}',
+            subtitle: 'LocationInfo.MunicipalityInfo.Name.{language}',
           },
         },
         {
@@ -45,8 +38,9 @@ const config: Record<string, ApiConfigEntry> = {
             items: 'HasLanguage',
           },
           params: {
-            separator: ' ',
+            separator: ', ',
           },
+          class: 'block w-36',
         },
         {
           title: 'Edited',
@@ -56,25 +50,19 @@ const config: Record<string, ApiConfigEntry> = {
           },
         },
         {
-          title: 'ID',
+          title: 'Source',
           component: GenericRendererElement.STRING,
           fields: {
-            text: 'Id',
+            text: 'Source',
           },
         },
         {
-          title: 'Shortname',
-          component: GenericRendererElement.STRING,
+          title: 'ODH state',
+          component: GenericRendererElement.STATE,
           fields: {
-            text: 'Shortname',
+            state: 'OdhActive',
           },
-        },
-        {
-          title: 'GPS',
-          component: GenericRendererElement.JSON,
-          fields: {
-            data: 'GpsInfo[0]',
-          },
+          class: 'block w-36',
         },
       ],
     },
