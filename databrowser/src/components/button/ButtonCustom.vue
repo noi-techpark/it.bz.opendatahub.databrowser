@@ -1,5 +1,7 @@
 <template>
-  <button :class="className" :disabled="disabled"><slot></slot></button>
+  <button :class="className" :disabled="disabled">
+    <slot></slot>
+  </button>
 </template>
 
 <script lang="ts">
