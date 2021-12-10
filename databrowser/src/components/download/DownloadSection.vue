@@ -48,11 +48,16 @@ export default defineComponent({
     },
   },
   emits: ['downloadCsv', 'downloadJson'],
-  methods: {
-    copyToClipboard: () => {
-      console.log(this.dataset);
-      navigator.clipboard.writeText(this.dataset);
-    },
+  setup(props) {
+    function copyToClipboard() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(props.dataset);
+      }
+    }
+
+    return {
+      copyToClipboard,
+    };
   },
 });
 </script>
