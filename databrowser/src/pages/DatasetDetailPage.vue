@@ -4,8 +4,10 @@
     {{ $route.params.datasetId }})
   </div>
 
-  <div class="fixed bottom-4 w-full bg-white">
-    <DownloadSection />
+  <div class="fixed bottom-0 py-5 w-full bg-gray-50">
+    <DownloadSection
+      dataset="https://api.datahub.curlpi.datahub.com/v1/charges/ch_/istchat/juati/ch_3Juaty2eZvKYlo2C0 atahub"
+    />
   </div>
 </template>
 
