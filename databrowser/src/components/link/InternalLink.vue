@@ -19,6 +19,7 @@ export default defineComponent({
     },
     tone: {
       type: String,
+      default: () => '',
     },
   },
   setup(props) {

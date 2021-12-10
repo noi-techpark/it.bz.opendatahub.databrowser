@@ -6,8 +6,11 @@
     viewBox="0 0 6 10"
   >
     <path
+      id="Polygon_44"
+      data-name="Polygon 44"
       d="M5,0l5,6H0Z"
-      transform="translate(6) rotate(90)"
+      transform="translate(0 10) rotate(-90)"
+      fill="#3c4043"
       class="fill-current"
     />
   </svg>

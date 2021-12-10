@@ -1,17 +1,14 @@
 <script lang="ts">
 import { defineCustomElement } from '@vue/runtime-dom';
-import { PropType } from 'vue';
 
 export default defineCustomElement({
   props: {
-    data: {
+    text: {
       required: false,
       default: null,
-      type: Object as PropType<{ text: string }>,
+      type: String,
     },
   },
-  render() {
-    return this.data.text;
-  },
+  template: `<span v-if="text != null">{{ text }}</span>`,
 });
 </script>

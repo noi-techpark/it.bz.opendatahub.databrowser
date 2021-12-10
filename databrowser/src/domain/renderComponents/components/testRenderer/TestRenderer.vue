@@ -1,5 +1,5 @@
 <template>
-  <component :is="tagName" .data="attributes"> </component>
+  <span v-if="text != null">Test Vue Render Component: {{ text }}</span>
 </template>
 
 <script lang="ts">
@@ -7,14 +7,10 @@ import { defineComponent } from '@vue/runtime-core';
 
 export default defineComponent({
   props: {
-    tagName: {
-      required: true,
-      type: String,
-    },
-    attributes: {
+    text: {
       required: false,
-      default: () => {},
-      type: Object,
+      default: null,
+      type: String,
     },
   },
 });

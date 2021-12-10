@@ -18,5 +18,10 @@
             "en": "Englisch",
             "it": "Italienisch"
         }
+    },
+    "datasets": {
+        "listView": {
+            "linesPerPage": "Zeilen pro Seite"
+        }
     }
 }
