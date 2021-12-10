@@ -4,7 +4,9 @@
     {{ $route.params.datasetId }})
   </div>
 
-  <DownloadSection />
+  <div class="fixed bottom-4 w-full bg-white">
+    <DownloadSection />
+  </div>
 </template>
 
 <script>
