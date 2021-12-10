@@ -1,4 +1,4 @@
-import { GenericRendererElement } from '../webComponents/types';
+import { ComponentRenderer } from '../renderComponents/types';
 
 const apiBaseUrl = 'https://api.tourism.testingmachine.eu';
 
@@ -9,16 +9,8 @@ const config: Record<string, ApiConfigEntry> = {
       url: `${apiBaseUrl}/v1/ODHActivityPoi`,
       tableConfig: [
         {
-          title: 'TEST',
-          component: 'TestRenderer',
-          class: 'w-40',
-          fields: {
-            text: 'Detail.{language}.Title',
-          },
-        },
-        {
           title: 'Image',
-          component: GenericRendererElement.IMAGE,
+          component: ComponentRenderer.ImageRenderer,
           class: 'w-40',
           fields: {
             src: 'ImageGallery.[0].ImageUrl',
@@ -26,7 +18,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Title',
-          component: GenericRendererElement.STRING,
+          component: ComponentRenderer.StringRenderer,
           class: 'w-48',
           fields: {
             text: 'Detail.{language}.Title',
@@ -34,7 +26,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Location',
-          component: GenericRendererElement.TEXT_HIGHLIGHT,
+          component: ComponentRenderer.TextHighlightRenderer,
           class: 'w-40',
           fields: {
             title: 'LocationInfo.RegionInfo.Name.{language}',
@@ -43,7 +35,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Languages',
-          component: GenericRendererElement.ARRAY,
+          component: ComponentRenderer.ArrayRenderer,
           class: 'w-40',
           fields: {
             items: 'HasLanguage',
@@ -54,7 +46,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Edited',
-          component: GenericRendererElement.EDITED_DATE,
+          component: ComponentRenderer.EditedDateRenderer,
           class: 'w-40',
           fields: {
             date: 'LastChange',
@@ -65,7 +57,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Source',
-          component: GenericRendererElement.STRING,
+          component: ComponentRenderer.StringRenderer,
           class: 'w-36',
           fields: {
             text: 'Source',
@@ -73,7 +65,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'ODH state',
-          component: GenericRendererElement.STATE,
+          component: ComponentRenderer.StateRenderer,
           class: 'w-36',
           fields: {
             state: 'OdhActive',
@@ -93,14 +85,14 @@ const config: Record<string, ApiConfigEntry> = {
       tableConfig: [
         {
           title: 'ID',
-          component: GenericRendererElement.STRING,
+          component: ComponentRenderer.StringRenderer,
           fields: {
             text: 'Id',
           },
         },
         {
           title: 'TypeDesc',
-          component: GenericRendererElement.JSON,
+          component: ComponentRenderer.JsonRenderer,
           fields: {
             typeDesc: 'TypeDesc',
           },

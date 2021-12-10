@@ -1,32 +1,31 @@
+<template>
+  <div v-if="date != null">
+    <span class="block">{{ formattedDistance }}</span>
+    <span class="block text-gray-600">{{ formattedDate }}</span>
+  </div>
+</template>
+
 <script lang="ts">
-import { defineCustomElement } from '@vue/runtime-dom';
+import { defineComponent } from 'vue';
 import { format as formatFn, formatDistanceToNow } from 'date-fns';
 
-export default defineCustomElement({
+export default defineComponent({
   props: {
     date: {
-      required: false,
-      default: null,
+      default: () => null,
       type: String,
     },
     format: {
-      required: false,
-      default: null,
+      default: () => null,
       type: String,
     },
   },
-  template: `
-    <div v-if="date != null">
-      <span style="display:block">{{ formattedDistance }}</span>
-      <span style="display:block">{{ formattedDate }}</span>
-    </div>`,
   computed: {
     formattedDate(): string {
       if (this.format == null) {
         return this.date;
       }
       if (this.date != null) {
-        // return 'formatting ' + this.format + ', date: ' + this.date;
         return formatFn(Date.parse(this.date), this.format);
       }
       return '';
