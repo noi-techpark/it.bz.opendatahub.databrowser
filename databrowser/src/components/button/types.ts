@@ -3,6 +3,11 @@ export enum Variant {
   ghost = 'ghost',
 }
 
+export enum PillVariant {
+  rounded = 'rounded',
+  edged = 'edged',
+}
+
 export enum Size {
   md = 'md',
 }
