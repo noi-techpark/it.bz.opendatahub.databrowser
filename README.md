@@ -14,7 +14,7 @@ It contains the [Databrowser application](./databrowser) and its [Web Components
 
 These instructions will get you a copy of this mono repository and prepare it for development.
 
-Please take a look at the projects and their corresponding `README.md` files inside this mono repository to see
+Please take a look at the subprojects and their corresponding `README.md` files inside this mono repository to see
 how to do develop, test and build.
 
 ### Prerequisites
@@ -39,74 +39,19 @@ Change directory:
 cd it.bz.opendatahub.databrowser
 ```
 
-Install the dependencies of all projects in this mono repository:
-
-> This is a mono repository. That means, that many projects are located in this repository. Some of
-> those projects depend on each other (e.g. the databrowser app depends on the Web Components).
->
-> In order to simplify development, test and build, this repository provides [lerna](https://lerna.js.org/)
-> tasks e.g. to install all dependencies at once as seen below.
+Install Lerna:
 
 ```bash
-# Install dependencies of all projects. This may take some time!
+npm ci
+```
 
+Install the dependencies of all subprojects in this mono repository:
+
+```bash
 npm run bootstrap
 ```
 
-Please take a look at the `README.md` files of the projects in this repository for more specific details.
-
-#### Example: Start databrowser app in development mode
-
-Change into the databrowser app folder:
-
-```bash
-cd databrowser
-```
-
-Start the databrowser app in development mode:
-
-```bash
-npm run dev
-```
-
-The databrowser will be started at [http://localhost:3000](http://localhost:3000) by default.
-
-> Take a look at the `README.md` file in the `databrowser` folder for further details.
-
-#### Example: Start web-component development environment with Storybook
-
-Change into the databrowser app folder:
-
-```bash
-cd web-components/databrowser-example
-```
-
-Start the databrowser app in development mode:
-
-```bash
-npm run start
-```
-
-A simple website with the `databrowser-example` Web Component will be started at [http://localhost:8000/demo/](http://localhost:8000/demo/) by default.
-
-> Take a look at the `README.md` file in the `databrowser-example` folder for further details.
-
-## Docker environment
-
-This repository and all of its projects provide ready-to-use `docker-compose.yml` to further simplify
-development, tests and build.
-
-### Install project dependencies
-
-The `docker-compose.yml` located in the repository root can be used to install the dependencies of
-all projects. Given you are located in the repository root, just run the following command:
-
-```bash
-docker-compose up
-```
-
-Take a look at the project specific `README.md` files for further information on how to develop, test and
-build the projects.
+Please take a look at the `README.md` files of the subprojects in this mono repository for further setup details.
 
 ## Information
 
@@ -134,6 +79,7 @@ The code in this project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE
 ### Authors
 
 - **Christian Gapp** - *Initial work* - [gappc](https://github.com/gappc)
+- **AboutBits** - *Initial work* - [aboutbits](https://github.com/aboutbits)
 
 ### Acknowledgements
 
