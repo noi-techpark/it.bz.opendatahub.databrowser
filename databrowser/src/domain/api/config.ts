@@ -9,6 +9,14 @@ const config: Record<string, ApiConfigEntry> = {
       url: `${apiBaseUrl}/v1/ODHActivityPoi`,
       tableConfig: [
         {
+          title: 'TEST',
+          component: 'test-renderer',
+          class: 'w-40',
+          fields: {
+            text: 'Detail.{language}.Title',
+          },
+        },
+        {
           title: 'Image',
           component: GenericRendererElement.IMAGE,
           class: 'w-40',

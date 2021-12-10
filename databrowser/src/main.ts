@@ -6,6 +6,7 @@ import { loadLocaleMessages, setupI18n } from './i18n';
 import './index.css';
 import { router } from './routes';
 import store from './store';
+import registerRenderComponents from './domain/renderComponents/plugins/registerRenderComponents';
 
 const app = createApp(App);
 
@@ -23,6 +24,10 @@ app.use(store);
 const i18n = setupI18n({ locale: 'en' });
 loadLocaleMessages(i18n, i18n.global.locale);
 app.use(i18n);
+
+// Register Vue render components globally to make
+// them usable for dynamic rendering
+app.use(registerRenderComponents);
 
 // Mount the app
 app.mount('#app');

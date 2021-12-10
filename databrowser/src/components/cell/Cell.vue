@@ -5,10 +5,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
 
-import TestRenderer from '../testRenderer/TestRenderer.vue';
-
 export default defineComponent({
-  components: { 'test-renderer': TestRenderer },
   props: {
     tagName: {
       required: true,
