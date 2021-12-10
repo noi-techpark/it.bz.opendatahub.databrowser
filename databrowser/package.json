@@ -9,7 +9,7 @@
     "lint:fix": "eslint --ext .ts,.vue --fix src"
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.2",
+    "@headlessui/vue": "^1.4.2",
     "axios": "^0.24.0",
     "jwt-decode": "^3.1.2",
     "keycloak-js": "^15.0.2",
