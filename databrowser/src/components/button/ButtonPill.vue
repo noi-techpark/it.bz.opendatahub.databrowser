@@ -20,22 +20,18 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
 import { computed, PropType } from 'vue';
+import { PillVariant } from './types';
 
-export enum Variant {
-  rounded = 'rounded',
-  edged = 'edged',
-}
-
-const variantStyles: Record<Variant, string> = {
-  [Variant.rounded]: 'rounded-full border border-gray-400',
-  [Variant.edged]: 'rounded-lg',
+const variantStyles: Record<PillVariant, string> = {
+  [PillVariant.rounded]: 'rounded-full border border-gray-400',
+  [PillVariant.edged]: 'rounded-lg',
 };
 
 export default defineComponent({
   props: {
     variant: {
-      type: String as PropType<Variant>,
-      default: Variant.rounded,
+      type: String as PropType<PillVariant>,
+      default: PillVariant.rounded,
     },
     disabled: {
       type: Boolean,
