@@ -32,7 +32,6 @@ import { reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 import { apiConfigProvider } from '../../domain/api/configUtils';
 import DataTable from '../../components/dataTable/DataTable.vue';
-import '../../domain/customElements/webComponentImport';
 import { Pagination } from '../../domain/api/types';
 import { useApi } from '../../domain/api/client';
 import { useUrlQueryRouter } from '../../lib/urlQuery/urlQueryRouter';

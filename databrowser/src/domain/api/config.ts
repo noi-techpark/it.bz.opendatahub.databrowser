@@ -1,4 +1,4 @@
-import { GenericRendererElement } from '../customElements/types';
+import { GenericRendererElement } from '../webComponents/types';
 
 const apiBaseUrl = 'https://api.tourism.testingmachine.eu';
 
