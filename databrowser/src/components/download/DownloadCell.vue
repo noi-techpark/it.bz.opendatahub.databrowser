@@ -14,6 +14,28 @@
     <div class="inline-flex flex-col break-all">
       <slot></slot>
     </div>
-    <button class="p-4 rounded-xl border border-gray-300">Icon</button>
+    <button
+      class="
+        inline-flex
+        flex-shrink-0
+        justify-center
+        items-center
+        w-12
+        h-12
+        text-green-500
+        hover:bg-gray-100
+        rounded-xl
+        border border-gray-300
+      "
+      @click="$emit('actionClicked')"
+    >
+      <slot name="icon"></slot>
+    </button>
   </div>
 </template>
+
+<script>
+export default {
+  emits: ['actionClicked'],
+};
+</script>
