@@ -2,16 +2,18 @@
   <div
     class="
       inline-flex
-      items-center
+      justify-between
+      sm:items-center
       py-3
       px-5
-      space-x-10
-      max-w-xl
+      space-x-5
+      md:space-x-10
+      lg:max-w-xl
       rounded-xl
       border border-gray-300
     "
   >
-    <div class="inline-flex flex-col break-all">
+    <div class="inline-flex flex-col justify-center break-all">
       <slot></slot>
     </div>
     <button
@@ -22,7 +24,7 @@
         items-center
         w-12
         h-12
-        text-green-500
+        text-green-400
         hover:bg-gray-100
         rounded-xl
         border border-gray-300
