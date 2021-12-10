@@ -68,7 +68,7 @@ import { defineComponent, PropType } from '@vue/runtime-core';
 import { TableColumnConfig } from '../../domain/api/config';
 import { extractField } from '../../domain/api/configUtils';
 import { useUrlQueryRouter } from '../../lib/urlQuery/urlQueryRouter';
-import Cell from '../cell/Cell.vue';
+import Cell from '../listCell/ListCell.vue';
 import EyeDetailGreen from '../svg/EyeDetailGreen.vue';
 
 export default defineComponent({
