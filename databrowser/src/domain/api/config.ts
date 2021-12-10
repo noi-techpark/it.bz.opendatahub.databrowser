@@ -10,7 +10,7 @@ const config: Record<string, ApiConfigEntry> = {
       tableConfig: [
         {
           title: 'TEST',
-          component: 'test-renderer',
+          component: 'TestRenderer',
           class: 'w-40',
           fields: {
             text: 'Detail.{language}.Title',

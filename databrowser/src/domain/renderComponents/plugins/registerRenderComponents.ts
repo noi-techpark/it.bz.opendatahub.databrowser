@@ -4,6 +4,6 @@ import TestRenderer from '../components/testRenderer/TestRenderer.vue';
 
 export default {
   install: (app: App, options: AppConfig) => {
-    app.component('test-renderer', TestRenderer);
+    app.component('TestRenderer', TestRenderer);
   },
 };
