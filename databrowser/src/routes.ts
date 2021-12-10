@@ -32,6 +32,10 @@ const routes: RouteRecordRaw[] = [
     component: () => import('./pages/DatasetDetailPage.vue'),
   },
   {
+    path: '/dataset/:datasetType/:datasetId/raw',
+    component: () => import('./pages/DatasetRawPage.vue'),
+  },
+  {
     path: '/imprint',
     component: () => import('./pages/ImprintPage.vue'),
   },

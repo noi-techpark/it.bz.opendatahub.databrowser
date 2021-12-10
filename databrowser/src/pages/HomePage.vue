@@ -26,8 +26,8 @@
         <CardText
           >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
           dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit sit amen
-          dorl sit amen dol dori sti ist.</CardText
-        >
+          dorl sit amen dol dori sti ist.
+        </CardText>
         <CardActions>
           <ButtonLink to="/">Discover Dataset</ButtonLink>
         </CardActions>
@@ -37,8 +37,8 @@
         <CardText
           >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
           dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit sit amen
-          dorl sit amen dol dori sti ist.</CardText
-        >
+          dorl sit amen dol dori sti ist.
+        </CardText>
         <CardActions>
           <ButtonLink to="/about" variant="ghost">About</ButtonLink>
         </CardActions>
@@ -53,13 +53,12 @@
         <CardText
           >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
           dorlosit sit amen dorl sit amen dol dori sti ist. sit amen dorl sit
-          amen dol dori sti ist.</CardText
-        >
+          amen dol dori sti ist.
+        </CardText>
         <CardDivider />
-        <InternalLink to="/" tone="primary"
-          ><ArrowRight class="fill-current" /><span
-            >Show API Documentation</span
-          ></InternalLink
+        <InternalLink to="/" tone="primary">
+          <ArrowRight class="fill-current" />
+          <span>Show API Documentation</span></InternalLink
         >
       </CardContainer>
 
@@ -67,13 +66,12 @@
         <CardTitle>Information</CardTitle>
         <CardText
           >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
-          dorl sit amen dol dori sti ist.</CardText
-        >
+          dorl sit amen dol dori sti ist.
+        </CardText>
         <CardDivider />
-        <InternalLink to="/" tone="primary"
-          ><ArrowRight class="fill-current" /><span
-            >Show Information</span
-          ></InternalLink
+        <InternalLink to="/" tone="primary">
+          <ArrowRight class="fill-current" />
+          <span>Show Information</span></InternalLink
         >
       </CardContainer>
     </CardGrid>
@@ -81,26 +79,33 @@
     <ContentDivider />
 
     <CardGrid tag-name="ul">
-      <li><router-link to="/error">Go to Error</router-link></li>
+      <li>
+        <router-link to="/error">Go to Error</router-link>
+      </li>
       <li>
         <router-link to="/dataset/odh-activity-poi"
-          >ODH ActivityPOI List</router-link
-        >
+          >ODH ActivityPOI List
+        </router-link>
       </li>
       <li>
         <router-link to="/dataset/odh-activity-poi/smgpoi107"
-          >ODH ActivityPOI Detail (ID = smgpoi107)</router-link
-        >
+          >ODH ActivityPOI Detail (ID = smgpoi107)
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/dataset/odh-activity-poi/smgpoi107/raw"
+          >ODH ActivityPOI Raw (ID = smgpoi107)
+        </router-link>
       </li>
       <li>
         <router-link to="/dataset/odh-activity-poi-types"
-          >ODH ActivityPOITypes List</router-link
-        >
+          >ODH ActivityPOITypes List
+        </router-link>
       </li>
       <li class="py-4">
-        <router-link to="/dataset/xyz" class="bg-red-100"
-          >Not existing list route</router-link
-        >
+        <router-link class="bg-red-100" to="/dataset/xyz"
+          >Not existing list route
+        </router-link>
       </li>
     </CardGrid>
   </ContentArea>
@@ -121,6 +126,7 @@ import CardGrid from '../components/card/CardGrid.vue';
 import ContentDivider from '../components/content/ContentDivider.vue';
 import InternalLink from '../components/link/InternalLink.vue';
 import ArrowRight from '../components/svg/ArrowRight.vue';
+
 export default {
   components: {
     ArrowRight,
