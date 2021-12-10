@@ -27,7 +27,7 @@
 
 <script class="ts">
 import ContentArea from '../components/content/ContentArea.vue';
-import Tab from '../components/tabs/Tab.vue';
+import Tab from '../components/tabs/TabItem.vue';
 import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue';
 import LanguagePicker from '../components/languageSwitcher/LanguagePicker.vue';
 
