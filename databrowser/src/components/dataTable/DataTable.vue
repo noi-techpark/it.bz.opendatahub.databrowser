@@ -4,7 +4,7 @@
       <col v-for="col in config" :key="col.title" :class="col.class" />
       <col class="w-28" />
     </colgroup>
-    <thead>
+    <thead class="sticky top-0 z-10 bg-white">
       <tr>
         <th v-for="col in config" :key="col.title" class="pl-3 text-left">
           {{ col.title }}
