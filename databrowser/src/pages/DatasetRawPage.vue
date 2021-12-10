@@ -16,11 +16,13 @@
 <script lang="ts">
 import { ref, UnwrapRef } from 'vue';
 import { defineComponent } from '@vue/runtime-core';
-import { GetApiSpecResult, useGetApiSpec } from '../domain/api/client';
+import { useApi } from '../domain/api/client';
 import { useRoute } from 'vue-router';
 import { apiConfigProvider } from '../domain/api/configUtils';
 import ContentArea from '../components/content/ContentArea.vue';
 import VueJsonPretty from 'vue-json-pretty';
+import axios, { AxiosResponse } from 'axios';
+import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
 
 export default defineComponent({
   components: {
@@ -29,19 +31,22 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
-    const apiResult = ref<UnwrapRef<GetApiSpecResult<unknown>>>({} as any);
+    const apiResult = ref<
+      UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>
+    >({} as any);
 
     const fetchList = async (url: string, id: string) => {
-      const result = useGetApiSpec<any>(url.replace('{id}', id));
-      apiResult.value = result as unknown as UnwrapRef<
-        GetApiSpecResult<unknown>
-      >;
+      const fetcher = async ({ queryKey }) => {
+        return await axios.get(queryKey[0]);
+      };
+      const result = useApi(url.replace('{id}', id), fetcher);
+      apiResult.value = result as any;
     };
 
     const configEntry = apiConfigProvider(route.params.datasetType as string);
-    if (configEntry != null) {
+    if (configEntry?.detailEndpoint?.url != null) {
       fetchList(
-        configEntry.detailEndpoint.path,
+        configEntry.detailEndpoint.url,
         route.params.datasetId as string
       );
     }

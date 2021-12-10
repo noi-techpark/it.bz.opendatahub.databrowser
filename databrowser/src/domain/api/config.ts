@@ -1,4 +1,4 @@
-import { GenericRendererElement } from '../customElements/types';
+import { GenericRendererElement } from '../webComponents/types';
 
 const apiBaseUrl = 'https://api.tourism.testingmachine.eu';
 
@@ -6,42 +6,91 @@ const config: Record<string, ApiConfigEntry> = {
   'odh-activity-poi': {
     // type: "tourism | mobility", => do not use
     listEndpoint: {
-      path: `${apiBaseUrl}/v1/ODHActivityPoi`,
-      table: [
+      url: `${apiBaseUrl}/v1/ODHActivityPoi`,
+      tableConfig: [
         {
-          title: 'ID',
-          component: GenericRendererElement.STRING,
+          title: 'TEST',
+          component: 'TestRenderer',
+          class: 'w-40',
           fields: {
-            text: 'Id',
+            text: 'Detail.{language}.Title',
           },
         },
         {
-          title: 'Shortname',
-          component: GenericRendererElement.STRING,
+          title: 'Image',
+          component: GenericRendererElement.IMAGE,
+          class: 'w-40',
           fields: {
-            text: 'Shortname',
+            src: 'ImageGallery.[0].ImageUrl',
           },
         },
         {
-          title: 'GPS',
-          component: GenericRendererElement.JSON,
+          title: 'Title',
+          component: GenericRendererElement.STRING,
+          class: 'w-48',
           fields: {
-            data: 'GpsInfo[0]',
+            text: 'Detail.{language}.Title',
+          },
+        },
+        {
+          title: 'Location',
+          component: GenericRendererElement.TEXT_HIGHLIGHT,
+          class: 'w-40',
+          fields: {
+            title: 'LocationInfo.RegionInfo.Name.{language}',
+            subtitle: 'LocationInfo.MunicipalityInfo.Name.{language}',
+          },
+        },
+        {
+          title: 'Languages',
+          component: GenericRendererElement.ARRAY,
+          class: 'w-40',
+          fields: {
+            items: 'HasLanguage',
+          },
+          params: {
+            separator: ', ',
+          },
+        },
+        {
+          title: 'Edited',
+          component: GenericRendererElement.EDITED_DATE,
+          class: 'w-40',
+          fields: {
+            date: 'LastChange',
+          },
+          params: {
+            format: 'dd. MMMM yyyy',
+          },
+        },
+        {
+          title: 'Source',
+          component: GenericRendererElement.STRING,
+          class: 'w-36',
+          fields: {
+            text: 'Source',
+          },
+        },
+        {
+          title: 'ODH state',
+          component: GenericRendererElement.STATE,
+          class: 'w-36',
+          fields: {
+            state: 'OdhActive',
           },
         },
       ],
-      pagination: 'paged',
     },
     detailEndpoint: {
-      path: `${apiBaseUrl}/v1/ODHActivityPoi/{id}`,
+      url: `${apiBaseUrl}/v1/ODHActivityPoi/{id}`,
       detail: {},
     },
   },
   'odh-activity-poi-types': {
     // type: "tourism | mobility", => do not use
     listEndpoint: {
-      path: `${apiBaseUrl}/v1/ODHActivityPoiTypes`,
-      table: [
+      url: `${apiBaseUrl}/v1/ODHActivityPoiTypes`,
+      tableConfig: [
         {
           title: 'ID',
           component: GenericRendererElement.STRING,
@@ -57,27 +106,29 @@ const config: Record<string, ApiConfigEntry> = {
           },
         },
       ],
-      pagination: 'paged',
     },
     detailEndpoint: {
-      path: `${apiBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
+      url: `${apiBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
       detail: {},
     },
   },
 };
 
+export interface TableColumnConfig {
+  title: string;
+  component: string;
+  fields: Record<string, string>;
+  params?: Record<string, string>;
+  class?: string;
+}
+
 export interface ApiConfigEntry {
-  listEndpoint: {
-    path: string;
-    table: {
-      title: string;
-      component: string;
-      fields: Record<string, string>;
-    }[];
-    pagination?: 'paged';
+  listEndpoint?: {
+    url: string;
+    tableConfig: TableColumnConfig[];
   };
-  detailEndpoint: {
-    path: string;
+  detailEndpoint?: {
+    url: string;
     detail: {};
   };
 }

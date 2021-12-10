@@ -3,7 +3,7 @@ services:
   node:
     build:
       context: .
-      dockerfile: infrastructure/docker/dockerfile-node
+      dockerfile: ../../infrastructure/docker/dockerfile-node
     volumes:
       - ./:/code
     working_dir: /code

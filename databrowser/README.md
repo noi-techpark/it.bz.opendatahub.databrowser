@@ -1,6 +1,6 @@
 # Open Data Hub Databrowser - Application
 
-This project provides the [Open Data Hub](https://opendatahub.bz.it/) Databrowser Application.
+This directory/project provides the [Open Data Hub](https://opendatahub.bz.it/) Databrowser Application.
 
 It is part of a mono repository, together with the [Databrowser Web Components](../web-components).
 
@@ -12,8 +12,7 @@ It is part of a mono repository, together with the [Databrowser Web Components](
 
 ## Getting started
 
-These instructions will get you a copy of the project up and running
-on your local machine for development and testing purposes.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -21,49 +20,25 @@ To build the project, the following prerequisites must be met:
 
 - Node.js, at least v14.16 or v16 LTS (see [https://nodejs.org/en/about/releases/](https://nodejs.org/en/about/releases/))
 
-> If you want to use Docker instead, take a look at the [Docker environment](#docker-environment) section.
+If you want to use Docker instead, take a look at the [Docker environment](#docker-environment) section.
 
 ### Installation
 
-Get a copy of the repository, e.g. by cloning it from the following location:
-
-```bash
-git clone https://github.com/noi-techpark/it.bz.opendatahub.databrowser
-```
-
-Change directory:
-
-```bash
-cd it.bz.opendatahub.databrowser
-```
-
-Install the dependencies of all projects in this mono repository:
-
-> This is a mono repository. That means, that many projects are located in this repository. Some of
-> those projects depend on each other (e.g. the Databrowser Application depends on the Web Components).
->
-> In order to simplify development, test and build, this repository provides [lerna](https://lerna.js.org/)
-> tasks e.g. to install all dependencies at once as seen below.
-
-```bash
-# Install dependencies of all projects. This may take some time!
-
-npm run bootstrap
-```
-
-### Start development
-
-If you are in the root folder of this mono repository, change to the Databrowser Application folder:
+Change to this directory:
 
 ```bash
 cd databrowser
 ```
 
-Copy the file .env.example to .env and adjust the configuration parameters:
+Copy the file `.env.example` to `.env` and adjust the configuration parameters if required.
+
+Install the dependencies (if not already installed with Lerna):
 
 ```bash
-cp .env.example .env
+npm ci
 ```
+
+### Start development
 
 To start the development server, run:
 
@@ -155,8 +130,7 @@ The code in this project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE
 ### Authors
 
 - **Christian Gapp** - *Initial work* - [gappc](https://github.com/gappc)
-- **Alex Lanz** - *Initial work* - [Alex Lanz](https://aboutbits.it/)
-- **Martin Malfertheiner** - *Initial work* - [gappc](https://aboutbits.it/)
+- **AboutBits** - *Initial work* - [aboutbits](https://github.com/aboutbits)
 
 ### Acknowledgements
 
