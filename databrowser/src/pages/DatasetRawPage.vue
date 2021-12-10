@@ -36,10 +36,10 @@ export default defineComponent({
     >({} as any);
 
     const fetchList = async (url: string, id: string) => {
-      const fetcher = async ({ queryKey }) => {
-        return await axios.get(queryKey[0]);
+      const fetcher = async ({ queryKey }: { queryKey: unknown[] }) => {
+        return await axios.get(queryKey[0] as string);
       };
-      const result = useApi(url.replace('{id}', id), fetcher);
+      const result = useApi(url.replace('{id}', id), fetcher as unknown as any);
       apiResult.value = result as any;
     };
 
