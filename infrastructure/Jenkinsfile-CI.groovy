@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                //sh 'cd databrowser && npm run lint'
+                sh 'cd databrowser && npm run lint'
                 sh 'cd databrowser && npm run test'
             }
         }
