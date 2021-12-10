@@ -4,9 +4,9 @@
       <TabList
         class="flex relative py-7 space-x-4 border-t border-b border-gray-300"
       >
-        <Tab>Table view</Tab>
-        <Tab>Detail view</Tab>
-        <Tab>Raw Data</Tab>
+        <TabItem>Table view</TabItem>
+        <TabItem>Detail view</TabItem>
+        <TabItemab>Raw Data</TabItemab>
         <div class="absolute right-0">
           <LanguagePicker />
         </div>
@@ -27,7 +27,7 @@
 
 <script class="ts">
 import ContentArea from '../components/content/ContentArea.vue';
-import Tab from '../components/tabs/TabItem.vue';
+import TabItem from '../components/tabs/TabItem.vue';
 import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue';
 import LanguagePicker from '../components/languageSwitcher/LanguagePicker.vue';
 
@@ -37,7 +37,7 @@ export default {
     ContentArea,
     TabGroup,
     TabList,
-    Tab,
+    TabItem,
     TabPanel,
     TabPanels,
   },
