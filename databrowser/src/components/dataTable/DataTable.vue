@@ -60,6 +60,7 @@ import TableBody from '../table/TableBody.vue';
 import TableHeader from '../table/TableHeader.vue';
 import TableHeaderCell from '../table/TableHeaderCell.vue';
 import TableCell from '../table/TableCell.vue';
+import { toRefs } from 'vue';
 
 export default defineComponent({
   components: {
@@ -82,22 +83,18 @@ export default defineComponent({
   },
   setup() {
     const queryRouter = useUrlQueryRouter();
+    const { queryParameters } = toRefs(queryRouter);
 
-    return {
-      queryParameters: queryRouter.queryParameters,
-    };
-  },
-  methods: {
-    getValue(
+    const getValue = (
       item: any,
       fields: Record<string, string>,
       params?: Record<string, string>
-    ) {
-      return {
-        ...extractField(item, fields, this.queryParameters),
-        ...params,
-      };
-    },
+    ) => ({
+      ...extractField(item, fields, queryParameters.value),
+      ...params,
+    });
+
+    return { getValue };
   },
 });
 </script>
