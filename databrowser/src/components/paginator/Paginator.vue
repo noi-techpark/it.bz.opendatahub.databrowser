@@ -1,57 +1,29 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <!-- eslint-disable tailwindcss/no-custom-classname -->
 <template>
-  <div v-if="pagination != null">
-    <div v-if="paginationData" class="flex">
-      <button
-        :disabled="paginationData.previous.isDisabled"
-        class="next-previous-button"
-        @click="$emit('paginateTo', paginationData?.previous.indexNumber)"
-      >
-        <ArrowLeft />
-      </button>
-      <div class="flex mx-2.5">
-        <div
-          v-for="(item, index) in paginationData.pages"
-          :key="item.indexNumber"
-          :class="{
-            'text-green-500 bg-opacity-10 bg-green-500 border-green-500':
-              item.isCurrent,
-            'hover:bg-gray-300': !item.isCurrent,
-            'rounded-l-full border-l': index == 0,
-            'rounded-r-full border-r': index == paginationData.pages.length - 1,
-          }"
-          class="
-            overflow-hidden
-            last:pr-2
-            first:pl-2
-            border-t border-b border-gray-500
-          "
-        >
-          <button
-            :class="{
-              'border-green-500': item.isCurrent,
-              'border-l': index != 0,
-              'border-r': index != paginationData.pages.length - 1,
-            }"
-            class="hover:text-green-500 border-transparent"
-            type="button"
-            @click="$emit('paginateTo', item.indexNumber)"
-          >
-            <span class="block py-1 px-2 font-semibold">{{
-              item.displayNumber
-            }}</span>
-          </button>
-        </div>
-      </div>
-      <button
-        :disabled="paginationData.next.isDisabled"
-        class="next-previous-button"
-        @click="$emit('paginateTo', paginationData?.next.indexNumber)"
-      >
-        <ArrowRight />
-      </button>
-    </div>
+  <div v-if="pagination != null" class="flex items-center">
+    <button
+      :disabled="previous?.isDisabled"
+      class="next-previous-button"
+      @click="$emit('paginateTo', previous?.indexNumber)"
+    >
+      <ArrowLeft />
+    </button>
+
+    <ButtonPillGroup
+      :data="pageNumbers"
+      :initial-selected="currentPageNumber"
+      class="inline-flex mx-2.5"
+      @selected-change="$emit('paginateTo', $event)"
+    />
+
+    <button
+      :disabled="next?.isDisabled"
+      class="next-previous-button"
+      @click="$emit('paginateTo', next?.indexNumber)"
+    >
+      <ArrowRight />
+    </button>
   </div>
 </template>
 
@@ -61,25 +33,53 @@ import { defineComponent, PropType } from '@vue/runtime-core';
 import { Pagination } from '../../domain/api/types';
 import ArrowRight from '../svg/ArrowRight.vue';
 import ArrowLeft from '../svg/ArrowLeft.vue';
+import ButtonPillGroup from '../button/ButtonPillGroup.vue';
+import { reactive, watch } from 'vue';
+import { SetupResult } from './types';
 
 export default defineComponent({
-  components: { ArrowRight, ArrowLeft },
+  components: { ArrowRight, ArrowLeft, ButtonPillGroup },
   props: {
     pagination: {
-      required: false,
       default: () => null,
       type: [Object] as PropType<Pagination | null>,
     },
   },
   emits: ['paginateTo'],
-  computed: {
-    paginationData() {
-      return calculatePagination(
-        this.pagination?.page ?? 1,
-        this.pagination?.size ?? 0,
-        this.pagination?.total ?? 0
-      );
-    },
+  setup(props) {
+    const result = reactive<SetupResult>({
+      currentPageNumber: '0',
+      pageNumbers: [],
+      previous: undefined,
+      next: undefined,
+    });
+
+    watch(
+      () => props.pagination,
+      (pagination) => {
+        const calculatedPagination = calculatePagination(
+          pagination?.page ?? 1,
+          pagination?.size ?? 0,
+          pagination?.total ?? 0
+        );
+
+        result.pageNumbers =
+          calculatedPagination?.pages.map((page) =>
+            page.displayNumber?.toString()
+          ) ?? [];
+
+        result.currentPageNumber =
+          calculatedPagination?.pages
+            .find((page) => page.isCurrent)
+            ?.indexNumber?.toString() ?? '1';
+
+        result.previous = calculatedPagination?.previous;
+        result.next = calculatedPagination?.next;
+      },
+      { immediate: true }
+    );
+
+    return result;
   },
 });
 </script>
