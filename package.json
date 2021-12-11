@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "bootstrap": "lerna bootstrap"
+        "bootstrap": "npm install && lerna bootstrap"
     },
     "devDependencies": {
         "lerna": "^4.0.0"
