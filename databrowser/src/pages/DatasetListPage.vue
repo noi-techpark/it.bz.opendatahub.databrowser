@@ -10,38 +10,36 @@
     >
   </Header>
 
-  <div class="flex flex-col h-full">
-    <ContentArea class="flex justify-between">
-      <div>
-        <ButtonCustom>Table view</ButtonCustom>
-        <ButtonCustom :disabled="true">Detail view</ButtonCustom>
-        <ButtonCustom :disabled="true">Raw view</ButtonCustom>
-      </div>
-      <ul class="inline-flex">
-        <li class="p-2"><button>DE</button></li>
-        <li class="p-2"><button>IT</button></li>
-        <li class="p-2"><button>EN</button></li>
-        <li class="p-2"><button>NL</button></li>
-        <li class="p-2"><button>CS</button></li>
-        <li class="p-2"><button>PL</button></li>
-        <li class="p-2"><button>FR</button></li>
-        <li class="p-2"><button>RU</button></li>
-      </ul>
-    </ContentArea>
-
-    <DatasetList></DatasetList>
-  </div>
+  <ContentArea class="flex flex-col h-full">
+    <TabGroup>
+      <TabList class="flex relative pb-10 space-x-4 border-b border-gray-300">
+        <TabItem>Table view</TabItem>
+        <TabItem>Detail view</TabItem>
+        <TabItem>Raw Data</TabItem>
+        <div class="absolute right-0">
+          <LanguagePicker />
+        </div>
+      </TabList>
+      <TabPanels class="overflow-hidden">
+        <TabPanel class="flex flex-col h-full">
+          <DatasetList></DatasetList>
+        </TabPanel>
+      </TabPanels>
+    </TabGroup>
+  </ContentArea>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
+import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue';
 import HeaderTitle from '../components/header/HeaderTitle.vue';
 import HeaderSubTitle from '../components/header/HeaderSubTitle.vue';
 import ContentArea from '../components/content/ContentArea.vue';
 import InternalLink from '../components/link/InternalLink.vue';
 import Header from '../components/header/HeaderContainer.vue';
-import ButtonCustom from '../components/button/ButtonCustom.vue';
 import DatasetList from './datasets/List.vue';
+import TabItem from '../components/tabs/TabItem.vue';
+import LanguagePicker from '../components/languageSwitcher/LanguagePicker.vue';
 
 export default defineComponent({
   components: {
@@ -50,8 +48,13 @@ export default defineComponent({
     ContentArea,
     InternalLink,
     Header,
-    ButtonCustom,
     DatasetList,
+    TabGroup,
+    TabList,
+    TabPanel,
+    TabPanels,
+    TabItem,
+    LanguagePicker,
   },
 });
 </script>
