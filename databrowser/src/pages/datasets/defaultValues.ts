@@ -23,7 +23,10 @@ export const defaultPageSize = pageSizeOptions[0].value;
 
 export const defaultPageNumber = 1;
 
+export const defaultLanguage = 'en';
+
 export const defaultQueryParameters = {
   pagesize: defaultPageSize.toString(),
   pagenumber: defaultPageNumber.toString(),
+  language: defaultLanguage,
 };

@@ -8,6 +8,8 @@ export const useUrlQueryRouter: UseUrlQueryRouter = function (config) {
   const router = useRouter();
 
   const updateQuery = (queryParameters: QueryParameters) => {
+    console.log('updateQuery');
+
     const params = {
       ...router.currentRoute.value.query,
     };
@@ -45,15 +47,23 @@ export const useUrlQueryRouter: UseUrlQueryRouter = function (config) {
   const route = useRoute();
 
   const queryParameters = ref();
+  const queryParametersWithDefaults = ref();
 
   watch(
     () => route.query,
-    (query) => (queryParameters.value = query),
+    (query) => {
+      queryParameters.value = query;
+      queryParametersWithDefaults.value = {
+        ...defaultQueryParameters,
+        ...query,
+      };
+    },
     { immediate: true }
   );
 
   return reactive({
     queryParameters,
+    queryParametersWithDefaults,
     actions: {
       updateQuery,
       clear,

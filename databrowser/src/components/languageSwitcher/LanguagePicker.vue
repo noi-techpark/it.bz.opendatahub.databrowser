@@ -1,6 +1,6 @@
 <template>
   <ButtonPill
-    class="inline-flex md:hidden items-center"
+    class="inline-flex md:hidden items-center uppercase"
     @click="showMobileSelect = true"
   >
     <span class="pr-2">{{ currentSelected }}</span>
@@ -8,9 +8,9 @@
   </ButtonPill>
 
   <ButtonPillGroup
-    :data="suportedLanguages"
+    :data="supportedLanguages"
     :initial-selected="currentSelected"
-    class="hidden md:inline-flex"
+    class="hidden md:inline-flex uppercase"
     @selected-change="changeLanguage"
   />
 
@@ -27,8 +27,9 @@
             <IconClose />
           </button>
           <ButtonPill
-            v-for="language in suportedLanguages"
+            v-for="language in supportedLanguages"
             :key="language"
+            class="uppercase"
             :class="[
               isSelected(language)
                 ? 'text-green-500 bg-opacity-10 bg-green-500 border-green-500'
@@ -51,6 +52,7 @@ import IconClose from '../svg/IconClose.vue';
 import ButtonPillGroup from '../button/ButtonPillGroup.vue';
 import ButtonPill from '../button/ButtonPill.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
+import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
 
 export default defineComponent({
   components: {
@@ -61,24 +63,30 @@ export default defineComponent({
     ButtonPill,
     ArrowDown,
   },
+  setup() {
+    const languageParameter = useUrlQueryParameter('language', 'en', {
+      defaultValue: 'en',
+    });
+    return {
+      languageParameter,
+    };
+  },
   data() {
     return {
-      suportedLanguages: Object.values(FilterLanguage),
+      supportedLanguages: Object.values(FilterLanguage),
       showMobileSelect: false,
     };
   },
   computed: {
     currentSelected() {
-      const query = this.$route.query.language;
-
-      return query != null && this.suportedLanguages.includes(query)
-        ? query
+      return this.supportedLanguages.includes(this.languageParameter)
+        ? this.languageParameter
         : FilterLanguage.EN;
     },
   },
   methods: {
     changeLanguage(language) {
-      this.$router.replace({ query: { language } });
+      this.languageParameter = language;
       this.closeDialog();
     },
     isSelected(current) {

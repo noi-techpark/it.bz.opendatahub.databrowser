@@ -61,6 +61,7 @@ import TableHeader from '../table/TableHeader.vue';
 import TableHeaderCell from '../table/TableHeaderCell.vue';
 import TableCell from '../table/TableCell.vue';
 import { toRefs } from 'vue';
+import { defaultQueryParameters } from '../../pages/datasets/defaultValues';
 
 export default defineComponent({
   components: {
@@ -82,15 +83,15 @@ export default defineComponent({
     },
   },
   setup() {
-    const queryRouter = useUrlQueryRouter();
-    const { queryParameters } = toRefs(queryRouter);
+    const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
+    const { queryParametersWithDefaults } = toRefs(queryRouter);
 
     const getValue = (
       item: any,
       fields: Record<string, string>,
       params?: Record<string, string>
     ) => ({
-      ...extractField(item, fields, queryParameters.value),
+      ...extractField(item, fields, queryParametersWithDefaults.value),
       ...params,
     });
 

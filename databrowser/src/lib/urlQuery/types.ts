@@ -9,6 +9,7 @@ export type Actions = {
 
 export type UseQueryAndPagination = {
   queryParameters: Ref<QueryParameters>;
+  queryParametersWithDefaults: Ref<QueryParameters>;
   actions: Actions;
 };
 
