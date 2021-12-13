@@ -1,12 +1,12 @@
 <template>
   <AppLayout>
-    <Header>
-      <HeaderTitle>Home Page</HeaderTitle>
-      <HeaderSubTitle
+    <Hero>
+      <HeroTitle>Home Page</HeroTitle>
+      <HeroSubTitle
         >Lorem ipsum dolor sit amen dolr sit amen dolr ist aem dolris tmane dolr
         ist amen.
-      </HeaderSubTitle>
-      <HeaderCaption>
+      </HeroSubTitle>
+      <HeroCaption>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
         ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
         dis parturient montes, nascetur ridiculus mus. Donec quam felis,
@@ -18,8 +18,8 @@
         tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac,
         enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
         Phasellus viverra nulla ut metus varius laoreet.
-      </HeaderCaption>
-    </Header>
+      </HeroCaption>
+    </Hero>
     <ContentArea>
       <CardGrid tag-name="ul">
         <CardContainer tag-name="li">
@@ -112,10 +112,10 @@
 
 <script>
 import AppLayout from '../layouts/AppLayout.vue';
-import Header from '../components/header/HeaderContainer.vue';
-import HeaderTitle from '../components/header/HeaderTitle.vue';
-import HeaderSubTitle from '../components/header/HeaderSubTitle.vue';
-import HeaderCaption from '../components/header/HeaderCaption.vue';
+import Hero from '../components/hero/HeroContainer.vue';
+import HeroTitle from '../components/hero/HeroTitle.vue';
+import HeroSubTitle from '../components/hero/HeroSubTitle.vue';
+import HeroCaption from '../components/hero/HeroCaption.vue';
 import ButtonLink from '../components/button/ButtonLink.vue';
 import CardContainer from '../components/card/CardContainer.vue';
 import ContentArea from '../components/content/ContentArea.vue';
@@ -143,10 +143,10 @@ export default defineComponent({
     ContentArea,
     CardContainer,
     ButtonLink,
-    HeaderCaption,
-    HeaderSubTitle,
-    HeaderTitle,
-    Header,
+    Hero,
+    HeroCaption,
+    HeroSubTitle,
+    HeroTitle,
   },
 });
 </script>

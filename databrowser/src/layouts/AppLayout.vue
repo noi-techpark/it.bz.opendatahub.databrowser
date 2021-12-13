@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-full">
-    <AppNavigation />
+    <AppHeader />
 
     <main class="flex-1">
       <slot></slot>
@@ -12,10 +12,10 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import AppNavigation from './AppNavigation.vue';
+import AppHeader from './AppHeader.vue';
 import AppFooter from './AppFooter.vue';
 
 export default defineComponent({
-  components: { AppNavigation, AppFooter },
+  components: { AppHeader, AppFooter },
 });
 </script>

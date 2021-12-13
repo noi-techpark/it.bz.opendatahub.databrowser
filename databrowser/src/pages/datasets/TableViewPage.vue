@@ -38,11 +38,11 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
 import AppLayout from '../../layouts/AppLayout.vue';
-import HeaderTitle from '../../components/header/HeaderTitle.vue';
-import HeaderSubTitle from '../../components/header/HeaderSubTitle.vue';
+import HeaderTitle from '../../components/hero/HeaderTitle.vue';
+import HeaderSubTitle from '../../components/hero/HeaderSubTitle.vue';
 import ContentArea from '../../components/content/ContentArea.vue';
 import InternalLink from '../../components/link/InternalLink.vue';
-import Header from '../../components/header/HeaderContainer.vue';
+import Header from '../../components/hero/HeaderContainer.vue';
 import ButtonCustom from '../../components/button/ButtonCustom.vue';
 import DatasetList from '../../domain/tableView/List.vue';
 

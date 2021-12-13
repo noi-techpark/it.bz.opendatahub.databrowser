@@ -2,13 +2,13 @@
   <div
     class="
       justify-between
+      py-3
+      lg:py-5
       px-3
       lg:px-0
       mx-auto
       w-full
       max-w-5xl
-      h-14
-      lg:h-20
       flex flex-row
     "
   >
@@ -16,7 +16,7 @@
       <img
         src="/logo-open-data-hub-black.png"
         :alt="$t('header.logo')"
-        class="mt-3 lg:mt-5 logo"
+        class="logo"
       />
     </router-link>
     <UserAuthentication class="self-center space-x-6" />

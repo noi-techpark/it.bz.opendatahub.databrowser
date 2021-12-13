@@ -1,3 +1,4 @@
+†
 <template>
   <h2 class="mt-2 lg:mt-0 max-w-lg leading-tight text-gray-600 sub-title">
     <slot></slot>
