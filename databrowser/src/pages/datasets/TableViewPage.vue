@@ -1,17 +1,19 @@
 <template>
   <AppLayout>
-    <Header>
-      <HeaderTitle>All POIs</HeaderTitle>
-      <HeaderSubTitle
+    <Hero>
+      <HeroTitle>All POIs</HeroTitle>
+      <HeroSubTitle
         >Lorem ipsum dolor sit amen dolr sit amen dolr ist ist amen.
-      </HeaderSubTitle>
+      </HeroSubTitle>
 
       <InternalLink to="/" tone="primary"
         ><span>More information</span></InternalLink
       >
-    </Header>
+    </Hero>
 
     <div class="flex flex-col h-full">
+      <ViewPills :view="view" :dataset-type="datasetType" />
+
       <ContentArea class="flex justify-between">
         <div>
           <ButtonCustom>Table view</ButtonCustom>
@@ -38,24 +40,37 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
 import AppLayout from '../../layouts/AppLayout.vue';
-import HeaderTitle from '../../components/hero/HeaderTitle.vue';
-import HeaderSubTitle from '../../components/hero/HeaderSubTitle.vue';
+import Hero from '../../components/hero/HeroContainer.vue';
+import HeroTitle from '../../components/hero/HeroTitle.vue';
+import HeroSubTitle from '../../components/hero/HeroSubTitle.vue';
 import ContentArea from '../../components/content/ContentArea.vue';
 import InternalLink from '../../components/link/InternalLink.vue';
-import Header from '../../components/hero/HeaderContainer.vue';
 import ButtonCustom from '../../components/button/ButtonCustom.vue';
-import DatasetList from '../../domain/tableView/List.vue';
+import DatasetList from '../../domain/datasets/tableView/List.vue';
+import { useRoute } from 'vue-router';
+import ViewPills from '../../domain/datasets/navigation/ViewPills.vue';
+import { View } from '../../domain/datasets/navigation/types';
 
 export default defineComponent({
   components: {
+    ViewPills,
     AppLayout,
-    HeaderTitle,
-    HeaderSubTitle,
+    Hero,
+    HeroTitle,
+    HeroSubTitle,
     ContentArea,
     InternalLink,
-    Header,
     ButtonCustom,
     DatasetList,
+  },
+  setup() {
+    const route = useRoute();
+    const datasetType = route.params.datasetType as string;
+
+    return {
+      view: View.table,
+      datasetType,
+    };
   },
 });
 </script>

@@ -8,6 +8,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/dataset/:datasetType',
     component: () => import('./pages/datasets/TableViewPage.vue'),
+    name: 'DatasetsTableViewPage',
   },
   {
     path: '/dataset/:datasetType/:datasetId',

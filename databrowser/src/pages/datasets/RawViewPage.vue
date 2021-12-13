@@ -1,6 +1,11 @@
 <template>
   <AppLayout>
     <ContentArea>
+      <ViewPills
+        :view="view"
+        :dataset-type="datasetType"
+        :dataset-id="datasetId"
+      />
       <div>
         Dataset Detail Page (type = {{ $route.params.datasetType }}, ID =
         {{ $route.params.datasetId }})
@@ -26,15 +31,21 @@ import ContentArea from '../../components/content/ContentArea.vue';
 import VueJsonPretty from 'vue-json-pretty';
 import axios, { AxiosResponse } from 'axios';
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
+import ViewPills from '../../domain/datasets/navigation/ViewPills.vue';
+import { View } from '../../domain/datasets/navigation/types';
 
 export default defineComponent({
   components: {
+    ViewPills,
     AppLayout,
     ContentArea,
     VueJsonPretty,
   },
   setup() {
     const route = useRoute();
+    const datasetType = route.params.datasetType as string;
+    const datasetId = route.params.datasetId as string;
+
     const apiResult = ref<
       UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>
     >({} as any);
@@ -47,14 +58,14 @@ export default defineComponent({
       apiResult.value = result as any;
     };
 
-    const configEntry = apiConfigProvider(route.params.datasetType as string);
+    const configEntry = apiConfigProvider(datasetType);
     if (configEntry?.detailEndpoint?.url != null) {
-      fetchList(
-        configEntry.detailEndpoint.url,
-        route.params.datasetId as string
-      );
+      fetchList(configEntry.detailEndpoint.url, datasetId);
     }
     return {
+      view: View.raw,
+      datasetType,
+      datasetId,
       apiResult,
       fetchList,
     };
