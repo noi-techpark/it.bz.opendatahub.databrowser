@@ -81,9 +81,6 @@
 
       <CardGrid tag-name="ul">
         <li>
-          <router-link to="/error">Go to Error</router-link>
-        </li>
-        <li>
           <router-link to="/dataset/odh-activity-poi"
             >ODH ActivityPOI List
           </router-link>

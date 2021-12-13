@@ -44,7 +44,7 @@ import ContentArea from '../../components/content/ContentArea.vue';
 import InternalLink from '../../components/link/InternalLink.vue';
 import Header from '../../components/header/HeaderContainer.vue';
 import ButtonCustom from '../../components/button/ButtonCustom.vue';
-import DatasetList from './List.vue';
+import DatasetList from '../../domain/tableView/List.vue';
 
 export default defineComponent({
   components: {
