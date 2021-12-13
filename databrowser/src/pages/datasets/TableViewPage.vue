@@ -49,7 +49,7 @@ import ButtonCustom from '../../components/button/ButtonCustom.vue';
 import DatasetList from '../../domain/datasets/tableView/List.vue';
 import { useRoute } from 'vue-router';
 import ViewPills from '../../domain/datasets/navigation/ViewPills.vue';
-import { View } from '../../domain/datasets/navigation/types';
+import { ViewPill } from '../../domain/datasets/navigation/types';
 
 export default defineComponent({
   components: {
@@ -68,7 +68,7 @@ export default defineComponent({
     const datasetType = route.params.datasetType as string;
 
     return {
-      view: View.table,
+      view: ViewPill.table,
       datasetType,
     };
   },

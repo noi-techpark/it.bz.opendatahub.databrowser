@@ -27,7 +27,7 @@ import LanguagePicker from '../../components/languageSwitcher/LanguagePicker.vue
 import { useRoute } from 'vue-router';
 import { defineComponent } from '@vue/runtime-core';
 import ViewPills from '../../domain/datasets/navigation/ViewPills.vue';
-import { View } from '../../domain/datasets/navigation/types';
+import { ViewPill } from '../../domain/datasets/navigation/types';
 
 export default defineComponent({
   components: {
@@ -42,7 +42,7 @@ export default defineComponent({
     const datasetId = route.params.datasetId;
 
     return {
-      view: View.detail,
+      view: ViewPill.detail,
       datasetType,
       datasetId,
     };

@@ -35,7 +35,7 @@
 import { defineComponent, PropType } from '@vue/runtime-core';
 import PillLink from '../../../components/pill/PillLink.vue';
 import PillButton from '../../../components/pill/PillButton.vue';
-import { View } from './types';
+import { ViewPill } from './types';
 import { computed } from 'vue';
 
 export default defineComponent({
@@ -45,7 +45,7 @@ export default defineComponent({
   },
   props: {
     view: {
-      type: String as PropType<View>,
+      type: String as PropType<ViewPill>,
       required: true,
     },
     datasetType: {
@@ -59,9 +59,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const isTableActive = computed(() => props.view === View.table);
-    const isDetailActive = computed(() => props.view === View.detail);
-    const isRawActive = computed(() => props.view === View.raw);
+    const isTableActive = computed(() => props.view === ViewPill.table);
+    const isDetailActive = computed(() => props.view === ViewPill.detail);
+    const isRawActive = computed(() => props.view === ViewPill.raw);
 
     return {
       isTableActive,

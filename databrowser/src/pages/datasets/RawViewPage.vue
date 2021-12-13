@@ -32,7 +32,7 @@ import VueJsonPretty from 'vue-json-pretty';
 import axios, { AxiosResponse } from 'axios';
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
 import ViewPills from '../../domain/datasets/navigation/ViewPills.vue';
-import { View } from '../../domain/datasets/navigation/types';
+import { ViewPill } from '../../domain/datasets/navigation/types';
 
 export default defineComponent({
   components: {
@@ -63,7 +63,7 @@ export default defineComponent({
       fetchList(configEntry.detailEndpoint.url, datasetId);
     }
     return {
-      view: View.raw,
+      view: ViewPill.raw,
       datasetType,
       datasetId,
       apiResult,
