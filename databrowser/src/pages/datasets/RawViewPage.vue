@@ -1,31 +1,35 @@
 <template>
-  <ContentArea>
-    <div>
-      Dataset Detail Page (type = {{ $route.params.datasetType }}, ID =
-      {{ $route.params.datasetId }})
-    </div>
-    <div class="overflow-x-scroll p-4 rounded-xl border">
-      <div v-if="apiResult.isFetching">Loading</div>
-      <div v-else>
-        <vue-json-pretty :data="apiResult.data?.data" :deep="3" show-length />
+  <AppLayout>
+    <ContentArea>
+      <div>
+        Dataset Detail Page (type = {{ $route.params.datasetType }}, ID =
+        {{ $route.params.datasetId }})
       </div>
-    </div>
-  </ContentArea>
+      <div class="overflow-x-scroll p-4 rounded-xl border">
+        <div v-if="apiResult.isFetching">Loading</div>
+        <div v-else>
+          <vue-json-pretty :data="apiResult.data?.data" :deep="3" show-length />
+        </div>
+      </div>
+    </ContentArea>
+  </AppLayout>
 </template>
 
 <script lang="ts">
 import { ref, UnwrapRef } from 'vue';
 import { defineComponent } from '@vue/runtime-core';
-import { useApi } from '../domain/api/client';
+import AppLayout from '../../layouts/AppLayout.vue';
+import { useApi } from '../../domain/api/client';
 import { useRoute } from 'vue-router';
-import { apiConfigProvider } from '../domain/api/configUtils';
-import ContentArea from '../components/content/ContentArea.vue';
+import { apiConfigProvider } from '../../domain/api/configUtils';
+import ContentArea from '../../components/content/ContentArea.vue';
 import VueJsonPretty from 'vue-json-pretty';
 import axios, { AxiosResponse } from 'axios';
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
 
 export default defineComponent({
   components: {
+    AppLayout,
     ContentArea,
     VueJsonPretty,
   },

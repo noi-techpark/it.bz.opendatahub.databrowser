@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import UserAuthentication from '../../domain/auth/UserAuthentication.vue';
+import UserAuthentication from '../domain/auth/UserAuthentication.vue';
 
 export default defineComponent({
   components: { UserAuthentication },
