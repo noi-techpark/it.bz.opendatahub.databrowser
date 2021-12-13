@@ -1,11 +1,7 @@
 <template>
   <AppLayout>
     <ContentArea>
-      <ViewPills
-        :view="view"
-        :dataset-type="datasetType"
-        :dataset-id="datasetId"
-      />
+      <DatasetNavigation :current-view="currentView" />
       <div>
         Dataset Detail Page (type = {{ $route.params.datasetType }}, ID =
         {{ $route.params.datasetId }})
@@ -31,12 +27,12 @@ import ContentArea from '../../components/content/ContentArea.vue';
 import VueJsonPretty from 'vue-json-pretty';
 import axios, { AxiosResponse } from 'axios';
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
-import ViewPills from '../../domain/datasets/navigation/ViewPills.vue';
+import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
 import { ViewPill } from '../../domain/datasets/navigation/types';
 
 export default defineComponent({
   components: {
-    ViewPills,
+    DatasetNavigation,
     AppLayout,
     ContentArea,
     VueJsonPretty,
@@ -63,7 +59,7 @@ export default defineComponent({
       fetchList(configEntry.detailEndpoint.url, datasetId);
     }
     return {
-      view: ViewPill.raw,
+      currentView: ViewPill.raw,
       datasetType,
       datasetId,
       apiResult,

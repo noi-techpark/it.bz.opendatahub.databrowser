@@ -37,6 +37,7 @@ import PillLink from '../../../components/pill/PillLink.vue';
 import PillButton from '../../../components/pill/PillButton.vue';
 import { ViewPill } from './types';
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   components: {
@@ -44,26 +45,25 @@ export default defineComponent({
     PillLink,
   },
   props: {
-    view: {
+    currentView: {
       type: String as PropType<ViewPill>,
       required: true,
     },
-    datasetType: {
-      type: String,
-      required: true,
-    },
-    datasetId: {
-      type: String,
-      required: false,
-      default: null,
-    },
   },
   setup(props) {
-    const isTableActive = computed(() => props.view === ViewPill.table);
-    const isDetailActive = computed(() => props.view === ViewPill.detail);
-    const isRawActive = computed(() => props.view === ViewPill.raw);
+    const route = useRoute();
+    const datasetType = route.params.datasetType as string;
+    const datasetId = route.params.datasetId as string;
+
+    const isTableActive = computed(() => props.currentView === ViewPill.table);
+    const isDetailActive = computed(
+      () => props.currentView === ViewPill.detail
+    );
+    const isRawActive = computed(() => props.currentView === ViewPill.raw);
 
     return {
+      datasetType,
+      datasetId,
       isTableActive,
       isDetailActive,
       isRawActive,

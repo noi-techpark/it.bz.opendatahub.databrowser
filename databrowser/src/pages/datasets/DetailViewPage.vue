@@ -1,18 +1,7 @@
 <template>
   <AppLayout>
     <ContentArea>
-      <div
-        class="flex relative py-7 space-x-4 border-t border-b border-gray-300"
-      >
-        <ViewPills
-          :view="view"
-          :dataset-type="datasetType"
-          :dataset-id="datasetId"
-        />
-        <div class="absolute right-0">
-          <LanguagePicker />
-        </div>
-      </div>
+      <DatasetNavigation :current-view="currentView" />
       <div>
         Dataset Detail Page (type = {{ datasetType }}, ID = {{ datasetId }})
       </div>
@@ -23,17 +12,15 @@
 <script class="ts">
 import AppLayout from '../../layouts/AppLayout.vue';
 import ContentArea from '../../components/content/ContentArea.vue';
-import LanguagePicker from '../../components/languageSwitcher/LanguagePicker.vue';
 import { useRoute } from 'vue-router';
 import { defineComponent } from '@vue/runtime-core';
-import ViewPills from '../../domain/datasets/navigation/ViewPills.vue';
 import { ViewPill } from '../../domain/datasets/navigation/types';
+import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
 
 export default defineComponent({
   components: {
-    ViewPills,
+    DatasetNavigation,
     AppLayout,
-    LanguagePicker,
     ContentArea,
   },
   setup() {
@@ -42,7 +29,7 @@ export default defineComponent({
     const datasetId = route.params.datasetId;
 
     return {
-      view: ViewPill.detail,
+      currentView: ViewPill.detail,
       datasetType,
       datasetId,
     };
