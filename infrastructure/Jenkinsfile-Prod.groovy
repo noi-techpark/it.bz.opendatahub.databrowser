@@ -9,6 +9,11 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+
+        VITE_APP_KEYCLOAK_URL = "https://auth.opendatahub.bz.it/auth"
+        VITE_APP_KEYCLOAK_REALM = "noi"
+        VITE_APP_KEYCLOAK_CLIENT_ID = "it.bz.opendatahub.databrowser"
+        VITE_APP_KEYCLOAK_REDIRECT_URI = "https://databrowser.opendatahub.bz.it/silent-check-sso.html"
     }
 
     stages {
