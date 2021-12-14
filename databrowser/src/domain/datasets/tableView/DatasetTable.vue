@@ -30,7 +30,7 @@
 import { defineComponent } from '@vue/runtime-core';
 import { reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
-import { apiConfigProvider } from '../../api/configUtils';
+import { getApiConfigForDataset } from '../../api/configUtils';
 import DataTable from '../../../components/dataTable/DataTable.vue';
 import { Pagination } from '../../api/types';
 import { useApi } from '../../api/client';
@@ -50,7 +50,7 @@ export default defineComponent({
 
     // Get config parameters
     const { url, tableConfig } =
-      apiConfigProvider(datasetType)?.listEndpoint ?? {};
+      getApiConfigForDataset(datasetType)?.listEndpoint ?? {};
 
     // Use query router for URL query parameter handling
     // TODO: one could use the info from OpenAPI to get the default query parameters

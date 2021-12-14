@@ -9,7 +9,7 @@
     </Hero>
 
     <DatasetNavigation :current-view="currentView" />
-    <DatasetList></DatasetList>
+    <DatasetTable></DatasetTable>
   </AppLayout>
 </template>
 
@@ -20,7 +20,7 @@ import Hero from '../../components/hero/HeroContainer.vue';
 import HeroTitle from '../../components/hero/HeroTitle.vue';
 import HeroSubTitle from '../../components/hero/HeroSubTitle.vue';
 import InternalLink from '../../components/link/InternalLink.vue';
-import DatasetList from '../../domain/datasets/tableView/List.vue';
+import DatasetTable from '../../domain/datasets/tableView/DatasetTable.vue';
 import { ViewPill } from '../../domain/datasets/navigation/types';
 import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
 
@@ -32,7 +32,7 @@ export default defineComponent({
     HeroTitle,
     HeroSubTitle,
     InternalLink,
-    DatasetList,
+    DatasetTable,
   },
   setup() {
     return {

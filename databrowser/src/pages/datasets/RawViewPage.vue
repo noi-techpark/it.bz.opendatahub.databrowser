@@ -22,7 +22,7 @@ import { defineComponent } from '@vue/runtime-core';
 import AppLayout from '../../layouts/AppLayout.vue';
 import { useApi } from '../../domain/api/client';
 import { useRoute } from 'vue-router';
-import { apiConfigProvider } from '../../domain/api/configUtils';
+import { getApiConfigForDataset } from '../../domain/api/configUtils';
 import ContentArea from '../../components/content/ContentArea.vue';
 import VueJsonPretty from 'vue-json-pretty';
 import axios, { AxiosResponse } from 'axios';
@@ -54,7 +54,7 @@ export default defineComponent({
       apiResult.value = result as any;
     };
 
-    const configEntry = apiConfigProvider(datasetType);
+    const configEntry = getApiConfigForDataset(datasetType);
     if (configEntry?.detailEndpoint?.url != null) {
       fetchList(configEntry.detailEndpoint.url, datasetId);
     }
