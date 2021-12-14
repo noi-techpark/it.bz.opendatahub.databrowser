@@ -43,7 +43,7 @@
   </Dialog>
 </template>
 
-<script>
+<script lang="ts">
 import { Dialog, DialogOverlay } from '@headlessui/vue';
 import { defineComponent } from '@vue/runtime-core';
 import { FilterLanguage } from '../../domain/api/configFilter';
