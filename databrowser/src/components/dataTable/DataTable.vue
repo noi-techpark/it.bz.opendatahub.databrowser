@@ -24,7 +24,10 @@
         <td class="sticky right-0 p-4 bg-white">
           <div class="flex h-full">
             <router-link
-              :to="{ name: 'datasetDetailPage', params: { datasetId: row.Id } }"
+              :to="{
+                name: 'DatasetsDetailViewPage',
+                params: { datasetId: row.Id },
+              }"
               class="
                 flex
                 justify-center
@@ -40,7 +43,10 @@
               <EyeDetailGreen />
             </router-link>
             <router-link
-              :to="{ name: 'datasetRawPage', params: { datasetId: row.Id } }"
+              :to="{
+                name: 'DatasetsRawViewPage',
+                params: { datasetId: row.Id },
+              }"
               class="
                 flex
                 justify-center

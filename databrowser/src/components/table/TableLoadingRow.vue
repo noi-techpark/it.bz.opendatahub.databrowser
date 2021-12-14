@@ -6,7 +6,7 @@
   </tr>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
 import TableCell from './TableCell.vue';
 

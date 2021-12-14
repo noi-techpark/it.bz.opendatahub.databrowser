@@ -4,42 +4,24 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('./pages/HomePage.vue'),
-    meta: {
-      layout: 'AppLayoutDefault',
-    },
+  },
+  {
+    path: '/dataset/:datasetType',
+    component: () => import('./pages/datasets/TableViewPage.vue'),
+  },
+  {
+    path: '/dataset/:datasetType/:datasetId',
+    component: () => import('./pages/datasets/DetailViewPage.vue'),
+    name: 'DatasetsDetailViewPage',
+  },
+  {
+    path: '/dataset/:datasetType/:datasetId/raw',
+    component: () => import('./pages/datasets/RawViewPage.vue'),
+    name: 'DatasetsRawViewPage',
   },
   {
     path: '/about',
     component: () => import('./pages/AboutPage.vue'),
-  },
-  {
-    path: '/axios-example',
-    component: () => import('./pages/AxiosExample.vue'),
-  },
-  {
-    path: '/error',
-    component: () => import('./pages/ErrorPage.vue'),
-    meta: {
-      layout: 'AppLayoutError',
-    },
-  },
-  {
-    path: '/dataset/:datasetType',
-    component: () => import('./pages/DatasetPage.vue'),
-  },
-  {
-    path: '/dataset/:datasetType/:datasetId',
-    component: () => import('./pages/DatasetDetailPage.vue'),
-    name: 'datasetDetailPage',
-  },
-  {
-    path: '/dataset/:datasetType/:datasetId/raw',
-    component: () => import('./pages/DatasetRawPage.vue'),
-    name: 'datasetRawPage',
-  },
-  {
-    path: '/dataset/:datasetType/:datasetId/raw',
-    component: () => import('./pages/DatasetRawPage.vue'),
   },
   {
     path: '/imprint',
