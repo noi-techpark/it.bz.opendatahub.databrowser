@@ -11,7 +11,7 @@
 import ViewPills from './ViewPills.vue';
 import { defineComponent, PropType } from '@vue/runtime-core';
 import ContentArea from '../../../components/content/ContentArea.vue';
-import LanguagePicker from '../../../components/languageSwitcher/LanguagePicker.vue';
+import LanguagePicker from '../../../components/language/LanguagePicker.vue';
 import { ViewPill } from './types';
 
 export default defineComponent({

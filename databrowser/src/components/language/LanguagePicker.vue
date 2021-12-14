@@ -1,13 +1,13 @@
 <template>
-  <ButtonPill
+  <PillButton
     class="inline-flex md:hidden items-center"
     @click="showMobileSelect = true"
   >
     <span class="pr-2">{{ currentSelected }}</span>
     <ArrowDown />
-  </ButtonPill>
+  </PillButton>
 
-  <ButtonPillGroup
+  <PillGroup
     :data="suportedLanguages"
     :initial-selected="currentSelected"
     class="hidden md:inline-flex"
@@ -26,7 +26,7 @@
           <button class="mx-auto" @click="closeDialog">
             <IconClose />
           </button>
-          <ButtonPill
+          <PillButton
             v-for="language in suportedLanguages"
             :key="language"
             :class="[
@@ -36,7 +36,7 @@
             ]"
             @click="changeLanguage(language)"
             >{{ language }}
-          </ButtonPill>
+          </PillButton>
         </div>
       </div>
     </div>
@@ -48,17 +48,17 @@ import { Dialog, DialogOverlay } from '@headlessui/vue';
 import { defineComponent } from '@vue/runtime-core';
 import { FilterLanguage } from '../../domain/api/configFilter';
 import IconClose from '../svg/IconClose.vue';
-import ButtonPillGroup from '../button/ButtonPillGroup.vue';
-import ButtonPill from '../button/ButtonPill.vue';
+import PillGroup from '../pill/PillGroup.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
+import PillButton from '../pill/PillButton.vue';
 
 export default defineComponent({
   components: {
+    PillButton,
     Dialog,
     DialogOverlay,
     IconClose,
-    ButtonPillGroup,
-    ButtonPill,
+    PillGroup,
     ArrowDown,
   },
   data() {
