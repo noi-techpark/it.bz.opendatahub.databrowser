@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
+    <DatasetNavigation :current-view="currentView" />
     <ContentArea>
-      <DatasetNavigation :current-view="currentView" />
       <div>
         Dataset Detail Page (type = {{ datasetType }}, ID = {{ datasetId }})
       </div>

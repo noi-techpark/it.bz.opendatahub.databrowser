@@ -8,11 +8,8 @@
       <InternalLink to="/" tone="primary">More information</InternalLink>
     </Hero>
 
-    <div class="flex flex-col h-full">
-      <DatasetNavigation :current-view="currentView" />
-
-      <DatasetList></DatasetList>
-    </div>
+    <DatasetNavigation :current-view="currentView" />
+    <DatasetList></DatasetList>
   </AppLayout>
 </template>
 
