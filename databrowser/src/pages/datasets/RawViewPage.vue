@@ -1,36 +1,47 @@
 <template>
-  <ContentArea>
-    <div>
-      Dataset Detail Page (type = {{ $route.params.datasetType }}, ID =
-      {{ $route.params.datasetId }})
-    </div>
-    <div class="overflow-x-scroll p-4 rounded-xl border">
-      <div v-if="apiResult.isFetching">Loading</div>
-      <div v-else>
-        <vue-json-pretty :data="apiResult.data?.data" :deep="3" show-length />
+  <AppLayout>
+    <DatasetNavigation :current-view="currentView" />
+    <ContentArea>
+      <div>
+        Dataset Detail Page (type = {{ $route.params.datasetType }}, ID =
+        {{ $route.params.datasetId }})
       </div>
-    </div>
-  </ContentArea>
+      <div class="overflow-x-scroll p-4 rounded-xl border">
+        <div v-if="apiResult.isFetching">Loading</div>
+        <div v-else>
+          <vue-json-pretty :data="apiResult.data?.data" :deep="3" show-length />
+        </div>
+      </div>
+    </ContentArea>
+  </AppLayout>
 </template>
 
 <script lang="ts">
 import { ref, UnwrapRef } from 'vue';
 import { defineComponent } from '@vue/runtime-core';
-import { useApi } from '../domain/api/client';
+import AppLayout from '../../layouts/AppLayout.vue';
+import { useApi } from '../../domain/api/client';
 import { useRoute } from 'vue-router';
-import { apiConfigProvider } from '../domain/api/configUtils';
-import ContentArea from '../components/content/ContentArea.vue';
+import { getApiConfigForDataset } from '../../domain/api/configUtils';
+import ContentArea from '../../components/content/ContentArea.vue';
 import VueJsonPretty from 'vue-json-pretty';
 import axios, { AxiosResponse } from 'axios';
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
+import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
+import { ViewPill } from '../../domain/datasets/navigation/types';
 
 export default defineComponent({
   components: {
+    DatasetNavigation,
+    AppLayout,
     ContentArea,
     VueJsonPretty,
   },
   setup() {
     const route = useRoute();
+    const datasetType = route.params.datasetType as string;
+    const datasetId = route.params.datasetId as string;
+
     const apiResult = ref<
       UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>
     >({} as any);
@@ -43,14 +54,14 @@ export default defineComponent({
       apiResult.value = result as any;
     };
 
-    const configEntry = apiConfigProvider(route.params.datasetType as string);
+    const configEntry = getApiConfigForDataset(datasetType);
     if (configEntry?.detailEndpoint?.url != null) {
-      fetchList(
-        configEntry.detailEndpoint.url,
-        route.params.datasetId as string
-      );
+      fetchList(configEntry.detailEndpoint.url, datasetId);
     }
     return {
+      currentView: ViewPill.raw,
+      datasetType,
+      datasetId,
       apiResult,
       fetchList,
     };

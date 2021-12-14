@@ -1,5 +1,4 @@
 <!-- eslint-disable vue/multi-word-component-names -->
-<!-- eslint-disable tailwindcss/no-custom-classname -->
 <template>
   <div v-if="pagination != null" class="flex items-center">
     <button
@@ -10,7 +9,7 @@
       <ArrowLeft />
     </button>
 
-    <ButtonPillGroup
+    <PillGroup
       :data="pageNumbers"
       :initial-selected="currentPageNumber"
       class="inline-flex mx-2.5"
@@ -33,12 +32,12 @@ import { defineComponent, PropType } from '@vue/runtime-core';
 import { Pagination } from '../../domain/api/types';
 import ArrowRight from '../svg/ArrowRight.vue';
 import ArrowLeft from '../svg/ArrowLeft.vue';
-import ButtonPillGroup from '../button/ButtonPillGroup.vue';
 import { reactive, watch } from 'vue';
 import { SetupResult } from './types';
+import PillGroup from '../pill/PillGroup.vue';
 
 export default defineComponent({
-  components: { ArrowRight, ArrowLeft, ButtonPillGroup },
+  components: { ArrowRight, ArrowLeft, PillGroup },
   props: {
     pagination: {
       default: () => null,

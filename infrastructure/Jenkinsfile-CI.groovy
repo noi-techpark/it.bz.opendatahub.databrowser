@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
+                sh 'npm ci'
                 sh 'npm run bootstrap'
             }
         }

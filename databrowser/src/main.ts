@@ -20,13 +20,14 @@ app.provide('axios', app.config.globalProperties.axios);
 // Add vuex store
 app.use(store);
 
-// Add i18n translation
-const i18n = setupI18n({ locale: 'en' });
-loadLocaleMessages(i18n, i18n.global.locale);
-app.use(i18n);
-
 // Register Vue render components globally for dynamic rendering
 app.use(registerRenderComponents);
 
-// Mount the app
-app.mount('#app');
+// Add i18n translation
+const i18n = setupI18n({ locale: 'en' });
+loadLocaleMessages(i18n, i18n.global.locale).then(() => {
+  app.use(i18n);
+
+  // Mount the app
+  app.mount('#app');
+});

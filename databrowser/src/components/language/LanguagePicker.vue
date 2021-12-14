@@ -1,13 +1,13 @@
 <template>
-  <ButtonPill
-    class="inline-flex md:hidden items-center uppercase"
+  <PillButton
+    class="inline-flex md:hidden items-center"
     @click="showMobileSelect = true"
   >
     <span class="pr-2">{{ currentSelected }}</span>
     <ArrowDown />
-  </ButtonPill>
+  </PillButton>
 
-  <ButtonPillGroup
+  <PillGroup
     :data="supportedLanguages"
     :initial-selected="currentSelected"
     class="hidden md:inline-flex uppercase"
@@ -26,7 +26,7 @@
           <button class="mx-auto" @click="closeDialog">
             <IconClose />
           </button>
-          <ButtonPill
+          <PillButton
             v-for="language in supportedLanguages"
             :key="language"
             class="uppercase"
@@ -37,30 +37,30 @@
             ]"
             @click="changeLanguage(language)"
             >{{ language }}
-          </ButtonPill>
+          </PillButton>
         </div>
       </div>
     </div>
   </Dialog>
 </template>
 
-<script>
+<script lang="ts">
 import { Dialog, DialogOverlay } from '@headlessui/vue';
 import { defineComponent } from '@vue/runtime-core';
 import { FilterLanguage } from '../../domain/api/configFilter';
 import IconClose from '../svg/IconClose.vue';
-import ButtonPillGroup from '../button/ButtonPillGroup.vue';
-import ButtonPill from '../button/ButtonPill.vue';
+import PillGroup from '../pill/PillGroup.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
+import PillButton from '../pill/PillButton.vue';
 
 export default defineComponent({
   components: {
+    PillButton,
     Dialog,
     DialogOverlay,
     IconClose,
-    ButtonPillGroup,
-    ButtonPill,
+    PillGroup,
     ArrowDown,
   },
   setup() {
@@ -75,21 +75,26 @@ export default defineComponent({
     return {
       supportedLanguages: Object.values(FilterLanguage),
       showMobileSelect: false,
+      // TODO: maybe better to provide as prop
+      defaultLanguage: FilterLanguage.EN,
     };
   },
   computed: {
-    currentSelected() {
-      return this.supportedLanguages.includes(this.languageParameter)
+    currentSelected(): string {
+      if (this.languageParameter == null) {
+        return this.defaultLanguage;
+      }
+      return this.languageParameter in this.supportedLanguages
         ? this.languageParameter
         : FilterLanguage.EN;
     },
   },
   methods: {
-    changeLanguage(language) {
+    changeLanguage(language: string) {
       this.languageParameter = language;
       this.closeDialog();
     },
-    isSelected(current) {
+    isSelected(current: string) {
       return this.currentSelected == current;
     },
     closeDialog() {

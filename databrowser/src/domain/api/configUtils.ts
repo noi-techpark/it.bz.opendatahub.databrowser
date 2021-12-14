@@ -1,7 +1,7 @@
 import { get } from 'lodash';
 import { ApiConfig, apiConfig, ApiConfigEntry } from './config';
 
-export const apiConfigProvider = (
+export const getApiConfigForDataset = (
   id: keyof ApiConfig
 ): ApiConfigEntry | undefined => apiConfig[id];
 

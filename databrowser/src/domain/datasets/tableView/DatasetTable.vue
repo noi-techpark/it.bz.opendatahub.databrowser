@@ -30,15 +30,15 @@
 import { defineComponent } from '@vue/runtime-core';
 import { reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
-import { apiConfigProvider } from '../../domain/api/configUtils';
-import DataTable from '../../components/dataTable/DataTable.vue';
-import { Pagination } from '../../domain/api/types';
-import { useApi } from '../../domain/api/client';
-import { useUrlQueryRouter } from '../../lib/urlQuery/urlQueryRouter';
-import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
+import { getApiConfigForDataset } from '../../api/configUtils';
+import DataTable from '../../../components/dataTable/DataTable.vue';
+import { Pagination } from '../../api/types';
+import { useApi } from '../../api/client';
+import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
+import { useUrlQueryParameter } from '../../../lib/urlQuery/urlQueryParameter';
 import { defaultQueryParameters, pageSizeOptions } from './defaultValues';
-import { buildListApiFetcher } from '../../domain/api/fetcher/list';
-import { useListMapper } from '../../domain/api/mapper';
+import { buildListApiFetcher } from '../../api/fetcher/list';
+import { useListMapper } from '../../api/mapper';
 import ListNavigation from './ListNavigation.vue';
 
 export default defineComponent({
@@ -50,7 +50,7 @@ export default defineComponent({
 
     // Get config parameters
     const { url, tableConfig } =
-      apiConfigProvider(datasetType)?.listEndpoint ?? {};
+      getApiConfigForDataset(datasetType)?.listEndpoint ?? {};
 
     // Use query router for URL query parameter handling
     // TODO: one could use the info from OpenAPI to get the default query parameters

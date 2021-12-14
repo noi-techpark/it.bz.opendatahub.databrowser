@@ -4,7 +4,7 @@ import { createI18n, I18n, Locale, VueI18n } from 'vue-i18n';
 const isI18n = (i18n: I18n | VueI18n): i18n is I18n =>
   (i18n as I18n).global != null;
 
-export const SUPPORT_LOCALES = ['de', 'en', 'it'];
+export const SUPPORT_LOCALES = ['en', 'de', 'it'];
 
 export const setupI18n = (options = { locale: 'en' }) => {
   const i18n = createI18n(options);
@@ -13,8 +13,6 @@ export const setupI18n = (options = { locale: 'en' }) => {
 };
 
 export function setI18nLanguage(i18n: I18n | VueI18n, locale: Locale) {
-  console.log('i18n', i18n);
-
   if (isI18n(i18n)) {
     if (i18n.mode === 'composition') {
       // Current bug in vue-i18n types, need to add cast in order to be able to

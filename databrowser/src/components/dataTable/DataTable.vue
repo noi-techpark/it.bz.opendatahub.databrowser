@@ -25,19 +25,40 @@
             <div class="flex h-full">
               <router-link
                 :to="{
-                  name: 'datasetDetailPage',
+                  name: 'DatasetsDetailViewPage',
                   params: { datasetId: row.Id },
                 }"
-                class="dataset-link"
+                class="
+                  flex
+                  justify-center
+                  items-center
+                  m-1
+                  w-8
+                  h-8
+                  hover:bg-gray-300
+                  rounded
+                  border
+                "
               >
                 <EyeDetailGreen />
               </router-link>
               <router-link
                 :to="{
-                  name: 'datasetRawPage',
+                  name: 'DatasetsRawViewPage',
                   params: { datasetId: row.Id },
                 }"
-                class="text-xs text-green-500 dataset-link"
+                class="
+                  flex
+                  justify-center
+                  items-center
+                  m-1
+                  w-8
+                  h-8
+                  hover:bg-gray-300
+                  rounded
+                  border
+                  text-xs text-green-500
+                "
               >
                 RAW
               </router-link>
@@ -61,7 +82,7 @@ import TableHeader from '../table/TableHeader.vue';
 import TableHeaderCell from '../table/TableHeaderCell.vue';
 import TableCell from '../table/TableCell.vue';
 import { toRefs } from 'vue';
-import { defaultQueryParameters } from '../../pages/datasets/defaultValues';
+import { defaultQueryParameters } from '../../domain/datasets/tableView/defaultValues';
 
 export default defineComponent({
   components: {
