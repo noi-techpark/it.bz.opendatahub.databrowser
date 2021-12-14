@@ -35,7 +35,6 @@ export const useUrlQueryParameter: UseUrlQueryParameter = function (
     () => route.query,
     (query) => {
       const queryValue = query[name];
-      console.log(`Route changed, query param ${name} has value ${queryValue}`);
 
       const nextValue = getCurrentUrlQueryParameterValue(
         route.query,
