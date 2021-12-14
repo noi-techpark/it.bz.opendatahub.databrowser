@@ -30,15 +30,15 @@
 import { defineComponent } from '@vue/runtime-core';
 import { reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
-import { apiConfigProvider } from '../api/configUtils';
-import DataTable from '../../components/dataTable/DataTable.vue';
-import { Pagination } from '../api/types';
-import { useApi } from '../api/client';
-import { useUrlQueryRouter } from '../../lib/urlQuery/urlQueryRouter';
-import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
+import { apiConfigProvider } from '../../api/configUtils';
+import DataTable from '../../../components/dataTable/DataTable.vue';
+import { Pagination } from '../../api/types';
+import { useApi } from '../../api/client';
+import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
+import { useUrlQueryParameter } from '../../../lib/urlQuery/urlQueryParameter';
 import { defaultQueryParameters, pageSizeOptions } from './defaultValues';
-import { buildListApiFetcher } from '../api/fetcher/list';
-import { useListMapper } from '../api/mapper';
+import { buildListApiFetcher } from '../../api/fetcher/list';
+import { useListMapper } from '../../api/mapper';
 import ListNavigation from './ListNavigation.vue';
 
 export default defineComponent({
