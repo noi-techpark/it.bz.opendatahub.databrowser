@@ -110,7 +110,7 @@
   </AppLayout>
 </template>
 
-<script>
+<script lang="ts">
 import AppLayout from '../layouts/AppLayout.vue';
 import Hero from '../components/hero/HeroContainer.vue';
 import HeroTitle from '../components/hero/HeroTitle.vue';

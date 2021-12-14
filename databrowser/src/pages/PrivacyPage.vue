@@ -3,7 +3,8 @@
     <ContentArea>Privacy Page</ContentArea>
   </AppLayout>
 </template>
-<script>
+
+<script lang="ts">
 import AppLayout from '../layouts/AppLayout.vue';
 import { defineComponent } from '@vue/runtime-core';
 import ContentArea from '../components/content/ContentArea.vue';
