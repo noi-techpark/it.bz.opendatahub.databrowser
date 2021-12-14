@@ -27,7 +27,7 @@
   </AppLayout>
 </template>
 
-<script class="ts">
+<script lang="ts">
 import AppLayout from '../../layouts/AppLayout.vue';
 import ContentArea from '../../components/content/ContentArea.vue';
 import TabItem from '../../components/tabs/TabItem.vue';
