@@ -1,6 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <section class="flex flex-col mx-auto lg:mt-8 w-full max-w-5xl min-h-0">
+  <section
+    v-if="isSuccess"
+    class="flex flex-col mx-auto lg:mt-8 w-full max-w-5xl min-h-0"
+  >
     <ListNavigation
       class="hidden md:flex"
       :pagination="pagination"
@@ -9,9 +12,7 @@
       @page-size-changes="pageSizeChanges"
     />
 
-    <div v-if="isSuccess" class="overflow-auto my-6">
-      <DataTable :config="tableConfig" :rows="rows" />
-    </div>
+    <DataTable :config="tableConfig" :rows="rows" />
 
     <ListNavigation
       :pagination="pagination"
@@ -19,10 +20,9 @@
       @paginate-to="paginateTo"
       @page-size-changes="pageSizeChanges"
     />
-
-    <div v-if="tableConfig == null">
-      Config was not found, ID = {{ $route.params.datasetType }}
-    </div>
+  </section>
+  <section v-if="tableConfig == null">
+    Config was not found, ID = {{ $route.params.datasetType }}
   </section>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <AppLayout>
+  <TableViewLayout>
     <Hero>
       <HeroTitle>All POIs</HeroTitle>
       <HeroSubTitle
@@ -8,14 +8,16 @@
       <InternalLink to="/" tone="primary">More information</InternalLink>
     </Hero>
 
-    <DatasetNavigation :current-view="currentView" />
-    <DatasetTable></DatasetTable>
-  </AppLayout>
+    <div class="flex flex-col h-full">
+      <DatasetNavigation :current-view="currentView" />
+      <DatasetTable></DatasetTable>
+    </div>
+  </TableViewLayout>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import AppLayout from '../../layouts/AppLayout.vue';
+import TableViewLayout from '../../layouts/TableViewLayout.vue';
 import Hero from '../../components/hero/HeroContainer.vue';
 import HeroTitle from '../../components/hero/HeroTitle.vue';
 import HeroSubTitle from '../../components/hero/HeroSubTitle.vue';
@@ -27,7 +29,7 @@ import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigatio
 export default defineComponent({
   components: {
     DatasetNavigation,
-    AppLayout,
+    TableViewLayout,
     Hero,
     HeroTitle,
     HeroSubTitle,
