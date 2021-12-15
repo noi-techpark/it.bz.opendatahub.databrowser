@@ -86,13 +86,8 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/dataset/odh-activity-poi/smgpoi107"
-            >ODH ActivityPOI Detail (ID = smgpoi107)
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/dataset/odh-activity-poi/smgpoi107/raw"
-            >ODH ActivityPOI Raw (ID = smgpoi107)
+          <router-link to="/dataset/odh-accommodation"
+            >ODH Accommodation List
           </router-link>
         </li>
         <li>
