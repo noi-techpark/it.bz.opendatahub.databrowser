@@ -29,12 +29,12 @@
           <PillButton
             v-for="language in supportedLanguages"
             :key="language"
-            class="uppercase"
             :class="[
               isSelected(language)
                 ? 'text-green-500 bg-opacity-10 bg-green-500 border-green-500'
                 : 'border-gray-500',
             ]"
+            class="uppercase"
             @click="changeLanguage(language)"
             >{{ language }}
           </PillButton>
@@ -53,6 +53,7 @@ import PillGroup from '../pill/PillGroup.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
 import PillButton from '../pill/PillButton.vue';
+import { computed, ref } from 'vue';
 
 export default defineComponent({
   components: {
@@ -64,42 +65,44 @@ export default defineComponent({
     ArrowDown,
   },
   setup() {
+    const supportedLanguages = ref<Array<string>>(
+      Object.values(FilterLanguage)
+    );
+    const showMobileSelect = ref<boolean>(false);
     const languageParameter = useUrlQueryParameter('language', 'en', {
       defaultValue: 'en',
     });
+
+    const currentSelected = computed(() => {
+      if (languageParameter.value == null) {
+        return FilterLanguage.EN;
+      }
+      return languageParameter.value in supportedLanguages.value
+        ? languageParameter
+        : FilterLanguage.EN;
+    });
+
+    function closeDialog() {
+      showMobileSelect.value = false;
+    }
+
+    function changeLanguage(language: string) {
+      languageParameter.value = language;
+      closeDialog();
+    }
+
+    function isSelected(current: string) {
+      return currentSelected.value == current;
+    }
+
     return {
       languageParameter,
+      supportedLanguages,
+      showMobileSelect,
+      currentSelected,
+      changeLanguage,
+      isSelected,
     };
-  },
-  data() {
-    return {
-      supportedLanguages: Object.values(FilterLanguage),
-      showMobileSelect: false,
-      // TODO: maybe better to provide as prop
-      defaultLanguage: FilterLanguage.EN,
-    };
-  },
-  computed: {
-    currentSelected(): string {
-      if (this.languageParameter == null) {
-        return this.defaultLanguage;
-      }
-      return this.languageParameter in this.supportedLanguages
-        ? this.languageParameter
-        : FilterLanguage.EN;
-    },
-  },
-  methods: {
-    changeLanguage(language: string) {
-      this.languageParameter = language;
-      this.closeDialog();
-    },
-    isSelected(current: string) {
-      return this.currentSelected == current;
-    },
-    closeDialog() {
-      this.showMobileSelect = false;
-    },
   },
 });
 </script>
