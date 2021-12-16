@@ -14,9 +14,10 @@
     "
   >
     <div class="inline-flex flex-col justify-center break-all">
-      <slot></slot>
+      <span class="font-semibold whitespace-nowrap">{{ title }}</span>
+      <span class="font-mono text-xs text-gray-900">{{ subTitle }}</span>
     </div>
-    <button
+    <div
       class="
         inline-flex
         flex-shrink-0
@@ -29,15 +30,23 @@
         rounded-xl
         border border-gray-300
       "
-      @click="$emit('actionClicked')"
     >
-      <slot name="icon"></slot>
-    </button>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  emits: ['actionClicked'],
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    subTitle: {
+      type: String,
+      default: '',
+    },
+  },
 };
 </script>
