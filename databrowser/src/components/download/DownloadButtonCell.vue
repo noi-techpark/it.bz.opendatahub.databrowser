@@ -1,6 +1,16 @@
 <template>
   <DownloadCell :sub-title="subTitle" :title="title">
-    <button @click="$emit('clicked')">
+    <button
+      class="
+        inline-flex
+        flex-shrink-0
+        justify-center
+        items-center
+        w-full
+        h-full
+      "
+      @click="$emit('clicked')"
+    >
       <slot></slot>
     </button>
   </DownloadCell>

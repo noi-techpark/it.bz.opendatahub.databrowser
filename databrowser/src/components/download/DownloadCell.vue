@@ -19,8 +19,6 @@
       class="
         inline-flex
         flex-shrink-0
-        justify-center
-        items-center
         w-12
         h-12
         text-green-400

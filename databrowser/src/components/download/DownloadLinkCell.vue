@@ -1,6 +1,17 @@
 <template>
   <DownloadCell :sub-title="subTitle" :title="title">
-    <a :download="filename" :href="url">
+    <a
+      :download="filename"
+      :href="url"
+      class="
+        inline-flex
+        flex-shrink-0
+        justify-center
+        items-center
+        w-full
+        h-full
+      "
+    >
       <slot></slot>
     </a>
   </DownloadCell>
@@ -34,8 +45,6 @@ export default defineComponent({
     const url = `data:text/json;charset=utf-8,${encodeURIComponent(
       props.data
     )}`;
-
-    console.log(url);
 
     return {
       url,
