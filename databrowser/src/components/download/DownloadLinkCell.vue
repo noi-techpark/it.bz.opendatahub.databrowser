@@ -35,6 +35,8 @@ export default defineComponent({
       props.data
     )}`;
 
+    console.log(url);
+
     return {
       url,
     };

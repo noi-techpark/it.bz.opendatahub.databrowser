@@ -14,7 +14,10 @@
       </div>
     </ContentArea>
     <div class="fixed bottom-0 py-5 w-full bg-white">
-      <DownloadSection :dataset-url="datasetUrl" />
+      <DownloadSection
+        :dataset="apiResult.data?.data"
+        :dataset-url="datasetUrl"
+      />
     </div>
   </AppLayout>
 </template>

@@ -7,8 +7,6 @@
       py-3
       px-5
       space-x-5
-      md:space-x-10
-      lg:max-w-xl
       rounded-xl
       border border-gray-300
     "

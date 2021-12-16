@@ -5,18 +5,25 @@
 
       <DownloadButtonCell
         :sub-title="datasetUrl"
+        class="space-x-10"
         title="API DATASET"
         @clicked="copyToClipboard"
       >
         <IconCopy />
       </DownloadButtonCell>
 
-      <DownloadLinkCell title="CSV">
+      <DownloadLinkCell
+        :data="downloadCSV()"
+        class="space-x-10"
+        filename="dataset.json"
+        title="CSV"
+      >
         <IconDownload />
       </DownloadLinkCell>
 
       <DownloadLinkCell
         :data="downloadJson()"
+        class="space-x-10"
         filename="dataset.json"
         title="JSON"
       >
@@ -70,12 +77,13 @@
         </DownloadButtonCell>
 
         <div class="flex gap-3">
-          <DownloadLinkCell title="CSV">
+          <DownloadLinkCell class="w-full" title="CSV">
             <IconDownload />
           </DownloadLinkCell>
 
           <DownloadLinkCell
             :data="downloadJson()"
+            class="w-full"
             filename="dataset.json"
             title="JSON"
           >
@@ -113,6 +121,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    dataset: {
+      type: String,
+      required: true,
+    },
   },
   setup(props) {
     let dialogOpen = ref<boolean>(false);
@@ -132,10 +144,11 @@ export default defineComponent({
     }
 
     function downloadJson() {
-      return JSON.stringify({
-        name: 'John Doe',
-        age: 21,
-      });
+      return JSON.stringify(props.dataset);
+    }
+
+    function downloadCSV() {
+      return '';
     }
 
     return {
@@ -144,6 +157,7 @@ export default defineComponent({
       openDialog,
       closeDialog,
       downloadJson,
+      downloadCSV,
     };
   },
 });
