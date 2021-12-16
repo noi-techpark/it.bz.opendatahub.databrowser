@@ -3,27 +3,25 @@
     <div class="hidden lg:flex items-stretch space-x-4 h-full">
       <span class="self-center">Retrieve data based on table settings</span>
 
-      <DownloadCell @action-clicked="copyToClipboard">
-        <span class="font-semibold">API DATASET</span>
-        <span class="font-mono text-xs text-gray-900">{{ dataset }}</span>
-        <template #icon>
-          <IconCopy />
-        </template>
-      </DownloadCell>
+      <DownloadButtonCell
+        :sub-title="datasetUrl"
+        title="API DATASET"
+        @clicked="copyToClipboard"
+      >
+        <IconCopy />
+      </DownloadButtonCell>
 
-      <DownloadCell @action-clicked="$emit('downloadCsv')">
-        <span class="font-semibold whitespace-nowrap">CSV</span>
-        <template #icon>
-          <IconDownload />
-        </template>
-      </DownloadCell>
+      <DownloadLinkCell title="CSV">
+        <IconDownload />
+      </DownloadLinkCell>
 
-      <DownloadCell @action-clicked="$emit('downloadJson')">
-        <span class="font-semibold whitespace-nowrap">JSON</span>
-        <template #icon>
-          <IconDownload />
-        </template>
-      </DownloadCell>
+      <DownloadLinkCell
+        :data="downloadJson()"
+        filename="dataset.json"
+        title="JSON"
+      >
+        <IconDownload />
+      </DownloadLinkCell>
     </div>
     <div class="inline-flex lg:hidden justify-end px-10 w-full">
       <button
@@ -63,28 +61,26 @@
 
         <hr />
 
-        <DownloadCell @action-clicked="copyToClipboard">
-          <span class="font-semibold">API DATASET</span>
-          <span class="font-mono text-xs text-gray-900">{{ dataset }}</span>
-          <template #icon>
-            <IconCopy />
-          </template>
-        </DownloadCell>
+        <DownloadButtonCell
+          :sub-title="datasetUrl"
+          title="API DATASET"
+          @clicked="copyToClipboard"
+        >
+          <IconCopy />
+        </DownloadButtonCell>
 
         <div class="flex gap-3">
-          <DownloadCell class="w-full" @action-clicked="$emit('downloadCsv')">
-            <span class="font-semibold whitespace-nowrap">CSV</span>
-            <template #icon>
-              <IconDownload />
-            </template>
-          </DownloadCell>
+          <DownloadLinkCell title="CSV">
+            <IconDownload />
+          </DownloadLinkCell>
 
-          <DownloadCell class="w-full" @action-clicked="$emit('downloadJson')">
-            <span class="font-semibold whitespace-nowrap">JSON</span>
-            <template #icon>
-              <IconDownload />
-            </template>
-          </DownloadCell>
+          <DownloadLinkCell
+            :data="downloadJson()"
+            filename="dataset.json"
+            title="JSON"
+          >
+            <IconDownload />
+          </DownloadLinkCell>
         </div>
       </div>
     </div>
@@ -93,36 +89,37 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/runtime-core';
-import DownloadCell from './DownloadCell.vue';
 import { Dialog, DialogOverlay } from '@headlessui/vue';
 import ArrowUp from '../svg/ArrowUp.vue';
 import IconCopy from '../svg/IconCopy.vue';
 import IconDownload from '../svg/IconDownload.vue';
 import IconClose from '../svg/IconClose.vue';
+import DownloadButtonCell from './DownloadButtonCell.vue';
+import DownloadLinkCell from './DownloadLinkCell.vue';
 
 export default defineComponent({
   components: {
+    DownloadLinkCell,
+    DownloadButtonCell,
     IconDownload,
     IconCopy,
     ArrowUp,
-    DownloadCell,
     Dialog,
     DialogOverlay,
     IconClose,
   },
   props: {
-    dataset: {
+    datasetUrl: {
       type: String,
       required: true,
     },
   },
-  emits: ['downloadCsv', 'downloadJson'],
   setup(props) {
     let dialogOpen = ref<boolean>(false);
 
     function copyToClipboard() {
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(props.dataset);
+        navigator.clipboard.writeText(props.datasetUrl);
       }
     }
 
@@ -134,11 +131,19 @@ export default defineComponent({
       dialogOpen.value = true;
     }
 
+    function downloadJson() {
+      return JSON.stringify({
+        name: 'John Doe',
+        age: 21,
+      });
+    }
+
     return {
       dialogOpen,
       copyToClipboard,
       openDialog,
       closeDialog,
+      downloadJson,
     };
   },
 });
