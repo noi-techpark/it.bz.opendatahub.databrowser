@@ -18,13 +18,16 @@ module.exports = {
           300: '#dcdde1',
           400: '#e0e1e5',
           600: '#707c7e',
+          700: '#494d50',
           900: '#3c4043',
         },
       },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      padding: ['responsive', 'last', 'first'],
+    },
   },
   plugins: [],
 };

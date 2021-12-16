@@ -1,94 +1,60 @@
 <template>
-  <div class="p-4 my-2 bg-blue-100">
-    Dataset List Page (type = {{ $route.params.datasetType }})
-  </div>
-  <div>fetching : {{ apiResult.isFetching }}</div>
-  <div v-if="apiResult.isFetching">loading</div>
-  <div v-else>
-    <table>
-      <thead>
-        <tr>
-          <th v-for="col in configEntry.listEndpoint.table" :key="col.title">
-            {{ col.title }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- eslint-disable-next-line vue/require-v-for-key -->
-        <tr v-for="item in getRows(apiResult.data?.data)" class="align-top">
-          <td
-            v-for="col in configEntry.listEndpoint.table"
-            :key="col.title"
-            class="bg-yellow-100"
-          >
-            <Cell
-              :tag-name="col.component"
-              :attributes="getValue(item, col.fields)"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <Header>
+    <HeaderTitle>All POIs</HeaderTitle>
+    <HeaderSubTitle
+      >Lorem ipsum dolor sit amen dolr sit amen dolr ist ist amen.
+    </HeaderSubTitle>
 
-  <div v-if="configEntry == null">
-    Config was not found, ID = {{ $route.params.datasetType }}
-  </div>
+    <InternalLink to="/" tone="primary"
+      ><span>More information</span></InternalLink
+    >
+  </Header>
+
+  <ContentArea class="flex flex-col h-full">
+    <TabGroup>
+      <TabList class="flex relative pb-10 space-x-4 border-b border-gray-300">
+        <TabItem>Table view</TabItem>
+        <TabItem>Detail view</TabItem>
+        <TabItem>Raw Data</TabItem>
+        <div class="absolute right-0">
+          <LanguagePicker />
+        </div>
+      </TabList>
+      <TabPanels class="overflow-hidden">
+        <TabPanel class="flex flex-col h-full">
+          <DatasetList></DatasetList>
+        </TabPanel>
+      </TabPanels>
+    </TabGroup>
+  </ContentArea>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import { ref, UnwrapRef } from 'vue';
-import { useRoute } from 'vue-router';
-import { isArray } from 'lodash';
-import { apiConfigProvider, extractField } from '../domain/api/configUtils';
-import { GetApiSpecResult, useGetApiSpec } from '../domain/api/client';
-import Cell from '../components/cell/Cell.vue';
-
-import '../domain/customElements/webComponentImport';
-
-interface SimpleApiInterface {
-  Items: [];
-}
+import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue';
+import HeaderTitle from '../components/header/HeaderTitle.vue';
+import HeaderSubTitle from '../components/header/HeaderSubTitle.vue';
+import ContentArea from '../components/content/ContentArea.vue';
+import InternalLink from '../components/link/InternalLink.vue';
+import Header from '../components/header/HeaderContainer.vue';
+import DatasetList from './datasets/List.vue';
+import TabItem from '../components/tabs/TabItem.vue';
+import LanguagePicker from '../components/languageSwitcher/LanguagePicker.vue';
 
 export default defineComponent({
-  components: { Cell },
-  setup() {
-    const apiResult = ref<UnwrapRef<GetApiSpecResult<SimpleApiInterface>>>(
-      // Need typecast because initial object is not of type GetApiSpecResult<SimpleApiInterface>.
-      // It is not necessary to define the properties at this point.
-      {} as any
-    );
-    const fetchList = async (url: string) => {
-      const result = useGetApiSpec<SimpleApiInterface>(url);
-      // Need type cast because we assign a reactive property
-      // to a ref, which automagically unwraps all resulting refs and removes
-      // nested "value" properties.
-      // Example: result.data.value.config.XYZ becomes apiResult.value.data.config.XYZ
-      apiResult.value = result as unknown as UnwrapRef<
-        GetApiSpecResult<SimpleApiInterface>
-      >;
-    };
-    // Use path parameters to get config for dataset
-    const route = useRoute();
-    const configEntry = apiConfigProvider(route.params.datasetType as string);
-    // Load dataset from remote if config was found
-    if (configEntry != null) {
-      fetchList(configEntry.listEndpoint.path);
-    }
-    return {
-      apiResult,
-      configEntry,
-      fetchList,
-    };
-  },
-  methods: {
-    getRows(data: any[] | Record<string, any> | undefined): any[] {
-      return isArray(data) ? data : data?.Items;
-    },
-    getValue(item: any, fields: Record<string, string>) {
-      return extractField(item, fields);
-    },
+  components: {
+    HeaderTitle,
+    HeaderSubTitle,
+    ContentArea,
+    InternalLink,
+    Header,
+    DatasetList,
+    TabGroup,
+    TabList,
+    TabPanel,
+    TabPanels,
+    TabItem,
+    LanguagePicker,
   },
 });
 </script>

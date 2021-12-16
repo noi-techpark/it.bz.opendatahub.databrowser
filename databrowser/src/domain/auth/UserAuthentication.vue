@@ -3,8 +3,8 @@
     {{ user?.email }}<button @click="onLogout">Logout</button>
   </div>
   <div v-else>
-    <button v-t="'auth.login'" @click="onLogin" />
-    <button v-t="'auth.register'" @click="onRegister" />
+    <button @click="onLogin">{{ $t('auth.login') }}</button>
+    <button @click="onRegister">{{ $t('auth.register') }}</button>
   </div>
 </template>
 

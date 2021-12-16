@@ -3,4 +3,4 @@
 set -e
 set -o pipefail
 
-#(cd databrowser && npm run lint)
+(cd databrowser && npm run lint)

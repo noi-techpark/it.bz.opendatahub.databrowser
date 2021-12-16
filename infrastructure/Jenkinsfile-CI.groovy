@@ -9,12 +9,13 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
+                sh 'npm ci'
                 sh 'npm run bootstrap'
             }
         }
         stage('Test') {
             steps {
-                //sh 'cd databrowser && npm run lint'
+                sh 'cd databrowser && npm run lint'
                 sh 'cd databrowser && npm run test'
             }
         }
