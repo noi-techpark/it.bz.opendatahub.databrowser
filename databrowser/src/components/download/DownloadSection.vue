@@ -14,8 +14,7 @@
 
       <DownloadLinkCell
         :data="downloadCSV()"
-        class="space-x-10"
-        filename="dataset.json"
+        filename="dataset.csv"
         title="CSV"
       >
         <IconDownload />
@@ -23,7 +22,6 @@
 
       <DownloadLinkCell
         :data="downloadJson()"
-        class="space-x-10"
         filename="dataset.json"
         title="JSON"
       >
@@ -77,7 +75,12 @@
         </DownloadButtonCell>
 
         <div class="flex gap-3">
-          <DownloadLinkCell class="w-full" title="CSV">
+          <DownloadLinkCell
+            :data="downloadCSV()"
+            class="w-full"
+            filename="dataset.csv"
+            title="CSV"
+          >
             <IconDownload />
           </DownloadLinkCell>
 

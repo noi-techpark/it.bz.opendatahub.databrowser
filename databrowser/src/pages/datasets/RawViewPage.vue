@@ -10,15 +10,15 @@
         <div v-if="apiResult.isFetching">Loading</div>
         <div v-else>
           <vue-json-pretty :data="apiResult.data?.data" :deep="3" show-length />
+          <div class="fixed bottom-0 left-0 py-5 w-full bg-white">
+            <DownloadSection
+              :dataset="apiResult.data?.data"
+              :dataset-url="datasetUrl"
+            />
+          </div>
         </div>
       </div>
     </ContentArea>
-    <div class="fixed bottom-0 py-5 w-full bg-white">
-      <DownloadSection
-        :dataset="apiResult.data?.data"
-        :dataset-url="datasetUrl"
-      />
-    </div>
   </AppLayout>
 </template>
 
