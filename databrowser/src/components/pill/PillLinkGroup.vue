@@ -56,7 +56,6 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ['selectedChange'],
   setup(props) {
     const route = useRoute();
     const path = props.basePath != '' ? props.basePath : route.path;
