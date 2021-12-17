@@ -3,7 +3,7 @@
     class="inline-flex md:hidden items-center"
     @click="showMobileSelect = true"
   >
-    <span class="pr-2">{{ currentSelected }}</span>
+    <span class="pr-2">{{ currentSelected.toUpperCase() }}</span>
     <ArrowDown />
   </PillButton>
 
@@ -65,20 +65,19 @@ export default defineComponent({
     ArrowDown,
   },
   setup() {
-    const supportedLanguages = ref<Array<string>>(
-      Object.values(FilterLanguage)
-    );
+    const supportedLanguages: Array<string> = Object.values(FilterLanguage);
     const showMobileSelect = ref<boolean>(false);
     const languageParameter = useUrlQueryParameter('language', 'en', {
       defaultValue: 'en',
     });
 
     const currentSelected = computed(() => {
-      if (languageParameter.value == null) {
+      if (!languageParameter.value) {
         return FilterLanguage.EN;
       }
-      return languageParameter.value in supportedLanguages.value
-        ? languageParameter
+
+      return supportedLanguages.includes(languageParameter.value)
+        ? languageParameter.value
         : FilterLanguage.EN;
     });
 
@@ -102,9 +101,8 @@ export default defineComponent({
       currentSelected,
       changeLanguage,
       isSelected,
+      closeDialog,
     };
   },
 });
 </script>
-
-<style scoped></style>
