@@ -22,7 +22,7 @@
         'border-l': index != 0,
         'border-r': index != data.length - 1,
       }"
-      :to="getPath(item)"
+      :to="{ path: basePath, query: { ...$route.query, [query]: item } }"
       class="block border-transparent"
       role="button"
       tabindex="0"
@@ -35,7 +35,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
 import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
-import { useRoute } from 'vue-router';
 
 export default defineComponent({
   props: {
@@ -57,8 +56,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const route = useRoute();
-    const path = props.basePath != '' ? props.basePath : route.path;
     const languageParameter = useUrlQueryParameter(
       props.query,
       props.defaultValue,
@@ -71,13 +68,8 @@ export default defineComponent({
       return languageParameter.value == current;
     }
 
-    function getPath(item: string) {
-      return `${path}?${props.query}=${item}`;
-    }
-
     return {
       isSelected,
-      getPath,
     };
   },
 });
