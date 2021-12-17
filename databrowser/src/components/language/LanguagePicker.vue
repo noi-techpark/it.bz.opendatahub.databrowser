@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import { Dialog, DialogOverlay } from '@headlessui/vue';
-import { defineComponent } from '@vue/runtime-core';
+import { defineComponent, PropType } from '@vue/runtime-core';
 import { FilterLanguage } from '../../domain/api/configFilter';
 import IconClose from '../svg/IconClose.vue';
 import PillGroup from '../pill/PillGroup.vue';
@@ -64,21 +64,31 @@ export default defineComponent({
     PillGroup,
     ArrowDown,
   },
-  setup() {
+  props: {
+    defaultLanguage: {
+      type: String as PropType<FilterLanguage>,
+      default: FilterLanguage.EN,
+    },
+  },
+  setup(props) {
     const supportedLanguages: Array<string> = Object.values(FilterLanguage);
     const showMobileSelect = ref<boolean>(false);
-    const languageParameter = useUrlQueryParameter('language', 'en', {
-      defaultValue: 'en',
-    });
+    const languageParameter = useUrlQueryParameter(
+      'language',
+      props.defaultLanguage,
+      {
+        defaultValue: props.defaultLanguage,
+      }
+    );
 
     const currentSelected = computed(() => {
       if (!languageParameter.value) {
-        return FilterLanguage.EN;
+        return props.defaultLanguage;
       }
 
       return supportedLanguages.includes(languageParameter.value)
         ? languageParameter.value
-        : FilterLanguage.EN;
+        : props.defaultLanguage;
     });
 
     function closeDialog() {
