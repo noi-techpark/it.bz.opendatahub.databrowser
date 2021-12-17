@@ -13,14 +13,6 @@
       </DownloadButtonCell>
 
       <DownloadLinkCell
-        :data="downloadCSV()"
-        filename="dataset.csv"
-        title="CSV"
-      >
-        <IconDownload />
-      </DownloadLinkCell>
-
-      <DownloadLinkCell
         :data="downloadJson()"
         filename="dataset.json"
         title="JSON"
@@ -75,15 +67,6 @@
         </DownloadButtonCell>
 
         <div class="flex gap-3">
-          <DownloadLinkCell
-            :data="downloadCSV()"
-            class="w-full"
-            filename="dataset.csv"
-            title="CSV"
-          >
-            <IconDownload />
-          </DownloadLinkCell>
-
           <DownloadLinkCell
             :data="downloadJson()"
             class="w-full"
@@ -150,17 +133,12 @@ export default defineComponent({
       return JSON.stringify(props.dataset);
     }
 
-    function downloadCSV() {
-      return '';
-    }
-
     return {
       dialogOpen,
       copyToClipboard,
       openDialog,
       closeDialog,
       downloadJson,
-      downloadCSV,
     };
   },
 });
