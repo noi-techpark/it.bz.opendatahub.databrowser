@@ -4,7 +4,7 @@ import { createI18n, I18n, Locale, VueI18n } from 'vue-i18n';
 const isI18n = (i18n: I18n | VueI18n): i18n is I18n =>
   (i18n as I18n).global != null;
 
-export const SUPPORT_LOCALES = ['en', 'de', 'it'];
+export const SUPPORT_LOCALES = ['en'];
 
 export const setupI18n = (options = { locale: 'en' }) => {
   const i18n = createI18n(options);

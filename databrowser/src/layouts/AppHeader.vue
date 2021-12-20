@@ -19,16 +19,16 @@
         class="logo"
       />
     </router-link>
-    <UserAuthentication class="self-center space-x-6" />
+    <MenuUserSection />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import UserAuthentication from '../domain/auth/UserAuthentication.vue';
+import MenuUserSection from '../domain/auth/MenuUserSection.vue';
 
 export default defineComponent({
-  components: { UserAuthentication },
+  components: { MenuUserSection },
 });
 </script>
 
