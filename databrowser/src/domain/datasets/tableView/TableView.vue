@@ -12,7 +12,7 @@
       @page-size-changes="pageSizeChanges"
     />
 
-    <DataTable :config="tableConfig" :rows="rows" />
+    <TableContent :config="tableConfig" :rows="rows" />
 
     <TableNavigation
       :pagination="pagination"
@@ -31,7 +31,6 @@ import { defineComponent } from '@vue/runtime-core';
 import { reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 import { getApiConfigForDataset } from '../../api/configUtils';
-import DataTable from './DataTable.vue';
 import { Pagination } from '../../api/types';
 import { useApi } from '../../api/client';
 import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
@@ -39,10 +38,11 @@ import { useUrlQueryParameter } from '../../../lib/urlQuery/urlQueryParameter';
 import { defaultQueryParameters, pageSizeOptions } from './defaultValues';
 import { buildListApiFetcher } from '../../api/fetcher/list';
 import { useListMapper } from '../../api/mapper';
+import TableContent from './TableContent.vue';
 import TableNavigation from './TableNavigation.vue';
 
 export default defineComponent({
-  components: { DataTable, TableNavigation },
+  components: { TableContent, TableNavigation },
   setup() {
     // Use path parameters to get config for dataset
     const route = useRoute();
