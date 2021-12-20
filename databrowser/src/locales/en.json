@@ -1,28 +1,35 @@
 {
-    "auth": {
-        "login": "Login",
-        "register": "Register",
+  "auth": {
+    "login": "Login",
+    "register": "Register",
         "logout": "Logout"
-    },
-    "header": {
-        "logo": "Open Data Hub - Logo"
-    },
-    "footer": {
-        "imprint": "Imprint",
-        "legal": "Legal",
-        "privacy": "Privacy",
-        "sitemap": "Sitemap"
-    },
-    "languageSwitch": {
-        "language": {
-            "de": "German",
-            "en": "English",
-            "it": "Italian"
-        }
-    },
-    "datasets": {
-        "listView": {
-            "linesPerPage": "lines per page"
-        }
+  },
+  "header": {
+    "logo": "Open Data Hub - Logo"
+  },
+  "footer": {
+    "imprint": "Imprint",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "sitemap": "Sitemap"
+  },
+  "languageSwitch": {
+    "language": {
+      "de": "German",
+      "en": "English",
+      "it": "Italian"
     }
+  },
+  "datasets": {
+    "listView": {
+      "linesPerPage": "lines per page"
+    },
+    "download": {
+      "info": "Retrieve data based on table settings",
+      "copyTitle": "API DATASET",
+      "copyAction": "Copy to clipboard",
+      "downloadJSON": "Download dataset as JSON",
+      "downloadCSV": "Download dataset as CSV"
+    }
+  }
 }
