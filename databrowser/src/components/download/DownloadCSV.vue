@@ -1,7 +1,7 @@
 <template>
   <DownloadCell>
     <DownloadTitle>CSV</DownloadTitle>
-    <DownloadLink :download="filename" :url="url">
+    <DownloadLink :download="filename" :url="url" title="Download CSV">
       <IconDownload />
       <span class="sr-only">Download dataset as CSV</span>
     </DownloadLink>

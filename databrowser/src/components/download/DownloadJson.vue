@@ -1,7 +1,7 @@
 <template>
   <DownloadCell>
     <DownloadTitle>JSON</DownloadTitle>
-    <DownloadLink :download="filename" :url="url">
+    <DownloadLink :download="filename" :url="url" title="Download JSON">
       <IconDownload />
       <span class="sr-only">Download dataset as json</span>
     </DownloadLink>

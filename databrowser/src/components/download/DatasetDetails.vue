@@ -4,7 +4,10 @@
       <DownloadTitle>{{ $t('datasets.download.copyTitle') }}</DownloadTitle>
       <DownloadDescription>{{ datasetUrl }}</DownloadDescription>
     </div>
-    <DownloadButton @clicked="copyToClipboard">
+    <DownloadButton
+      title="Copy dataset url to the clipboard"
+      @clicked="copyToClipboard"
+    >
       <IconCheck v-if="showOk" />
       <IconCopy v-else />
       <span class="sr-only">Copy dataset url to the clipboard</span>
