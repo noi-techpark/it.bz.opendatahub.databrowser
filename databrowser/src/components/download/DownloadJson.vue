@@ -3,6 +3,7 @@
     <DownloadTitle>JSON</DownloadTitle>
     <DownloadLink :download="filename" :url="url">
       <IconDownload />
+      <span class="sr-only">Download dataset as json</span>
     </DownloadLink>
   </DownloadCell>
 </template>

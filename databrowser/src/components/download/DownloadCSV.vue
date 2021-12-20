@@ -3,6 +3,7 @@
     <DownloadTitle>CSV</DownloadTitle>
     <DownloadLink :download="filename" :url="url">
       <IconDownload />
+      <span class="sr-only">Download dataset as CSV</span>
     </DownloadLink>
   </DownloadCell>
 </template>

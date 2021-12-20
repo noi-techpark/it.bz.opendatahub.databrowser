@@ -1,11 +1,12 @@
 <template>
   <DownloadCell class="w-full">
     <div class="inline-flex flex-col justify-center">
-      <DownloadTitle>API DATASET</DownloadTitle>
+      <DownloadTitle>{{ $t('datasets.download.copyTitle') }}</DownloadTitle>
       <DownloadDescription>{{ datasetUrl }}</DownloadDescription>
     </div>
     <DownloadButton @clicked="copyToClipboard">
       <IconCopy />
+      <span class="sr-only">Copy dataset url to the clipboard</span>
     </DownloadButton>
   </DownloadCell>
 </template>
