@@ -5,9 +5,9 @@
     class="flex flex-col mx-auto lg:mt-8 w-full max-w-5xl min-h-0"
   >
     <TableNavigation
-      class="hidden md:flex"
-      :pagination="pagination"
       :page-size-options="pageSizeOptions"
+      :pagination="pagination"
+      class="hidden md:flex"
       @paginate-to="paginateTo"
       @page-size-changes="pageSizeChanges"
     />
@@ -15,8 +15,8 @@
     <TableContent :config="tableConfig" :rows="rows" />
 
     <TableNavigation
-      :pagination="pagination"
       :page-size-options="pageSizeOptions"
+      :pagination="pagination"
       @paginate-to="paginateTo"
       @page-size-changes="pageSizeChanges"
     />
@@ -24,6 +24,7 @@
   <section v-if="tableConfig == null">
     Config was not found, ID = {{ $route.params.datasetType }}
   </section>
+  <DownloadSection :dataset="paginatedData" :dataset-url="url" />
 </template>
 
 <script lang="ts">
@@ -40,9 +41,10 @@ import { buildListApiFetcher } from '../../api/fetcher/list';
 import { useListMapper } from '../../api/mapper';
 import TableContent from './TableContent.vue';
 import TableNavigation from './TableNavigation.vue';
+import DownloadSection from '../../../components/download/DownloadSection.vue';
 
 export default defineComponent({
-  components: { TableContent, TableNavigation },
+  components: { DownloadSection, TableContent, TableNavigation },
   setup() {
     // Use path parameters to get config for dataset
     const route = useRoute();
@@ -97,6 +99,7 @@ export default defineComponent({
       (pageSize.value = value);
 
     return {
+      url,
       isFetching,
       isSuccess,
       pageSizeOptions,
