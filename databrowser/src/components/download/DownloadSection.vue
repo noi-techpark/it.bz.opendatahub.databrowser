@@ -3,22 +3,9 @@
     <div class="hidden lg:flex items-stretch space-x-4 h-full">
       <span class="self-center">Retrieve data based on table settings</span>
 
-      <DownloadButtonCell
-        :sub-title="datasetUrl"
-        class="space-x-10"
-        title="API DATASET"
-        @clicked="copyToClipboard"
-      >
-        <IconCopy />
-      </DownloadButtonCell>
-
-      <DownloadLinkCell
-        :data="downloadJson()"
-        filename="dataset.json"
-        title="JSON"
-      >
-        <IconDownload />
-      </DownloadLinkCell>
+      <DatasetDetails :dataset-url="datasetUrl" />
+      <DownloadJson :dataset="dataset" />
+      <DownloadCSV :base-url="datasetUrl" />
     </div>
     <div class="inline-flex lg:hidden justify-end px-10 w-full">
       <button
@@ -52,29 +39,14 @@
           <IconClose />
         </button>
 
-        <div>
-          <span class="self-center">Retrieve data based on table settings</span>
-        </div>
+        <span class="self-center">Retrieve data based on table settings</span>
 
         <hr />
 
-        <DownloadButtonCell
-          :sub-title="datasetUrl"
-          title="API DATASET"
-          @clicked="copyToClipboard"
-        >
-          <IconCopy />
-        </DownloadButtonCell>
-
+        <DatasetDetails :dataset-url="datasetUrl" class="max-w-full" />
         <div class="flex gap-3">
-          <DownloadLinkCell
-            :data="downloadJson()"
-            class="w-full"
-            filename="dataset.json"
-            title="JSON"
-          >
-            <IconDownload />
-          </DownloadLinkCell>
+          <DownloadJson :dataset="dataset" class="w-full" />
+          <DownloadCSV :base-url="datasetUrl" class="w-full" />
         </div>
       </div>
     </div>
@@ -85,18 +57,16 @@
 import { defineComponent, ref } from '@vue/runtime-core';
 import { Dialog, DialogOverlay } from '@headlessui/vue';
 import ArrowUp from '../svg/ArrowUp.vue';
-import IconCopy from '../svg/IconCopy.vue';
-import IconDownload from '../svg/IconDownload.vue';
 import IconClose from '../svg/IconClose.vue';
-import DownloadButtonCell from './DownloadButtonCell.vue';
-import DownloadLinkCell from './DownloadLinkCell.vue';
+import DownloadJson from './DownloadJson.vue';
+import DatasetDetails from './DatasetDetails.vue';
+import DownloadCSV from './DownloadCSV.vue';
 
 export default defineComponent({
   components: {
-    DownloadLinkCell,
-    DownloadButtonCell,
-    IconDownload,
-    IconCopy,
+    DownloadCSV,
+    DatasetDetails,
+    DownloadJson,
     ArrowUp,
     Dialog,
     DialogOverlay,
@@ -112,14 +82,8 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup() {
     let dialogOpen = ref<boolean>(false);
-
-    function copyToClipboard() {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(props.datasetUrl);
-      }
-    }
 
     function closeDialog() {
       dialogOpen.value = false;
@@ -129,16 +93,10 @@ export default defineComponent({
       dialogOpen.value = true;
     }
 
-    function downloadJson() {
-      return JSON.stringify(props.dataset);
-    }
-
     return {
       dialogOpen,
-      copyToClipboard,
       openDialog,
       closeDialog,
-      downloadJson,
     };
   },
 });
