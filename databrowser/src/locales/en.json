@@ -1,7 +1,8 @@
 {
   "auth": {
     "login": "Login",
-    "register": "Register now!"
+    "register": "Register",
+        "logout": "Logout"
   },
   "header": {
     "logo": "Open Data Hub - Logo"

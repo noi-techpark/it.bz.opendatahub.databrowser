@@ -4,7 +4,7 @@
     v-if="isSuccess"
     class="flex flex-col mx-auto lg:mt-8 w-full max-w-5xl min-h-0"
   >
-    <ListNavigation
+    <TableNavigation
       class="hidden md:flex"
       :pagination="pagination"
       :page-size-options="pageSizeOptions"
@@ -12,9 +12,9 @@
       @page-size-changes="pageSizeChanges"
     />
 
-    <DataTable :config="tableConfig" :rows="rows" />
+    <TableContent :config="tableConfig" :rows="rows" />
 
-    <ListNavigation
+    <TableNavigation
       :pagination="pagination"
       :page-size-options="pageSizeOptions"
       @paginate-to="paginateTo"
@@ -31,7 +31,6 @@ import { defineComponent } from '@vue/runtime-core';
 import { reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 import { getApiConfigForDataset } from '../../api/configUtils';
-import DataTable from '../../../components/dataTable/DataTable.vue';
 import { Pagination } from '../../api/types';
 import { useApi } from '../../api/client';
 import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
@@ -39,10 +38,11 @@ import { useUrlQueryParameter } from '../../../lib/urlQuery/urlQueryParameter';
 import { defaultQueryParameters, pageSizeOptions } from './defaultValues';
 import { buildListApiFetcher } from '../../api/fetcher/list';
 import { useListMapper } from '../../api/mapper';
-import ListNavigation from './ListNavigation.vue';
+import TableContent from './TableContent.vue';
+import TableNavigation from './TableNavigation.vue';
 
 export default defineComponent({
-  components: { DataTable, ListNavigation },
+  components: { TableContent, TableNavigation },
   setup() {
     // Use path parameters to get config for dataset
     const route = useRoute();
