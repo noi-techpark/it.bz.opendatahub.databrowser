@@ -1,4 +1,4 @@
-import { ComponentRenderer } from '../renderComponents/types';
+import { ComponentRenderer } from '../cellComponents/types';
 
 const apiBaseUrl = 'https://api.tourism.testingmachine.eu';
 
