@@ -5,8 +5,8 @@
         <span v-t="'datasets.download.info'" class="self-center"></span>
 
         <DatasetDetails :dataset-url="datasetUrl" />
+        <DownloadCSV v-if="!hideCsv" :base-url="datasetUrl" />
         <DownloadJson :dataset="dataset" />
-        <DownloadCSV :base-url="datasetUrl" />
       </div>
       <div class="inline-flex lg:hidden justify-end px-10 w-full">
         <button
@@ -47,8 +47,8 @@
 
         <DatasetDetails :dataset-url="datasetUrl" class="max-w-full" />
         <div class="flex gap-3">
+          <DownloadCSV v-if="!hideCsv" :base-url="datasetUrl" class="w-full" />
           <DownloadJson :dataset="dataset" class="w-full" />
-          <DownloadCSV :base-url="datasetUrl" class="w-full" />
         </div>
       </div>
     </div>
@@ -82,6 +82,10 @@ export default defineComponent({
     dataset: {
       type: String,
       required: true,
+    },
+    hideCsv: {
+      type: Boolean,
+      default: false,
     },
   },
   setup() {

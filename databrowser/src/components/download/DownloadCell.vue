@@ -7,7 +7,7 @@
       py-3
       px-5
       space-x-10
-      max-w-lg
+      max-w-xl
       rounded-xl
       border border-gray-300
     "

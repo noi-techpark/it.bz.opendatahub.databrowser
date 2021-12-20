@@ -13,6 +13,7 @@
           <DownloadSection
             :dataset="apiResult.data?.data"
             :dataset-url="datasetUrl"
+            hide-csv
           />
         </div>
       </div>
