@@ -18,7 +18,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Title',
-          component: CellComponent.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-48',
           fields: {
             text: 'Detail.{language}.Title',
@@ -57,7 +57,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Source',
-          component: CellComponent.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-36',
           fields: {
             text: 'Source',
@@ -93,7 +93,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Title',
-          component: CellComponent.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-48',
           fields: {
             text: 'Detail.{language}.Title',
@@ -132,7 +132,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Source',
-          component: CellComponent.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-36',
           fields: {
             text: 'Source',
@@ -168,7 +168,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Title',
-          component: CellComponent.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-48',
           fields: {
             text: 'Detail.{language}.Title',
@@ -207,7 +207,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Source',
-          component: CellComponent.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-36',
           fields: {
             text: 'Source',
