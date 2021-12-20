@@ -46,7 +46,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Edited',
-          component: CellComponent.EditedDateRenderer,
+          component: CellComponent.EditedDateCell,
           class: 'w-40',
           fields: {
             date: 'LastChange',
@@ -121,7 +121,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Edited',
-          component: CellComponent.EditedDateRenderer,
+          component: CellComponent.EditedDateCell,
           class: 'w-40',
           fields: {
             date: 'LastChange',
@@ -196,7 +196,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Edited',
-          component: CellComponent.EditedDateRenderer,
+          component: CellComponent.EditedDateCell,
           class: 'w-40',
           fields: {
             date: 'LastChange',

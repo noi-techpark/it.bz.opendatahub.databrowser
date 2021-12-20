@@ -2,7 +2,7 @@ import { App } from 'vue';
 
 import ArrayCell from '../components/arrayCell/ArrayCell.vue';
 import DateCell from '../components/dateCell/DateCell.vue';
-import EditedDateRenderer from '../components/editedDateRenderer/EditedDateRenderer.vue';
+import EditedDateCell from '../components/editedDateCell/EditedDateCell.vue';
 import ImageRenderer from '../components/imageRenderer/ImageRenderer.vue';
 import JsonRenderer from '../components/jsonRenderer/JsonRenderer.vue';
 import StateRenderer from '../components/stateRenderer/StateRenderer.vue';
@@ -14,7 +14,7 @@ export default {
   install: (app: App) => {
     app.component(CellComponent.ArrayCell, ArrayCell);
     app.component(CellComponent.DateCell, DateCell);
-    app.component(CellComponent.EditedDateRenderer, EditedDateRenderer);
+    app.component(CellComponent.EditedDateCell, EditedDateCell);
     app.component(CellComponent.ImageRenderer, ImageRenderer);
     app.component(CellComponent.JsonRenderer, JsonRenderer);
     app.component(CellComponent.StateRenderer, StateRenderer);
