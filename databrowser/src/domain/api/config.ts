@@ -65,7 +65,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'ODH state',
-          component: CellComponent.StateRenderer,
+          component: CellComponent.StateCell,
           class: 'w-36',
           fields: {
             state: 'OdhActive',
@@ -140,7 +140,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'ODH state',
-          component: CellComponent.StateRenderer,
+          component: CellComponent.StateCell,
           class: 'w-36',
           fields: {
             state: 'OdhActive',
@@ -215,7 +215,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'ODH state',
-          component: CellComponent.StateRenderer,
+          component: CellComponent.StateCell,
           class: 'w-36',
           fields: {
             state: 'OdhActive',
