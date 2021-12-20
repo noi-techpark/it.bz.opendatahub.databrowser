@@ -10,7 +10,7 @@ const config: Record<string, ApiConfigEntry> = {
       tableConfig: [
         {
           title: 'Image',
-          component: CellComponent.ImageRenderer,
+          component: CellComponent.ImageCell,
           class: 'w-40',
           fields: {
             src: 'ImageGallery.[0].ImageUrl',
@@ -85,7 +85,7 @@ const config: Record<string, ApiConfigEntry> = {
       tableConfig: [
         {
           title: 'Image',
-          component: CellComponent.ImageRenderer,
+          component: CellComponent.ImageCell,
           class: 'w-40',
           fields: {
             src: 'ImageGallery.[0].ImageUrl',
@@ -160,7 +160,7 @@ const config: Record<string, ApiConfigEntry> = {
       tableConfig: [
         {
           title: 'Image',
-          component: CellComponent.ImageRenderer,
+          component: CellComponent.ImageCell,
           class: 'w-40',
           fields: {
             src: 'ImageGallery.[0].ImageUrl',
