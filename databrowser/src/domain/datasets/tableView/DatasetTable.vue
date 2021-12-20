@@ -31,7 +31,7 @@ import { defineComponent } from '@vue/runtime-core';
 import { reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 import { getApiConfigForDataset } from '../../api/configUtils';
-import DataTable from '../../../components/dataTable/DataTable.vue';
+import DataTable from './DataTable.vue';
 import { Pagination } from '../../api/types';
 import { useApi } from '../../api/client';
 import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
