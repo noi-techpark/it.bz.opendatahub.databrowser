@@ -25,7 +25,10 @@
     },
     "download": {
       "info": "Ottenere i dati in base alle impostazioni della tabella",
-      "copyTitle": "API DATASET"
+      "copyTitle": "API DATASET",
+      "copyAction": "In die Zwischenablage kopieren",
+      "downloadJSON": "Datensatz als JSON herunterladen",
+      "downloadCSV": "Datensatz als CSV herunterladen"
     }
   }
 }

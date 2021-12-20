@@ -1,9 +1,9 @@
 <template>
   <DownloadCell>
     <DownloadTitle>CSV</DownloadTitle>
-    <DownloadLink :download="filename" :url="url" title="Download CSV">
+    <DownloadLink :download="filename" :url="url">
       <IconDownload />
-      <span class="sr-only">Download dataset as CSV</span>
+      <span class="sr-only">{{ $t('datasets.download.downloadCSV') }}</span>
     </DownloadLink>
   </DownloadCell>
 </template>

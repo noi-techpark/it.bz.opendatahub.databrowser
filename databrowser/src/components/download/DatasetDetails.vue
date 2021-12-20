@@ -10,7 +10,7 @@
     >
       <IconCheck v-if="showOk" />
       <IconCopy v-else />
-      <span class="sr-only">Copy dataset url to the clipboard</span>
+      <span class="sr-only">{{ $t('datasets.download.copyAction') }}</span>
     </DownloadButton>
   </DownloadCell>
 </template>

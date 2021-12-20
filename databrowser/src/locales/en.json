@@ -25,7 +25,10 @@
     },
     "download": {
       "info": "Retrieve data based on table settings",
-      "copyTitle": "API DATASET"
+      "copyTitle": "API DATASET",
+      "copyAction": "Copy to clipboard",
+      "downloadJSON": "Download dataset as JSON",
+      "downloadCSV": "Download dataset as CSV"
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <DownloadCell>
     <DownloadTitle>JSON</DownloadTitle>
-    <DownloadLink :download="filename" :url="url" title="Download JSON">
+    <DownloadLink :download="filename" :url="url">
       <IconDownload />
-      <span class="sr-only">Download dataset as json</span>
+      <span class="sr-only">{{ $t('datasets.download.downloadJSON') }}</span>
     </DownloadLink>
   </DownloadCell>
 </template>
