@@ -1,27 +1,29 @@
 <template>
-  <div class="mx-auto max-w-5xl">
-    <div class="hidden lg:flex items-stretch space-x-4 h-full">
-      <span class="self-center">Retrieve data based on table settings</span>
+  <div class="fixed bottom-0 left-0 py-5 w-full bg-white">
+    <div class="mx-auto max-w-5xl">
+      <div class="hidden lg:flex items-stretch space-x-4 h-full">
+        <span class="self-center">Retrieve data based on table settings</span>
 
-      <DatasetDetails :dataset-url="datasetUrl" />
-      <DownloadJson :dataset="dataset" />
-      <DownloadCSV :base-url="datasetUrl" />
-    </div>
-    <div class="inline-flex lg:hidden justify-end px-10 w-full">
-      <button
-        class="
-          inline-flex
-          justify-center
-          items-center
-          w-8
-          h-8
-          rounded-full
-          border border-gray-300
-        "
-        @click="openDialog"
-      >
-        <ArrowUp />
-      </button>
+        <DatasetDetails :dataset-url="datasetUrl" />
+        <DownloadJson :dataset="dataset" />
+        <DownloadCSV :base-url="datasetUrl" />
+      </div>
+      <div class="inline-flex lg:hidden justify-end px-10 w-full">
+        <button
+          class="
+            inline-flex
+            justify-center
+            items-center
+            w-8
+            h-8
+            rounded-full
+            border border-gray-300
+          "
+          @click="openDialog"
+        >
+          <ArrowUp />
+        </button>
+      </div>
     </div>
   </div>
 
