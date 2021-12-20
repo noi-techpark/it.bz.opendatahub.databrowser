@@ -84,7 +84,7 @@ export default defineComponent({
       required: true,
     },
     dataset: {
-      type: String,
+      type: Object,
       required: true,
     },
     hideCsv: {
