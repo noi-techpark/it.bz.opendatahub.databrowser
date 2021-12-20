@@ -1,27 +1,30 @@
 {
-    "auth": {
-        "login": "Login",
-        "register": "Register now!"
-    },
-    "header": {
-        "logo": "Open Data Hub - Logo"
-    },
-    "footer": {
-        "imprint": "Impressum",
-        "legal": "Rechtliches",
-        "privacy": "Datenschutz",
-        "sitemap": "Sitemap"
-    },
-    "languageSwitch": {
-        "language": {
-            "de": "Deutsch",
-            "en": "Englisch",
-            "it": "Italienisch"
-        }
-    },
-    "datasets": {
-        "listView": {
-            "linesPerPage": "Zeilen pro Seite"
-        }
+  "auth": {
+    "login": "Login",
+    "register": "Register now!"
+  },
+  "header": {
+    "logo": "Open Data Hub - Logo"
+  },
+  "footer": {
+    "imprint": "Impressum",
+    "legal": "Rechtliches",
+    "privacy": "Datenschutz",
+    "sitemap": "Sitemap"
+  },
+  "languageSwitch": {
+    "language": {
+      "de": "Deutsch",
+      "en": "Englisch",
+      "it": "Italienisch"
     }
+  },
+  "datasets": {
+    "listView": {
+      "linesPerPage": "Zeilen pro Seite"
+    },
+    "download": {
+      "info": "Daten auf der Grundlage von Tabelleneinstellungen abrufen"
+    }
+  }
 }

@@ -2,7 +2,7 @@
   <div class="fixed bottom-0 left-0 py-5 w-full bg-white">
     <div class="mx-auto max-w-5xl">
       <div class="hidden lg:flex items-stretch space-x-4 h-full">
-        <span class="self-center">Retrieve data based on table settings</span>
+        <span v-t="'datasets.download.info'" class="self-center"></span>
 
         <DatasetDetails :dataset-url="datasetUrl" />
         <DownloadJson :dataset="dataset" />
@@ -41,7 +41,7 @@
           <IconClose />
         </button>
 
-        <span class="self-center">Retrieve data based on table settings</span>
+        <span v-t="'datasets.download.info'" class="self-center"></span>
 
         <hr />
 
