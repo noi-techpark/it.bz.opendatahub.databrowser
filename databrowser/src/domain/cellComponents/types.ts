@@ -1,4 +1,4 @@
-export enum ComponentRenderer {
+export enum CellComponent {
   ArrayRenderer = 'ArrayRenderer',
   DateRenderer = 'DateRenderer',
   EditedDateRenderer = 'EditedDateRenderer',

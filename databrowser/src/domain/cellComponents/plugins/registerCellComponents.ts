@@ -8,20 +8,17 @@ import JsonRenderer from '../components/jsonRenderer/JsonRenderer.vue';
 import StateRenderer from '../components/stateRenderer/StateRenderer.vue';
 import StringRenderer from '../components/stringRenderer/StringRenderer.vue';
 import TextHighlightRenderer from '../components/textHighlightRenderer/TextHighlightRenderer.vue';
-import { ComponentRenderer } from '../types';
+import { CellComponent } from '../types';
 
 export default {
   install: (app: App) => {
-    app.component(ComponentRenderer.ArrayRenderer, ArrayRenderer);
-    app.component(ComponentRenderer.DateRenderer, DateRenderer);
-    app.component(ComponentRenderer.EditedDateRenderer, EditedDateRenderer);
-    app.component(ComponentRenderer.ImageRenderer, ImageRenderer);
-    app.component(ComponentRenderer.JsonRenderer, JsonRenderer);
-    app.component(ComponentRenderer.StateRenderer, StateRenderer);
-    app.component(ComponentRenderer.StringRenderer, StringRenderer);
-    app.component(
-      ComponentRenderer.TextHighlightRenderer,
-      TextHighlightRenderer
-    );
+    app.component(CellComponent.ArrayRenderer, ArrayRenderer);
+    app.component(CellComponent.DateRenderer, DateRenderer);
+    app.component(CellComponent.EditedDateRenderer, EditedDateRenderer);
+    app.component(CellComponent.ImageRenderer, ImageRenderer);
+    app.component(CellComponent.JsonRenderer, JsonRenderer);
+    app.component(CellComponent.StateRenderer, StateRenderer);
+    app.component(CellComponent.StringRenderer, StringRenderer);
+    app.component(CellComponent.TextHighlightRenderer, TextHighlightRenderer);
   },
 };
