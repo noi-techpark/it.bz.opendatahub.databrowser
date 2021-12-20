@@ -7,7 +7,7 @@ import ImageCell from '../components/imageCell/ImageCell.vue';
 import JsonCell from '../components/jsonCell/JsonCell.vue';
 import StateCell from '../components/stateCell/StateCell.vue';
 import StringCell from '../components/stringCell/StringCell.vue';
-import TextHighlightRenderer from '../components/textHighlightRenderer/TextHighlightRenderer.vue';
+import TextHighlightCell from '../components/textHighlightCell/TextHighlightCell.vue';
 import { CellComponent } from '../types';
 
 export default {
@@ -19,6 +19,6 @@ export default {
     app.component(CellComponent.JsonCell, JsonCell);
     app.component(CellComponent.StateCell, StateCell);
     app.component(CellComponent.StringCell, StringCell);
-    app.component(CellComponent.TextHighlightRenderer, TextHighlightRenderer);
+    app.component(CellComponent.TextHighlightCell, TextHighlightCell);
   },
 };

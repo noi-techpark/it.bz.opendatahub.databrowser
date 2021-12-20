@@ -6,5 +6,5 @@ export enum CellComponent {
   JsonCell = 'JsonCell',
   StateCell = 'StateCell',
   StringCell = 'StringCell',
-  TextHighlightRenderer = 'TextHighlightRenderer',
+  TextHighlightCell = 'TextHighlightCell',
 }

@@ -26,7 +26,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Location',
-          component: CellComponent.TextHighlightRenderer,
+          component: CellComponent.TextHighlightCell,
           class: 'w-40',
           fields: {
             title: 'LocationInfo.RegionInfo.Name.{language}',
@@ -101,7 +101,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Location',
-          component: CellComponent.TextHighlightRenderer,
+          component: CellComponent.TextHighlightCell,
           class: 'w-40',
           fields: {
             title: 'LocationInfo.RegionInfo.Name.{language}',
@@ -176,7 +176,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Location',
-          component: CellComponent.TextHighlightRenderer,
+          component: CellComponent.TextHighlightCell,
           class: 'w-40',
           fields: {
             title: 'LocationInfo.RegionInfo.Name.{language}',
