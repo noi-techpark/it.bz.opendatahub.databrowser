@@ -2,7 +2,7 @@
   <div class="fixed bottom-0 left-0 py-5 w-full bg-white">
     <div class="mx-auto max-w-5xl">
       <div class="hidden lg:flex items-stretch space-x-4 h-full">
-        <span v-t="'datasets.download.info'" class="self-center"></span>
+        <span class="self-center">{{ $t('datasets.download.info') }}</span>
 
         <DatasetDetails :dataset-url="datasetUrl" />
         <DownloadCSV v-if="!hideCsv" :base-url="datasetUrl" />
@@ -41,7 +41,7 @@
           <IconClose />
         </button>
 
-        <span v-t="'datasets.download.info'" class="self-center"></span>
+        <span class="self-center">{{ $t('datasets.download.info') }}</span>
 
         <hr />
 
