@@ -24,7 +24,8 @@
       "linesPerPage": "Zeilen pro Seite"
     },
     "download": {
-      "info": "Daten auf der Grundlage von Tabelleneinstellungen abrufen"
+      "info": "Daten auf der Grundlage von Tabelleneinstellungen abrufen",
+      "copyTitle": "API DATASET"
     }
   }
 }

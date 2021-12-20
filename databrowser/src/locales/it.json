@@ -24,7 +24,8 @@
       "linesPerPage": "righe per pagina"
     },
     "download": {
-      "info": "Ottenere i dati in base alle impostazioni della tabella"
+      "info": "Ottenere i dati in base alle impostazioni della tabella",
+      "copyTitle": "API DATASET"
     }
   }
 }
