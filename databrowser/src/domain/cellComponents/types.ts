@@ -3,7 +3,7 @@ export enum CellComponent {
   DateCell = 'DateCell',
   EditedDateCell = 'EditedDateCell',
   ImageCell = 'ImageCell',
-  JsonRenderer = 'JsonRenderer',
+  JsonCell = 'JsonCell',
   StateRenderer = 'StateRenderer',
   StringRenderer = 'StringRenderer',
   TextHighlightRenderer = 'TextHighlightRenderer',
