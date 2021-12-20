@@ -1,5 +1,5 @@
 export enum CellComponent {
-  ArrayRenderer = 'ArrayRenderer',
+  ArrayCell = 'ArrayCell',
   DateRenderer = 'DateRenderer',
   EditedDateRenderer = 'EditedDateRenderer',
   ImageRenderer = 'ImageRenderer',

@@ -35,7 +35,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Languages',
-          component: CellComponent.ArrayRenderer,
+          component: CellComponent.ArrayCell,
           class: 'w-40',
           fields: {
             items: 'HasLanguage',
@@ -110,7 +110,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Languages',
-          component: CellComponent.ArrayRenderer,
+          component: CellComponent.ArrayCell,
           class: 'w-40',
           fields: {
             items: 'HasLanguage',
@@ -185,7 +185,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Languages',
-          component: CellComponent.ArrayRenderer,
+          component: CellComponent.ArrayCell,
           class: 'w-40',
           fields: {
             items: 'HasLanguage',

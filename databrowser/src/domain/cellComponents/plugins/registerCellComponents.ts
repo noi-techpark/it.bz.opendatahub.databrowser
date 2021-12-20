@@ -1,6 +1,6 @@
 import { App } from 'vue';
 
-import ArrayRenderer from '../components/arrayRenderer/ArrayRenderer.vue';
+import ArrayCell from '../components/arrayCell/ArrayCell.vue';
 import DateRenderer from '../components/dateRenderer/DateRenderer.vue';
 import EditedDateRenderer from '../components/editedDateRenderer/EditedDateRenderer.vue';
 import ImageRenderer from '../components/imageRenderer/ImageRenderer.vue';
@@ -12,7 +12,7 @@ import { CellComponent } from '../types';
 
 export default {
   install: (app: App) => {
-    app.component(CellComponent.ArrayRenderer, ArrayRenderer);
+    app.component(CellComponent.ArrayCell, ArrayCell);
     app.component(CellComponent.DateRenderer, DateRenderer);
     app.component(CellComponent.EditedDateRenderer, EditedDateRenderer);
     app.component(CellComponent.ImageRenderer, ImageRenderer);
