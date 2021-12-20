@@ -1,5 +1,16 @@
 <template>
-  <DownloadCell :sub-title="subTitle" :title="title">
+  <div
+    class="
+      inline-flex
+      flex-shrink-0
+      w-12
+      h-12
+      text-green-400
+      hover:bg-gray-100
+      rounded-xl
+      border border-gray-300
+    "
+  >
     <button
       class="
         inline-flex
@@ -13,24 +24,11 @@
     >
       <slot></slot>
     </button>
-  </DownloadCell>
+  </div>
 </template>
 
 <script>
-import DownloadCell from './DownloadCell.vue';
-
 export default {
-  components: { DownloadCell },
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    subTitle: {
-      type: String,
-      default: '',
-    },
-  },
   emits: ['clicked'],
 };
 </script>
