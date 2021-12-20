@@ -47,8 +47,12 @@
 
         <DatasetDetails :dataset-url="datasetUrl" class="max-w-full" />
         <div class="flex gap-3">
-          <DownloadCSV v-if="!hideCsv" :base-url="datasetUrl" class="w-full" />
-          <DownloadJson :dataset="dataset" class="w-full" />
+          <DownloadCSV
+            v-if="!hideCsv"
+            :base-url="datasetUrl"
+            class="w-full max-w-full"
+          />
+          <DownloadJson :dataset="dataset" class="w-full max-w-full" />
         </div>
       </div>
     </div>
