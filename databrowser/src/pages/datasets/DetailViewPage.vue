@@ -1,5 +1,6 @@
 <template>
   <AppLayout>
+    <DatasetHero />
     <DatasetNavigation :current-view="currentView" />
     <ContentArea>
       <div>
@@ -16,9 +17,11 @@ import { useRoute } from 'vue-router';
 import { defineComponent } from '@vue/runtime-core';
 import { ViewPill } from '../../domain/datasets/navigation/types';
 import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
+import DatasetHero from '../../domain/datasets/DatasetHero.vue';
 
 export default defineComponent({
   components: {
+    DatasetHero,
     DatasetNavigation,
     AppLayout,
     ContentArea,
