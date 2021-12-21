@@ -2,69 +2,14 @@
 <template>
   <div class="data-table-wrapper">
     <table class="data-table">
-      <colgroup>
-        <col v-for="col in config" :key="col.title" :class="col.class" />
-        <col class="w-28" />
+      <colgroup v-if="isColgroupColsSlotDefined">
+        <slot name="colgroup-cols"></slot>
       </colgroup>
-      <TableHeader class="sticky top-0 z-10">
-        <TableHeaderCell v-for="col in config" :key="col.title">
-          {{ col.title }}
-        </TableHeaderCell>
-        <TableHeaderCell class="sticky right-0 bg-white"></TableHeaderCell>
+      <TableHeader v-if="isHeaderColsSlotDefined" class="sticky top-0 z-10">
+        <slot name="header-cols"></slot>
       </TableHeader>
-      <TableBody>
-        <!-- eslint-disable-next-line vue/require-v-for-key -->
-        <tr v-for="row in rows">
-          <TableCell v-for="col in config" :key="col.title">
-            <Cell
-              :tag-name="col.component"
-              :attributes="getValue(row, col.fields, col.params)"
-            />
-          </TableCell>
-          <TableCell class="sticky right-0 bg-white">
-            <div class="flex h-full">
-              <router-link
-                :to="{
-                  name: 'DatasetsDetailViewPage',
-                  params: { datasetId: row.Id },
-                }"
-                class="
-                  flex
-                  justify-center
-                  items-center
-                  m-1
-                  w-8
-                  h-8
-                  hover:bg-gray-300
-                  rounded
-                  border
-                "
-              >
-                <EyeDetailGreen />
-              </router-link>
-              <router-link
-                :to="{
-                  name: 'DatasetsRawViewPage',
-                  params: { datasetId: row.Id },
-                }"
-                class="
-                  flex
-                  justify-center
-                  items-center
-                  m-1
-                  w-8
-                  h-8
-                  hover:bg-gray-300
-                  rounded
-                  border
-                  text-xs text-green-500
-                "
-              >
-                RAW
-              </router-link>
-            </div>
-          </TableCell>
-        </tr>
+      <TableBody v-if="isBodyRowsSlotDefined">
+        <slot name="body-rows"></slot>
       </TableBody>
     </table>
   </div>
@@ -75,23 +20,15 @@ import { defineComponent, PropType } from '@vue/runtime-core';
 import { TableColumnConfig } from '../../domain/api/config';
 import { extractField } from '../../domain/api/configUtils';
 import { useUrlQueryRouter } from '../../lib/urlQuery/urlQueryRouter';
-import Cell from '../listCell/ListCell.vue';
-import EyeDetailGreen from '../svg/EyeDetailGreen.vue';
-import TableBody from '../table/TableBody.vue';
-import TableHeader from '../table/TableHeader.vue';
-import TableHeaderCell from '../table/TableHeaderCell.vue';
-import TableCell from '../table/TableCell.vue';
+import TableBody from './TableBody.vue';
+import TableHeader from './TableHeader.vue';
 import { toRefs } from 'vue';
 import { defaultQueryParameters } from '../../domain/datasets/tableView/defaultValues';
 
 export default defineComponent({
   components: {
-    Cell,
-    EyeDetailGreen,
     TableBody,
     TableHeader,
-    TableHeaderCell,
-    TableCell,
   },
   props: {
     rows: {
@@ -103,7 +40,7 @@ export default defineComponent({
       type: Array as PropType<TableColumnConfig[]>,
     },
   },
-  setup() {
+  setup(props, { slots }) {
     const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
     const { queryParametersWithDefaults } = toRefs(queryRouter);
 
@@ -116,7 +53,16 @@ export default defineComponent({
       ...params,
     });
 
-    return { getValue };
+    const isColgroupColsSlotDefined = slots['colgroup-cols'] != null;
+    const isHeaderColsSlotDefined = slots['header-cols'] != null;
+    const isBodyRowsSlotDefined = slots['body-rows'] != null;
+
+    return {
+      getValue,
+      isColgroupColsSlotDefined,
+      isHeaderColsSlotDefined,
+      isBodyRowsSlotDefined,
+    };
   },
 });
 </script>

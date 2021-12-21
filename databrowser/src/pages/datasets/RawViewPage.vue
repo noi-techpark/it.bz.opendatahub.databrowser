@@ -10,6 +10,11 @@
         <div v-if="apiResult.isFetching">Loading</div>
         <div v-else>
           <vue-json-pretty :data="apiResult.data?.data" :deep="3" show-length />
+          <DownloadSection
+            :dataset="apiResult.data?.data"
+            :dataset-url="datasetUrl"
+            hide-csv
+          />
         </div>
       </div>
     </ContentArea>
@@ -29,9 +34,11 @@ import axios, { AxiosResponse } from 'axios';
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
 import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
 import { ViewPill } from '../../domain/datasets/navigation/types';
+import DownloadSection from '../../components/download/DownloadSection.vue';
 
 export default defineComponent({
   components: {
+    DownloadSection,
     DatasetNavigation,
     AppLayout,
     ContentArea,
@@ -41,35 +48,33 @@ export default defineComponent({
     const route = useRoute();
     const datasetType = route.params.datasetType as string;
     const datasetId = route.params.datasetId as string;
+    let datasetUrl = '';
 
     const apiResult = ref<
       UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>
     >({} as any);
 
-    const fetchList = async (url: string, id: string) => {
+    const fetchList = async (url: string) => {
       const fetcher = async ({ queryKey }: { queryKey: unknown[] }) => {
         return await axios.get(queryKey[0] as string);
       };
-      const result = useApi(url.replace('{id}', id), fetcher as unknown as any);
+      const result = useApi(url, fetcher as unknown as any);
       apiResult.value = result as any;
     };
 
     const configEntry = getApiConfigForDataset(datasetType);
     if (configEntry?.detailEndpoint?.url != null) {
-      fetchList(configEntry.detailEndpoint.url, datasetId);
+      datasetUrl = configEntry.detailEndpoint.url.replace('{id}', datasetId);
+      fetchList(datasetUrl);
     }
     return {
       currentView: ViewPill.raw,
       datasetType,
       datasetId,
+      datasetUrl: datasetUrl,
       apiResult,
       fetchList,
     };
-  },
-  methods: {
-    getEntryValue(entry: unknown) {
-      return typeof entry == 'object' ? JSON.stringify(entry, null, 4) : entry;
-    },
   },
 });
 </script>
