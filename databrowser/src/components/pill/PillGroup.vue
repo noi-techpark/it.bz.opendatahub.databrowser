@@ -1,44 +1,24 @@
 <template>
   <div>
-    <div
+    <PillGroupItem
       v-for="(item, index) in data"
       :key="item"
-      :class="{
-        'text-green-500 bg-opacity-10 bg-green-500 border-green-500':
-          isSelected(item),
-        'hover:bg-gray-300': !isSelected(item),
-        'rounded-l-full border-l': index == 0,
-        'rounded-r-full border-r': index == data.length - 1,
-      }"
-      class="
-        overflow-hidden
-        last:pr-1
-        first:pl-1
-        border-t border-b border-gray-500
-      "
-    >
-      <div
-        :class="{
-          'border-green-500': isSelected(item),
-          'border-l': index != 0,
-          'border-r': index != data.length - 1,
-        }"
-        class="border-transparent"
-        role="button"
-        tabindex="0"
-        @click="changeSelectedItem(item)"
-      >
-        <span class="block py-1 px-2 font-semibold">{{ item }}</span>
-      </div>
-    </div>
+      :current-item="selected"
+      :is-first="index == 0"
+      :is-last="index == data.length - 1"
+      :item="item"
+      @change-selected-item="changeSelectedItem(item)"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, ref } from '@vue/runtime-core';
 import { watch } from 'vue';
+import PillGroupItem from './PillGroupItem.vue';
 
 export default defineComponent({
+  components: { PillGroupItem },
   props: {
     initialSelected: {
       type: String as PropType<string>,
@@ -60,10 +40,6 @@ export default defineComponent({
       }
     );
 
-    function isSelected(current: string) {
-      return selected.value == current;
-    }
-
     function changeSelectedItem(item: string) {
       selected.value = item;
       context.emit('selectedChange', selected.value);
@@ -71,7 +47,6 @@ export default defineComponent({
 
     return {
       selected,
-      isSelected,
       changeSelectedItem,
     };
   },
