@@ -3,8 +3,8 @@
     class="inline-flex md:hidden items-center"
     @click="showMobileSelect = true"
   >
+    <span class="sr-only">Selected language</span>
     <span class="pr-2">{{ currentSelected.toUpperCase() }}</span>
-    <span class="sr-only">Selected language {{ currentSelected }}</span>
     <ArrowDown />
   </PillButton>
 
