@@ -4,6 +4,7 @@
     @click="showMobileSelect = true"
   >
     <span class="pr-2">{{ currentSelected.toUpperCase() }}</span>
+    <span class="sr-only">Selected language {{ currentSelected }}</span>
     <ArrowDown />
   </PillButton>
 
@@ -29,11 +30,7 @@
           <PillButton
             v-for="language in supportedLanguages"
             :key="language"
-            :class="[
-              isSelected(language)
-                ? 'text-green-500 bg-opacity-10 bg-green-500 border-green-500'
-                : 'border-gray-500',
-            ]"
+            :active="isSelected(language)"
             class="uppercase"
             @click="changeLanguage(language)"
             >{{ language }}
