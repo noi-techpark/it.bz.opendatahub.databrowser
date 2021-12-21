@@ -1,6 +1,8 @@
 <template>
   <footer>
-    <ContentArea class="pt-6 pb-7 lg:pb-7">
+    <ContentArea
+      class="pt-6 lg:pt-7 pb-6 lg:pb-7 mt-6 lg:mt-7 border-t border-gray-200"
+    >
       <ul
         class="
           justify-center

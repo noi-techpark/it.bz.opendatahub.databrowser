@@ -25,7 +25,6 @@ import ContentArea from '../../../components/content/ContentArea.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
 import { useApi } from '../../api/client';
 import { getApiConfigForDataset } from '../../api/configUtils';
-import { ViewPill } from '../navigation/types';
 
 export default defineComponent({
   components: {
@@ -57,7 +56,6 @@ export default defineComponent({
       fetchList(datasetUrl);
     }
     return {
-      currentView: ViewPill.raw,
       datasetType,
       datasetId,
       datasetUrl: datasetUrl,

@@ -1,6 +1,6 @@
 <template>
   <ContentArea
-    class="flex justify-between py-10 space-x-4 border-b border-gray-200"
+    class="flex justify-between py-7 space-x-4 border-b border-gray-200"
   >
     <ViewPills :current-view="currentView" />
     <LanguagePicker />
