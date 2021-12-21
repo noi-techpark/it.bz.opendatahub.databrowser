@@ -1,9 +1,9 @@
 <template>
-  <ContentArea>
-    <div class="flex justify-between space-x-4">
-      <ViewPills :current-view="currentView" />
-      <LanguagePicker />
-    </div>
+  <ContentArea
+    class="flex justify-between py-10 space-x-4 border-b border-gray-200"
+  >
+    <ViewPills :current-view="currentView" />
+    <LanguagePicker />
   </ContentArea>
 </template>
 

@@ -3,9 +3,7 @@
     <DatasetHero />
     <DatasetNavigation :current-view="currentView" />
     <ContentArea>
-      <div>
-        Dataset Detail Page (type = {{ datasetType }}, ID = {{ datasetId }})
-      </div>
+      Dataset Detail Page (type = {{ datasetType }}, ID = {{ datasetId }})
     </ContentArea>
   </AppLayout>
 </template>
