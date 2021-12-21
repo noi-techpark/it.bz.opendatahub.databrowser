@@ -21,7 +21,11 @@
       @page-size-changes="pageSizeChanges"
     />
 
-    <DownloadSection :dataset="paginatedData" :dataset-url="url" />
+    <DownloadSection
+      v-if="url && paginatedData"
+      :dataset="paginatedData"
+      :dataset-url="url"
+    />
   </section>
   <section v-if="tableConfig == null">
     Config was not found, ID = {{ $route.params.datasetType }}
