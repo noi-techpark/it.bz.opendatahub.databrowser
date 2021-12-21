@@ -1,37 +1,32 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <ContentArea>
-    <section
-      v-if="isSuccess"
-      class="flex flex-col mx-auto lg:mt-8 w-full max-w-5xl min-h-0"
-    >
-      <TableNavigation
-        :page-size-options="pageSizeOptions"
-        :pagination="pagination"
-        class="hidden md:flex"
-        @paginate-to="paginateTo"
-        @page-size-changes="pageSizeChanges"
-      />
+  <section v-if="isSuccess" class="flex flex-col">
+    <TableNavigation
+      :page-size-options="pageSizeOptions"
+      :pagination="pagination"
+      class="hidden md:flex"
+      @paginate-to="paginateTo"
+      @page-size-changes="pageSizeChanges"
+    />
 
-      <TableContent :config="tableConfig" :rows="rows" />
+    <TableContent :config="tableConfig" :rows="rows" />
 
-      <TableNavigation
-        :page-size-options="pageSizeOptions"
-        :pagination="pagination"
-        @paginate-to="paginateTo"
-        @page-size-changes="pageSizeChanges"
-      />
+    <TableNavigation
+      :page-size-options="pageSizeOptions"
+      :pagination="pagination"
+      @paginate-to="paginateTo"
+      @page-size-changes="pageSizeChanges"
+    />
 
-      <DownloadSection
-        v-if="url && paginatedData"
-        :dataset="paginatedData"
-        :dataset-url="url"
-      />
-    </section>
-    <section v-if="tableConfig == null">
-      Config was not found, ID = {{ $route.params.datasetType }}
-    </section>
-  </ContentArea>
+    <DownloadSection
+      v-if="url && paginatedData"
+      :dataset="paginatedData"
+      :dataset-url="url"
+    />
+  </section>
+  <section v-if="tableConfig == null">
+    Config was not found, ID = {{ $route.params.datasetType }}
+  </section>
 </template>
 
 <script lang="ts">
@@ -49,10 +44,9 @@ import { useListMapper } from '../../api/mapper';
 import TableContent from './TableContent.vue';
 import TableNavigation from './TableNavigation.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
-import ContentArea from '../../../components/content/ContentArea.vue';
 
 export default defineComponent({
-  components: { ContentArea, DownloadSection, TableContent, TableNavigation },
+  components: { DownloadSection, TableContent, TableNavigation },
   setup() {
     // Use path parameters to get config for dataset
     const route = useRoute();

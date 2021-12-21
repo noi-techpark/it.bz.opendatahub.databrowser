@@ -1,15 +1,15 @@
 <template>
   <AppLayout>
-    <ContentArea>Legal Page</ContentArea>
+    <ContentAlignmentX>Legal Page</ContentAlignmentX>
   </AppLayout>
 </template>
 
 <script lang="ts">
 import AppLayout from '../layouts/AppLayout.vue';
 import { defineComponent } from '@vue/runtime-core';
-import ContentArea from '../components/content/ContentArea.vue';
+import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 
 export default defineComponent({
-  components: { ContentArea, AppLayout },
+  components: { ContentAlignmentX, AppLayout },
 });
 </script>

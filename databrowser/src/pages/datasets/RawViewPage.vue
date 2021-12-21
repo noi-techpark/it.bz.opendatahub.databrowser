@@ -1,8 +1,14 @@
 <template>
   <AppLayout>
     <DatasetHero />
-    <DatasetNavigation :current-view="currentView" />
-    <RawView />
+    <ContentAlignmentX>
+      <ContentAlignmentY>
+        <DatasetNavigation :current-view="currentView" />
+      </ContentAlignmentY>
+      <ContentAlignmentY>
+        <RawView />
+      </ContentAlignmentY>
+    </ContentAlignmentX>
   </AppLayout>
 </template>
 
@@ -12,9 +18,18 @@ import DatasetHero from '../../domain/datasets/DatasetHero.vue';
 import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
 import RawView from '../../domain/datasets/rawView/RawView.vue';
 import { ViewPill } from '../../domain/datasets/navigation/types';
+import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
+import ContentAlignmentY from '../../components/content/ContentAlignmentY.vue';
 
 export default {
-  components: { RawView, DatasetNavigation, DatasetHero, AppLayout },
+  components: {
+    ContentAlignmentY,
+    ContentAlignmentX,
+    RawView,
+    DatasetNavigation,
+    DatasetHero,
+    AppLayout,
+  },
   setup() {
     return {
       currentView: ViewPill.raw,

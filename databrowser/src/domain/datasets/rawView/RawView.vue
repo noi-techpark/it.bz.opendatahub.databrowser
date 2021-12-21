@@ -1,5 +1,5 @@
 <template>
-  <ContentArea>
+  <ContentAlignmentX>
     <div v-if="apiResult.isFetching">Loading</div>
     <div v-else>
       <div class="overflow-x-scroll p-4 rounded-xl border">
@@ -11,7 +11,7 @@
         hide-csv
       />
     </div>
-  </ContentArea>
+  </ContentAlignmentX>
 </template>
 
 <script lang="ts">
@@ -21,7 +21,7 @@ import { useRoute } from 'vue-router';
 import VueJsonPretty from 'vue-json-pretty';
 import axios, { AxiosResponse } from 'axios';
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
-import ContentArea from '../../../components/content/ContentArea.vue';
+import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
 import { useApi } from '../../api/client';
 import { getApiConfigForDataset } from '../../api/configUtils';
@@ -29,7 +29,7 @@ import { getApiConfigForDataset } from '../../api/configUtils';
 export default defineComponent({
   components: {
     DownloadSection,
-    ContentArea,
+    ContentAlignmentX,
     VueJsonPretty,
   },
   setup() {

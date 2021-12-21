@@ -1,5 +1,5 @@
 <template>
-  <ContentArea class="flex flex-row justify-between py-3 lg:py-5">
+  <ContentAlignmentX class="flex flex-row justify-between py-3 lg:py-5">
     <router-link to="/">
       <img
         src="/logo-open-data-hub-black.png"
@@ -8,16 +8,16 @@
       />
     </router-link>
     <MenuUserSection />
-  </ContentArea>
+  </ContentAlignmentX>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
 import MenuUserSection from '../domain/auth/MenuUserSection.vue';
-import ContentArea from '../components/content/ContentArea.vue';
+import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 
 export default defineComponent({
-  components: { ContentArea, MenuUserSection },
+  components: { ContentAlignmentX, MenuUserSection },
 });
 </script>
 

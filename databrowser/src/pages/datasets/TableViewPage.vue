@@ -1,8 +1,15 @@
 <template>
   <AppLayout>
     <DatasetHero />
-    <DatasetNavigation :current-view="currentView" />
-    <TableView></TableView>
+    <ContentAlignmentX>
+      <ContentAlignmentY>
+        <DatasetNavigation :current-view="currentView" />
+      </ContentAlignmentY>
+      <ContentDivider />
+      <ContentAlignmentY>
+        <TableView></TableView>
+      </ContentAlignmentY>
+    </ContentAlignmentX>
   </AppLayout>
 </template>
 
@@ -13,9 +20,15 @@ import { ViewPill } from '../../domain/datasets/navigation/types';
 import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
 import DatasetHero from '../../domain/datasets/DatasetHero.vue';
 import AppLayout from '../../layouts/AppLayout.vue';
+import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
+import ContentDivider from '../../components/content/ContentDivider.vue';
+import ContentAlignmentY from '../../components/content/ContentAlignmentY.vue';
 
 export default defineComponent({
   components: {
+    ContentAlignmentY,
+    ContentDivider,
+    ContentAlignmentX,
     AppLayout,
     DatasetHero,
     DatasetNavigation,
