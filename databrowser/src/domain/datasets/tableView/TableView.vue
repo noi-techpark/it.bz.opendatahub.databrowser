@@ -1,9 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <section
-    v-if="isSuccess"
-    class="flex flex-col mx-auto lg:mt-8 w-full max-w-5xl min-h-0"
-  >
+  <section v-if="isSuccess" class="flex flex-col">
     <TableNavigation
       :page-size-options="pageSizeOptions"
       :pagination="pagination"

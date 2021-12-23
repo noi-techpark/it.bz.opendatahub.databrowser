@@ -20,88 +20,90 @@
         Phasellus viverra nulla ut metus varius laoreet.
       </HeroCaption>
     </Hero>
-    <ContentArea>
-      <CardGrid tag-name="ul">
-        <CardContainer tag-name="li">
-          <CardTitle>Dataset 1</CardTitle>
-          <CardText
-            >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
-            dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit sit amen
-            dorl sit amen dol dori sti ist.
-          </CardText>
-          <CardActions>
-            <ButtonLink to="/">Discover Dataset</ButtonLink>
-          </CardActions>
-        </CardContainer>
-        <CardContainer tag-name="li">
-          <CardTitle>Dataset 2</CardTitle>
-          <CardText
-            >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
-            dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit sit amen
-            dorl sit amen dol dori sti ist.
-          </CardText>
-          <CardActions>
-            <ButtonLink to="/about" variant="ghost">About</ButtonLink>
-          </CardActions>
-        </CardContainer>
-      </CardGrid>
+    <ContentAlignmentX>
+      <ContentAlignmentY>
+        <CardGrid tag-name="ul">
+          <CardContainer tag-name="li">
+            <CardTitle>Dataset 1</CardTitle>
+            <CardText
+              >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit
+              amen dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit
+              sit amen dorl sit amen dol dori sti ist.
+            </CardText>
+            <CardActions>
+              <ButtonLink to="/">Discover Dataset</ButtonLink>
+            </CardActions>
+          </CardContainer>
+          <CardContainer tag-name="li">
+            <CardTitle>Dataset 2</CardTitle>
+            <CardText
+              >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit
+              amen dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit
+              sit amen dorl sit amen dol dori sti ist.
+            </CardText>
+            <CardActions>
+              <ButtonLink to="/about" variant="ghost">About</ButtonLink>
+            </CardActions>
+          </CardContainer>
+        </CardGrid>
 
-      <ContentDivider />
+        <ContentDivider />
 
-      <CardGrid tag-name="ul">
-        <CardContainer tag-name="li">
-          <CardTitle>API Documentation</CardTitle>
-          <CardText
-            >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
-            dorlosit sit amen dorl sit amen dol dori sti ist. sit amen dorl sit
-            amen dol dori sti ist.
-          </CardText>
-          <CardDivider />
-          <InternalLink to="/" tone="primary">
-            <ArrowRight class="fill-current" />
-            <span>Show API Documentation</span></InternalLink
-          >
-        </CardContainer>
+        <CardGrid tag-name="ul">
+          <CardContainer tag-name="li">
+            <CardTitle>API Documentation</CardTitle>
+            <CardText
+              >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit
+              amen dorlosit sit amen dorl sit amen dol dori sti ist. sit amen
+              dorl sit amen dol dori sti ist.
+            </CardText>
+            <CardDivider />
+            <InternalLink to="/" tone="primary">
+              <ArrowRight class="fill-current" />
+              <span>Show API Documentation</span></InternalLink
+            >
+          </CardContainer>
 
-        <CardContainer tag-name="li">
-          <CardTitle>Information</CardTitle>
-          <CardText
-            >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit amen
-            dorl sit amen dol dori sti ist.
-          </CardText>
-          <CardDivider />
-          <InternalLink to="/" tone="primary">
-            <ArrowRight class="fill-current" />
-            <span>Show Information</span></InternalLink
-          >
-        </CardContainer>
-      </CardGrid>
+          <CardContainer tag-name="li">
+            <CardTitle>Information</CardTitle>
+            <CardText
+              >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit
+              amen dorl sit amen dol dori sti ist.
+            </CardText>
+            <CardDivider />
+            <InternalLink to="/" tone="primary">
+              <ArrowRight class="fill-current" />
+              <span>Show Information</span></InternalLink
+            >
+          </CardContainer>
+        </CardGrid>
 
-      <ContentDivider />
+        <ContentDivider />
 
-      <CardGrid tag-name="ul">
-        <li>
-          <router-link to="/dataset/odh-activity-poi"
-            >ODH ActivityPOI List
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/dataset/odh-accommodation"
-            >ODH Accommodation List
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/dataset/odh-activity-poi-types"
-            >ODH ActivityPOITypes List
-          </router-link>
-        </li>
-        <li class="py-4">
-          <router-link class="bg-red-100" to="/dataset/xyz"
-            >Not existing list route
-          </router-link>
-        </li>
-      </CardGrid>
-    </ContentArea>
+        <CardGrid tag-name="ul">
+          <li>
+            <router-link to="/dataset/odh-activity-poi"
+              >ODH ActivityPOI List
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/dataset/odh-accommodation"
+              >ODH Accommodation List
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/dataset/odh-activity-poi-types"
+              >ODH ActivityPOITypes List
+            </router-link>
+          </li>
+          <li class="py-4">
+            <router-link class="bg-red-100" to="/dataset/xyz"
+              >Not existing list route
+            </router-link>
+          </li>
+        </CardGrid>
+      </ContentAlignmentY>
+    </ContentAlignmentX>
   </AppLayout>
 </template>
 
@@ -113,7 +115,7 @@ import HeroSubTitle from '../components/hero/HeroSubTitle.vue';
 import HeroCaption from '../components/hero/HeroCaption.vue';
 import ButtonLink from '../components/button/ButtonLink.vue';
 import CardContainer from '../components/card/CardContainer.vue';
-import ContentArea from '../components/content/ContentArea.vue';
+import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import CardTitle from '../components/card/CardTitle.vue';
 import CardText from '../components/card/CardText.vue';
 import CardActions from '../components/card/CardActions.vue';
@@ -123,9 +125,11 @@ import ContentDivider from '../components/content/ContentDivider.vue';
 import InternalLink from '../components/link/InternalLink.vue';
 import ArrowRight from '../components/svg/ArrowRight.vue';
 import { defineComponent } from '@vue/runtime-core';
+import ContentAlignmentY from '../components/content/ContentAlignmentY.vue';
 
 export default defineComponent({
   components: {
+    ContentAlignmentY,
     AppLayout,
     ArrowRight,
     InternalLink,
@@ -135,7 +139,7 @@ export default defineComponent({
     CardActions,
     CardText,
     CardTitle,
-    ContentArea,
+    ContentAlignmentX,
     CardContainer,
     ButtonLink,
     Hero,
