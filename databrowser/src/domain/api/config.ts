@@ -160,6 +160,11 @@ const config: Record<string, ApiConfigEntry> = {
   },
   'odh-accommodation': {
     // type: "tourism | mobility", => do not use
+    description: {
+      title: 'Accommodation',
+      subtitle:
+        'This dataset contains various data about accommodation in South Tyrol, including information about the rooms.',
+    },
     listEndpoint: {
       url: `${apiBaseUrl}/v1/Accommodation`,
       tableConfig: [
