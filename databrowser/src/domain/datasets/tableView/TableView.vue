@@ -31,10 +31,9 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import { reactive, toRefs } from 'vue';
+import { computed, reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 import { getApiConfigForDataset } from '../../api/configUtils';
-import { Pagination } from '../../api/types';
 import { useApi } from '../../api/client';
 import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
 import { useUrlQueryParameter } from '../../../lib/urlQuery/urlQueryParameter';
@@ -100,6 +99,10 @@ export default defineComponent({
     const pageSizeChanges = (value: string | undefined) =>
       (pageSize.value = value);
 
+    const rows = computed(() => paginatedData.value?.items ?? []);
+
+    const pagination = computed(() => paginatedData.value?.pagination);
+
     return {
       url,
       isFetching,
@@ -107,17 +110,11 @@ export default defineComponent({
       pageSizeOptions,
       paginatedData,
       tableConfig,
+      rows,
+      pagination,
       paginateTo,
       pageSizeChanges,
     };
-  },
-  computed: {
-    rows(): unknown[] | undefined {
-      return this.paginatedData?.items;
-    },
-    pagination(): Pagination | undefined {
-      return this.paginatedData?.pagination;
-    },
   },
 });
 </script>
