@@ -1,3 +1,4 @@
+import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
 type State = {
@@ -35,10 +36,12 @@ const mutations = {
   authenticated(state: State, accessToken: string) {
     state.isAuthenticated = true;
     state.accessToken = accessToken;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
   },
   unauthenticated(state: State) {
     state.isAuthenticated = false;
     state.accessToken = null;
+    delete axios.defaults.headers.common['Authorization'];
   },
 };
 
