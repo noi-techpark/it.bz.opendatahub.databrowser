@@ -1,4 +1,4 @@
-import { ComponentRenderer } from '../renderComponents/types';
+import { CellComponent } from '../cellComponents/types';
 
 const apiBaseUrl = 'https://api.tourism.testingmachine.eu';
 
@@ -10,7 +10,7 @@ const config: Record<string, ApiConfigEntry> = {
       tableConfig: [
         {
           title: 'Image',
-          component: ComponentRenderer.ImageRenderer,
+          component: CellComponent.ImageCell,
           class: 'w-40',
           fields: {
             src: 'ImageGallery.[0].ImageUrl',
@@ -18,7 +18,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Title',
-          component: ComponentRenderer.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-48',
           fields: {
             text: 'Detail.{language}.Title',
@@ -26,7 +26,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Location',
-          component: ComponentRenderer.TextHighlightRenderer,
+          component: CellComponent.TextHighlightCell,
           class: 'w-40',
           fields: {
             title: 'LocationInfo.RegionInfo.Name.{language}',
@@ -35,7 +35,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Languages',
-          component: ComponentRenderer.ArrayRenderer,
+          component: CellComponent.ArrayCell,
           class: 'w-40',
           fields: {
             items: 'HasLanguage',
@@ -46,7 +46,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Edited',
-          component: ComponentRenderer.EditedDateRenderer,
+          component: CellComponent.EditedDateCell,
           class: 'w-40',
           fields: {
             date: 'LastChange',
@@ -57,7 +57,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Source',
-          component: ComponentRenderer.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-36',
           fields: {
             text: 'Source',
@@ -65,7 +65,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'ODH state',
-          component: ComponentRenderer.StateRenderer,
+          component: CellComponent.StateCell,
           class: 'w-36',
           fields: {
             state: 'OdhActive',
@@ -85,7 +85,7 @@ const config: Record<string, ApiConfigEntry> = {
       tableConfig: [
         {
           title: 'Image',
-          component: ComponentRenderer.ImageRenderer,
+          component: CellComponent.ImageCell,
           class: 'w-40',
           fields: {
             src: 'ImageGallery.[0].ImageUrl',
@@ -93,7 +93,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Title',
-          component: ComponentRenderer.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-48',
           fields: {
             text: 'Detail.{language}.Title',
@@ -101,7 +101,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Location',
-          component: ComponentRenderer.TextHighlightRenderer,
+          component: CellComponent.TextHighlightCell,
           class: 'w-40',
           fields: {
             title: 'LocationInfo.RegionInfo.Name.{language}',
@@ -110,7 +110,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Languages',
-          component: ComponentRenderer.ArrayRenderer,
+          component: CellComponent.ArrayCell,
           class: 'w-40',
           fields: {
             items: 'HasLanguage',
@@ -121,7 +121,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Edited',
-          component: ComponentRenderer.EditedDateRenderer,
+          component: CellComponent.EditedDateCell,
           class: 'w-40',
           fields: {
             date: 'LastChange',
@@ -132,7 +132,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Source',
-          component: ComponentRenderer.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-36',
           fields: {
             text: 'Source',
@@ -140,7 +140,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'ODH state',
-          component: ComponentRenderer.StateRenderer,
+          component: CellComponent.StateCell,
           class: 'w-36',
           fields: {
             state: 'OdhActive',
@@ -160,7 +160,7 @@ const config: Record<string, ApiConfigEntry> = {
       tableConfig: [
         {
           title: 'Image',
-          component: ComponentRenderer.ImageRenderer,
+          component: CellComponent.ImageCell,
           class: 'w-40',
           fields: {
             src: 'ImageGallery.[0].ImageUrl',
@@ -168,7 +168,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Title',
-          component: ComponentRenderer.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-48',
           fields: {
             text: 'Detail.{language}.Title',
@@ -176,7 +176,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Location',
-          component: ComponentRenderer.TextHighlightRenderer,
+          component: CellComponent.TextHighlightCell,
           class: 'w-40',
           fields: {
             title: 'LocationInfo.RegionInfo.Name.{language}',
@@ -185,7 +185,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Languages',
-          component: ComponentRenderer.ArrayRenderer,
+          component: CellComponent.ArrayCell,
           class: 'w-40',
           fields: {
             items: 'HasLanguage',
@@ -196,7 +196,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Edited',
-          component: ComponentRenderer.EditedDateRenderer,
+          component: CellComponent.EditedDateCell,
           class: 'w-40',
           fields: {
             date: 'LastChange',
@@ -207,7 +207,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'Source',
-          component: ComponentRenderer.StringRenderer,
+          component: CellComponent.StringCell,
           class: 'w-36',
           fields: {
             text: 'Source',
@@ -215,7 +215,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           title: 'ODH state',
-          component: ComponentRenderer.StateRenderer,
+          component: CellComponent.StateCell,
           class: 'w-36',
           fields: {
             state: 'OdhActive',
