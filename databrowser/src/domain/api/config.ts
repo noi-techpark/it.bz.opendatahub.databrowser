@@ -105,8 +105,8 @@ const config: Record<string, ApiConfigEntry> = {
               properties: [
                 {
                   title: 'Shortname',
-                  component: CellComponent.JsonCell,
-                  fields: { data: 'Shortname' },
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Shortname' },
                 },
               ],
             },
@@ -115,18 +115,19 @@ const config: Record<string, ApiConfigEntry> = {
               properties: [
                 {
                   title: 'ID',
-                  component: CellComponent.JsonCell,
-                  fields: { data: 'Id' },
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Id' },
+                  class: 'break-all',
                 },
                 {
                   title: 'Custom ID',
-                  component: CellComponent.JsonCell,
-                  fields: { data: 'CustomId' },
+                  component: CellComponent.StringCell,
+                  fields: { text: 'CustomId' },
                 },
                 {
                   title: 'Outdoor Active ID',
-                  component: CellComponent.JsonCell,
-                  fields: { data: 'OutdooractiveID' },
+                  component: CellComponent.StringCell,
+                  fields: { text: 'OutdooractiveID' },
                 },
               ],
             },
@@ -135,18 +136,18 @@ const config: Record<string, ApiConfigEntry> = {
               properties: [
                 {
                   title: 'Last Changes',
-                  component: CellComponent.JsonCell,
-                  fields: { data: 'LastChange' },
+                  component: CellComponent.StringCell,
+                  fields: { text: 'LastChange' },
                 },
                 {
                   title: 'Active on Source',
-                  component: CellComponent.JsonCell,
-                  fields: { data: 'Active' },
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Active' },
                 },
                 {
                   title: 'Active on ODH',
-                  component: CellComponent.JsonCell,
-                  fields: { data: 'OdhActive' },
+                  component: CellComponent.StringCell,
+                  fields: { text: 'OdhActive' },
                 },
               ],
             },
@@ -155,24 +156,78 @@ const config: Record<string, ApiConfigEntry> = {
               properties: [
                 {
                   title: 'Source',
-                  component: CellComponent.JsonCell,
-                  fields: { data: 'Source' },
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Source' },
                 },
                 {
                   title: 'Interface',
-                  component: CellComponent.JsonCell,
-                  fields: { data: 'SyncSourceInterface' },
+                  component: CellComponent.StringCell,
+                  fields: { text: 'SyncSourceInterface' },
                 },
                 {
                   title: 'Update mode',
-                  component: CellComponent.JsonCell,
-                  fields: { data: 'SyncUpdateMode' },
+                  component: CellComponent.StringCell,
+                  fields: { text: 'SyncUpdateMode' },
                 },
               ],
             },
           ],
         },
-        { name: 'Text information', subcategories: [] },
+        {
+          name: 'Text information',
+          subcategories: [
+            {
+              name: 'Text data',
+              properties: [
+                {
+                  title: 'Meta title',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.MetaTitle' },
+                },
+                {
+                  title: 'Meta description',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.MetaDesc' },
+                },
+                {
+                  title: 'Title',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.Title' },
+                },
+                {
+                  title: 'Header',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.Header' },
+                },
+                {
+                  title: 'Subheader',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.SubHeader' },
+                },
+                {
+                  title: 'Introtext',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.IntroText' },
+                },
+                {
+                  title: 'Base Text',
+                  component: CellComponent.HtmlCell,
+                  fields: { html: 'Detail.{language}.BaseText' },
+                },
+                {
+                  title: 'Additional Text',
+                  component: CellComponent.HtmlCell,
+                  fields: { html: 'Detail.{language}.AdditionalText' },
+                },
+                {
+                  title: 'Get There Text',
+                  component: CellComponent.HtmlCell,
+                  fields: { html: 'Detail.{language}.GetThereText' },
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
   },
@@ -356,6 +411,7 @@ export interface DetailViewConfig {
       component: string;
       fields: Record<string, string>;
       params?: Record<string, string>;
+      class?: string;
     }[];
   }[];
 }

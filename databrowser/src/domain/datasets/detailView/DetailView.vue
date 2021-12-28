@@ -1,9 +1,11 @@
 <template>
-  Dataset Detail Page (type = {{ datasetType }}, ID = {{ datasetId }}, URL =
-  {{ url }})
+  <span class="break-all">
+    Dataset Detail Page (type = {{ datasetType }}, ID = {{ datasetId }}, URL =
+    {{ url }})</span
+  >
   <section v-if="apiResult.isSuccess" class="flex flex-col">
-    <div class="flex flex-wrap">
-      <div class="flex flex-col mr-5 w-1/6">
+    <div class="lg:flex flex-wrap lg:gap-5">
+      <div class="flex flex-col lg:w-1/6">
         <PillButton
           v-for="category in viewConfig"
           :key="category.name"
@@ -18,29 +20,47 @@
 
       <div
         v-if="currentCategoryName !== ''"
-        class="flex flex-wrap flex-1 bg-red-100"
+        class="flex-1"
+        :style="{
+          'column-count': Math.min(currentSubcategories?.length ?? 1, 3),
+        }"
       >
         <div
           v-for="subcategory in currentSubcategories"
           :key="subcategory.name"
-          class="flex flex-col p-2 w-1/3 bg-green-100"
         >
-          <div class="text-xl">{{ subcategory.name }}</div>
-          <div v-for="property in subcategory.properties" :key="property.title">
-            <div class="text-gray-500">{{ property.title }}</div>
+          <div class="inline-block w-full">
+            <div class="p-4 font-bold bg-gray-200">
+              {{ subcategory.name }}
+            </div>
+            <div class="flex flex-col gap-2 my-3">
+              <div
+                v-for="property in subcategory.properties"
+                :key="property.title"
+              >
+                <div class="text-sm text-gray-500">{{ property.title }}</div>
 
-            <ListCell
-              :tag-name="property.component"
-              :attributes="
-                getValue(apiResult.data.data, property.fields, property.params)
-              "
-            />
+                <ListCell
+                  :tag-name="property.component"
+                  :attributes="
+                    getValue(
+                      apiResult.data.data,
+                      property.fields,
+                      property.params
+                    )
+                  "
+                  :class="property.class"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <pre v-if="true">{{ JSON.stringify(apiResult.data, null, 2) }}</pre>
+    <pre v-if="true" class="overflow-auto">{{
+      JSON.stringify(apiResult.data, null, 2)
+    }}</pre>
   </section>
 </template>
 
@@ -102,5 +122,3 @@ const getValue = (
   ...params,
 });
 </script>
-
-<style></style>
