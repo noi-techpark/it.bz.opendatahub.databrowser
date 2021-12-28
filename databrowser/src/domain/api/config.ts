@@ -25,6 +25,14 @@ const config: Record<string, ApiConfigEntry> = {
           },
         },
         {
+          title: 'Categories',
+          component: CellComponent.StringCell,
+          class: 'w-40',
+          fields: {
+            text: 'AdditionalPoiInfos.{language}.MainType',
+          },
+        },
+        {
           title: 'Location',
           component: CellComponent.TextHighlightCell,
           class: 'w-40',
