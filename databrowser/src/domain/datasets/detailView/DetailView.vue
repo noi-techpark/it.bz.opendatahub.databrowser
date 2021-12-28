@@ -1,8 +1,4 @@
 <template>
-  <span class="break-all">
-    Dataset Detail Page (type = {{ datasetType }}, ID = {{ datasetId }}, URL =
-    {{ url }})</span
-  >
   <section v-if="apiResult.isSuccess" class="flex flex-col">
     <div class="lg:flex flex-wrap lg:gap-5">
       <div class="flex flex-col lg:w-1/6">
@@ -57,10 +53,6 @@
         </div>
       </div>
     </div>
-
-    <pre v-if="true" class="overflow-auto">{{
-      JSON.stringify(apiResult.data, null, 2)
-    }}</pre>
   </section>
 </template>
 

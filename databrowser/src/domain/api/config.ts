@@ -123,6 +123,7 @@ const config: Record<string, ApiConfigEntry> = {
                   title: 'Custom ID',
                   component: CellComponent.StringCell,
                   fields: { text: 'CustomId' },
+                  class: 'break-all',
                 },
                 {
                   title: 'Outdoor Active ID',
@@ -227,6 +228,283 @@ const config: Record<string, ApiConfigEntry> = {
               ],
             },
           ],
+        },
+        {
+          name: 'Related content',
+          subcategories: [
+            {
+              name: 'Related data',
+              properties: [
+                {
+                  title: 'Activity',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+                {
+                  title: 'Gastronomy',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+                {
+                  title: 'Event',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Contact',
+          subcategories: [
+            {
+              name: 'Name and Company Data',
+              properties: [
+                {
+                  title: 'Name',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.CompanyName' },
+                },
+                {
+                  title: 'First Name',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Givenname' },
+                },
+                {
+                  title: 'Surname',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Surname' },
+                },
+                {
+                  title: 'Name prefix',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.NamePrefix' },
+                },
+                {
+                  title: 'Tax Number',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Tax' },
+                },
+                {
+                  title: 'Vat-ID',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Vat' },
+                },
+              ],
+            },
+            {
+              name: 'Address',
+              properties: [
+                {
+                  title: 'Street and House No',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Address' },
+                },
+                {
+                  title: 'Complement',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+                {
+                  title: 'ZIP-Code',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.ZipCode' },
+                },
+                {
+                  title: 'City',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.City' },
+                },
+                {
+                  title: 'Country',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.CountryName' },
+                },
+                {
+                  title: 'Country Abbrevation',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.CountryCode' },
+                },
+              ],
+            },
+            {
+              name: 'Contact Details',
+              properties: [
+                {
+                  title: 'E-Mail',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Email' },
+                },
+                {
+                  title: 'Phone Number',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Phonenumber' },
+                },
+                {
+                  title: 'Mobile Phone',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+                {
+                  title: 'Web-URL',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Url' },
+                },
+                {
+                  title: 'Additional URL (Independent URL)',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Images',
+          // TODO
+          subcategories: [],
+        },
+        {
+          name: 'Season / Opening Hours',
+          // TODO
+          subcategories: [],
+        },
+        {
+          name: 'Location',
+          // TODO
+          subcategories: [],
+        },
+        {
+          name: 'GPS Data',
+          // TODO: GPSInfo in ODH is an array: how should that be shown
+          subcategories: [
+            {
+              name: 'GPS Data',
+              properties: [
+                {
+                  title: 'GPS Type',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'GpsInfo.[0].Gpstype' },
+                },
+                {
+                  title: 'Latitude',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'GpsInfo.[0].Latitude' },
+                },
+                {
+                  title: 'Longitude',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'GpsInfo.[0].Longitude' },
+                },
+                {
+                  title: 'Altitude',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'GpsInfo.[0].Altitude' },
+                },
+                {
+                  title: 'Altitude Unit',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'GpsInfo.[0].AltitudeUnitofMeasure' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Files',
+          // TODO
+          subcategories: [],
+        },
+        {
+          name: 'Tags',
+          // TODO
+          subcategories: [],
+        },
+        {
+          name: 'Ratings',
+          subcategories: [
+            {
+              name: 'Rating Data',
+              properties: [
+                {
+                  title: 'Stamina',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Ratings.Stamina' },
+                },
+                {
+                  title: 'Experience',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Ratings.Experience' },
+                },
+                {
+                  title: 'Landscape',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Ratings.Landscape' },
+                },
+                {
+                  title: 'Difficulty',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Ratings.Difficulty' },
+                },
+                {
+                  title: 'Technique',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Ratings.Technique' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Activity Details',
+          // TODO
+          subcategories: [
+            {
+              name: 'Characteristics',
+              properties: [],
+            },
+            {
+              name: 'Additional Information',
+              properties: [],
+            },
+            {
+              name: 'Target Group',
+              properties: [],
+            },
+          ],
+        },
+        {
+          name: 'POI Details',
+          // TODO
+          subcategories: [
+            {
+              name: 'General',
+              properties: [],
+            },
+            {
+              name: 'Additional Information',
+              properties: [],
+            },
+            {
+              name: 'Target Group',
+              properties: [],
+            },
+            {
+              name: 'Others',
+              properties: [],
+            },
+          ],
+        },
+        {
+          name: 'Webcam Details',
+          // TODO
+          subcategories: [],
         },
       ],
     },
