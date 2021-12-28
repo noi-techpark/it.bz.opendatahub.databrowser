@@ -28,6 +28,7 @@ export const extractField = (
     const sourceField = fields[key];
 
     const fieldName = replacePlaceholders(sourceField, replacements);
+    console.log('IT');
 
     const value = get(item, fieldName);
     return { ...prev, [key]: value };

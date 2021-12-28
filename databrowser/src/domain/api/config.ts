@@ -96,7 +96,84 @@ const config: Record<string, ApiConfigEntry> = {
     },
     detailEndpoint: {
       url: `${apiBaseUrl}/v1/ODHActivityPoi/{id}`,
-      detail: {},
+      viewConfig: [
+        {
+          name: 'Main data',
+          subcategories: [
+            {
+              name: 'General data',
+              properties: [
+                {
+                  title: 'Shortname',
+                  component: CellComponent.JsonCell,
+                  fields: { data: 'Shortname' },
+                },
+              ],
+            },
+            {
+              name: 'IDs',
+              properties: [
+                {
+                  title: 'ID',
+                  component: CellComponent.JsonCell,
+                  fields: { data: 'Id' },
+                },
+                {
+                  title: 'Custom ID',
+                  component: CellComponent.JsonCell,
+                  fields: { data: 'CustomId' },
+                },
+                {
+                  title: 'Outdoor Active ID',
+                  component: CellComponent.JsonCell,
+                  fields: { data: 'OutdooractiveID' },
+                },
+              ],
+            },
+            {
+              name: 'Data states',
+              properties: [
+                {
+                  title: 'Last Changes',
+                  component: CellComponent.JsonCell,
+                  fields: { data: 'LastChange' },
+                },
+                {
+                  title: 'Active on Source',
+                  component: CellComponent.JsonCell,
+                  fields: { data: 'Active' },
+                },
+                {
+                  title: 'Active on ODH',
+                  component: CellComponent.JsonCell,
+                  fields: { data: 'OdhActive' },
+                },
+              ],
+            },
+            {
+              name: 'Source',
+              properties: [
+                {
+                  title: 'Source',
+                  component: CellComponent.JsonCell,
+                  fields: { data: 'Source' },
+                },
+                {
+                  title: 'Interface',
+                  component: CellComponent.JsonCell,
+                  fields: { data: 'SyncSourceInterface' },
+                },
+                {
+                  title: 'Update mode',
+                  component: CellComponent.JsonCell,
+                  fields: { data: 'SyncUpdateMode' },
+                },
+              ],
+            },
+          ],
+        },
+        { name: 'Text information', subcategories: [] },
+      ],
     },
   },
   'odh-activity-poi-types': {
@@ -171,7 +248,10 @@ const config: Record<string, ApiConfigEntry> = {
     },
     detailEndpoint: {
       url: `${apiBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
-      detail: {},
+      viewConfig: [
+        { name: 'Main data', subcategories: [] },
+        { name: 'Text information', subcategories: [] },
+      ],
     },
   },
   'odh-accommodation': {
@@ -251,7 +331,10 @@ const config: Record<string, ApiConfigEntry> = {
     },
     detailEndpoint: {
       url: `${apiBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
-      detail: {},
+      viewConfig: [
+        { name: 'Main data', subcategories: [] },
+        { name: 'Text information', subcategories: [] },
+      ],
     },
   },
 };
@@ -262,6 +345,19 @@ export interface TableColumnConfig {
   fields: Record<string, string>;
   params?: Record<string, string>;
   class?: string;
+}
+
+export interface DetailViewConfig {
+  name: string;
+  subcategories: {
+    name: string;
+    properties: {
+      title: string;
+      component: string;
+      fields: Record<string, string>;
+      params?: Record<string, string>;
+    }[];
+  }[];
 }
 
 export interface ApiConfigEntry {
@@ -275,7 +371,7 @@ export interface ApiConfigEntry {
   };
   detailEndpoint?: {
     url: string;
-    detail: {};
+    viewConfig: DetailViewConfig[];
   };
 }
 
