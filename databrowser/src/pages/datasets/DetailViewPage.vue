@@ -5,6 +5,7 @@
       <ContentAlignmentY>
         <DatasetNavigation :current-view="currentView" />
       </ContentAlignmentY>
+      <ContentDivider />
       <ContentAlignmentY>
         <DetailView></DetailView>
       </ContentAlignmentY>
@@ -23,6 +24,7 @@ import ContentAlignmentY from '../../components/content/ContentAlignmentY.vue';
 import { useDatasetHeroDescription } from '../../domain/datasets/hero/useDatasetHeroDescription';
 import DetailView from '../../domain/datasets/detailView/DetailView.vue';
 import { useRoute } from 'vue-router';
+import ContentDivider from '../../components/content/ContentDivider.vue';
 
 export default defineComponent({
   components: {
@@ -32,6 +34,7 @@ export default defineComponent({
     AppLayout,
     ContentAlignmentX,
     DetailView,
+    ContentDivider,
   },
   setup() {
     const route = useRoute();
