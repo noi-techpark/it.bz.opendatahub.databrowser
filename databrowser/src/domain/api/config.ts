@@ -72,6 +72,14 @@ const config: Record<string, ApiConfigEntry> = {
           },
         },
         {
+          title: 'Source state',
+          component: CellComponent.StateCell,
+          class: 'w-36',
+          fields: {
+            state: 'Active',
+          },
+        },
+        {
           title: 'ODH state',
           component: CellComponent.StateCell,
           class: 'w-36',
