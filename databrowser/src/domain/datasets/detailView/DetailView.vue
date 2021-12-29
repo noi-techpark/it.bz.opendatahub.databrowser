@@ -14,13 +14,7 @@
         </PillButton>
       </div>
 
-      <div
-        v-if="currentCategoryName !== ''"
-        class="flex-1"
-        :style="{
-          'column-count': Math.min(currentSubcategories?.length ?? 1, 3),
-        }"
-      >
+      <div v-if="currentCategoryName !== ''" class="subcategory-container">
         <div
           v-for="subcategory in currentSubcategories"
           :key="subcategory.name"
@@ -114,3 +108,10 @@ const getValue = (
   ...params,
 });
 </script>
+
+<style>
+.subcategory-container {
+  @apply flex-1;
+  column-width: 250px;
+}
+</style>
