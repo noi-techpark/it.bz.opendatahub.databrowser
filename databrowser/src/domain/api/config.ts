@@ -137,8 +137,11 @@ const config: Record<string, ApiConfigEntry> = {
               properties: [
                 {
                   title: 'Last Changes',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'LastChange' },
+                  component: CellComponent.DateCell,
+                  fields: { date: 'LastChange' },
+                  params: {
+                    format: 'd/M/yyyy HH:mm',
+                  },
                 },
                 {
                   title: 'Active on Source',
