@@ -8,8 +8,6 @@ export const useUrlQueryRouter: UseUrlQueryRouter = function (config) {
   const router = useRouter();
 
   const updateQuery = (queryParameters: QueryParameters) => {
-    console.log('updateQuery');
-
     const params = {
       ...router.currentRoute.value.query,
     };
