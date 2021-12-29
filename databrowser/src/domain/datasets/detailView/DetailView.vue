@@ -14,7 +14,13 @@
         </PillButton>
       </div>
 
-      <div v-if="currentCategoryName !== ''" class="subcategory-container">
+      <div
+        v-if="currentCategoryName !== ''"
+        class="subcategory-container"
+        :style="{
+          'column-count': Math.min(currentSubcategories?.length ?? 1, 3),
+        }"
+      >
         <div
           v-for="subcategory in currentSubcategories"
           :key="subcategory.name"
