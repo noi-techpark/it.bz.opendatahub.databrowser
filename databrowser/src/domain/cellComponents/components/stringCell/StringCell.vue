@@ -9,7 +9,7 @@ export default defineComponent({
   props: {
     text: {
       default: () => null,
-      type: String,
+      type: [Boolean, Number, String],
     },
   },
 });
