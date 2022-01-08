@@ -99,6 +99,7 @@ const config: Record<string, ApiConfigEntry> = {
       viewConfig: [
         {
           name: 'Main data',
+          slug: 'main-data',
           subcategories: [
             {
               name: 'General data',
@@ -179,6 +180,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           name: 'Text information',
+          slug: 'text-information',
           subcategories: [
             {
               name: 'Text data',
@@ -234,6 +236,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           name: 'Related content',
+          slug: 'related-content',
           subcategories: [
             {
               name: 'Related data',
@@ -262,6 +265,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           name: 'Contact',
+          slug: 'contact',
           subcategories: [
             {
               name: 'Name and Company Data',
@@ -370,7 +374,8 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           name: 'Images',
-          // TODOCellComponent.ImageDetailCell
+          slug: 'images',
+          // TODO: implement array support
           subcategories: [
             {
               name: 'Images',
@@ -382,7 +387,6 @@ const config: Record<string, ApiConfigEntry> = {
                     alt: 'ImageGallery.[0].ImageAltText.{language}',
                     src: 'ImageGallery.[0].ImageUrl',
                   },
-                  class: 'w-50',
                 },
                 {
                   title: 'Image',
@@ -444,16 +448,19 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           name: 'Season / Opening Hours',
+          slug: 'season-opening-hours',
           // TODO
           subcategories: [],
         },
         {
           name: 'Location',
+          slug: 'location',
           // TODO
           subcategories: [],
         },
         {
           name: 'GPS Data',
+          slug: 'gps-data',
           // TODO: GPSInfo in ODH is an array: how should that be shown
           subcategories: [
             {
@@ -490,16 +497,19 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           name: 'Files',
+          slug: 'files',
           // TODO
           subcategories: [],
         },
         {
           name: 'Tags',
+          slug: 'tags',
           // TODO
           subcategories: [],
         },
         {
           name: 'Ratings',
+          slug: 'ratings',
           subcategories: [
             {
               name: 'Rating Data',
@@ -535,7 +545,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           name: 'Activity Details',
-          // TODO
+          slug: 'activity-details',
           subcategories: [
             {
               name: 'Characteristics',
@@ -553,6 +563,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           name: 'POI Details',
+          slug: 'poi-details',
           // TODO
           subcategories: [
             {
@@ -575,6 +586,7 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           name: 'Webcam Details',
+          slug: 'webcam-details',
           // TODO
           subcategories: [],
         },
@@ -654,8 +666,12 @@ const config: Record<string, ApiConfigEntry> = {
     detailEndpoint: {
       url: `${apiBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
       viewConfig: [
-        { name: 'Main data', subcategories: [] },
-        { name: 'Text information', subcategories: [] },
+        { name: 'Main data', slug: 'main-data', subcategories: [] },
+        {
+          name: 'Text information',
+          slug: 'text-information',
+          subcategories: [],
+        },
       ],
     },
   },
@@ -737,8 +753,12 @@ const config: Record<string, ApiConfigEntry> = {
     detailEndpoint: {
       url: `${apiBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
       viewConfig: [
-        { name: 'Main data', subcategories: [] },
-        { name: 'Text information', subcategories: [] },
+        { name: 'Main data', slug: 'main-data', subcategories: [] },
+        {
+          name: 'Text information',
+          slug: 'text-information',
+          subcategories: [],
+        },
       ],
     },
   },
@@ -756,6 +776,7 @@ export interface TableColumnConfig extends PropertyConfig {}
 
 export interface DetailViewConfig {
   name: string;
+  slug: string;
   subcategories: {
     name: string;
     properties: PropertyConfig[];

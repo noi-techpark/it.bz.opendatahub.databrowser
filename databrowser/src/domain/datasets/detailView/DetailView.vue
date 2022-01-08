@@ -2,20 +2,20 @@
   <section v-if="apiResult.isSuccess" class="flex flex-col">
     <div class="lg:flex flex-wrap lg:gap-5">
       <div class="flex flex-col lg:w-1/6">
-        <PillButton
+        <PillLink
           v-for="category in viewConfig"
-          :key="category.name"
+          :key="category.slug"
+          :to="{ hash: `#${category.slug}` }"
           :variant="PillVariant.edged"
-          :active="currentCategoryName === category.name"
+          :active="currentSlug === category.slug"
           class="my-1"
-          @click="currentCategoryName = category.name"
         >
           {{ category.name }}
-        </PillButton>
+        </PillLink>
       </div>
 
       <div
-        v-if="currentCategoryName !== ''"
+        v-if="currentSlug !== ''"
         class="subcategory-container"
         :style="{
           'column-count': Math.min(currentSubcategories?.length ?? 1, 3),
@@ -64,10 +64,11 @@ import { useRoute } from 'vue-router';
 import { useApi } from '../../api/client';
 import { extractField, getApiConfigForDataset } from '../../api/configUtils';
 import ListCell from '../../../components/listCell/ListCell.vue';
+import { PillVariant } from '../../../components/pill/types';
+import PillLink from '../../../components/pill/PillLink.vue';
 import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
 import { defaultQueryParameters } from '../tableView/defaultValues';
-import PillButton from '../../../components/pill/PillButton.vue';
-import { PillVariant } from '../../../components/pill/types';
+import { useHashSlug } from './useHashSlug';
 
 const route = useRoute();
 const datasetType = route.params.datasetType as string;
@@ -95,11 +96,12 @@ if (datasetUrl != null) {
   }
 }
 
-const initialCategoryName = viewConfig?.[0].name ?? '';
-const currentCategoryName = ref(initialCategoryName);
+const initialSlug = viewConfig?.[0].slug ?? '';
+const validSlugs = viewConfig?.map((vc) => vc.slug) ?? [];
+const { currentSlug } = toRefs(useHashSlug(initialSlug, new Set(validSlugs)));
 const currentSubcategories = computed(
   () =>
-    viewConfig?.find((config) => config.name === currentCategoryName.value)
+    viewConfig?.find((config) => config.slug === currentSlug.value)
       ?.subcategories
 );
 
