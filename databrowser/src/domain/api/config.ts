@@ -370,8 +370,73 @@ const config: Record<string, ApiConfigEntry> = {
         },
         {
           name: 'Images',
-          // TODO
-          subcategories: [],
+          // TODOCellComponent.ImageDetailCell
+          subcategories: [
+            {
+              name: 'Images',
+              properties: [
+                {
+                  title: '',
+                  component: CellComponent.ImageCell,
+                  fields: {
+                    alt: 'ImageGallery.[0].ImageAltText.{language}',
+                    src: 'ImageGallery.[0].ImageUrl',
+                  },
+                  class: 'w-50',
+                },
+                {
+                  title: 'Image',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].ImageName',
+                  },
+                },
+                {
+                  title: 'Resolution',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].Width',
+                  },
+                },
+                {
+                  title: 'Title',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].ImageTitle.{language}',
+                  },
+                },
+                {
+                  title: 'Description',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].ImageDesc.{language}',
+                  },
+                },
+                {
+                  title: 'License',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].License',
+                  },
+                },
+                {
+                  title: 'Position',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].ListPosition',
+                  },
+                },
+                {
+                  title: 'Active',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    // TODO: which field to use for active?
+                    text: '',
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
           name: 'Season / Opening Hours',
