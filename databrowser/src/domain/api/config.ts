@@ -393,9 +393,13 @@ const config: Record<string, ApiConfigEntry> = {
                 },
                 {
                   title: 'Resolution',
-                  component: CellComponent.StringCell,
+                  component: CellComponent.StringTemplateCell,
                   fields: {
-                    text: 'ImageGallery.[0].Width',
+                    p1: 'ImageGallery.[0].Width',
+                    p2: 'ImageGallery.[0].Height',
+                  },
+                  params: {
+                    stringTemplate: '{p1}x{p2} px',
                   },
                 },
                 {

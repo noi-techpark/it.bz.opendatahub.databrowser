@@ -8,6 +8,7 @@ import ImageCell from '../components/imageCell/ImageCell.vue';
 import JsonCell from '../components/jsonCell/JsonCell.vue';
 import StateCell from '../components/stateCell/StateCell.vue';
 import StringCell from '../components/stringCell/StringCell.vue';
+import StringTemplateCell from '../components/stringTemplateCell/StringTemplateCell.vue';
 import TextHighlightCell from '../components/textHighlightCell/TextHighlightCell.vue';
 import { CellComponent } from '../types';
 
@@ -21,6 +22,7 @@ export default {
     app.component(CellComponent.JsonCell, JsonCell);
     app.component(CellComponent.StateCell, StateCell);
     app.component(CellComponent.StringCell, StringCell);
+    app.component(CellComponent.StringTemplateCell, StringTemplateCell);
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
   },
 };
