@@ -740,7 +740,7 @@ const config: Record<string, ApiConfigEntry> = {
   },
 };
 
-export interface TableColumnConfig {
+export interface PropertyConfig {
   title: string;
   component: string;
   fields: Record<string, string>;
@@ -748,17 +748,13 @@ export interface TableColumnConfig {
   class?: string;
 }
 
+export interface TableColumnConfig extends PropertyConfig {}
+
 export interface DetailViewConfig {
   name: string;
   subcategories: {
     name: string;
-    properties: {
-      title: string;
-      component: string;
-      fields: Record<string, string>;
-      params?: Record<string, string>;
-      class?: string;
-    }[];
+    properties: PropertyConfig[];
   }[];
 }
 
