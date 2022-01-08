@@ -25,6 +25,7 @@ export const useUrlQueryRouter: UseUrlQueryRouter = function (config) {
 
     router.push({
       query: params,
+      hash: router.currentRoute.value.hash,
     });
   };
 
@@ -39,6 +40,7 @@ export const useUrlQueryRouter: UseUrlQueryRouter = function (config) {
 
     router.push({
       query: params,
+      hash: router.currentRoute.value.hash,
     });
   };
 
