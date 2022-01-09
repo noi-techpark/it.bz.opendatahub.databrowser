@@ -1,4 +1,4 @@
-import { ref, watch } from 'vue';
+import { reactive, ref, toRefs, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 export const useHashSlug = (initialSlug: string, allowedSlugs: Set<string>) => {
@@ -28,5 +28,5 @@ export const useHashSlug = (initialSlug: string, allowedSlugs: Set<string>) => {
     { immediate: true }
   );
 
-  return { currentSlug };
+  return toRefs(reactive({ currentSlug }));
 };

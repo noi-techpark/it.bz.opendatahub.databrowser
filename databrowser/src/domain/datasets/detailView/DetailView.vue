@@ -98,7 +98,7 @@ if (datasetUrl != null) {
 
 const initialSlug = viewConfig?.[0].slug ?? '';
 const validSlugs = viewConfig?.map((vc) => vc.slug) ?? [];
-const { currentSlug } = toRefs(useHashSlug(initialSlug, new Set(validSlugs)));
+const { currentSlug } = useHashSlug(initialSlug, new Set(validSlugs));
 const currentSubcategories = computed(
   () =>
     viewConfig?.find((config) => config.slug === currentSlug.value)
