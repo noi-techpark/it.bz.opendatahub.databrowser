@@ -5,7 +5,7 @@
         <PillLink
           v-for="category in viewConfig"
           :key="category.slug"
-          :to="{ hash: `#${category.slug}` }"
+          :to="{ hash: `#${category.slug}`, query: route.query }"
           :variant="PillVariant.edged"
           :active="currentSlug === category.slug"
           class="my-1"
