@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between space-x-4">
     <ViewPills :current-view="currentView" />
-    <LanguagePicker />
+    <LanguagePicker v-if="!hideLangaugePicker" />
   </div>
 </template>
 
@@ -17,6 +17,10 @@ export default defineComponent({
     currentView: {
       type: String as PropType<ViewPill>,
       required: true,
+    },
+    hideLangaugePicker: {
+      type: Boolean,
+      default: false,
     },
   },
 });

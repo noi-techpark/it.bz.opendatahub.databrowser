@@ -3,7 +3,7 @@
     <DatasetHero />
     <ContentAlignmentX>
       <ContentAlignmentY>
-        <DatasetNavigation :current-view="currentView" />
+        <DatasetNavigation :current-view="currentView" hide-langauge-picker />
       </ContentAlignmentY>
       <ContentAlignmentY>
         <RawView />
