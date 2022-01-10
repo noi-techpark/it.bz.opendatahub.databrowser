@@ -1,7 +1,7 @@
 <template>
   <PillLinkGroupItem
     v-for="(item, index) in data"
-    :key="item"
+    :key="item.label"
     :is-first="index == 0"
     :is-last="index == data.length - 1"
     :item="item"

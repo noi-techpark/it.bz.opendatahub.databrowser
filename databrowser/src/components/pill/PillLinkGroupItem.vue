@@ -57,8 +57,6 @@ export default defineComponent({
   setup(props) {
     const route = useRoute();
 
-    console.log(props.item);
-    console.log(route.fullPath);
     const isSelected = computed(() => {
       return props.item.url == route.fullPath;
     });
