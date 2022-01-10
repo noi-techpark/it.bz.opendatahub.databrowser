@@ -3,9 +3,9 @@ import axios from 'axios';
 import { useApi } from '../api/client';
 import { getApiConfigForDataset } from '../api/configUtils';
 
-function getDataset(
-  url: string
-): Readonly<UseQueryReturnType<unknown, unknown>> {
+type ApiResponse = Readonly<UseQueryReturnType<unknown, unknown>>;
+
+function getDataset(url: string): ApiResponse {
   const fetcher = async ({ queryKey }: { queryKey: unknown[] }) => {
     return await axios.get(queryKey[0] as string);
   };
