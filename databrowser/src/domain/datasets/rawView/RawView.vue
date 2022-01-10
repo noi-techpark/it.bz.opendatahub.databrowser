@@ -19,12 +19,11 @@ import { ref, UnwrapRef } from 'vue';
 import { defineComponent } from '@vue/runtime-core';
 import { useRoute } from 'vue-router';
 import VueJsonPretty from 'vue-json-pretty';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
-import { useApi } from '../../api/client';
-import { getApiConfigForDataset } from '../../api/configUtils';
+import { getDataset, getDatasetUrl } from '../queryDataset';
 
 export default defineComponent({
   components: {
@@ -36,31 +35,18 @@ export default defineComponent({
     const route = useRoute();
     const datasetType = route.params.datasetType as string;
     const datasetId = route.params.datasetId as string;
-    let datasetUrl = '';
-
     const apiResult = ref<
       UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>
     >({} as any);
 
-    const fetchList = async (url: string) => {
-      const fetcher = async ({ queryKey }: { queryKey: unknown[] }) => {
-        return await axios.get(queryKey[0] as string);
-      };
-      const result = useApi(url, fetcher as unknown as any);
-      apiResult.value = result as any;
-    };
+    const datasetUrl = getDatasetUrl(datasetType, datasetId);
+    apiResult.value = getDataset(datasetUrl) as never;
 
-    const configEntry = getApiConfigForDataset(datasetType);
-    if (configEntry?.detailEndpoint?.url != null) {
-      datasetUrl = configEntry.detailEndpoint.url.replace('{id}', datasetId);
-      fetchList(datasetUrl);
-    }
     return {
       datasetType,
       datasetId,
-      datasetUrl: datasetUrl,
+      datasetUrl,
       apiResult,
-      fetchList,
     };
   },
 });
