@@ -1,17 +1,5 @@
 <template>
-  <div
-    class="
-      justify-between
-      py-3
-      lg:py-5
-      px-3
-      lg:px-0
-      mx-auto
-      w-full
-      max-w-5xl
-      flex flex-row
-    "
-  >
+  <ContentAlignmentX class="flex flex-row justify-between py-3 lg:py-5">
     <router-link to="/">
       <img
         src="/logo-open-data-hub-black.png"
@@ -19,16 +7,17 @@
         class="logo"
       />
     </router-link>
-    <UserAuthentication class="self-center space-x-6" />
-  </div>
+    <MenuUserSection />
+  </ContentAlignmentX>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import UserAuthentication from '../domain/auth/UserAuthentication.vue';
+import MenuUserSection from '../domain/auth/MenuUserSection.vue';
+import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 
 export default defineComponent({
-  components: { UserAuthentication },
+  components: { ContentAlignmentX, MenuUserSection },
 });
 </script>
 

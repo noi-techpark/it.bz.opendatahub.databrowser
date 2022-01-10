@@ -6,7 +6,7 @@ import { loadLocaleMessages, setupI18n } from './i18n';
 import './index.css';
 import { router } from './routes';
 import store from './store';
-import registerRenderComponents from './domain/renderComponents/plugins/registerRenderComponents';
+import registerCellComponents from './domain/cellComponents/plugins/registerCellComponents';
 
 const app = createApp(App);
 
@@ -20,8 +20,8 @@ app.provide('axios', app.config.globalProperties.axios);
 // Add vuex store
 app.use(store);
 
-// Register Vue render components globally for dynamic rendering
-app.use(registerRenderComponents);
+// Register Vue cell render components globally for dynamic rendering
+app.use(registerCellComponents);
 
 // Add i18n translation
 const i18n = setupI18n({ locale: 'en' });

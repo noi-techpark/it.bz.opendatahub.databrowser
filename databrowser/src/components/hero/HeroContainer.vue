@@ -1,20 +1,15 @@
 <template>
   <header class="bg-gray-100">
-    <div
-      class="
-        items-start
-        px-3
-        lg:px-0
-        pt-6
-        pb-8
-        lg:pb-10
-        mx-auto
-        w-full
-        max-w-5xl
-        flex flex-col
-      "
-    >
+    <ContentAlignmentX class="flex flex-col items-start pt-6 pb-8 lg:pb-10">
       <slot></slot>
-    </div>
+    </ContentAlignmentX>
   </header>
 </template>
+
+<script lang="ts">
+import ContentAlignmentX from '../content/ContentAlignmentX.vue';
+
+export default {
+  components: { ContentAlignmentX },
+};
+</script>
