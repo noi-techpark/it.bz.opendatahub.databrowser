@@ -6,7 +6,7 @@
         <DatasetNavigation :current-view="currentView" />
       </ContentAlignmentY>
       <ContentAlignmentY>
-        Dataset Detail Page (type = {{ datasetType }}, ID = {{ datasetId }})
+        <DetailView />
       </ContentAlignmentY>
     </ContentAlignmentX>
   </AppLayout>
@@ -21,9 +21,11 @@ import { ViewPill } from '../../domain/datasets/navigation/types';
 import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
 import DatasetHero from '../../domain/datasets/DatasetHero.vue';
 import ContentAlignmentY from '../../components/content/ContentAlignmentY.vue';
+import DetailView from '../../domain/datasets/detailView/DetailView.vue';
 
 export default defineComponent({
   components: {
+    DetailView,
     ContentAlignmentY,
     DatasetHero,
     DatasetNavigation,
