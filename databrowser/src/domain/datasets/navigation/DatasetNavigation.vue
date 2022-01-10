@@ -1,21 +1,18 @@
 <template>
-  <ContentArea>
-    <div class="flex justify-between space-x-4">
-      <ViewPills :current-view="currentView" />
-      <LanguagePicker />
-    </div>
-  </ContentArea>
+  <div class="flex justify-between space-x-4">
+    <ViewPills :current-view="currentView" />
+    <LanguagePicker />
+  </div>
 </template>
 
 <script lang="ts">
 import ViewPills from './ViewPills.vue';
 import { defineComponent, PropType } from '@vue/runtime-core';
-import ContentArea from '../../../components/content/ContentArea.vue';
 import LanguagePicker from '../../../components/language/LanguagePicker.vue';
 import { ViewPill } from './types';
 
 export default defineComponent({
-  components: { LanguagePicker, ContentArea, ViewPills },
+  components: { LanguagePicker, ViewPills },
   props: {
     currentView: {
       type: String as PropType<ViewPill>,

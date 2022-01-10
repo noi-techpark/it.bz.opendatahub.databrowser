@@ -1,27 +1,34 @@
 <template>
   <AppLayout>
-    <DatasetNavigation :current-view="currentView" />
-    <ContentArea>
-      <div>
+    <DatasetHero />
+    <ContentAlignmentX>
+      <ContentAlignmentY>
+        <DatasetNavigation :current-view="currentView" />
+      </ContentAlignmentY>
+      <ContentAlignmentY>
         Dataset Detail Page (type = {{ datasetType }}, ID = {{ datasetId }})
-      </div>
-    </ContentArea>
+      </ContentAlignmentY>
+    </ContentAlignmentX>
   </AppLayout>
 </template>
 
 <script lang="ts">
 import AppLayout from '../../layouts/AppLayout.vue';
-import ContentArea from '../../components/content/ContentArea.vue';
+import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import { useRoute } from 'vue-router';
 import { defineComponent } from '@vue/runtime-core';
 import { ViewPill } from '../../domain/datasets/navigation/types';
 import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
+import DatasetHero from '../../domain/datasets/DatasetHero.vue';
+import ContentAlignmentY from '../../components/content/ContentAlignmentY.vue';
 
 export default defineComponent({
   components: {
+    ContentAlignmentY,
+    DatasetHero,
     DatasetNavigation,
     AppLayout,
-    ContentArea,
+    ContentAlignmentX,
   },
   setup() {
     const route = useRoute();
