@@ -22,6 +22,7 @@ export const useHashSlug = (initialSlug: string, allowedSlugs: Set<string>) => {
       if (!isHashValid) {
         router.replace({
           hash: '',
+          query: router.currentRoute.value.query,
         });
       }
     },
