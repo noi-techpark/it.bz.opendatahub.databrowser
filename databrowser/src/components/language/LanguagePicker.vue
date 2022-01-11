@@ -4,16 +4,11 @@
     @click="showMobileSelect = true"
   >
     <span class="sr-only">Selected language</span>
-    <span class="pr-2">{{ currentSelected.toUpperCase() }}</span>
+    <span class="pr-2 uppercase">{{ languageParameter }}</span>
     <ArrowDown />
   </PillButton>
 
-  <PillGroup
-    :data="supportedLanguages"
-    :initial-selected="currentSelected"
-    class="hidden md:inline-flex uppercase"
-    @selected-change="changeLanguage"
-  />
+  <PillLinkGroup :data="links" class="hidden md:inline-flex uppercase" />
 
   <Dialog
     :open="showMobileSelect"
@@ -27,14 +22,15 @@
           <button class="mx-auto" @click="closeDialog">
             <IconClose />
           </button>
-          <PillButton
-            v-for="language in supportedLanguages"
-            :key="language"
-            :active="isSelected(language)"
+          <PillLink
+            v-for="link in links"
+            :key="link.label"
+            :active="isSelected(link.url)"
+            :to="link.url"
             class="uppercase"
-            @click="changeLanguage(language)"
-            >{{ language }}
-          </PillButton>
+            @click="closeDialog"
+            >{{ link.label }}
+          </PillLink>
         </div>
       </div>
     </div>
@@ -46,19 +42,22 @@ import { Dialog, DialogOverlay } from '@headlessui/vue';
 import { defineComponent, PropType } from '@vue/runtime-core';
 import { FilterLanguage } from '../../domain/api/configFilter';
 import IconClose from '../svg/IconClose.vue';
-import PillGroup from '../pill/PillGroup.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
-import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
 import PillButton from '../pill/PillButton.vue';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import PillLinkGroup from '../pill/PillLinkGroup.vue';
+import PillLink from '../pill/PillLink.vue';
+import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
 
 export default defineComponent({
   components: {
+    PillLink,
+    PillLinkGroup,
     PillButton,
     Dialog,
     DialogOverlay,
     IconClose,
-    PillGroup,
     ArrowDown,
   },
   props: {
@@ -68,45 +67,40 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const route = useRoute();
     const supportedLanguages: Array<string> = Object.values(FilterLanguage);
     const showMobileSelect = ref<boolean>(false);
     const languageParameter = useUrlQueryParameter(
       'language',
-      props.defaultLanguage,
-      {
-        defaultValue: props.defaultLanguage,
-      }
+      props.defaultLanguage
     );
 
-    const currentSelected = computed(() => {
-      if (!languageParameter.value) {
-        return props.defaultLanguage;
-      }
+    const currentPath = route.path;
+    const currentQueries = Object.entries(route.query)
+      .filter((obj) => obj[0] != 'language')
+      .map((query) => `${query[0]}=${query[1]}`);
+    const links = supportedLanguages.map((lang) => {
+      const query = [...currentQueries, `language=${lang}`];
 
-      return supportedLanguages.includes(languageParameter.value)
-        ? languageParameter.value
-        : props.defaultLanguage;
+      return {
+        label: lang.toUpperCase(),
+        url: `${currentPath}?${query.join('&')}`,
+      };
     });
 
     function closeDialog() {
       showMobileSelect.value = false;
     }
 
-    function changeLanguage(language: string) {
-      languageParameter.value = language;
-      closeDialog();
-    }
-
-    function isSelected(current: string) {
-      return currentSelected.value == current;
+    function isSelected(url: string) {
+      return url == route.fullPath;
     }
 
     return {
-      languageParameter,
       supportedLanguages,
       showMobileSelect,
-      currentSelected,
-      changeLanguage,
+      languageParameter,
+      links,
       isSelected,
       closeDialog,
     };
