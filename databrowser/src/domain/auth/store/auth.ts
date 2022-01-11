@@ -1,5 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { ActionTree } from 'vuex';
 
 type State = {
   isAuthenticated: boolean;
@@ -36,11 +37,20 @@ const mutations = {
   authenticated(state: State, accessToken: string) {
     state.isAuthenticated = true;
     state.accessToken = accessToken;
-    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
   },
   unauthenticated(state: State) {
     state.isAuthenticated = false;
     state.accessToken = null;
+  },
+};
+
+const actions: ActionTree<State, State> = {
+  authenticate({ commit }, accessToken: string) {
+    commit('authenticated', accessToken);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  },
+  unauthenticate({ commit }, accessToken: string) {
+    commit('unauthenticated', accessToken);
     delete axios.defaults.headers.common['Authorization'];
   },
 };
@@ -50,4 +60,5 @@ export default {
   state,
   getters,
   mutations,
+  actions,
 };

@@ -33,19 +33,19 @@ export default defineComponent({
     const accessToken = computed(() => store.state.auth.accessToken);
 
     keycloak.onAuthSuccess = () => {
-      store.commit('auth/authenticated', keycloak.token);
+      store.dispatch('auth/authenticate', keycloak.token);
     };
 
     keycloak.onAuthError = () => {
-      store.commit('auth/unauthenticated');
+      store.dispatch('auth/unauthenticate');
     };
 
     keycloak.onAuthRefreshSuccess = () => {
-      store.commit('auth/authenticated', keycloak.token);
+      store.dispatch('auth/authenticate', keycloak.token);
     };
 
     keycloak.onAuthRefreshError = () => {
-      store.commit('auth/unauthenticated');
+      store.dispatch('auth/unauthenticate');
     };
 
     function onLogin() {
