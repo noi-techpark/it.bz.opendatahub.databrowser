@@ -3,8 +3,13 @@ import { CellComponent } from '../cellComponents/types';
 const apiBaseUrl = 'https://api.tourism.testingmachine.eu';
 
 const config: Record<string, ApiConfigEntry> = {
+  // type: "tourism | mobility", => do not use
   'odh-activity-poi': {
-    // type: "tourism | mobility", => do not use
+    description: {
+      title: 'Activities and points of interest',
+      subtitle:
+        'This dataset contains a collection of activities and Points of Interest (PoI) in the South Tyrol region. The available data have been extracted from different sources and also offer IDM categorisation. This is a kind of superdataset, which includes also poi dataset, activity dataset, and gastronomy dataset.',
+    },
     listEndpoint: {
       url: `${apiBaseUrl}/v1/ODHActivityPoi`,
       tableConfig: [
@@ -155,6 +160,11 @@ const config: Record<string, ApiConfigEntry> = {
   },
   'odh-accommodation': {
     // type: "tourism | mobility", => do not use
+    description: {
+      title: 'Accommodation',
+      subtitle:
+        'This dataset contains various data about accommodation in South Tyrol, including information about the rooms.',
+    },
     listEndpoint: {
       url: `${apiBaseUrl}/v1/Accommodation`,
       tableConfig: [
@@ -239,6 +249,10 @@ export interface TableColumnConfig {
 }
 
 export interface ApiConfigEntry {
+  description?: {
+    title?: string;
+    subtitle?: string;
+  };
   listEndpoint?: {
     url: string;
     tableConfig: TableColumnConfig[];
