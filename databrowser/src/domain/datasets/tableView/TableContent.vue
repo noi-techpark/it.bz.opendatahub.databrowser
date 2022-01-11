@@ -23,8 +23,23 @@
         </TableCell>
         <TableCell class="sticky right-0 bg-white">
           <div class="flex h-full">
-            <LinkDetail :id="row.Id"></LinkDetail>
-            <LinkRaw :id="row.Id"></LinkRaw>
+            <DetailsLink
+              :to="{
+                name: 'DatasetsDetailViewPage',
+                params: { datasetId: row.Id },
+              }"
+            >
+              <EyeDetailGreen
+            /></DetailsLink>
+            <DetailsLink
+              :to="{
+                name: 'DatasetsRawViewPage',
+                params: { datasetId: row.Id },
+              }"
+              class="text-xs text-green-500"
+            >
+              RAW</DetailsLink
+            >
           </div>
         </TableCell>
       </tr>
@@ -43,8 +58,8 @@ import TableCell from '../../../components/table/TableCell.vue';
 import { toRefs } from 'vue';
 import { defaultQueryParameters } from './defaultValues';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
-import LinkDetail from './LinkDetail.vue';
-import LinkRaw from './LinkRaw.vue';
+import EyeDetailGreen from '../../../components/svg/EyeDetailGreen.vue';
+import DetailsLink from './DetailsLink.vue';
 
 export default defineComponent({
   components: {
@@ -52,8 +67,8 @@ export default defineComponent({
     TableHeaderCell,
     TableCell,
     TableWithStickyHeader,
-    LinkDetail,
-    LinkRaw,
+    EyeDetailGreen,
+    DetailsLink,
   },
   props: {
     rows: {

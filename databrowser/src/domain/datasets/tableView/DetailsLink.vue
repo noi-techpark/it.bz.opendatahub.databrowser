@@ -1,9 +1,6 @@
 <template>
   <router-link
-    :to="{
-      name: 'DatasetsRawViewPage',
-      params: { datasetId: id },
-    }"
+    :to="to"
     class="
       flex
       justify-center
@@ -14,19 +11,17 @@
       hover:bg-gray-300
       rounded
       border
-      text-xs text-green-500
     "
   >
-    RAW
+    <slot></slot>
   </router-link>
 </template>
 
 <script setup lang="ts">
 import { defineProps, toRefs } from 'vue';
+import { RouteLocationRaw } from 'vue-router';
 
-const props = defineProps<{
-  id: string;
-}>();
+const props = defineProps<{ to: RouteLocationRaw }>();
 
-const { id } = toRefs(props);
+const { to } = toRefs(props);
 </script>
