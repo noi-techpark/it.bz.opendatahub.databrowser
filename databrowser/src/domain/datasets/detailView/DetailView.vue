@@ -15,36 +15,10 @@
           'column-count': Math.min(currentSubcategories?.length ?? 1, 3),
         }"
       >
-        <div
-          v-for="subcategory in currentSubcategories"
-          :key="subcategory.name"
-        >
-          <div class="inline-block w-full">
-            <div class="p-4 font-bold bg-gray-200">
-              {{ subcategory.name }}
-            </div>
-            <div class="flex flex-col gap-2 my-3">
-              <div
-                v-for="property in subcategory.properties"
-                :key="property.title"
-              >
-                <div class="text-sm text-gray-500">{{ property.title }}</div>
-
-                <ListCell
-                  :tag-name="property.component"
-                  :attributes="
-                    getValue(
-                      apiResult.data.data,
-                      property.fields,
-                      property.params
-                    )
-                  "
-                  :class="property.class"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <DetailSubCategories
+          :data="apiResult.data.data"
+          :sub-categories="currentSubcategories"
+        />
       </div>
     </div>
   </section>
@@ -52,16 +26,14 @@
 
 <script setup lang="ts">
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { computed, ComputedRef, inject, ref, toRefs, UnwrapRef } from 'vue';
+import { computed, ComputedRef, inject, ref, UnwrapRef } from 'vue';
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
 import { useRoute } from 'vue-router';
 import { useApi } from '../../api/client';
-import { extractField, getApiConfigForDataset } from '../../api/configUtils';
-import ListCell from '../../../components/listCell/ListCell.vue';
-import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
-import { defaultQueryParameters } from '../tableView/defaultValues';
+import { getApiConfigForDataset } from '../../api/configUtils';
 import { useHashSlug } from './useHashSlug';
 import DetailCategories, { DetailCategory } from './DetailCategories.vue';
+import DetailSubCategories from './DetailSubCategories.vue';
 
 const route = useRoute();
 const datasetType = route.params.datasetType as string;
@@ -95,7 +67,7 @@ const { currentSlug } = useHashSlug(initialSlug, new Set(validSlugs));
 const currentSubcategories = computed(
   () =>
     viewConfig?.find((config) => config.slug === currentSlug.value)
-      ?.subcategories
+      ?.subcategories ?? []
 );
 
 const categories: ComputedRef<DetailCategory[]> = computed(
@@ -108,17 +80,6 @@ const categories: ComputedRef<DetailCategory[]> = computed(
       };
     }) ?? []
 );
-
-const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
-const { queryParametersWithDefaults } = toRefs(queryRouter);
-const getValue = (
-  item: any,
-  fields: Record<string, string>,
-  params?: Record<string, string>
-) => ({
-  ...extractField(item, fields, queryParametersWithDefaults.value),
-  ...params,
-});
 </script>
 
 <style>
