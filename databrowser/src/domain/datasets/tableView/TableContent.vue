@@ -28,6 +28,7 @@
                 name: 'DatasetsDetailViewPage',
                 params: { datasetId: row.Id },
               }"
+              :title="$t('datasets.listView.linkDetails')"
             >
               <EyeDetailGreen
             /></DetailsLink>
@@ -36,9 +37,10 @@
                 name: 'DatasetsRawViewPage',
                 params: { datasetId: row.Id },
               }"
+              :title="$t('datasets.listView.linkRaw')"
               class="text-xs text-green-500"
             >
-              RAW</DetailsLink
+              {{ $t('datasets.listView.linkRaw') }}</DetailsLink
             >
           </div>
         </TableCell>
