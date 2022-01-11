@@ -1,17 +1,11 @@
 <template>
   <section v-if="apiResult.isSuccess" class="flex flex-col">
     <div class="lg:flex flex-wrap lg:gap-5">
-      <div class="flex flex-col lg:w-1/6">
-        <PillLink
-          v-for="category in viewConfig"
-          :key="category.slug"
-          :to="{ hash: `#${category.slug}`, query: route.query }"
-          :variant="PillVariant.edged"
-          :active="currentSlug === category.slug"
-          class="my-1"
-        >
-          {{ category.name }}
-        </PillLink>
+      <div v-if="categories.length > 0" class="flex flex-col lg:w-1/6">
+        <DetailCategories
+          :categories="categories"
+          :current-slug="currentSlug"
+        />
       </div>
 
       <div
@@ -58,17 +52,16 @@
 
 <script setup lang="ts">
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { computed, inject, ref, toRefs, UnwrapRef } from 'vue';
+import { computed, ComputedRef, inject, ref, toRefs, UnwrapRef } from 'vue';
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
 import { useRoute } from 'vue-router';
 import { useApi } from '../../api/client';
 import { extractField, getApiConfigForDataset } from '../../api/configUtils';
 import ListCell from '../../../components/listCell/ListCell.vue';
-import { PillVariant } from '../../../components/pill/types';
-import PillLink from '../../../components/pill/PillLink.vue';
 import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
 import { defaultQueryParameters } from '../tableView/defaultValues';
 import { useHashSlug } from './useHashSlug';
+import DetailCategories, { DetailCategory } from './DetailCategories.vue';
 
 const route = useRoute();
 const datasetType = route.params.datasetType as string;
@@ -103,6 +96,17 @@ const currentSubcategories = computed(
   () =>
     viewConfig?.find((config) => config.slug === currentSlug.value)
       ?.subcategories
+);
+
+const categories: ComputedRef<DetailCategory[]> = computed(
+  () =>
+    viewConfig?.map((vc) => {
+      return {
+        name: vc.name,
+        slug: vc.slug,
+        to: { hash: `#${vc.slug}`, query: route.query },
+      };
+    }) ?? []
 );
 
 const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
