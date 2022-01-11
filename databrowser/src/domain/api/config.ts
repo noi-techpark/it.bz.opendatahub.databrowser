@@ -30,6 +30,14 @@ const config: Record<string, ApiConfigEntry> = {
           },
         },
         {
+          title: 'Categories',
+          component: CellComponent.StringCell,
+          class: 'w-40',
+          fields: {
+            text: 'AdditionalPoiInfos.{language}.MainType',
+          },
+        },
+        {
           title: 'Location',
           component: CellComponent.TextHighlightCell,
           class: 'w-40',
@@ -66,6 +74,14 @@ const config: Record<string, ApiConfigEntry> = {
           class: 'w-36',
           fields: {
             text: 'Source',
+          },
+        },
+        {
+          title: 'Source state',
+          component: CellComponent.StateCell,
+          class: 'w-36',
+          fields: {
+            state: 'Active',
           },
         },
         {
