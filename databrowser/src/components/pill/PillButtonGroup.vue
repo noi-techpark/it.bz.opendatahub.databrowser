@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PillGroupItem
+    <PillButtonGroupItem
       v-for="(item, index) in data"
       :key="item"
       :current-item="selected"
@@ -15,10 +15,10 @@
 <script lang="ts">
 import { defineComponent, PropType, ref } from '@vue/runtime-core';
 import { watch } from 'vue';
-import PillGroupItem from './PillGroupItem.vue';
+import PillButtonGroupItem from './PillButtonGroupItem.vue';
 
 export default defineComponent({
-  components: { PillGroupItem },
+  components: { PillButtonGroupItem },
   props: {
     initialSelected: {
       type: String as PropType<string>,
