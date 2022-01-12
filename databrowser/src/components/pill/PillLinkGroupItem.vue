@@ -34,7 +34,7 @@ import { defineComponent, PropType } from '@vue/runtime-core';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
-export type PillLinkGroupItem = {
+export type PillLinkGroupData = {
   label: string | number;
   url: string;
 };
@@ -50,7 +50,7 @@ export default defineComponent({
       default: false,
     },
     item: {
-      type: Object as PropType<PillLinkGroupItem>,
+      type: Object as PropType<PillLinkGroupData>,
       required: true,
     },
   },

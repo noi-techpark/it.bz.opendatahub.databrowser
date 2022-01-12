@@ -12,13 +12,13 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
-import PillLinkGroupItem, { PillLinkGroupItem } from './PillLinkGroupItem.vue';
+import PillLinkGroupItem, { PillLinkGroupData } from './PillLinkGroupItem.vue';
 
 export default defineComponent({
   components: { PillLinkGroupItem },
   props: {
     data: {
-      type: Array as PropType<Array<PillLinkGroupItem>>,
+      type: Array as PropType<Array<PillLinkGroupData>>,
       required: true,
     },
   },
