@@ -23,10 +23,5 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {
-      padding: ['responsive', 'last', 'first'],
-    },
-  },
   plugins: [],
 };
