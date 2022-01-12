@@ -6,13 +6,13 @@
   />
   <DatasetMenuSubList
     v-if="fistSubMenu"
-    :items="fistSubMenu.categories"
+    :items="fistSubMenu.categories ?? []"
     :title="fistSubMenu.label"
     @select-category="changeSecoundSubMenu"
   />
   <DatasetMenuSubList
     v-if="secoundSubMenu"
-    :items="secoundSubMenu.categories"
+    :items="secoundSubMenu.categories ?? []"
     :title="secoundSubMenu.label"
   />
 </template>
