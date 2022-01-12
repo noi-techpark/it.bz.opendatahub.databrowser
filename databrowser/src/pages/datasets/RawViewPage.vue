@@ -1,9 +1,9 @@
 <template>
   <AppLayout>
-    <DatasetHero />
+    <DatasetHero :title="title" :subtitle="subtitle" />
     <ContentAlignmentX>
       <ContentAlignmentY>
-        <DatasetNavigation :current-view="currentView" />
+        <DatasetNavigation :current-view="currentView" hide-langauge-picker />
       </ContentAlignmentY>
       <ContentAlignmentY>
         <RawView />
@@ -20,6 +20,7 @@ import RawView from '../../domain/datasets/rawView/RawView.vue';
 import { ViewPill } from '../../domain/datasets/navigation/types';
 import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import ContentAlignmentY from '../../components/content/ContentAlignmentY.vue';
+import { useDatasetHeroDescription } from '../../domain/datasets/hero/useDatasetHeroDescription';
 
 export default {
   components: {
@@ -31,8 +32,12 @@ export default {
     AppLayout,
   },
   setup() {
+    const { title, subtitle } = useDatasetHeroDescription();
+
     return {
       currentView: ViewPill.raw,
+      title,
+      subtitle,
     };
   },
 };
