@@ -2,10 +2,14 @@
   "auth": {
     "login": "Login",
     "register": "Register",
-        "logout": "Logout"
+    "logout": "Logout"
   },
   "header": {
-    "logo": "Open Data Hub - Logo"
+    "logo": "Open Data Hub - Logo",
+    "menu": {
+      "title": "Menu",
+      "allDatasets": "All Datasets"
+    }
   },
   "footer": {
     "imprint": "Imprint",
