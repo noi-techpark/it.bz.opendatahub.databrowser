@@ -2,7 +2,7 @@
   "auth": {
     "login": "Login",
     "register": "Register",
-        "logout": "Logout"
+    "logout": "Logout"
   },
   "header": {
     "logo": "Open Data Hub - Logo"
@@ -22,7 +22,9 @@
   },
   "datasets": {
     "listView": {
-      "linesPerPage": "lines per page"
+      "linesPerPage": "lines per page",
+      "linkDetails": "Details",
+      "linkRaw": "RAW"
     },
     "download": {
       "info": "Retrieve data based on table settings",
