@@ -90,8 +90,6 @@ export default defineComponent({
       secoundSubMenu.value = menu;
     }
 
-    console.log(open);
-
     return {
       data,
       fistSubMenu,
