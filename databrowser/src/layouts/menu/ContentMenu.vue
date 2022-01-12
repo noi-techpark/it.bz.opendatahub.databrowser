@@ -6,12 +6,14 @@
     <IconMenu />
     <span class="hidden md:block">{{ $t('header.menu.title') }}</span>
   </button>
+
   <Dialog
     :open="dialogOpen"
     class="fixed top-0 z-20 p-0 w-screen"
     @close="closeDialog"
   >
     <DialogOverlay class="hidden md:block fixed inset-0 bg-black opacity-30" />
+    <!-- Desktop Menu -->
     <div
       class="
         hidden
@@ -20,33 +22,34 @@
         absolute
         top-0
         left-0
-        px-4
         h-screen
         bg-white
       "
     >
-      <button class="block py-4" @click="closeDialog">
+      <button class="block py-4 px-4" @click="closeDialog">
         <IconClose />
       </button>
       <div class="inline-flex flex-row h-full divide-x-2">
-        <DatasetMenuSubList
+        <ContentMenuSubList
           :items="content"
           :title="$t('header.menu.allDatasets')"
           @select-category="changeFirstSubMenu"
         />
-        <DatasetMenuSubList
+        <ContentMenuSubList
           v-if="fistSubMenu"
           :items="fistSubMenu.categories ?? []"
           :title="fistSubMenu.label"
           @select-category="changeSecoundSubMenu"
         />
-        <DatasetMenuSubList
+        <ContentMenuSubList
           v-if="secoundSubMenu"
           :items="secoundSubMenu.categories ?? []"
           :title="secoundSubMenu.label"
         />
       </div>
     </div>
+
+    <!-- Mobile Menu -->
     <div
       class="
         md:hidden
@@ -60,7 +63,7 @@
         border-t
       "
     >
-      <DatasetMenuSubList
+      <ContentMenuSubList
         v-if="secoundSubMenu"
         :items="secoundSubMenu.categories ?? []"
         :title="secoundSubMenu.label"
@@ -68,7 +71,7 @@
         @arrow-back="secoundSubMenu = undefined"
         @close-dialog="closeDialog"
       />
-      <DatasetMenuSubList
+      <ContentMenuSubList
         v-else-if="fistSubMenu"
         :items="fistSubMenu.categories ?? []"
         :title="fistSubMenu.label"
@@ -77,7 +80,7 @@
         @arrow-back="fistSubMenu = undefined"
         @close-dialog="closeDialog"
       />
-      <DatasetMenuSubList
+      <ContentMenuSubList
         v-else
         :items="content"
         :title="$t('header.menu.allDatasets')"
@@ -91,12 +94,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
 import { ref } from 'vue';
-import DatasetMenuSubList, { MenuItem } from './DatasetMenuSubList.vue';
+import ContentMenuSubList, { MenuItem } from './ContentMenuSubList.vue';
 import IconClose from '../../components/svg/IconClose.vue';
 import IconMenu from '../../components/svg/IconMenu.vue';
 
 export default defineComponent({
-  components: { IconMenu, IconClose, DatasetMenuSubList },
+  components: { IconMenu, IconClose, ContentMenuSubList },
   props: {
     content: {
       type: Array as PropType<Array<MenuItem>>,

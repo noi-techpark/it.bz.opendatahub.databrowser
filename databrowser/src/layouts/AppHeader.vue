@@ -1,6 +1,6 @@
 <template>
   <ContentAlignmentX class="flex flex-row justify-between py-3 lg:py-5">
-    <div class="flex items-center space-x-16">
+    <div class="inline-flex flex-row-reverse md:flex-row items-center">
       <router-link to="/">
         <img
           :alt="$t('header.logo')"
@@ -8,7 +8,9 @@
           src="/logo-open-data-hub-black.png"
         />
       </router-link>
-      <MenuPopover />
+      <div class="px-4 md:px-10">
+        <ContentMenu :content="data" />
+      </div>
     </div>
     <MenuUserSection />
   </ContentAlignmentX>
@@ -16,12 +18,70 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import MenuUserSection from '../domain/auth/MenuUserSection.vue';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
-import MenuPopover from './menu/MenuPopover.vue';
+import ContentMenu from './menu/ContentMenu.vue';
+import { MenuItem } from './menu/ContentMenuSubList.vue';
 
 export default defineComponent({
-  components: { MenuPopover, ContentAlignmentX, MenuUserSection },
+  components: { ContentMenu, ContentAlignmentX },
+  setup() {
+    // Static data for testing only.
+    // This block of data will be replaces with the generated data from the config
+    const data: Array<MenuItem> = [
+      {
+        label: 'Places',
+        categories: [
+          {
+            label: 'Locations',
+            categories: [
+              {
+                label: 'Regions',
+                url: 'http://example.com',
+              },
+              {
+                label: 'Meta Regions',
+                url: 'http://example.com',
+              },
+            ],
+          },
+          {
+            label: 'POIs',
+            url: '/dataset/odh-activity-poi',
+          },
+        ],
+      },
+      {
+        label: 'Test',
+        categories: [
+          {
+            label: 'Sub Test A',
+            categories: [
+              {
+                label: 'Sub Sub Test A',
+                url: '/',
+              },
+              {
+                label: 'Sub Sub Test B',
+                url: '/',
+              },
+            ],
+          },
+          {
+            label: 'Sub Test B',
+            url: '/',
+          },
+        ],
+      },
+      {
+        label: 'Activities',
+        url: '/',
+      },
+    ];
+
+    return {
+      data,
+    };
+  },
 });
 </script>
 
