@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
-import ArrowRight from '../../../components/svg/ArrowRight.vue';
+import ArrowRight from '../../components/svg/ArrowRight.vue';
 import { ref } from 'vue';
 
 export type MenuItem = {
