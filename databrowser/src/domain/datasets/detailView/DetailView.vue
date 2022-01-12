@@ -21,6 +21,12 @@
         />
       </div>
     </div>
+
+    <DownloadSection
+      :dataset="apiResult.data?.data"
+      :dataset-url="datasetUrl"
+      hide-csv
+    />
   </section>
 </template>
 
@@ -34,16 +40,17 @@ import { getApiConfigForDataset } from '../../api/configUtils';
 import { useHashSlug } from './useHashSlug';
 import DetailCategories, { DetailCategory } from './DetailCategories.vue';
 import DetailSubCategories from './DetailSubCategories.vue';
+import { getDatasetUrl } from '../queryDataset';
+import DownloadSection from '../../../components/download/DownloadSection.vue';
 
 const route = useRoute();
 const datasetType = route.params.datasetType as string;
 const datasetId = route.params.datasetId as string;
+const datasetUrl = getDatasetUrl(datasetType, datasetId);
 
 // Get config parameters
-const { url, viewConfig } =
+const { viewConfig } =
   getApiConfigForDataset(datasetType)?.detailEndpoint ?? {};
-
-const datasetUrl = url != null ? url.replace('{id}', datasetId) : null;
 
 const apiResult = ref<
   UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>

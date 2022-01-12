@@ -7,7 +7,7 @@
       </ContentAlignmentY>
       <ContentDivider />
       <ContentAlignmentY>
-        <DetailView></DetailView>
+        <DetailView />
       </ContentAlignmentY>
     </ContentAlignmentX>
   </AppLayout>
@@ -28,12 +28,12 @@ import ContentDivider from '../../components/content/ContentDivider.vue';
 
 export default defineComponent({
   components: {
+    DetailView,
     ContentAlignmentY,
     DatasetHero,
     DatasetNavigation,
     AppLayout,
     ContentAlignmentX,
-    DetailView,
     ContentDivider,
   },
   setup() {
