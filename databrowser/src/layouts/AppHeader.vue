@@ -21,9 +21,10 @@ import { defineComponent } from '@vue/runtime-core';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import ContentMenu from './menu/ContentMenu.vue';
 import { MenuItem } from './menu/ContentMenuSubList.vue';
+import MenuUserSection from '../domain/auth/MenuUserSection.vue';
 
 export default defineComponent({
-  components: { ContentMenu, ContentAlignmentX },
+  components: { ContentMenu, ContentAlignmentX, MenuUserSection },
   setup() {
     // Static data for testing only.
     // This block of data will be replaces with the generated data from the config

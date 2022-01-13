@@ -97,9 +97,16 @@ import { ref } from 'vue';
 import ContentMenuSubList, { MenuItem } from './ContentMenuSubList.vue';
 import IconClose from '../../components/svg/IconClose.vue';
 import IconMenu from '../../components/svg/IconMenu.vue';
+import { Dialog, DialogOverlay } from '@headlessui/vue';
 
 export default defineComponent({
-  components: { IconMenu, IconClose, ContentMenuSubList },
+  components: {
+    IconMenu,
+    IconClose,
+    ContentMenuSubList,
+    Dialog,
+    DialogOverlay,
+  },
   props: {
     content: {
       type: Array as PropType<Array<MenuItem>>,
