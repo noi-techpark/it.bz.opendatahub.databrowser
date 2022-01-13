@@ -6,12 +6,10 @@
     </button>
     <ul class="md:max-w-xs min-w-[20rem]">
       <li
-        v-for="category in item.categories"
+        v-for="(category, index) in item.categories"
         :key="category.label"
         :class="[
-          selected == category.label
-            ? 'bg-green-500 bg-opacity-10'
-            : 'hover:bg-gray-50',
+          selected == index ? 'bg-green-500 bg-opacity-10' : 'hover:bg-gray-50',
         ]"
         class="flex whitespace-nowrap"
       >
@@ -28,7 +26,7 @@
             md:max-w-xs
             text-left
           "
-          @click="setSelected(category)"
+          @click="setSelected(category, index)"
         >
           <span>{{ category.label }}</span>
           <ArrowRight />
@@ -48,7 +46,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
 import ArrowRight from '../../components/svg/ArrowRight.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import ArrowLeft from '../../components/svg/ArrowLeft.vue';
 
 export type MenuLink = {
@@ -75,7 +73,14 @@ export default defineComponent({
   },
   emits: ['selectCategory', 'arrow-back', 'close-dialog'],
   setup(props, context) {
-    const selected = ref<string>('');
+    const selected = ref<number>(-1);
+
+    // This clears the selected entity when the item changes.
+    // This is necessary since we do not always unmount the components so ghosting can occur.
+    watch(
+      () => props.item,
+      () => (selected.value = -1)
+    );
 
     const isMenuCategory = (
       data: MenuCategory | MenuLink
@@ -83,9 +88,9 @@ export default defineComponent({
       return !!(data as MenuCategory).categories;
     };
 
-    function setSelected(menu: MenuCategory) {
+    function setSelected(menu: MenuCategory, index: number) {
       context.emit('selectCategory', menu);
-      selected.value = menu.label;
+      selected.value = index;
     }
 
     return { selected, setSelected, isMenuCategory };
