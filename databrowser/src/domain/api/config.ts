@@ -456,7 +456,35 @@ const config: Record<string, ApiConfigEntry> = {
           name: 'Location',
           slug: 'location',
           // TODO
-          subcategories: [],
+          subcategories: [
+            {
+              name: 'Location',
+              properties: [
+                {
+                  title: 'Region / TVB',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
+                },
+                {
+                  title: 'Tourismorganization',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'TourismorganizationId' },
+                },
+                {
+                  title: 'Municipality',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'LocationInfo.MunicipalityInfo.Name.{language}',
+                  },
+                },
+                {
+                  title: 'District',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+                },
+              ],
+            },
+          ],
         },
         {
           name: 'GPS Data',
