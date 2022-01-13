@@ -1,6 +1,5 @@
 module.exports = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontSize: {
@@ -22,11 +21,6 @@ module.exports = {
           900: '#3c4043',
         },
       },
-    },
-  },
-  variants: {
-    extend: {
-      padding: ['responsive', 'last', 'first'],
     },
   },
   plugins: [],
