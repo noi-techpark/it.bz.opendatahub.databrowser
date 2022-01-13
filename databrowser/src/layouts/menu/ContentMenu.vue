@@ -31,20 +31,10 @@
       </button>
       <div class="inline-flex flex-row h-full divide-x-2">
         <ContentMenuSubList
-          :items="content.categories"
-          :title="content.label"
-          @select-category="changeFirstSubMenu"
-        />
-        <ContentMenuSubList
-          v-if="fistSubMenu"
-          :items="fistSubMenu.categories ?? []"
-          :title="fistSubMenu.label"
-          @select-category="changeSecoundSubMenu"
-        />
-        <ContentMenuSubList
-          v-if="secoundSubMenu"
-          :items="secoundSubMenu.categories ?? []"
-          :title="secoundSubMenu.label"
+          v-for="(item, index) in navigation"
+          :key="index"
+          :item="item"
+          @select-category="(menu) => addSubMenu(menu, index)"
         />
       </div>
     </div>
@@ -64,27 +54,10 @@
       "
     >
       <ContentMenuSubList
-        v-if="secoundSubMenu"
-        :items="secoundSubMenu.categories ?? []"
-        :title="secoundSubMenu.label"
-        show-arrow
-        @arrow-back="secoundSubMenu = undefined"
-        @close-dialog="closeDialog"
-      />
-      <ContentMenuSubList
-        v-else-if="fistSubMenu"
-        :items="fistSubMenu.categories ?? []"
-        :title="fistSubMenu.label"
-        show-arrow
-        @select-category="changeSecoundSubMenu"
-        @arrow-back="fistSubMenu = undefined"
-        @close-dialog="closeDialog"
-      />
-      <ContentMenuSubList
-        v-else
-        :items="content.categories"
-        :title="content.label"
-        @select-category="changeFirstSubMenu"
+        :item="lastElement"
+        :show-arrow="navigation.length !== 1"
+        @select-category="(menu) => navigation.push(menu)"
+        @arrow-back="removeLastSubMenu"
         @close-dialog="closeDialog"
       />
     </div>
@@ -93,7 +66,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import ContentMenuSubList, {
   MenuCategory,
   MenuLink,
@@ -116,33 +89,35 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-    const fistSubMenu = ref<MenuCategory | MenuLink>();
-    const secoundSubMenu = ref<MenuCategory | MenuLink>();
+  setup(props) {
+    const navigation = ref<Array<MenuCategory | MenuLink>>([props.content]);
     const dialogOpen = ref<boolean>(false);
 
-    function changeFirstSubMenu(menu: MenuCategory | MenuLink) {
-      secoundSubMenu.value = undefined;
-      fistSubMenu.value = menu;
+    function addSubMenu(menu: MenuCategory | MenuLink, index: number) {
+      navigation.value.splice(index + 1);
+      navigation.value.push(menu);
     }
 
-    function changeSecoundSubMenu(menu: MenuCategory | MenuLink) {
-      secoundSubMenu.value = menu;
+    function removeLastSubMenu() {
+      navigation.value.pop();
     }
 
     function closeDialog() {
       dialogOpen.value = false;
-      fistSubMenu.value = undefined;
-      secoundSubMenu.value = undefined;
+      navigation.value = [props.content];
     }
 
+    const lastElement = computed(
+      () => navigation.value[navigation.value.length - 1]
+    );
+
     return {
+      lastElement,
+      navigation,
       dialogOpen,
-      fistSubMenu,
-      secoundSubMenu,
+      addSubMenu,
       closeDialog,
-      changeFirstSubMenu,
-      changeSecoundSubMenu,
+      removeLastSubMenu,
     };
   },
 });

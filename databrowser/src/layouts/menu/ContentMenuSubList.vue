@@ -2,21 +2,21 @@
   <div class="flex flex-col w-full">
     <button class="inline-flex items-center" @click="$emit('arrow-back')">
       <ArrowLeft v-if="showArrow" class="md:hidden" />
-      <span class="py-2 pl-2 text-xl font-semibold">{{ title }}</span>
+      <span class="py-2 pl-2 text-xl font-semibold">{{ item.label }}</span>
     </button>
     <ul class="md:max-w-xs min-w-[20rem]">
       <li
-        v-for="item in items"
-        :key="item.label"
+        v-for="category in item.categories"
+        :key="category.label"
         :class="[
-          selected == item.label
+          selected == category.label
             ? 'bg-green-500 bg-opacity-10'
             : 'hover:bg-gray-50',
         ]"
         class="flex whitespace-nowrap"
       >
         <button
-          v-if="item.categories && item.categories.length"
+          v-if="isMenuCategory(category) && category.categories.length"
           class="
             inline-flex
             flex-1
@@ -28,17 +28,17 @@
             md:max-w-xs
             text-left
           "
-          @click="setSelected(item)"
+          @click="setSelected(category)"
         >
-          <span>{{ item.label }}</span>
+          <span>{{ category.label }}</span>
           <ArrowRight />
         </button>
         <router-link
-          v-if="item.url"
-          :to="item.url"
+          v-if="category.url"
+          :to="category.url"
           class="flex-1 py-2 px-4 w-full text-left"
           @click="$emit('close-dialog')"
-          >{{ item.label }}
+          >{{ category.label }}
         </router-link>
       </li>
     </ul>
@@ -48,7 +48,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
 import ArrowRight from '../../components/svg/ArrowRight.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import ArrowLeft from '../../components/svg/ArrowLeft.vue';
 
 export type MenuLink = {
@@ -64,12 +64,8 @@ export type MenuCategory = {
 export default defineComponent({
   components: { ArrowLeft, ArrowRight },
   props: {
-    items: {
-      type: Object as PropType<Array<MenuCategory>>,
-      required: true,
-    },
-    title: {
-      type: String,
+    item: {
+      type: Object as PropType<MenuCategory | MenuLink>,
       required: true,
     },
     showArrow: {
@@ -81,12 +77,23 @@ export default defineComponent({
   setup(props, context) {
     const selected = ref<string>('');
 
+    const isMenuCategory = (
+      data: MenuCategory | MenuLink
+    ): data is MenuCategory => {
+      return !!(data as MenuCategory).categories;
+    };
+
+    watch(props.item, (d) => {
+      console.log(d);
+      selected.value = '';
+    });
+
     function setSelected(menu: MenuCategory) {
       context.emit('selectCategory', menu);
       selected.value = menu.label;
     }
 
-    return { selected, setSelected };
+    return { selected, setSelected, isMenuCategory };
   },
 });
 </script>
