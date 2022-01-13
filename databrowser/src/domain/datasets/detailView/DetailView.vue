@@ -31,9 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { AxiosInstance, AxiosResponse } from 'axios';
-import { computed, ComputedRef, inject, ref, UnwrapRef } from 'vue';
-import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
+import { AxiosInstance } from 'axios';
+import { computed, ComputedRef, inject, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useApi } from '../../api/client';
 import { getApiConfigForDataset } from '../../api/configUtils';
@@ -52,9 +51,7 @@ const datasetUrl = getDatasetUrl(datasetType, datasetId);
 const { viewConfig } =
   getApiConfigForDataset(datasetType)?.detailEndpoint ?? {};
 
-const apiResult = ref<
-  UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>
->({} as any);
+const apiResult = ref({} as any);
 
 if (datasetUrl != null) {
   const axios = inject<AxiosInstance>('axios');
