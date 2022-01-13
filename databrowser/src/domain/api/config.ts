@@ -587,8 +587,49 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Webcam Details',
           slug: 'webcam-details',
-          // TODO
-          subcategories: [],
+          // TODO: array
+          subcategories: [
+            {
+              name: 'Webcam',
+              properties: [
+                {
+                  title: 'Name',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Webcam.[0].Webcamname.{language}' },
+                },
+                {
+                  title: 'Image',
+                  component: CellComponent.ImageCell,
+                  fields: { src: 'Webcam.[0].Webcamurl' },
+                },
+                {
+                  title: 'Image-URL (Web-Url)',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Webcam.[0].Webcamurl' },
+                },
+                {
+                  title: 'Latitude',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Webcam.[0].GpsInfo.Latitude' },
+                },
+                {
+                  title: 'Longitude',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Webcam.[0].GpsInfo.Longitude' },
+                },
+                {
+                  title: 'Altitude',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Webcam.[0].GpsInfo.Altitude' },
+                },
+                {
+                  title: 'Position',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Webcam.[0].ListPosition' },
+                },
+              ],
+            },
+          ],
         },
       ],
     },
