@@ -1,8 +1,9 @@
 <template>
   <svg
-    height="20px"
-    viewBox="0 0 20 20"
-    width="20px"
+    class="w-6 h-6"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -13,11 +14,3 @@
     />
   </svg>
 </template>
-
-<script>
-export default {
-  name: 'IconMenu',
-};
-</script>
-
-<style scoped></style>
