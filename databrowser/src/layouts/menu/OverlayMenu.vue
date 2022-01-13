@@ -40,7 +40,7 @@
         <IconClose />
       </button>
       <div class="inline-flex flex-row h-full divide-x-2">
-        <ContentMenuSubList
+        <OveralyMenuList
           v-for="(item, index) in navigation"
           :key="index"
           :item="item"
@@ -63,7 +63,7 @@
         border-t
       "
     >
-      <ContentMenuSubList
+      <OveralyMenuList
         :item="lastElement"
         :show-arrow="navigation.length !== 1"
         @select-category="(menu) => navigation.push(menu)"
@@ -77,10 +77,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
 import { computed, ref } from 'vue';
-import ContentMenuSubList, {
-  MenuCategory,
-  MenuLink,
-} from './ContentMenuSubList.vue';
+import OveralyMenuList, { MenuCategory, MenuLink } from './OveralyMenuList.vue';
 import IconClose from '../../components/svg/IconClose.vue';
 import IconMenu from '../../components/svg/IconMenu.vue';
 import { Dialog, DialogOverlay } from '@headlessui/vue';
@@ -89,7 +86,7 @@ export default defineComponent({
   components: {
     IconMenu,
     IconClose,
-    ContentMenuSubList,
+    OveralyMenuList,
     Dialog,
     DialogOverlay,
   },

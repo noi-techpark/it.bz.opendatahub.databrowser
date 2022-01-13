@@ -9,7 +9,7 @@
         />
       </router-link>
       <div class="inline-flex items-center px-4 md:px-10">
-        <ContentMenu :content="data" />
+        <OverlayMenu :content="data" />
       </div>
     </div>
     <MenuUserSection />
@@ -19,13 +19,13 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
-import ContentMenu from './menu/ContentMenu.vue';
-import { MenuCategory } from './menu/ContentMenuSubList.vue';
+import OverlayMenu from './menu/OverlayMenu.vue';
+import { MenuCategory } from './menu/OveralyMenuList.vue';
 import MenuUserSection from '../domain/auth/MenuUserSection.vue';
 import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
-  components: { ContentMenu, ContentAlignmentX, MenuUserSection },
+  components: { OverlayMenu, ContentAlignmentX, MenuUserSection },
   setup() {
     const { t } = useI18n();
 
