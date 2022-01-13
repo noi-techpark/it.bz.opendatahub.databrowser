@@ -31,8 +31,8 @@
       </button>
       <div class="inline-flex flex-row h-full divide-x-2">
         <ContentMenuSubList
-          :items="content"
-          :title="$t('header.menu.allDatasets')"
+          :items="content.categories"
+          :title="content.label"
           @select-category="changeFirstSubMenu"
         />
         <ContentMenuSubList
@@ -82,8 +82,8 @@
       />
       <ContentMenuSubList
         v-else
-        :items="content"
-        :title="$t('header.menu.allDatasets')"
+        :items="content.categories"
+        :title="content.label"
         @select-category="changeFirstSubMenu"
         @close-dialog="closeDialog"
       />
@@ -94,7 +94,10 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
 import { ref } from 'vue';
-import ContentMenuSubList, { MenuItem } from './ContentMenuSubList.vue';
+import ContentMenuSubList, {
+  MenuCategory,
+  MenuLink,
+} from './ContentMenuSubList.vue';
 import IconClose from '../../components/svg/IconClose.vue';
 import IconMenu from '../../components/svg/IconMenu.vue';
 import { Dialog, DialogOverlay } from '@headlessui/vue';
@@ -109,21 +112,21 @@ export default defineComponent({
   },
   props: {
     content: {
-      type: Array as PropType<Array<MenuItem>>,
+      type: Object as PropType<MenuCategory>,
       required: true,
     },
   },
   setup() {
-    const fistSubMenu = ref<MenuItem>();
-    const secoundSubMenu = ref<MenuItem>();
+    const fistSubMenu = ref<MenuCategory | MenuLink>();
+    const secoundSubMenu = ref<MenuCategory | MenuLink>();
     const dialogOpen = ref<boolean>(false);
 
-    function changeFirstSubMenu(menu: MenuItem) {
+    function changeFirstSubMenu(menu: MenuCategory | MenuLink) {
       secoundSubMenu.value = undefined;
       fistSubMenu.value = menu;
     }
 
-    function changeSecoundSubMenu(menu: MenuItem) {
+    function changeSecoundSubMenu(menu: MenuCategory | MenuLink) {
       secoundSubMenu.value = menu;
     }
 

@@ -20,7 +20,7 @@
 import { defineComponent } from '@vue/runtime-core';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import ContentMenu from './menu/ContentMenu.vue';
-import { MenuItem } from './menu/ContentMenuSubList.vue';
+import { MenuCategory } from './menu/ContentMenuSubList.vue';
 import MenuUserSection from '../domain/auth/MenuUserSection.vue';
 
 export default defineComponent({
@@ -28,56 +28,59 @@ export default defineComponent({
   setup() {
     // Static data for testing only.
     // This block of data will be replaces with the generated data from the config
-    const data: Array<MenuItem> = [
-      {
-        label: 'Places',
-        categories: [
-          {
-            label: 'Locations',
-            categories: [
-              {
-                label: 'Regions',
-                url: 'http://example.com',
-              },
-              {
-                label: 'Meta Regions',
-                url: 'http://example.com',
-              },
-            ],
-          },
-          {
-            label: 'POIs',
-            url: '/dataset/odh-activity-poi',
-          },
-        ],
-      },
-      {
-        label: 'Test',
-        categories: [
-          {
-            label: 'Sub Test A',
-            categories: [
-              {
-                label: 'Sub Sub Test A',
-                url: '/',
-              },
-              {
-                label: 'Sub Sub Test B',
-                url: '/',
-              },
-            ],
-          },
-          {
-            label: 'Sub Test B',
-            url: '/',
-          },
-        ],
-      },
-      {
-        label: 'Activities',
-        url: '/',
-      },
-    ];
+    const data: MenuCategory = {
+      label: 'Test',
+      categories: [
+        {
+          label: 'Places',
+          categories: [
+            {
+              label: 'Locations',
+              categories: [
+                {
+                  label: 'Regions',
+                  url: 'http://example.com',
+                },
+                {
+                  label: 'Meta Regions',
+                  url: 'http://example.com',
+                },
+              ],
+            },
+            {
+              label: 'POIs',
+              url: '/dataset/odh-activity-poi',
+            },
+          ],
+        },
+        {
+          label: 'Test',
+          categories: [
+            {
+              label: 'Sub Test A',
+              categories: [
+                {
+                  label: 'Sub Sub Test A',
+                  url: '/',
+                },
+                {
+                  label: 'Sub Sub Test B',
+                  url: '/',
+                },
+              ],
+            },
+            {
+              label: 'Sub Test B',
+              url: '/',
+            },
+          ],
+        },
+        {
+          label: 'Activities',
+          url: '/',
+        },
+      ],
+    };
 
     return {
       data,

@@ -51,17 +51,21 @@ import ArrowRight from '../../components/svg/ArrowRight.vue';
 import { ref } from 'vue';
 import ArrowLeft from '../../components/svg/ArrowLeft.vue';
 
-export type MenuItem = {
+export type MenuLink = {
   label: string;
-  categories?: Array<MenuItem>;
-  url?: string;
+  url: string;
+};
+
+export type MenuCategory = {
+  label: string;
+  categories: Array<MenuCategory | MenuLink>;
 };
 
 export default defineComponent({
   components: { ArrowLeft, ArrowRight },
   props: {
     items: {
-      type: Object as PropType<Array<MenuItem>>,
+      type: Object as PropType<Array<MenuCategory>>,
       required: true,
     },
     title: {
@@ -77,7 +81,7 @@ export default defineComponent({
   setup(props, context) {
     const selected = ref<string>('');
 
-    function setSelected(menu: MenuItem) {
+    function setSelected(menu: MenuCategory) {
       context.emit('selectCategory', menu);
       selected.value = menu.label;
     }
