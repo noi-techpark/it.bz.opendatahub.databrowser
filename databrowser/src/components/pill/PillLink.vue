@@ -26,7 +26,7 @@ import { RouteLocationRaw } from 'vue-router';
 
 const variantStyles: Record<PillVariant, string> = {
   [PillVariant.rounded]: 'rounded-full border border-gray-400',
-  [PillVariant.edged]: 'rounded-lg',
+  [PillVariant.edged]: 'rounded-lg border border-transparent',
 };
 
 export default defineComponent({

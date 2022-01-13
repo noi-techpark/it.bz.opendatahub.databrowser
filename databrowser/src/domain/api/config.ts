@@ -96,7 +96,501 @@ const config: Record<string, ApiConfigEntry> = {
     },
     detailEndpoint: {
       url: `${apiBaseUrl}/v1/ODHActivityPoi/{id}`,
-      detail: {},
+      viewConfig: [
+        {
+          name: 'Main data',
+          slug: 'main-data',
+          subcategories: [
+            {
+              name: 'General data',
+              properties: [
+                {
+                  title: 'Shortname',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Shortname' },
+                },
+              ],
+            },
+            {
+              name: 'IDs',
+              properties: [
+                {
+                  title: 'ID',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Id' },
+                  class: 'break-all',
+                },
+                {
+                  title: 'Custom ID',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'CustomId' },
+                  class: 'break-all',
+                },
+                {
+                  title: 'Outdoor Active ID',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'OutdooractiveID' },
+                },
+              ],
+            },
+            {
+              name: 'Data states',
+              properties: [
+                {
+                  title: 'Last Changes',
+                  component: CellComponent.DateCell,
+                  fields: { date: 'LastChange' },
+                  params: {
+                    format: 'd/M/yyyy HH:mm',
+                  },
+                },
+                {
+                  title: 'Active on Source',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Active' },
+                },
+                {
+                  title: 'Active on ODH',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'OdhActive' },
+                },
+              ],
+            },
+            {
+              name: 'Source',
+              properties: [
+                {
+                  title: 'Source',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Source' },
+                },
+                {
+                  title: 'Interface',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'SyncSourceInterface' },
+                },
+                {
+                  title: 'Update mode',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'SyncUpdateMode' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Text information',
+          slug: 'text-information',
+          subcategories: [
+            {
+              name: 'Text data',
+              properties: [
+                {
+                  title: 'Meta title',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.MetaTitle' },
+                },
+                {
+                  title: 'Meta description',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.MetaDesc' },
+                },
+                {
+                  title: 'Title',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.Title' },
+                },
+                {
+                  title: 'Header',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.Header' },
+                },
+                {
+                  title: 'Subheader',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.SubHeader' },
+                },
+                {
+                  title: 'Introtext',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Detail.{language}.IntroText' },
+                },
+                {
+                  title: 'Base Text',
+                  component: CellComponent.HtmlCell,
+                  fields: { html: 'Detail.{language}.BaseText' },
+                },
+                {
+                  title: 'Additional Text',
+                  component: CellComponent.HtmlCell,
+                  fields: { html: 'Detail.{language}.AdditionalText' },
+                },
+                {
+                  title: 'Get There Text',
+                  component: CellComponent.HtmlCell,
+                  fields: { html: 'Detail.{language}.GetThereText' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Related content',
+          slug: 'related-content',
+          subcategories: [
+            {
+              name: 'Related data',
+              properties: [
+                {
+                  title: 'Activity',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+                {
+                  title: 'Gastronomy',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+                {
+                  title: 'Event',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Contact',
+          slug: 'contact',
+          subcategories: [
+            {
+              name: 'Name and Company Data',
+              properties: [
+                {
+                  title: 'Name',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.CompanyName' },
+                },
+                {
+                  title: 'First Name',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Givenname' },
+                },
+                {
+                  title: 'Surname',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Surname' },
+                },
+                {
+                  title: 'Name prefix',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.NamePrefix' },
+                },
+                {
+                  title: 'Tax Number',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Tax' },
+                },
+                {
+                  title: 'Vat-ID',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Vat' },
+                },
+              ],
+            },
+            {
+              name: 'Address',
+              properties: [
+                {
+                  title: 'Street and House No',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Address' },
+                },
+                {
+                  title: 'Complement',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+                {
+                  title: 'ZIP-Code',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.ZipCode' },
+                },
+                {
+                  title: 'City',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.City' },
+                },
+                {
+                  title: 'Country',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.CountryName' },
+                },
+                {
+                  title: 'Country Abbrevation',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.CountryCode' },
+                },
+              ],
+            },
+            {
+              name: 'Contact Details',
+              properties: [
+                {
+                  title: 'E-Mail',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Email' },
+                },
+                {
+                  title: 'Phone Number',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Phonenumber' },
+                },
+                {
+                  title: 'Mobile Phone',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+                {
+                  title: 'Web-URL',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'ContactInfos.{language}.Url' },
+                },
+                {
+                  title: 'Additional URL (Independent URL)',
+                  component: CellComponent.StringCell,
+                  // TODO
+                  fields: { text: '' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Images',
+          slug: 'images',
+          // TODO: implement array support
+          subcategories: [
+            {
+              name: 'Images',
+              properties: [
+                {
+                  title: '',
+                  component: CellComponent.ImageCell,
+                  fields: {
+                    alt: 'ImageGallery.[0].ImageAltText.{language}',
+                    src: 'ImageGallery.[0].ImageUrl',
+                  },
+                },
+                {
+                  title: 'Image',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].ImageName',
+                  },
+                },
+                {
+                  title: 'Resolution',
+                  component: CellComponent.StringTemplateCell,
+                  fields: {
+                    p1: 'ImageGallery.[0].Width',
+                    p2: 'ImageGallery.[0].Height',
+                  },
+                  params: {
+                    stringTemplate: '{p1}x{p2} px',
+                  },
+                },
+                {
+                  title: 'Title',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].ImageTitle.{language}',
+                  },
+                },
+                {
+                  title: 'Description',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].ImageDesc.{language}',
+                  },
+                },
+                {
+                  title: 'License',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].License',
+                  },
+                },
+                {
+                  title: 'Position',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    text: 'ImageGallery.[0].ListPosition',
+                  },
+                },
+                {
+                  title: 'Active',
+                  component: CellComponent.StringCell,
+                  fields: {
+                    // TODO: which field to use for active?
+                    text: '',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Season / Opening Hours',
+          slug: 'season-opening-hours',
+          // TODO
+          subcategories: [],
+        },
+        {
+          name: 'Location',
+          slug: 'location',
+          // TODO
+          subcategories: [],
+        },
+        {
+          name: 'GPS Data',
+          slug: 'gps-data',
+          // TODO: GPSInfo in ODH is an array: how should that be shown
+          subcategories: [
+            {
+              name: 'GPS Data',
+              properties: [
+                {
+                  title: 'GPS Type',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'GpsInfo.[0].Gpstype' },
+                },
+                {
+                  title: 'Latitude',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'GpsInfo.[0].Latitude' },
+                },
+                {
+                  title: 'Longitude',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'GpsInfo.[0].Longitude' },
+                },
+                {
+                  title: 'Altitude',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'GpsInfo.[0].Altitude' },
+                },
+                {
+                  title: 'Altitude Unit',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'GpsInfo.[0].AltitudeUnitofMeasure' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Files',
+          slug: 'files',
+          // TODO
+          subcategories: [],
+        },
+        {
+          name: 'Tags',
+          slug: 'tags',
+          // TODO
+          subcategories: [],
+        },
+        {
+          name: 'Ratings',
+          slug: 'ratings',
+          subcategories: [
+            {
+              name: 'Rating Data',
+              properties: [
+                {
+                  title: 'Stamina',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Ratings.Stamina' },
+                },
+                {
+                  title: 'Experience',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Ratings.Experience' },
+                },
+                {
+                  title: 'Landscape',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Ratings.Landscape' },
+                },
+                {
+                  title: 'Difficulty',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Ratings.Difficulty' },
+                },
+                {
+                  title: 'Technique',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'Ratings.Technique' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Activity Details',
+          slug: 'activity-details',
+          subcategories: [
+            {
+              name: 'Characteristics',
+              properties: [],
+            },
+            {
+              name: 'Additional Information',
+              properties: [],
+            },
+            {
+              name: 'Target Group',
+              properties: [],
+            },
+          ],
+        },
+        {
+          name: 'POI Details',
+          slug: 'poi-details',
+          // TODO
+          subcategories: [
+            {
+              name: 'General',
+              properties: [],
+            },
+            {
+              name: 'Additional Information',
+              properties: [],
+            },
+            {
+              name: 'Target Group',
+              properties: [],
+            },
+            {
+              name: 'Others',
+              properties: [],
+            },
+          ],
+        },
+        {
+          name: 'Webcam Details',
+          slug: 'webcam-details',
+          // TODO
+          subcategories: [],
+        },
+      ],
     },
   },
   'odh-activity-poi-types': {
@@ -171,7 +665,14 @@ const config: Record<string, ApiConfigEntry> = {
     },
     detailEndpoint: {
       url: `${apiBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
-      detail: {},
+      viewConfig: [
+        { name: 'Main data', slug: 'main-data', subcategories: [] },
+        {
+          name: 'Text information',
+          slug: 'text-information',
+          subcategories: [],
+        },
+      ],
     },
   },
   'odh-accommodation': {
@@ -251,17 +752,35 @@ const config: Record<string, ApiConfigEntry> = {
     },
     detailEndpoint: {
       url: `${apiBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
-      detail: {},
+      viewConfig: [
+        { name: 'Main data', slug: 'main-data', subcategories: [] },
+        {
+          name: 'Text information',
+          slug: 'text-information',
+          subcategories: [],
+        },
+      ],
     },
   },
 };
 
-export interface TableColumnConfig {
+export interface PropertyConfig {
   title: string;
   component: string;
   fields: Record<string, string>;
   params?: Record<string, string>;
   class?: string;
+}
+
+export interface TableColumnConfig extends PropertyConfig {}
+
+export interface DetailViewConfig {
+  name: string;
+  slug: string;
+  subcategories: {
+    name: string;
+    properties: PropertyConfig[];
+  }[];
 }
 
 export interface ApiConfigEntry {
@@ -275,7 +794,7 @@ export interface ApiConfigEntry {
   };
   detailEndpoint?: {
     url: string;
-    detail: {};
+    viewConfig: DetailViewConfig[];
   };
 }
 
