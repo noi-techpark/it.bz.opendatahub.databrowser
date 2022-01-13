@@ -31,7 +31,6 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import { computed } from 'vue';
 
 export default defineComponent({
   props: {
@@ -47,20 +46,11 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    currentItem: {
-      type: String,
-      default: '',
+    isSelected: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['changeSelectedItem'],
-  setup(props) {
-    const isSelected = computed(() => {
-      return props.item == props.currentItem;
-    });
-
-    return {
-      isSelected,
-    };
-  },
 });
 </script>

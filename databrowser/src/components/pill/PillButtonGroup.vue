@@ -2,12 +2,12 @@
   <div>
     <PillButtonGroupItem
       v-for="(item, index) in data"
-      :key="item"
-      :current-item="selected"
+      :key="index"
       :is-first="index == 0"
       :is-last="index == data.length - 1"
+      :is-selected="selected == index"
       :item="item"
-      @change-selected-item="changeSelectedItem(item)"
+      @change-selected-item="changeSelectedItem(item, index)"
     />
   </div>
 </template>
@@ -31,18 +31,18 @@ export default defineComponent({
   },
   emits: ['selectedChange'],
   setup(props, context) {
-    let selected = ref<string>(props.initialSelected);
+    let selected = ref<number>(props.data.indexOf(props.initialSelected));
 
     watch(
       () => props.initialSelected,
       (newValue) => {
-        selected.value = newValue;
+        selected.value = props.data.indexOf(newValue);
       }
     );
 
-    function changeSelectedItem(item: string) {
-      selected.value = item;
-      context.emit('selectedChange', selected.value);
+    function changeSelectedItem(item: string, index: number) {
+      selected.value = index;
+      context.emit('selectedChange', item);
     }
 
     return {
