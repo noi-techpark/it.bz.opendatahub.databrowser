@@ -1,8 +1,18 @@
 <template>
-  <button v-if="dialogOpen" class="md:hidden" @click="closeDialog">
+  <button
+    v-if="dialogOpen"
+    :title="$t('header.menu.closeAction')"
+    class="md:hidden"
+    @click="closeDialog"
+  >
     <IconClose />
   </button>
-  <button v-else class="inline-flex space-x-4" @click="dialogOpen = true">
+  <button
+    v-else
+    :title="$t('header.menu.openAction')"
+    class="inline-flex space-x-4"
+    @click="dialogOpen = true"
+  >
     <IconMenu />
     <span class="hidden md:block">{{ $t('header.menu.title') }}</span>
   </button>

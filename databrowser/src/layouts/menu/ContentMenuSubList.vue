@@ -1,7 +1,11 @@
 <template>
   <div class="flex flex-col w-full">
     <button class="inline-flex items-center" @click="$emit('arrow-back')">
-      <ArrowLeft v-if="showArrow" class="md:hidden" />
+      <ArrowLeft
+        v-if="showArrow"
+        :title="$t('header.menu.goBackAction')"
+        class="md:hidden"
+      />
       <span class="py-2 pl-2 text-xl font-semibold">{{ item.label }}</span>
     </button>
     <ul class="md:max-w-xs min-w-[20rem]">

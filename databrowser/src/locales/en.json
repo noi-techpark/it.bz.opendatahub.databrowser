@@ -8,7 +8,10 @@
     "logo": "Open Data Hub - Logo",
     "menu": {
       "title": "Menu",
-      "allDatasets": "All Datasets"
+      "allDatasets": "All Datasets",
+      "goBackAction": "Go back",
+      "closeAction": "Close menu",
+      "openAction": "Open menu"
     }
   },
   "footer": {
