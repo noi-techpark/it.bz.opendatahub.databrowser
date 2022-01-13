@@ -22,14 +22,17 @@ import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import ContentMenu from './menu/ContentMenu.vue';
 import { MenuCategory } from './menu/ContentMenuSubList.vue';
 import MenuUserSection from '../domain/auth/MenuUserSection.vue';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
   components: { ContentMenu, ContentAlignmentX, MenuUserSection },
   setup() {
+    const { t } = useI18n();
+
     // Static data for testing only.
     // This block of data will be replaces with the generated data from the config
     const data: MenuCategory = {
-      label: 'Test',
+      label: t('header.menu.allDatasets'),
       categories: [
         {
           label: 'Places',
@@ -54,7 +57,7 @@ export default defineComponent({
           ],
         },
         {
-          label: 'Test',
+          label: t('header.menu.allDatasets'),
           categories: [
             {
               label: 'Sub Test A',
