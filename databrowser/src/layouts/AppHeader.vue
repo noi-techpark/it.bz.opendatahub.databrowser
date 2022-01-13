@@ -57,7 +57,7 @@ export default defineComponent({
           ],
         },
         {
-          label: t('header.menu.allDatasets'),
+          label: 'Test',
           categories: [
             {
               label: 'Sub Test A',
