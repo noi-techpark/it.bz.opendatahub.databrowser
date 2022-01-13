@@ -4,7 +4,7 @@
       <ArrowLeft v-if="showArrow" class="md:hidden" />
       <span class="py-2 pl-2 text-xl font-semibold">{{ title }}</span>
     </button>
-    <ul>
+    <ul class="md:max-w-xs min-w-[20rem]">
       <li
         v-for="item in items"
         :key="item.label"
@@ -23,20 +23,20 @@
             justify-between
             items-center
             py-2
-            px-2
+            px-4
             w-full
-            max-w-xs
+            md:max-w-xs
             text-left
           "
           @click="setSelected(item)"
         >
-          <span class="pr-24">{{ item.label }}</span>
+          <span>{{ item.label }}</span>
           <ArrowRight />
         </button>
         <router-link
           v-if="item.url"
           :to="item.url"
-          class="flex-1 py-2 pr-24 pl-2 w-full text-left"
+          class="flex-1 py-2 px-4 w-full text-left"
           @click="$emit('close-dialog')"
           >{{ item.label }}
         </router-link>
