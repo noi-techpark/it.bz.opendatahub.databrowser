@@ -26,7 +26,9 @@
   },
   "datasets": {
     "listView": {
-      "linesPerPage": "lines per page"
+      "linesPerPage": "lines per page",
+      "linkDetails": "Details",
+      "linkRaw": "RAW"
     },
     "download": {
       "info": "Retrieve data based on table settings",

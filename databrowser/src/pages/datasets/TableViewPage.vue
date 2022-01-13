@@ -1,6 +1,6 @@
 <template>
   <AppLayout>
-    <DatasetHero />
+    <DatasetHero :title="title" :subtitle="subtitle" />
     <ContentAlignmentX>
       <ContentAlignmentY>
         <DatasetNavigation :current-view="currentView" />
@@ -23,6 +23,7 @@ import AppLayout from '../../layouts/AppLayout.vue';
 import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../../components/content/ContentDivider.vue';
 import ContentAlignmentY from '../../components/content/ContentAlignmentY.vue';
+import { useDatasetHeroDescription } from '../../domain/datasets/hero/useDatasetHeroDescription';
 
 export default defineComponent({
   components: {
@@ -35,8 +36,12 @@ export default defineComponent({
     TableView,
   },
   setup() {
+    const { title, subtitle } = useDatasetHeroDescription();
+
     return {
       currentView: ViewPill.table,
+      title,
+      subtitle,
     };
   },
 });
