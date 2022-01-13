@@ -77,7 +77,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
 import { computed, ref } from 'vue';
-import OveralyMenuList, { MenuCategory, MenuLink } from './OveralyMenuList.vue';
+import OveralyMenuList, { MenuCategory } from './OveralyMenuList.vue';
 import IconClose from '../../components/svg/IconClose.vue';
 import IconMenu from '../../components/svg/IconMenu.vue';
 import { Dialog, DialogOverlay } from '@headlessui/vue';
@@ -97,10 +97,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const navigation = ref<Array<MenuCategory | MenuLink>>([props.content]);
+    const navigation = ref<Array<MenuCategory>>([props.content]);
     const dialogOpen = ref<boolean>(false);
 
-    function addSubMenu(menu: MenuCategory | MenuLink, index: number) {
+    function addSubMenu(menu: MenuCategory, index: number) {
       navigation.value.splice(index + 1);
       navigation.value.push(menu);
     }

@@ -36,11 +36,12 @@
           <ArrowRight />
         </button>
         <router-link
-          v-if="category.url"
+          v-if="isMenuLink(category)"
           :to="category.url"
           class="flex-1 py-2 px-4 w-full text-left"
           @click="$emit('close-dialog')"
-          >{{ category.label }}
+        >
+          {{ category.label }}
         </router-link>
       </li>
     </ul>
@@ -67,7 +68,7 @@ export default defineComponent({
   components: { ArrowLeft, ArrowRight },
   props: {
     item: {
-      type: Object as PropType<MenuCategory | MenuLink>,
+      type: Object as PropType<MenuCategory>,
       required: true,
     },
     showArrow: {
@@ -92,12 +93,16 @@ export default defineComponent({
       return !!(data as MenuCategory).categories;
     };
 
+    const isMenuLink = (data: MenuCategory | MenuLink): data is MenuLink => {
+      return !!(data as MenuLink).url;
+    };
+
     function setSelected(menu: MenuCategory, index: number) {
       context.emit('selectCategory', menu);
       selected.value = index;
     }
 
-    return { selected, setSelected, isMenuCategory };
+    return { selected, setSelected, isMenuLink, isMenuCategory };
   },
 });
 </script>
