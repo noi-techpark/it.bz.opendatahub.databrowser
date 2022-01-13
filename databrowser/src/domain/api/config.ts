@@ -546,6 +546,7 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Activity Details',
           slug: 'activity-details',
+          // TODO
           subcategories: [
             {
               name: 'Characteristics',
@@ -564,23 +565,31 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'POI Details',
           slug: 'poi-details',
-          // TODO
           subcategories: [
             {
               name: 'General',
-              properties: [],
-            },
-            {
-              name: 'Additional Information',
-              properties: [],
-            },
-            {
-              name: 'Target Group',
-              properties: [],
-            },
-            {
-              name: 'Others',
-              properties: [],
+              properties: [
+                {
+                  title: 'Main type / Type',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'AdditionalPoiInfos.{language}.MainType' },
+                },
+                {
+                  title: 'Sub Type',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'AdditionalPoiInfos.{language}.SubType' },
+                },
+                {
+                  title: 'POI Type',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'AdditionalPoiInfos.{language}.PoiType' },
+                },
+                {
+                  title: 'Novelty',
+                  component: CellComponent.StringCell,
+                  fields: { text: 'AdditionalPoiInfos.{language}.Novelty' },
+                },
+              ],
             },
           ],
         },
