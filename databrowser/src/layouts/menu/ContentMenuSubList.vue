@@ -48,7 +48,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
 import ArrowRight from '../../components/svg/ArrowRight.vue';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import ArrowLeft from '../../components/svg/ArrowLeft.vue';
 
 export type MenuLink = {
@@ -82,11 +82,6 @@ export default defineComponent({
     ): data is MenuCategory => {
       return !!(data as MenuCategory).categories;
     };
-
-    watch(props.item, (d) => {
-      console.log(d);
-      selected.value = '';
-    });
 
     function setSelected(menu: MenuCategory) {
       context.emit('selectCategory', menu);
