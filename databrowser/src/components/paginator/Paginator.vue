@@ -9,7 +9,7 @@
       <ArrowLeft />
     </button>
 
-    <PillGroup
+    <PillButtonGroup
       :data="pageNumbers"
       :initial-selected="currentPageNumber"
       class="inline-flex mx-2.5"
@@ -34,10 +34,10 @@ import ArrowRight from '../svg/ArrowRight.vue';
 import ArrowLeft from '../svg/ArrowLeft.vue';
 import { reactive, watch } from 'vue';
 import { SetupResult } from './types';
-import PillGroup from '../pill/PillGroup.vue';
+import PillButtonGroup from '../pill/PillButtonGroup.vue';
 
 export default defineComponent({
-  components: { ArrowRight, ArrowLeft, PillGroup },
+  components: { ArrowRight, ArrowLeft, PillButtonGroup },
   props: {
     pagination: {
       default: () => null,
@@ -87,6 +87,7 @@ export default defineComponent({
 .next-previous-button {
   @apply flex justify-center items-center rounded-full border border-gray-500 hover:bg-gray-300 hover:text-green-500 h-9 w-9;
 }
+
 .next-previous-button:disabled {
   @apply opacity-50 cursor-not-allowed hover:bg-white;
 }

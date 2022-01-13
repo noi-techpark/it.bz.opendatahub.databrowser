@@ -1,5 +1,6 @@
 <template>
-  <span v-if="text != null">{{ text }}</span>
+  <!-- eslint-disable-next-line vue/no-v-html -->
+  <span v-if="html != null" v-html="html"></span>
 </template>
 
 <script lang="ts">
@@ -7,9 +8,9 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
-    text: {
+    html: {
       default: () => null,
-      type: [Boolean, Number, String],
+      type: String,
     },
   },
 });

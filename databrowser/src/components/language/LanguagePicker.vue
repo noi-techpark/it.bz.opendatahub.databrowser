@@ -3,16 +3,12 @@
     class="inline-flex md:hidden items-center"
     @click="showMobileSelect = true"
   >
-    <span class="pr-2">{{ currentSelected }}</span>
+    <span class="sr-only">Selected language</span>
+    <span class="pr-2 uppercase">{{ languageParameter }}</span>
     <ArrowDown />
   </PillButton>
 
-  <PillGroup
-    :data="supportedLanguages"
-    :initial-selected="currentSelected"
-    class="hidden md:inline-flex uppercase"
-    @selected-change="changeLanguage"
-  />
+  <PillLinkGroup :data="links" class="hidden md:inline-flex uppercase" />
 
   <Dialog
     :open="showMobileSelect"
@@ -26,18 +22,15 @@
           <button class="mx-auto" @click="closeDialog">
             <IconClose />
           </button>
-          <PillButton
-            v-for="language in supportedLanguages"
-            :key="language"
+          <PillLink
+            v-for="link in links"
+            :key="link.label"
+            :active="isSelected(link.url)"
+            :to="link.url"
             class="uppercase"
-            :class="[
-              isSelected(language)
-                ? 'text-green-500 bg-opacity-10 bg-green-500 border-green-500'
-                : 'border-gray-500',
-            ]"
-            @click="changeLanguage(language)"
-            >{{ language }}
-          </PillButton>
+            @click="closeDialog"
+            >{{ link.label }}
+          </PillLink>
         </div>
       </div>
     </div>
@@ -46,62 +39,71 @@
 
 <script lang="ts">
 import { Dialog, DialogOverlay } from '@headlessui/vue';
-import { defineComponent } from '@vue/runtime-core';
+import { defineComponent, PropType } from '@vue/runtime-core';
 import { FilterLanguage } from '../../domain/api/configFilter';
 import IconClose from '../svg/IconClose.vue';
-import PillGroup from '../pill/PillGroup.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
-import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
 import PillButton from '../pill/PillButton.vue';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import PillLinkGroup from '../pill/PillLinkGroup.vue';
+import PillLink from '../pill/PillLink.vue';
+import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
 
 export default defineComponent({
   components: {
+    PillLink,
+    PillLinkGroup,
     PillButton,
     Dialog,
     DialogOverlay,
     IconClose,
-    PillGroup,
     ArrowDown,
   },
-  setup() {
-    const languageParameter = useUrlQueryParameter('language', 'en', {
-      defaultValue: 'en',
+  props: {
+    defaultLanguage: {
+      type: String as PropType<FilterLanguage>,
+      default: FilterLanguage.EN,
+    },
+  },
+  setup(props) {
+    const route = useRoute();
+    const supportedLanguages: Array<string> = Object.values(FilterLanguage);
+    const showMobileSelect = ref<boolean>(false);
+    const languageParameter = useUrlQueryParameter(
+      'language',
+      props.defaultLanguage
+    );
+
+    const currentPath = route.path;
+    const currentQueries = Object.entries(route.query)
+      .filter((obj) => obj[0] != 'language')
+      .map((query) => `${query[0]}=${query[1]}`);
+    const links = supportedLanguages.map((lang) => {
+      const query = [...currentQueries, `language=${lang}`];
+
+      return {
+        label: lang.toUpperCase(),
+        url: `${currentPath}?${query.join('&')}`,
+      };
     });
+
+    function closeDialog() {
+      showMobileSelect.value = false;
+    }
+
+    function isSelected(url: string) {
+      return url == route.fullPath;
+    }
+
     return {
+      supportedLanguages,
+      showMobileSelect,
       languageParameter,
+      links,
+      isSelected,
+      closeDialog,
     };
-  },
-  data() {
-    return {
-      supportedLanguages: Object.values(FilterLanguage),
-      showMobileSelect: false,
-      // TODO: maybe better to provide as prop
-      defaultLanguage: FilterLanguage.EN,
-    };
-  },
-  computed: {
-    currentSelected(): string {
-      if (this.languageParameter == null) {
-        return this.defaultLanguage;
-      }
-      return this.languageParameter in this.supportedLanguages
-        ? this.languageParameter
-        : FilterLanguage.EN;
-    },
-  },
-  methods: {
-    changeLanguage(language: string) {
-      this.languageParameter = language;
-      this.closeDialog();
-    },
-    isSelected(current: string) {
-      return this.currentSelected == current;
-    },
-    closeDialog() {
-      this.showMobileSelect = false;
-    },
   },
 });
 </script>
-
-<style scoped></style>
