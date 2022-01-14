@@ -39,7 +39,7 @@
       <button class="block py-4 px-4" @click="closeDialog">
         <IconClose />
       </button>
-      <div class="inline-flex flex-row h-full divide-x-2">
+      <div class="inline-flex flex-row divide-x-2">
         <OverlayMenuList
           v-for="(item, index) in navigation"
           :key="index"
