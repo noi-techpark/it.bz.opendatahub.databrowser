@@ -12,6 +12,7 @@ import StateCell from '../components/stateCell/StateCell.vue';
 import StringCell from '../components/stringCell/StringCell.vue';
 import StringTemplateCell from '../components/stringTemplateCell/StringTemplateCell.vue';
 import TextHighlightCell from '../components/textHighlightCell/TextHighlightCell.vue';
+import WebcamGalleryCell from '../components/webcamGalleryCell/WebcamGalleryCell.vue';
 import { CellComponent } from '../types';
 
 export default {
@@ -28,5 +29,6 @@ export default {
     app.component(CellComponent.StringCell, StringCell);
     app.component(CellComponent.StringTemplateCell, StringTemplateCell);
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
+    app.component(CellComponent.WebcamGalleryCell, WebcamGalleryCell);
   },
 };
