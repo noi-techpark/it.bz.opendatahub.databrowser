@@ -40,11 +40,12 @@
         <IconClose />
       </button>
       <div class="inline-flex flex-row h-full divide-x-2">
-        <OveralyMenuList
+        <OverlayMenuList
           v-for="(item, index) in navigation"
           :key="index"
           :item="item"
           @select-category="(menu) => addSubMenu(menu, index)"
+          @close-dialog="closeDialog"
         />
       </div>
     </div>
@@ -63,10 +64,10 @@
         border-t
       "
     >
-      <OveralyMenuList
+      <OverlayMenuList
         :item="lastElement"
         :show-arrow="navigation.length !== 1"
-        @select-category="(menu) => navigation.push(menu)"
+        @select-category="(menu) => addSubMenu(menu)"
         @arrow-back="removeLastSubMenu"
         @close-dialog="closeDialog"
       />
@@ -74,58 +75,38 @@
   </Dialog>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
-import { computed, ref } from 'vue';
-import OveralyMenuList, { MenuCategory } from './OveralyMenuList.vue';
+<script lang="ts" setup>
+import { computed, defineProps, ref } from 'vue';
+import OverlayMenuList, { MenuColumn } from './OverlayMenuList.vue';
 import IconClose from '../../components/svg/IconClose.vue';
 import IconMenu from '../../components/svg/IconMenu.vue';
-import { Dialog, DialogOverlay } from '@headlessui/vue';
+import { Dialog } from '@headlessui/vue';
 
-export default defineComponent({
-  components: {
-    IconMenu,
-    IconClose,
-    OveralyMenuList,
-    Dialog,
-    DialogOverlay,
-  },
-  props: {
-    content: {
-      type: Object as PropType<MenuCategory>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const navigation = ref<Array<MenuCategory>>([props.content]);
-    const dialogOpen = ref<boolean>(false);
+const props = defineProps<{
+  items: MenuColumn;
+}>();
 
-    function addSubMenu(menu: MenuCategory, index: number) {
-      navigation.value.splice(index + 1);
-      navigation.value.push(menu);
-    }
+const navigation = ref<Array<MenuColumn>>([props.items]);
+const dialogOpen = ref<boolean>(false);
 
-    function removeLastSubMenu() {
-      navigation.value.pop();
-    }
+function addSubMenu(menu: MenuColumn, index?: number) {
+  if (index != undefined) {
+    navigation.value.splice(index + 1);
+  }
 
-    function closeDialog() {
-      dialogOpen.value = false;
-      navigation.value = [props.content];
-    }
+  navigation.value.push(menu);
+}
 
-    const lastElement = computed(
-      () => navigation.value[navigation.value.length - 1]
-    );
+function removeLastSubMenu() {
+  navigation.value.pop();
+}
 
-    return {
-      lastElement,
-      navigation,
-      dialogOpen,
-      addSubMenu,
-      closeDialog,
-      removeLastSubMenu,
-    };
-  },
-});
+function closeDialog() {
+  dialogOpen.value = false;
+  navigation.value = [props.items];
+}
+
+const lastElement = computed(
+  () => navigation.value[navigation.value.length - 1]
+);
 </script>
