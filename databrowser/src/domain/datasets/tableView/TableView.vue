@@ -19,9 +19,9 @@
     />
 
     <DownloadSection
-      v-if="url && paginatedData"
+      v-if="datasetUrlWithQuery && paginatedData"
       :dataset="paginatedData"
-      :dataset-url="url"
+      :dataset-url="datasetUrlWithQuery"
     />
   </section>
   <section v-if="tableConfig == null">
@@ -43,6 +43,7 @@ import { useListMapper } from '../../api/mapper';
 import TableContent from './TableContent.vue';
 import TableNavigation from './TableNavigation.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
+import { buildUrlWithQuery } from '../../../components/pill/linkUtils';
 
 export default defineComponent({
   components: { DownloadSection, TableContent, TableNavigation },
@@ -54,6 +55,10 @@ export default defineComponent({
     // Get config parameters
     const { url, tableConfig } =
       getApiConfigForDataset(datasetType)?.listEndpoint ?? {};
+
+    const datasetUrlWithQuery = computed(() => {
+      return buildUrlWithQuery(url ?? '', route.query);
+    });
 
     // Use query router for URL query parameter handling
     // TODO: one could use the info from OpenAPI to get the default query parameters
@@ -105,6 +110,7 @@ export default defineComponent({
 
     return {
       url,
+      datasetUrlWithQuery,
       isFetching,
       isSuccess,
       pageSizeOptions,

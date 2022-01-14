@@ -28,7 +28,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const url = `${props.baseUrl}?format=csv`;
+    const searchParams = new URLSearchParams(props.baseUrl);
+    searchParams.set('format', 'csv');
+    const url = decodeURIComponent(searchParams.toString());
 
     return {
       url,
