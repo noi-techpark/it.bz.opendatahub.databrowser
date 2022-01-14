@@ -47,7 +47,9 @@
           </CardContainer>
         </CardGrid>
 
-        <ContentDivider />
+        <ContentAlignmentY>
+          <ContentDivider />
+        </ContentAlignmentY>
 
         <CardGrid tag-name="ul">
           <CardContainer tag-name="li">
@@ -77,8 +79,6 @@
             >
           </CardContainer>
         </CardGrid>
-
-        <ContentDivider />
 
         <CardGrid tag-name="ul">
           <li>
