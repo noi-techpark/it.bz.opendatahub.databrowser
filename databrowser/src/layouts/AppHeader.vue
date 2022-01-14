@@ -9,7 +9,7 @@
         />
       </router-link>
       <div class="inline-flex items-center px-4 md:px-10">
-        <OverlayMenu :content="data" />
+        <OverlayMenu :items="data" />
       </div>
     </div>
     <MenuUserSection />
@@ -20,7 +20,7 @@
 import { defineComponent } from '@vue/runtime-core';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import OverlayMenu from './menu/OverlayMenu.vue';
-import { MenuCategory } from './menu/OveralyMenuList.vue';
+import { MenuColumn } from './menu/OverlayMenuList.vue';
 import MenuUserSection from '../domain/auth/MenuUserSection.vue';
 import { useI18n } from 'vue-i18n';
 
@@ -31,15 +31,15 @@ export default defineComponent({
 
     // Static data for testing only.
     // This block of data will be replaces with the generated data from the config
-    const data: MenuCategory = {
+    const data: MenuColumn = {
       label: t('header.menu.allDatasets'),
-      categories: [
+      items: [
         {
           label: 'Places',
-          categories: [
+          items: [
             {
               label: 'Locations',
-              categories: [
+              items: [
                 {
                   label: 'Regions',
                   url: 'http://example.com',
@@ -58,10 +58,10 @@ export default defineComponent({
         },
         {
           label: 'Test',
-          categories: [
+          items: [
             {
               label: 'Sub Test A',
-              categories: [
+              items: [
                 {
                   label: 'Sub Sub Test A',
                   url: '/',
