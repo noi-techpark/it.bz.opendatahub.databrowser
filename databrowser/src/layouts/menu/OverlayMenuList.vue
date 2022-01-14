@@ -10,7 +10,7 @@
     </button>
     <ul class="md:max-w-xs min-w-[20rem]">
       <li
-        v-for="(category, index) in item.categories"
+        v-for="(category, index) in item.items"
         :key="category.label"
         :class="[
           selected == index ? 'bg-green-500 bg-opacity-10' : 'hover:bg-gray-50',
@@ -18,7 +18,7 @@
         class="flex whitespace-nowrap"
       >
         <button
-          v-if="isMenuCategory(category) && category.categories.length"
+          v-if="isMenuCategory(category) && category.items.length"
           class="
             inline-flex
             flex-1
@@ -48,10 +48,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
+<script lang="ts" setup>
+import { defineEmits, defineProps, ref, watch, withDefaults } from 'vue';
 import ArrowRight from '../../components/svg/ArrowRight.vue';
-import { ref, watch } from 'vue';
 import ArrowLeft from '../../components/svg/ArrowLeft.vue';
 
 export type MenuLink = {
@@ -59,50 +58,46 @@ export type MenuLink = {
   url: string;
 };
 
-export type MenuCategory = {
+export type MenuColumn = {
   label: string;
-  categories: Array<MenuCategory | MenuLink>;
+  items: Array<MenuColumn | MenuLink>;
 };
 
-export default defineComponent({
-  components: { ArrowLeft, ArrowRight },
-  props: {
-    item: {
-      type: Object as PropType<MenuCategory>,
-      required: true,
-    },
-    showArrow: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['selectCategory', 'arrow-back', 'close-dialog'],
-  setup(props, context) {
-    const selected = ref<number>(-1);
+const props = withDefaults(
+  defineProps<{ item: MenuColumn; showArrow?: boolean }>(),
+  {
+    showArrow: false,
+  }
+);
 
-    // This clears the selected entity when the item changes.
-    // This is necessary since we do not always unmount the components so ghosting can occur.
-    watch(
-      () => props.item,
-      () => (selected.value = -1)
-    );
+const emit = defineEmits<{
+  // eslint-disable-next-line no-unused-vars
+  (event: 'selectCategory', menu: MenuColumn): void;
+  // eslint-disable-next-line no-unused-vars
+  (event: 'arrow-back'): void;
+  // eslint-disable-next-line no-unused-vars
+  (event: 'close-dialog'): void;
+}>();
 
-    const isMenuCategory = (
-      data: MenuCategory | MenuLink
-    ): data is MenuCategory => {
-      return !!(data as MenuCategory).categories;
-    };
+const selected = ref<number>(-1);
 
-    const isMenuLink = (data: MenuCategory | MenuLink): data is MenuLink => {
-      return !!(data as MenuLink).url;
-    };
+// This clears the selected entity when the item changes.
+// This is necessary since we do not always unmount the components so ghosting can occur.
+watch(
+  () => props.item,
+  () => (selected.value = -1)
+);
 
-    function setSelected(menu: MenuCategory, index: number) {
-      context.emit('selectCategory', menu);
-      selected.value = index;
-    }
+const isMenuCategory = (data: MenuColumn | MenuLink): data is MenuColumn => {
+  return !!(data as MenuColumn).items;
+};
 
-    return { selected, setSelected, isMenuLink, isMenuCategory };
-  },
-});
+const isMenuLink = (data: MenuColumn | MenuLink): data is MenuLink => {
+  return !!(data as MenuLink).url;
+};
+
+function setSelected(menu: MenuColumn, index: number) {
+  emit('selectCategory', menu);
+  selected.value = index;
+}
 </script>
