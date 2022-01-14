@@ -375,71 +375,28 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Images',
           slug: 'images',
-          // TODO: implement array support
           subcategories: [
             {
               name: 'Images',
               properties: [
                 {
                   title: '',
-                  component: CellComponent.ImageCell,
+                  component: CellComponent.ImageGalleryCell,
                   fields: {
-                    alt: 'ImageGallery.[0].ImageAltText.{language}',
-                    src: 'ImageGallery.[0].ImageUrl',
-                  },
-                },
-                {
-                  title: 'Image',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    text: 'ImageGallery.[0].ImageName',
-                  },
-                },
-                {
-                  title: 'Resolution',
-                  component: CellComponent.StringTemplateCell,
-                  fields: {
-                    p1: 'ImageGallery.[0].Width',
-                    p2: 'ImageGallery.[0].Height',
+                    images: 'ImageGallery',
                   },
                   params: {
-                    stringTemplate: '{p1}x{p2} px',
-                  },
-                },
-                {
-                  title: 'Title',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    text: 'ImageGallery.[0].ImageTitle.{language}',
-                  },
-                },
-                {
-                  title: 'Description',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    text: 'ImageGallery.[0].ImageDesc.{language}',
-                  },
-                },
-                {
-                  title: 'License',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    text: 'ImageGallery.[0].License',
-                  },
-                },
-                {
-                  title: 'Position',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    text: 'ImageGallery.[0].ListPosition',
-                  },
-                },
-                {
-                  title: 'Active',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    // TODO: which field to use for active?
-                    text: '',
+                    alt: 'ImageAltText.{language}',
+                    src: 'ImageUrl',
+                    name: 'ImageName',
+                    width: 'Width',
+                    height: 'Height',
+                    title: 'ImageTitle.{language}',
+                    description: 'ImageDesc.{language}',
+                    license: 'License',
+                    listPosition: 'ListPosition',
+                    // TODO: which field to use?
+                    active: '',
                   },
                 },
               ],

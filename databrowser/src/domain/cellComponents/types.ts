@@ -4,6 +4,7 @@ export enum CellComponent {
   EditedDateCell = 'EditedDateCell',
   HtmlCell = 'HtmlCell',
   ImageCell = 'ImageCell',
+  ImageGalleryCell = 'ImageGalleryCell',
   JsonCell = 'JsonCell',
   StateCell = 'StateCell',
   StringCell = 'StringCell',
