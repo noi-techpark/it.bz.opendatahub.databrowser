@@ -446,35 +446,21 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'GPS Data',
           slug: 'gps-data',
-          // TODO: GPSInfo in ODH is an array: how should that be shown
           subcategories: [
             {
               name: 'GPS Data',
               properties: [
                 {
-                  title: 'GPS Type',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'GpsInfo.[0].Gpstype' },
-                },
-                {
-                  title: 'Latitude',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'GpsInfo.[0].Latitude' },
-                },
-                {
-                  title: 'Longitude',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'GpsInfo.[0].Longitude' },
-                },
-                {
-                  title: 'Altitude',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'GpsInfo.[0].Altitude' },
-                },
-                {
-                  title: 'Altitude Unit',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'GpsInfo.[0].AltitudeUnitofMeasure' },
+                  title: '',
+                  component: CellComponent.GpsGalleryCell,
+                  fields: { gpsEntries: 'GpsInfo' },
+                  params: {
+                    type: 'Gpstype',
+                    latitude: 'Latitude',
+                    longitude: 'Longitude',
+                    altitude: 'Altitude',
+                    altitudeUnit: 'AltitudeUnitofMeasure',
+                  },
                 },
               ],
             },
