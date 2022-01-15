@@ -1,4 +1,4 @@
-import { ref, Ref, toRaw, watch } from 'vue';
+import { toRaw } from 'vue';
 import {
   isWithArrayPagination,
   isWithTourismPagination,
@@ -59,33 +59,32 @@ export const arrayPaginatedMapper = (
   };
 };
 
-export const useListMapper = (
-  data: Ref<unknown>,
+export const unifyPagination = (
+  data: unknown,
   context: {
     defaultQueryParameters: any;
     queryParameters: any;
   }
-) => {
-  const mappedData = ref<PaginationData>();
+): PaginationData => {
+  if (isWithTourismPagination(data)) {
+    return tourismPaginatedMapper(data);
+  }
 
-  watch(
-    () => data.value,
-    (data) => {
-      if (isWithTourismPagination(data)) {
-        mappedData.value = tourismPaginatedMapper(data);
-      }
+  if (isWithArrayPagination(data)) {
+    const { queryParameters, defaultQueryParameters } = context;
 
-      if (isWithArrayPagination(data)) {
-        const { queryParameters, defaultQueryParameters } = context;
+    return arrayPaginatedMapper(data, {
+      defaultQueryParameters,
+      queryParameters,
+    });
+  }
 
-        mappedData.value = arrayPaginatedMapper(data, {
-          defaultQueryParameters,
-          queryParameters,
-        });
-      }
+  return {
+    items: [],
+    pagination: {
+      page: 1,
+      size: 0,
+      total: 0,
     },
-    { immediate: true }
-  );
-
-  return mappedData;
+  };
 };

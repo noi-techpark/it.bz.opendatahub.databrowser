@@ -18,11 +18,7 @@
       @page-size-changes="pageSizeChanges"
     />
 
-    <DownloadSection
-      v-if="url && paginatedData"
-      :dataset="paginatedData"
-      :dataset-url="url"
-    />
+    <DownloadSection v-if="url && data" :dataset="data" :dataset-url="url" />
   </section>
   <section v-if="tableConfig == null">
     Config was not found, ID = {{ $route.params.datasetType }}
@@ -34,15 +30,18 @@ import { defineComponent } from '@vue/runtime-core';
 import { computed, reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 import { getApiConfigForDataset } from '../../api/configUtils';
-import { useApi } from '../../api/client';
 import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
 import { useUrlQueryParameter } from '../../../lib/urlQuery/urlQueryParameter';
 import { defaultQueryParameters, pageSizeOptions } from './defaultValues';
-import { buildListApiFetcher } from '../../api/fetcher/list';
-import { useListMapper } from '../../api/mapper';
+import { buildQueryFilter } from '../../api/fetcher/list';
+import { unifyPagination } from '../../api/mapper';
 import TableContent from './TableContent.vue';
 import TableNavigation from './TableNavigation.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
+import { PaginationData } from '../../api/types';
+import { AxiosResponse } from 'axios';
+import { useAxiosFetcher } from '../../api/fetcher/axios';
+import { useApi } from '../../api/client';
 
 export default defineComponent({
   components: { DownloadSection, TableContent, TableNavigation },
@@ -61,31 +60,35 @@ export default defineComponent({
     const routerQuery = useUrlQueryRouter({ defaultQueryParameters });
     const { queryParameters } = toRefs(routerQuery);
 
-    // Define reactive queryKey for useApi. If any parts of the queryKey
-    // changes, data will be fetched with the now current parameters.
-    const queryKey = reactive([
-      `list: ${datasetType}`,
-      {
-        url,
-        queryParameters,
-      },
-    ]);
+    const queryParametersWithDefaults = reactive({
+      ...defaultQueryParameters,
+      ...queryParameters,
+    });
 
-    // Define fetch strategy
-    const fetcher = buildListApiFetcher({ defaultQueryParameters });
+    // Build query filters (may be the empty string if no queryParams are given)
+    const queryFilters = buildQueryFilter(
+      queryParametersWithDefaults.value,
+      '?'
+    );
+
+    const fetchUrl = `${url}${queryFilters}`;
+
+    const fetcher = useAxiosFetcher();
 
     // Fetch API
-    const result = useApi(queryKey, fetcher);
-    const { isFetching, isSuccess } = toRefs(reactive(result));
-
-    // Map API result
-    const paginatedData = useListMapper(
-      result.data,
-      reactive({
-        defaultQueryParameters,
-        queryParameters,
-      })
+    const result = useApi<AxiosResponse, Error, PaginationData>(
+      fetchUrl,
+      fetcher,
+      {
+        select: (data): PaginationData =>
+          unifyPagination(data.data, {
+            defaultQueryParameters,
+            queryParameters,
+          }),
+      }
     );
+
+    const { data, isSuccess } = result;
 
     // Define method to change page
     const paginateTo = (page: number) =>
@@ -99,16 +102,15 @@ export default defineComponent({
     const pageSizeChanges = (value: string | undefined) =>
       (pageSize.value = value);
 
-    const rows = computed(() => paginatedData.value?.items ?? []);
+    const rows = computed(() => data.value?.items ?? []);
 
-    const pagination = computed(() => paginatedData.value?.pagination);
+    const pagination = computed(() => data.value?.pagination);
 
     return {
       url,
-      isFetching,
       isSuccess,
       pageSizeOptions,
-      paginatedData,
+      data,
       tableConfig,
       rows,
       pagination,
