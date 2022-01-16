@@ -7,11 +7,14 @@ import './index.css';
 import { router } from './routes';
 import store from './store';
 import registerCellComponents from './domain/cellComponents/plugins/registerCellComponents';
+import { createApiQueryHandler } from './lib/apiQuery/apiQueryHandler';
 
 const app = createApp(App);
 
 // Add Vue router
 app.use(router);
+
+app.use(createApiQueryHandler());
 
 // Add axios and provide it as injectable property (see https://www.npmjs.com/package/vue-axios)
 app.use(VueAxios, axios);
