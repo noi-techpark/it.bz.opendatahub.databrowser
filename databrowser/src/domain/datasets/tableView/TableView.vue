@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <section v-if="isSuccess" class="flex flex-col">
     <TableNavigation
@@ -27,13 +26,10 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import { computed, reactive, toRefs } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { getApiConfigForDataset } from '../../api/configUtils';
-import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
-import { useUrlQueryParameter } from '../../../lib/urlQuery/urlQueryParameter';
 import { defaultQueryParameters, pageSizeOptions } from './defaultValues';
-import { buildQueryFilter } from '../../api/fetcher/list';
 import { unifyPagination } from '../../api/mapper';
 import TableContent from './TableContent.vue';
 import TableNavigation from './TableNavigation.vue';
@@ -41,7 +37,10 @@ import DownloadSection from '../../../components/download/DownloadSection.vue';
 import { PaginationData } from '../../api/types';
 import { AxiosResponse } from 'axios';
 import { useAxiosFetcher } from '../../api/fetcher/axios';
+import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
 import { useApi } from '../../api/client';
+import { useUrl } from '../../api/query/url';
+import { useApiParameter } from '../../../lib/apiQuery/apiParameter';
 
 export default defineComponent({
   components: { DownloadSection, TableContent, TableNavigation },
@@ -54,48 +53,35 @@ export default defineComponent({
     const { url, tableConfig } =
       getApiConfigForDataset(datasetType)?.listEndpoint ?? {};
 
-    // Use query router for URL query parameter handling
-    // TODO: one could use the info from OpenAPI to get the default query parameters
-    // of the current endpoint
-    const routerQuery = useUrlQueryRouter({ defaultQueryParameters });
-    const { queryParameters } = toRefs(routerQuery);
+    // API query is used in several places
+    const apiQuery = useApiQuery();
 
-    const queryParametersWithDefaults = reactive({
-      ...defaultQueryParameters,
-      ...queryParameters,
-    });
+    // Get reactive fetch url
+    const fetchUrl = useUrl(url);
 
-    // Build query filters (may be the empty string if no queryParams are given)
-    const queryFilters = buildQueryFilter(
-      queryParametersWithDefaults.value,
-      '?'
-    );
-
-    const fetchUrl = `${url}${queryFilters}`;
-
+    // Get fetcher function
     const fetcher = useAxiosFetcher();
 
-    // Fetch API
-    const result = useApi<AxiosResponse, Error, PaginationData>(
-      fetchUrl,
-      fetcher,
-      {
-        select: (data): PaginationData =>
-          unifyPagination(data.data, {
-            defaultQueryParameters,
-            queryParameters,
-          }),
-      }
-    );
+    // Define result mapping function
+    const resultMapper = (data: AxiosResponse): PaginationData => {
+      const queryParameters = apiQuery.currentQueryParameters.value;
+      return unifyPagination(data.data, {
+        defaultQueryParameters,
+        queryParameters,
+      });
+    };
 
-    const { data, isSuccess } = result;
+    // Fetch data
+    const { data, isSuccess } = useApi(fetchUrl, fetcher, {
+      select: resultMapper,
+    });
 
     // Define method to change page
     const paginateTo = (page: number) =>
-      routerQuery.actions.updateQuery({ pagenumber: page.toString() });
+      apiQuery.updateQueryParameterValue('pagenumber', page.toString());
 
     // Handle page size
-    const pageSize = useUrlQueryParameter('pagesize', '25', {
+    const pageSize = useApiParameter('pagesize', {
       defaultValue: '25',
     });
 

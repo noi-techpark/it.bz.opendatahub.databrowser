@@ -1,4 +1,4 @@
-type QueryParamType = string | string[] | number | number[];
+type QueryParamType = string | null | (string | null)[];
 
 const concatFilters = (queryParam?: QueryParamType): string => {
   if (queryParam == null) {

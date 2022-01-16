@@ -9,9 +9,9 @@ import { inject } from 'vue';
  *
  * @returns A function that, when invoked, fetches data from the given URL.
  */
-export const useAxiosFetcher =
-  () =>
-  async ({ queryKey: [url] }: any): Promise<AxiosResponse> => {
-    const axios = inject<AxiosInstance>('axios')!;
-    return await axios.get(url);
-  };
+export const useAxiosFetcher = () => {
+  const axios = inject<AxiosInstance>('axios')!;
+
+  return async ({ queryKey: [url] }: any): Promise<AxiosResponse> =>
+    await axios.get(url);
+};
