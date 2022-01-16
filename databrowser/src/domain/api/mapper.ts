@@ -28,16 +28,16 @@ export const tourismPaginatedMapper = (
 export const arrayPaginatedMapper = (
   data: unknown[],
   context: {
-    defaultQueryParameters: Record<string, string>;
-    queryParameters: Record<string, string>;
+    defaultParameters: Record<string, string>;
+    parameters: Record<string, string>;
   }
 ): PaginationData => {
   const total = data.length;
 
   // Set default page size if not defined
   const queryParametersWithPageSize = {
-    ...toRaw(context.defaultQueryParameters),
-    ...toRaw(context.queryParameters),
+    ...toRaw(context.defaultParameters),
+    ...toRaw(context.parameters),
   };
 
   const size = parseInt(queryParametersWithPageSize.pagesize, 10);
@@ -62,8 +62,8 @@ export const arrayPaginatedMapper = (
 export const unifyPagination = (
   data: unknown,
   context: {
-    defaultQueryParameters: any;
-    queryParameters: any;
+    defaultParameters: any;
+    parameters: any;
   }
 ): PaginationData => {
   if (isWithTourismPagination(data)) {
@@ -71,11 +71,11 @@ export const unifyPagination = (
   }
 
   if (isWithArrayPagination(data)) {
-    const { queryParameters, defaultQueryParameters } = context;
+    const { parameters, defaultParameters } = context;
 
     return arrayPaginatedMapper(data, {
-      defaultQueryParameters,
-      queryParameters,
+      defaultParameters,
+      parameters,
     });
   }
 

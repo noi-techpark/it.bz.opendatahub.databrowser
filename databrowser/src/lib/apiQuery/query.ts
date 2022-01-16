@@ -1,6 +1,6 @@
-import { QueryParameterValue } from './types';
+import { ParameterValue } from './types';
 
-export const stringifyParameter = (value: QueryParameterValue): string => {
+export const stringifyParameter = (value: ParameterValue): string => {
   if (value === undefined) {
     return '';
   }

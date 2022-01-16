@@ -4,6 +4,7 @@
       :to="{
         name: 'DatasetsTableViewPage',
         params: { datasetType },
+        query: { language },
       }"
       :active="isTableActive"
       >Table view</PillLink
@@ -13,6 +14,7 @@
       :to="{
         name: 'DatasetsDetailViewPage',
         params: { datasetType, datasetId },
+        query: { language },
       }"
       :active="isDetailActive"
       >Detail view</PillLink
@@ -23,6 +25,7 @@
       :to="{
         name: 'DatasetsRawViewPage',
         params: { datasetType, datasetId },
+        query: { language },
       }"
       :active="isRawActive"
       >Raw Data</PillLink
@@ -38,6 +41,7 @@ import PillButton from '../../../components/pill/PillButton.vue';
 import { ViewPill } from './types';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
 
 export default defineComponent({
   components: {
@@ -61,12 +65,15 @@ export default defineComponent({
     );
     const isRawActive = computed(() => props.currentView === ViewPill.raw);
 
+    const language = useApiQuery().useApiParameter('language');
+
     return {
       datasetType,
       datasetId,
       isTableActive,
       isDetailActive,
       isRawActive,
+      language,
     };
   },
 });

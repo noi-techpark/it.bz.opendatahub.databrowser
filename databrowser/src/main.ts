@@ -8,13 +8,18 @@ import { router } from './routes';
 import store from './store';
 import registerCellComponents from './domain/cellComponents/plugins/registerCellComponents';
 import { createApiQueryHandler } from './lib/apiQuery/apiQueryHandler';
+import { createUrlQueryHandler } from './lib/apiQuery/urlQueryHandler';
 
 const app = createApp(App);
 
 // Add Vue router
 app.use(router);
 
-app.use(createApiQueryHandler());
+// Register API and URL query handler for API parameter handling in combination with URL
+const apiQuery = createApiQueryHandler();
+app.use(apiQuery);
+const urlQuery = createUrlQueryHandler(router, apiQuery);
+app.use(urlQuery);
 
 // Add axios and provide it as injectable property (see https://www.npmjs.com/package/vue-axios)
 app.use(VueAxios, axios);

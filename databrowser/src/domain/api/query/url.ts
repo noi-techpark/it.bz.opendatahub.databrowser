@@ -1,19 +1,13 @@
-import { reactive, watch } from 'vue';
-import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
-import { buildQueryFilter } from '../fetcher/list';
+import { reactive, Ref, watch } from 'vue';
 
-export const useUrl = (baseUrl?: string) => {
-  const apiQuery = useApiQuery();
-  const fetchUrl = reactive(['']);
+export const useAsQueryKey = (queryKey: Ref<string>) => {
+  const result = reactive(['']);
 
   watch(
-    () => apiQuery.currentQueryParameters.value,
-    (queryParameters) => {
-      const queryFilters = buildQueryFilter(queryParameters, '?');
-      fetchUrl[0] = `${baseUrl}${queryFilters}`;
-    },
+    () => queryKey.value,
+    (key) => (result[0] = key),
     { immediate: true }
   );
 
-  return fetchUrl;
+  return result;
 };

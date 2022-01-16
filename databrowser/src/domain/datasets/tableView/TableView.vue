@@ -29,7 +29,11 @@ import { defineComponent } from '@vue/runtime-core';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { getApiConfigForDataset } from '../../api/configUtils';
-import { defaultQueryParameters, pageSizeOptions } from './defaultValues';
+import {
+  defaultQueryParameters,
+  pageSizeOptions,
+  validPageSizes,
+} from './defaultValues';
 import { unifyPagination } from '../../api/mapper';
 import TableContent from './TableContent.vue';
 import TableNavigation from './TableNavigation.vue';
@@ -39,8 +43,9 @@ import { AxiosResponse } from 'axios';
 import { useAxiosFetcher } from '../../api/fetcher/axios';
 import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
 import { useApi } from '../../api/client';
-import { useUrl } from '../../api/query/url';
-import { useApiParameter } from '../../../lib/apiQuery/apiParameter';
+import { useAsQueryKey } from '../../api/query/url';
+import { useUrlQuery } from '../../../lib/apiQuery/urlQueryHandler';
+import { stringifyParameter } from '../../../lib/apiQuery/query';
 
 export default defineComponent({
   components: { DownloadSection, TableContent, TableNavigation },
@@ -55,19 +60,28 @@ export default defineComponent({
 
     // API query is used in several places
     const apiQuery = useApiQuery();
+    apiQuery.setDefaultApiParameters(defaultQueryParameters);
+    apiQuery.updateApiParameterValidator('pagesize', (value) =>
+      validPageSizes.includes(stringifyParameter(value))
+    );
+    apiQuery.updateApiParameterValidator(
+      'pagenumber',
+      (value) => parseInt(stringifyParameter(value), 10) > 0
+    );
 
-    // Get reactive fetch url
-    const fetchUrl = useUrl(url);
+    const fullUrl = useUrlQuery().useUrlWithQueryParameters(url);
+    const fetchUrl = useAsQueryKey(fullUrl);
 
     // Get fetcher function
     const fetcher = useAxiosFetcher();
 
     // Define result mapping function
     const resultMapper = (data: AxiosResponse): PaginationData => {
-      const queryParameters = apiQuery.currentQueryParameters.value;
+      const defaultApiParameters = apiQuery.defaultApiParameters.value;
+      const currentApiParameters = apiQuery.currentApiParameters.value;
       return unifyPagination(data.data, {
-        defaultQueryParameters,
-        queryParameters,
+        defaultParameters: defaultApiParameters,
+        parameters: currentApiParameters,
       });
     };
 
@@ -78,12 +92,10 @@ export default defineComponent({
 
     // Define method to change page
     const paginateTo = (page: number) =>
-      apiQuery.updateQueryParameterValue('pagenumber', page.toString());
+      apiQuery.updateApiParameterValue('pagenumber', page.toString());
 
     // Handle page size
-    const pageSize = useApiParameter('pagesize', {
-      defaultValue: '25',
-    });
+    const pageSize = apiQuery.useApiParameter('pagesize');
 
     const pageSizeChanges = (value: string | undefined) =>
       (pageSize.value = value);
