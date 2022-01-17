@@ -452,7 +452,7 @@ const config: Record<string, ApiConfigEntry> = {
               properties: [
                 {
                   title: '',
-                  component: CellComponent.GpsGalleryCell,
+                  component: CellComponent.GpsListCell,
                   fields: { gpsEntries: 'GpsInfo' },
                   params: {
                     type: 'Gpstype',

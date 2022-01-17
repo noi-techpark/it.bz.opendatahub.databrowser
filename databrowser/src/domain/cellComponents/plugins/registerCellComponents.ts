@@ -3,7 +3,7 @@ import { App } from 'vue';
 import ArrayCell from '../components/arrayCell/ArrayCell.vue';
 import DateCell from '../components/dateCell/DateCell.vue';
 import EditedDateCell from '../components/editedDateCell/EditedDateCell.vue';
-import GpsGalleryCell from '../components/gpsGalleryCell/GpsGalleryCell.vue';
+import GpsListCell from '../components/gpsListCell/GpsListCell.vue';
 import HtmlCell from '../components/htmlCell/HtmlCell.vue';
 import ImageCell from '../components/imageCell/ImageCell.vue';
 import ImageGalleryCell from '../components/imageGalleryCell/ImageGalleryCell.vue';
@@ -20,7 +20,7 @@ export default {
     app.component(CellComponent.ArrayCell, ArrayCell);
     app.component(CellComponent.DateCell, DateCell);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
-    app.component(CellComponent.GpsGalleryCell, GpsGalleryCell);
+    app.component(CellComponent.GpsListCell, GpsListCell);
     app.component(CellComponent.HtmlCell, HtmlCell);
     app.component(CellComponent.ImageCell, ImageCell);
     app.component(CellComponent.ImageGalleryCell, ImageGalleryCell);

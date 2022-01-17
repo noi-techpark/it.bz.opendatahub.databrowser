@@ -33,7 +33,7 @@ import StringCell from '../stringCell/StringCell.vue';
  * lodash "get" function (see https://docs-lodash.com/v4/get/) using the "gpsEntries"
  * as base object.
  */
-export interface GpsGalleryCellProps {
+export interface GpsListCellProps {
   gpsEntries?: [];
   type?: string;
   latitude?: string;
@@ -42,14 +42,14 @@ export interface GpsGalleryCellProps {
   altitudeUnit?: string;
 }
 
-export type GpsGalleryEntry = Omit<GpsGalleryCellProps, 'gpsEntries'>;
+export type GpsListEntry = Omit<GpsListCellProps, 'gpsEntries'>;
 
-const props = defineProps<GpsGalleryCellProps>();
+const props = defineProps<GpsListCellProps>();
 
 const { gpsEntries, ...fieldsAsRef } = toRefs(props);
 
 const fields = Object.entries(fieldsAsRef).reduce(
-  (previous: GpsGalleryEntry, [key, value]: [string, Ref<string>]) =>
+  (previous: GpsListEntry, [key, value]: [string, Ref<string>]) =>
     value?.value == null ? previous : { ...previous, [key]: value.value },
   {}
 );
@@ -57,7 +57,7 @@ const fields = Object.entries(fieldsAsRef).reduce(
 const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
 const { queryParametersWithDefaults } = toRefs(queryRouter);
 
-const resolvedGpsEntries: ComputedRef<GpsGalleryCellProps[]> = computed(() => {
+const resolvedGpsEntries: ComputedRef<GpsListCellProps[]> = computed(() => {
   return (
     gpsEntries?.value?.map(
       (gpsEntry) =>
@@ -65,7 +65,7 @@ const resolvedGpsEntries: ComputedRef<GpsGalleryCellProps[]> = computed(() => {
           gpsEntry,
           fields,
           queryParametersWithDefaults.value
-        ) as GpsGalleryCellProps
+        ) as GpsListCellProps
     ) ?? []
   );
 });
