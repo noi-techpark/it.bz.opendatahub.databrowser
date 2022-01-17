@@ -28,8 +28,8 @@
             :key="dataset.type"
             tag-name="li"
           >
-            <CardTitle>{{ dataset.config.description.title }}</CardTitle>
-            <CardText>{{ dataset.config.description.subtitle }} </CardText>
+            <CardTitle>{{ dataset.config?.description.title }}</CardTitle>
+            <CardText>{{ dataset.config?.description.subtitle }} </CardText>
             <CardActions>
               <ButtonLink
                 :to="{
