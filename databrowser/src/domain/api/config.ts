@@ -244,19 +244,16 @@ const config: Record<string, ApiConfigEntry> = {
                 {
                   title: 'Activity',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
                 {
                   title: 'Gastronomy',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
                 {
                   title: 'Event',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
               ],
@@ -313,7 +310,6 @@ const config: Record<string, ApiConfigEntry> = {
                 {
                   title: 'Complement',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
                 {
@@ -354,7 +350,6 @@ const config: Record<string, ApiConfigEntry> = {
                 {
                   title: 'Mobile Phone',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
                 {
@@ -365,7 +360,6 @@ const config: Record<string, ApiConfigEntry> = {
                 {
                   title: 'Additional URL (Independent URL)',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
               ],
@@ -375,71 +369,27 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Images',
           slug: 'images',
-          // TODO: implement array support
           subcategories: [
             {
               name: 'Images',
               properties: [
                 {
                   title: '',
-                  component: CellComponent.ImageCell,
+                  component: CellComponent.ImageGalleryCell,
                   fields: {
-                    alt: 'ImageGallery.[0].ImageAltText.{language}',
-                    src: 'ImageGallery.[0].ImageUrl',
-                  },
-                },
-                {
-                  title: 'Image',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    text: 'ImageGallery.[0].ImageName',
-                  },
-                },
-                {
-                  title: 'Resolution',
-                  component: CellComponent.StringTemplateCell,
-                  fields: {
-                    p1: 'ImageGallery.[0].Width',
-                    p2: 'ImageGallery.[0].Height',
+                    images: 'ImageGallery',
                   },
                   params: {
-                    stringTemplate: '{p1}x{p2} px',
-                  },
-                },
-                {
-                  title: 'Title',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    text: 'ImageGallery.[0].ImageTitle.{language}',
-                  },
-                },
-                {
-                  title: 'Description',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    text: 'ImageGallery.[0].ImageDesc.{language}',
-                  },
-                },
-                {
-                  title: 'License',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    text: 'ImageGallery.[0].License',
-                  },
-                },
-                {
-                  title: 'Position',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    text: 'ImageGallery.[0].ListPosition',
-                  },
-                },
-                {
-                  title: 'Active',
-                  component: CellComponent.StringCell,
-                  fields: {
-                    // TODO: which field to use for active?
-                    text: '',
+                    alt: 'ImageAltText.{language}',
+                    src: 'ImageUrl',
+                    name: 'ImageName',
+                    width: 'Width',
+                    height: 'Height',
+                    title: 'ImageTitle.{language}',
+                    description: 'ImageDesc.{language}',
+                    license: 'License',
+                    listPosition: 'ListPosition',
+                    active: '',
                   },
                 },
               ],
@@ -449,13 +399,11 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Season / Opening Hours',
           slug: 'season-opening-hours',
-          // TODO
           subcategories: [],
         },
         {
           name: 'Location',
           slug: 'location',
-          // TODO
           subcategories: [
             {
               name: 'Location',
@@ -489,35 +437,21 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'GPS Data',
           slug: 'gps-data',
-          // TODO: GPSInfo in ODH is an array: how should that be shown
           subcategories: [
             {
               name: 'GPS Data',
               properties: [
                 {
-                  title: 'GPS Type',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'GpsInfo.[0].Gpstype' },
-                },
-                {
-                  title: 'Latitude',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'GpsInfo.[0].Latitude' },
-                },
-                {
-                  title: 'Longitude',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'GpsInfo.[0].Longitude' },
-                },
-                {
-                  title: 'Altitude',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'GpsInfo.[0].Altitude' },
-                },
-                {
-                  title: 'Altitude Unit',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'GpsInfo.[0].AltitudeUnitofMeasure' },
+                  title: '',
+                  component: CellComponent.GpsListCell,
+                  fields: { gpsEntries: 'GpsInfo' },
+                  params: {
+                    type: 'Gpstype',
+                    latitude: 'Latitude',
+                    longitude: 'Longitude',
+                    altitude: 'Altitude',
+                    altitudeUnit: 'AltitudeUnitofMeasure',
+                  },
                 },
               ],
             },
@@ -526,13 +460,11 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Files',
           slug: 'files',
-          // TODO
           subcategories: [],
         },
         {
           name: 'Tags',
           slug: 'tags',
-          // TODO
           subcategories: [],
         },
         {
@@ -574,7 +506,6 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Activity Details',
           slug: 'activity-details',
-          // TODO
           subcategories: [
             {
               name: 'Characteristics',
@@ -624,45 +555,23 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Webcam Details',
           slug: 'webcam-details',
-          // TODO: array
           subcategories: [
             {
               name: 'Webcam',
               properties: [
                 {
-                  title: 'Name',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'Webcam.[0].Webcamname.{language}' },
-                },
-                {
-                  title: 'Image',
-                  component: CellComponent.ImageCell,
-                  fields: { src: 'Webcam.[0].Webcamurl' },
-                },
-                {
-                  title: 'Image-URL (Web-Url)',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'Webcam.[0].Webcamurl' },
-                },
-                {
-                  title: 'Latitude',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'Webcam.[0].GpsInfo.Latitude' },
-                },
-                {
-                  title: 'Longitude',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'Webcam.[0].GpsInfo.Longitude' },
-                },
-                {
-                  title: 'Altitude',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'Webcam.[0].GpsInfo.Altitude' },
-                },
-                {
-                  title: 'Position',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'Webcam.[0].ListPosition' },
+                  title: '',
+                  component: CellComponent.WebcamGalleryCell,
+                  fields: { webcams: 'Webcam' },
+                  params: {
+                    name: 'Webcamname.{language}',
+                    image: 'Webcamurl',
+                    imageUrl: 'Webcamurl',
+                    latitude: 'GpsInfo.Latitude',
+                    longitude: 'GpsInfo.Longitude',
+                    altitude: 'GpsInfo.Altitude',
+                    listPosition: 'ListPosition',
+                  },
                 },
               ],
             },
