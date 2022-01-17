@@ -17,7 +17,11 @@
       @page-size-changes="pageSizeChanges"
     />
 
-    <DownloadSection v-if="url && data" :dataset="data" :dataset-url="url" />
+    <DownloadSection
+      v-if="datasetUrlWithQuery && data"
+      :dataset="data"
+      :dataset-url="datasetUrlWithQuery"
+    />
   </section>
   <section v-if="tableConfig == null">
     Config was not found, ID = {{ $route.params.datasetType }}
@@ -46,6 +50,7 @@ import { useApi } from '../../api/client';
 import { useAsQueryKey } from '../../api/query/url';
 import { useUrlQuery } from '../../../lib/apiQuery/urlQueryHandler';
 import { stringifyParameter } from '../../../lib/apiQuery/query';
+import { buildUrlWithQuery } from '../../../lib/urlQuery/urlBuilder';
 
 export default defineComponent({
   components: { DownloadSection, TableContent, TableNavigation },
@@ -57,6 +62,10 @@ export default defineComponent({
     // Get config parameters
     const { url, tableConfig } =
       getApiConfigForDataset(datasetType)?.listEndpoint ?? {};
+
+    const datasetUrlWithQuery = computed(() => {
+      return buildUrlWithQuery(url ?? '', route.query);
+    });
 
     // API query is used in several places
     const apiQuery = useApiQuery();
@@ -105,7 +114,7 @@ export default defineComponent({
     const pagination = computed(() => data.value?.pagination);
 
     return {
-      url,
+      datasetUrlWithQuery,
       isSuccess,
       pageSizeOptions,
       data,

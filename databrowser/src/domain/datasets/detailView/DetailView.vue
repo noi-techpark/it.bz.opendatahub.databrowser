@@ -10,10 +10,10 @@
 
       <div
         v-if="currentSlug !== ''"
-        class="subcategory-container"
         :style="{
           'column-count': Math.min(currentSubcategories?.length ?? 1, 3),
         }"
+        class="subcategory-container"
       >
         <DetailSubCategories
           :data="apiResult.data.data"
@@ -24,13 +24,13 @@
 
     <DownloadSection
       :dataset="apiResult.data?.data"
-      :dataset-url="datasetUrl"
+      :dataset-url="datasetUrlWithQuery"
       hide-csv
     />
   </section>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { AxiosInstance } from 'axios';
 import { computed, ComputedRef, inject, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -41,6 +41,7 @@ import DetailCategories, { DetailCategory } from './DetailCategories.vue';
 import DetailSubCategories from './DetailSubCategories.vue';
 import { getDatasetUrl } from '../queryDataset';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
+import { buildUrlWithQuery } from '../../../lib/urlQuery/urlBuilder';
 
 const route = useRoute();
 const datasetType = route.params.datasetType as string;
@@ -84,6 +85,10 @@ const categories: ComputedRef<DetailCategory[]> = computed(
       };
     }) ?? []
 );
+
+const datasetUrlWithQuery = computed(() => {
+  return buildUrlWithQuery(datasetUrl ?? '', route.query);
+});
 </script>
 
 <style>
