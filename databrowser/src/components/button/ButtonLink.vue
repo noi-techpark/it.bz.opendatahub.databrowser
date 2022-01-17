@@ -5,14 +5,15 @@
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
 import { Size, Tone, Variant } from './types';
-import { computed } from 'vue';
+import { computed, PropType } from 'vue';
 import { sizeClass, variantClass } from './styles';
+import { RouteLocationRaw } from 'vue-router';
 
 export default defineComponent({
   props: {
     to: {
+      type: [String, Object] as PropType<RouteLocationRaw>,
       required: true,
-      type: String,
     },
     variant: {
       type: String,
