@@ -3,8 +3,10 @@
     <HeroTitle>{{ title }}</HeroTitle>
     <HeroSubTitle>{{ subtitle }}</HeroSubTitle>
     <CollapsibleContainer>
-      <CollapsiblePanel> Text </CollapsiblePanel>
-      <CollapsibleButton class="mt-4">Hello</CollapsibleButton>
+      <CollapsiblePanel> Text</CollapsiblePanel>
+      <CollapsibleButton class="mt-4">
+        {{ $t('datasets.header.moreInformation') }}
+      </CollapsibleButton>
     </CollapsibleContainer>
   </HeroContainer>
 </template>
