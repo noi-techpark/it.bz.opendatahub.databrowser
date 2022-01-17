@@ -43,7 +43,7 @@ import { useListMapper } from '../../api/mapper';
 import TableContent from './TableContent.vue';
 import TableNavigation from './TableNavigation.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
-import { buildUrlWithQuery } from '../linkUtils';
+import { buildUrlWithQuery } from '../../../lib/urlQuery/urlBuilder';
 
 export default defineComponent({
   components: { DownloadSection, TableContent, TableNavigation },

@@ -41,7 +41,7 @@ import DetailCategories, { DetailCategory } from './DetailCategories.vue';
 import DetailSubCategories from './DetailSubCategories.vue';
 import { getDatasetUrl } from '../queryDataset';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
-import { buildUrlWithQuery } from '../linkUtils';
+import { buildUrlWithQuery } from '../../../lib/urlQuery/urlBuilder';
 
 const route = useRoute();
 const datasetType = route.params.datasetType as string;
