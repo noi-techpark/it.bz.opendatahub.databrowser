@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full">
+  <div class="w-full">
     <button class="inline-flex items-center" @click="$emit('arrow-back')">
       <ArrowLeft
         v-if="showArrow"
