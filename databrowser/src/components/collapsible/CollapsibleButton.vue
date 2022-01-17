@@ -13,7 +13,8 @@
       <ArrowUp v-if="open" class="fill-current" />
       <ArrowDown v-else class="fill-current" />
       <span class="block">
-        <slot />
+        <span v-if="open">{{ props.showLessText }}</span>
+        <span v-else>{{ props.showMoreText }}</span>
       </span>
     </div>
   </DisclosureButton>
@@ -23,4 +24,10 @@
 import { DisclosureButton } from '@headlessui/vue';
 import ArrowUp from '../svg/ArrowUp.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
+import { defineProps } from 'vue';
+
+const props = defineProps<{
+  showMoreText: string;
+  showLessText: string;
+}>();
 </script>

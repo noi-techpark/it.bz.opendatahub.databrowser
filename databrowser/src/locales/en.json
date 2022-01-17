@@ -22,7 +22,8 @@
   },
   "datasets": {
     "header": {
-      "moreInformation": "More information"
+      "moreInformation": "More information",
+      "lessInformation": "Less information"
     },
     "listView": {
       "linesPerPage": "lines per page",

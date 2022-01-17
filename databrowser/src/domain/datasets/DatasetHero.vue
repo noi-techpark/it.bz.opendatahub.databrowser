@@ -4,8 +4,11 @@
     <HeroSubTitle>{{ subtitle }}</HeroSubTitle>
     <CollapsibleContainer>
       <CollapsiblePanel> Text</CollapsiblePanel>
-      <CollapsibleButton class="mt-4">
-        {{ $t('datasets.header.moreInformation') }}
+      <CollapsibleButton
+        :show-less-text="$t('datasets.header.lessInformation')"
+        :show-more-text="$t('datasets.header.moreInformation')"
+        class="mt-4"
+      >
       </CollapsibleButton>
     </CollapsibleContainer>
   </HeroContainer>
