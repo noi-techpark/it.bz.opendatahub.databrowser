@@ -22,7 +22,10 @@
     class="fixed top-0 z-20 p-0 w-screen"
     @close="closeDialog"
   >
-    <DialogOverlay class="hidden md:block fixed inset-0 bg-black opacity-30" />
+    <DialogOverlay
+      class="hidden md:block fixed inset-0 bg-black opacity-30"
+      @click="closeDialog"
+    />
     <!-- Desktop Menu -->
     <div
       class="
