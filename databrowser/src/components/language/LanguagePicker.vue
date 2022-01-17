@@ -4,7 +4,7 @@
     @click="showMobileSelect = true"
   >
     <span class="sr-only">Selected language</span>
-    <span class="pr-2 uppercase">{{ languageParameter }}</span>
+    <span class="pr-2 uppercase">{{ $route.query.language }}</span>
     <ArrowDown />
   </PillButton>
 
@@ -37,73 +37,61 @@
   </Dialog>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { Dialog, DialogOverlay } from '@headlessui/vue';
-import { defineComponent, PropType } from '@vue/runtime-core';
 import { FilterLanguage } from '../../domain/api/configFilter';
 import IconClose from '../svg/IconClose.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import PillButton from '../pill/PillButton.vue';
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, defineProps, onMounted, ref, withDefaults } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import PillLinkGroup from '../pill/PillLinkGroup.vue';
 import PillLink from '../pill/PillLink.vue';
-import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
 
-export default defineComponent({
-  components: {
-    PillLink,
-    PillLinkGroup,
-    PillButton,
-    Dialog,
-    DialogOverlay,
-    IconClose,
-    ArrowDown,
-  },
-  props: {
-    defaultLanguage: {
-      type: String as PropType<FilterLanguage>,
-      default: FilterLanguage.EN,
-    },
-  },
-  setup(props) {
-    const route = useRoute();
-    const supportedLanguages: Array<string> = Object.values(FilterLanguage);
-    const showMobileSelect = ref<boolean>(false);
-    const languageParameter = useUrlQueryParameter(
-      'language',
-      props.defaultLanguage
-    );
+const props = withDefaults(
+  defineProps<{
+    defaultLanguage: FilterLanguage;
+  }>(),
+  {
+    defaultLanguage: FilterLanguage.EN,
+  }
+);
 
-    const currentPath = route.path;
-    const currentQueries = Object.entries(route.query)
-      .filter((obj) => obj[0] != 'language')
-      .map((query) => `${query[0]}=${query[1]}`);
-    const links = supportedLanguages.map((lang) => {
-      const query = [...currentQueries, `language=${lang}`];
+const route = useRoute();
+const router = useRouter();
+const supportedLanguages: Array<string> = Object.values(FilterLanguage);
+const showMobileSelect = ref<boolean>(false);
 
-      return {
-        label: lang.toUpperCase(),
-        url: `${currentPath}?${query.join('&')}`,
-      };
+onMounted(() => {
+  if (route.query.language == undefined) {
+    router.push({
+      path: currentPath,
+      query: { ...route.query, language: props.defaultLanguage },
     });
+  }
+});
 
-    function closeDialog() {
-      showMobileSelect.value = false;
-    }
+const currentPath = route.path;
+const links = computed(() => {
+  const queries = Object.entries(route.query)
+    .filter((obj) => obj[0] != 'language')
+    .map((query) => `${query[0]}=${query[1]}`);
 
-    function isSelected(url: string) {
-      return url == route.fullPath;
-    }
+  return supportedLanguages.map((lang) => {
+    const query = [...queries, `language=${lang}`];
 
     return {
-      supportedLanguages,
-      showMobileSelect,
-      languageParameter,
-      links,
-      isSelected,
-      closeDialog,
+      label: lang.toUpperCase(),
+      url: `${currentPath}?${query.join('&')}`,
     };
-  },
+  });
 });
+
+function closeDialog() {
+  showMobileSelect.value = false;
+}
+
+function isSelected(url: string) {
+  return url == route.fullPath;
+}
 </script>
