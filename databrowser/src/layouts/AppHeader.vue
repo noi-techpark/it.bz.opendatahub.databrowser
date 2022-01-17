@@ -16,80 +16,70 @@
   </ContentAlignmentX>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script lang="ts" setup>
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import OverlayMenu from './menu/OverlayMenu.vue';
 import { MenuColumn } from './menu/OverlayMenuList.vue';
 import MenuUserSection from '../domain/auth/MenuUserSection.vue';
 import { useI18n } from 'vue-i18n';
 
-export default defineComponent({
-  components: { OverlayMenu, ContentAlignmentX, MenuUserSection },
-  setup() {
-    const { t } = useI18n();
+const { t } = useI18n();
 
-    // Static data for testing only.
-    // This block of data will be replaces with the generated data from the config
-    const data: MenuColumn = {
-      label: t('header.menu.allDatasets'),
+// Static data for testing only.
+// This block of data will be replaces with the generated data from the config
+const data: MenuColumn = {
+  label: t('header.menu.allDatasets'),
+  items: [
+    {
+      label: 'Places',
       items: [
         {
-          label: 'Places',
+          label: 'Locations',
           items: [
             {
-              label: 'Locations',
-              items: [
-                {
-                  label: 'Regions',
-                  url: 'http://example.com',
-                },
-                {
-                  label: 'Meta Regions',
-                  url: 'http://example.com',
-                },
-              ],
+              label: 'Regions',
+              url: 'http://example.com',
             },
             {
-              label: 'POIs',
-              url: '/dataset/odh-activity-poi',
+              label: 'Meta Regions',
+              url: 'http://example.com',
             },
           ],
         },
         {
-          label: 'Test',
+          label: 'POIs',
+          url: '/dataset/odh-activity-poi',
+        },
+      ],
+    },
+    {
+      label: 'Test',
+      items: [
+        {
+          label: 'Sub Test A',
           items: [
             {
-              label: 'Sub Test A',
-              items: [
-                {
-                  label: 'Sub Sub Test A',
-                  url: '/',
-                },
-                {
-                  label: 'Sub Sub Test B',
-                  url: '/',
-                },
-              ],
+              label: 'Sub Sub Test A',
+              url: '/',
             },
             {
-              label: 'Sub Test B',
+              label: 'Sub Sub Test B',
               url: '/',
             },
           ],
         },
         {
-          label: 'Activities',
+          label: 'Sub Test B',
           url: '/',
         },
       ],
-    };
-
-    return {
-      data,
-    };
-  },
-});
+    },
+    {
+      label: 'Activities',
+      url: '/',
+    },
+  ],
+};
 </script>
 
 <style>
