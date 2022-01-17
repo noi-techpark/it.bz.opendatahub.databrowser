@@ -244,19 +244,16 @@ const config: Record<string, ApiConfigEntry> = {
                 {
                   title: 'Activity',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
                 {
                   title: 'Gastronomy',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
                 {
                   title: 'Event',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
               ],
@@ -313,7 +310,6 @@ const config: Record<string, ApiConfigEntry> = {
                 {
                   title: 'Complement',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
                 {
@@ -354,7 +350,6 @@ const config: Record<string, ApiConfigEntry> = {
                 {
                   title: 'Mobile Phone',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
                 {
@@ -365,7 +360,6 @@ const config: Record<string, ApiConfigEntry> = {
                 {
                   title: 'Additional URL (Independent URL)',
                   component: CellComponent.StringCell,
-                  // TODO
                   fields: { text: '' },
                 },
               ],
@@ -395,7 +389,6 @@ const config: Record<string, ApiConfigEntry> = {
                     description: 'ImageDesc.{language}',
                     license: 'License',
                     listPosition: 'ListPosition',
-                    // TODO: which field to use?
                     active: '',
                   },
                 },
@@ -406,13 +399,11 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Season / Opening Hours',
           slug: 'season-opening-hours',
-          // TODO
           subcategories: [],
         },
         {
           name: 'Location',
           slug: 'location',
-          // TODO
           subcategories: [
             {
               name: 'Location',
@@ -469,13 +460,11 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Files',
           slug: 'files',
-          // TODO
           subcategories: [],
         },
         {
           name: 'Tags',
           slug: 'tags',
-          // TODO
           subcategories: [],
         },
         {
@@ -517,7 +506,6 @@ const config: Record<string, ApiConfigEntry> = {
         {
           name: 'Activity Details',
           slug: 'activity-details',
-          // TODO
           subcategories: [
             {
               name: 'Characteristics',
