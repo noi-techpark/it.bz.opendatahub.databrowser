@@ -61,6 +61,7 @@ export const useUrlQueryParameter: UseUrlQueryParameter = function (
 
       router.push({
         query: params,
+        hash: router.currentRoute.value.hash,
       });
     },
     { immediate: true }
