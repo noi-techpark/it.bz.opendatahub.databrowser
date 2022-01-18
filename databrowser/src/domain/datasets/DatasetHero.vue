@@ -3,7 +3,7 @@
     <HeroTitle>{{ title }}</HeroTitle>
     <HeroSubTitle>{{ subtitle }}</HeroSubTitle>
     <CollapsibleContainer>
-      <CollapsiblePanel> Text</CollapsiblePanel>
+      <CollapsiblePanel>{{ description }}</CollapsiblePanel>
       <CollapsibleButton
         :show-less-text="$t('datasets.header.lessInformation')"
         :show-more-text="$t('datasets.header.moreInformation')"
@@ -26,6 +26,7 @@ import CollapsiblePanel from '../../components/collapsible/CollapsiblePanel.vue'
 const props = defineProps<{
   title?: string;
   subtitle?: string;
+  description?: string;
 }>();
 
 const { title, subtitle } = toRefs(props);
