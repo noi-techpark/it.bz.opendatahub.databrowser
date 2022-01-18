@@ -9,6 +9,7 @@ const config: Record<string, ApiConfigEntry> = {
       title: 'Activities and points of interest',
       subtitle:
         'This dataset contains a collection of activities and Points of Interest (PoI) in the South Tyrol region. The available data have been extracted from different sources and also offer IDM categorisation. This is a kind of superdataset, which includes also poi dataset, activity dataset, and gastronomy dataset.',
+      description: 'Test',
     },
     listEndpoint: {
       url: `${apiBaseUrl}/v1/ODHActivityPoi`,
@@ -668,6 +669,7 @@ const config: Record<string, ApiConfigEntry> = {
       title: 'Accommodation',
       subtitle:
         'This dataset contains various data about accommodation in South Tyrol, including information about the rooms.',
+      description: '',
     },
     listEndpoint: {
       url: `${apiBaseUrl}/v1/Accommodation`,
@@ -774,6 +776,7 @@ export interface ApiConfigEntry {
   description?: {
     title?: string;
     subtitle?: string;
+    description?: string;
   };
   listEndpoint?: {
     url: string;

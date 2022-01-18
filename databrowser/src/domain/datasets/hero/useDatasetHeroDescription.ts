@@ -7,11 +7,12 @@ export const useDatasetHeroDescription = () => {
   const datasetType = route.params.datasetType as string;
 
   // Get config parameters
-  const { title, subtitle } =
+  const { title, subtitle, description } =
     getApiConfigForDataset(datasetType)?.description ?? {};
 
   return {
     title,
     subtitle,
+    description,
   };
 };
