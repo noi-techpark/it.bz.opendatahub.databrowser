@@ -1,9 +1,13 @@
 <template>
   <AppLayout>
-    <DatasetHero :title="title" :subtitle="subtitle" />
+    <DatasetHero
+      :description="description"
+      :subtitle="subtitle"
+      :title="title"
+    />
     <ContentAlignmentX>
       <ContentAlignmentY>
-        <DatasetNavigation :current-view="currentView" />
+        <DatasetNavigation :current-view="ViewPill.table" />
       </ContentAlignmentY>
       <ContentDivider />
       <ContentAlignmentY>
@@ -13,8 +17,7 @@
   </AppLayout>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script lang="ts" setup>
 import TableView from '../../domain/datasets/tableView/TableView.vue';
 import { ViewPill } from '../../domain/datasets/navigation/types';
 import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
@@ -25,24 +28,5 @@ import ContentDivider from '../../components/content/ContentDivider.vue';
 import ContentAlignmentY from '../../components/content/ContentAlignmentY.vue';
 import { useDatasetHeroDescription } from '../../domain/datasets/hero/useDatasetHeroDescription';
 
-export default defineComponent({
-  components: {
-    ContentAlignmentY,
-    ContentDivider,
-    ContentAlignmentX,
-    AppLayout,
-    DatasetHero,
-    DatasetNavigation,
-    TableView,
-  },
-  setup() {
-    const { title, subtitle } = useDatasetHeroDescription();
-
-    return {
-      currentView: ViewPill.table,
-      title,
-      subtitle,
-    };
-  },
-});
+const { title, subtitle, description } = useDatasetHeroDescription();
 </script>
