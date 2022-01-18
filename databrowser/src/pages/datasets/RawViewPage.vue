@@ -7,7 +7,7 @@
     />
     <ContentAlignmentX>
       <ContentAlignmentY>
-        <DatasetNavigation :current-view="ViewPill.raw" hide-langauge-picker />
+        <DatasetNavigation :current-view="currentView" hide-langauge-picker />
       </ContentAlignmentY>
       <ContentAlignmentY>
         <RawView />
@@ -26,5 +26,6 @@ import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import ContentAlignmentY from '../../components/content/ContentAlignmentY.vue';
 import { useDatasetHeroDescription } from '../../domain/datasets/hero/useDatasetHeroDescription';
 
+const currentView = ViewPill.raw;
 const { title, subtitle, description } = useDatasetHeroDescription();
 </script>

@@ -7,7 +7,7 @@
     />
     <ContentAlignmentX>
       <ContentAlignmentY>
-        <DatasetNavigation :current-view="ViewPill.table" />
+        <DatasetNavigation :current-view="currentView" />
       </ContentAlignmentY>
       <ContentDivider />
       <ContentAlignmentY>
@@ -28,5 +28,6 @@ import ContentDivider from '../../components/content/ContentDivider.vue';
 import ContentAlignmentY from '../../components/content/ContentAlignmentY.vue';
 import { useDatasetHeroDescription } from '../../domain/datasets/hero/useDatasetHeroDescription';
 
+const currentView = ViewPill.table;
 const { title, subtitle, description } = useDatasetHeroDescription();
 </script>
