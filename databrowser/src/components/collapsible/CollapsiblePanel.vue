@@ -1,6 +1,6 @@
 <template>
   <DisclosurePanel>
-    <div class="py-4 text-lg leading-normal text-gray-600">
+    <div class="py-4 text-base leading-normal text-gray-600">
       <slot />
     </div>
   </DisclosurePanel>
