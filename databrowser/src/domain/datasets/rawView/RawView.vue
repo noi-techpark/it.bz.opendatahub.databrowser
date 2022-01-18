@@ -1,16 +1,23 @@
 <template>
   <ContentAlignmentX>
-    <div v-if="apiResult.isFetching">Loading</div>
-    <div v-else>
-      <div class="overflow-x-scroll p-4 rounded-xl border">
-        <vue-json-pretty :data="apiResult.data?.data" :deep="3" show-length />
-      </div>
-      <DownloadSection
-        :dataset="apiResult.data?.data"
-        :dataset-url="datasetUrl"
-        hide-csv
-      />
-    </div>
+    <AsyncView :data="apiResult.data" :error="apiResult.error">
+      <template #loading>
+        <div>Loading</div>
+      </template>
+      <template #success="{ data }">
+        <div class="overflow-x-scroll p-4 rounded-xl border">
+          <vue-json-pretty :data="data?.data" :deep="3" show-length />
+        </div>
+        <DownloadSection
+          :dataset="data?.data"
+          :dataset-url="datasetUrl"
+          hide-csv
+        />
+      </template>
+      <template #error="{ error }">
+        <div>{{ error.toString() }}</div>
+      </template>
+    </AsyncView>
   </ContentAlignmentX>
 </template>
 
@@ -24,9 +31,11 @@ import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
 import { getDataset, getDatasetUrl } from '../queryDataset';
+import AsyncView from '../../../components/asyncView/AsyncView.vue';
 
 export default defineComponent({
   components: {
+    AsyncView,
     DownloadSection,
     ContentAlignmentX,
     VueJsonPretty,
