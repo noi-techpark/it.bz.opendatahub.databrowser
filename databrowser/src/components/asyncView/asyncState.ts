@@ -5,10 +5,10 @@ enum AsyncState {
 }
 
 function getAsyncState(data: unknown, error: unknown): AsyncState {
-  if (error != null && error != undefined) {
+  if (error != null) {
     return AsyncState.FINISHED_WITH_ERROR;
   }
-  if (data != null && data != undefined) {
+  if (data != null) {
     return AsyncState.FINISHED_WITH_SUCCESS;
   }
 
