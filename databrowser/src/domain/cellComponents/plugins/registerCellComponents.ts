@@ -13,7 +13,8 @@ import StringCell from '../components/cells/stringCell/StringCell.vue';
 import StringTemplateCell from '../components/cells/stringTemplateCell/StringTemplateCell.vue';
 import TextHighlightCell from '../components/cells/textHighlightCell/TextHighlightCell.vue';
 import WebcamGalleryCell from '../components/cells/webcamGalleryCell/WebcamGalleryCell.vue';
-import { CellComponent } from '../types';
+import FixedValue from '../components/filters/fixedValue/FixedValue.vue';
+import { CellComponent, FilterComponent } from '../types';
 
 export default {
   install: (app: App) => {
@@ -30,5 +31,7 @@ export default {
     app.component(CellComponent.StringTemplateCell, StringTemplateCell);
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
     app.component(CellComponent.WebcamGalleryCell, WebcamGalleryCell);
+
+    app.component(FilterComponent.FixedValue, FixedValue);
   },
 };

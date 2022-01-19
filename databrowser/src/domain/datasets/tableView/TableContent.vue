@@ -6,13 +6,25 @@
     </template>
 
     <template #header-cols>
-      <TableHeaderCell v-for="col in config" :key="col.title">
-        {{ col.title }}
-      </TableHeaderCell>
+      <TableHeaderFilter
+        v-for="col in config"
+        :key="col.title"
+        :has-filter="col.filter != null"
+        :text="col.title"
+      >
+        <Cell
+          v-if="col.filter != null"
+          :tag-name="col.filter.component"
+          :attributes="col.filter.fields"
+        />
+      </TableHeaderFilter>
       <TableHeaderCell class="sticky right-0 bg-white"></TableHeaderCell>
     </template>
 
     <template #body-rows>
+      <tr v-if="rows.length === 0">
+        <TableCell>No data</TableCell>
+      </tr>
       <!-- eslint-disable-next-line vue/require-v-for-key -->
       <tr v-for="row in rows">
         <TableCell v-for="col in config" :key="col.title">
@@ -21,7 +33,7 @@
             :attributes="getValue(row, col.fields, col.params)"
           />
         </TableCell>
-        <TableCell class="sticky right-0 bg-white">
+        <TableCell class="sticky right-0 z-10 bg-white">
           <div class="flex h-full">
             <DetailsLink
               :to="{
@@ -61,6 +73,7 @@ import TableCell from '../../../components/table/TableCell.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import EyeDetailGreen from '../../../components/svg/EyeDetailGreen.vue';
 import DetailsLink from './DetailsLink.vue';
+import TableHeaderFilter from '../../../components/table/TableHeaderFilter.vue';
 import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
 
 export default defineComponent({
@@ -71,6 +84,7 @@ export default defineComponent({
     TableWithStickyHeader,
     EyeDetailGreen,
     DetailsLink,
+    TableHeaderFilter,
   },
   props: {
     rows: {

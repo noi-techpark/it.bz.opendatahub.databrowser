@@ -13,3 +13,7 @@ export enum CellComponent {
   TextHighlightCell = 'TextHighlightCell',
   WebcamGalleryCell = 'WebcamGalleryCell',
 }
+
+export enum FilterComponent {
+  FixedValue = 'FixedValue',
+}

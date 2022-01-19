@@ -1,4 +1,4 @@
-import { CellComponent } from '../cellComponents/types';
+import { CellComponent, FilterComponent } from '../cellComponents/types';
 
 const apiBaseUrl = 'https://api.tourism.testingmachine.eu';
 
@@ -83,6 +83,23 @@ const config: Record<string, ApiConfigEntry> = {
           fields: {
             state: 'Active',
           },
+          filter: {
+            name: 'active',
+            component: FilterComponent.FixedValue,
+            fields: {
+              name: 'active',
+              filterOptions: [
+                {
+                  label: 'true',
+                  value: 'true',
+                },
+                {
+                  label: 'false',
+                  value: 'false',
+                },
+              ],
+            },
+          },
         },
         {
           title: 'ODH state',
@@ -90,6 +107,23 @@ const config: Record<string, ApiConfigEntry> = {
           class: 'w-36',
           fields: {
             state: 'OdhActive',
+          },
+          filter: {
+            name: 'odhactive',
+            component: FilterComponent.FixedValue,
+            fields: {
+              name: 'odhactive',
+              filterOptions: [
+                {
+                  label: 'true',
+                  value: 'true',
+                },
+                {
+                  label: 'false',
+                  value: 'false',
+                },
+              ],
+            },
           },
         },
       ],
@@ -759,7 +793,14 @@ export interface PropertyConfig {
   class?: string;
 }
 
-export interface TableColumnConfig extends PropertyConfig {}
+export interface TableColumnConfig extends PropertyConfig {
+  filter?: {
+    name: string;
+    component: string;
+    fields: Record<string, string>;
+    params?: Record<string, string>;
+  };
+}
 
 export interface DetailViewConfig {
   name: string;
