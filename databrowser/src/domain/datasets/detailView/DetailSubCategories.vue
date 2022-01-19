@@ -21,10 +21,8 @@
 
 <script setup lang="ts">
 import { defineProps, toRefs } from 'vue';
-import { extractField } from '../../api/configUtils';
+import { useFieldExtraction } from '../../api/configUtils';
 import ListCell from '../../../components/listCell/ListCell.vue';
-import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
-import { defaultQueryParameters } from '../tableView/defaultValues';
 import { PropertyConfig } from '../../api/config';
 
 export interface DetailSubCategory {
@@ -39,14 +37,5 @@ const props = defineProps<{
 
 const { data, subCategories } = toRefs(props);
 
-const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
-const { queryParametersWithDefaults } = toRefs(queryRouter);
-const getValue = (
-  item: any,
-  fields: Record<string, string>,
-  params?: Record<string, string>
-) => ({
-  ...extractField(item, fields, queryParametersWithDefaults.value),
-  ...params,
-});
+const { getValue } = useFieldExtraction();
 </script>

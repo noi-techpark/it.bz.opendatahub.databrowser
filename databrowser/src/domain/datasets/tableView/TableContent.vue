@@ -27,6 +27,7 @@
               :to="{
                 name: 'DatasetsDetailViewPage',
                 params: { datasetId: row.Id },
+                query: { language },
               }"
               :title="$t('datasets.listView.linkDetails')"
             >
@@ -36,6 +37,7 @@
               :to="{
                 name: 'DatasetsRawViewPage',
                 params: { datasetId: row.Id },
+                query: { language },
               }"
               :title="$t('datasets.listView.linkRaw')"
               class="text-xs text-green-500"
@@ -52,16 +54,14 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
 import { TableColumnConfig } from '../../api/config';
-import { extractField } from '../../api/configUtils';
-import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
+import { useFieldExtraction } from '../../api/configUtils';
 import Cell from '../../../components/listCell/ListCell.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../components/table/TableCell.vue';
-import { toRefs } from 'vue';
-import { defaultQueryParameters } from './defaultValues';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import EyeDetailGreen from '../../../components/svg/EyeDetailGreen.vue';
 import DetailsLink from './DetailsLink.vue';
+import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
 
 export default defineComponent({
   components: {
@@ -83,19 +83,9 @@ export default defineComponent({
     },
   },
   setup() {
-    const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
-    const { queryParametersWithDefaults } = toRefs(queryRouter);
-
-    const getValue = (
-      item: any,
-      fields: Record<string, string>,
-      params?: Record<string, string>
-    ) => ({
-      ...extractField(item, fields, queryParametersWithDefaults.value),
-      ...params,
-    });
-
-    return { getValue };
+    const { getValue } = useFieldExtraction();
+    const language = useApiQuery().useApiParameter('language');
+    return { getValue, language };
   },
 });
 </script>
