@@ -23,9 +23,7 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
-import { useUrlQueryRouter } from '../../../../lib/urlQuery/urlQueryRouter';
-import { extractField } from '../../../api/configUtils';
-import { defaultQueryParameters } from '../../../datasets/tableView/defaultValues';
+import { useFieldExtraction } from '../../../api/configUtils';
 import StringCell from '../stringCell/StringCell.vue';
 
 /**
@@ -54,18 +52,12 @@ const fields = Object.entries(fieldsAsRef).reduce(
   {}
 );
 
-const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
-const { queryParametersWithDefaults } = toRefs(queryRouter);
+const { getValue } = useFieldExtraction();
 
 const resolvedGpsEntries: ComputedRef<GpsListCellProps[]> = computed(() => {
   return (
     gpsEntries?.value?.map(
-      (gpsEntry) =>
-        extractField(
-          gpsEntry,
-          fields,
-          queryParametersWithDefaults.value
-        ) as GpsListCellProps
+      (gpsEntry) => getValue(gpsEntry, fields) as GpsListCellProps
     ) ?? []
   );
 });

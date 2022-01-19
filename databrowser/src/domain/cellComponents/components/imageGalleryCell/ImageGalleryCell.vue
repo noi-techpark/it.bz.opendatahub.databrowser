@@ -28,9 +28,7 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
-import { useUrlQueryRouter } from '../../../../lib/urlQuery/urlQueryRouter';
-import { extractField } from '../../../api/configUtils';
-import { defaultQueryParameters } from '../../../datasets/tableView/defaultValues';
+import { useFieldExtraction } from '../../../api/configUtils';
 import ImageCell from '../imageCell/ImageCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
 import StringTemplateCell from '../stringTemplateCell/StringTemplateCell.vue';
@@ -66,18 +64,12 @@ const fields = Object.entries(fieldsAsRef).reduce(
   {}
 );
 
-const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
-const { queryParametersWithDefaults } = toRefs(queryRouter);
+const { getValue } = useFieldExtraction();
 
 const resolvedImages: ComputedRef<ImageGalleryCellProps[]> = computed(() => {
   return (
     images?.value?.map(
-      (image) =>
-        extractField(
-          image,
-          fields,
-          queryParametersWithDefaults.value
-        ) as ImageGalleryCellProps
+      (image) => getValue(image, fields) as ImageGalleryCellProps
     ) ?? []
   );
 });

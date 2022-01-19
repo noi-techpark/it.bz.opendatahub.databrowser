@@ -27,9 +27,7 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
-import { useUrlQueryRouter } from '../../../../lib/urlQuery/urlQueryRouter';
-import { extractField } from '../../../api/configUtils';
-import { defaultQueryParameters } from '../../../datasets/tableView/defaultValues';
+import { useFieldExtraction } from '../../../api/configUtils';
 import StringCell from '../stringCell/StringCell.vue';
 import ImageCell from '../imageCell/ImageCell.vue';
 
@@ -61,18 +59,12 @@ const fields = Object.entries(fieldsAsRef).reduce(
   {}
 );
 
-const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
-const { queryParametersWithDefaults } = toRefs(queryRouter);
+const { getValue } = useFieldExtraction();
 
 const resolvedGpsEntries: ComputedRef<WebcamGalleryCellProps[]> = computed(
   () =>
     webcams?.value?.map(
-      (webcam) =>
-        extractField(
-          webcam,
-          fields,
-          queryParametersWithDefaults.value
-        ) as WebcamGalleryCellProps
+      (webcam) => getValue(webcam, fields) as WebcamGalleryCellProps
     ) ?? []
 );
 </script>
