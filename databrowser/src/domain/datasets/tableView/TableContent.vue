@@ -63,43 +63,32 @@
   </TableWithStickyHeader>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
-import { TableColumnConfig } from '../../api/config';
+<script setup lang="ts">
+import { defineProps, toRefs, withDefaults } from 'vue';
+import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
 import { useFieldExtraction } from '../../api/configUtils';
 import Cell from '../../../components/listCell/ListCell.vue';
+import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
+import TableHeaderFilter from '../../../components/table/TableHeaderFilter.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../components/table/TableCell.vue';
-import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import EyeDetailGreen from '../../../components/svg/EyeDetailGreen.vue';
 import DetailsLink from './DetailsLink.vue';
-import TableHeaderFilter from '../../../components/table/TableHeaderFilter.vue';
-import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
+import { TableColumnConfig } from '../../api/config';
 
-export default defineComponent({
-  components: {
-    Cell,
-    TableHeaderCell,
-    TableCell,
-    TableWithStickyHeader,
-    EyeDetailGreen,
-    DetailsLink,
-    TableHeaderFilter,
-  },
-  props: {
-    rows: {
-      default: () => [],
-      type: [Array] as PropType<any[]>,
-    },
-    config: {
-      default: () => [],
-      type: Array as PropType<TableColumnConfig[]>,
-    },
-  },
-  setup() {
-    const { getValue } = useFieldExtraction();
-    const language = useApiQuery().useApiParameter('language');
-    return { getValue, language };
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    rows: any[];
+    config: TableColumnConfig[];
+  }>(),
+  {
+    rows: () => [],
+    config: () => [],
+  }
+);
+
+const { rows, config } = toRefs(props);
+
+const { getValue } = useFieldExtraction();
+const language = useApiQuery().useApiParameter('language');
 </script>
