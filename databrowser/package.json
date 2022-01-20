@@ -11,6 +11,7 @@
   "dependencies": {
     "@aboutbits/pagination": "^1.1.0",
     "@headlessui/vue": "^1.4.2",
+    "@tailwindcss/forms": "^0.4.0",
     "@vueuse/core": "^7.5.3",
     "axios": "^0.24.0",
     "date-fns": "^2.27.0",
