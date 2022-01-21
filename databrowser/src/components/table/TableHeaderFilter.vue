@@ -10,7 +10,7 @@
         <Cell
           v-if="dropdownVisible"
           :tag-name="filter.component"
-          :attributes="{ ...filter.fields, currentValue }"
+          :attributes="{ ...filter.params, currentValue }"
           @cancel="close"
           @save="save"
         />

@@ -86,7 +86,7 @@ const config: Record<string, ApiConfigEntry> = {
           filter: {
             name: 'active',
             component: FilterComponent.FixedValue,
-            fields: {
+            params: {
               name: 'active',
               filterOptions: [
                 {
@@ -111,7 +111,7 @@ const config: Record<string, ApiConfigEntry> = {
           filter: {
             name: 'odhactive',
             component: FilterComponent.FixedValue,
-            fields: {
+            params: {
               name: 'odhactive',
               filterOptions: [
                 {
@@ -796,8 +796,7 @@ export interface PropertyConfig {
 export interface FilterConfig {
   name: string;
   component: string;
-  fields: Record<string, unknown>;
-  params?: Record<string, string>;
+  params?: Record<string, unknown>;
 }
 
 export interface TableColumnConfig extends PropertyConfig {
