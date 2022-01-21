@@ -1,14 +1,19 @@
+import { AxiosError, AxiosResponse } from 'axios';
+
 enum AsyncState {
   FETCHING,
   FINISHED_WITH_ERROR,
   FINISHED_WITH_SUCCESS,
 }
 
-function getAsyncState(data: unknown, error: unknown): AsyncState {
-  if (error != null) {
+function getAsyncState(
+  data: AxiosResponse<any, any> | null | undefined,
+  error: Error | AxiosError | null | undefined
+): AsyncState {
+  if (error != undefined) {
     return AsyncState.FINISHED_WITH_ERROR;
   }
-  if (data != null) {
+  if (data != undefined) {
     return AsyncState.FINISHED_WITH_SUCCESS;
   }
 

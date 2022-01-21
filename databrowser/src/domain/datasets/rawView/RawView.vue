@@ -1,6 +1,6 @@
 <template>
   <ContentAlignmentX>
-    <AsyncView :data="apiResult.data" :error="apiResult.error">
+    <AsyncView :data="apiResult?.data" :error="apiResult?.error">
       <template #loading>
         <div>Loading</div>
       </template>
@@ -15,7 +15,7 @@
         />
       </template>
       <template #error="{ error }">
-        <div>{{ error.toString() }}</div>
+        <div v-if="error">{{ error.toString() }}</div>
       </template>
     </AsyncView>
   </ContentAlignmentX>
@@ -44,9 +44,8 @@ export default defineComponent({
     const route = useRoute();
     const datasetType = route.params.datasetType as string;
     const datasetId = route.params.datasetId as string;
-    const apiResult = ref<
-      UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>
-    >({} as any);
+    const apiResult =
+      ref<UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>>();
 
     const datasetUrl = getDatasetUrl(datasetType, datasetId);
     apiResult.value = getDataset(datasetUrl) as never;
