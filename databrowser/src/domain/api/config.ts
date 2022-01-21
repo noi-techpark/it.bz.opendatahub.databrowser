@@ -793,13 +793,15 @@ export interface PropertyConfig {
   class?: string;
 }
 
+export interface FilterConfig {
+  name: string;
+  component: string;
+  fields: Record<string, unknown>;
+  params?: Record<string, string>;
+}
+
 export interface TableColumnConfig extends PropertyConfig {
-  filter?: {
-    name: string;
-    component: string;
-    fields: Record<string, string>;
-    params?: Record<string, string>;
-  };
+  filter?: FilterConfig;
 }
 
 export interface DetailViewConfig {

@@ -1,20 +1,49 @@
 <template>
-  <th v-if="hasFilter" class="text-gray-900">
-    <Dropdown :text="text" button-class="font-bold py-4 px-4"
-      ><slot></slot
-    ></Dropdown>
+  <th v-if="filter != null" class="text-gray-900">
+    <Dropdown
+      :text="text"
+      button-class="font-bold py-4 px-4"
+      button-label-class="font-semibold"
+      @visible="visible"
+    >
+      <template #default="{ events: { close } }">
+        <Cell
+          v-if="dropdownVisible"
+          :tag-name="filter.component"
+          :attributes="{ ...filter.fields, currentValue }"
+          @cancel="close"
+          @save="save"
+        />
+      </template>
+    </Dropdown>
   </th>
-  <th v-else class="py-4 px-4 text-gray-900">
+  <th v-else class="py-4 px-4 font-semibold text-gray-900">
     {{ text }}
   </th>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, ref, toRefs } from 'vue';
+import { FilterConfig } from '../../domain/api/config';
+import { useApiQuery } from '../../lib/apiQuery/apiQueryHandler';
 import Dropdown from '../dropdown/Dropdown.vue';
+import Cell from '../listCell/ListCell.vue';
 
-defineProps<{
+const props = defineProps<{
   text: string;
-  hasFilter: boolean;
+  filter?: FilterConfig;
 }>();
+
+const { filter } = toRefs(props);
+
+const currentValue =
+  filter?.value?.name != null
+    ? useApiQuery().useApiParameter(filter.value.name)
+    : ref('');
+
+const save = (value: string) => (currentValue.value = value);
+
+const dropdownVisible = ref(false);
+
+const visible = (isVisible: boolean) => (dropdownVisible.value = isVisible);
 </script>

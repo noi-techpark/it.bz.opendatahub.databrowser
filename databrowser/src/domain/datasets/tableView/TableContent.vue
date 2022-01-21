@@ -9,15 +9,9 @@
       <TableHeaderFilter
         v-for="col in config"
         :key="col.title"
-        :has-filter="col.filter != null"
         :text="col.title"
-      >
-        <Cell
-          v-if="col.filter != null"
-          :tag-name="col.filter.component"
-          :attributes="col.filter.fields"
-        />
-      </TableHeaderFilter>
+        :filter="col.filter"
+      />
       <TableHeaderCell class="sticky right-0 bg-white"></TableHeaderCell>
     </template>
 
@@ -33,7 +27,7 @@
             :attributes="getValue(row, col.fields, col.params)"
           />
         </TableCell>
-        <TableCell class="sticky right-0 z-10 bg-white">
+        <TableCell class="sticky right-0 bg-white">
           <div class="flex h-full">
             <DetailsLink
               :to="{

@@ -1,18 +1,23 @@
 <template>
-  <div>
-    <div v-for="option in filterOptions" :key="option.value">
-      <input
-        type="checkbox"
-        :checked="isChecked(option.value)"
-        @click="update(option.value)"
-      /><span>{{ option.label }}</span>
+  <div class="divide-y">
+    <div class="px-3 divide-y">
+      <div v-for="option in filterOptions" :key="option.value" class="py-3">
+        <Checkbox
+          :label="option.label"
+          :checked="isChecked(option.value)"
+          @change="change(option.value)"
+        />
+      </div>
     </div>
+    <CancelSaveButtons @cancel="cancel" @save="save" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs } from 'vue';
-import { useApiQuery } from '../../../../../lib/apiQuery/apiQueryHandler';
+import { defineEmits, defineProps, ref, toRefs } from 'vue';
+import Checkbox from '../../../../../components/checkbox/Checkbox.vue';
+import CancelSaveButtons from '../CancelSaveButtons.vue';
+import { ParameterValue } from '../../../../../lib/apiQuery/types';
 
 export interface FixedValue {
   label: string;
@@ -20,16 +25,33 @@ export interface FixedValue {
 }
 
 const props = defineProps<{
-  name: string;
+  currentValue: ParameterValue | undefined;
   filterOptions?: FixedValue[];
 }>();
 
-const { name, filterOptions } = toRefs(props);
+const { currentValue, filterOptions } = toRefs(props);
 
-const currentValue = useApiQuery().useApiParameter(name.value);
+const updatedValue = ref(currentValue.value);
 
-const update = (value: string) =>
-  (currentValue.value = value === currentValue.value ? undefined : value);
+const change = (value: string) =>
+  (updatedValue.value = value === updatedValue.value ? undefined : value);
 
-const isChecked = (value: string) => currentValue.value === value;
+const isChecked = (value: string) => updatedValue.value === value;
+
+const emits = defineEmits<{
+  // eslint-disable-next-line no-unused-vars
+  (e: 'cancel'): void;
+  // eslint-disable-next-line no-unused-vars
+  (e: 'save', v: ParameterValue | undefined): void;
+}>();
+
+const cancel = () => {
+  updatedValue.value = currentValue.value;
+  emits('cancel');
+};
+
+const save = () => {
+  currentValue.value = updatedValue.value;
+  emits('save', updatedValue.value);
+};
 </script>
