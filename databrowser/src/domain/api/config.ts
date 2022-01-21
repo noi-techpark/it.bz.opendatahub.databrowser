@@ -87,7 +87,6 @@ const config: Record<string, ApiConfigEntry> = {
             name: 'active',
             component: FilterComponent.FixedValue,
             params: {
-              name: 'active',
               filterOptions: [
                 {
                   label: 'Active',
@@ -112,7 +111,6 @@ const config: Record<string, ApiConfigEntry> = {
             name: 'odhactive',
             component: FilterComponent.FixedValue,
             params: {
-              name: 'odhactive',
               filterOptions: [
                 {
                   label: 'Active',
