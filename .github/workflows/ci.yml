@@ -19,9 +19,9 @@ jobs:
             
       - name: lint
         run: npm run lint
-	working-directory: databrowser
+        working-directory: databrowser
         
       - name: build
         run: npm run build
-	working-directory: databrowser
+        working-directory: databrowser
 
