@@ -90,11 +90,11 @@ const config: Record<string, ApiConfigEntry> = {
               name: 'active',
               filterOptions: [
                 {
-                  label: 'true',
+                  label: 'Active',
                   value: 'true',
                 },
                 {
-                  label: 'false',
+                  label: 'Not active',
                   value: 'false',
                 },
               ],
@@ -115,11 +115,11 @@ const config: Record<string, ApiConfigEntry> = {
               name: 'odhactive',
               filterOptions: [
                 {
-                  label: 'true',
+                  label: 'Active',
                   value: 'true',
                 },
                 {
-                  label: 'false',
+                  label: 'Not active',
                   value: 'false',
                 },
               ],
