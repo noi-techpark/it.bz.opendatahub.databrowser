@@ -19,8 +19,9 @@ jobs:
             
       - name: test
         run: |
-            cd databrowser && npm run lint
-            cd databrowser && npm run test
+            cd databrowser
+	    npm run lint
+            npm run test
         
       - name: build
         run: cd databrowser && npm run build
