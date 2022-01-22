@@ -1,10 +1,10 @@
 <template>
   <div class="flex p-2 space-x-2">
     <ButtonCustom variant="ghost" @click="emit('cancel')">{{
-      $t('components.cancelSave.cancel')
+      $t('components.cancel')
     }}</ButtonCustom>
     <ButtonCustom @click="emit('save')">{{
-      $t('components.cancelSave.save')
+      $t('components.save')
     }}</ButtonCustom>
   </div>
 </template>
