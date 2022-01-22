@@ -10,7 +10,7 @@
         <Cell
           v-if="dropdownVisible"
           :tag-name="filter.component"
-          :attributes="{ ...filter.params, currentValue }"
+          :attributes="{ ...filter.params, initialValue }"
           @cancel="close"
           @save="save"
         />
@@ -23,9 +23,11 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, toRefs } from 'vue';
+import { computed, defineProps, ref, toRefs } from 'vue';
 import { FilterConfig } from '../../config/types';
+import { FilterValue } from '../../domain/cellComponents/components/filters/types';
 import { useApiQuery } from '../../lib/apiQuery/apiQueryHandler';
+import { useAsList } from '../../lib/apiQuery/utils';
 import Dropdown from '../dropdown/Dropdown.vue';
 import Cell from '../listCell/ListCell.vue';
 
@@ -36,12 +38,20 @@ const props = defineProps<{
 
 const { filter } = toRefs(props);
 
-const currentValue =
-  filter?.value?.name != null
-    ? useApiQuery().useApiParameter(filter.value.name)
-    : ref('');
+const { updateApiParameterValue, useApiParameter } = useApiQuery();
+const initialValue = computed({
+  get: () =>
+    filter?.value?.name != null
+      ? useAsList(useApiParameter(filter.value.name)).value
+      : [],
+  set: (value) => {
+    if (filter?.value?.name != null) {
+      updateApiParameterValue(filter.value.name, value);
+    }
+  },
+});
 
-const save = (value: string) => (currentValue.value = value);
+const save = (value: FilterValue) => (initialValue.value = value);
 
 const dropdownVisible = ref(false);
 

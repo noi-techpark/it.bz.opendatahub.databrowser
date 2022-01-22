@@ -1,13 +1,12 @@
 type QueryParamType = string | null | (string | null)[];
 
-const concatFilters = (queryParam?: QueryParamType): string => {
-  if (queryParam == null) {
-    return '';
+const concatFilters = (name: string, queryParam?: QueryParamType): string[] => {
+  if (queryParam === undefined) {
+    return [];
   }
-  if (Array.isArray(queryParam)) {
-    return queryParam.join(',');
-  }
-  return queryParam.toString();
+
+  const params = Array.isArray(queryParam) ? queryParam : [queryParam];
+  return params.map((value) => `${name}=${value}`);
 };
 
 export const buildQueryFilter = (
@@ -18,13 +17,10 @@ export const buildQueryFilter = (
     return '';
   }
 
-  const queryParams = Object.keys(queryFilters).reduce(
-    (prev, filterName) => [
-      ...prev,
-      `${filterName}=${concatFilters(queryFilters[filterName])}`,
-    ],
-    [] as string[]
-  );
+  const queryParams = Object.keys(queryFilters).reduce((prev, filterName) => {
+    const queryParam = queryFilters[filterName];
+    return [...prev, ...concatFilters(filterName, queryParam)];
+  }, [] as string[]);
 
   return queryParams.length > 0 ? firstChar + queryParams.join('&') : '';
 };

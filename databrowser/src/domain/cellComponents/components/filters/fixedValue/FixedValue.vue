@@ -14,44 +14,66 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, ref, toRefs } from 'vue';
+import { defineEmits, defineProps, toRefs, withDefaults } from 'vue';
 import Checkbox from '../../../../../components/checkbox/Checkbox.vue';
+import { useAsSet } from '../../../../../lib/apiQuery/utils';
 import ControlButtons from '../ControlButtons.vue';
-import { ParameterValue } from '../../../../../lib/apiQuery/types';
+import { FilterValue } from '../types';
 
-export interface FixedValue {
+export interface FixedValueOption {
   label: string;
   value: string;
 }
 
-const props = defineProps<{
-  currentValue: ParameterValue | undefined;
-  filterOptions?: FixedValue[];
-}>();
+const props = withDefaults(
+  defineProps<{
+    initialValue: FilterValue;
+    filterOptions?: FixedValueOption[];
+    multiselect?: boolean;
+  }>(),
+  {
+    filterOptions: () => [],
+    multiselect: false,
+  }
+);
 
-const { currentValue, filterOptions } = toRefs(props);
+const { initialValue, filterOptions, multiselect } = toRefs(props);
 
-const updatedValue = ref(currentValue.value);
+const currentValue = useAsSet(initialValue, { twoWayBinding: false });
 
-const change = (value: string) =>
-  (updatedValue.value = value === updatedValue.value ? undefined : value);
+const change = (value: string) => {
+  // Assign new set in order to satisfy reactivity constraints
+  currentValue.value = new Set(currentValue.value);
 
-const isChecked = (value: string) => updatedValue.value === value;
+  const isAlreadySelected = currentValue.value.has(value);
+
+  if (isAlreadySelected) {
+    // Unselect value if already selected
+    currentValue.value.delete(value);
+  } else {
+    // If is single selection, clear current selection
+    if (multiselect.value === false) {
+      currentValue.value.clear();
+    }
+
+    // Add value to selections
+    currentValue.value.add(value);
+  }
+};
+
+const isChecked = (value: string) => currentValue.value.has(value);
 
 const emits = defineEmits<{
   // eslint-disable-next-line no-unused-vars
   (e: 'cancel'): void;
   // eslint-disable-next-line no-unused-vars
-  (e: 'save', v: ParameterValue | undefined): void;
+  (e: 'save', v: FilterValue): void;
 }>();
 
-const cancel = () => {
-  updatedValue.value = currentValue.value;
-  emits('cancel');
-};
+const cancel = () => emits('cancel');
 
 const save = () => {
-  currentValue.value = updatedValue.value;
-  emits('save', updatedValue.value);
+  const nextValue = Array.from(currentValue.value.values());
+  emits('save', nextValue);
 };
 </script>
