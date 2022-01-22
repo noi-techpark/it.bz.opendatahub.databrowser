@@ -5,12 +5,14 @@ import {
   odhActivityPoiTypesConfig,
 } from './tourism';
 
-const config: Record<string, ApiConfigEntry> = {
+const config = {
   'odh-accommodation': odhAccommodationConfig,
   'odh-activity-poi': odhActivityPoiConfig,
   'odh-activity-poi-types': odhActivityPoiTypesConfig,
 };
 
-export type ApiConfig = Record<keyof typeof config, ApiConfigEntry>;
+export type ApiConfigKey = keyof typeof config;
+
+export type ApiConfig = Record<ApiConfigKey, ApiConfigEntry>;
 
 export const apiConfig: ApiConfig = config;

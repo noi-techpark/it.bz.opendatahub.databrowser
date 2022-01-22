@@ -1,12 +1,12 @@
 import { get } from 'lodash';
 import { useApiQuery } from '../../lib/apiQuery/apiQueryHandler';
 import { stringifyParameter } from '../../lib/apiQuery/query';
-import { ApiConfig, apiConfig } from '../../config/config';
+import { apiConfig, ApiConfigKey } from '../../config/config';
 import { ApiConfigEntry } from '../../config/types';
 
 export const getApiConfigForDataset = (
-  id: keyof ApiConfig
-): ApiConfigEntry | undefined => apiConfig[id];
+  id: string
+): ApiConfigEntry | undefined => apiConfig[id as ApiConfigKey];
 
 const replacePlaceholders = (
   s: string,
