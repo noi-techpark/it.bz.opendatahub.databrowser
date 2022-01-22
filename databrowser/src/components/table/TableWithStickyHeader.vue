@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
-import { TableColumnConfig } from '../../domain/api/config';
+import { TableColumnConfig } from '../../../config/config';
 import TableBody from './TableBody.vue';
 import TableHeader from './TableHeader.vue';
 

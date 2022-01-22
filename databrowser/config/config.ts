@@ -1,4 +1,7 @@
-import { CellComponent, FilterComponent } from '../cellComponents/types';
+import {
+  CellComponent,
+  FilterComponent,
+} from '../src/domain/cellComponents/types';
 
 const apiBaseUrl = 'https://api.tourism.testingmachine.eu';
 

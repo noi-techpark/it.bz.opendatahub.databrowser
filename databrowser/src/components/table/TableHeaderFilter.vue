@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { defineProps, ref, toRefs } from 'vue';
-import { FilterConfig } from '../../domain/api/config';
+import { FilterConfig } from '../../../config/config';
 import { useApiQuery } from '../../lib/apiQuery/apiQueryHandler';
 import Dropdown from '../dropdown/Dropdown.vue';
 import Cell from '../listCell/ListCell.vue';

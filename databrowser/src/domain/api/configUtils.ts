@@ -1,7 +1,7 @@
 import { get } from 'lodash';
 import { useApiQuery } from '../../lib/apiQuery/apiQueryHandler';
 import { stringifyParameter } from '../../lib/apiQuery/query';
-import { ApiConfig, apiConfig, ApiConfigEntry } from './config';
+import { ApiConfig, apiConfig, ApiConfigEntry } from '../../../config/config';
 
 export const getApiConfigForDataset = (
   id: keyof ApiConfig
