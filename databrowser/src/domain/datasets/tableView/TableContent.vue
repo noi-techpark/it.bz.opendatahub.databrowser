@@ -6,13 +6,19 @@
     </template>
 
     <template #header-cols>
-      <TableHeaderCell v-for="col in config" :key="col.title">
-        {{ col.title }}
-      </TableHeaderCell>
+      <TableHeaderFilter
+        v-for="col in config"
+        :key="col.title"
+        :text="col.title"
+        :filter="col.filter"
+      />
       <TableHeaderCell class="sticky right-0 bg-white"></TableHeaderCell>
     </template>
 
     <template #body-rows>
+      <tr v-if="rows.length === 0">
+        <TableCell>No data</TableCell>
+      </tr>
       <!-- eslint-disable-next-line vue/require-v-for-key -->
       <tr v-for="row in rows">
         <TableCell v-for="col in config" :key="col.title">
@@ -51,41 +57,32 @@
   </TableWithStickyHeader>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
-import { TableColumnConfig } from '../../api/config';
+<script setup lang="ts">
+import { defineProps, toRefs, withDefaults } from 'vue';
+import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
 import { useFieldExtraction } from '../../api/configUtils';
 import Cell from '../../../components/listCell/ListCell.vue';
+import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
+import TableHeaderFilter from '../../../components/table/TableHeaderFilter.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../components/table/TableCell.vue';
-import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import EyeDetailGreen from '../../../components/svg/EyeDetailGreen.vue';
 import DetailsLink from './DetailsLink.vue';
-import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
+import { TableColumnConfig } from '../../api/config';
 
-export default defineComponent({
-  components: {
-    Cell,
-    TableHeaderCell,
-    TableCell,
-    TableWithStickyHeader,
-    EyeDetailGreen,
-    DetailsLink,
-  },
-  props: {
-    rows: {
-      default: () => [],
-      type: [Array] as PropType<any[]>,
-    },
-    config: {
-      default: () => [],
-      type: Array as PropType<TableColumnConfig[]>,
-    },
-  },
-  setup() {
-    const { getValue } = useFieldExtraction();
-    const language = useApiQuery().useApiParameter('language');
-    return { getValue, language };
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    rows: any[];
+    config: TableColumnConfig[];
+  }>(),
+  {
+    rows: () => [],
+    config: () => [],
+  }
+);
+
+const { rows, config } = toRefs(props);
+
+const { getValue } = useFieldExtraction();
+const language = useApiQuery().useApiParameter('language');
 </script>

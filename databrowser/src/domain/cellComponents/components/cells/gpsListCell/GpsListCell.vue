@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
-import { useFieldExtraction } from '../../../api/configUtils';
+import { useFieldExtraction } from '../../../../api/configUtils';
 import StringCell from '../stringCell/StringCell.vue';
 
 /**
