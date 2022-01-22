@@ -9,14 +9,14 @@
         />
       </div>
     </div>
-    <CancelSaveButtons @cancel="cancel" @save="save" />
+    <ControlButtons @cancel="cancel" @save="save" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { defineEmits, defineProps, ref, toRefs } from 'vue';
 import Checkbox from '../../../../../components/checkbox/Checkbox.vue';
-import CancelSaveButtons from '../CancelSaveButtons.vue';
+import ControlButtons from '../ControlButtons.vue';
 import { ParameterValue } from '../../../../../lib/apiQuery/types';
 
 export interface FixedValue {
