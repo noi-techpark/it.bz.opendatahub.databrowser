@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  margin-left: calc(100vw - 100%);
+  scrollbar-gutter: stable;
 }
 
 body {
