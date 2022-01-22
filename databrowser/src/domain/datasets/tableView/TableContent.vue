@@ -68,7 +68,7 @@ import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../components/table/TableCell.vue';
 import EyeDetailGreen from '../../../components/svg/EyeDetailGreen.vue';
 import DetailsLink from './DetailsLink.vue';
-import { TableColumnConfig } from '../../../../config/types';
+import { TableColumnConfig } from '../../../config/types';
 
 const props = withDefaults(
   defineProps<{

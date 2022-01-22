@@ -23,7 +23,7 @@
 import { defineProps, toRefs } from 'vue';
 import { useFieldExtraction } from '../../api/configUtils';
 import ListCell from '../../../components/listCell/ListCell.vue';
-import { PropertyConfig } from '../../../../config/types';
+import { PropertyConfig } from '../../../config/types';
 
 export interface DetailSubCategory {
   name: string;

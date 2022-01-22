@@ -1,8 +1,5 @@
 import { ApiConfigEntry } from './types';
-import {
-  CellComponent,
-  FilterComponent,
-} from '../src/domain/cellComponents/types';
+import { CellComponent, FilterComponent } from '../domain/cellComponents/types';
 
 const apiBaseUrl = 'https://api.tourism.testingmachine.eu';
 
