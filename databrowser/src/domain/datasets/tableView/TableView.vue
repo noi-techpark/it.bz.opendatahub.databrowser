@@ -49,7 +49,6 @@ import { useApiQuery } from '../../api/service/apiQueryHandler';
 import { useApi, useAsQueryKey } from '../../api/client/client';
 import { useUrlQuery } from '../../api/service/urlQueryHandler';
 import { stringifyParameter } from '../../api/service/query';
-import { buildUrlWithQuery } from '../../../lib/urlQuery/urlBuilder';
 
 export default defineComponent({
   components: { DownloadSection, TableContent, TableNavigation },
@@ -62,10 +61,6 @@ export default defineComponent({
     const { url, tableConfig } =
       getApiConfigForDataset(datasetType)?.listEndpoint ?? {};
 
-    const datasetUrlWithQuery = computed(() => {
-      return buildUrlWithQuery(url ?? '', route.query);
-    });
-
     // API query is used in several places
     const apiQuery = useApiQuery();
     apiQuery.setDefaultApiParameters(defaultQueryParameters);
@@ -77,8 +72,8 @@ export default defineComponent({
       (value) => parseInt(stringifyParameter(value), 10) > 0
     );
 
-    const fullUrl = useUrlQuery().useUrlWithQueryParameters(url);
-    const fetchUrl = useAsQueryKey(fullUrl);
+    const datasetUrlWithQuery = useUrlQuery().useUrlWithQueryParameters(url);
+    const fetchUrl = useAsQueryKey(datasetUrlWithQuery);
 
     // Get fetcher function
     const fetcher = useAxiosFetcher();

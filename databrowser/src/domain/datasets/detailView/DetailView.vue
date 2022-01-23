@@ -41,12 +41,17 @@ import DetailCategories, { DetailCategory } from './DetailCategories.vue';
 import DetailSubCategories from './DetailSubCategories.vue';
 import { getDatasetUrl } from '../queryDataset';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
-import { buildUrlWithQuery } from '../../../lib/urlQuery/urlBuilder';
+import { useUrlQuery } from '../../api/service/urlQueryHandler';
 
 const route = useRoute();
 const datasetType = route.params.datasetType as string;
 const datasetId = route.params.datasetId as string;
 const datasetUrl = getDatasetUrl(datasetType, datasetId);
+
+// Compute dataset URL with query params
+const datasetUrlWithQuery = computed(
+  () => useUrlQuery().useUrlWithQueryParameters(datasetUrl).value
+);
 
 // Get config parameters
 const { viewConfig } =
@@ -85,10 +90,6 @@ const categories: ComputedRef<DetailCategory[]> = computed(
       };
     }) ?? []
 );
-
-const datasetUrlWithQuery = computed(() => {
-  return buildUrlWithQuery(datasetUrl ?? '', route.query);
-});
 </script>
 
 <style>
