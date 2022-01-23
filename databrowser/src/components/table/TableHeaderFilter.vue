@@ -1,7 +1,7 @@
 <template>
   <th v-if="filter != null" class="text-gray-900">
     <Dropdown
-      :text="text"
+      :text="label"
       button-class="font-bold py-4 px-4"
       button-label-class="font-semibold"
       @visible="visible"
@@ -36,7 +36,7 @@ const props = defineProps<{
   filter?: FilterConfig;
 }>();
 
-const { filter } = toRefs(props);
+const { text, filter } = toRefs(props);
 
 const { updateApiParameterValue, useApiParameter } = useApiQuery();
 const initialValue = computed({
@@ -47,9 +47,24 @@ const initialValue = computed({
   set: (value) => {
     if (filter?.value?.name != null) {
       updateApiParameterValue(filter.value.name, value);
+      setLabel();
     }
   },
 });
+
+// Compute label with number of active filters
+// The label can not be computed in a reactive way from initialValue,
+// because label is displayed in the Dropdown component, which in turn
+// shows the filter / initialValue, which again modifies the label.
+// This creates a circular dependency that is not allowed. The imperative
+// approach implemented below solves that issue (although not in a nice way).
+const label = ref('');
+const setLabel = () => {
+  const filterValue = initialValue.value;
+  const count = filterValue.length > 0 ? ` (${filterValue.length})` : '';
+  label.value = text.value + count;
+};
+setLabel();
 
 const save = (value: FilterValue) => (initialValue.value = value);
 

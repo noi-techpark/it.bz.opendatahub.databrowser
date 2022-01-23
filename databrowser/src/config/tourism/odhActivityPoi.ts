@@ -120,7 +120,7 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
       {
         title: 'Source state',
         component: CellComponent.StateCell,
-        class: 'w-36',
+        class: 'w-40',
         fields: {
           state: 'Active',
         },
@@ -144,7 +144,7 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
       {
         title: 'ODH state',
         component: CellComponent.StateCell,
-        class: 'w-36',
+        class: 'w-40',
         fields: {
           state: 'OdhActive',
         },
