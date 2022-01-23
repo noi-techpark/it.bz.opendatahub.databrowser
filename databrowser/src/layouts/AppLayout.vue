@@ -10,12 +10,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
 import AppHeader from './AppHeader.vue';
 import AppFooter from './AppFooter.vue';
-
-export default defineComponent({
-  components: { AppHeader, AppFooter },
-});
 </script>
