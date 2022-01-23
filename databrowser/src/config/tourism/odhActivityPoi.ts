@@ -32,10 +32,13 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
       },
       {
         title: 'Categories',
-        component: CellComponent.StringCell,
+        component: CellComponent.ArrayCell,
         class: 'w-40',
         fields: {
-          text: 'AdditionalPoiInfos.{language}.MainType',
+          items: 'AdditionalPoiInfos.{language}.Categories',
+        },
+        params: {
+          separator: ', ',
         },
       },
       {
