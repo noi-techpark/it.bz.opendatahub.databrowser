@@ -3,15 +3,15 @@
   <span v-if="html != null" v-html="html"></span>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
 
-export default defineComponent({
-  props: {
-    html: {
-      default: () => null,
-      type: String,
-    },
-  },
-});
+withDefaults(
+  defineProps<{
+    html?: string;
+  }>(),
+  {
+    html: undefined,
+  }
+);
 </script>
