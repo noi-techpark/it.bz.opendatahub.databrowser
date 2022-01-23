@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from '@vue/runtime-core';
+import { defineProps, withDefaults } from 'vue';
 import DownloadCell from './DownloadCell.vue';
 import DownloadTitle from './DownloadTitle.vue';
 import DownloadLink from './DownloadLink.vue';

@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs } from '@vue/runtime-core';
+import { defineProps, toRefs } from 'vue';
 import PillLink from '../../../components/pill/PillLink.vue';
 import PillButton from '../../../components/pill/PillButton.vue';
 import { ViewPill } from './types';

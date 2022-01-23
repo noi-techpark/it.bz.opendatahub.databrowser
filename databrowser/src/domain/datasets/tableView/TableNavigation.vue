@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, toRefs } from '@vue/runtime-core';
+import { defineEmits, defineProps, toRefs } from 'vue';
 import SelectCustom from '../../../components/select/SelectCustom.vue';
 import Paginator from '../../../components/paginator/Paginator.vue';
 import { Pagination } from '../../api/client/types';

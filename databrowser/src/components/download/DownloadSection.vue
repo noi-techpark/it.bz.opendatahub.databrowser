@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, withDefaults } from '@vue/runtime-core';
+import { defineProps, ref, withDefaults } from 'vue';
 import { Dialog, DialogOverlay } from '@headlessui/vue';
 import ArrowUp from '../svg/ArrowUp.vue';
 import IconClose from '../svg/IconClose.vue';

@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from '@vue/runtime-core';
+import { defineProps, withDefaults } from 'vue';
 import { useSlots } from 'vue';
 import { TableColumnConfig } from '../../config/types';
 import TableBody from './TableBody.vue';

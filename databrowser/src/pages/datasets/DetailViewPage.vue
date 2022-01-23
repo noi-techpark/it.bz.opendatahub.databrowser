@@ -16,7 +16,7 @@
 <script lang="ts">
 import AppLayout from '../../layouts/AppLayout.vue';
 import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
-import { defineComponent } from '@vue/runtime-core';
+import { defineComponent } from 'vue';
 import { ViewPill } from '../../domain/datasets/navigation/types';
 import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';
 import DatasetHero from '../../domain/datasets/DatasetHero.vue';

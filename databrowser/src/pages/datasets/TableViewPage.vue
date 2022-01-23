@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+import { defineComponent } from 'vue';
 import TableView from '../../domain/datasets/tableView/TableView.vue';
 import { ViewPill } from '../../domain/datasets/navigation/types';
 import DatasetNavigation from '../../domain/datasets/navigation/DatasetNavigation.vue';

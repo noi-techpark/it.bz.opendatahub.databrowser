@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from '@vue/runtime-core';
+import { defineProps, withDefaults } from 'vue';
 import { Tone } from './types';
 import { computed } from 'vue';
 

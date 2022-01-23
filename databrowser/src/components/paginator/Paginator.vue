@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { calculatePagination } from '@aboutbits/pagination';
-import { defineEmits, defineProps } from '@vue/runtime-core';
+import { defineEmits, defineProps } from 'vue';
 import { Pagination } from '../../domain/api/client/types';
 import ArrowRight from '../svg/ArrowRight.vue';
 import ArrowLeft from '../svg/ArrowLeft.vue';
