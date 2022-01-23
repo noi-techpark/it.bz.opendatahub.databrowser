@@ -38,16 +38,15 @@ import {
   pageSizeOptions,
   validPageSizes,
 } from './defaultValues';
-import { unifyPagination } from '../../api/mapper';
+import { unifyPagination } from '../../api/client/mapper';
 import TableContent from './TableContent.vue';
 import TableNavigation from './TableNavigation.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
-import { PaginationData } from '../../api/types';
+import { PaginationData } from '../../api/client/types';
 import { AxiosResponse } from 'axios';
-import { useAxiosFetcher } from '../../api/fetcher/axios';
+import { useAxiosFetcher } from '../../api/client/fetcher/axios';
 import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
-import { useApi } from '../../api/client';
-import { useAsQueryKey } from '../../api/query/url';
+import { useApi, useAsQueryKey } from '../../api/client/client';
 import { useUrlQuery } from '../../../lib/apiQuery/urlQueryHandler';
 import { stringifyParameter } from '../../../lib/apiQuery/query';
 import { buildUrlWithQuery } from '../../../lib/urlQuery/urlBuilder';

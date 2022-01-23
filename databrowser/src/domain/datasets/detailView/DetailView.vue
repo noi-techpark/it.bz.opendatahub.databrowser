@@ -34,7 +34,7 @@
 import { AxiosInstance } from 'axios';
 import { computed, ComputedRef, inject, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { useApi } from '../../api/client';
+import { useApi } from '../../api/client/client';
 import { getApiConfigForDataset } from '../../api/configUtils';
 import { useHashSlug } from './useHashSlug';
 import DetailCategories, { DetailCategory } from './DetailCategories.vue';
