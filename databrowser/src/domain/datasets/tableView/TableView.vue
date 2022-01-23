@@ -28,8 +28,7 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { getApiConfigForDataset } from '../../api/configUtils';
@@ -50,74 +49,56 @@ import { useApi, useAsQueryKey } from '../../api/client/client';
 import { useUrlQuery } from '../../api/service/urlQueryHandler';
 import { stringifyParameter } from '../../api/service/query';
 
-export default defineComponent({
-  components: { DownloadSection, TableContent, TableNavigation },
-  setup() {
-    // Use path parameters to get config for dataset
-    const route = useRoute();
-    const datasetType = route.params.datasetType as string;
+// Use path parameters to get config for dataset
+const route = useRoute();
+const datasetType = route.params.datasetType as string;
 
-    // Get config parameters
-    const { url, tableConfig } =
-      getApiConfigForDataset(datasetType)?.listEndpoint ?? {};
+// Get config parameters
+const { url, tableConfig } =
+  getApiConfigForDataset(datasetType)?.listEndpoint ?? {};
 
-    // API query is used in several places
-    const apiQuery = useApiQuery();
-    apiQuery.setDefaultApiParameters(defaultQueryParameters);
-    apiQuery.updateApiParameterValidator('pagesize', (value) =>
-      validPageSizes.includes(stringifyParameter(value))
-    );
-    apiQuery.updateApiParameterValidator(
-      'pagenumber',
-      (value) => parseInt(stringifyParameter(value), 10) > 0
-    );
+// API query is used in several places
+const apiQuery = useApiQuery();
+apiQuery.setDefaultApiParameters(defaultQueryParameters);
+apiQuery.updateApiParameterValidator('pagesize', (value) =>
+  validPageSizes.includes(stringifyParameter(value))
+);
+apiQuery.updateApiParameterValidator(
+  'pagenumber',
+  (value) => parseInt(stringifyParameter(value), 10) > 0
+);
 
-    const datasetUrlWithQuery = useUrlQuery().useUrlWithQueryParameters(url);
-    const fetchUrl = useAsQueryKey(datasetUrlWithQuery);
+const datasetUrlWithQuery = useUrlQuery().useUrlWithQueryParameters(url);
+const fetchUrl = useAsQueryKey(datasetUrlWithQuery);
 
-    // Get fetcher function
-    const fetcher = useAxiosFetcher();
+// Get fetcher function
+const fetcher = useAxiosFetcher();
 
-    // Define result mapping function
-    const resultMapper = (data: AxiosResponse): PaginationData => {
-      const defaultApiParameters = apiQuery.defaultApiParameters.value;
-      const currentApiParameters = apiQuery.currentApiParameters.value;
-      return unifyPagination(data.data, {
-        defaultParameters: defaultApiParameters,
-        parameters: currentApiParameters,
-      });
-    };
+// Define result mapping function
+const resultMapper = (data: AxiosResponse): PaginationData => {
+  const defaultApiParameters = apiQuery.defaultApiParameters.value;
+  const currentApiParameters = apiQuery.currentApiParameters.value;
+  return unifyPagination(data.data, {
+    defaultParameters: defaultApiParameters,
+    parameters: currentApiParameters,
+  });
+};
 
-    // Fetch data
-    const { data, isSuccess } = useApi(fetchUrl, fetcher, {
-      select: resultMapper,
-    });
-
-    // Define method to change page
-    const paginateTo = (page: number) =>
-      apiQuery.updateApiParameterValue('pagenumber', page.toString());
-
-    // Handle page size
-    const pageSize = apiQuery.useApiParameter('pagesize');
-
-    const pageSizeChanges = (value: string | undefined) =>
-      (pageSize.value = value);
-
-    const rows = computed(() => data.value?.items ?? []);
-
-    const pagination = computed(() => data.value?.pagination);
-
-    return {
-      datasetUrlWithQuery,
-      isSuccess,
-      pageSizeOptions,
-      data,
-      tableConfig,
-      rows,
-      pagination,
-      paginateTo,
-      pageSizeChanges,
-    };
-  },
+// Fetch data
+const { data, isSuccess } = useApi(fetchUrl, fetcher, {
+  select: resultMapper,
 });
+
+// Define method to change page
+const paginateTo = (page: string) =>
+  apiQuery.updateApiParameterValue('pagenumber', page);
+
+// Handle page size
+const pageSize = apiQuery.useApiParameter('pagesize');
+
+const pageSizeChanges = (value: string | undefined) => (pageSize.value = value);
+
+const rows = computed(() => data.value?.items ?? []);
+
+const pagination = computed(() => data.value?.pagination);
 </script>
