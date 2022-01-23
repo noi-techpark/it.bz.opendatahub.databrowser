@@ -18,7 +18,7 @@
     <Paginator
       :pagination="pagination"
       class="pt-8 md:pt-0"
-      @paginate-to="emits('paginateTo', $event)"
+      @paginate-to="paginateTo($event)"
     />
   </div>
 </template>
@@ -48,4 +48,6 @@ const pageSize = computed({
   get: () => pagination?.value?.size.toString() ?? '0',
   set: (value) => emits('pageSizeChanges', value),
 });
+
+const paginateTo = (value: number) => emits('paginateTo', value.toString());
 </script>

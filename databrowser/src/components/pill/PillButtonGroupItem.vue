@@ -22,35 +22,30 @@
       class="border-transparent"
       role="button"
       tabindex="0"
-      @click="$emit('changeSelectedItem', item)"
+      @click="emits('changeSelectedItem', item)"
     >
       <span class="block py-1 px-2 font-semibold">{{ item }}</span>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineEmits, defineProps, withDefaults } from 'vue';
 
-export default defineComponent({
-  props: {
-    isFirst: {
-      type: Boolean,
-      default: false,
-    },
-    isLast: {
-      type: Boolean,
-      default: false,
-    },
-    item: {
-      type: String,
-      required: true,
-    },
-    isSelected: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['changeSelectedItem'],
-});
+withDefaults(
+  defineProps<{
+    item: string;
+    isFirst?: boolean;
+    isLast?: boolean;
+    isSelected?: boolean;
+  }>(),
+  {
+    isFirst: false,
+    isLast: false,
+    isSelected: false,
+  }
+);
+
+// eslint-disable-next-line no-unused-vars
+const emits = defineEmits<{ (e: 'changeSelectedItem', item: string): void }>();
 </script>

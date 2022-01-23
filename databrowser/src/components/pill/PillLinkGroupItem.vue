@@ -29,8 +29,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps, withDefaults } from '@vue/runtime-core';
 import { computed } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 
@@ -40,27 +40,17 @@ export type PillLinkGroupData = {
   selected: boolean;
 };
 
-export default defineComponent({
-  props: {
-    isFirst: {
-      type: Boolean,
-      default: false,
-    },
-    isLast: {
-      type: Boolean,
-      default: false,
-    },
-    item: {
-      type: Object as PropType<PillLinkGroupData>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const isSelected = computed(() => props.item.selected);
+const props = withDefaults(
+  defineProps<{
+    item: PillLinkGroupData;
+    isFirst?: boolean;
+    isLast?: boolean;
+  }>(),
+  {
+    isFirst: false,
+    isLast: false,
+  }
+);
 
-    return {
-      isSelected,
-    };
-  },
-});
+const isSelected = computed(() => props.item.selected);
 </script>

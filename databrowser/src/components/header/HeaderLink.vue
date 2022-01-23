@@ -4,15 +4,10 @@
   </a>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps } from '@vue/runtime-core';
 
-export default defineComponent({
-  props: {
-    to: {
-      required: true,
-      type: String,
-    },
-  },
-});
+defineProps<{
+  to: string;
+}>();
 </script>

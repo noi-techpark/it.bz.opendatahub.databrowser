@@ -37,10 +37,10 @@
   </Dialog>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { Dialog, DialogOverlay } from '@headlessui/vue';
-import { defineComponent, PropType } from '@vue/runtime-core';
-import { FilterLanguage } from '../../domain/api/configFilter';
+import { defineProps, withDefaults } from 'vue';
+import { defaultLanguage, FilterLanguage } from '../../domain/api/configFilter';
 import IconClose from '../svg/IconClose.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import PillButton from '../pill/PillButton.vue';
@@ -52,67 +52,45 @@ import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
 import { stringifyParameter } from '../../domain/api/service/query';
 import { useUrlQuery } from '../../domain/api/service/urlQueryHandler';
 
-export default defineComponent({
-  components: {
-    PillLink,
-    PillLinkGroup,
-    PillButton,
-    Dialog,
-    DialogOverlay,
-    IconClose,
-    ArrowDown,
-  },
-  props: {
-    defaultLanguage: {
-      type: String as PropType<FilterLanguage>,
-      default: FilterLanguage.EN,
-    },
-  },
-  setup(props) {
-    const route = useRoute();
-    const supportedLanguages: Array<string> = Object.values(FilterLanguage);
-    const showMobileSelect = ref<boolean>(false);
+const props = withDefaults(
+  defineProps<{
+    defaultLanguage?: FilterLanguage;
+  }>(),
+  { defaultLanguage: defaultLanguage }
+);
 
-    const apiQuery = useApiQuery();
-    apiQuery.updateApiParameterValidator('language', (value) =>
-      supportedLanguages.includes(stringifyParameter(value))
-    );
-    const currentLanguage = apiQuery.useApiParameter('language', {
-      defaultValue: props.defaultLanguage,
-    });
+const route = useRoute();
+const supportedLanguages: Array<string> = Object.values(FilterLanguage);
+const showMobileSelect = ref<boolean>(false);
 
-    const urlQuery = useUrlQuery();
+const apiQuery = useApiQuery();
+apiQuery.updateApiParameterValidator('language', (value) =>
+  supportedLanguages.includes(stringifyParameter(value))
+);
+const currentLanguage = apiQuery.useApiParameter('language', {
+  defaultValue: props.defaultLanguage,
+});
 
-    const links = computed(() => {
-      return supportedLanguages.map((language) => {
-        const query = urlQuery.cleanQueryParametersExtendedWith({ language });
+const urlQuery = useUrlQuery();
 
-        const location: RouteLocationRaw = {
-          query,
-          hash: route.hash,
-        };
+const links = computed(() => {
+  return supportedLanguages.map((language) => {
+    const query = urlQuery.cleanQueryParametersExtendedWith({ language });
 
-        const selected = currentLanguage.value === language;
+    const location: RouteLocationRaw = {
+      query,
+      hash: route.hash,
+    };
 
-        return {
-          label: language,
-          to: location,
-          selected,
-        };
-      });
-    });
-
-    function closeDialog() {
-      showMobileSelect.value = false;
-    }
+    const selected = currentLanguage.value === language;
 
     return {
-      supportedLanguages,
-      showMobileSelect,
-      currentLanguage,
-      links,
-      closeDialog,
+      label: language,
+      to: location,
+      selected,
     };
-  },
+  });
 });
+
+const closeDialog = () => (showMobileSelect.value = false);
 </script>

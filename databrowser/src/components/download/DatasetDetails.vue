@@ -15,8 +15,8 @@
   </DownloadCell>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps } from '@vue/runtime-core';
 import DownloadCell from './DownloadCell.vue';
 import DownloadTitle from './DownloadTitle.vue';
 import DownloadDescription from './DownloadDescription.vue';
@@ -25,38 +25,22 @@ import IconCopy from '../svg/IconCopy.vue';
 import { ref } from 'vue';
 import IconCheck from '../svg/IconCheck.vue';
 
-export default defineComponent({
-  components: {
-    IconCheck,
-    IconCopy,
-    DownloadButton,
-    DownloadDescription,
-    DownloadTitle,
-    DownloadCell,
-  },
-  props: {
-    datasetUrl: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props) {
-    const showOk = ref<boolean>(false);
+const props = defineProps<{
+  datasetUrl: string;
+}>();
 
-    function confirmCopy() {
-      showOk.value = true;
+const showOk = ref<boolean>(false);
 
-      setTimeout(() => (showOk.value = false), 1000);
-    }
+const confirmCopy = () => {
+  showOk.value = true;
 
-    function copyToClipboard() {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(props.datasetUrl);
-        confirmCopy();
-      }
-    }
+  setTimeout(() => (showOk.value = false), 1000);
+};
 
-    return { copyToClipboard, showOk };
-  },
-});
+const copyToClipboard = () => {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(props.datasetUrl);
+    confirmCopy();
+  }
+};
 </script>
