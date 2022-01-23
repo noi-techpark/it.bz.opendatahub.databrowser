@@ -60,6 +60,43 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
         params: {
           separator: ', ',
         },
+        filter: {
+          name: 'langfilter',
+          component: FilterComponent.FixedValue,
+          params: {
+            multiselect: true,
+            filterOptions: [
+              {
+                label: 'German',
+                value: 'de',
+              },
+              {
+                label: 'Italian',
+                value: 'it',
+              },
+              {
+                label: 'English',
+                value: 'en',
+              },
+              {
+                label: 'Dutch',
+                value: 'nl',
+              },
+              {
+                label: 'Polish',
+                value: 'pl',
+              },
+              {
+                label: 'French',
+                value: 'fr',
+              },
+              {
+                label: 'Russian',
+                value: 'ru',
+              },
+            ],
+          },
+        },
       },
       {
         title: 'Edited',
