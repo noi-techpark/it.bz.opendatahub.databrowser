@@ -1,6 +1,6 @@
 import { App, computed, inject, ref, watch } from 'vue';
 import { Router } from 'vue-router';
-import { buildQueryFilter } from '../../domain/api/client/fetcher/list';
+import { buildQueryFilter } from '../client/fetcher/list';
 import { ApiQuery, UrlQuery, UrlParameters } from './types';
 
 export const urlQueryHandlerKey = 'url-query-handler';

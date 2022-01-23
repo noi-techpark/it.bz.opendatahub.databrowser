@@ -45,10 +45,10 @@ import DownloadSection from '../../../components/download/DownloadSection.vue';
 import { PaginationData } from '../../api/client/types';
 import { AxiosResponse } from 'axios';
 import { useAxiosFetcher } from '../../api/client/fetcher/axios';
-import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
+import { useApiQuery } from '../../api/service/apiQueryHandler';
 import { useApi, useAsQueryKey } from '../../api/client/client';
-import { useUrlQuery } from '../../../lib/apiQuery/urlQueryHandler';
-import { stringifyParameter } from '../../../lib/apiQuery/query';
+import { useUrlQuery } from '../../api/service/urlQueryHandler';
+import { stringifyParameter } from '../../api/service/query';
 import { buildUrlWithQuery } from '../../../lib/urlQuery/urlBuilder';
 
 export default defineComponent({

@@ -48,9 +48,9 @@ import { computed, ref } from 'vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
 import PillLinkGroup from '../pill/PillLinkGroup.vue';
 import PillLink from '../pill/PillLink.vue';
-import { useApiQuery } from '../../lib/apiQuery/apiQueryHandler';
-import { useUrlQuery } from '../../lib/apiQuery/urlQueryHandler';
-import { stringifyParameter } from '../../lib/apiQuery/query';
+import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
+import { stringifyParameter } from '../../domain/api/service/query';
+import { useUrlQuery } from '../../domain/api/service/urlQueryHandler';
 
 export default defineComponent({
   components: {
