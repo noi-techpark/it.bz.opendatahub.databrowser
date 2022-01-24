@@ -5,15 +5,17 @@
         {{ subcategory.name }}
       </div>
       <div class="flex flex-col gap-2 my-3">
-        <div v-for="property in subcategory.properties" :key="property.title">
-          <div class="text-sm text-gray-500">{{ property.title }}</div>
-
+        <SubCategory
+          v-for="property in subcategory.properties"
+          :key="property.title"
+          :title="property.title"
+        >
           <ListCell
             :tag-name="property.component"
             :attributes="getValue(data, property.fields, property.params)"
             :class="property.class"
           />
-        </div>
+        </SubCategory>
       </div>
     </div>
   </div>
@@ -24,6 +26,7 @@ import { defineProps, toRefs } from 'vue';
 import { useFieldExtraction } from '../../api/configUtils';
 import ListCell from '../../../components/listCell/ListCell.vue';
 import { PropertyConfig } from '../../../config/types';
+import SubCategory from './SubCategory.vue';
 
 export interface DetailSubCategory {
   name: string;
