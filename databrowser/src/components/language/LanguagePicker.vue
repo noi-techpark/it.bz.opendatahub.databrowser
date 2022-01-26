@@ -23,11 +23,8 @@
   </BottomSheet>
 </template>
 
-<script setup lang="ts">
-import { Dialog, DialogOverlay } from '@headlessui/vue';
-import { defineProps, withDefaults } from 'vue';
+<script lang="ts" setup>
 import { defaultLanguage, FilterLanguage } from '../../domain/api/configFilter';
-import IconClose from '../svg/IconClose.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import PillButton from '../pill/PillButton.vue';
 import { computed, defineProps, ref, withDefaults } from 'vue';
