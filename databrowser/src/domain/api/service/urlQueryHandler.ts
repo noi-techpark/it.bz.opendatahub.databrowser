@@ -1,7 +1,7 @@
 import { App, computed, inject, ref, watch } from 'vue';
 import { Router } from 'vue-router';
-import { buildQueryFilter } from '../../domain/api/fetcher/list';
 import { ApiQuery, UrlQuery, UrlParameters } from './types';
+import { buildUrlQuery } from './urlBuilder';
 
 export const urlQueryHandlerKey = 'url-query-handler';
 
@@ -9,14 +9,14 @@ export const createUrlQueryHandler = (
   router: Router,
   apiQuery: ApiQuery
 ): UrlQuery => {
-  const currentQueryFilters = ref('');
+  const currentUrlQuery = ref('');
 
   // Update route if API query parameters change
   watch(
     () => apiQuery.allApiParameters.value,
     (allApiParameters) => {
-      const queryFilters = buildQueryFilter(allApiParameters, '?');
-      currentQueryFilters.value = queryFilters;
+      const urlQuery = buildUrlQuery(allApiParameters, '?');
+      currentUrlQuery.value = urlQuery;
 
       router.replace({
         query: { ...apiQuery.cleanApiParameters.value },
@@ -32,7 +32,7 @@ export const createUrlQueryHandler = (
   );
 
   const useUrlWithQueryParameters = (baseUrl: string | undefined) =>
-    computed(() => `${baseUrl}${currentQueryFilters.value}`);
+    computed(() => `${baseUrl}${currentUrlQuery.value}`);
 
   const cleanQueryParametersExtendedWith = (
     queryParameters: UrlParameters

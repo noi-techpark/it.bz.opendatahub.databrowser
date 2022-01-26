@@ -29,7 +29,7 @@
 <script lang="ts">
 import { calculatePagination } from '@aboutbits/pagination';
 import { defineComponent, PropType } from '@vue/runtime-core';
-import { Pagination } from '../../domain/api/types';
+import { Pagination } from '../../domain/api/client/types';
 import ArrowRight from '../svg/ArrowRight.vue';
 import ArrowLeft from '../svg/ArrowLeft.vue';
 import { reactive, watch } from 'vue';

@@ -7,8 +7,8 @@ import './index.css';
 import { router } from './routes';
 import store from './store';
 import registerCellComponents from './domain/cellComponents/plugins/registerCellComponents';
-import { createApiQueryHandler } from './lib/apiQuery/apiQueryHandler';
-import { createUrlQueryHandler } from './lib/apiQuery/urlQueryHandler';
+import { createApiQueryHandler } from './domain/api/service/apiQueryHandler';
+import { createUrlQueryHandler } from './domain/api/service/urlQueryHandler';
 
 const app = createApp(App);
 

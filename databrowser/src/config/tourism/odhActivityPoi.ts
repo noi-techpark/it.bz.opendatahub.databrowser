@@ -61,6 +61,43 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
         params: {
           separator: ', ',
         },
+        filter: {
+          name: 'langfilter',
+          component: FilterComponent.FixedValue,
+          params: {
+            multiselect: true,
+            filterOptions: [
+              {
+                label: 'German',
+                value: 'de',
+              },
+              {
+                label: 'Italian',
+                value: 'it',
+              },
+              {
+                label: 'English',
+                value: 'en',
+              },
+              {
+                label: 'Dutch',
+                value: 'nl',
+              },
+              {
+                label: 'Polish',
+                value: 'pl',
+              },
+              {
+                label: 'French',
+                value: 'fr',
+              },
+              {
+                label: 'Russian',
+                value: 'ru',
+              },
+            ],
+          },
+        },
       },
       {
         title: 'Edited',
@@ -84,7 +121,7 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
       {
         title: 'Source state',
         component: CellComponent.StateCell,
-        class: 'w-36',
+        class: 'w-40',
         fields: {
           state: 'Active',
         },
@@ -108,7 +145,7 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
       {
         title: 'ODH state',
         component: CellComponent.StateCell,
-        class: 'w-36',
+        class: 'w-40',
         fields: {
           state: 'OdhActive',
         },

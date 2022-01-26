@@ -41,7 +41,7 @@ import PillButton from '../../../components/pill/PillButton.vue';
 import { ViewPill } from './types';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
+import { useApiQuery } from '../../api/service/apiQueryHandler';
 
 export default defineComponent({
   components: {
