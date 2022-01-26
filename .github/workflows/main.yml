@@ -8,7 +8,6 @@ env:
 jobs:
   test:
     runs-on: ubuntu-20.04
-    working-directory: databrowser
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -23,7 +22,6 @@ jobs:
     runs-on: ubuntu-20.04
     if: github.ref == 'refs/heads/development'
     needs: test
-    working-directory: databrowser
     env:
       BUCKET_NAME : "it.bz.opendatahub.databrowser-test"
       VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.testingmachine.eu/auth"
@@ -48,7 +46,6 @@ jobs:
   deploy-prod:
     runs-on: ubuntu-20.04
     if: github.ref == 'refs/heads/main'
-    working-directory: databrowser
     needs: test
     env:
       BUCKET_NAME : "it.bz.opendatahub.databrowser-prod"
