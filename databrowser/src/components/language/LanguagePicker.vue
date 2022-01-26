@@ -10,109 +10,75 @@
 
   <PillLinkGroup :data="links" class="hidden md:inline-flex uppercase" />
 
-  <Dialog
-    :open="showMobileSelect"
-    class="overflow-y-auto fixed inset-0 z-10"
-    @close="closeDialog"
-  >
-    <div class="flex items-end w-full min-h-screen">
-      <DialogOverlay class="fixed inset-0 bg-black opacity-30" />
-      <div class="relative py-3 w-full bg-white rounded-t">
-        <div class="flex flex-col justify-center px-3 space-y-3 w-full">
-          <button class="mx-auto" @click="closeDialog">
-            <IconClose />
-          </button>
-          <PillLink
-            v-for="link in links"
-            :key="link.label"
-            :active="link.selected"
-            :to="link.to"
-            class="uppercase"
-            @click="closeDialog"
-            >{{ link.label }}
-          </PillLink>
-        </div>
-      </div>
-    </div>
-  </Dialog>
+  <BottomSheet :show-sheet="showMobileSelect" @close="closeDialog">
+    <PillLink
+      v-for="link in links"
+      :key="link.label"
+      :active="link.selected"
+      :to="link.to"
+      class="uppercase"
+      @click="closeDialog"
+      >{{ link.label }}
+    </PillLink>
+  </BottomSheet>
 </template>
 
-<script lang="ts">
-import { Dialog, DialogOverlay } from '@headlessui/vue';
-import { defineComponent, PropType } from '@vue/runtime-core';
+<script lang="ts" setup>
 import { FilterLanguage } from '../../domain/api/configFilter';
-import IconClose from '../svg/IconClose.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import PillButton from '../pill/PillButton.vue';
-import { computed, ref } from 'vue';
+import { computed, defineProps, ref, withDefaults } from 'vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
 import PillLinkGroup from '../pill/PillLinkGroup.vue';
 import PillLink from '../pill/PillLink.vue';
 import { useApiQuery } from '../../lib/apiQuery/apiQueryHandler';
 import { useUrlQuery } from '../../lib/apiQuery/urlQueryHandler';
 import { stringifyParameter } from '../../lib/apiQuery/query';
+import BottomSheet from '../sheet/BottomSheet.vue';
 
-export default defineComponent({
-  components: {
-    PillLink,
-    PillLinkGroup,
-    PillButton,
-    Dialog,
-    DialogOverlay,
-    IconClose,
-    ArrowDown,
-  },
-  props: {
-    defaultLanguage: {
-      type: String as PropType<FilterLanguage>,
-      default: FilterLanguage.EN,
-    },
-  },
-  setup(props) {
-    const route = useRoute();
-    const supportedLanguages: Array<string> = Object.values(FilterLanguage);
-    const showMobileSelect = ref<boolean>(false);
+const props = withDefaults(
+  defineProps<{
+    defaultLanguage: FilterLanguage;
+  }>(),
+  {
+    defaultLanguage: FilterLanguage.EN,
+  }
+);
 
-    const apiQuery = useApiQuery();
-    apiQuery.updateApiParameterValidator('language', (value) =>
-      supportedLanguages.includes(stringifyParameter(value))
-    );
-    const currentLanguage = apiQuery.useApiParameter('language', {
-      defaultValue: props.defaultLanguage,
-    });
+const route = useRoute();
+const supportedLanguages: Array<string> = Object.values(FilterLanguage);
+const showMobileSelect = ref<boolean>(false);
 
-    const urlQuery = useUrlQuery();
+const apiQuery = useApiQuery();
+apiQuery.updateApiParameterValidator('language', (value) =>
+  supportedLanguages.includes(stringifyParameter(value))
+);
+const currentLanguage = apiQuery.useApiParameter('language', {
+  defaultValue: props.defaultLanguage,
+});
 
-    const links = computed(() => {
-      return supportedLanguages.map((language) => {
-        const query = urlQuery.cleanQueryParametersExtendedWith({ language });
+const urlQuery = useUrlQuery();
 
-        const location: RouteLocationRaw = {
-          query,
-          hash: route.hash,
-        };
+const links = computed(() => {
+  return supportedLanguages.map((language) => {
+    const query = urlQuery.cleanQueryParametersExtendedWith({ language });
 
-        const selected = currentLanguage.value === language;
+    const location: RouteLocationRaw = {
+      query,
+      hash: route.hash,
+    };
 
-        return {
-          label: language,
-          to: location,
-          selected,
-        };
-      });
-    });
-
-    function closeDialog() {
-      showMobileSelect.value = false;
-    }
+    const selected = currentLanguage.value === language;
 
     return {
-      supportedLanguages,
-      showMobileSelect,
-      currentLanguage,
-      links,
-      closeDialog,
+      label: language,
+      to: location,
+      selected,
     };
-  },
+  });
 });
+
+function closeDialog() {
+  showMobileSelect.value = false;
+}
 </script>
