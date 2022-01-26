@@ -29,6 +29,7 @@ export interface ApiConfigEntry {
   description?: {
     title?: string;
     subtitle?: string;
+    description?: string;
   };
   listEndpoint?: {
     url: string;

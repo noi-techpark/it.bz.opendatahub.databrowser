@@ -7,6 +7,7 @@ export const odhAccommodationConfig: ApiConfigEntry = {
     title: 'Accommodation',
     subtitle:
       'This dataset contains various data about accommodation in South Tyrol, including information about the rooms.',
+    description: 'Test',
   },
   listEndpoint: {
     url: `${tourismBaseUrl}/v1/Accommodation`,
