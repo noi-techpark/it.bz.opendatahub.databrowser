@@ -14,9 +14,8 @@
   </ContentAlignmentX>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref, UnwrapRef } from 'vue';
-import { defineComponent } from '@vue/runtime-core';
 import { useRoute } from 'vue-router';
 import VueJsonPretty from 'vue-json-pretty';
 import { AxiosResponse } from 'axios';
@@ -25,31 +24,15 @@ import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue
 import DownloadSection from '../../../components/download/DownloadSection.vue';
 import { getDataset, getDatasetUrl } from '../queryDataset';
 
-export default defineComponent({
-  components: {
-    DownloadSection,
-    ContentAlignmentX,
-    VueJsonPretty,
-  },
-  setup() {
-    const route = useRoute();
-    const datasetType = route.params.datasetType as string;
-    const datasetId = route.params.datasetId as string;
-    const apiResult = ref<
-      UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>
-    >({} as any);
+const route = useRoute();
+const datasetType = route.params.datasetType as string;
+const datasetId = route.params.datasetId as string;
+const apiResult = ref<
+  UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>
+>({} as any);
 
-    const datasetUrl = getDatasetUrl(datasetType, datasetId);
-    apiResult.value = getDataset(datasetUrl) as never;
-
-    return {
-      datasetType,
-      datasetId,
-      datasetUrl,
-      apiResult,
-    };
-  },
-});
+const datasetUrl = getDatasetUrl(datasetType, datasetId);
+apiResult.value = getDataset(datasetUrl) as never;
 </script>
 
 <style>

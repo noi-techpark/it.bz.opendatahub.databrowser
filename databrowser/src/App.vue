@@ -3,22 +3,15 @@
   <VueQueryDevTools />
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
 import { useQueryProvider } from 'vue-query';
 import { VueQueryDevTools } from 'vue-query/devtools';
 
-export default defineComponent({
-  name: 'App',
-  components: { VueQueryDevTools },
-  setup() {
-    useQueryProvider({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
-        },
-      },
-    });
+useQueryProvider({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
   },
 });
 </script>

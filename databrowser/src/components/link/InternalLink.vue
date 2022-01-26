@@ -2,8 +2,8 @@
   <router-link :to="to" :class="className"><slot></slot></router-link>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
 import { Tone } from './types';
 import { computed } from 'vue';
 
@@ -11,29 +11,22 @@ const toneClass: Record<Tone, string> = {
   [Tone.primary]: 'text-green-500',
 };
 
-export default defineComponent({
-  props: {
-    to: {
-      required: true,
-      type: String,
-    },
-    tone: {
-      type: String,
-      default: () => '',
-    },
-  },
-  setup(props) {
-    const className = computed(() => {
-      const tone = props.tone as Tone;
-      const customClass = tone ? toneClass[tone] : '';
+const props = withDefaults(
+  defineProps<{
+    to: string;
+    tone?: string;
+  }>(),
+  {
+    tone: '',
+  }
+);
 
-      return (
-        'flex items-center space-x-2 font-semibold hover:underline ' +
-        customClass
-      );
-    });
+const className = computed(() => {
+  const tone = props.tone as Tone;
+  const customClass = tone ? toneClass[tone] : '';
 
-    return { className };
-  },
+  return (
+    'flex items-center space-x-2 font-semibold hover:underline ' + customClass
+  );
 });
 </script>

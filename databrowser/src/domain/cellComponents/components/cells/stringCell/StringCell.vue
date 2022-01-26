@@ -2,15 +2,15 @@
   <span v-if="text != null">{{ text }}</span>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
 
-export default defineComponent({
-  props: {
-    text: {
-      default: () => null,
-      type: [Boolean, Number, String],
-    },
-  },
-});
+withDefaults(
+  defineProps<{
+    text?: string | boolean | number;
+  }>(),
+  {
+    text: undefined,
+  }
+);
 </script>

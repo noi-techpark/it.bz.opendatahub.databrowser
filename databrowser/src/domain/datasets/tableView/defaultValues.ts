@@ -1,3 +1,5 @@
+import { defaultLanguage } from '../../api/configFilter';
+
 export const pageSizeOptions: { value: string; label: string }[] = [
   {
     value: '25',
@@ -22,8 +24,6 @@ export const validPageSizes = pageSizeOptions.map((option) => option.value);
 export const defaultPageSize = pageSizeOptions[0].value;
 
 export const defaultPageNumber = 1;
-
-export const defaultLanguage = 'en';
 
 export const defaultQueryParameters = {
   pagesize: defaultPageSize.toString(),

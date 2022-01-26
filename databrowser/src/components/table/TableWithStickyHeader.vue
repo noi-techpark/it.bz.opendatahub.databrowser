@@ -14,39 +14,29 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
+import { useSlots } from 'vue';
 import { TableColumnConfig } from '../../config/types';
 import TableBody from './TableBody.vue';
 import TableHeader from './TableHeader.vue';
 
-export default defineComponent({
-  components: {
-    TableBody,
-    TableHeader,
-  },
-  props: {
-    rows: {
-      default: () => [],
-      type: [Array] as PropType<any[]>,
-    },
-    config: {
-      default: () => [],
-      type: Array as PropType<TableColumnConfig[]>,
-    },
-  },
-  setup(props, { slots }) {
-    const isColgroupColsSlotDefined = slots['colgroup-cols'] != null;
-    const isHeaderColsSlotDefined = slots['header-cols'] != null;
-    const isBodyRowsSlotDefined = slots['body-rows'] != null;
+withDefaults(
+  defineProps<{
+    rows?: unknown[];
+    config?: TableColumnConfig[];
+  }>(),
+  {
+    rows: () => [],
+    config: () => [],
+  }
+);
 
-    return {
-      isColgroupColsSlotDefined,
-      isHeaderColsSlotDefined,
-      isBodyRowsSlotDefined,
-    };
-  },
-});
+const slots = useSlots();
+
+const isColgroupColsSlotDefined = slots['colgroup-cols'] != null;
+const isHeaderColsSlotDefined = slots['header-cols'] != null;
+const isBodyRowsSlotDefined = slots['body-rows'] != null;
 </script>
 
 <style>

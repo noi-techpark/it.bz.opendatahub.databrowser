@@ -4,12 +4,7 @@
   </AppLayout>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import AppLayout from '../layouts/AppLayout.vue';
-import { defineComponent } from '@vue/runtime-core';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
-
-export default defineComponent({
-  components: { ContentAlignmentX, AppLayout },
-});
 </script>

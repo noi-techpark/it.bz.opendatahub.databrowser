@@ -2,31 +2,30 @@
   <span v-if="date != null">{{ formattedDate }}</span>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { computed, defineProps, toRefs, withDefaults } from 'vue';
 import { format as formatFn } from 'date-fns';
 
-export default defineComponent({
-  props: {
-    date: {
-      default: () => null,
-      type: String,
-    },
-    format: {
-      default: () => null,
-      type: String,
-    },
-  },
-  computed: {
-    formattedDate(): string {
-      if (this.format == null) {
-        return this.date;
-      }
-      if (this.date != null) {
-        return formatFn(Date.parse(this.date), this.format);
-      }
-      return '';
-    },
-  },
+const props = withDefaults(
+  defineProps<{
+    date?: string;
+    format?: string;
+  }>(),
+  {
+    date: undefined,
+    format: undefined,
+  }
+);
+
+const { date, format } = toRefs(props);
+
+const formattedDate = computed(() => {
+  if (format == null) {
+    return date;
+  }
+  if (date != null) {
+    return formatFn(Date.parse(date.value), format.value);
+  }
+  return '';
 });
 </script>
