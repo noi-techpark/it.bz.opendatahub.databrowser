@@ -6,10 +6,6 @@
   </header>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import ContentAlignmentX from '../content/ContentAlignmentX.vue';
-
-export default {
-  components: { ContentAlignmentX },
-};
 </script>

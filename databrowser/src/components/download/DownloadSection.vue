@@ -59,8 +59,8 @@
   </Dialog>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps, ref, withDefaults } from 'vue';
 import { Dialog, DialogOverlay } from '@headlessui/vue';
 import ArrowUp from '../svg/ArrowUp.vue';
 import IconClose from '../svg/IconClose.vue';
@@ -68,46 +68,22 @@ import DownloadJson from './DownloadJson.vue';
 import DatasetDetails from './DatasetDetails.vue';
 import DownloadCSV from './DownloadCSV.vue';
 
-export default defineComponent({
-  components: {
-    DownloadCSV,
-    DatasetDetails,
-    DownloadJson,
-    ArrowUp,
-    Dialog,
-    DialogOverlay,
-    IconClose,
-  },
-  props: {
-    datasetUrl: {
-      type: String,
-      required: true,
-    },
-    dataset: {
-      type: Object,
-      required: true,
-    },
-    hideCsv: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup() {
-    let dialogOpen = ref<boolean>(false);
+withDefaults(
+  defineProps<{
+    datasetUrl: string;
+    dataset: unknown;
+    hideCsv?: boolean;
+  }>(),
+  { hideCsv: false }
+);
 
-    function closeDialog() {
-      dialogOpen.value = false;
-    }
+const dialogOpen = ref<boolean>(false);
 
-    function openDialog() {
-      dialogOpen.value = true;
-    }
+const closeDialog = () => {
+  dialogOpen.value = false;
+};
 
-    return {
-      dialogOpen,
-      openDialog,
-      closeDialog,
-    };
-  },
-});
+const openDialog = () => {
+  dialogOpen.value = true;
+};
 </script>

@@ -4,7 +4,7 @@
     @click="showMobileSelect = true"
   >
     <span class="sr-only">Selected language</span>
-    <span class="pr-2 uppercase">{{ languageParameter }}</span>
+    <span class="pr-2 uppercase">{{ currentLanguage }}</span>
     <ArrowDown />
   </PillButton>
 
@@ -25,8 +25,8 @@
           <PillLink
             v-for="link in links"
             :key="link.label"
-            :active="isSelected(link.url)"
-            :to="link.url"
+            :active="link.selected"
+            :to="link.to"
             class="uppercase"
             @click="closeDialog"
             >{{ link.label }}
@@ -37,73 +37,60 @@
   </Dialog>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { Dialog, DialogOverlay } from '@headlessui/vue';
-import { defineComponent, PropType } from '@vue/runtime-core';
-import { FilterLanguage } from '../../domain/api/configFilter';
+import { defineProps, withDefaults } from 'vue';
+import { defaultLanguage, FilterLanguage } from '../../domain/api/configFilter';
 import IconClose from '../svg/IconClose.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import PillButton from '../pill/PillButton.vue';
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, ref } from 'vue';
+import { RouteLocationRaw, useRoute } from 'vue-router';
 import PillLinkGroup from '../pill/PillLinkGroup.vue';
 import PillLink from '../pill/PillLink.vue';
-import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
+import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
+import { stringifyParameter } from '../../domain/api/service/query';
+import { useUrlQuery } from '../../domain/api/service/urlQueryHandler';
 
-export default defineComponent({
-  components: {
-    PillLink,
-    PillLinkGroup,
-    PillButton,
-    Dialog,
-    DialogOverlay,
-    IconClose,
-    ArrowDown,
-  },
-  props: {
-    defaultLanguage: {
-      type: String as PropType<FilterLanguage>,
-      default: FilterLanguage.EN,
-    },
-  },
-  setup(props) {
-    const route = useRoute();
-    const supportedLanguages: Array<string> = Object.values(FilterLanguage);
-    const showMobileSelect = ref<boolean>(false);
-    const languageParameter = useUrlQueryParameter(
-      'language',
-      props.defaultLanguage
-    );
+const props = withDefaults(
+  defineProps<{
+    defaultLanguage?: FilterLanguage;
+  }>(),
+  { defaultLanguage: defaultLanguage }
+);
 
-    const currentPath = route.path;
-    const currentQueries = Object.entries(route.query)
-      .filter((obj) => obj[0] != 'language')
-      .map((query) => `${query[0]}=${query[1]}`);
-    const links = supportedLanguages.map((lang) => {
-      const query = [...currentQueries, `language=${lang}`];
+const route = useRoute();
+const supportedLanguages: Array<string> = Object.values(FilterLanguage);
+const showMobileSelect = ref<boolean>(false);
 
-      return {
-        label: lang.toUpperCase(),
-        url: `${currentPath}?${query.join('&')}`,
-      };
-    });
+const apiQuery = useApiQuery();
+apiQuery.updateApiParameterValidator('language', (value) =>
+  supportedLanguages.includes(stringifyParameter(value))
+);
+const currentLanguage = apiQuery.useApiParameter('language', {
+  defaultValue: props.defaultLanguage,
+});
 
-    function closeDialog() {
-      showMobileSelect.value = false;
-    }
+const urlQuery = useUrlQuery();
 
-    function isSelected(url: string) {
-      return url == route.fullPath;
-    }
+const links = computed(() => {
+  return supportedLanguages.map((language) => {
+    const query = urlQuery.cleanQueryParametersExtendedWith({ language });
+
+    const location: RouteLocationRaw = {
+      query,
+      hash: route.hash,
+    };
+
+    const selected = currentLanguage.value === language;
 
     return {
-      supportedLanguages,
-      showMobileSelect,
-      languageParameter,
-      links,
-      isSelected,
-      closeDialog,
+      label: language,
+      to: location,
+      selected,
     };
-  },
+  });
 });
+
+const closeDialog = () => (showMobileSelect.value = false);
 </script>

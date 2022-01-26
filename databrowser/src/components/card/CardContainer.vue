@@ -16,15 +16,15 @@
   </component>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
 
-export default defineComponent({
-  props: {
-    tagName: {
-      type: String,
-      default: 'div',
-    },
-  },
-});
+withDefaults(
+  defineProps<{
+    tagName?: string;
+  }>(),
+  {
+    tagName: 'div',
+  }
+);
 </script>

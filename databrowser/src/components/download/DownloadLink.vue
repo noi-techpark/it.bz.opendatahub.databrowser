@@ -28,19 +28,11 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps } from 'vue';
 
-export default defineComponent({
-  props: {
-    download: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
-});
+defineProps<{
+  download: string;
+  url: string;
+}>();
 </script>

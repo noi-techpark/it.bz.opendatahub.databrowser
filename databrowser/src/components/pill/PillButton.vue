@@ -17,9 +17,9 @@
   </button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
-import { computed, PropType } from 'vue';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
+import { computed } from 'vue';
 import { PillVariant } from './types';
 
 const variantStyles: Record<PillVariant, string> = {
@@ -27,25 +27,18 @@ const variantStyles: Record<PillVariant, string> = {
   [PillVariant.edged]: 'rounded-lg border border-transparent',
 };
 
-export default defineComponent({
-  props: {
-    variant: {
-      type: String as PropType<PillVariant>,
-      default: PillVariant.rounded,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    active: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props) {
-    const classNames = computed(() => variantStyles[props.variant]);
+const props = withDefaults(
+  defineProps<{
+    variant?: string;
+    disabled?: boolean;
+    active?: boolean;
+  }>(),
+  {
+    variant: PillVariant.rounded,
+    disabled: false,
+    active: false,
+  }
+);
 
-    return { classNames };
-  },
-});
+const classNames = computed(() => variantStyles[props.variant as PillVariant]);
 </script>

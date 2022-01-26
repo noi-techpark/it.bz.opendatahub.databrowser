@@ -6,13 +6,19 @@
     </template>
 
     <template #header-cols>
-      <TableHeaderCell v-for="col in config" :key="col.title">
-        {{ col.title }}
-      </TableHeaderCell>
+      <TableHeaderFilter
+        v-for="col in config"
+        :key="col.title"
+        :text="col.title"
+        :filter="col.filter"
+      />
       <TableHeaderCell class="sticky right-0 bg-white"></TableHeaderCell>
     </template>
 
     <template #body-rows>
+      <tr v-if="rows.length === 0">
+        <TableCell>No data</TableCell>
+      </tr>
       <!-- eslint-disable-next-line vue/require-v-for-key -->
       <tr v-for="row in rows">
         <TableCell v-for="col in config" :key="col.title">
@@ -27,6 +33,7 @@
               :to="{
                 name: 'DatasetsDetailViewPage',
                 params: { datasetId: row.Id },
+                query: { language },
               }"
               :title="$t('datasets.listView.linkDetails')"
             >
@@ -36,6 +43,7 @@
               :to="{
                 name: 'DatasetsRawViewPage',
                 params: { datasetId: row.Id },
+                query: { language },
               }"
               :title="$t('datasets.listView.linkRaw')"
               class="text-xs text-green-500"
@@ -49,53 +57,32 @@
   </TableWithStickyHeader>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
-import { TableColumnConfig } from '../../api/config';
-import { extractField } from '../../api/configUtils';
-import { useUrlQueryRouter } from '../../../lib/urlQuery/urlQueryRouter';
+<script setup lang="ts">
+import { defineProps, toRefs, withDefaults } from 'vue';
+import { useFieldExtraction } from '../../api/configUtils';
 import Cell from '../../../components/listCell/ListCell.vue';
+import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
+import TableHeaderFilter from '../../../components/table/TableHeaderFilter.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../components/table/TableCell.vue';
-import { toRefs } from 'vue';
-import { defaultQueryParameters } from './defaultValues';
-import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import EyeDetailGreen from '../../../components/svg/EyeDetailGreen.vue';
 import DetailsLink from './DetailsLink.vue';
+import { TableColumnConfig } from '../../../config/types';
+import { useApiQuery } from '../../api/service/apiQueryHandler';
 
-export default defineComponent({
-  components: {
-    Cell,
-    TableHeaderCell,
-    TableCell,
-    TableWithStickyHeader,
-    EyeDetailGreen,
-    DetailsLink,
-  },
-  props: {
-    rows: {
-      default: () => [],
-      type: [Array] as PropType<any[]>,
-    },
-    config: {
-      default: () => [],
-      type: Array as PropType<TableColumnConfig[]>,
-    },
-  },
-  setup() {
-    const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
-    const { queryParametersWithDefaults } = toRefs(queryRouter);
+const props = withDefaults(
+  defineProps<{
+    rows: any[];
+    config: TableColumnConfig[];
+  }>(),
+  {
+    rows: () => [],
+    config: () => [],
+  }
+);
 
-    const getValue = (
-      item: any,
-      fields: Record<string, string>,
-      params?: Record<string, string>
-    ) => ({
-      ...extractField(item, fields, queryParametersWithDefaults.value),
-      ...params,
-    });
+const { rows, config } = toRefs(props);
 
-    return { getValue };
-  },
-});
+const { getValue } = useFieldExtraction();
+const language = useApiQuery().useApiParameter('language');
 </script>

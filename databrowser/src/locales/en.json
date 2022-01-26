@@ -28,6 +28,10 @@
     }
   },
   "datasets": {
+    "header": {
+      "moreInformation": "More information",
+      "lessInformation": "Less information"
+    },
     "listView": {
       "linesPerPage": "lines per page",
       "linkDetails": "Details",
@@ -40,5 +44,9 @@
       "downloadJSON": "Download dataset as JSON",
       "downloadCSV": "Download dataset as CSV"
     }
+  },
+  "components": {
+    "cancel": "Cancel",
+    "save": "Save"
   }
 }

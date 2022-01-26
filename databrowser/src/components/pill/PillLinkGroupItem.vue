@@ -19,7 +19,7 @@
         'border-l': !isFirst,
         'border-r': !isLast,
       }"
-      :to="item.url"
+      :to="item.to"
       class="block border-transparent"
       role="button"
       tabindex="0"
@@ -29,41 +29,28 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { RouteLocationRaw } from 'vue-router';
 
 export type PillLinkGroupData = {
   label: string | number;
-  url: string;
+  to: string | RouteLocationRaw;
+  selected: boolean;
 };
 
-export default defineComponent({
-  props: {
-    isFirst: {
-      type: Boolean,
-      default: false,
-    },
-    isLast: {
-      type: Boolean,
-      default: false,
-    },
-    item: {
-      type: Object as PropType<PillLinkGroupData>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const route = useRoute();
+const props = withDefaults(
+  defineProps<{
+    item: PillLinkGroupData;
+    isFirst?: boolean;
+    isLast?: boolean;
+  }>(),
+  {
+    isFirst: false,
+    isLast: false,
+  }
+);
 
-    const isSelected = computed(() => {
-      return props.item.url == route.fullPath;
-    });
-
-    return {
-      isSelected,
-    };
-  },
-});
+const isSelected = computed(() => props.item.selected);
 </script>

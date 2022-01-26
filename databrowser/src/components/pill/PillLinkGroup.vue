@@ -10,20 +10,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps } from 'vue';
 import PillLinkGroupItem, { PillLinkGroupData } from './PillLinkGroupItem.vue';
 
-export default defineComponent({
-  components: { PillLinkGroupItem },
-  props: {
-    data: {
-      type: Array as PropType<Array<PillLinkGroupData>>,
-      required: true,
-    },
-  },
-  setup() {
-    return {};
-  },
-});
+defineProps<{
+  data: PillLinkGroupData[];
+}>();
 </script>

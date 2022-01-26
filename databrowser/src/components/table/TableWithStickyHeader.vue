@@ -1,4 +1,3 @@
-<!-- eslint-disable tailwindcss/no-custom-classname -->
 <template>
   <div class="data-table-wrapper">
     <table class="data-table">
@@ -15,56 +14,29 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
-import { TableColumnConfig } from '../../domain/api/config';
-import { extractField } from '../../domain/api/configUtils';
-import { useUrlQueryRouter } from '../../lib/urlQuery/urlQueryRouter';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
+import { useSlots } from 'vue';
+import { TableColumnConfig } from '../../config/types';
 import TableBody from './TableBody.vue';
 import TableHeader from './TableHeader.vue';
-import { toRefs } from 'vue';
-import { defaultQueryParameters } from '../../domain/datasets/tableView/defaultValues';
 
-export default defineComponent({
-  components: {
-    TableBody,
-    TableHeader,
-  },
-  props: {
-    rows: {
-      default: () => [],
-      type: [Array] as PropType<any[]>,
-    },
-    config: {
-      default: () => [],
-      type: Array as PropType<TableColumnConfig[]>,
-    },
-  },
-  setup(props, { slots }) {
-    const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
-    const { queryParametersWithDefaults } = toRefs(queryRouter);
+withDefaults(
+  defineProps<{
+    rows?: unknown[];
+    config?: TableColumnConfig[];
+  }>(),
+  {
+    rows: () => [],
+    config: () => [],
+  }
+);
 
-    const getValue = (
-      item: any,
-      fields: Record<string, string>,
-      params?: Record<string, string>
-    ) => ({
-      ...extractField(item, fields, queryParametersWithDefaults.value),
-      ...params,
-    });
+const slots = useSlots();
 
-    const isColgroupColsSlotDefined = slots['colgroup-cols'] != null;
-    const isHeaderColsSlotDefined = slots['header-cols'] != null;
-    const isBodyRowsSlotDefined = slots['body-rows'] != null;
-
-    return {
-      getValue,
-      isColgroupColsSlotDefined,
-      isHeaderColsSlotDefined,
-      isBodyRowsSlotDefined,
-    };
-  },
-});
+const isColgroupColsSlotDefined = slots['colgroup-cols'] != null;
+const isHeaderColsSlotDefined = slots['header-cols'] != null;
+const isBodyRowsSlotDefined = slots['body-rows'] != null;
 </script>
 
 <style>
