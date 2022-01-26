@@ -10,47 +10,31 @@
 
   <PillLinkGroup :data="links" class="hidden md:inline-flex uppercase" />
 
-  <Dialog
-    :open="showMobileSelect"
-    class="overflow-y-auto fixed inset-0 z-10"
-    @close="closeDialog"
-  >
-    <div class="flex items-end w-full min-h-screen">
-      <DialogOverlay class="fixed inset-0 bg-black opacity-30" />
-      <div class="relative py-3 w-full bg-white rounded-t">
-        <div class="flex flex-col justify-center px-3 space-y-3 w-full">
-          <button class="mx-auto" @click="closeDialog">
-            <IconClose />
-          </button>
-          <PillLink
-            v-for="link in links"
-            :key="link.label"
-            :active="link.selected"
-            :to="link.to"
-            class="uppercase"
-            @click="closeDialog"
-            >{{ link.label }}
-          </PillLink>
-        </div>
-      </div>
-    </div>
-  </Dialog>
+  <BottomSheet :show-sheet="showMobileSelect" @close="closeDialog">
+    <PillLink
+      v-for="link in links"
+      :key="link.label"
+      :active="link.selected"
+      :to="link.to"
+      class="uppercase"
+      @click="closeDialog"
+      >{{ link.label }}
+    </PillLink>
+  </BottomSheet>
 </template>
 
-<script setup lang="ts">
-import { Dialog, DialogOverlay } from '@headlessui/vue';
-import { defineProps, withDefaults } from 'vue';
+<script lang="ts" setup>
 import { defaultLanguage, FilterLanguage } from '../../domain/api/configFilter';
-import IconClose from '../svg/IconClose.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import PillButton from '../pill/PillButton.vue';
-import { computed, ref } from 'vue';
+import { computed, defineProps, ref, withDefaults } from 'vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
 import PillLinkGroup from '../pill/PillLinkGroup.vue';
 import PillLink from '../pill/PillLink.vue';
 import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
 import { stringifyParameter } from '../../domain/api/service/query';
 import { useUrlQuery } from '../../domain/api/service/urlQueryHandler';
+import BottomSheet from '../sheet/BottomSheet.vue';
 
 const props = withDefaults(
   defineProps<{
