@@ -23,26 +23,21 @@
     <ContentAlignmentX>
       <ContentAlignmentY>
         <CardGrid tag-name="ul">
-          <CardContainer tag-name="li">
-            <CardTitle>Dataset 1</CardTitle>
-            <CardText
-              >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit
-              amen dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit
-              sit amen dorl sit amen dol dori sti ist.
-            </CardText>
+          <CardContainer
+            v-for="dataset in datasets"
+            :key="dataset.type"
+            tag-name="li"
+          >
+            <CardTitle>{{ dataset.config?.description?.title }}</CardTitle>
+            <CardText>{{ dataset.config?.description?.subtitle }} </CardText>
             <CardActions>
-              <ButtonLink to="/">Discover Dataset</ButtonLink>
-            </CardActions>
-          </CardContainer>
-          <CardContainer tag-name="li">
-            <CardTitle>Dataset 2</CardTitle>
-            <CardText
-              >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit
-              amen dorlosit sit amen dorl sit amen dol dori sti ist.n dorlosit
-              sit amen dorl sit amen dol dori sti ist.
-            </CardText>
-            <CardActions>
-              <ButtonLink to="/about" variant="ghost">About</ButtonLink>
+              <ButtonLink
+                :to="{
+                  name: 'DatasetsTableViewPage',
+                  params: { datasetType: dataset.type },
+                }"
+                >Discover Dataset</ButtonLink
+              >
             </CardActions>
           </CardContainer>
         </CardGrid>
@@ -79,35 +74,12 @@
             >
           </CardContainer>
         </CardGrid>
-
-        <CardGrid tag-name="ul">
-          <li>
-            <router-link to="/dataset/odh-activity-poi"
-              >ODH ActivityPOI List
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/dataset/odh-accommodation"
-              >ODH Accommodation List
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/dataset/odh-activity-poi-types"
-              >ODH ActivityPOITypes List
-            </router-link>
-          </li>
-          <li class="py-4">
-            <router-link class="bg-red-100" to="/dataset/xyz"
-              >Not existing list route
-            </router-link>
-          </li>
-        </CardGrid>
       </ContentAlignmentY>
     </ContentAlignmentX>
   </AppLayout>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import AppLayout from '../layouts/AppLayout.vue';
 import Hero from '../components/hero/HeroContainer.vue';
 import HeroTitle from '../components/hero/HeroTitle.vue';
@@ -124,28 +96,19 @@ import CardGrid from '../components/card/CardGrid.vue';
 import ContentDivider from '../components/content/ContentDivider.vue';
 import InternalLink from '../components/link/InternalLink.vue';
 import ArrowRight from '../components/svg/ArrowRight.vue';
-import { defineComponent } from '@vue/runtime-core';
 import ContentAlignmentY from '../components/content/ContentAlignmentY.vue';
+import { getApiConfigForDataset } from '../domain/api/configUtils';
+import { ApiConfigKey } from '../config/config';
+import { ApiConfigEntry } from '../config/types';
 
-export default defineComponent({
-  components: {
-    ContentAlignmentY,
-    AppLayout,
-    ArrowRight,
-    InternalLink,
-    ContentDivider,
-    CardGrid,
-    CardDivider,
-    CardActions,
-    CardText,
-    CardTitle,
-    ContentAlignmentX,
-    CardContainer,
-    ButtonLink,
-    Hero,
-    HeroCaption,
-    HeroSubTitle,
-    HeroTitle,
+const datasets: { type: ApiConfigKey; config: ApiConfigEntry | undefined }[] = [
+  {
+    type: 'odh-activity-poi',
+    config: getApiConfigForDataset('odh-activity-poi'),
   },
-});
+  {
+    type: 'odh-accommodation',
+    config: getApiConfigForDataset('odh-accommodation'),
+  },
+];
 </script>

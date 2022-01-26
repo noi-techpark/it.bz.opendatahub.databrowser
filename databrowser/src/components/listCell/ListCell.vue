@@ -2,20 +2,19 @@
   <component :is="tagName" v-bind="attributes" .data="attributes"></component>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps, toRefs, withDefaults } from 'vue';
 
-export default defineComponent({
-  props: {
-    tagName: {
-      required: true,
-      type: String,
-    },
-    attributes: {
-      required: false,
-      default: () => {},
-      type: Object,
-    },
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    tagName: string;
+    attributes: Record<string, unknown>;
+  }>(),
+  {
+    tagName: '',
+    attributes: () => ({}),
+  }
+);
+
+const { tagName, attributes } = toRefs(props);
 </script>

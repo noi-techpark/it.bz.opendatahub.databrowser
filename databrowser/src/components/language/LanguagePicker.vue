@@ -4,7 +4,7 @@
     @click="showMobileSelect = true"
   >
     <span class="sr-only">Selected language</span>
-    <span class="pr-2 uppercase">{{ languageParameter }}</span>
+    <span class="pr-2 uppercase">{{ currentLanguage }}</span>
     <ArrowDown />
   </PillButton>
 
@@ -25,8 +25,8 @@
           <PillLink
             v-for="link in links"
             :key="link.label"
-            :active="isSelected(link.url)"
-            :to="link.url"
+            :active="link.selected"
+            :to="link.to"
             class="uppercase"
             @click="closeDialog"
             >{{ link.label }}
@@ -44,11 +44,13 @@ import { FilterLanguage } from '../../domain/api/configFilter';
 import IconClose from '../svg/IconClose.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import PillButton from '../pill/PillButton.vue';
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, ref } from 'vue';
+import { RouteLocationRaw, useRoute } from 'vue-router';
 import PillLinkGroup from '../pill/PillLinkGroup.vue';
 import PillLink from '../pill/PillLink.vue';
-import { useUrlQueryParameter } from '../../lib/urlQuery/urlQueryParameter';
+import { useApiQuery } from '../../lib/apiQuery/apiQueryHandler';
+import { useUrlQuery } from '../../lib/apiQuery/urlQueryHandler';
+import { stringifyParameter } from '../../lib/apiQuery/query';
 
 export default defineComponent({
   components: {
@@ -70,38 +72,45 @@ export default defineComponent({
     const route = useRoute();
     const supportedLanguages: Array<string> = Object.values(FilterLanguage);
     const showMobileSelect = ref<boolean>(false);
-    const languageParameter = useUrlQueryParameter(
-      'language',
-      props.defaultLanguage
+
+    const apiQuery = useApiQuery();
+    apiQuery.updateApiParameterValidator('language', (value) =>
+      supportedLanguages.includes(stringifyParameter(value))
     );
+    const currentLanguage = apiQuery.useApiParameter('language', {
+      defaultValue: props.defaultLanguage,
+    });
 
-    const currentPath = route.path;
-    const currentQueries = Object.entries(route.query)
-      .filter((obj) => obj[0] != 'language')
-      .map((query) => `${query[0]}=${query[1]}`);
-    const links = supportedLanguages.map((lang) => {
-      const query = [...currentQueries, `language=${lang}`];
+    const urlQuery = useUrlQuery();
 
-      return {
-        label: lang.toUpperCase(),
-        url: `${currentPath}?${query.join('&')}`,
-      };
+    const links = computed(() => {
+      return supportedLanguages.map((language) => {
+        const query = urlQuery.cleanQueryParametersExtendedWith({ language });
+
+        const location: RouteLocationRaw = {
+          query,
+          hash: route.hash,
+        };
+
+        const selected = currentLanguage.value === language;
+
+        return {
+          label: language,
+          to: location,
+          selected,
+        };
+      });
     });
 
     function closeDialog() {
       showMobileSelect.value = false;
     }
 
-    function isSelected(url: string) {
-      return url == route.fullPath;
-    }
-
     return {
       supportedLanguages,
       showMobileSelect,
-      languageParameter,
+      currentLanguage,
       links,
-      isSelected,
       closeDialog,
     };
   },

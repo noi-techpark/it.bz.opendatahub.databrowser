@@ -1,0 +1,59 @@
+<template>
+  <div ref="target" class="flex">
+    <div class="relative w-full">
+      <!-- Dropdown toggle button -->
+      <button
+        class="flex justify-between items-center w-full"
+        :class="buttonClass"
+        @click="toggle"
+      >
+        <span :class="buttonLabelClass">{{ text }}</span>
+        <ArrowUp v-if="show" />
+        <ArrowDown v-else />
+      </button>
+
+      <!-- Dropdown menu -->
+      <div
+        v-show="show"
+        class="absolute z-10 min-w-full bg-white border shadow-xl"
+      >
+        <slot :events="{ close }"></slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { defineEmits, defineProps, ref, toRefs } from 'vue';
+import { onClickOutside } from '@vueuse/core';
+import ArrowDown from '../svg/ArrowDown.vue';
+import ArrowUp from '../svg/ArrowUp.vue';
+
+const props = defineProps<{
+  text: string;
+  buttonClass?: string;
+  buttonLabelClass?: string;
+}>();
+const { text, buttonClass, buttonLabelClass } = toRefs(props);
+
+const show = ref(false);
+
+const target = ref(null);
+
+const close = () => {
+  show.value = false;
+  emit('visible', show.value);
+};
+
+const toggle = () => {
+  show.value = !show.value;
+  emit('visible', show.value);
+};
+
+onClickOutside(target, () => close());
+
+const emit = defineEmits<{
+  // eslint-disable-next-line no-unused-vars
+  (e: 'visible', visible: boolean): void;
+}>();
+</script>

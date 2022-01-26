@@ -5,7 +5,14 @@
     "logout": "Logout"
   },
   "header": {
-    "logo": "Open Data Hub - Logo"
+    "logo": "Open Data Hub - Logo",
+    "menu": {
+      "title": "Menu",
+      "allDatasets": "All Datasets",
+      "goBackAction": "Go back",
+      "closeAction": "Close menu",
+      "openAction": "Open menu"
+    }
   },
   "footer": {
     "imprint": "Imprint",
@@ -33,5 +40,9 @@
       "downloadJSON": "Download dataset as JSON",
       "downloadCSV": "Download dataset as CSV"
     }
+  },
+  "components": {
+    "cancel": "Cancel",
+    "save": "Save"
   }
 }
