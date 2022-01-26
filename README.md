@@ -4,8 +4,6 @@ This is the mono repository for the Open Data Hub Databrowser.
 
 It contains the [Databrowser application](./databrowser) and its [Web Components](./web-components). You can find more details about those projects (development, build and more) in the corresponding folders.
 
-[![CI](https://github.com/noi-techpark/it.bz.opendatahub.databrowser/actions/workflows/ci.yml/badge.svg)](https://github.com/noi-techpark/it.bz.opendatahub.databrowser/actions/workflows/ci.yml)
-
 ## Table of Contents
 
 - [Getting started](#getting-started)
