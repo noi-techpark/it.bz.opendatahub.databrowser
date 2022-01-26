@@ -1,19 +1,20 @@
 import { App } from 'vue';
 
-import ArrayCell from '../components/arrayCell/ArrayCell.vue';
-import DateCell from '../components/dateCell/DateCell.vue';
-import EditedDateCell from '../components/editedDateCell/EditedDateCell.vue';
-import GpsListCell from '../components/gpsListCell/GpsListCell.vue';
-import HtmlCell from '../components/htmlCell/HtmlCell.vue';
-import ImageCell from '../components/imageCell/ImageCell.vue';
-import ImageGalleryCell from '../components/imageGalleryCell/ImageGalleryCell.vue';
-import JsonCell from '../components/jsonCell/JsonCell.vue';
-import StateCell from '../components/stateCell/StateCell.vue';
-import StringCell from '../components/stringCell/StringCell.vue';
-import StringTemplateCell from '../components/stringTemplateCell/StringTemplateCell.vue';
-import TextHighlightCell from '../components/textHighlightCell/TextHighlightCell.vue';
-import WebcamGalleryCell from '../components/webcamGalleryCell/WebcamGalleryCell.vue';
-import { CellComponent } from '../types';
+import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
+import DateCell from '../components/cells/dateCell/DateCell.vue';
+import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
+import GpsListCell from '../components/cells/gpsListCell/GpsListCell.vue';
+import HtmlCell from '../components/cells/htmlCell/HtmlCell.vue';
+import ImageCell from '../components/cells/imageCell/ImageCell.vue';
+import ImageGalleryCell from '../components/cells/imageGalleryCell/ImageGalleryCell.vue';
+import JsonCell from '../components/cells/jsonCell/JsonCell.vue';
+import StateCell from '../components/cells/stateCell/StateCell.vue';
+import StringCell from '../components/cells/stringCell/StringCell.vue';
+import StringTemplateCell from '../components/cells/stringTemplateCell/StringTemplateCell.vue';
+import TextHighlightCell from '../components/cells/textHighlightCell/TextHighlightCell.vue';
+import WebcamGalleryCell from '../components/cells/webcamGalleryCell/WebcamGalleryCell.vue';
+import FixedValue from '../components/filters/fixedValue/FixedValue.vue';
+import { CellComponent, FilterComponent } from '../types';
 
 export default {
   install: (app: App) => {
@@ -30,5 +31,7 @@ export default {
     app.component(CellComponent.StringTemplateCell, StringTemplateCell);
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
     app.component(CellComponent.WebcamGalleryCell, WebcamGalleryCell);
+
+    app.component(FilterComponent.FixedValue, FixedValue);
   },
 };

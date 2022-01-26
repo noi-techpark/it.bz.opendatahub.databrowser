@@ -1,4 +1,4 @@
-import { ref, Ref, toRaw, watch } from 'vue';
+import { toRaw } from 'vue';
 import {
   isWithArrayPagination,
   isWithTourismPagination,
@@ -28,16 +28,16 @@ export const tourismPaginatedMapper = (
 export const arrayPaginatedMapper = (
   data: unknown[],
   context: {
-    defaultQueryParameters: Record<string, string>;
-    queryParameters: Record<string, string>;
+    defaultParameters: Record<string, string>;
+    parameters: Record<string, string>;
   }
 ): PaginationData => {
   const total = data.length;
 
   // Set default page size if not defined
   const queryParametersWithPageSize = {
-    ...toRaw(context.defaultQueryParameters),
-    ...toRaw(context.queryParameters),
+    ...toRaw(context.defaultParameters),
+    ...toRaw(context.parameters),
   };
 
   const size = parseInt(queryParametersWithPageSize.pagesize, 10);
@@ -59,33 +59,32 @@ export const arrayPaginatedMapper = (
   };
 };
 
-export const useListMapper = (
-  data: Ref<unknown>,
+export const unifyPagination = (
+  data: unknown,
   context: {
-    defaultQueryParameters: any;
-    queryParameters: any;
+    defaultParameters: any;
+    parameters: any;
   }
-) => {
-  const mappedData = ref<PaginationData>();
+): PaginationData => {
+  if (isWithTourismPagination(data)) {
+    return tourismPaginatedMapper(data);
+  }
 
-  watch(
-    () => data.value,
-    (data) => {
-      if (isWithTourismPagination(data)) {
-        mappedData.value = tourismPaginatedMapper(data);
-      }
+  if (isWithArrayPagination(data)) {
+    const { parameters, defaultParameters } = context;
 
-      if (isWithArrayPagination(data)) {
-        const { queryParameters, defaultQueryParameters } = context;
+    return arrayPaginatedMapper(data, {
+      defaultParameters,
+      parameters,
+    });
+  }
 
-        mappedData.value = arrayPaginatedMapper(data, {
-          defaultQueryParameters,
-          queryParameters,
-        });
-      }
+  return {
+    items: [],
+    pagination: {
+      page: 1,
+      size: 0,
+      total: 0,
     },
-    { immediate: true }
-  );
-
-  return mappedData;
+  };
 };

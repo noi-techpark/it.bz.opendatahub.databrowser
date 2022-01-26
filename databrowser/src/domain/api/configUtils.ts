@@ -1,9 +1,12 @@
 import { get } from 'lodash';
-import { ApiConfig, apiConfig, ApiConfigEntry } from './config';
+import { useApiQuery } from '../../lib/apiQuery/apiQueryHandler';
+import { stringifyParameter } from '../../lib/apiQuery/query';
+import { apiConfig, ApiConfigKey } from '../../config/config';
+import { ApiConfigEntry } from '../../config/types';
 
 export const getApiConfigForDataset = (
-  id: keyof ApiConfig
-): ApiConfigEntry | undefined => apiConfig[id];
+  id: string
+): ApiConfigEntry | undefined => apiConfig[id as ApiConfigKey];
 
 const replacePlaceholders = (
   s: string,
@@ -32,3 +35,26 @@ export const extractField = (
     const value = get(item, fieldName);
     return { ...prev, [key]: value };
   }, {});
+
+export const useFieldExtraction = () => {
+  const apiQuery = useApiQuery();
+
+  const getValue = (
+    item: any,
+    fields: Record<string, string>,
+    params?: Record<string, string>
+  ) => {
+    const replacements = Object.entries(apiQuery.allApiParameters.value).reduce(
+      (previous, [key, value]) => ({
+        ...previous,
+        [key]: stringifyParameter(value),
+      }),
+      {}
+    );
+
+    const extractedFields = extractField(item, fields, replacements);
+    return { ...extractedFields, ...params };
+  };
+
+  return { getValue };
+};

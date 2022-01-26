@@ -48,6 +48,10 @@ export default defineComponent({
       store.dispatch('auth/unauthenticate');
     };
 
+    keycloak.onReady = () => {
+      store.dispatch('auth/ready');
+    };
+
     function onLogin() {
       keycloak.login();
     }

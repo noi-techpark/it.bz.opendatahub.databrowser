@@ -44,5 +44,9 @@
       "downloadJSON": "Download dataset as JSON",
       "downloadCSV": "Download dataset as CSV"
     }
+  },
+  "components": {
+    "cancel": "Cancel",
+    "save": "Save"
   }
 }

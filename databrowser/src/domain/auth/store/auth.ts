@@ -3,6 +3,7 @@ import jwtDecode from 'jwt-decode';
 import { ActionTree } from 'vuex';
 
 type State = {
+  ready: boolean;
   isAuthenticated: boolean;
   accessToken: string | null;
 };
@@ -13,6 +14,7 @@ type User = {
 };
 
 const state = (): State => ({
+  ready: false,
   isAuthenticated: false,
   accessToken: null,
 });
@@ -31,6 +33,7 @@ const getters = {
       return null;
     }
   },
+  ready: (state: State): boolean => state.ready,
 };
 
 const mutations = {
@@ -42,6 +45,9 @@ const mutations = {
     state.isAuthenticated = false;
     state.accessToken = null;
   },
+  ready(state: State) {
+    state.ready = true;
+  },
 };
 
 const actions: ActionTree<State, State> = {
@@ -52,6 +58,9 @@ const actions: ActionTree<State, State> = {
   unauthenticate({ commit }, accessToken: string) {
     commit('unauthenticated', accessToken);
     delete axios.defaults.headers.common['Authorization'];
+  },
+  ready({ commit }) {
+    commit('ready');
   },
 };
 

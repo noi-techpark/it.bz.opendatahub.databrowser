@@ -98,8 +98,10 @@ import InternalLink from '../components/link/InternalLink.vue';
 import ArrowRight from '../components/svg/ArrowRight.vue';
 import ContentAlignmentY from '../components/content/ContentAlignmentY.vue';
 import { getApiConfigForDataset } from '../domain/api/configUtils';
+import { ApiConfigKey } from '../config/config';
+import { ApiConfigEntry } from '../config/types';
 
-const datasets = [
+const datasets: { type: ApiConfigKey; config: ApiConfigEntry | undefined }[] = [
   {
     type: 'odh-activity-poi',
     config: getApiConfigForDataset('odh-activity-poi'),

@@ -6,20 +6,27 @@
         :key="index"
         class="w-56"
       >
-        <div class="text-sm text-gray-500">Name</div>
-        <StringCell :text="gpsEntry.name" class="break-all" />
-        <div class="text-sm text-gray-500">Image</div>
-        <ImageCell :src="gpsEntry.image" :alt="gpsEntry.name" />
-        <div class="text-sm text-gray-500">Image-URL (Web-Url)</div>
-        <StringCell :text="gpsEntry.imageUrl" class="break-all" />
-        <div class="text-sm text-gray-500">Latitude</div>
-        <StringCell :text="gpsEntry.latitude" />
-        <div class="text-sm text-gray-500">Longitude</div>
-        <StringCell :text="gpsEntry.longitude" />
-        <div class="text-sm text-gray-500">Altitude</div>
-        <StringCell :text="gpsEntry.altitude" />
-        <div class="text-sm text-gray-500">Position</div>
-        <StringCell :text="gpsEntry.listPosition" />
+        <SubCategory title="Name">
+          <StringCell :text="gpsEntry.name" class="break-all" />
+        </SubCategory>
+        <SubCategory title="Image">
+          <ImageCell :src="gpsEntry.image" :alt="gpsEntry.name" />
+        </SubCategory>
+        <SubCategory title="Image-URL (Web-Url)">
+          <StringCell :text="gpsEntry.imageUrl" class="break-all" />
+        </SubCategory>
+        <SubCategory title="Latitude">
+          <StringCell :text="gpsEntry.latitude" />
+        </SubCategory>
+        <SubCategory title="Longitude">
+          <StringCell :text="gpsEntry.longitude" />
+        </SubCategory>
+        <SubCategory title="Altitude">
+          <StringCell :text="gpsEntry.altitude" />
+        </SubCategory>
+        <SubCategory title="Position">
+          <StringCell :text="gpsEntry.listPosition" />
+        </SubCategory>
       </div>
     </div>
   </div>
@@ -27,11 +34,10 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
-import { useUrlQueryRouter } from '../../../../lib/urlQuery/urlQueryRouter';
-import { extractField } from '../../../api/configUtils';
-import { defaultQueryParameters } from '../../../datasets/tableView/defaultValues';
+import { useFieldExtraction } from '../../../../api/configUtils';
 import StringCell from '../stringCell/StringCell.vue';
 import ImageCell from '../imageCell/ImageCell.vue';
+import SubCategory from '../../../../datasets/detailView/SubCategory.vue';
 
 /**
  * All fields except "webcams" are expected to be paths that can be resolved by
@@ -61,18 +67,12 @@ const fields = Object.entries(fieldsAsRef).reduce(
   {}
 );
 
-const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
-const { queryParametersWithDefaults } = toRefs(queryRouter);
+const { getValue } = useFieldExtraction();
 
 const resolvedGpsEntries: ComputedRef<WebcamGalleryCellProps[]> = computed(
   () =>
     webcams?.value?.map(
-      (webcam) =>
-        extractField(
-          webcam,
-          fields,
-          queryParametersWithDefaults.value
-        ) as WebcamGalleryCellProps
+      (webcam) => getValue(webcam, fields) as WebcamGalleryCellProps
     ) ?? []
 );
 </script>

@@ -1,4 +1,3 @@
-<!-- eslint-disable tailwindcss/no-custom-classname -->
 <template>
   <div class="data-table-wrapper">
     <table class="data-table">
@@ -17,13 +16,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core';
-import { TableColumnConfig } from '../../domain/api/config';
-import { extractField } from '../../domain/api/configUtils';
-import { useUrlQueryRouter } from '../../lib/urlQuery/urlQueryRouter';
+import { TableColumnConfig } from '../../config/types';
 import TableBody from './TableBody.vue';
 import TableHeader from './TableHeader.vue';
-import { toRefs } from 'vue';
-import { defaultQueryParameters } from '../../domain/datasets/tableView/defaultValues';
 
 export default defineComponent({
   components: {
@@ -41,24 +36,11 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const queryRouter = useUrlQueryRouter({ defaultQueryParameters });
-    const { queryParametersWithDefaults } = toRefs(queryRouter);
-
-    const getValue = (
-      item: any,
-      fields: Record<string, string>,
-      params?: Record<string, string>
-    ) => ({
-      ...extractField(item, fields, queryParametersWithDefaults.value),
-      ...params,
-    });
-
     const isColgroupColsSlotDefined = slots['colgroup-cols'] != null;
     const isHeaderColsSlotDefined = slots['header-cols'] != null;
     const isBodyRowsSlotDefined = slots['body-rows'] != null;
 
     return {
-      getValue,
       isColgroupColsSlotDefined,
       isHeaderColsSlotDefined,
       isBodyRowsSlotDefined,
