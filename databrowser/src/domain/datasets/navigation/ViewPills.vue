@@ -34,47 +34,28 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps, toRefs } from 'vue';
 import PillLink from '../../../components/pill/PillLink.vue';
 import PillButton from '../../../components/pill/PillButton.vue';
 import { ViewPill } from './types';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
+import { useApiQuery } from '../../api/service/apiQueryHandler';
 
-export default defineComponent({
-  components: {
-    PillButton,
-    PillLink,
-  },
-  props: {
-    currentView: {
-      type: String as PropType<ViewPill>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const route = useRoute();
-    const datasetType = route.params.datasetType as string;
-    const datasetId = route.params.datasetId as string;
+const props = defineProps<{
+  currentView: ViewPill;
+}>();
 
-    const isTableActive = computed(() => props.currentView === ViewPill.table);
-    const isDetailActive = computed(
-      () => props.currentView === ViewPill.detail
-    );
-    const isRawActive = computed(() => props.currentView === ViewPill.raw);
+const { currentView } = toRefs(props);
 
-    const language = useApiQuery().useApiParameter('language');
+const route = useRoute();
+const datasetType = route.params.datasetType as string;
+const datasetId = route.params.datasetId as string;
 
-    return {
-      datasetType,
-      datasetId,
-      isTableActive,
-      isDetailActive,
-      isRawActive,
-      language,
-    };
-  },
-});
+const isTableActive = computed(() => currentView.value === ViewPill.table);
+const isDetailActive = computed(() => currentView.value === ViewPill.detail);
+const isRawActive = computed(() => currentView.value === ViewPill.raw);
+
+const language = useApiQuery().useApiParameter('language');
 </script>

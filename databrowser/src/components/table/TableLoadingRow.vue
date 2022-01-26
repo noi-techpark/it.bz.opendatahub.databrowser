@@ -6,21 +6,18 @@
   </tr>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
 import TableCell from './TableCell.vue';
 
-export default defineComponent({
-  components: { TableCell },
-  props: {
-    rows: {
-      type: Number,
-      default: 3,
-    },
-    cells: {
-      type: Number,
-      default: 2,
-    },
-  },
-});
+withDefaults(
+  defineProps<{
+    rows?: number;
+    cells?: number;
+  }>(),
+  {
+    rows: 3,
+    cells: 2,
+  }
+);
 </script>

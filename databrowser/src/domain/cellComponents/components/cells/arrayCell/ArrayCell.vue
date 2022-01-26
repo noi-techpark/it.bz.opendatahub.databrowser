@@ -2,19 +2,17 @@
   <span v-if="items != null">{{ items?.join(separator) }}</span>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
 
-export default defineComponent({
-  props: {
-    items: {
-      default: () => [],
-      type: Array,
-    },
-    separator: {
-      default: () => ' ',
-      type: String,
-    },
-  },
-});
+withDefaults(
+  defineProps<{
+    items?: [];
+    separator?: string;
+  }>(),
+  {
+    items: () => [],
+    separator: ' ',
+  }
+);
 </script>

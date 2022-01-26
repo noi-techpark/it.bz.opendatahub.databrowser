@@ -12,43 +12,30 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, ref } from '@vue/runtime-core';
+<script setup lang="ts">
+import { defineEmits, defineProps, ref } from 'vue';
 import { watch } from 'vue';
 import PillButtonGroupItem from './PillButtonGroupItem.vue';
 
-export default defineComponent({
-  components: { PillButtonGroupItem },
-  props: {
-    initialSelected: {
-      type: String as PropType<string>,
-      required: true,
-    },
-    data: {
-      type: Array as PropType<Array<string>>,
-      required: true,
-    },
-  },
-  emits: ['selectedChange'],
-  setup(props, context) {
-    let selected = ref<number>(props.data.indexOf(props.initialSelected));
+const props = defineProps<{
+  initialSelected: string;
+  data: string[];
+}>();
 
-    watch(
-      () => props.initialSelected,
-      (newValue) => {
-        selected.value = props.data.indexOf(newValue);
-      }
-    );
+// eslint-disable-next-line no-unused-vars
+const emits = defineEmits<{ (e: 'selectedChange', item: string): void }>();
 
-    function changeSelectedItem(item: string, index: number) {
-      selected.value = index;
-      context.emit('selectedChange', item);
-    }
+const selected = ref<number>(props.data.indexOf(props.initialSelected));
 
-    return {
-      selected,
-      changeSelectedItem,
-    };
-  },
-});
+watch(
+  () => props.initialSelected,
+  (newValue) => {
+    selected.value = props.data.indexOf(newValue);
+  }
+);
+
+const changeSelectedItem = (item: string, index: number) => {
+  selected.value = index;
+  emits('selectedChange', item);
+};
 </script>

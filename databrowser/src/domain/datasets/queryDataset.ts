@@ -1,6 +1,6 @@
 import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
 import axios from 'axios';
-import { useApi } from '../api/client';
+import { useApi } from '../api/client/client';
 import { getApiConfigForDataset } from '../api/configUtils';
 
 type ApiResponse = Readonly<UseQueryReturnType<unknown, unknown>>;

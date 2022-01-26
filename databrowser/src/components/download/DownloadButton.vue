@@ -20,15 +20,16 @@
         w-full
         h-full
       "
-      @click="$emit('clicked')"
+      @click="emits('clicked')"
     >
       <slot></slot>
     </button>
   </div>
 </template>
 
-<script>
-export default {
-  emits: ['clicked'],
-};
+<script setup lang="ts">
+import { defineEmits } from 'vue';
+
+// eslint-disable-next-line no-unused-vars
+const emits = defineEmits<{ (e: 'clicked'): void }>();
 </script>

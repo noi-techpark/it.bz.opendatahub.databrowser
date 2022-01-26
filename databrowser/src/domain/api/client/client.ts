@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from 'vue-query';
 import { QueryFunction, QueryKey } from 'react-query/types/core';
-import { computed, reactive } from 'vue';
+import { computed, reactive, Ref, watch } from 'vue';
 import { useStore } from 'vuex';
 
 export const useApi = <QueryFnData, Error, Data>(
@@ -26,6 +26,18 @@ export const useApi = <QueryFnData, Error, Data>(
     fetcher,
     // Being reactive, the options must be casted to any in order to be accepted
     reactiveOptions as any
+  );
+
+  return result;
+};
+
+export const useAsQueryKey = (queryKey: Ref<string>) => {
+  const result = reactive(['']);
+
+  watch(
+    () => queryKey.value,
+    (key) => (result[0] = key),
+    { immediate: true }
   );
 
   return result;

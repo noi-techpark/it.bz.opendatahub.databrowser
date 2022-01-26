@@ -59,7 +59,6 @@
 
 <script setup lang="ts">
 import { defineProps, toRefs, withDefaults } from 'vue';
-import { useApiQuery } from '../../../lib/apiQuery/apiQueryHandler';
 import { useFieldExtraction } from '../../api/configUtils';
 import Cell from '../../../components/listCell/ListCell.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
@@ -69,6 +68,7 @@ import TableCell from '../../../components/table/TableCell.vue';
 import EyeDetailGreen from '../../../components/svg/EyeDetailGreen.vue';
 import DetailsLink from './DetailsLink.vue';
 import { TableColumnConfig } from '../../../config/types';
+import { useApiQuery } from '../../api/service/apiQueryHandler';
 
 const props = withDefaults(
   defineProps<{

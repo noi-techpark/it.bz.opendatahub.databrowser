@@ -23,26 +23,27 @@
   </BottomSheet>
 </template>
 
-<script lang="ts" setup>
-import { FilterLanguage } from '../../domain/api/configFilter';
+<script setup lang="ts">
+import { Dialog, DialogOverlay } from '@headlessui/vue';
+import { defineProps, withDefaults } from 'vue';
+import { defaultLanguage, FilterLanguage } from '../../domain/api/configFilter';
+import IconClose from '../svg/IconClose.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
 import PillButton from '../pill/PillButton.vue';
 import { computed, defineProps, ref, withDefaults } from 'vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
 import PillLinkGroup from '../pill/PillLinkGroup.vue';
 import PillLink from '../pill/PillLink.vue';
-import { useApiQuery } from '../../lib/apiQuery/apiQueryHandler';
-import { useUrlQuery } from '../../lib/apiQuery/urlQueryHandler';
-import { stringifyParameter } from '../../lib/apiQuery/query';
+import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
+import { stringifyParameter } from '../../domain/api/service/query';
+import { useUrlQuery } from '../../domain/api/service/urlQueryHandler';
 import BottomSheet from '../sheet/BottomSheet.vue';
 
 const props = withDefaults(
   defineProps<{
-    defaultLanguage: FilterLanguage;
+    defaultLanguage?: FilterLanguage;
   }>(),
-  {
-    defaultLanguage: FilterLanguage.EN,
-  }
+  { defaultLanguage: defaultLanguage }
 );
 
 const route = useRoute();
@@ -78,7 +79,5 @@ const links = computed(() => {
   });
 });
 
-function closeDialog() {
-  showMobileSelect.value = false;
-}
+const closeDialog = () => (showMobileSelect.value = false);
 </script>

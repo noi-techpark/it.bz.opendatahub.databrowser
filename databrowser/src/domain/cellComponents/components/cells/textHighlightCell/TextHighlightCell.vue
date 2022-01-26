@@ -9,19 +9,17 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
 
-export default defineComponent({
-  props: {
-    title: {
-      default: () => null,
-      type: String,
-    },
-    subtitle: {
-      default: () => null,
-      type: String,
-    },
-  },
-});
+withDefaults(
+  defineProps<{
+    title?: string;
+    subtitle?: string;
+  }>(),
+  {
+    title: undefined,
+    subtitle: undefined,
+  }
+);
 </script>

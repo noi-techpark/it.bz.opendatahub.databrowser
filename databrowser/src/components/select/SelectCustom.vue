@@ -17,28 +17,21 @@
   </select>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
+import { computed, defineEmits, defineProps, toRefs } from 'vue';
 
-export default defineComponent({
-  props: {
-    modelValue: {
-      required: false,
-      default: () => null,
-      type: null,
-    },
-  },
-  emits: ['update:modelValue'],
-  computed: {
-    value: {
-      get() {
-        return this.modelValue;
-      },
-      set(value: unknown) {
-        this.$emit('update:modelValue', value);
-      },
-    },
-  },
+const props = defineProps<{
+  modelValue?: unknown;
+}>();
+
+const { modelValue } = toRefs(props);
+
+// eslint-disable-next-line no-unused-vars
+const emits = defineEmits<{ (e: 'update:modelValue', value: unknown): void }>();
+
+const value = computed({
+  get: () => modelValue?.value,
+  set: (v) => emits('update:modelValue', v),
 });
 </script>
 

@@ -32,13 +32,8 @@
   </ContentAlignmentX>
 </template>
 
-<script lang="ts">
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../components/content/ContentDivider.vue';
 import ContentAlignmentY from '../components/content/ContentAlignmentY.vue';
-
-export default defineComponent({
-  components: { ContentAlignmentY, ContentDivider, ContentAlignmentX },
-});
 </script>

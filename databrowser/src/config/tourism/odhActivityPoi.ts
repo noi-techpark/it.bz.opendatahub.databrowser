@@ -10,6 +10,7 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
     title: 'Activities and points of interest',
     subtitle:
       'This dataset contains a collection of activities and Points of Interest (PoI) in the South Tyrol region. The available data have been extracted from different sources and also offer IDM categorisation. This is a kind of superdataset, which includes also poi dataset, activity dataset, and gastronomy dataset.',
+    description: 'Test',
   },
   listEndpoint: {
     url: `${tourismBaseUrl}/v1/ODHActivityPoi`,
@@ -60,6 +61,43 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
         params: {
           separator: ', ',
         },
+        filter: {
+          name: 'langfilter',
+          component: FilterComponent.FixedValue,
+          params: {
+            multiselect: true,
+            filterOptions: [
+              {
+                label: 'German',
+                value: 'de',
+              },
+              {
+                label: 'Italian',
+                value: 'it',
+              },
+              {
+                label: 'English',
+                value: 'en',
+              },
+              {
+                label: 'Dutch',
+                value: 'nl',
+              },
+              {
+                label: 'Polish',
+                value: 'pl',
+              },
+              {
+                label: 'French',
+                value: 'fr',
+              },
+              {
+                label: 'Russian',
+                value: 'ru',
+              },
+            ],
+          },
+        },
       },
       {
         title: 'Edited',
@@ -83,7 +121,7 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
       {
         title: 'Source state',
         component: CellComponent.StateCell,
-        class: 'w-36',
+        class: 'w-40',
         fields: {
           state: 'Active',
         },
@@ -107,7 +145,7 @@ export const odhActivityPoiConfig: ApiConfigEntry = {
       {
         title: 'ODH state',
         component: CellComponent.StateCell,
-        class: 'w-36',
+        class: 'w-40',
         fields: {
           state: 'OdhActive',
         },
