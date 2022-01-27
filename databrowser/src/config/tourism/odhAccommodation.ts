@@ -5,9 +5,9 @@ import { tourismBaseUrl } from './urls';
 export const odhAccommodationConfig: ApiConfigEntry = {
   description: {
     title: 'Accommodation',
-    subtitle:
-      'This dataset contains various data about accommodation in South Tyrol, including information about the rooms.',
-    description: 'Test',
+    subtitle: 'This dataset contains tourism accommodations.',
+    description:
+      'This dataset contains various data about accommodations, mainly located in the South Tyrol region.',
   },
   listEndpoint: {
     url: `${tourismBaseUrl}/v1/Accommodation`,

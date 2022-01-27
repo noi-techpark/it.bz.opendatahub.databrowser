@@ -7,10 +7,11 @@ import { tourismBaseUrl } from './urls';
 
 export const odhActivityPoiConfig: ApiConfigEntry = {
   description: {
-    title: 'Activities and points of interest',
+    title: 'Activities and Points of Interest (POIs)',
     subtitle:
-      'This dataset contains a collection of activities and Points of Interest (PoI) in the South Tyrol region. The available data have been extracted from different sources and also offer IDM categorisation. This is a kind of superdataset, which includes also poi dataset, activity dataset, and gastronomy dataset.',
-    description: 'Test',
+      'This dataset contains a collection of activities and points of interest (POIs).',
+    description:
+      'This dataset contains a collection of activities and points of interest (POIs) mainly in the South Tyrol region. The available data is provided by several sources structured according to IDM categorisation.',
   },
   listEndpoint: {
     url: `${tourismBaseUrl}/v1/ODHActivityPoi`,

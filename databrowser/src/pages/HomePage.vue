@@ -1,23 +1,17 @@
 <template>
   <AppLayout>
     <Hero>
-      <HeroTitle>Home Page</HeroTitle>
-      <HeroSubTitle
-        >Lorem ipsum dolor sit amen dolr sit amen dolr ist aem dolris tmane dolr
-        ist amen.
+      <HeroTitle>Open Data Hub Data Browser 2.0</HeroTitle>
+      <HeroSubTitle>
+        Explore and navigate through open data you need to build your next
+        service.
       </HeroSubTitle>
       <HeroCaption>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-        ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-        dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-        ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
-        quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-        arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-        Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras
-        dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend
-        tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac,
-        enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
-        Phasellus viverra nulla ut metus varius laoreet.
+        Use the new Data Browser to discover all available Open Data and get an
+        understanding of how to access and use it. All data is collected through
+        various interfaces and updated on a regular basis. You can simply use
+        them for your convenience, or you might even find a novel way to exploit
+        and use them in an app or portal you are developing.
       </HeroCaption>
     </Hero>
     <ContentAlignmentX>
@@ -50,9 +44,10 @@
           <CardContainer tag-name="li">
             <CardTitle>API Documentation</CardTitle>
             <CardText
-              >Lorem ipsum dolr sit amen dol rist maen dol ist amen dorl sit
-              amen dorlosit sit amen dorl sit amen dol dori sti ist. sit amen
-              dorl sit amen dol dori sti ist.
+              >A free and well documented API platform you can use to create new
+              amazing applications. The documentation gives a complete
+              introduction on how to access Open Data through the Open Data Hub
+              API and other dedicated interfaces and protocols.
             </CardText>
             <CardDivider />
             <InternalLink to="/" tone="primary">
