@@ -1,6 +1,6 @@
 <template>
   <AppLayout>
-    <Hero>
+    <HeroContainer>
       <HeroTitle>Open Data Hub Data Browser 2.0</HeroTitle>
       <HeroSubTitle>
         Explore and navigate through open data you need to build your next
@@ -13,7 +13,7 @@
         them for your convenience, or you might even find a novel way to exploit
         and use them in an app or portal you are developing.
       </HeroCaption>
-    </Hero>
+    </HeroContainer>
     <ContentAlignmentX>
       <ContentAlignmentY>
         <CardGrid tag-name="ul">
@@ -76,7 +76,7 @@
 
 <script setup lang="ts">
 import AppLayout from '../layouts/AppLayout.vue';
-import Hero from '../components/hero/HeroContainer.vue';
+import HeroContainer from '../components/hero/HeroContainer.vue';
 import HeroTitle from '../components/hero/HeroTitle.vue';
 import HeroSubTitle from '../components/hero/HeroSubTitle.vue';
 import HeroCaption from '../components/hero/HeroCaption.vue';

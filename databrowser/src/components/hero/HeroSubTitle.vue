@@ -1,5 +1,5 @@
 <template>
-  <h2 class="mt-2 lg:mt-0 max-w-lg leading-tight text-gray-600 sub-title">
+  <h2 class="mt-2 lg:mt-0 max-w-2xl leading-tight text-gray-600 sub-title">
     <slot></slot>
   </h2>
 </template>
