@@ -1,10 +1,10 @@
 <template>
-  <div v-if="isAuthenticated === true" class="flex items-center space-x-4">
+  <div v-if="auth.isAuthenticated" class="flex items-center space-x-4">
     <HeaderLink :to="profileUrl">
       <IconProfile
         class="inline-block mr-2 w-4 align-text-top stroke-current"
       />
-      {{ user?.name }}
+      {{ auth.user?.name }}
     </HeaderLink>
     <HeaderButton @click="onLogout">{{ $t('auth.logout') }}</HeaderButton>
   </div>
@@ -15,36 +15,32 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useStore } from 'vuex';
 import { keycloak } from './keycloak';
 import IconProfile from '../../components/svg/IconProfile.vue';
 import HeaderButton from '../../components/header/HeaderButton.vue';
 import HeaderLink from '../../components/header/HeaderLink.vue';
+import { useAuth } from './store/auth';
 
-const store = useStore();
-
-const user = computed(() => store.getters['auth/user']);
-const isAuthenticated = computed(() => store.state.auth.isAuthenticated);
+const auth = useAuth();
 
 keycloak.onAuthSuccess = () => {
-  store.dispatch('auth/authenticate', keycloak.token);
+  auth.authenticate(keycloak.token);
 };
 
 keycloak.onAuthError = () => {
-  store.dispatch('auth/unauthenticate');
+  auth.unauthenticate();
 };
 
 keycloak.onAuthRefreshSuccess = () => {
-  store.dispatch('auth/authenticate', keycloak.token);
+  auth.authenticate(keycloak.token);
 };
 
 keycloak.onAuthRefreshError = () => {
-  store.dispatch('auth/unauthenticate');
+  auth.unauthenticate();
 };
 
 keycloak.onReady = () => {
-  store.dispatch('auth/ready');
+  auth.ready = true;
 };
 
 function onLogin() {
