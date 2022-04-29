@@ -17,7 +17,7 @@
       </template>
     </Dropdown>
   </th>
-  <th v-else class="py-4 px-4 font-semibold text-gray-900">
+  <th v-else class="p-4 font-semibold text-gray-900">
     {{ text }}
   </th>
 </template>

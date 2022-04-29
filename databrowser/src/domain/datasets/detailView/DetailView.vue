@@ -21,7 +21,7 @@
       >
     </div>
     <section v-if="isSuccess === true" class="flex flex-col">
-      <div class="lg:flex flex-wrap lg:gap-5">
+      <div class="flex-wrap lg:flex lg:gap-5">
         <div v-if="categories.length > 0" class="flex flex-col lg:w-1/6">
           <DetailCategories :categories="categories" :current-slug="slug" />
         </div>

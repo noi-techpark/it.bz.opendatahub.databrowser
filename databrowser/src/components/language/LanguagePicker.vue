@@ -1,6 +1,6 @@
 <template>
   <PillButton
-    class="inline-flex md:hidden items-center"
+    class="inline-flex items-center md:hidden"
     @click="showMobileSelect = true"
   >
     <span class="sr-only">Selected language</span>
@@ -8,7 +8,7 @@
     <ArrowDown />
   </PillButton>
 
-  <PillLinkGroup :data="links" class="hidden md:inline-flex uppercase" />
+  <PillLinkGroup :data="links" class="hidden uppercase md:inline-flex" />
 
   <BottomSheet :show-sheet="showMobileSelect" @close="closeDialog">
     <PillLink

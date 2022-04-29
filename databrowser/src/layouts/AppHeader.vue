@@ -1,6 +1,6 @@
 <template>
   <ContentAlignmentX class="flex flex-row justify-between py-3 lg:py-5">
-    <div class="inline-flex flex-row-reverse md:flex-row items-center">
+    <div class="inline-flex flex-row-reverse items-center md:flex-row">
       <router-link to="/">
         <img
           :alt="$t('header.logo')"

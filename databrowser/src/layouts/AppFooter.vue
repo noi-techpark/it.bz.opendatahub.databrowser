@@ -4,14 +4,7 @@
     <ContentAlignmentY>
       <footer>
         <ul
-          class="
-            justify-center
-            lg:justify-start
-            text-sm
-            leading-none
-            flex flex-wrap
-            divide-x divide-current
-          "
+          class="flex flex-wrap justify-center text-sm leading-none divide-x divide-current lg:justify-start"
         >
           <li class="pr-4 my-1">@ Open Data Hub</li>
           <li class="px-4 my-1">

@@ -1,17 +1,7 @@
 <template>
   <select
     v-model="value"
-    class="
-      py-1
-      pr-6
-      pl-4
-      rounded-full
-      focus:border-green-500
-      appearance-none
-      outline-none
-      bg-white bg-no-repeat
-      border border-gray-500
-    "
+    class="py-1 pr-6 pl-4 bg-white bg-no-repeat rounded-full border border-gray-500 focus:border-green-500 outline-none appearance-none"
   >
     <slot></slot>
   </select>
