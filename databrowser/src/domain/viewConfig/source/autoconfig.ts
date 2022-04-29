@@ -194,7 +194,7 @@ const listViewConfigFromProperties = (
   const elements: ListElements[] = Object.keys(properties ?? []).map((name) => {
     return {
       title: name,
-      component: CellComponent.JsonCell,
+      component: CellComponent.TypeBasedCell,
       fields: {
         data: name,
       },
@@ -216,7 +216,7 @@ const detailViewConfigFromProperties = (
   ).map((name) => {
     return {
       title: name,
-      component: CellComponent.JsonCell,
+      component: CellComponent.TypeBasedCell,
       fields: {
         data: name,
       },

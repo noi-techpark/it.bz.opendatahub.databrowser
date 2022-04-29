@@ -12,6 +12,7 @@ import StateCell from '../components/cells/stateCell/StateCell.vue';
 import StringCell from '../components/cells/stringCell/StringCell.vue';
 import StringTemplateCell from '../components/cells/stringTemplateCell/StringTemplateCell.vue';
 import TextHighlightCell from '../components/cells/textHighlightCell/TextHighlightCell.vue';
+import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamGalleryCell from '../components/cells/webcamGalleryCell/WebcamGalleryCell.vue';
 import FixedValue from '../components/filters/fixedValue/FixedValue.vue';
 import { CellComponent, FilterComponent } from '../types';
@@ -30,6 +31,7 @@ export default {
     app.component(CellComponent.StringCell, StringCell);
     app.component(CellComponent.StringTemplateCell, StringTemplateCell);
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
+    app.component(CellComponent.TypeBasedCell, TypeBasedCell);
     app.component(CellComponent.WebcamGalleryCell, WebcamGalleryCell);
 
     app.component(FilterComponent.FixedValue, FixedValue);

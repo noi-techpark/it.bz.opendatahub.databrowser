@@ -11,6 +11,7 @@ export enum CellComponent {
   StringCell = 'StringCell',
   StringTemplateCell = 'StringTemplateCell',
   TextHighlightCell = 'TextHighlightCell',
+  TypeBasedCell = 'TypeBasedCell',
   WebcamGalleryCell = 'WebcamGalleryCell',
 }
 
