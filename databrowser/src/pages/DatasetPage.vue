@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { onErrorCaptured, ref, watch } from 'vue';
 import AppLayout from '../layouts/AppLayout.vue';
-import DatasetHero from '../domain/datasets/DatasetHero.vue';
+import DatasetHero from '../domain/datasets/hero/DatasetHero.vue';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import DatasetNavigation from '../domain/datasets/navigation/DatasetNavigation.vue';
 import ContentDivider from '../components/content/ContentDivider.vue';

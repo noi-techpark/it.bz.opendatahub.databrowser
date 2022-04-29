@@ -16,13 +16,13 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import HeroContainer from '../../components/hero/HeroContainer.vue';
-import HeroTitle from '../../components/hero/HeroTitle.vue';
-import HeroSubTitle from '../../components/hero/HeroSubTitle.vue';
-import CollapsibleContainer from '../../components/collapsible/CollapsibleContainer.vue';
-import CollapsibleButton from '../../components/collapsible/CollapsibleButton.vue';
-import CollapsiblePanel from '../../components/collapsible/CollapsiblePanel.vue';
-import { useDatasetHeroDescription } from './hero/useDatasetHeroDescription';
+import HeroContainer from '../../../components/hero/HeroContainer.vue';
+import HeroTitle from '../../../components/hero/HeroTitle.vue';
+import HeroSubTitle from '../../../components/hero/HeroSubTitle.vue';
+import CollapsibleContainer from '../../../components/collapsible/CollapsibleContainer.vue';
+import CollapsibleButton from '../../../components/collapsible/CollapsibleButton.vue';
+import CollapsiblePanel from '../../../components/collapsible/CollapsiblePanel.vue';
+import { useDatasetHeroDescription } from './useDatasetHeroDescription';
 
 const { title, subtitle, description, isFinished } =
   useDatasetHeroDescription();
