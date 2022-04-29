@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { computed, defineProps, ref, toRefs } from 'vue';
-import { FilterConfig } from '../../config/types';
+import { FilterConfig } from '../../domain/viewConfig/types';
 import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
 import { useAsList } from '../../domain/api/service/utils';
 import { FilterValue } from '../../domain/cellComponents/components/filters/types';

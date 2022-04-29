@@ -1,4 +1,4 @@
-import { App, computed, inject, ref, watch } from 'vue';
+import { App, computed, inject, isRef, Ref, ref, watch } from 'vue';
 import { Router } from 'vue-router';
 import { ApiQuery, UrlQuery, UrlParameters } from './types';
 import { buildUrlQuery } from './urlBuilder';
@@ -31,8 +31,11 @@ export const createUrlQueryHandler = (
     (query) => apiQuery.setApiParameters(query)
   );
 
-  const useUrlWithQueryParameters = (baseUrl: string | undefined) =>
-    computed(() => `${baseUrl}${currentUrlQuery.value}`);
+  const useUrlWithQueryParameters = (url: string | Ref<string>) =>
+    computed(() => {
+      const urlValue = isRef(url) ? url.value : url;
+      return `${urlValue}${currentUrlQuery.value}`;
+    });
 
   const cleanQueryParametersExtendedWith = (
     queryParameters: UrlParameters

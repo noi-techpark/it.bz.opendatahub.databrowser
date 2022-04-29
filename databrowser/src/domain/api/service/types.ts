@@ -53,9 +53,7 @@ export type ApiParameterValidator = (value: ParameterValue) => boolean;
 
 export type UrlParameters = ApiParameters;
 export interface UrlQuery {
-  useUrlWithQueryParameters: (
-    baseUrl: string | undefined
-  ) => ComputedRef<string>;
+  useUrlWithQueryParameters: (url: string | Ref<string>) => ComputedRef<string>;
   cleanQueryParametersExtendedWith: (
     apiParameters: UrlParameters
   ) => UrlParameters;

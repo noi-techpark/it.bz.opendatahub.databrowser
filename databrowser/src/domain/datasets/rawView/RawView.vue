@@ -1,46 +1,47 @@
 <template>
   <ContentAlignmentX>
-    <AsyncView :data="apiResult?.data" :error="apiResult?.error">
-      <template #loading>
-        <div>Loading</div>
-      </template>
-      <template #success="{ data }">
-        <div class="overflow-x-scroll p-4 rounded-xl border">
-          <vue-json-pretty :data="data?.data" :deep="3" show-length />
-        </div>
-        <DownloadSection
-          :dataset="data?.data"
-          :dataset-url="datasetUrl"
-          hide-csv
-        />
-      </template>
-      <template #error="{ error }">
-        <div v-if="error">{{ error.toString() }}</div>
-      </template>
-    </AsyncView>
+    <div>
+      <router-link
+        :to="{
+          path: '../79C93A2154142D4D35EE2C3B59543476_REDUCED/raw',
+          hash: $route.hash,
+        }"
+        >79C93A2154142D4D35EE2C3B59543476_REDUCED/raw</router-link
+      >|
+      <router-link
+        :to="{
+          path: '../5CEA544EE34639034F07B79D4AEEB603_REDUCED/raw',
+          hash: $route.hash,
+        }"
+        >5CEA544EE34639034F07B79D4AEEB603_REDUCED/raw</router-link
+      >
+    </div>
+    <section v-if="isError" class="bg-red-200">
+      <h2>Got error from API</h2>
+      <div>{{ error }}</div>
+    </section>
+    <section v-if="isSuccess" class="bg-green-200">
+      <div class="overflow-x-scroll p-4 rounded-xl border">
+        <vue-json-pretty :data="(data as any)" :deep="3" show-length />
+      </div>
+      <DownloadSection :dataset="data" :dataset-url="url" hide-csv />
+    </section>
   </ContentAlignmentX>
 </template>
 
 <script setup lang="ts">
-import { ref, UnwrapRef } from 'vue';
-import { useRoute } from 'vue-router';
+import { defineProps, toRefs } from 'vue';
 import VueJsonPretty from 'vue-json-pretty';
-import { AxiosResponse } from 'axios';
-import { UseQueryReturnType } from 'vue-query/lib/vue/useBaseQuery';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
-import { getDataset, getDatasetUrl } from '../queryDataset';
-import AsyncView from '../../../components/asyncView/AsyncView.vue';
+import { ViewConfig } from '../../viewConfig/types';
+import { useApiForViewConfig } from '../../api/client/client';
 
-const route = useRoute();
-const datasetType = route.params.datasetType as string;
-const datasetId = route.params.datasetId as string;
-const apiResult = ref<
-  UnwrapRef<UseQueryReturnType<AxiosResponse<any, any>, Error>>
->({} as any);
+const props = defineProps<{ viewConfig: ViewConfig }>();
+const { viewConfig } = toRefs(props);
 
-const datasetUrl = getDatasetUrl(datasetType, datasetId);
-apiResult.value = getDataset(datasetUrl) as never;
+const { isError, isSuccess, data, error, url } =
+  useApiForViewConfig(viewConfig);
 </script>
 
 <style>

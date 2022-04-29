@@ -1,37 +1,40 @@
 <template>
-  <section v-if="isSuccess" class="flex flex-col">
-    <TableNavigation
-      :page-size-options="pageSizeOptions"
-      :pagination="pagination"
-      class="hidden md:flex"
-      @paginate-to="paginateTo"
-      @page-size-changes="pageSizeChanges"
-    />
+  <ContentAlignmentX>
+    <section v-if="isError" class="bg-red-200">
+      <h2>Got error from API</h2>
+      <div>{{ viewConfigError }}</div>
+    </section>
+    <section v-if="isSuccess" class="flex flex-col">
+      <TableNavigation
+        :page-size-options="pageSizeOptions"
+        :pagination="pagination"
+        class="hidden md:flex"
+        @paginate-to="paginateTo"
+        @page-size-changes="pageSizeChanges"
+      />
 
-    <TableContent :config="tableConfig" :rows="rows" />
+      <TableContent :render-elements="renderConfig.elements" :rows="rows" />
 
-    <TableNavigation
-      :page-size-options="pageSizeOptions"
-      :pagination="pagination"
-      @paginate-to="paginateTo"
-      @page-size-changes="pageSizeChanges"
-    />
+      <TableNavigation
+        :page-size-options="pageSizeOptions"
+        :pagination="pagination"
+        @paginate-to="paginateTo"
+        @page-size-changes="pageSizeChanges"
+      />
 
-    <DownloadSection
-      v-if="datasetUrlWithQuery && data"
-      :dataset="data"
-      :dataset-url="datasetUrlWithQuery"
-    />
-  </section>
-  <section v-if="tableConfig == null">
-    Config was not found, ID = {{ $route.params.datasetType }}
-  </section>
+      <DownloadSection v-if="data" :dataset="data" :dataset-url="url" />
+    </section>
+    <section v-if="viewConfigError != null">
+      {{ viewConfigError }}
+    </section>
+    <section v-if="error != null">
+      {{ error }}
+    </section>
+  </ContentAlignmentX>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { getApiConfigForDataset } from '../../api/configUtils';
+import { computed, defineProps, toRefs } from 'vue';
 import {
   defaultQueryParameters,
   pageSizeOptions,
@@ -43,19 +46,24 @@ import TableNavigation from './TableNavigation.vue';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
 import { PaginationData } from '../../api/client/types';
 import { AxiosResponse } from 'axios';
-import { useAxiosFetcher } from '../../api/client/fetcher/axios';
 import { useApiQuery } from '../../api/service/apiQueryHandler';
-import { useApi, useAsQueryKey } from '../../api/client/client';
-import { useUrlQuery } from '../../api/service/urlQueryHandler';
+import { useApiForViewConfig } from '../../api/client/client';
 import { stringifyParameter } from '../../api/service/query';
+import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
+import { ListRenderConfig, ViewConfig } from '../../viewConfig/types';
 
-// Use path parameters to get config for dataset
-const route = useRoute();
-const datasetType = route.params.datasetType as string;
+const props = defineProps<{ viewConfig: ViewConfig }>();
+const { viewConfig } = toRefs(props);
 
-// Get config parameters
-const { url, tableConfig } =
-  getApiConfigForDataset(datasetType)?.listEndpoint ?? {};
+const viewConfigError = computed<string | null>(() =>
+  viewConfig.value.renderConfig.type === 'list'
+    ? null
+    : 'View configuration for table contains no table configuration'
+);
+
+const renderConfig = computed(
+  () => viewConfig.value.renderConfig as ListRenderConfig
+);
 
 // API query is used in several places
 const apiQuery = useApiQuery();
@@ -68,26 +76,20 @@ apiQuery.updateApiParameterValidator(
   (value) => parseInt(stringifyParameter(value), 10) > 0
 );
 
-const datasetUrlWithQuery = useUrlQuery().useUrlWithQueryParameters(url);
-const fetchUrl = useAsQueryKey(datasetUrlWithQuery);
-
-// Get fetcher function
-const fetcher = useAxiosFetcher();
-
 // Define result mapping function
 const resultMapper = (data: AxiosResponse): PaginationData => {
   const defaultApiParameters = apiQuery.defaultApiParameters.value;
   const currentApiParameters = apiQuery.currentApiParameters.value;
-  return unifyPagination(data.data, {
+  return unifyPagination(data, {
     defaultParameters: defaultApiParameters,
     parameters: currentApiParameters,
   });
 };
 
-// Fetch data
-const { data, isSuccess } = useApi(fetchUrl, fetcher, {
-  select: resultMapper,
-});
+const { isError, isSuccess, data, error, url } = useApiForViewConfig(
+  viewConfig,
+  resultMapper
+);
 
 // Define method to change page
 const paginateTo = (page: string) =>
@@ -98,7 +100,7 @@ const pageSize = apiQuery.useApiParameter('pagesize');
 
 const pageSizeChanges = (value: string | undefined) => (pageSize.value = value);
 
-const rows = computed(() => data.value?.items ?? []);
+const rows = computed(() => (data.value as PaginationData)?.items ?? []);
 
-const pagination = computed(() => data.value?.pagination);
+const pagination = computed(() => (data.value as PaginationData)?.pagination);
 </script>

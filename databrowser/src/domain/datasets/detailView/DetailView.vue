@@ -1,95 +1,64 @@
 <template>
-  <section v-if="apiResult.isSuccess" class="flex flex-col">
-    <div class="lg:flex flex-wrap lg:gap-5">
-      <div v-if="categories.length > 0" class="flex flex-col lg:w-1/6">
-        <DetailCategories
-          :categories="categories"
-          :current-slug="currentSlug"
-        />
-      </div>
-
-      <div
-        v-if="currentSlug !== ''"
-        :style="{
-          'column-count': Math.min(currentSubcategories?.length ?? 1, 3),
+  <ContentAlignmentX>
+    <section v-if="isError === true" class="bg-red-200">
+      <h2>Got error from API</h2>
+      <div>{{ error }}</div>
+    </section>
+    <div>
+      <router-link
+        :to="{
+          path: './79C93A2154142D4D35EE2C3B59543476_REDUCED',
+          hash: $route.hash,
         }"
-        class="subcategory-container"
+        >79C93A2154142D4D35EE2C3B59543476_REDUCED</router-link
+      >|
+      <router-link
+        :to="{
+          path: './5CEA544EE34639034F07B79D4AEEB603_REDUCED',
+          hash: $route.hash,
+        }"
+        >5CEA544EE34639034F07B79D4AEEB603_REDUCED</router-link
       >
-        <DetailSubCategories
-          :data="apiResult.data.data"
-          :sub-categories="currentSubcategories"
-        />
-      </div>
     </div>
+    <section v-if="isSuccess === true" class="flex flex-col">
+      <div class="lg:flex flex-wrap lg:gap-5">
+        <div v-if="categories.length > 0" class="flex flex-col lg:w-1/6">
+          <DetailCategories :categories="categories" :current-slug="slug" />
+        </div>
 
-    <DownloadSection
-      :dataset="apiResult.data?.data"
-      :dataset-url="datasetUrlWithQuery"
-      hide-csv
-    />
-  </section>
+        <div
+          v-if="slug !== ''"
+          :style="{
+            'column-count': Math.min(subcategories?.length ?? 1, 3),
+          }"
+          class="subcategory-container"
+        >
+          <DetailSubCategories :data="data" :sub-categories="subcategories" />
+        </div>
+      </div>
+
+      <DownloadSection :dataset="data" :dataset-url="url" hide-csv />
+    </section>
+  </ContentAlignmentX>
 </template>
 
 <script lang="ts" setup>
-import { AxiosInstance } from 'axios';
-import { computed, ComputedRef, inject, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { useApi } from '../../api/client/client';
-import { getApiConfigForDataset } from '../../api/configUtils';
-import { useHashSlug } from './useHashSlug';
-import DetailCategories, { DetailCategory } from './DetailCategories.vue';
+import { defineProps, toRefs } from 'vue';
+import { ViewConfig } from '../../viewConfig/types';
+import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
+import { useApiForViewConfig } from '../../api/client/client';
+import DetailCategories from './DetailCategories.vue';
 import DetailSubCategories from './DetailSubCategories.vue';
-import { getDatasetUrl } from '../queryDataset';
 import DownloadSection from '../../../components/download/DownloadSection.vue';
-import { useUrlQuery } from '../../api/service/urlQueryHandler';
+import { useDetail } from './useDetail';
 
-const route = useRoute();
-const datasetType = route.params.datasetType as string;
-const datasetId = route.params.datasetId as string;
-const datasetUrl = getDatasetUrl(datasetType, datasetId);
+const props = defineProps<{ viewConfig: ViewConfig }>();
+const { viewConfig } = toRefs(props);
 
-// Compute dataset URL with query params
-const datasetUrlWithQuery = computed(
-  () => useUrlQuery().useUrlWithQueryParameters(datasetUrl).value
-);
+const { slug, categories, subcategories } = useDetail(viewConfig);
 
-// Get config parameters
-const { viewConfig } =
-  getApiConfigForDataset(datasetType)?.detailEndpoint ?? {};
-
-const apiResult = ref({} as any);
-
-if (datasetUrl != null) {
-  const axios = inject<AxiosInstance>('axios');
-
-  if (axios != null) {
-    const fetcher = async ({ queryKey }: { queryKey: unknown[] }) => {
-      return await axios.get(queryKey[0] as string);
-    };
-    const result = useApi(datasetUrl, fetcher as unknown as any);
-    apiResult.value = result as any;
-  }
-}
-
-const initialSlug = viewConfig?.[0].slug ?? '';
-const validSlugs = viewConfig?.map((vc) => vc.slug) ?? [];
-const { currentSlug } = useHashSlug(initialSlug, new Set(validSlugs));
-const currentSubcategories = computed(
-  () =>
-    viewConfig?.find((config) => config.slug === currentSlug.value)
-      ?.subcategories ?? []
-);
-
-const categories: ComputedRef<DetailCategory[]> = computed(
-  () =>
-    viewConfig?.map((vc) => {
-      return {
-        name: vc.name,
-        slug: vc.slug,
-        to: { hash: `#${vc.slug}`, query: route.query },
-      };
-    }) ?? []
-);
+const { isError, isSuccess, data, error, url } =
+  useApiForViewConfig(viewConfig);
 </script>
 
 <style>

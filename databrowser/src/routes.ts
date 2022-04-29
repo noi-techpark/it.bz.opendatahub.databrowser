@@ -6,19 +6,14 @@ const routes: RouteRecordRaw[] = [
     component: () => import('./pages/HomePage.vue'),
   },
   {
-    path: '/dataset/:datasetType',
-    component: () => import('./pages/datasets/TableViewPage.vue'),
-    name: 'DatasetsTableViewPage',
+    path: '/dataset/:pathParams+',
+    component: () => import('./pages/DatasetPage.vue'),
+    name: 'DatasetTableAndDetailPage',
   },
   {
-    path: '/dataset/:datasetType/:datasetId',
-    component: () => import('./pages/datasets/DetailViewPage.vue'),
-    name: 'DatasetsDetailViewPage',
-  },
-  {
-    path: '/dataset/:datasetType/:datasetId/raw',
-    component: () => import('./pages/datasets/RawViewPage.vue'),
-    name: 'DatasetsRawViewPage',
+    path: '/dataset/:pathParams+/raw',
+    component: () => import('./pages/DatasetPage.vue'),
+    name: 'DatasetRawPage',
   },
   {
     path: '/about',

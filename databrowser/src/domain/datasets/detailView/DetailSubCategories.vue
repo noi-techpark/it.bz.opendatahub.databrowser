@@ -26,11 +26,7 @@ import { defineProps, toRefs } from 'vue';
 import { useFieldExtraction } from '../../viewConfig';
 import ListCell from '../../../components/listCell/ListCell.vue';
 import SubCategory from './SubCategory.vue';
-
-export interface DetailSubCategory {
-  name: string;
-  properties: PropertyConfig[];
-}
+import { DetailSubCategory } from './types';
 
 const props = defineProps<{
   data: unknown;

@@ -1,18 +1,18 @@
-import { ApiConfigEntry } from './types';
+import { ViewConfig } from '../domain/viewConfig/types';
 import {
-  odhAccommodationConfig,
-  odhActivityPoiConfig,
-  odhActivityPoiTypesConfig,
+  odhAccommodationDetail,
+  odhAccommodationList,
+  odhActivityPoiDetail,
+  odhActivityPoiList,
+  odhActivityPoiTypesDetail,
+  odhActivityPoiTypesList,
 } from './tourism';
 
-const config = {
-  'odh-accommodation': odhAccommodationConfig,
-  'odh-activity-poi': odhActivityPoiConfig,
-  'odh-activity-poi-types': odhActivityPoiTypesConfig,
+export const embeddedViewConfigs: Record<string, ViewConfig> = {
+  'tourism/v1/AccommodationTmp': odhAccommodationList,
+  'tourism/v1/AccommodationTmp/{id}': odhAccommodationDetail,
+  'tourism/v1/ODHActivityPoi': odhActivityPoiList,
+  'tourism/v1/ODHActivityPoi/{id}': odhActivityPoiDetail,
+  'tourism/v1/ODHActivityPoiTypes': odhActivityPoiTypesList,
+  'tourism/v1/ODHActivityPoiTypes/{id}': odhActivityPoiTypesDetail,
 };
-
-export type ApiConfigKey = keyof typeof config;
-
-export type ApiConfig = Record<ApiConfigKey, ApiConfigEntry>;
-
-export const apiConfig: ApiConfig = config;
