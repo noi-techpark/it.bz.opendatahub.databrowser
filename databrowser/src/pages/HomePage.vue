@@ -111,7 +111,7 @@ import { ViewConfigWithPathParams } from '../domain/viewConfig/types';
 const paths: string[] = [
   'tourism/v1/AccommodationTmp',
   'tourism/v1/ODHActivityPoi',
-  'tourism/v1/ODHActivityPoi2',
+  'tourism/v1/Event',
 ];
 
 const datasets = ref<ViewConfigWithPathParams[]>([]);
