@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
-import { useFieldExtraction } from '../../../../api/configUtils';
+import { useFieldExtraction } from '../../../../viewConfig';
 import StringCell from '../stringCell/StringCell.vue';
 import ImageCell from '../imageCell/ImageCell.vue';
 import SubCategory from '../../../../datasets/detailView/SubCategory.vue';

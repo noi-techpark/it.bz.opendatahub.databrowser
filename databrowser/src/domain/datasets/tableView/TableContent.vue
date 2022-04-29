@@ -58,8 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs, withDefaults } from 'vue';
-import { useFieldExtraction } from '../../api/configUtils';
+import { useFieldExtraction } from '../../viewConfig';
 import Cell from '../../../components/listCell/ListCell.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import TableHeaderFilter from '../../../components/table/TableHeaderFilter.vue';

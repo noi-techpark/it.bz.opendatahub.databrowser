@@ -9,6 +9,7 @@ import { router } from './routes';
 import registerCellComponents from './domain/cellComponents/plugins/registerCellComponents';
 import { createApiQueryHandler } from './domain/api/service/apiQueryHandler';
 import { createUrlQueryHandler } from './domain/api/service/urlQueryHandler';
+import { createViewConfigProvider } from './domain/viewConfig/viewConfigProvider';
 
 const app = createApp(App);
 
@@ -27,6 +28,10 @@ app.provide('axios', app.config.globalProperties.axios);
 
 // Add pinia store
 app.use(createPinia());
+
+// Register remote API utilities
+const viewConfigProvider = createViewConfigProvider(router);
+app.use(viewConfigProvider);
 
 // Register Vue cell render components globally for dynamic rendering
 app.use(registerCellComponents);
