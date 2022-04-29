@@ -191,16 +191,18 @@ const schemaFromEndpointMethod = (endpointMethod?: OpenApi.OperationObject) => {
 const listViewConfigFromProperties = (
   properties: OpenApi.SchemaObject | undefined
 ): ListRenderConfig => {
-  const elements: ListElements[] = Object.keys(properties ?? []).map((name) => {
-    return {
-      title: name,
-      component: CellComponent.TypeBasedCell,
-      fields: {
-        data: name,
-      },
-      class: 'w-60 leading-3',
-    };
-  });
+  const elements: ListElements[] = Object.keys(properties ?? [])
+    .map((name) => {
+      return {
+        title: name,
+        component: CellComponent.TypeBasedCell,
+        fields: {
+          data: name,
+        },
+        class: 'w-60 leading-3',
+      };
+    })
+    .sort(sortByMainOrderAndLocalCompare);
 
   return {
     type: 'list',
@@ -211,17 +213,17 @@ const listViewConfigFromProperties = (
 const detailViewConfigFromProperties = (
   properties: OpenApi.SchemaObject | undefined
 ): DetailRenderConfig => {
-  const subcategoryProperties: PropertyConfig[] = Object.keys(
-    properties ?? []
-  ).map((name) => {
-    return {
-      title: name,
-      component: CellComponent.TypeBasedCell,
-      fields: {
-        data: name,
-      },
-    };
-  });
+  const subcategoryProperties: PropertyConfig[] = Object.keys(properties ?? [])
+    .map((name) => {
+      return {
+        title: name,
+        component: CellComponent.TypeBasedCell,
+        fields: {
+          data: name,
+        },
+      };
+    })
+    .sort(sortByMainOrderAndLocalCompare);
 
   return {
     type: 'detail',
@@ -241,6 +243,26 @@ const detailViewConfigFromProperties = (
 };
 
 const toPath = (pathParams: PathParams) => `/${pathParams.join('/')}`;
+
+const sortByMainOrderAndLocalCompare = (
+  a: PropertyConfig,
+  b: PropertyConfig
+) => {
+  const mainOrder = ['ID', 'NAME', 'TITLE', 'ACTIVE'];
+
+  const aIndex = mainOrder.indexOf(a.title.toUpperCase());
+  const bIndex = mainOrder.indexOf(b.title.toUpperCase());
+
+  if (aIndex < 0 && bIndex < 0) {
+    return a.title.localeCompare(b.title);
+  } else if (aIndex < 0) {
+    return 1;
+  } else if (bIndex < 0) {
+    return -1;
+  }
+
+  return aIndex - bIndex;
+};
 
 export const autoViewConfigSource: ViewConfigSource = {
   source: 'automatic',
