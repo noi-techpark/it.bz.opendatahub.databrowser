@@ -1,2 +1,2 @@
-export { isViewConfig, useFieldExtraction } from './utils';
+export { isViewConfig } from './utils';
 export { useConfigProvider } from './viewConfigProvider';

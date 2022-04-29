@@ -23,8 +23,9 @@
 
 <script setup lang="ts">
 import { defineProps, toRefs } from 'vue';
-import { useFieldExtraction } from '../../viewConfig';
+
 import ListCell from '../../../components/listCell/ListCell.vue';
+import { useFieldExtraction } from '../../api/service/utils';
 import SubCategory from './SubCategory.vue';
 import { DetailSubCategory } from './types';
 

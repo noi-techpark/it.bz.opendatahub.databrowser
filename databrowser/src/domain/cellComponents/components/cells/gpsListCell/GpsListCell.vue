@@ -28,9 +28,9 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
-import { useFieldExtraction } from '../../../../viewConfig';
 import StringCell from '../stringCell/StringCell.vue';
 import SubCategory from '../../../../datasets/detailView/SubCategory.vue';
+import { useFieldExtraction } from '../../../../api/service/utils';
 
 /**
  * All fields except "gpsEntries" are expected to be paths that can be resolved by

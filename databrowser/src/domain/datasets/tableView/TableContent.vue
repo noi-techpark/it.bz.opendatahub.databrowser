@@ -65,7 +65,6 @@
 
 <script setup lang="ts">
 import { computed, defineProps, toRefs, withDefaults } from 'vue';
-import { useFieldExtraction } from '../../viewConfig';
 import Cell from '../../../components/listCell/ListCell.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import TableHeaderFilter from '../../../components/table/TableHeaderFilter.vue';
@@ -76,6 +75,7 @@ import DetailsLink from './DetailsLink.vue';
 import { ListElements } from '../../viewConfig/types';
 import { useApiQuery } from '../../api/service/apiQueryHandler';
 import { useRoute } from 'vue-router';
+import { useFieldExtraction } from '../../api/service/utils';
 
 const route = useRoute();
 const pathParams = computed(() =>
