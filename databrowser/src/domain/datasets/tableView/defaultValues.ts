@@ -1,4 +1,4 @@
-import { defaultLanguage } from '../../api/configFilter';
+import { defaultLanguage } from '../language';
 
 export const pageSizeOptions: { value: string; label: string }[] = [
   {

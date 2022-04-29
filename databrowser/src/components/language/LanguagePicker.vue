@@ -24,7 +24,10 @@
 </template>
 
 <script lang="ts" setup>
-import { defaultLanguage, FilterLanguage } from '../../domain/api/configFilter';
+import {
+  defaultLanguage,
+  FilterLanguage,
+} from '../../domain/datasets/language';
 import ArrowDown from '../svg/ArrowDown.vue';
 import PillButton from '../pill/PillButton.vue';
 import { computed, defineProps, ref, withDefaults } from 'vue';
