@@ -6,12 +6,7 @@
       'rounded-l-full border-l': isFirst,
       'rounded-r-full border-r': isLast,
     }"
-    class="
-      overflow-hidden
-      last:pr-1
-      first:pl-1
-      border-t border-b border-gray-500
-    "
+    class="overflow-hidden last:pr-1 first:pl-1 border-y border-gray-500"
   >
     <div
       :class="{

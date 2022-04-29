@@ -1,5 +1,5 @@
 <template>
-  <component :is="tagName" class="grid lg:grid-cols-2 gap-x-5 gap-y-5"
+  <component :is="tagName" class="grid gap-5 lg:grid-cols-2"
     ><slot></slot
   ></component>
 </template>

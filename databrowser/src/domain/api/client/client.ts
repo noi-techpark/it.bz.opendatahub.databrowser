@@ -1,37 +1,12 @@
 import { useQuery, UseQueryOptions } from 'vue-query';
-import { QueryFunction, QueryKey } from 'react-query/types/core';
 import { computed, reactive, Ref, watch } from 'vue';
-import { useStore } from 'vuex';
+import { useAuth } from '../../auth/store/auth';
+import { useAxiosFetcher } from './fetcher/axios';
+import { ViewConfig } from '../../viewConfig/types';
+import { useUrlQuery } from '../service/urlQueryHandler';
+import { AxiosResponse } from 'axios';
 
-export const useApi = <QueryFnData, Error, Data>(
-  queryKey: QueryKey,
-  fetcher: QueryFunction<QueryFnData>,
-  options?: Omit<
-    UseQueryOptions<QueryFnData, Error, Data, QueryKey>,
-    'queryKey' | 'queryFn'
-  >
-) => {
-  const store = useStore();
-  const authReady = computed(() => store.getters['auth/ready']);
-
-  const reactiveOptions = reactive({
-    enabled: authReady,
-    keepPreviousData: true,
-    retry: false,
-    ...options,
-  });
-
-  const result = useQuery<QueryFnData, Error, Data>(
-    queryKey,
-    fetcher,
-    // Being reactive, the options must be casted to any in order to be accepted
-    reactiveOptions as any
-  );
-
-  return result;
-};
-
-export const useAsQueryKey = (queryKey: Ref<string>) => {
+const useAsQueryKey = (queryKey: Ref<string>) => {
   const result = reactive(['']);
 
   watch(
@@ -41,4 +16,38 @@ export const useAsQueryKey = (queryKey: Ref<string>) => {
   );
 
   return result;
+};
+
+export const useApiForViewConfig = (
+  viewConfig: Ref<ViewConfig>,
+  resultMapper?: (data: any) => any
+) => {
+  const url = computed(() => viewConfig.value.baseUrl + viewConfig.value.path);
+  const urlWithQueryParams = useUrlQuery().useUrlWithQueryParameters(url);
+  const queryKey = useAsQueryKey(urlWithQueryParams);
+  const queryFn = useAxiosFetcher();
+  const select = (axiosResponse: unknown): unknown => {
+    const data = (axiosResponse as AxiosResponse).data;
+    return resultMapper != null ? resultMapper(data) : data;
+  };
+
+  const apiResult = useApi({ queryKey, queryFn, select });
+  return { ...apiResult, url: urlWithQueryParams };
+};
+
+export const useApi = (queryOptions: UseQueryOptions) => {
+  const auth = useAuth();
+  const isReady = computed(() => auth.ready);
+
+  const reactiveOptions: UseQueryOptions = reactive({
+    enabled: isReady,
+    keepPreviousData: true,
+    retry: false,
+    // Set cacheTime to 0, otherwise there are sometimes queryKey errors
+    cacheTime: 0,
+    structuralSharing: false,
+    ...queryOptions,
+  });
+
+  return useQuery(reactiveOptions);
 };

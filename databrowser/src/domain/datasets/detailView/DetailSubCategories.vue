@@ -23,15 +23,11 @@
 
 <script setup lang="ts">
 import { defineProps, toRefs } from 'vue';
-import { useFieldExtraction } from '../../api/configUtils';
-import ListCell from '../../../components/listCell/ListCell.vue';
-import { PropertyConfig } from '../../../config/types';
-import SubCategory from './SubCategory.vue';
 
-export interface DetailSubCategory {
-  name: string;
-  properties: PropertyConfig[];
-}
+import ListCell from '../../../components/listCell/ListCell.vue';
+import { useFieldExtraction } from '../../api/service/utils';
+import SubCategory from './SubCategory.vue';
+import { DetailSubCategory } from './types';
 
 const props = defineProps<{
   data: unknown;

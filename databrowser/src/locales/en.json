@@ -12,6 +12,13 @@
       "goBackAction": "Go back",
       "closeAction": "Close menu",
       "openAction": "Open menu"
+    },
+    "hero": {
+      "loading": {
+        "title": "Loading dataset descriptions",
+        "subtitle": "",
+        "description": ""
+      }
     }
   },
   "footer": {

@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { createApp } from 'vue';
 import VueAxios from 'vue-axios';
+import { createPinia } from 'pinia';
 import App from './App.vue';
 import { loadLocaleMessages, setupI18n } from './i18n';
 import './index.css';
 import { router } from './routes';
-import store from './store';
 import registerCellComponents from './domain/cellComponents/plugins/registerCellComponents';
 import { createApiQueryHandler } from './domain/api/service/apiQueryHandler';
 import { createUrlQueryHandler } from './domain/api/service/urlQueryHandler';
+import { createViewConfigProvider } from './domain/viewConfig/viewConfigProvider';
 
 const app = createApp(App);
 
@@ -25,8 +26,12 @@ app.use(urlQuery);
 app.use(VueAxios, axios);
 app.provide('axios', app.config.globalProperties.axios);
 
-// Add vuex store
-app.use(store);
+// Add pinia store
+app.use(createPinia());
+
+// Register remote API utilities
+const viewConfigProvider = createViewConfigProvider(router);
+app.use(viewConfigProvider);
 
 // Register Vue cell render components globally for dynamic rendering
 app.use(registerCellComponents);

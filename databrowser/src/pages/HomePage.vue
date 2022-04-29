@@ -18,21 +18,33 @@
       <ContentAlignmentY>
         <CardGrid tag-name="ul">
           <CardContainer
-            v-for="dataset in datasets"
-            :key="dataset.type"
+            v-for="(dataset, index) in datasets"
+            :key="index"
             tag-name="li"
           >
-            <CardTitle>{{ dataset.config?.description?.title }}</CardTitle>
-            <CardText>{{ dataset.config?.description?.subtitle }} </CardText>
-            <CardActions>
-              <ButtonLink
-                :to="{
-                  name: 'DatasetsTableViewPage',
-                  params: { datasetType: dataset.type },
-                }"
-                >Discover Dataset</ButtonLink
+            <template v-if="isViewConfig(dataset.viewConfig)">
+              <CardTitle>{{ dataset.viewConfig.description?.title }}</CardTitle>
+              <CardText
+                >{{ dataset.viewConfig.description?.subtitle }}
+              </CardText>
+              <CardActions>
+                <ButtonLink
+                  :to="{
+                    name: 'DatasetTableAndDetailPage',
+                    params: { pathParams: dataset.pathParams },
+                  }"
+                  >Discover Dataset</ButtonLink
+                >
+              </CardActions>
+            </template>
+            <template v-else>
+              <CardTitle
+                >No config found for "{{
+                  dataset.pathParams.join('/')
+                }}"</CardTitle
               >
-            </CardActions>
+              <CardText>Reason: {{ dataset.viewConfig.reason }}</CardText>
+            </template>
           </CardContainer>
         </CardGrid>
 
@@ -92,18 +104,21 @@ import ContentDivider from '../components/content/ContentDivider.vue';
 import InternalLink from '../components/link/InternalLink.vue';
 import ArrowRight from '../components/svg/ArrowRight.vue';
 import ContentAlignmentY from '../components/content/ContentAlignmentY.vue';
-import { getApiConfigForDataset } from '../domain/api/configUtils';
-import { ApiConfigKey } from '../config/config';
-import { ApiConfigEntry } from '../config/types';
+import { isViewConfig, useViewConfigProvider } from '../domain/viewConfig';
+import { ref } from 'vue';
+import { ViewConfigWithPathParams } from '../domain/viewConfig/types';
 
-const datasets: { type: ApiConfigKey; config: ApiConfigEntry | undefined }[] = [
-  {
-    type: 'odh-activity-poi',
-    config: getApiConfigForDataset('odh-activity-poi'),
-  },
-  {
-    type: 'odh-accommodation',
-    config: getApiConfigForDataset('odh-accommodation'),
-  },
+const paths: string[] = [
+  'tourism/v1/AccommodationTmp',
+  'tourism/v1/ODHActivityPoi',
+  'tourism/v1/Event',
 ];
+
+const datasets = ref<ViewConfigWithPathParams[]>([]);
+
+const viewConfigProvider = useViewConfigProvider();
+const promises = paths.map(viewConfigProvider.getViewConfigWithPathParams);
+Promise.all(promises).then(
+  (resolvedPromises) => (datasets.value = resolvedPromises)
+);
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="pagination != null"
-    class="flex flex-col md:flex-row justify-end items-center"
+    class="flex flex-col justify-end items-center md:flex-row"
   >
     <div class="flex items-center">
       <span v-t="'datasets.listView.linesPerPage'" class="block mr-3"></span>

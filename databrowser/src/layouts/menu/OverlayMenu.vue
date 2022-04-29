@@ -23,24 +23,14 @@
     @close="closeDialog"
   >
     <DialogOverlay
-      class="hidden md:block fixed inset-0 bg-black opacity-30"
+      class="hidden fixed inset-0 bg-black opacity-30 md:block"
       @click="closeDialog"
     />
     <!-- Desktop Menu -->
     <div
-      class="
-        hidden
-        md:flex
-        overflow-x-auto
-        absolute
-        top-0
-        left-0
-        flex-col
-        h-screen
-        bg-white
-      "
+      class="hidden overflow-x-auto absolute top-0 left-0 flex-col h-screen bg-white md:flex"
     >
-      <button class="block py-4 px-4" @click="closeDialog">
+      <button class="block p-4" @click="closeDialog">
         <IconClose />
       </button>
       <div class="inline-flex flex-1 divide-x-2">
@@ -56,17 +46,7 @@
 
     <!-- Mobile Menu -->
     <div
-      class="
-        md:hidden
-        absolute
-        top-12
-        right-0
-        left-0
-        px-4
-        h-screen
-        bg-white
-        border-t
-      "
+      class="absolute inset-x-0 top-12 px-4 h-screen bg-white border-t md:hidden"
     >
       <OverlayMenuList
         :item="lastElement"

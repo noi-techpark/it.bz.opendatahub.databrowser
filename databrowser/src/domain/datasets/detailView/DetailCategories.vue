@@ -15,13 +15,7 @@
 import { defineProps, toRefs } from 'vue';
 import { PillVariant } from '../../../components/pill/types';
 import PillLink from '../../../components/pill/PillLink.vue';
-import { RouteLocationRaw } from 'vue-router';
-
-export interface DetailCategory {
-  name: string;
-  slug: string;
-  to: RouteLocationRaw;
-}
+import { DetailCategory } from './types';
 
 const props = defineProps<{
   categories: DetailCategory[];

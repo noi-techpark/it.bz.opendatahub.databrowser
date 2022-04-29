@@ -17,14 +17,14 @@
       </template>
     </Dropdown>
   </th>
-  <th v-else class="py-4 px-4 font-semibold text-gray-900">
+  <th v-else class="p-4 font-semibold text-gray-900">
     {{ text }}
   </th>
 </template>
 
 <script setup lang="ts">
 import { computed, defineProps, ref, toRefs } from 'vue';
-import { FilterConfig } from '../../config/types';
+import { FilterConfig } from '../../domain/viewConfig/types';
 import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
 import { useAsList } from '../../domain/api/service/utils';
 import { FilterValue } from '../../domain/cellComponents/components/filters/types';

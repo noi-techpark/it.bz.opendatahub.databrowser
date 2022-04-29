@@ -1,0 +1,94 @@
+<template>
+  <AppLayout>
+    <div v-if="error != null" class="bg-red-100">
+      <h2>ERROR</h2>
+      {{ JSON.stringify(error) }}
+    </div>
+    <DatasetHero />
+    <ContentAlignmentX v-if="currentView != null">
+      <div class="p-3 mt-2 bg-gray-200">
+        <span v-if="viewConfig?.source === 'generated'"
+          >IS GENERATED CONFIG</span
+        >
+        <span v-else>IS EMBEDDED CONFIG</span>
+      </div>
+      <ContentAlignmentY>
+        <DatasetNavigation :current-view="currentView" />
+      </ContentAlignmentY>
+      <ContentDivider />
+      <ContentAlignmentY v-if="viewConfig != null">
+        <TableView v-if="isTableView" :view-config="viewConfig" />
+        <DetailView v-if="isDetailView" :view-config="viewConfig" />
+        <RawView v-if="isRawView" :view-config="viewConfig" />
+      </ContentAlignmentY>
+    </ContentAlignmentX>
+    <ContentAlignmentX v-if="viewConfig == null">
+      <span>No config: {{ noViewConfig?.reason }}</span>
+    </ContentAlignmentX>
+  </AppLayout>
+</template>
+
+<script setup lang="ts">
+import { onErrorCaptured, ref, watch } from 'vue';
+import AppLayout from '../layouts/AppLayout.vue';
+import DatasetHero from '../domain/datasets/hero/DatasetHero.vue';
+import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
+import DatasetNavigation from '../domain/datasets/navigation/DatasetNavigation.vue';
+import ContentDivider from '../components/content/ContentDivider.vue';
+import ContentAlignmentY from '../components/content/ContentAlignmentY.vue';
+import TableView from '../domain/datasets/tableView/TableView.vue';
+import DetailView from '../domain/datasets/detailView/DetailView.vue';
+import RawView from '../domain/datasets/rawView/RawView.vue';
+import { useRoute } from 'vue-router';
+import { isViewConfig, useViewConfigProvider } from '../domain/viewConfig';
+import { ViewPill } from '../domain/datasets/navigation/types';
+import { NoViewConfig, ViewConfig } from '../domain/viewConfig/types';
+
+const route = useRoute();
+
+const viewConfig = ref<ViewConfig | null>(null);
+const noViewConfig = ref<NoViewConfig | null>(null);
+const isTableView = ref(false);
+const isDetailView = ref(false);
+const isRawView = ref(false);
+const currentView = ref<ViewPill | null>(null);
+
+const configProvider = useViewConfigProvider();
+watch(
+  () => configProvider.currentViewConfig.value,
+  async (currentViewConfig) => {
+    console.log('VIEW CONFIG', currentViewConfig);
+    const viewConfigResult = currentViewConfig;
+
+    if (isViewConfig(viewConfigResult)) {
+      viewConfig.value = viewConfigResult;
+      noViewConfig.value = null;
+
+      const viewType = viewConfig.value.renderConfig.type;
+
+      if (viewType === 'list') {
+        currentView.value = ViewPill.table;
+      } else {
+        const isRaw = route.name === 'DatasetRawPage';
+        currentView.value = isRaw ? ViewPill.raw : ViewPill.detail;
+      }
+    } else {
+      viewConfig.value = null;
+      noViewConfig.value = viewConfigResult;
+      currentView.value = null;
+    }
+
+    isTableView.value = currentView.value === ViewPill.table;
+    isDetailView.value = currentView.value === ViewPill.detail;
+    isRawView.value = currentView.value === ViewPill.raw;
+  }
+);
+
+const error = ref<Error>();
+
+onErrorCaptured((hook) => {
+  console.log('--------ERROR CAPTURED', hook);
+
+  error.value = hook;
+});
+</script>

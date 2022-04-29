@@ -1,16 +1,7 @@
 <template>
   <component
     :is="tagName"
-    class="
-      px-3
-      lg:px-5
-      pt-3
-      lg:pt-4
-      pb-5
-      rounded-lg
-      flex flex-col
-      border border-gray-300
-    "
+    class="flex flex-col px-3 pt-3 pb-5 rounded-lg border border-gray-300 lg:px-5 lg:pt-4"
   >
     <slot></slot>
   </component>

@@ -8,7 +8,7 @@
       />
       <span class="py-2 pl-2 text-xl font-semibold">{{ item.label }}</span>
     </button>
-    <ul class="md:max-w-xs min-w-[20rem]">
+    <ul class="min-w-[20rem] md:max-w-xs">
       <li
         v-for="(category, index) in item.items"
         :key="category.label"
@@ -19,17 +19,7 @@
       >
         <button
           v-if="isMenuCategory(category) && category.items.length"
-          class="
-            inline-flex
-            flex-1
-            justify-between
-            items-center
-            py-2
-            px-4
-            w-full
-            md:max-w-xs
-            text-left
-          "
+          class="inline-flex flex-1 justify-between items-center py-2 px-4 w-full text-left md:max-w-xs"
           @click="setSelected(category, index)"
         >
           <span>{{ category.label }}</span>

@@ -1,43 +1,62 @@
 <template>
   <div class="flex space-x-3">
+    <!--
+      There is a race-condition bug in case the pathParams
+      contains just one entry (e.g. 'odh-accommodation') and
+      the user switches from detail- / raw-view to the table
+      view. In that case, the check for "isTableActive" may
+      yield a "false" value, which removes the single entry
+      in pathParams which in turn causes an exception, because
+      there are no route matches. Thats why the check for
+      pathParams.length is necessary.
+      TODO: check for better solution
+    -->
     <PillLink
       :to="{
-        name: 'DatasetsTableViewPage',
-        params: { datasetType },
+        name: 'DatasetTableAndDetailPage',
+        params: {
+          pathParams:
+            !isTableActive && pathParams.length > 1
+              ? pathParams.slice(0, -1)
+              : pathParams,
+        },
         query: { language },
       }"
       :active="isTableActive"
-      >Table view</PillLink
-    >
+      >Table view
+    </PillLink>
+
     <PillLink
-      v-if="!isTableActive"
+      :disabled="isTableActive"
       :to="{
-        name: 'DatasetsDetailViewPage',
-        params: { datasetType, datasetId },
+        name: 'DatasetTableAndDetailPage',
+        params: {
+          pathParams,
+        },
         query: { language },
       }"
       :active="isDetailActive"
       >Detail view</PillLink
     >
-    <PillButton v-else disabled>Detail view </PillButton>
+
     <PillLink
-      v-if="!isTableActive"
+      :disabled="isTableActive"
       :to="{
-        name: 'DatasetsRawViewPage',
-        params: { datasetType, datasetId },
+        name: 'DatasetRawPage',
+        params: {
+          pathParams,
+        },
         query: { language },
       }"
       :active="isRawActive"
       >Raw Data</PillLink
     >
-    <PillButton v-else disabled>Raw view </PillButton>
   </div>
 </template>
 
 <script setup lang="ts">
 import { defineProps, toRefs } from 'vue';
 import PillLink from '../../../components/pill/PillLink.vue';
-import PillButton from '../../../components/pill/PillButton.vue';
 import { ViewPill } from './types';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
@@ -49,13 +68,16 @@ const props = defineProps<{
 
 const { currentView } = toRefs(props);
 
-const route = useRoute();
-const datasetType = route.params.datasetType as string;
-const datasetId = route.params.datasetId as string;
-
 const isTableActive = computed(() => currentView.value === ViewPill.table);
 const isDetailActive = computed(() => currentView.value === ViewPill.detail);
 const isRawActive = computed(() => currentView.value === ViewPill.raw);
 
 const language = useApiQuery().useApiParameter('language');
+
+const route = useRoute();
+const pathParams = computed(() =>
+  Array.isArray(route.params.pathParams)
+    ? route.params.pathParams
+    : [route.params.pathParams]
+);
 </script>

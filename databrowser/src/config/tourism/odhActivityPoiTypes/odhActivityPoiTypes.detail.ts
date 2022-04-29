@@ -1,11 +1,14 @@
-import { CellComponent } from '../../domain/cellComponents/types';
-import { ApiConfigEntry } from '../types';
-import { tourismBaseUrl } from './urls';
+import { CellComponent } from '../../../domain/cellComponents/types';
+import { ViewConfig } from '../../../domain/viewConfig/types';
+import { domains } from '../../../domain/openApi';
 
-export const odhActivityPoiTypesConfig: ApiConfigEntry = {
-  listEndpoint: {
-    url: `${tourismBaseUrl}/v1/ODHActivityPoiTypes`,
-    tableConfig: [
+export const odhActivityPoiTypesDetail: ViewConfig = {
+  source: 'embedded',
+  baseUrl: domains.tourism.baseUrl,
+  path: '/v1/ODHActivityPoiTypes/{id}',
+  renderConfig: {
+    type: 'list',
+    elements: [
       {
         title: 'Image',
         component: CellComponent.ImageCell,
@@ -68,17 +71,6 @@ export const odhActivityPoiTypesConfig: ApiConfigEntry = {
         fields: {
           state: 'OdhActive',
         },
-      },
-    ],
-  },
-  detailEndpoint: {
-    url: `${tourismBaseUrl}/v1/ODHActivityPoiTypes/{id}`,
-    viewConfig: [
-      { name: 'Main data', slug: 'main-data', subcategories: [] },
-      {
-        name: 'Text information',
-        slug: 'text-information',
-        subcategories: [],
       },
     ],
   },

@@ -1,24 +1,16 @@
 <template>
-  <div class="pt-6 lg:pt-7 w-full bg-white">
+  <div class="pt-6 w-full bg-white lg:pt-7">
     <div class="mx-auto max-w-5xl">
-      <div class="hidden lg:flex items-stretch space-x-4 h-full">
+      <div class="hidden items-stretch space-x-4 h-full lg:flex">
         <span class="self-center">{{ $t('datasets.download.info') }}</span>
 
         <DatasetDetails :dataset-url="datasetUrl" />
         <DownloadCSV v-if="!hideCsv" :base-url="datasetUrl" />
         <DownloadJson :dataset="dataset" />
       </div>
-      <div class="inline-flex lg:hidden justify-end px-10 w-full">
+      <div class="inline-flex justify-end px-10 w-full lg:hidden">
         <button
-          class="
-            inline-flex
-            justify-center
-            items-center
-            w-8
-            h-8
-            rounded-full
-            border border-gray-300
-          "
+          class="inline-flex justify-center items-center w-8 h-8 rounded-full border border-gray-300"
           @click="openDialog"
         >
           <ArrowUp />

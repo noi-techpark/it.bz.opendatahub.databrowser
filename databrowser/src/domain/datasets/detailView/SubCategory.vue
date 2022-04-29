@@ -7,12 +7,6 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { PropertyConfig } from '../../../config/types';
-
-export interface DetailSubCategory {
-  name: string;
-  properties: PropertyConfig[];
-}
 
 defineProps<{
   title?: string;

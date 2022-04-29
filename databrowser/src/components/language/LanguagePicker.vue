@@ -1,6 +1,6 @@
 <template>
   <PillButton
-    class="inline-flex md:hidden items-center"
+    class="inline-flex items-center md:hidden"
     @click="showMobileSelect = true"
   >
     <span class="sr-only">Selected language</span>
@@ -8,7 +8,7 @@
     <ArrowDown />
   </PillButton>
 
-  <PillLinkGroup :data="links" class="hidden md:inline-flex uppercase" />
+  <PillLinkGroup :data="links" class="hidden uppercase md:inline-flex" />
 
   <BottomSheet :show-sheet="showMobileSelect" @close="closeDialog">
     <PillLink
@@ -24,7 +24,10 @@
 </template>
 
 <script lang="ts" setup>
-import { defaultLanguage, FilterLanguage } from '../../domain/api/configFilter';
+import {
+  defaultLanguage,
+  FilterLanguage,
+} from '../../domain/datasets/language';
 import ArrowDown from '../svg/ArrowDown.vue';
 import PillButton from '../pill/PillButton.vue';
 import { computed, defineProps, ref, withDefaults } from 'vue';
