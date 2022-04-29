@@ -15,22 +15,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
 import { useSlots } from 'vue';
-import { TableColumnConfig } from '../../config/types';
 import TableBody from './TableBody.vue';
 import TableHeader from './TableHeader.vue';
-
-withDefaults(
-  defineProps<{
-    rows?: unknown[];
-    config?: TableColumnConfig[];
-  }>(),
-  {
-    rows: () => [],
-    config: () => [],
-  }
-);
 
 const slots = useSlots();
 
