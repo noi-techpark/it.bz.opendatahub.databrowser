@@ -1,2 +1,2 @@
 export { isViewConfig } from './utils';
-export { useConfigProvider } from './viewConfigProvider';
+export { useViewConfigProvider } from './viewConfigProvider';

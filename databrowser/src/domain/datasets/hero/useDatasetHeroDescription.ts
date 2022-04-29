@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { isViewConfig, useConfigProvider } from '../../viewConfig';
+import { isViewConfig, useViewConfigProvider } from '../../viewConfig';
 
 export const useDatasetHeroDescription = () => {
   const { t } = useI18n();
@@ -10,7 +10,7 @@ export const useDatasetHeroDescription = () => {
   const description = ref(t('header.hero.loading.description'));
   const isFinished = ref(false);
 
-  const configProvider = useConfigProvider();
+  const configProvider = useViewConfigProvider();
 
   watch(
     () => configProvider.currentViewConfig.value,

@@ -125,5 +125,5 @@ export const createViewConfigProvider = (
   return result;
 };
 
-export const useConfigProvider = (): ConfigProvider =>
+export const useViewConfigProvider = (): ConfigProvider =>
   inject(configProviderKey)!;

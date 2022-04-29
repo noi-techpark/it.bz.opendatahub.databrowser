@@ -40,7 +40,7 @@ import TableView from '../domain/datasets/tableView/TableView.vue';
 import DetailView from '../domain/datasets/detailView/DetailView.vue';
 import RawView from '../domain/datasets/rawView/RawView.vue';
 import { useRoute } from 'vue-router';
-import { isViewConfig, useConfigProvider } from '../domain/viewConfig';
+import { isViewConfig, useViewConfigProvider } from '../domain/viewConfig';
 import { ViewPill } from '../domain/datasets/navigation/types';
 import { NoViewConfig, ViewConfig } from '../domain/viewConfig/types';
 
@@ -53,7 +53,7 @@ const isDetailView = ref(false);
 const isRawView = ref(false);
 const currentView = ref<ViewPill | null>(null);
 
-const configProvider = useConfigProvider();
+const configProvider = useViewConfigProvider();
 watch(
   () => configProvider.currentViewConfig.value,
   async (currentViewConfig) => {
