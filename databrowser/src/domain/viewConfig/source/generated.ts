@@ -23,7 +23,7 @@ const sourceResolver: SourceResolver = async (
 
   if (!isDomainKnown(odhDomain)) {
     return Promise.resolve({
-      reason: `ODH domain ${odhDomain} is unknown, not able to proceed with auto configuration`,
+      reason: `ODH domain ${odhDomain} is unknown, not able to generate configuration`,
     });
   }
 
@@ -35,10 +35,10 @@ const sourceResolver: SourceResolver = async (
     });
   }
 
-  return toAutoConfiguration(odhDomain, pathParams, document);
+  return toGeneratedConfiguration(odhDomain, pathParams, document);
 };
 
-const toAutoConfiguration = (
+const toGeneratedConfiguration = (
   odhDomain: string,
   pathParams: PathParams,
   document: OpenApi.Document
@@ -80,7 +80,7 @@ const toAutoConfiguration = (
   if (renderConfig != null) {
     // Wrap render config in ViewConfig and return it
     return {
-      source: 'automatic',
+      source: 'generated',
       description: {
         title: getMethod.summary,
       },
@@ -229,8 +229,8 @@ const detailViewConfigFromProperties = (
     type: 'detail',
     elements: [
       {
-        name: 'Autoconfig',
-        slug: 'auto',
+        name: 'All',
+        slug: 'all',
         subcategories: [
           {
             name: '',
@@ -264,7 +264,7 @@ const sortByMainOrderAndLocalCompare = (
   return aIndex - bIndex;
 };
 
-export const autoViewConfigSource: ViewConfigSource = {
-  source: 'automatic',
+export const generatedViewConfigSource: ViewConfigSource = {
+  source: 'generated',
   resolver: sourceResolver,
 };

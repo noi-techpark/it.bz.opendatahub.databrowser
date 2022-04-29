@@ -1,6 +1,6 @@
 import { App, inject, Ref, shallowRef, watch } from 'vue';
 import { Router } from 'vue-router';
-import { autoViewConfigSource } from './source/autoconfig';
+import { generatedViewConfigSource } from './source/generated';
 import { embeddedViewConfigSource } from './source/embedded';
 import { ViewConfigSource } from './source/types';
 import {
@@ -29,7 +29,7 @@ interface ConfigProviderPlugin extends ConfigProvider {
 
 const viewConfigSources: ViewConfigSource[] = [
   embeddedViewConfigSource,
-  autoViewConfigSource,
+  generatedViewConfigSource,
 ];
 
 export const createViewConfigProvider = (

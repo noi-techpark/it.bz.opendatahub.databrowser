@@ -11,7 +11,7 @@ The resolution algorithm for `ViewConfig` iterates on a list of config sources a
 At the moment there are two config sources:
 
 - Embedded
-- Automatic
+- Generated
 
 ## Sources
 
@@ -21,8 +21,8 @@ The embedded configuration source contains `ViewConfig` definitions that are par
 
 There may be routes that don't match any embedded definition. The result for such routes is empty.
 
-### Automatic configuration (OpenAPI & other heuristics)
+### Generated configuration (OpenAPI & other heuristics)
 
-The automatic configuration source uses a best-effort approach to generate a `ViewConfig`. If it fails, it returns an empty result.
+The generated configuration source uses a best-effort approach to generate a `ViewConfig`. If it fails, it returns an empty result.
 
 At the moment there is only the OpenAPI resolution approach. It uses (predefined) URLs to fetch OpenAPI descriptions. The descriptions are matched with the current route. If a route matches, a `ViewConfig` is returned. An empty result is returned otherwise.

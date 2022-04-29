@@ -1,6 +1,6 @@
 import { NoViewConfig, PathParams, ViewConfig } from '../types';
 
-export type SourceType = 'embedded' | 'automatic';
+export type SourceType = 'embedded' | 'generated';
 
 export interface SourceResult {
   viewConfig?: ViewConfig;
