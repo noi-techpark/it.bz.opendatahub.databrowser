@@ -14,7 +14,7 @@
     @click="dialogOpen = true"
   >
     <IconMenu />
-    <span class="hidden md:block">{{ $t('header.menu.title') }}</span>
+    <span class="block">{{ $t('header.menu.title') }}</span>
   </button>
 
   <Dialog

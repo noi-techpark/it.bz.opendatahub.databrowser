@@ -2,7 +2,8 @@
   "auth": {
     "login": "Login",
     "register": "Register",
-    "logout": "Logout"
+    "logout": "Logout",
+    "profile": "Profile"
   },
   "header": {
     "logo": "Open Data Hub - Logo",
