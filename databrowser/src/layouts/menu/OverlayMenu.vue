@@ -46,7 +46,7 @@
 
     <!-- Mobile Menu -->
     <div
-      class="absolute inset-x-0 top-12 px-4 h-screen bg-white border-t md:hidden"
+      class="absolute inset-x-0 top-16 px-4 h-screen bg-white border-t md:hidden"
     >
       <OverlayMenuList
         :item="lastElement"
