@@ -5,15 +5,11 @@
         <ProfileButton :username="auth.user?.name" />
       </MenuCustomButton>
       <MenuCustomItems>
-        <MenuCustomItem>
-          <a :href="profileUrl">
-            {{ $t('auth.profile') }}
-          </a>
+        <MenuCustomItem type="link" :href="profileUrl">
+          {{ $t('auth.profile') }}
         </MenuCustomItem>
-        <MenuCustomItem>
-          <button @click="onLogout">
-            {{ $t('auth.logout') }}
-          </button>
+        <MenuCustomItem type="button" @click="onLogout">
+          {{ $t('auth.logout') }}
         </MenuCustomItem>
       </MenuCustomItems>
     </MenuCustom>
