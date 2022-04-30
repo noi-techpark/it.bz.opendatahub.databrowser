@@ -1,14 +1,14 @@
 <template>
-  <ContentAlignmentX class="flex flex-row justify-between py-3 lg:py-5">
-    <div class="inline-flex flex-row-reverse items-center md:flex-row">
+  <ContentAlignmentX class="flex flex-row justify-between py-4">
+    <div class="flex items-center">
       <router-link to="/">
         <img
           :alt="$t('header.logo')"
-          class="logo"
+          class="h-8"
           src="/logo-open-data-hub-black.png"
         />
       </router-link>
-      <div class="inline-flex items-center mr-4 md:mr-0 md:ml-10">
+      <div class="inline-flex items-center ml-4">
         <OverlayMenu :items="data" />
       </div>
     </div>
@@ -81,17 +81,3 @@ const data: MenuColumn = {
   ],
 };
 </script>
-
-<style>
-.logo {
-  width: 73px;
-  height: 27px;
-}
-
-@screen lg {
-  .logo {
-    width: 100px;
-    height: 37px;
-  }
-}
-</style>

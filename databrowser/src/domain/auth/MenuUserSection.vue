@@ -1,12 +1,22 @@
 <template>
   <div v-if="auth.isAuthenticated" class="flex items-center space-x-4">
-    <HeaderLink :to="profileUrl">
-      <IconProfile
-        class="inline-block mr-2 w-4 align-text-top stroke-current"
-      />
-      {{ auth.user?.name }}
-    </HeaderLink>
-    <HeaderButton @click="onLogout">{{ $t('auth.logout') }}</HeaderButton>
+    <MenuCustom>
+      <MenuCustomButton>
+        <ProfileButton :username="auth.user?.name" />
+      </MenuCustomButton>
+      <MenuCustomItems>
+        <MenuCustomItem>
+          <a :href="profileUrl">
+            {{ $t('auth.profile') }}
+          </a>
+        </MenuCustomItem>
+        <MenuCustomItem>
+          <button @click="onLogout">
+            {{ $t('auth.logout') }}
+          </button>
+        </MenuCustomItem>
+      </MenuCustomItems>
+    </MenuCustom>
   </div>
   <div v-else class="flex items-center space-x-4">
     <HeaderButton @click="onLogin">{{ $t('auth.login') }}</HeaderButton>
@@ -16,10 +26,13 @@
 
 <script setup lang="ts">
 import { keycloak } from './keycloak';
-import IconProfile from '../../components/svg/IconProfile.vue';
 import HeaderButton from '../../components/header/HeaderButton.vue';
-import HeaderLink from '../../components/header/HeaderLink.vue';
 import { useAuth } from './store/auth';
+import ProfileButton from './ProfileButton.vue';
+import MenuCustom from '../../components/menu/MenuCustom.vue';
+import MenuCustomButton from '../../components/menu/MenuCustomButton.vue';
+import MenuCustomItem from '../../components/menu/MenuCustomItem.vue';
+import MenuCustomItems from '../../components/menu/MenuCustomItems.vue';
 
 const auth = useAuth();
 
