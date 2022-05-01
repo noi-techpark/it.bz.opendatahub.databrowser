@@ -85,7 +85,7 @@
       <!-- Show information if current view is auto generated -->
       <div
         v-if="picked === 'generated' || viewConfig.source === 'generated'"
-        class="flex items-center px-3 text-[#AA5B00] bg-[#FDF2E6] rounded"
+        class="flex items-center px-3 ml-1 text-[#AA5B00] bg-[#FDF2E6] rounded"
       >
         <span
           class="inline-block mr-3 w-1 h-1 bg-current rounded-full dot"
