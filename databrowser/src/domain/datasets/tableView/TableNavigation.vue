@@ -5,15 +5,11 @@
   >
     <div class="flex items-center">
       <span v-t="'datasets.listView.linesPerPage'" class="block mr-3"></span>
-      <SelectCustom v-model="pageSize" class="mr-8">
-        <option
-          v-for="option in pageSizeOptions"
-          :key="option.value"
-          :value="option.value"
-        >
-          {{ option.label }}
-        </option>
-      </SelectCustom>
+      <SelectCustom
+        class="w-20"
+        :options="pageSizeOptions"
+        @change="pageSize = $event"
+      ></SelectCustom>
     </div>
     <Paginator
       :pagination="pagination"
