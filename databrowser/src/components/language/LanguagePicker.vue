@@ -1,26 +1,26 @@
 <template>
-  <PillButton
-    class="inline-flex items-center md:hidden"
-    @click="showMobileSelect = true"
-  >
-    <span class="sr-only">Selected language</span>
-    <span class="pr-2 uppercase">{{ currentLanguage }}</span>
-    <ArrowDown />
-  </PillButton>
-
-  <PillLinkGroup :data="links" class="hidden uppercase md:inline-flex" />
-
-  <BottomSheet :show-sheet="showMobileSelect" @close="closeDialog">
-    <PillLink
+  <div class="flex items-center">
+    <ButtonLink
       v-for="link in links"
       :key="link.label"
-      :active="link.selected"
+      :variant="link.selected ? 'solid' : 'ghost'"
       :to="link.to"
-      class="uppercase"
-      @click="closeDialog"
-      >{{ link.label }}
-    </PillLink>
-  </BottomSheet>
+      size="xs"
+      class="hidden m-1 w-9 h-6 text-center uppercase md:inline-block"
+      :class="[
+        link.selected
+          ? 'bg-green-500 font-semibold bg-opacity-10 text-green-500 border-green-500 hover:text-white focus:text-white '
+          : 'font-medium hover:bg-opacity-10 hover:text-green-500 border-[#EAEBED]',
+      ]"
+      >{{ link.label }}</ButtonLink
+    >
+
+    <SelectCustom
+      class="w-16 h-6 md:hidden"
+      :options="links"
+      @change="selected = $event"
+    ></SelectCustom>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -28,16 +28,13 @@ import {
   defaultLanguage,
   FilterLanguage,
 } from '../../domain/datasets/language';
-import ArrowDown from '../svg/ArrowDown.vue';
-import PillButton from '../pill/PillButton.vue';
-import { computed, defineProps, ref, withDefaults } from 'vue';
-import { RouteLocationRaw, useRoute } from 'vue-router';
-import PillLinkGroup from '../pill/PillLinkGroup.vue';
-import PillLink from '../pill/PillLink.vue';
+import { computed, defineProps, withDefaults } from 'vue';
+import { RouteLocationRaw, useRoute, useRouter } from 'vue-router';
 import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
 import { stringifyParameter } from '../../domain/api/service/query';
 import { useUrlQuery } from '../../domain/api/service/urlQueryHandler';
-import BottomSheet from '../sheet/BottomSheet.vue';
+import ButtonLink from '../button/ButtonLink.vue';
+import SelectCustom from '../select/SelectCustom.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -48,7 +45,6 @@ const props = withDefaults(
 
 const route = useRoute();
 const supportedLanguages: Array<string> = Object.values(FilterLanguage);
-const showMobileSelect = ref<boolean>(false);
 
 const apiQuery = useApiQuery();
 apiQuery.updateApiParameterValidator('language', (value) =>
@@ -73,11 +69,22 @@ const links = computed(() => {
 
     return {
       label: language,
+      value: language,
       to: location,
       selected,
     };
   });
 });
 
-const closeDialog = () => (showMobileSelect.value = false);
+const router = useRouter();
+
+const selected = computed({
+  get: () => links.value.find((link) => link.selected)?.label,
+  set: (label) => {
+    const to = links.value.find((link) => link.label === label)?.to;
+    if (to != null) {
+      router.push(to);
+    }
+  },
+});
 </script>
