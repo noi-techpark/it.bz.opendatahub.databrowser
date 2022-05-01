@@ -1,7 +1,7 @@
 <template>
   <div v-if="auth.isAuthenticated" class="flex items-center space-x-4">
     <MenuCustom>
-      <MenuCustomButton>
+      <MenuCustomButton class="rounded">
         <ProfileButton :username="auth.user?.name" />
       </MenuCustomButton>
       <MenuCustomItems>
