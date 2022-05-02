@@ -10,7 +10,7 @@
   <button
     v-else
     :title="$t('header.menu.openAction')"
-    class="inline-flex space-x-4"
+    class="inline-flex space-x-4 rounded"
     @click="dialogOpen = true"
   >
     <IconMenu />

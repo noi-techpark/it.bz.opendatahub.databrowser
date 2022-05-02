@@ -37,13 +37,30 @@
   },
   "datasets": {
     "header": {
+      "columnSizeSmall": "small",
+      "columnSizeMedium": "medium",
+      "columnSizeLarge": "large",
+      "moreInfo": "More info",
       "moreInformation": "More information",
-      "lessInformation": "Less information"
+      "lessInformation": "Less information",
+      "selectColumnSize": "Select size of columns",
+      "switchViews": "Switch between views",
+      "viewEmbeddedConfig": "Embedded view config",
+      "viewGeneratedConfig": "Generated view config"
+    },
+    "info": {
+      "loadingConfig": "Loading config"
     },
     "listView": {
-      "linesPerPage": "lines per page",
-      "linkDetails": "Details",
-      "linkRaw": "RAW"
+      "colDetail": "Detail",
+      "go": "GO",
+      "linesPerPage": "Lines per page",
+      "linkDetails": "Detail view",
+      "linkRaw": "Raw view",
+      "linkQuick": "Quick view",
+      "loadingData": "Loading data",
+      "noData": "No data",
+      "of": "of"
     },
     "download": {
       "info": "Retrieve data based on table settings",

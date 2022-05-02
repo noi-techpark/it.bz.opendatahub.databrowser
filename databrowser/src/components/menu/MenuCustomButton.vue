@@ -1,5 +1,5 @@
 <template>
-  <MenuButton><slot></slot></MenuButton>
+  <MenuButton v-slot="{ open }"><slot :open="open"></slot></MenuButton>
 </template>
 
 <script setup lang="ts">

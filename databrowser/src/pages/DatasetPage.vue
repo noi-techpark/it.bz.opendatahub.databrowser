@@ -1,28 +1,29 @@
 <template>
-  <AppLayout>
+  <AppLayout :show-app-footer="false">
     <div v-if="error != null" class="bg-red-100">
       <h2>ERROR</h2>
       {{ JSON.stringify(error) }}
     </div>
-    <DatasetHero />
-    <ContentAlignmentX v-if="currentView != null">
-      <div class="p-3 mt-2 bg-gray-200">
-        <span v-if="viewConfig?.source === 'generated'"
-          >IS GENERATED CONFIG</span
-        >
-        <span v-else>IS EMBEDDED CONFIG</span>
+
+    <ContentAlignmentX>
+      <div v-if="isLoading" class="animate-pulse">
+        {{ $t('datasets.info.loadingConfig') }}
       </div>
-      <ContentAlignmentY>
-        <DatasetNavigation :current-view="currentView" />
-      </ContentAlignmentY>
+    </ContentAlignmentX>
+
+    <template v-if="viewConfig != null">
       <ContentDivider />
-      <ContentAlignmentY v-if="viewConfig != null">
+      <ContentAlignmentX>
+        <DatasetHeader :view-config="viewConfig" />
+      </ContentAlignmentX>
+      <template v-if="currentView != null">
         <TableView v-if="isTableView" :view-config="viewConfig" />
         <DetailView v-if="isDetailView" :view-config="viewConfig" />
         <RawView v-if="isRawView" :view-config="viewConfig" />
-      </ContentAlignmentY>
-    </ContentAlignmentX>
-    <ContentAlignmentX v-if="viewConfig == null">
+      </template>
+    </template>
+
+    <ContentAlignmentX v-if="noViewConfig != null">
       <span>No config: {{ noViewConfig?.reason }}</span>
     </ContentAlignmentX>
   </AppLayout>
@@ -31,18 +32,15 @@
 <script setup lang="ts">
 import { onErrorCaptured, ref, watch } from 'vue';
 import AppLayout from '../layouts/AppLayout.vue';
-import DatasetHero from '../domain/datasets/hero/DatasetHero.vue';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
-import DatasetNavigation from '../domain/datasets/navigation/DatasetNavigation.vue';
 import ContentDivider from '../components/content/ContentDivider.vue';
-import ContentAlignmentY from '../components/content/ContentAlignmentY.vue';
 import TableView from '../domain/datasets/tableView/TableView.vue';
 import DetailView from '../domain/datasets/detailView/DetailView.vue';
 import RawView from '../domain/datasets/rawView/RawView.vue';
 import { useRoute } from 'vue-router';
 import { isViewConfig, useViewConfigProvider } from '../domain/viewConfig';
-import { ViewPill } from '../domain/datasets/navigation/types';
 import { NoViewConfig, ViewConfig } from '../domain/viewConfig/types';
+import DatasetHeader from '../domain/datasets/header/DatasetHeader.vue';
 
 const route = useRoute();
 
@@ -51,7 +49,8 @@ const noViewConfig = ref<NoViewConfig | null>(null);
 const isTableView = ref(false);
 const isDetailView = ref(false);
 const isRawView = ref(false);
-const currentView = ref<ViewPill | null>(null);
+const currentView = ref<'table' | 'detail' | 'raw' | null>(null);
+const isLoading = ref(true);
 
 const configProvider = useViewConfigProvider();
 watch(
@@ -67,10 +66,10 @@ watch(
       const viewType = viewConfig.value.renderConfig.type;
 
       if (viewType === 'list') {
-        currentView.value = ViewPill.table;
+        currentView.value = 'table';
       } else {
         const isRaw = route.name === 'DatasetRawPage';
-        currentView.value = isRaw ? ViewPill.raw : ViewPill.detail;
+        currentView.value = isRaw ? 'raw' : 'detail';
       }
     } else {
       viewConfig.value = null;
@@ -78,9 +77,11 @@ watch(
       currentView.value = null;
     }
 
-    isTableView.value = currentView.value === ViewPill.table;
-    isDetailView.value = currentView.value === ViewPill.detail;
-    isRawView.value = currentView.value === ViewPill.raw;
+    isTableView.value = currentView.value === 'table';
+    isDetailView.value = currentView.value === 'detail';
+    isRawView.value = currentView.value === 'raw';
+
+    isLoading.value = false;
   }
 );
 

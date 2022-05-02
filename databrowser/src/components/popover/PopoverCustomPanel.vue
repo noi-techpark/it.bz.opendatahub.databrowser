@@ -7,14 +7,14 @@
     leave-from-class="transform scale-100 opacity-100"
     leave-to-class="transform scale-95 opacity-0"
   >
-    <MenuItems
-      class="absolute right-0 z-30 mt-2 w-56 bg-white rounded divide-y divide-gray-100 focus:outline-none ring-1 ring-gray-400 shadow-md origin-top-right"
-    >
-      <slot></slot>
-    </MenuItems>
+    <PopoverPanel class="z-20">
+      <div class="bg-white rounded ring-1 ring-gray-400 shadow-md">
+        <slot></slot>
+      </div>
+    </PopoverPanel>
   </transition>
 </template>
 
 <script setup lang="ts">
-import { MenuItems } from '@headlessui/vue';
+import { PopoverPanel } from '@headlessui/vue';
 </script>

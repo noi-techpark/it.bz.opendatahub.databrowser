@@ -4,6 +4,7 @@ export enum Variant {
 }
 
 export enum Size {
+  xs = 'xs',
   sm = 'sm',
   md = 'md',
 }

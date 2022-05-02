@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scrollbar-gutter: stable;
-}
-
 body {
   @apply text-gray-900;
   height: 100vh;
@@ -17,6 +13,20 @@ body {
 
 #app {
   height: 100vh;
+}
+
+a:focus-visible {
+  @apply focus:border-green-500;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+ul:focus-visible {
+  @apply outline outline-green-500 outline-1;
+}
+input:focus-visible {
+  @apply outline-0;
 }
 
 [type='text']:focus,
@@ -35,5 +45,7 @@ body {
 [type='radio']:focus [multiple]:focus,
 textarea:focus,
 select:focus {
-  --tw-ring-color: black;
+  @apply outline outline-green-500 outline-1;
+  box-shadow: none;
+  border-color: transparent;
 }
