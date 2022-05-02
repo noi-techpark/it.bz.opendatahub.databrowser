@@ -1,94 +1,75 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div v-if="pagination != null" class="flex items-center">
+  <div class="flex items-center">
     <button
-      :disabled="result.previous?.isDisabled"
-      class="next-previous-button"
-      @click="paginateTo(result.previous?.indexNumber)"
+      class="mr-4 rounded"
+      :class="[hasPrevious ? 'text-green-500' : 'text-gray-400']"
+      :disabled="!hasPrevious"
+      @click="paginateTo(previousIndex)"
     >
-      <ArrowLeft />
+      <IconStrokedArrowDown class="w-5 h-5 rotate-90 stroke-current" />
     </button>
 
-    <PillButtonGroup
-      :data="result.pageNumbers"
-      :initial-selected="result.currentPageNumber"
-      class="inline-flex mx-2.5"
-      @selected-change="paginateTo($event)"
-    />
+    <div class="flex items-center mr-2">
+      <input
+        v-model="inputPageValue"
+        class="px-2 w-12 h-6 rounded rounded-r-none border-y border-l focus:border-green-500 border-r-none"
+        @keyup.enter="paginateTo(inputPageValue)"
+      />
+      <ButtonCustom
+        size="xs"
+        class="w-9 h-6 rounded-l-none"
+        @click="paginateTo(inputPageValue)"
+      >
+        {{ $t('datasets.listView.go') }}
+      </ButtonCustom>
+    </div>
+    <span class="mr-4">{{ $t('datasets.listView.of') }} {{ pageCount }}</span>
 
     <button
-      :disabled="result.next?.isDisabled"
-      class="next-previous-button"
-      @click="paginateTo(result.next?.indexNumber)"
+      class="rounded"
+      :class="[hasNext ? 'text-green-500' : 'text-gray-400']"
+      :disabled="!hasNext"
+      @click="paginateTo(nextIndex)"
     >
-      <ArrowRight />
+      <IconStrokedArrowDown class="w-5 h-5 -rotate-90 stroke-current" />
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { calculatePagination } from '@aboutbits/pagination';
-import { defineEmits, defineProps } from 'vue';
+import { defineEmits, defineProps, ref } from 'vue';
 import { Pagination } from '../../domain/api/client/types';
-import ArrowRight from '../svg/ArrowRight.vue';
-import ArrowLeft from '../svg/ArrowLeft.vue';
-import { reactive, watch } from 'vue';
-import { SetupResult } from './types';
-import PillButtonGroup from '../pill/PillButtonGroup.vue';
+import { watch } from 'vue';
+import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
+import ButtonCustom from '../button/ButtonCustom.vue';
 
-const props = defineProps<{
-  pagination?: Pagination;
-}>();
+const props = defineProps<{ pagination: Pagination }>();
 
-// eslint-disable-next-line no-unused-vars
-const emits = defineEmits<{ (e: 'paginateTo', item: number): void }>();
+const emits = defineEmits(['paginateTo']);
 
-const paginateTo = (value: string | number | undefined) => {
-  if (value != undefined) {
-    const numberValue = typeof value === 'string' ? parseInt(value, 10) : value;
-    emits('paginateTo', numberValue);
-  }
-};
-
-const result = reactive<SetupResult>({
-  currentPageNumber: '0',
-  pageNumbers: [],
-  previous: undefined,
-  next: undefined,
-});
+const pageCount = ref(0);
+const previousIndex = ref(0);
+const nextIndex = ref(0);
+const hasPrevious = ref(false);
+const hasNext = ref(false);
+const inputPageValue = ref(props.pagination.page);
 
 watch(
   () => props.pagination,
   (pagination) => {
-    const calculatedPagination = calculatePagination(
-      pagination?.page ?? 1,
-      pagination?.size ?? 0,
-      pagination?.total ?? 0
-    );
-
-    result.pageNumbers =
-      calculatedPagination?.pages.map((page) =>
-        page.displayNumber?.toString()
-      ) ?? [];
-
-    result.currentPageNumber =
-      calculatedPagination?.pages
-        .find((page) => page.isCurrent)
-        ?.indexNumber?.toString() ?? '1';
-
-    result.previous = calculatedPagination?.previous;
-    result.next = calculatedPagination?.next;
+    pageCount.value = Math.floor(pagination.total / pagination.size) + 1;
+    previousIndex.value = Math.max(pagination.page - 1, 1);
+    nextIndex.value = Math.min(pagination.page + 1, pageCount.value);
+    hasPrevious.value = pagination.page > 1;
+    hasNext.value = pagination.page < pageCount.value;
+    inputPageValue.value = pagination.page;
   },
   { immediate: true }
 );
+
+const paginateTo = (value: string | number) => {
+  const numberValue = typeof value === 'string' ? parseInt(value, 10) : value;
+  emits('paginateTo', numberValue);
+};
 </script>
-
-<style>
-.next-previous-button {
-  @apply flex justify-center items-center rounded-full border border-gray-500 hover:bg-gray-300 hover:text-green-500 h-9 w-9;
-}
-
-.next-previous-button:disabled {
-  @apply opacity-50 cursor-not-allowed hover:bg-white;
-}
-</style>
