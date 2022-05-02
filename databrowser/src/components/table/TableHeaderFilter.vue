@@ -3,7 +3,7 @@
     <Dropdown
       :text="label"
       button-class="font-bold py-4 px-4"
-      button-label-class="font-semibold"
+      button-label-class="font-semibold uppercase"
       @visible="visible"
     >
       <template #default="{ events: { close } }">
@@ -17,7 +17,7 @@
       </template>
     </Dropdown>
   </th>
-  <th v-else class="p-4 font-semibold text-gray-900">
+  <th v-else class="p-4 font-semibold text-gray-900 uppercase">
     {{ text }}
   </th>
 </template>

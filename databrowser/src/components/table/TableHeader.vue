@@ -1,6 +1,6 @@
 <template>
-  <thead class="bg-gray-200">
-    <tr class="text-left divide-x divide-white">
+  <thead class="bg-gray-50">
+    <tr class="text-left">
       <slot />
     </tr>
   </thead>

@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scrollbar-gutter: stable;
-}
-
 body {
   @apply text-gray-900;
   height: 100vh;
@@ -24,8 +20,13 @@ a:focus-visible {
 }
 
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+input:focus-visible,
+ul:focus-visible {
   @apply outline outline-green-500 outline-1;
+}
+input:focus-visible {
+  @apply outline-0;
 }
 
 [type='text']:focus,
