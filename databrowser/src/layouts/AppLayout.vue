@@ -1,16 +1,19 @@
 <template>
-  <div class="flex flex-col min-h-full">
+  <div class="flex flex-col justify-between h-screen">
     <AppHeader />
-
-    <main class="flex-1">
+    <div class="flex overflow-y-auto flex-col flex-1">
       <slot></slot>
-    </main>
-
-    <AppFooter />
+    </div>
+    <AppFooter v-if="showAppFooter" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
 import AppHeader from './AppHeader.vue';
 import AppFooter from './AppFooter.vue';
+
+withDefaults(defineProps<{ showAppFooter: boolean }>(), {
+  showAppFooter: true,
+});
 </script>

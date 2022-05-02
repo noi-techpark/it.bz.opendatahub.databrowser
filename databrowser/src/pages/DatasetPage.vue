@@ -1,5 +1,5 @@
 <template>
-  <AppLayout>
+  <AppLayout :show-app-footer="false">
     <div v-if="error != null" class="bg-red-100">
       <h2>ERROR</h2>
       {{ JSON.stringify(error) }}
