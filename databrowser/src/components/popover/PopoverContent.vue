@@ -1,7 +1,7 @@
 <template>
   <div
     class="p-4"
-    :class="[props.withHover ? 'hover:bg-gray-50 cursor-pointer' : '']"
+    :class="{ 'hover:bg-gray-50 cursor-pointer': props.withHover }"
   >
     <slot></slot>
   </div>

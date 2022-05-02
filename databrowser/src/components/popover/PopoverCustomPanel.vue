@@ -7,10 +7,8 @@
     leave-from-class="transform scale-100 opacity-100"
     leave-to-class="transform scale-95 opacity-0"
   >
-    <PopoverPanel class="absolute z-10 mt-2 w-screen max-w-sm origin-top-right">
-      <div
-        class="overflow-hidden bg-white rounded ring-1 ring-gray-400 shadow-md"
-      >
+    <PopoverPanel class="z-20">
+      <div class="bg-white rounded ring-1 ring-gray-400 shadow-md">
         <slot></slot>
       </div>
     </PopoverPanel>
