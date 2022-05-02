@@ -4,20 +4,26 @@
       <h2>ERROR</h2>
       {{ JSON.stringify(error) }}
     </div>
-    <template v-if="viewConfig">
+
+    <ContentAlignmentX>
+      <div v-if="isLoading" class="animate-pulse">
+        {{ $t('datasets.info.loadingConfig') }}
+      </div>
+    </ContentAlignmentX>
+
+    <template v-if="viewConfig != null">
       <ContentDivider />
       <ContentAlignmentX>
         <DatasetHeader :view-config="viewConfig" />
       </ContentAlignmentX>
-      <ContentDivider />
-      <ContentAlignmentX v-if="currentView != null">
+      <template v-if="currentView != null">
         <TableView v-if="isTableView" :view-config="viewConfig" />
         <DetailView v-if="isDetailView" :view-config="viewConfig" />
         <RawView v-if="isRawView" :view-config="viewConfig" />
-      </ContentAlignmentX>
+      </template>
     </template>
 
-    <ContentAlignmentX v-else>
+    <ContentAlignmentX v-if="noViewConfig != null">
       <span>No config: {{ noViewConfig?.reason }}</span>
     </ContentAlignmentX>
   </AppLayout>
@@ -44,6 +50,7 @@ const isTableView = ref(false);
 const isDetailView = ref(false);
 const isRawView = ref(false);
 const currentView = ref<'table' | 'detail' | 'raw' | null>(null);
+const isLoading = ref(true);
 
 const configProvider = useViewConfigProvider();
 watch(
@@ -73,6 +80,8 @@ watch(
     isTableView.value = currentView.value === 'table';
     isDetailView.value = currentView.value === 'detail';
     isRawView.value = currentView.value === 'raw';
+
+    isLoading.value = false;
   }
 );
 
