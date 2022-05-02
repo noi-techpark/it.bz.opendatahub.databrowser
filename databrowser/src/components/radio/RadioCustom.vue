@@ -1,20 +1,27 @@
 <template>
   <label class="cursor-pointer"
     ><input
+      v-model="internalValue"
       type="radio"
       class="inline-block mr-4 text-green-500 checked:bg-none focus:ring-green-500"
       :value="value"
-      :checked="value === modelValue"
     />{{ label }}</label
   >
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { computed, defineEmits, defineProps } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   value: string;
+  modelValue: string;
   label?: string;
-  modelValue?: string;
 }>();
+
+const emit = defineEmits(['update:modelValue']);
+
+const internalValue = computed({
+  get: () => props.modelValue,
+  set: (newValue) => emit('update:modelValue', newValue),
+});
 </script>
