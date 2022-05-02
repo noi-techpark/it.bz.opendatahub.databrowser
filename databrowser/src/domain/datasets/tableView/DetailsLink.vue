@@ -1,15 +1,17 @@
 <template>
-  <router-link
+  <ButtonLink
     :to="to"
-    class="flex justify-center items-center m-1 w-8 h-8 hover:bg-gray-300 rounded border"
-  >
-    <slot></slot>
-  </router-link>
+    variant="ghost"
+    size="xs"
+    class="flex justify-center items-center w-8 h-8 md:w-10"
+    ><slot></slot
+  ></ButtonLink>
 </template>
 
 <script setup lang="ts">
 import { defineProps, toRefs } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
+import ButtonLink from '../../../components/button/ButtonLink.vue';
 
 const props = defineProps<{ to: RouteLocationRaw }>();
 
