@@ -3,6 +3,7 @@
     <Listbox v-slot="{ open }" v-model="selectedOption">
       <div class="relative text-green-500">
         <ListboxButton
+          ref="trigger"
           class="relative pr-9 pl-3 w-full h-6 leading-tight text-left focus:text-white focus:bg-green-500 rounded border"
           :class="[
             open ? 'bg-green-500 text-white' : 'bg-white text-green-500',
@@ -12,47 +13,52 @@
           <span
             class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none"
           >
-            <StrokedArrowDown v-if="!open" class="w-5 h-5 stroke-current" />
-            <StrokedArrowUp v-else class="w-5 h-5 stroke-current" />
+            <IconStrokedArrowDown v-if="!open" class="w-5 h-5 stroke-current" />
+            <IconStrokedArrowUp v-else class="w-5 h-5 stroke-current" />
           </span>
         </ListboxButton>
 
-        <transition
-          enter-active-class="transition duration-100 ease-out"
-          enter-from-class="transform scale-95 opacity-0"
-          enter-to-class="transform scale-100 opacity-100"
-          leave-active-class="transition duration-75 ease-out"
-          leave-from-class="transform scale-100 opacity-100"
-          leave-to-class="transform scale-95 opacity-0"
-        >
-          <ListboxOptions
-            class="overflow-auto absolute z-20 mt-2 w-full max-h-60 text-base bg-white rounded shadow-md origin-top-right"
+        <Teleport to="body">
+          <div
+            ref="container"
+            class="overflow-auto z-20 max-h-60 rounded ring-1 ring-gray-400 shadow-md"
           >
-            <ListboxOption
-              v-for="option in options"
-              v-slot="{ active, selected }"
-              :key="option.label"
-              :value="option"
-              as="template"
+            <transition
+              enter-active-class="transition duration-100 ease-out"
+              enter-from-class="transform scale-95 opacity-0"
+              enter-to-class="transform scale-100 opacity-100"
+              leave-active-class="transition duration-75 ease-out"
+              leave-from-class="transform scale-100 opacity-100"
+              leave-to-class="transform scale-95 opacity-0"
             >
-              <li
-                :class="[
-                  active || selected ? 'bg-gray-50' : '',
-                  'relative cursor-pointer select-none px-2 py-1',
-                ]"
-              >
-                <span
-                  :class="[
-                    selected ? 'font-semibold bg-gray-50' : '',
-                    'block uppercase',
-                  ]"
+              <ListboxOptions class="text-base bg-white">
+                <ListboxOption
+                  v-for="option in options"
+                  v-slot="{ active, selected }"
+                  :key="option.label"
+                  :value="option"
+                  as="template"
                 >
-                  {{ option.label }}
-                </span>
-              </li>
-            </ListboxOption>
-          </ListboxOptions>
-        </transition>
+                  <li
+                    :class="[
+                      active || selected ? 'bg-gray-50' : '',
+                      'relative cursor-pointer select-none pl-4 pr-8 py-1',
+                    ]"
+                  >
+                    <span
+                      :class="[
+                        selected ? 'font-semibold bg-gray-50' : '',
+                        'block uppercase',
+                      ]"
+                    >
+                      {{ option.label }}
+                    </span>
+                  </li>
+                </ListboxOption>
+              </ListboxOptions>
+            </transition>
+          </div>
+        </Teleport>
       </div>
     </Listbox>
   </div>
@@ -74,9 +80,16 @@ import {
   ListboxOptions,
   ListboxOption,
 } from '@headlessui/vue';
-import StrokedArrowDown from '../svg/StrokedArrowDown.vue';
-import StrokedArrowUp from '../svg/StrokedArrowUp.vue';
+import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
+import IconStrokedArrowUp from '../svg/IconStrokedArrowUp.vue';
 import { SelectOption } from './types';
+import { usePopper } from '../utils/usePopper';
+
+const [trigger, container] = usePopper({
+  placement: 'bottom-start',
+  strategy: 'absolute',
+  modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
+});
 
 const props = withDefaults(
   defineProps<{
