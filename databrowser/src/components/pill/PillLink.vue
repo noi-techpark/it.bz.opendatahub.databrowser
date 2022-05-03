@@ -3,16 +3,15 @@
     :to="to"
     :class="[
       {
-        'border text-green-500 bg-opacity-10 bg-green-500 border-green-500':
-          active && !disabled,
-        'hover:bg-gray-200': !active && !disabled,
-        'border-gray-500 bg-transparent text-gray-700 opacity-25 pointer-events-none':
+        'text-green-500 bg-opacity-10 bg-green-500': active && !disabled,
+        'hover:bg-gray-50': !active && !disabled,
+        'border border-gray-500 bg-transparent text-gray-700 opacity-25 pointer-events-none':
           disabled,
       },
       classNames,
     ]"
     :disabled="disabled"
-    class="block py-1 px-5 font-semibold text-center text-gray-700"
+    class="block py-1 px-5 font-semibold border focus:outline-none"
   >
     <slot></slot>
   </router-link>
@@ -25,8 +24,7 @@ import { PillVariant } from './types';
 import { RouteLocationRaw } from 'vue-router';
 
 const variantStyles: Record<PillVariant, string> = {
-  [PillVariant.rounded]: 'rounded-full border border-gray-400',
-  [PillVariant.edged]: 'rounded-lg border border-transparent',
+  [PillVariant.edged]: 'rounded border-transparent',
 };
 
 const props = withDefaults(
@@ -37,7 +35,7 @@ const props = withDefaults(
     active?: boolean;
   }>(),
   {
-    variant: PillVariant.rounded,
+    variant: PillVariant.edged,
     disabled: false,
     active: false,
   }

@@ -23,7 +23,6 @@ import { computed } from 'vue';
 import { PillVariant } from './types';
 
 const variantStyles: Record<PillVariant, string> = {
-  [PillVariant.rounded]: 'rounded-full border border-gray-400',
   [PillVariant.edged]: 'rounded-lg border border-transparent',
 };
 
@@ -34,7 +33,7 @@ const props = withDefaults(
     active?: boolean;
   }>(),
   {
-    variant: PillVariant.rounded,
+    variant: PillVariant.edged,
     disabled: false,
     active: false,
   }
