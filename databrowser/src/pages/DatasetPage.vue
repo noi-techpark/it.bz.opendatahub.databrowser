@@ -18,9 +18,16 @@
       </ContentAlignmentX>
       <template v-if="currentView != null">
         <TableView v-if="isTableView" :view-config="viewConfig" />
-        <DetailView v-if="isDetailView" :view-config="viewConfig" />
-        <RawView v-if="isRawView" :view-config="viewConfig" />
+        <template v-if="isDetailView || isRawView || isQuickView">
+          <ContentDivider />
+          <DatasetNavigation />
+          <ContentDivider />
+          <section class="flex overflow-y-auto flex-col">
+            <DetailView v-if="isDetailView" :view-config="viewConfig" />
+            <RawView v-if="isRawView" :view-config="viewConfig" />
             <QuickView v-if="isQuickView" :view-config="viewConfig" />
+          </section>
+        </template>
       </template>
     </template>
 
@@ -42,6 +49,7 @@ import { useRoute } from 'vue-router';
 import { isViewConfig, useViewConfigProvider } from '../domain/viewConfig';
 import { NoViewConfig, ViewConfig } from '../domain/viewConfig/types';
 import DatasetHeader from '../domain/datasets/header/DatasetHeader.vue';
+import DatasetNavigation from '../domain/datasets/header/DatasetNavigation.vue';
 import QuickView from '../domain/datasets/quickView/QuickView.vue';
 
 const route = useRoute();
