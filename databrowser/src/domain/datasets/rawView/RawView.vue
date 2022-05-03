@@ -40,8 +40,10 @@ import { useApiForViewConfig } from '../../api/client/client';
 const props = defineProps<{ viewConfig: ViewConfig }>();
 const { viewConfig } = toRefs(props);
 
-const { isError, isSuccess, data, error, url } =
-  useApiForViewConfig(viewConfig);
+const { isError, isSuccess, data, error } = useApiForViewConfig({
+  viewConfig,
+  withQueryParameters: false,
+});
 </script>
 
 <style>

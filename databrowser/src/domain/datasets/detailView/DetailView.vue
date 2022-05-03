@@ -57,13 +57,7 @@ const { viewConfig } = toRefs(props);
 
 const { slug, categories, subcategories } = useDetail(viewConfig);
 
-const { isError, isSuccess, data, error, url } =
-  useApiForViewConfig(viewConfig);
+const { isError, isSuccess, data, error } = useApiForViewConfig({
+  viewConfig,
+});
 </script>
-
-<style>
-.subcategory-container {
-  @apply flex-1;
-  column-width: 250px;
-}
-</style>
