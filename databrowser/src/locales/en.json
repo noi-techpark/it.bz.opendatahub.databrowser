@@ -65,6 +65,12 @@
       "noData": "No data",
       "of": "of"
     },
+    "navigation": {
+      "detailView": "Detail View",
+      "quickView": "Quick View",
+      "rawView": "Raw View",
+      "tableView": "Table View"
+    },
     "download": {
       "info": "Retrieve data based on table settings",
       "copyTitle": "API DATASET",
