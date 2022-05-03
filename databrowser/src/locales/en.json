@@ -36,6 +36,9 @@
     }
   },
   "datasets": {
+    "generated": {
+      "categoryName": "All data"
+    },
     "header": {
       "columnSizeSmall": "small",
       "columnSizeMedium": "medium",
