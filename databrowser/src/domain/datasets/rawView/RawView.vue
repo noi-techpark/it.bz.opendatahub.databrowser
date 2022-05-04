@@ -1,47 +1,30 @@
 <template>
-  <ContentAlignmentX>
-    <div>
-      <router-link
-        :to="{
-          path: '../79C93A2154142D4D35EE2C3B59543476_REDUCED/raw',
-          hash: $route.hash,
-        }"
-        >79C93A2154142D4D35EE2C3B59543476_REDUCED/raw</router-link
-      >|
-      <router-link
-        :to="{
-          path: '../5CEA544EE34639034F07B79D4AEEB603_REDUCED/raw',
-          hash: $route.hash,
-        }"
-        >5CEA544EE34639034F07B79D4AEEB603_REDUCED/raw</router-link
-      >
-    </div>
-    <section v-if="isError" class="bg-red-200">
+  <template v-if="isError">
+    <div class="bg-red-200">
       <h2>Got error from API</h2>
       <div>{{ error }}</div>
-    </section>
-    <section v-if="isSuccess" class="bg-green-200">
-      <div class="overflow-x-scroll p-4 rounded-xl border">
-        <vue-json-pretty :data="(data as any)" :deep="3" show-length />
-      </div>
-      <DownloadSection :dataset="data" :dataset-url="url" hide-csv />
-    </section>
-  </ContentAlignmentX>
+    </div>
+  </template>
+  <template v-if="isSuccess === true">
+    <div class="p-4">
+      <vue-json-pretty :data="(data as any)" :deep="3" show-length />
+    </div>
+  </template>
 </template>
 
 <script setup lang="ts">
 import { defineProps, toRefs } from 'vue';
 import VueJsonPretty from 'vue-json-pretty';
-import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
-import DownloadSection from '../../../components/download/DownloadSection.vue';
 import { ViewConfig } from '../../viewConfig/types';
 import { useApiForViewConfig } from '../../api/client/client';
 
 const props = defineProps<{ viewConfig: ViewConfig }>();
 const { viewConfig } = toRefs(props);
 
-const { isError, isSuccess, data, error, url } =
-  useApiForViewConfig(viewConfig);
+const { isError, isSuccess, data, error } = useApiForViewConfig({
+  viewConfig,
+  withQueryParameters: false,
+});
 </script>
 
 <style>

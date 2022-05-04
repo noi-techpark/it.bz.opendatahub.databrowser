@@ -68,7 +68,7 @@ const links = computed(() => {
     const selected = currentLanguage.value === language;
 
     return {
-      label: language,
+      label: language.toUpperCase(),
       value: language,
       to: location,
       selected,
@@ -78,8 +78,8 @@ const links = computed(() => {
 
 const selected = computed({
   get: () => links.value.find((link) => link.selected)?.label,
-  set: (label) => {
-    const to = links.value.find((link) => link.label === label)?.to;
+  set: (value) => {
+    const to = links.value.find((link) => link.value === value)?.to;
     if (to != null) {
       router.push(to);
     }

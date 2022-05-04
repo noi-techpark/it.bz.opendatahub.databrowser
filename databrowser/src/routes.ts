@@ -16,6 +16,11 @@ const routes: RouteRecordRaw[] = [
     name: 'DatasetRawPage',
   },
   {
+    path: '/dataset/:pathParams+/quick',
+    component: () => import('./pages/DatasetPage.vue'),
+    name: 'DatasetQuickPage',
+  },
+  {
     path: '/about',
     component: () => import('./pages/AboutPage.vue'),
   },

@@ -80,10 +80,10 @@ const resultMapper = (data: AxiosResponse): PaginationData => {
   });
 };
 
-const { isError, isSuccess, isLoading, data, error } = useApiForViewConfig(
+const { isError, isSuccess, isLoading, data, error } = useApiForViewConfig({
   viewConfig,
-  resultMapper
-);
+  resultMapper,
+});
 
 // Define method to change page
 const paginateTo = (page: string) =>

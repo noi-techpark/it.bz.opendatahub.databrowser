@@ -18,8 +18,16 @@
       </ContentAlignmentX>
       <template v-if="currentView != null">
         <TableView v-if="isTableView" :view-config="viewConfig" />
-        <DetailView v-if="isDetailView" :view-config="viewConfig" />
-        <RawView v-if="isRawView" :view-config="viewConfig" />
+        <template v-if="isDetailView || isRawView || isQuickView">
+          <ContentDivider />
+          <DatasetNavigation />
+          <ContentDivider />
+          <section class="flex overflow-y-auto flex-col">
+            <DetailView v-if="isDetailView" :view-config="viewConfig" />
+            <RawView v-if="isRawView" :view-config="viewConfig" />
+            <QuickView v-if="isQuickView" :view-config="viewConfig" />
+          </section>
+        </template>
       </template>
     </template>
 
@@ -41,6 +49,8 @@ import { useRoute } from 'vue-router';
 import { isViewConfig, useViewConfigProvider } from '../domain/viewConfig';
 import { NoViewConfig, ViewConfig } from '../domain/viewConfig/types';
 import DatasetHeader from '../domain/datasets/header/DatasetHeader.vue';
+import DatasetNavigation from '../domain/datasets/header/DatasetNavigation.vue';
+import QuickView from '../domain/datasets/quickView/QuickView.vue';
 
 const route = useRoute();
 
@@ -49,7 +59,8 @@ const noViewConfig = ref<NoViewConfig | null>(null);
 const isTableView = ref(false);
 const isDetailView = ref(false);
 const isRawView = ref(false);
-const currentView = ref<'table' | 'detail' | 'raw' | null>(null);
+const isQuickView = ref(false);
+const currentView = ref<'table' | 'detail' | 'raw' | 'quick' | null>(null);
 const isLoading = ref(true);
 
 const configProvider = useViewConfigProvider();
@@ -67,9 +78,12 @@ watch(
 
       if (viewType === 'list') {
         currentView.value = 'table';
+      } else if (route.name === 'DatasetRawPage') {
+        currentView.value = 'raw';
+      } else if (route.name === 'DatasetQuickPage') {
+        currentView.value = 'quick';
       } else {
-        const isRaw = route.name === 'DatasetRawPage';
-        currentView.value = isRaw ? 'raw' : 'detail';
+        currentView.value = 'detail';
       }
     } else {
       viewConfig.value = null;
@@ -80,6 +94,7 @@ watch(
     isTableView.value = currentView.value === 'table';
     isDetailView.value = currentView.value === 'detail';
     isRawView.value = currentView.value === 'raw';
+    isQuickView.value = currentView.value === 'quick';
 
     isLoading.value = false;
   }

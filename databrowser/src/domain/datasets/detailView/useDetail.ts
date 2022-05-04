@@ -1,4 +1,5 @@
 import { Ref, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { Router, useRouter } from 'vue-router';
 import {
   DetailElements,
@@ -40,6 +41,9 @@ export const useDetail = (viewConfig: Ref<ViewConfig>) => {
   const slug = ref('');
   const subcategories = ref<DetailElements['subcategories']>([]);
   const categories = ref<DetailCategory[]>([]);
+  const currentCategory = ref<DetailCategory | undefined>();
+
+  const i18n = useI18n();
 
   watch(
     () => viewConfig.value,
@@ -52,8 +56,15 @@ export const useDetail = (viewConfig: Ref<ViewConfig>) => {
 
         // Compute categories
         categories.value = renderConfig.elements.map((element) => {
+          // If config is generated, use translated name.
+          // Otherwise, use name as defined by config
+          const name =
+            viewConfig.value.source === 'generated'
+              ? i18n.t('datasets.generated.categoryName')
+              : element.name;
+
           return {
-            name: element.name,
+            name,
             slug: element.slug,
             to: {
               hash: `#${element.slug}`,
@@ -66,6 +77,13 @@ export const useDetail = (viewConfig: Ref<ViewConfig>) => {
         subcategories.value =
           renderConfig.elements.find((config) => config.slug === slug.value)
             ?.subcategories ?? [];
+
+        // Compute current category
+        currentCategory.value = categories.value.find(
+          (category) => slug.value === category.slug
+        );
+      } else {
+        currentCategory.value = undefined;
       }
     },
     { immediate: true }
@@ -75,5 +93,6 @@ export const useDetail = (viewConfig: Ref<ViewConfig>) => {
     slug,
     subcategories,
     categories,
+    currentCategory,
   };
 };

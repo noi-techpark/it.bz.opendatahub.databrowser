@@ -4,12 +4,13 @@
       <div class="relative text-green-500">
         <ListboxButton
           ref="trigger"
-          class="relative pr-9 pl-3 w-full h-6 leading-tight text-left focus:text-white focus:bg-green-500 rounded border"
+          class="relative pr-9 pl-3 w-full leading-tight text-left focus:text-white focus:bg-green-500 rounded border"
           :class="[
             open ? 'bg-green-500 text-white' : 'bg-white text-green-500',
+            classNames,
           ]"
         >
-          <span class="block uppercase">{{ selectedOption?.label }}</span>
+          <span class="block">{{ selectedOption?.label }}</span>
           <span
             class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none"
           >
@@ -66,11 +67,10 @@
 
 <script setup lang="ts">
 import {
+  computed,
   defineEmits,
   defineProps,
   ref,
-  toRefs,
-  unref,
   watch,
   withDefaults,
 } from 'vue';
@@ -82,7 +82,7 @@ import {
 } from '@headlessui/vue';
 import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
 import IconStrokedArrowUp from '../svg/IconStrokedArrowUp.vue';
-import { SelectOption } from './types';
+import { SelectOption, SelectSize } from './types';
 import { usePopper } from '../utils/usePopper';
 
 const [trigger, container] = usePopper({
@@ -94,20 +94,28 @@ const [trigger, container] = usePopper({
 const props = withDefaults(
   defineProps<{
     options: SelectOption[];
+    size?: SelectSize;
   }>(),
   {
     options: () => [],
+    size: SelectSize.sm,
   }
 );
-const { options } = toRefs(props);
+
+const selectSizeStyles: Record<SelectSize, string> = {
+  [SelectSize.sm]: 'h-6',
+  [SelectSize.md]: 'h-10',
+};
+
+const classNames = computed(() => selectSizeStyles[props.size as SelectSize]);
 
 const getSelectedOption = (options: SelectOption[]) =>
   options.find((option) => option.selected) ?? options[0] ?? undefined;
 
-const selectedOption = ref(getSelectedOption(unref(options)));
+const selectedOption = ref(getSelectedOption(props.options));
 
 watch(
-  () => options.value,
+  () => props.options,
   (options) => (selectedOption.value = getSelectedOption(options))
 );
 

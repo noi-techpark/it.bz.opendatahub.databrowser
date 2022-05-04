@@ -1,69 +1,62 @@
 <template>
-  <ContentAlignmentX>
-    <section v-if="isError === true" class="bg-red-200">
+  <template v-if="isError">
+    <div class="bg-red-200">
       <h2>Got error from API</h2>
       <div>{{ error }}</div>
-    </section>
-    <div>
-      <router-link
-        :to="{
-          path: './79C93A2154142D4D35EE2C3B59543476_REDUCED',
-          hash: $route.hash,
-        }"
-        >79C93A2154142D4D35EE2C3B59543476_REDUCED</router-link
-      >|
-      <router-link
-        :to="{
-          path: './5CEA544EE34639034F07B79D4AEEB603_REDUCED',
-          hash: $route.hash,
-        }"
-        >5CEA544EE34639034F07B79D4AEEB603_REDUCED</router-link
-      >
     </div>
-    <section v-if="isSuccess === true" class="flex flex-col">
-      <div class="flex-wrap lg:flex lg:gap-5">
-        <div v-if="categories.length > 0" class="flex flex-col lg:w-1/6">
-          <DetailCategories :categories="categories" :current-slug="slug" />
-        </div>
+  </template>
+  <template v-if="isSuccess === true">
+    <div>
+      <ContentAlignmentX>
+        <RadioCustom
+          v-model="showAll"
+          value="false"
+          label="show only non empty"
+          class="mr-2"
+        />
+        <RadioCustom v-model="showAll" value="true" label="show all" />
+      </ContentAlignmentX>
+    </div>
+    <ContentAlignmentX
+      class="overflow-y-auto flex-wrap md:flex md:gap-20 md:px-0 md:mt-12"
+    >
+      <DetailCategories
+        :categories="categories"
+        :slug="slug"
+        class="sticky top-0 my-5 bg-white md:my-0 md:w-1/6 md:h-full"
+      />
 
-        <div
-          v-if="slug !== ''"
-          :style="{
-            'column-count': Math.min(subcategories?.length ?? 1, 3),
-          }"
-          class="subcategory-container"
-        >
-          <DetailSubCategories :data="data" :sub-categories="subcategories" />
-        </div>
-      </div>
-
-      <DownloadSection :dataset="data" :dataset-url="url" hide-csv />
-    </section>
-  </ContentAlignmentX>
+      <DetailSubCategories
+        v-if="slug !== ''"
+        class="w-full md:w-1/3"
+        :data="data"
+        :category="currentCategory"
+        :sub-categories="subcategories"
+        :show-all="showAll === 'true'"
+      />
+    </ContentAlignmentX>
+  </template>
 </template>
 
 <script lang="ts" setup>
-import { defineProps, toRefs } from 'vue';
+import { defineProps, ref, toRefs } from 'vue';
 import { ViewConfig } from '../../viewConfig/types';
-import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import { useApiForViewConfig } from '../../api/client/client';
 import DetailCategories from './DetailCategories.vue';
 import DetailSubCategories from './DetailSubCategories.vue';
-import DownloadSection from '../../../components/download/DownloadSection.vue';
 import { useDetail } from './useDetail';
+import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
+import RadioCustom from '../../../components/radio/RadioCustom.vue';
 
 const props = defineProps<{ viewConfig: ViewConfig }>();
 const { viewConfig } = toRefs(props);
 
-const { slug, categories, subcategories } = useDetail(viewConfig);
+const showAll = ref<string>('false');
 
-const { isError, isSuccess, data, error, url } =
-  useApiForViewConfig(viewConfig);
+const { slug, categories, subcategories, currentCategory } =
+  useDetail(viewConfig);
+
+const { isError, isSuccess, data, error } = useApiForViewConfig({
+  viewConfig,
+});
 </script>
-
-<style>
-.subcategory-container {
-  @apply flex-1;
-  column-width: 250px;
-}
-</style>

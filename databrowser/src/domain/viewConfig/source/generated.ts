@@ -229,7 +229,7 @@ const detailViewConfigFromProperties = (
     type: 'detail',
     elements: [
       {
-        name: 'All',
+        name: 'All data',
         slug: 'all',
         subcategories: [
           {

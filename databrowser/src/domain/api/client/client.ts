@@ -18,13 +18,17 @@ const useAsQueryKey = (queryKey: Ref<string>) => {
   return result;
 };
 
-export const useApiForViewConfig = (
-  viewConfig: Ref<ViewConfig>,
-  resultMapper?: (data: any) => any
-) => {
+export const useApiForViewConfig = (options: {
+  viewConfig: Ref<ViewConfig>;
+  resultMapper?: (data: any) => any;
+  withQueryParameters?: boolean;
+}) => {
+  const { viewConfig, resultMapper, withQueryParameters = true } = options;
   const url = computed(() => viewConfig.value.baseUrl + viewConfig.value.path);
-  const urlWithQueryParams = useUrlQuery().useUrlWithQueryParameters(url);
-  const queryKey = useAsQueryKey(urlWithQueryParams);
+  const fetchUrl = withQueryParameters
+    ? useUrlQuery().useUrlWithQueryParameters(url)
+    : url;
+  const queryKey = useAsQueryKey(fetchUrl);
   const queryFn = useAxiosFetcher();
   const select = (axiosResponse: unknown): unknown => {
     const data = (axiosResponse as AxiosResponse).data;
@@ -32,7 +36,7 @@ export const useApiForViewConfig = (
   };
 
   const apiResult = useApi({ queryKey, queryFn, select });
-  return { ...apiResult, url: urlWithQueryParams };
+  return { ...apiResult, url: fetchUrl };
 };
 
 export const useApi = (queryOptions: UseQueryOptions) => {

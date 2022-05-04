@@ -33,7 +33,7 @@
           <div class="flex justify-between max-w-[9rem] h-full">
             <DetailsLink
               :to="{
-                name: 'DatasetRawPage',
+                name: 'DatasetQuickPage',
                 params: {
                   pathParams: [...pathParams, row.Id],
                 },
