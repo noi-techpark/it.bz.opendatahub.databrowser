@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { get } from 'lodash-es';
 import { ref, Ref, watch } from 'vue';
 import { useApiQuery } from './apiQueryHandler';
@@ -76,6 +77,20 @@ export const useAsSet = (
   }
 
   return currentValue;
+};
+
+export const toErrorString = (error: unknown): string => {
+  if (typeof error === 'string') {
+    return error;
+  }
+  if (error instanceof AxiosError) {
+    const detail = error?.response?.data;
+    if (detail == null) {
+      return JSON.stringify(error);
+    }
+    return `${error} (${JSON.stringify(detail)}))`;
+  }
+  return JSON.stringify(error);
 };
 
 export const useFieldExtraction = () => {

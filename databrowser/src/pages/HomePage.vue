@@ -46,6 +46,16 @@
               <CardText>Reason: {{ dataset.viewConfig.reason }}</CardText>
             </template>
           </CardContainer>
+
+          <CardContainer tag-name="li">
+            <CardTitle>Datasets overview</CardTitle>
+            <CardText>
+              This page provides an overview of available datasets
+            </CardText>
+            <CardActions>
+              <ButtonLink to="/links">Discover Datasets</ButtonLink>
+            </CardActions>
+          </CardContainer>
         </CardGrid>
 
         <ContentAlignmentY>
@@ -106,15 +116,14 @@ import ArrowRight from '../components/svg/ArrowRight.vue';
 import ContentAlignmentY from '../components/content/ContentAlignmentY.vue';
 import { isViewConfig, useViewConfigProvider } from '../domain/viewConfig';
 import { ref } from 'vue';
-import { ViewConfigWithPathParams } from '../domain/viewConfig/types';
+import { ResolvedViewConfigWithPathParams } from '../domain/viewConfig/types';
 
 const paths: string[] = [
   'tourism/v1/AccommodationTmp',
   'tourism/v1/ODHActivityPoi',
-  'tourism/v1/Event',
 ];
 
-const datasets = ref<ViewConfigWithPathParams[]>([]);
+const datasets = ref<ResolvedViewConfigWithPathParams[]>([]);
 
 const viewConfigProvider = useViewConfigProvider();
 const promises = paths.map(viewConfigProvider.getViewConfigWithPathParams);

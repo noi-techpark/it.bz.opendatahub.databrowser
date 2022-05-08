@@ -2,16 +2,17 @@ import {
   DetailRenderConfig,
   ListElements,
   ListRenderConfig,
-  NoViewConfig,
   PathParams,
   PropertyConfig,
-  ViewConfig,
+  ResolvedViewConfig,
+  ViewConfigWithPathParams,
 } from '../types';
 import { CellComponent } from '../../cellComponents/types';
 import { isWithTourismPagination } from '../../api/client/types';
 import { OpenApi } from '../../openApi/types';
-import { isDomainKnown, useOpenApi } from '../../openApi';
+import { domains, isDomainKnown, useOpenApi } from '../../openApi';
 import { SourceResolver, ViewConfigSource } from './types';
+import { isViewConfig } from '../utils';
 
 const sourceResolver: SourceResolver = async (
   domainAndPathParams: PathParams
@@ -42,7 +43,7 @@ const toGeneratedConfiguration = (
   odhDomain: string,
   pathParams: PathParams,
   document: OpenApi.Document
-): ViewConfig | NoViewConfig => {
+): ResolvedViewConfig => {
   if (document == null) {
     return {
       reason: `No document found in OpenAPI description for ODH domain "${odhDomain}"`,
@@ -264,7 +265,46 @@ const sortByMainOrderAndLocalCompare = (
   return aIndex - bIndex;
 };
 
+const getAllViewConfigs = async (): Promise<
+  Record<string, ViewConfigWithPathParams[]>
+> => {
+  const result: Record<string, ViewConfigWithPathParams[]> = {};
+  for (const domain of Object.keys(domains)) {
+    const document = await useOpenApi().loadDocument(domain as any);
+
+    // If no OpenAPI document could be found, then there are no view configs to return
+    if (document == null) {
+      continue;
+    }
+
+    const viewConfigs = Object.keys(
+      document.paths
+    ).map<ViewConfigWithPathParams | null>((path) => {
+      const pathParams = path.split('/').slice(1);
+      const resolvedViewConfig = toGeneratedConfiguration(
+        domain,
+        pathParams,
+        document
+      );
+
+      return isViewConfig(resolvedViewConfig)
+        ? {
+            pathParams: [domain, ...pathParams],
+            viewConfig: resolvedViewConfig,
+          }
+        : null;
+    });
+
+    result[domain] = viewConfigs.filter(
+      (vc) => vc != null
+    ) as ViewConfigWithPathParams[];
+  }
+
+  return result;
+};
+
 export const generatedViewConfigSource: ViewConfigSource = {
   source: 'generated',
-  resolver: sourceResolver,
+  resolve: sourceResolver,
+  getAllViewConfigs,
 };

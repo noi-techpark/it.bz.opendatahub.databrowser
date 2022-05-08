@@ -1,4 +1,9 @@
-import { NoViewConfig, PathParams, ViewConfig } from '../types';
+import {
+  NoViewConfig,
+  PathParams,
+  ViewConfig,
+  ViewConfigWithPathParams,
+} from '../types';
 
 export type SourceType = 'embedded' | 'generated';
 
@@ -12,5 +17,6 @@ export type SourceResolver = (
 
 export interface ViewConfigSource {
   source: SourceType;
-  resolver: SourceResolver;
+  resolve: SourceResolver;
+  getAllViewConfigs(): Promise<Record<string, ViewConfigWithPathParams[]>>;
 }
