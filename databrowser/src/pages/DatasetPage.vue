@@ -11,29 +11,26 @@
       </div>
     </ContentAlignmentX>
 
-    <template v-if="viewConfig != null">
+    <template v-if="!isLoading">
       <ContentDivider />
       <ContentAlignmentX>
         <DatasetHeader :view-config="viewConfig" />
       </ContentAlignmentX>
-      <template v-if="currentView != null">
-        <TableView v-if="isTableView" :view-config="viewConfig" />
-        <template v-if="isDetailView || isRawView || isQuickView">
-          <ContentDivider />
-          <DatasetNavigation />
-          <ContentDivider />
-          <section class="flex overflow-y-auto flex-col">
-            <DetailView v-if="isDetailView" :view-config="viewConfig" />
-            <RawView v-if="isRawView" :view-config="viewConfig" />
-            <QuickView v-if="isQuickView" :view-config="viewConfig" />
-          </section>
-        </template>
-      </template>
     </template>
 
-    <ContentAlignmentX v-if="noViewConfig != null">
-      <span>No config: {{ noViewConfig?.reason }}</span>
-    </ContentAlignmentX>
+    <template v-if="viewConfig != null">
+      <TableView v-if="isTableView" :view-config="viewConfig" />
+      <template v-if="isDetailView || isRawView || isQuickView">
+        <ContentDivider />
+        <DatasetNavigation />
+        <ContentDivider />
+        <section class="flex overflow-y-auto flex-col">
+          <DetailView v-if="isDetailView" :view-config="viewConfig" />
+          <RawView v-if="isRawView" :view-config="viewConfig" />
+          <QuickView v-if="isQuickView" :view-config="viewConfig" />
+        </section>
+      </template>
+    </template>
   </AppLayout>
 </template>
 
@@ -47,54 +44,48 @@ import DetailView from '../domain/datasets/detailView/DetailView.vue';
 import RawView from '../domain/datasets/rawView/RawView.vue';
 import { useRoute } from 'vue-router';
 import { isViewConfig, useViewConfigProvider } from '../domain/viewConfig';
-import { NoViewConfig, ViewConfig } from '../domain/viewConfig/types';
+import { ViewConfig } from '../domain/viewConfig/types';
 import DatasetHeader from '../domain/datasets/header/DatasetHeader.vue';
 import DatasetNavigation from '../domain/datasets/header/DatasetNavigation.vue';
 import QuickView from '../domain/datasets/quickView/QuickView.vue';
 
 const route = useRoute();
 
-const viewConfig = ref<ViewConfig | null>(null);
-const noViewConfig = ref<NoViewConfig | null>(null);
+const viewConfig = ref<ViewConfig | undefined>();
 const isTableView = ref(false);
 const isDetailView = ref(false);
 const isRawView = ref(false);
 const isQuickView = ref(false);
-const currentView = ref<'table' | 'detail' | 'raw' | 'quick' | null>(null);
 const isLoading = ref(true);
 
 const configProvider = useViewConfigProvider();
 watch(
   () => configProvider.currentViewConfig.value,
   async (currentViewConfig) => {
-    console.log('VIEW CONFIG', currentViewConfig);
     const viewConfigResult = currentViewConfig;
+
+    isTableView.value = false;
+    isDetailView.value = false;
+    isRawView.value = false;
+    isQuickView.value = false;
 
     if (isViewConfig(viewConfigResult)) {
       viewConfig.value = viewConfigResult;
-      noViewConfig.value = null;
 
       const viewType = viewConfig.value.renderConfig.type;
 
       if (viewType === 'list') {
-        currentView.value = 'table';
+        isTableView.value = true;
       } else if (route.name === 'DatasetRawPage') {
-        currentView.value = 'raw';
+        isRawView.value = true;
       } else if (route.name === 'DatasetQuickPage') {
-        currentView.value = 'quick';
+        isQuickView.value = true;
       } else {
-        currentView.value = 'detail';
+        isDetailView.value = true;
       }
     } else {
-      viewConfig.value = null;
-      noViewConfig.value = viewConfigResult;
-      currentView.value = null;
+      viewConfig.value = undefined;
     }
-
-    isTableView.value = currentView.value === 'table';
-    isDetailView.value = currentView.value === 'detail';
-    isRawView.value = currentView.value === 'raw';
-    isQuickView.value = currentView.value === 'quick';
 
     isLoading.value = false;
   }

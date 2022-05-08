@@ -119,14 +119,16 @@ import { ref } from 'vue';
 import { ResolvedViewConfigWithPathParams } from '../domain/viewConfig/types';
 
 const paths: string[] = [
-  'tourism/v1/AccommodationTmp',
+  'tourism/v1/Accommodation',
   'tourism/v1/ODHActivityPoi',
 ];
 
 const datasets = ref<ResolvedViewConfigWithPathParams[]>([]);
 
 const viewConfigProvider = useViewConfigProvider();
-const promises = paths.map(viewConfigProvider.getViewConfigWithPathParams);
+const promises = paths.map((path) =>
+  viewConfigProvider.getViewConfigWithPathParams(path)
+);
 Promise.all(promises).then(
   (resolvedPromises) => (datasets.value = resolvedPromises)
 );

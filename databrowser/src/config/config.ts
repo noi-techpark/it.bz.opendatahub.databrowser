@@ -9,8 +9,8 @@ import {
 } from './tourism';
 
 export const embeddedViewConfigs: Record<string, ViewConfig> = {
-  'tourism/v1/AccommodationTmp': odhAccommodationList,
-  'tourism/v1/AccommodationTmp/{id}': odhAccommodationDetail,
+  'tourism/v1/Accommodation': odhAccommodationList,
+  'tourism/v1/Accommodation/{id}': odhAccommodationDetail,
   'tourism/v1/ODHActivityPoi': odhActivityPoiList,
   'tourism/v1/ODHActivityPoi/{id}': odhActivityPoiDetail,
   'tourism/v1/ODHActivityPoiTypes': odhActivityPoiTypesList,
