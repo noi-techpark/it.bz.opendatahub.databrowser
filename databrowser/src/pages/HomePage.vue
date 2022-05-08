@@ -46,6 +46,16 @@
               <CardText>Reason: {{ dataset.viewConfig.reason }}</CardText>
             </template>
           </CardContainer>
+
+          <CardContainer tag-name="li">
+            <CardTitle>Datasets overview</CardTitle>
+            <CardText>
+              This page provides an overview of available datasets
+            </CardText>
+            <CardActions>
+              <ButtonLink to="/links">Discover Datasets</ButtonLink>
+            </CardActions>
+          </CardContainer>
         </CardGrid>
 
         <ContentAlignmentY>

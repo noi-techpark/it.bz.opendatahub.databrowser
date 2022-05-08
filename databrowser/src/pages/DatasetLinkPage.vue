@@ -1,17 +1,17 @@
 <template>
   <AppLayout>
     <ContentAlignmentX>
+      <h1 class="text-2xl font-semibold">Available list endpoints</h1>
+      <span
+        >Disclaimer: some items in this list are generated automatically from
+        OpenAPI resources. You can distinguish them by their
+        <span class="text-red-500">(generated)</span> label. Some items with
+        this label may not work properly.</span
+      >
       <div v-if="isLoading" class="animate-pulse">
         {{ $t('datasets.info.loadingConfig') }}
       </div>
       <template v-else>
-        <h1 class="text-2xl font-semibold">Available list endpoints</h1>
-        <span
-          >Disclaimer: some items in this list are generated automatically from
-          OpenAPI resources. You can distinguish them by their
-          <span class="text-red-500">(generated)</span> label. Some items with
-          this label may not work properly.</span
-        >
         <div
           v-for="(viewConfigsWithPathParams, key) in allViewConfigs"
           :key="key"
