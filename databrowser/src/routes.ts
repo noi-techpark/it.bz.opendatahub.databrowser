@@ -40,6 +40,10 @@ const routes: RouteRecordRaw[] = [
     path: '/sitemap',
     component: () => import('./pages/SitemapPage.vue'),
   },
+  {
+    path: '/links',
+    component: () => import('./pages/DatasetLinkPage.vue'),
+  },
 ];
 
 export const router = createRouter({

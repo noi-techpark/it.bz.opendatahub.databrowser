@@ -4,23 +4,22 @@ import { generatedViewConfigSource } from './source/generated';
 import { embeddedViewConfigSource } from './source/embedded';
 import { ViewConfigSource } from './source/types';
 import {
-  NoViewConfig,
   PathParams,
-  ViewConfig,
+  ResolvedViewConfig,
   ViewConfigWithPathParams,
+  ResolvedViewConfigWithPathParams,
 } from './types';
 import { isViewConfig } from './utils';
 
 const configProviderKey = 'config-provider';
 
 interface ConfigProvider {
-  readonly currentViewConfig: Ref<ViewConfig | NoViewConfig>;
-  getViewConfig: (
-    path: string | string[]
-  ) => Promise<ViewConfig | NoViewConfig>;
+  readonly currentViewConfig: Ref<ResolvedViewConfig>;
+  getViewConfig: (path: string | string[]) => Promise<ResolvedViewConfig>;
   getViewConfigWithPathParams: (
     path?: string | PathParams
-  ) => Promise<ViewConfigWithPathParams>;
+  ) => Promise<ResolvedViewConfigWithPathParams>;
+  getAllViewConfigs: () => Promise<Record<string, ViewConfigWithPathParams[]>>;
 }
 
 interface ConfigProviderPlugin extends ConfigProvider {
@@ -35,7 +34,7 @@ const viewConfigSources: ViewConfigSource[] = [
 export const createViewConfigProvider = (
   router: Router
 ): ConfigProviderPlugin => {
-  const currentViewConfig = shallowRef<ViewConfig | NoViewConfig>({
+  const currentViewConfig = shallowRef<ResolvedViewConfig>({
     reason: 'INIT',
   });
 
@@ -57,7 +56,7 @@ export const createViewConfigProvider = (
 
   const getViewConfig = async (
     path?: string | PathParams
-  ): Promise<ViewConfig | NoViewConfig> => {
+  ): Promise<ResolvedViewConfig> => {
     // Convert input path to path params
     const pathParams = toPathParams(path);
 
@@ -69,11 +68,11 @@ export const createViewConfigProvider = (
     }
 
     // Initialize result with null
-    let result: ViewConfig | NoViewConfig | null = null;
+    let result: ResolvedViewConfig | null = null;
 
     for (let i = 0; i < viewConfigSources.length; i++) {
       const source = viewConfigSources[i];
-      const sourceResult = await source.resolver(pathParams);
+      const sourceResult = await source.resolve(pathParams);
 
       // If there is a valid ViewConfig, just use that one
       if (isViewConfig(sourceResult)) {
@@ -100,7 +99,7 @@ export const createViewConfigProvider = (
 
   const getViewConfigWithPathParams = async (
     path?: string | PathParams
-  ): Promise<ViewConfigWithPathParams> => {
+  ): Promise<ResolvedViewConfigWithPathParams> => {
     // Convert input path to path params
     const pathParams = toPathParams(path);
 
@@ -110,10 +109,39 @@ export const createViewConfigProvider = (
     }));
   };
 
+  const getAllViewConfigs = async (): Promise<
+    Record<string, ViewConfigWithPathParams[]>
+  > => {
+    const viewConfigs: Record<string, ViewConfigWithPathParams[]> = {};
+    for (let i = 0; i < viewConfigSources.length; i++) {
+      const source = viewConfigSources[i];
+      const allViewConfigsForSource = await source.getAllViewConfigs();
+      for (const domain of Object.keys(allViewConfigsForSource)) {
+        const viewConfigsForDomain = viewConfigs[domain] ?? [];
+        const furtherViewConfigsForDomain = allViewConfigsForSource[domain];
+
+        viewConfigs[domain] = [
+          ...viewConfigsForDomain,
+          ...furtherViewConfigsForDomain,
+        ];
+
+        // Sort view configs for a given domain by their title
+        viewConfigs[domain].sort((a, b) => {
+          const aTitle = a.viewConfig.description?.title ?? '';
+          const bTitle = b.viewConfig.description?.title ?? '';
+          return aTitle.localeCompare(bTitle);
+        });
+      }
+    }
+
+    return viewConfigs;
+  };
+
   const result: ConfigProviderPlugin = {
     currentViewConfig,
     getViewConfig,
     getViewConfigWithPathParams,
+    getAllViewConfigs,
 
     install(app: App) {
       const configProvider = this;

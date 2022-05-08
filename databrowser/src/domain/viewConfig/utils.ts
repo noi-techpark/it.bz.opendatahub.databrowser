@@ -1,5 +1,5 @@
-import { NoViewConfig, ViewConfig } from './types';
+import { ViewConfig, ResolvedViewConfig } from './types';
 
 export const isViewConfig = (
-  config: ViewConfig | NoViewConfig
+  config: ResolvedViewConfig
 ): config is ViewConfig => (config as ViewConfig).source != null;

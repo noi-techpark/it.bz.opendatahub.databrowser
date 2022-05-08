@@ -58,9 +58,16 @@ export interface NoViewConfig {
   reason: string;
 }
 
+export type ResolvedViewConfig = ViewConfig | NoViewConfig;
+
 export interface ViewConfigWithPathParams {
   pathParams: PathParams;
-  viewConfig: ViewConfig | NoViewConfig;
+  viewConfig: ViewConfig;
+}
+
+export interface ResolvedViewConfigWithPathParams {
+  pathParams: PathParams;
+  viewConfig: ResolvedViewConfig;
 }
 
 export type PathParams = string[];

@@ -1,5 +1,5 @@
 import { embeddedViewConfigs } from '../../../config/config';
-import { PathParams, ViewConfig } from '../types';
+import { PathParams, ViewConfig, ViewConfigWithPathParams } from '../types';
 import { SourceResolver, ViewConfigSource } from './types';
 
 interface MatchResult {
@@ -114,7 +114,29 @@ const replaceUrlParam = (
   return url;
 };
 
+const getAllViewConfigs = async (): Promise<
+  Record<string, ViewConfigWithPathParams[]>
+> => {
+  return Object.keys(embeddedViewConfigs).reduce<
+    Record<string, ViewConfigWithPathParams[]>
+  >((prev, key) => {
+    const pathParams = key.split('/');
+    const domain = pathParams.at(0) ?? 'NO DOMAIN';
+    const viewConfig = embeddedViewConfigs[key];
+    const viewConfigWithPathParams: ViewConfigWithPathParams = {
+      viewConfig,
+      pathParams,
+    };
+
+    return {
+      ...prev,
+      [domain]: [...(prev[domain] ?? []), viewConfigWithPathParams],
+    };
+  }, {});
+};
+
 export const embeddedViewConfigSource: ViewConfigSource = {
   source: 'embedded',
-  resolver: sourceResolver,
+  resolve: sourceResolver,
+  getAllViewConfigs,
 };
