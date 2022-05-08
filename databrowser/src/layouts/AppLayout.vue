@@ -13,7 +13,7 @@ import { defineProps, withDefaults } from 'vue';
 import AppHeader from './AppHeader.vue';
 import AppFooter from './AppFooter.vue';
 
-withDefaults(defineProps<{ showAppFooter: boolean }>(), {
+withDefaults(defineProps<{ showAppFooter?: boolean }>(), {
   showAppFooter: true,
 });
 </script>
