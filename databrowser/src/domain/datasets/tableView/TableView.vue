@@ -4,10 +4,7 @@
       <div class="bg-red-200">{{ viewConfigError }}</div>
     </template>
     <template v-else-if="isError">
-      <div class="bg-red-200">
-        <div>Got error from API</div>
-        <div>{{ error }}</div>
-      </div>
+      <ShowApiError :error="error" />
     </template>
     <template v-else-if="isLoading">
       <ContentAlignmentX>
@@ -45,6 +42,7 @@ import { stringifyParameter } from '../../api/service/query';
 import { ListRenderConfig, ViewConfig } from '../../viewConfig/types';
 import TableFooter from './TableFooter.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
+import ShowApiError from '../../api/components/ShowApiError.vue';
 
 const props = defineProps<{ viewConfig: ViewConfig }>();
 const { viewConfig } = toRefs(props);

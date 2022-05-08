@@ -1,9 +1,6 @@
 <template>
   <template v-if="isError">
-    <div class="bg-red-200">
-      <h2>Got error from API</h2>
-      <div>{{ error }}</div>
-    </div>
+    <ShowApiError :error="error" />
   </template>
   <template v-if="isSuccess === true">
     <div>
@@ -47,6 +44,7 @@ import DetailSubCategories from './DetailSubCategories.vue';
 import { useDetail } from './useDetail';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import RadioCustom from '../../../components/radio/RadioCustom.vue';
+import ShowApiError from '../../api/components/ShowApiError.vue';
 
 const props = defineProps<{ viewConfig: ViewConfig }>();
 const { viewConfig } = toRefs(props);
