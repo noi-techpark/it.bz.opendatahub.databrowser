@@ -11,26 +11,31 @@
       </div>
     </ContentAlignmentX>
 
-    <template v-if="!isLoading">
-      <ContentDivider />
-      <ContentAlignmentX>
-        <DatasetHeader :view-config="viewConfig" />
-      </ContentAlignmentX>
-    </template>
+    <ContentDivider />
 
-    <template v-if="viewConfig != null">
-      <TableView v-if="isTableView" :view-config="viewConfig" />
-      <template v-if="isDetailView || isRawView || isQuickView">
-        <ContentDivider />
-        <DatasetNavigation />
-        <ContentDivider />
-        <section class="flex overflow-y-auto flex-col">
-          <DetailView v-if="isDetailView" :view-config="viewConfig" />
-          <RawView v-if="isRawView" :view-config="viewConfig" />
-          <QuickView v-if="isQuickView" :view-config="viewConfig" />
-        </section>
-      </template>
-    </template>
+    <div class="flex overflow-y-auto h-full">
+      <div class="flex overflow-x-auto flex-col flex-1">
+        <template v-if="!isLoading">
+          <ContentAlignmentX>
+            <DatasetHeader :view-config="viewConfig" />
+          </ContentAlignmentX>
+        </template>
+
+        <template v-if="viewConfig != null">
+          <TableView v-if="isTableView" :view-config="viewConfig" />
+          <template v-if="isDetailView || isRawView || isQuickView">
+            <ContentDivider />
+            <DatasetNavigation />
+            <ContentDivider />
+            <section class="flex overflow-y-auto flex-col">
+              <DetailView v-if="isDetailView" :view-config="viewConfig" />
+              <RawView v-if="isRawView" :view-config="viewConfig" />
+              <QuickView v-if="isQuickView" :view-config="viewConfig" />
+            </section>
+          </template>
+        </template>
+      </div>
+    </div>
   </AppLayout>
 </template>
 
