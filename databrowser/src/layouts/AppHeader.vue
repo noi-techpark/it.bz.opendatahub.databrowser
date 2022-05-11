@@ -37,46 +37,200 @@ const data: MenuColumn = {
           label: 'Locations',
           items: [
             {
-              label: 'Regions',
-              url: 'http://example.com',
+              label: 'Areas',
+              url: '/dataset/tourism/v1/Area',
+            },
+            {
+              label: 'Districts',
+              url: '/dataset/tourism/v1/District',
+            },
+            {
+              label: 'Experience Areas',
+              url: '/dataset/tourism/v1/ExperienceArea',
+            },
+            {
+              label: 'Gastronomy',
+              url: '/dataset/tourism/v1/Gastronomy',
+            },
+            {
+              label: 'Gastronomy Types',
+              url: '/dataset/tourism/v1/GastronomyTypes',
+            },
+            {
+              label: 'Locations',
+              url: '/dataset/tourism/v1/Location',
             },
             {
               label: 'Meta Regions',
-              url: 'http://example.com',
+              url: '/dataset/tourism/v1/MetaRegion',
+            },
+            {
+              label: 'Municipalities',
+              url: '/dataset/tourism/v1/Municipality',
+            },
+            {
+              label: 'Regions',
+              url: '/dataset/tourism/v1/Region',
+            },
+            {
+              label: 'Ski Areas',
+              url: '/dataset/tourism/v1/SkiArea',
+            },
+            {
+              label: 'Ski Area List',
+              url: '/dataset/tourism/v1/Location/Skiarea',
+            },
+            {
+              label: 'Ski Regions',
+              url: '/dataset/tourism/v1/SkiRegion',
+            },
+            {
+              label: 'Venues',
+              url: '/dataset/tourism/v1/Venue',
+            },
+            {
+              label: 'Venue Types',
+              url: '/dataset/tourism/v1/VenueTypes',
             },
           ],
         },
         {
           label: 'POIs',
-          url: '/dataset/odh-activity-poi',
+          items: [
+            {
+              label: 'Activities and Points of Interest (POIs)',
+              url: '/dataset/tourism/v1/ODHActivityPoi',
+            },
+            {
+              label: 'Activities and Points of Interest types',
+              url: '/dataset/tourism/v1/ODHActivityPoiTypes',
+            },
+            {
+              label: 'Points of Interest (POIs)',
+              url: '/dataset/tourism/v1/Poi',
+            },
+            {
+              label: 'Points of Interest types',
+              url: '/dataset/tourism/v1/PoiTypes',
+            },
+          ],
         },
       ],
     },
     {
-      label: 'Test',
+      label: 'Accommodations',
       items: [
         {
-          label: 'Sub Test A',
+          label: 'Accommodation',
+          url: '/dataset/tourism/v1/Accommodation',
+        },
+        {
+          label: 'Accommodation Types',
+          url: '/dataset/tourism/v1/AccommodationTypes',
+        },
+        {
+          label: 'Accommodation Features',
+          url: '/dataset/tourism/v1/AccommodationFeatures',
+        },
+      ],
+    },
+    {
+      label: 'Activities and Events',
+      items: [
+        {
+          label: 'Activities',
           items: [
             {
-              label: 'Sub Sub Test A',
-              url: '/',
+              label: 'Activities',
+              url: '/dataset/tourism/v1/Activity',
             },
             {
-              label: 'Sub Sub Test B',
-              url: '/',
+              label: 'Activity Types',
+              url: '/dataset/tourism/v1/ActivityTypes',
             },
           ],
         },
         {
-          label: 'Sub Test B',
-          url: '/',
+          label: 'Events',
+          items: [
+            {
+              label: 'Events',
+              url: '/dataset/tourism/v1/Event',
+            },
+            {
+              label: 'Event Topics',
+              url: '/dataset/tourism/v1/EventTopics',
+            },
+            {
+              label: 'Event Short',
+              url: '/dataset/tourism/v1/EventShort',
+            },
+            {
+              label: 'Event Short by Room Occupation',
+              url: '/dataset/tourism/v1/EventShort/GetbyRoomBooked',
+            },
+          ],
         },
       ],
     },
     {
-      label: 'Activities',
-      url: '/',
+      label: 'Others',
+      items: [
+        {
+          label: 'Articles',
+          items: [
+            {
+              label: 'Articles',
+              url: '/dataset/tourism/v1/Article',
+            },
+            {
+              label: 'Article Types',
+              url: '/dataset/tourism/v1/ArticleTypes',
+            },
+          ],
+        },
+        {
+          label: 'Weather',
+          items: [
+            {
+              label: 'Current Realtime Weather LIVE',
+              url: '/dataset/tourism/v1/Weather/Realtime',
+            },
+            {
+              label: 'Current Suedtirol Weather LIVE',
+              url: '/dataset/tourism/v1/Weather',
+            },
+            {
+              label: 'District Weather LIVE',
+              url: '/dataset/tourism/v1/Weather/District',
+            },
+            {
+              label: 'Weather Measuringpoints',
+              url: '/dataset/tourism/v1/Weather/Measuringpoint',
+            },
+            {
+              label: 'SnowReport',
+              url: '/dataset/tourism/v1/Weather/SnowReport',
+            },
+          ],
+        },
+        {
+          label: 'ODH Tags',
+          url: '/dataset/tourism/v1/ODHTag',
+        },
+        {
+          label: 'Tourism Associations',
+          url: '/dataset/tourism/v1/TourismAssociation',
+        },
+        {
+          label: 'Webcams',
+          url: '/dataset/tourism/v1/WebcamInfo',
+        },
+        {
+          label: 'Wine Awards',
+          url: '/dataset/tourism/v1/WineAward',
+        },
+      ],
     },
   ],
 };
