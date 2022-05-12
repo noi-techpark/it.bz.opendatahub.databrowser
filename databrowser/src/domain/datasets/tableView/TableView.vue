@@ -14,7 +14,10 @@
       </ContentAlignmentX>
     </template>
     <template v-else-if="isSuccess">
-      <TableContent :render-elements="renderConfig.elements" :rows="rows" />
+      <div class="flex overflow-y-auto">
+        <TableContent :render-elements="renderConfig.elements" :rows="rows" />
+        <ExportDatasetToolBox :url="url" :is-table-view="true" />
+      </div>
       <TableFooter
         :pagination-options="paginationOptions"
         :pagination="pagination"
@@ -43,6 +46,7 @@ import { ListRenderConfig, ViewConfig } from '../../viewConfig/types';
 import TableFooter from './TableFooter.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ShowApiError from '../../api/components/ShowApiError.vue';
+import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
 
 const props = defineProps<{ viewConfig: ViewConfig }>();
 const { viewConfig } = toRefs(props);
@@ -78,10 +82,12 @@ const resultMapper = (data: AxiosResponse): PaginationData => {
   });
 };
 
-const { isError, isSuccess, isLoading, data, error } = useApiForViewConfig({
-  viewConfig,
-  resultMapper,
-});
+const { isError, isSuccess, isLoading, data, error, url } = useApiForViewConfig(
+  {
+    viewConfig,
+    resultMapper,
+  }
+);
 
 // Define method to change page
 const paginateTo = (page: string) =>

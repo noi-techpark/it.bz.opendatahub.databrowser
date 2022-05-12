@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import { defineProps } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
-import ButtonLink from '../../../components/button/ButtonLink.vue';
+import ButtonLink from '../button/ButtonLink.vue';
 
 defineProps<{
   label: string;

@@ -16,17 +16,17 @@
           </span>
         </ButtonLink>
 
-        <DatasetNavigationLink
+        <TabLink
           :label="$t('datasets.navigation.quickView')"
           :to="quickViewPath"
           :active="isCurrentQuickView"
         />
-        <DatasetNavigationLink
+        <TabLink
           :label="$t('datasets.navigation.detailView')"
           :to="detailViewPath"
           :active="isCurrentDetailView"
         />
-        <DatasetNavigationLink
+        <TabLink
           :label="$t('datasets.navigation.rawView')"
           :to="rawViewPath"
           :active="isCurrentRawView"
@@ -38,11 +38,11 @@
 
 <script lang="ts" setup>
 import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
-import DatasetNavigationLink from './DatasetNavigationLink.vue';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
 import { ref, watch } from 'vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
+import TabLink from '../../../components/tab/TabLink.vue';
 
 const route = useRoute();
 

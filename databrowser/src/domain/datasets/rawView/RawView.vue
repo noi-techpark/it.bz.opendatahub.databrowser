@@ -3,8 +3,16 @@
     <ShowApiError :error="error" />
   </template>
   <template v-if="isSuccess === true">
-    <div class="p-4">
-      <vue-json-pretty :data="(data as any)" :deep="3" show-length />
+    <div class="overflow-y-auto md:flex">
+      <ContentAlignmentX class="overflow-y-auto py-6 md:flex">
+        <vue-json-pretty
+          :data="(data as any)"
+          :deep="3"
+          show-length
+          class="flex-1"
+        />
+      </ContentAlignmentX>
+      <ExportDatasetToolBox :url="url" />
     </div>
   </template>
 </template>
@@ -15,11 +23,13 @@ import VueJsonPretty from 'vue-json-pretty';
 import { ViewConfig } from '../../viewConfig/types';
 import { useApiForViewConfig } from '../../api/client/client';
 import ShowApiError from '../../api/components/ShowApiError.vue';
+import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
+import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
 
 const props = defineProps<{ viewConfig: ViewConfig }>();
 const { viewConfig } = toRefs(props);
 
-const { isError, isSuccess, data, error } = useApiForViewConfig({
+const { isError, isSuccess, data, error, url } = useApiForViewConfig({
   viewConfig,
   withQueryParameters: false,
 });

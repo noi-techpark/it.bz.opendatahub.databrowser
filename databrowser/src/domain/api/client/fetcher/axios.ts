@@ -15,3 +15,22 @@ export const useAxiosFetcher = () => {
   return async ({ queryKey: [url] }: any): Promise<AxiosResponse> =>
     await axios.get(url);
 };
+
+export const useAxiosFileDownloader = () => {
+  const axios = inject<AxiosInstance>('axios')!;
+
+  return {
+    download: async (url: string) => {
+      const response = await axios.get(url);
+      const blob = new Blob([JSON.stringify(response.data, null, 2)], {
+        type: 'application/json',
+      });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'dataset.json';
+      link.click();
+      URL.revokeObjectURL(link.href);
+      link.remove();
+    },
+  };
+};

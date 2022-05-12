@@ -14,24 +14,25 @@
         <RadioCustom v-model="showAll" value="true" label="show all" />
       </ContentAlignmentX>
     </div>
-    <ContentAlignmentX
-      class="overflow-y-auto flex-wrap md:flex md:gap-20 md:px-0 md:mt-12"
-    >
-      <DetailCategories
-        :categories="categories"
-        :slug="slug"
-        class="sticky top-0 my-5 bg-white md:my-0 md:w-1/6 md:h-full"
-      />
+    <div class="flex overflow-y-auto">
+      <ContentAlignmentX class="md:flex md:overflow-y-auto md:px-0">
+        <DetailCategories
+          :categories="categories"
+          :slug="slug"
+          class="overflow-y-auto sticky top-0 py-6 bg-white md:w-1/6 md:h-full"
+        />
 
-      <DetailSubCategories
-        v-if="slug !== ''"
-        class="w-full md:w-1/3"
-        :data="data"
-        :category="currentCategory"
-        :sub-categories="subcategories"
-        :show-all="showAll === 'true'"
-      />
-    </ContentAlignmentX>
+        <DetailSubCategories
+          v-if="slug !== ''"
+          class="overflow-y-auto flex-1 pb-6 md:py-6 md:px-20 md:h-full"
+          :data="data"
+          :category="currentCategory"
+          :sub-categories="subcategories"
+          :show-all="showAll === 'true'"
+        />
+      </ContentAlignmentX>
+      <ExportDatasetToolBox :url="url" :is-table-view="false" />
+    </div>
   </template>
 </template>
 
@@ -45,6 +46,7 @@ import { useDetail } from './useDetail';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import RadioCustom from '../../../components/radio/RadioCustom.vue';
 import ShowApiError from '../../api/components/ShowApiError.vue';
+import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
 
 const props = defineProps<{ viewConfig: ViewConfig }>();
 const { viewConfig } = toRefs(props);
@@ -54,7 +56,7 @@ const showAll = ref<string>('false');
 const { slug, categories, subcategories, currentCategory } =
   useDetail(viewConfig);
 
-const { isError, isSuccess, data, error } = useApiForViewConfig({
+const { isError, isSuccess, data, error, url } = useApiForViewConfig({
   viewConfig,
 });
 </script>
