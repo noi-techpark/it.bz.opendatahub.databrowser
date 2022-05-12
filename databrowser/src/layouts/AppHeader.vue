@@ -3,7 +3,7 @@
     <div class="flex items-center">
       <router-link to="/" class="rounded">
         <img
-          :alt="$t('header.logo')"
+          :alt="t('header.logo')"
           class="h-8"
           src="/logo-open-data-hub-black.png"
         />

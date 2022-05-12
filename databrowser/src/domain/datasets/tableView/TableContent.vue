@@ -13,13 +13,13 @@
         :filter="col.filter"
       />
       <TableHeaderCell class="sticky right-0 font-semibold bg-gray-50">
-        {{ $t('datasets.listView.colDetail') }}
+        {{ t('datasets.listView.colDetail') }}
       </TableHeaderCell>
     </template>
 
     <template #body-rows>
       <tr v-if="renderElements.length === 0">
-        <TableCell>{{ $t('datasets.listView.noData') }}</TableCell>
+        <TableCell>{{ t('datasets.listView.noData') }}</TableCell>
       </tr>
       <!-- eslint-disable-next-line vue/require-v-for-key -->
       <tr v-for="row in rows">
@@ -39,7 +39,7 @@
                 },
                 query: { language: language },
               }"
-              :title="$t('datasets.listView.linkQuick')"
+              :title="t('datasets.listView.linkQuick')"
             >
               <IconLayer class="stroke-current" />
             </DetailsLink>
@@ -51,7 +51,7 @@
                 },
                 query: { language: language },
               }"
-              :title="$t('datasets.listView.linkDetails')"
+              :title="t('datasets.listView.linkDetails')"
             >
               <IconEye class="stroke-current" />
             </DetailsLink>
@@ -63,7 +63,7 @@
                 },
                 query: { language: language },
               }"
-              :title="$t('datasets.listView.linkRaw')"
+              :title="t('datasets.listView.linkRaw')"
             >
               <IconCode class="stroke-current" />
             </DetailsLink>
@@ -89,6 +89,9 @@ import { useRoute } from 'vue-router';
 import { useFieldExtraction } from '../../api/service/utils';
 import IconCode from '../../../components/svg/IconCode.vue';
 import IconLayer from '../../../components/svg/IconLayer.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const route = useRoute();
 const pathParams = computed(() =>

@@ -21,10 +21,10 @@
         class="w-9 h-6 rounded-l-none"
         @click="paginateTo(inputPageValue)"
       >
-        {{ $t('datasets.listView.go') }}
+        {{ t('datasets.listView.go') }}
       </ButtonCustom>
     </div>
-    <span class="mr-4">{{ $t('datasets.listView.of') }} {{ pageCount }}</span>
+    <span class="mr-4">{{ t('datasets.listView.of') }} {{ pageCount }}</span>
 
     <button
       class="rounded"
@@ -43,6 +43,9 @@ import { Pagination } from '../../domain/api/client/types';
 import { watch } from 'vue';
 import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{ pagination: Pagination }>();
 

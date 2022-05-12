@@ -16,14 +16,14 @@
       <div ref="container" class="z-20 w-screen max-w-sm">
         <PopoverCustomPanel>
           <PopoverContentHeader>{{
-            $t('datasets.header.switchViews')
+            t('datasets.header.switchViews')
           }}</PopoverContentHeader>
           <PopoverContentDivider />
           <PopoverContent with-hover class="flex items-center">
             <RadioCustom
               v-model="internalPicked"
               value="embedded"
-              :label="$t('datasets.header.viewEmbeddedConfig')"
+              :label="t('datasets.header.viewEmbeddedConfig')"
             />
           </PopoverContent>
           <PopoverContentDivider />
@@ -31,11 +31,11 @@
             <RadioCustom
               v-model="internalPicked"
               value="generated"
-              :label="$t('datasets.header.viewGeneratedConfig')"
+              :label="t('datasets.header.viewGeneratedConfig')"
             />
           </PopoverContent>
           <PopoverContentHeader>{{
-            $t('datasets.header.selectColumnSize')
+            t('datasets.header.selectColumnSize')
           }}</PopoverContentHeader>
           <PopoverContentDivider />
           <PopoverContent class="flex justify-between">
@@ -44,21 +44,21 @@
               size="sm"
               class="w-28"
               @click="internalColumnWidth = 'small'"
-              >{{ $t('datasets.header.columnSizeSmall') }}</ButtonCustom
+              >{{ t('datasets.header.columnSizeSmall') }}</ButtonCustom
             >
             <ButtonCustom
               :variant="columnWidth === 'medium' ? 'solid' : 'ghost'"
               size="sm"
               class="w-28"
               @click="internalColumnWidth = 'medium'"
-              >{{ $t('datasets.header.columnSizeMedium') }}</ButtonCustom
+              >{{ t('datasets.header.columnSizeMedium') }}</ButtonCustom
             >
             <ButtonCustom
               :variant="columnWidth === 'large' ? 'solid' : 'ghost'"
               size="sm"
               class="w-28"
               @click="internalColumnWidth = 'large'"
-              >{{ $t('datasets.header.columnSizeLarge') }}</ButtonCustom
+              >{{ t('datasets.header.columnSizeLarge') }}</ButtonCustom
             >
           </PopoverContent>
         </PopoverCustomPanel>
@@ -79,6 +79,9 @@ import PopoverContent from '../../../components/popover/PopoverContent.vue';
 import PopoverContentHeader from '../../../components/popover/PopoverContentHeader.vue';
 import RadioCustom from '../../../components/radio/RadioCustom.vue';
 import { usePopper } from '../../../components/utils/usePopper';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{ picked: string; columnWidth: string }>();
 const { picked, columnWidth } = toRefs(props);

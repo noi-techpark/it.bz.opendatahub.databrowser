@@ -37,8 +37,10 @@ app.use(viewConfigProvider);
 app.use(registerCellComponents);
 
 // Add i18n translation
-const i18n = setupI18n({ locale: 'en' });
-loadLocaleMessages(i18n, i18n.global.locale).then(() => {
+const locale = 'en';
+const i18n = setupI18n({ locale });
+
+loadLocaleMessages(i18n, locale).then(() => {
   app.use(i18n);
 
   // Mount the app

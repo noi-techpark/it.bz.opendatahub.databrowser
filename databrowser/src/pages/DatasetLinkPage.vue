@@ -9,7 +9,7 @@
         this label may not work properly.</span
       >
       <div v-if="isLoading" class="animate-pulse">
-        {{ $t('datasets.info.loadingConfig') }}
+        {{ t('datasets.info.loadingConfig') }}
       </div>
       <template v-else>
         <div
@@ -57,6 +57,9 @@ import { useViewConfigProvider } from '../domain/viewConfig';
 import { ViewConfigWithPathParams } from '../domain/viewConfig/types';
 import AppLayout from '../layouts/AppLayout.vue';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const isLoading = ref(true);
 

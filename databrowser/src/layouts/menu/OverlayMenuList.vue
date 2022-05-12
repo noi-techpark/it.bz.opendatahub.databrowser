@@ -3,7 +3,7 @@
     <button class="inline-flex items-center" @click="$emit('arrow-back')">
       <ArrowLeft
         v-if="showArrow"
-        :title="$t('header.menu.goBackAction')"
+        :title="t('header.menu.goBackAction')"
         class="md:hidden"
       />
       <span class="py-2 pl-2 text-xl font-semibold">{{ item.label }}</span>
@@ -42,6 +42,7 @@
 import { defineEmits, defineProps, ref, watch, withDefaults } from 'vue';
 import ArrowRight from '../../components/svg/ArrowRight.vue';
 import ArrowLeft from '../../components/svg/ArrowLeft.vue';
+import { useI18n } from 'vue-i18n';
 
 export type MenuLink = {
   label: string;
@@ -52,6 +53,8 @@ export type MenuColumn = {
   label: string;
   items: Array<MenuColumn | MenuLink>;
 };
+
+const { t } = useI18n();
 
 const props = withDefaults(
   defineProps<{ item: MenuColumn; showArrow?: boolean }>(),

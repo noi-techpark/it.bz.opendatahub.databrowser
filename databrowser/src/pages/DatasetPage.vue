@@ -7,7 +7,7 @@
 
     <ContentAlignmentX>
       <div v-if="isLoading" class="animate-pulse">
-        {{ $t('datasets.info.loadingConfig') }}
+        {{ t('datasets.info.loadingConfig') }}
       </div>
     </ContentAlignmentX>
 
@@ -53,6 +53,9 @@ import { ViewConfig } from '../domain/viewConfig/types';
 import DatasetHeader from '../domain/datasets/header/DatasetHeader.vue';
 import DatasetNavigation from '../domain/datasets/header/DatasetNavigation.vue';
 import QuickView from '../domain/datasets/quickView/QuickView.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const route = useRoute();
 

@@ -9,7 +9,7 @@
     <template v-else-if="isLoading">
       <ContentAlignmentX>
         <div class="animate-pulse">
-          {{ $t('datasets.listView.loadingData') }}
+          {{ t('datasets.listView.loadingData') }}
         </div>
       </ContentAlignmentX>
     </template>
@@ -47,6 +47,9 @@ import TableFooter from './TableFooter.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{ viewConfig: ViewConfig }>();
 const { viewConfig } = toRefs(props);

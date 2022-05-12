@@ -12,22 +12,22 @@
             class="mr-1 -ml-1 w-5 h-5 rotate-90 stroke-current"
           />
           <span class="line-height-1">
-            {{ $t('datasets.navigation.tableView') }}
+            {{ t('datasets.navigation.tableView') }}
           </span>
         </ButtonLink>
 
         <TabLink
-          :label="$t('datasets.navigation.quickView')"
+          :label="t('datasets.navigation.quickView')"
           :to="quickViewPath"
           :active="isCurrentQuickView"
         />
         <TabLink
-          :label="$t('datasets.navigation.detailView')"
+          :label="t('datasets.navigation.detailView')"
           :to="detailViewPath"
           :active="isCurrentDetailView"
         />
         <TabLink
-          :label="$t('datasets.navigation.rawView')"
+          :label="t('datasets.navigation.rawView')"
           :to="rawViewPath"
           :active="isCurrentRawView"
         />
@@ -43,6 +43,9 @@ import { RouteLocationRaw, useRoute } from 'vue-router';
 import { ref, watch } from 'vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import TabLink from '../../../components/tab/TabLink.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const route = useRoute();
 

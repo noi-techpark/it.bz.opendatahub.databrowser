@@ -19,7 +19,7 @@
       class="flex items-center py-1 px-3 mr-1 h-6"
     >
       <IconInfo class="mr-2 stroke-current" />
-      <span class="line-height-1">{{ $t('datasets.header.moreInfo') }}</span>
+      <span class="line-height-1">{{ t('datasets.header.moreInfo') }}</span>
     </ButtonCustom>
 
     <!-- Popup -->
@@ -41,7 +41,7 @@
       <span
         class="inline-block mr-1 w-1 h-1 bg-current rounded-full dot"
       ></span>
-      <span>{{ $t('datasets.header.viewGeneratedConfig') }}</span>
+      <span>{{ t('datasets.header.viewGeneratedConfig') }}</span>
     </div>
 
     <!-- Language picker -->
@@ -57,6 +57,9 @@ import IconInfo from '../../../components/svg/IconInfo.vue';
 import LanguagePicker from '../../../components/language/LanguagePicker.vue';
 import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
 import { useViewConfigProvider } from '../../viewConfig';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{ viewConfig?: ViewConfig }>();
 const { viewConfig } = toRefs(props);

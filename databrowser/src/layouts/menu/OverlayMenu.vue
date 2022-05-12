@@ -1,7 +1,7 @@
 <template>
   <button
     v-if="dialogOpen"
-    :title="$t('header.menu.closeAction')"
+    :title="t('header.menu.closeAction')"
     class="md:hidden"
     @click="closeDialog"
   >
@@ -9,12 +9,12 @@
   </button>
   <button
     v-else
-    :title="$t('header.menu.openAction')"
+    :title="t('header.menu.openAction')"
     class="inline-flex space-x-4 rounded"
     @click="dialogOpen = true"
   >
     <IconMenu />
-    <span class="block">{{ $t('header.menu.title') }}</span>
+    <span class="block">{{ t('header.menu.title') }}</span>
   </button>
 
   <Dialog
@@ -65,6 +65,9 @@ import OverlayMenuList, { MenuColumn } from './OverlayMenuList.vue';
 import IconClose from '../../components/svg/IconClose.vue';
 import IconMenu from '../../components/svg/IconMenu.vue';
 import { Dialog, DialogOverlay } from '@headlessui/vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{
   items: MenuColumn;
