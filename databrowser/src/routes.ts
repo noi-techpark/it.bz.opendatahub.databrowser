@@ -44,6 +44,10 @@ const routes: RouteRecordRaw[] = [
     path: '/links',
     component: () => import('./pages/DatasetLinkPage.vue'),
   },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
+  },
 ];
 
 export const router = createRouter({
