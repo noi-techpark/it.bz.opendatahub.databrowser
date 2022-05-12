@@ -64,7 +64,7 @@ import { computed, defineProps, ref } from 'vue';
 import OverlayMenuList, { MenuColumn } from './OverlayMenuList.vue';
 import IconClose from '../../components/svg/IconClose.vue';
 import IconMenu from '../../components/svg/IconMenu.vue';
-import { Dialog } from '@headlessui/vue';
+import { Dialog, DialogOverlay } from '@headlessui/vue';
 
 const props = defineProps<{
   items: MenuColumn;
