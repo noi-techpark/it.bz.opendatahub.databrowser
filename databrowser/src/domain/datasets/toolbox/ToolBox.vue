@@ -114,8 +114,6 @@ const mdAndLarger = breakpoints.greater('md');
 watch(
   () => mdAndLarger.value,
   (value, oldValue) => {
-    console.log('mdAndLarger', value, oldValue, props.isTableView);
-
     if (value && !props.isTableView) {
       isToolboxVisible.value = true;
       return;

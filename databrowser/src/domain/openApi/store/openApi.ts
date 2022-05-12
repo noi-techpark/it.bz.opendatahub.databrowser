@@ -50,7 +50,6 @@ export const useOpenApi = defineStore('openApi', {
         const response = (await SwaggerClient(url)) as {
           spec: OpenApi.Document;
         };
-        console.log('RESPONSE', response);
         documents[domain] = response.spec;
       } catch (err) {
         if (typeof err === 'string') {

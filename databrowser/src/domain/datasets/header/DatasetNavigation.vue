@@ -57,8 +57,6 @@ const isCurrentRawView = ref(false);
 watch(
   route,
   (route) => {
-    console.log('route', route);
-
     detailViewPath.value = { name: 'DatasetTableAndDetailPage' };
     quickViewPath.value = { name: 'DatasetQuickPage' };
     rawViewPath.value = { name: 'DatasetRawPage' };

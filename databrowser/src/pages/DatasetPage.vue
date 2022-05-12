@@ -99,8 +99,7 @@ watch(
 const error = ref<Error>();
 
 onErrorCaptured((hook) => {
-  console.log('--------ERROR CAPTURED', hook);
-
+  console.error('--------ERROR CAPTURED', hook);
   error.value = hook;
 });
 </script>
