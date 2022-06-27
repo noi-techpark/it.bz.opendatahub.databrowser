@@ -1,10 +1,7 @@
-var cc = initCookieConsent();
-
-// run plugin with config object
-cc.run({
-    current_lang : "en",
-    autoclear_cookies : true,
-    cookie_expiration : 365,
+export const consentOptions = {
+    current_lang: "en",
+    autoclear_cookies: true,
+    cookie_expiration: 365,
     page_scripts: true,
 
     gui_options: {
@@ -19,16 +16,18 @@ cc.run({
         }
     },
 
-    onFirstAction: function() {},
+    /*
+    onFirstAction: function () { },
 
-    onAccept: function (cookie) {},
+    onAccept: function (cookie) { },
 
-    onChange: function (cookie, changed_preferences) {},
+    onChange: function (cookie, changed_preferences) { },
+    */
 
     languages: {
         'en': {
             consent_modal: {
-                title:'We use cookies!',
+                title: 'We use cookies!',
                 description: 'Hi, this website uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will be set only after consent. <button type="button" data-cc="c-settings" class="cc-link">Let me choose</button>',
                 primary_btn: {
                     text: 'Accept all',
@@ -46,10 +45,10 @@ cc.run({
                 reject_all_btn: 'Reject all',
                 close_btn_label: 'Close',
                 cookie_table_headers: [
-                    {col1: 'Name'},
-                    {col2: 'Domain'},
-                    {col3: 'Expiration'},
-                    {col4: 'Description'}
+                    { col1: 'Name' },
+                    { col2: 'Domain' },
+                    { col3: 'Expiration' },
+                    { col4: 'Description' }
                 ],
                 blocks: [
                     {
@@ -78,4 +77,4 @@ cc.run({
             }
         }
     }
-});
+}

@@ -10,6 +10,9 @@ import registerCellComponents from './domain/cellComponents/plugins/registerCell
 import { createApiQueryHandler } from './domain/api/service/apiQueryHandler';
 import { createUrlQueryHandler } from './domain/api/service/urlQueryHandler';
 import { createViewConfigProvider } from './domain/viewConfig/viewConfigProvider';
+import CookieConsent from 'vue-cookieconsent'
+import './cookieconsent/cookieconsent.css'
+import { consentOptions } from "./cookieconsent/consentOptions";
 
 const app = createApp(App);
 
@@ -46,3 +49,6 @@ loadLocaleMessages(i18n, locale).then(() => {
   // Mount the app
   app.mount('#app');
 });
+
+// Add cookie-banner
+app.use(CookieConsent, consentOptions)
