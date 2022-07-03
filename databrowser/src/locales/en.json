@@ -67,6 +67,7 @@
     },
     "navigation": {
       "detailView": "Detail View",
+      "editView": "Edit View",
       "quickView": "Quick View",
       "rawView": "Raw View",
       "tableView": "Table View"

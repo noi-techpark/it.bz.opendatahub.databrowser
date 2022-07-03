@@ -27,6 +27,11 @@
           :active="isCurrentDetailView"
         />
         <TabLink
+          :label="t('datasets.navigation.editView')"
+          :to="editViewPath"
+          :active="isCurrentEditView"
+        />
+        <TabLink
           :label="t('datasets.navigation.rawView')"
           :to="rawViewPath"
           :active="isCurrentRawView"
@@ -52,10 +57,12 @@ const route = useRoute();
 const detailViewPath = ref<RouteLocationRaw>('');
 const quickViewPath = ref<RouteLocationRaw>('');
 const rawViewPath = ref<RouteLocationRaw>('');
+const editViewPath = ref<RouteLocationRaw>('');
 const tableViewPath = ref<RouteLocationRaw>('');
 const isCurrentDetailView = ref(false);
 const isCurrentQuickView = ref(false);
 const isCurrentRawView = ref(false);
+const isCurrentEditView = ref(false);
 
 watch(
   route,
@@ -63,6 +70,7 @@ watch(
     detailViewPath.value = { name: 'DatasetTableAndDetailPage' };
     quickViewPath.value = { name: 'DatasetQuickPage' };
     rawViewPath.value = { name: 'DatasetRawPage' };
+    editViewPath.value = { name: 'DatasetEditPage' };
     tableViewPath.value = {
       name: 'DatasetTableAndDetailPage',
       params: {
@@ -73,6 +81,7 @@ watch(
     isCurrentDetailView.value = route.name === detailViewPath.value.name;
     isCurrentQuickView.value = route.name === quickViewPath.value.name;
     isCurrentRawView.value = route.name === rawViewPath.value.name;
+    isCurrentEditView.value = route.name === editViewPath.value.name;
   },
   { immediate: true }
 );

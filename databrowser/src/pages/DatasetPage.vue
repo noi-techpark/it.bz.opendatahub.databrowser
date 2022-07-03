@@ -23,7 +23,9 @@
 
         <template v-if="viewConfig != null">
           <TableView v-if="isTableView" :view-config="viewConfig" />
-          <template v-if="isDetailView || isRawView || isQuickView">
+          <template
+            v-if="isDetailView || isRawView || isQuickView || isEditView"
+          >
             <ContentDivider />
             <DatasetNavigation />
             <ContentDivider />
@@ -31,6 +33,7 @@
               <DetailView v-if="isDetailView" :view-config="viewConfig" />
               <RawView v-if="isRawView" :view-config="viewConfig" />
               <QuickView v-if="isQuickView" :view-config="viewConfig" />
+              <EditView v-if="isEditView" :view-config="viewConfig" />
             </section>
           </template>
         </template>
@@ -54,6 +57,7 @@ import DatasetHeader from '../domain/datasets/header/DatasetHeader.vue';
 import DatasetNavigation from '../domain/datasets/header/DatasetNavigation.vue';
 import QuickView from '../domain/datasets/quickView/QuickView.vue';
 import { useI18n } from 'vue-i18n';
+import EditView from '../domain/datasets/editView/EditView.vue';
 
 const { t } = useI18n();
 
@@ -64,6 +68,7 @@ const isTableView = ref(false);
 const isDetailView = ref(false);
 const isRawView = ref(false);
 const isQuickView = ref(false);
+const isEditView = ref(false);
 const isLoading = ref(true);
 
 const configProvider = useViewConfigProvider();
@@ -76,6 +81,7 @@ watch(
     isDetailView.value = false;
     isRawView.value = false;
     isQuickView.value = false;
+    isEditView.value = false;
 
     if (isViewConfig(viewConfigResult)) {
       viewConfig.value = viewConfigResult;
@@ -88,6 +94,8 @@ watch(
         isRawView.value = true;
       } else if (route.name === 'DatasetQuickPage') {
         isQuickView.value = true;
+      } else if (route.name === 'DatasetEditPage') {
+        isEditView.value = true;
       } else {
         isDetailView.value = true;
       }

@@ -58,7 +58,8 @@ export const createViewConfigProvider = (
       if (
         route.name !== 'DatasetTableAndDetailPage' &&
         route.name !== 'DatasetRawPage' &&
-        route.name !== 'DatasetQuickPage'
+        route.name !== 'DatasetQuickPage' &&
+        route.name !== 'DatasetEditPage'
       ) {
         return;
       }
