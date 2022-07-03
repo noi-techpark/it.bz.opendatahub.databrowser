@@ -9,21 +9,25 @@ const routes: RouteRecordRaw[] = [
     path: '/dataset/:pathParams+',
     component: () => import('./pages/DatasetPage.vue'),
     name: 'DatasetTableAndDetailPage',
+    meta: { resolveViewConfig: true },
   },
   {
     path: '/dataset/:pathParams+/raw',
     component: () => import('./pages/DatasetPage.vue'),
     name: 'DatasetRawPage',
+    meta: { resolveViewConfig: true },
   },
   {
     path: '/dataset/:pathParams+/quick',
     component: () => import('./pages/DatasetPage.vue'),
     name: 'DatasetQuickPage',
+    meta: { resolveViewConfig: true },
   },
   {
     path: '/dataset/:pathParams+/edit',
     component: () => import('./pages/DatasetPage.vue'),
     name: 'DatasetEditPage',
+    meta: { resolveViewConfig: true },
   },
   {
     path: '/about',
