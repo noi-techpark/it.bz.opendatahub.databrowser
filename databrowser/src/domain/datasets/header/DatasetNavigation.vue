@@ -74,7 +74,7 @@ watch(
     tableViewPath.value = {
       name: 'DatasetTableAndDetailPage',
       params: {
-        pathParams: route.params.pathParams.slice(0, -1),
+        pathParams: route.params.pathParams?.slice(0, -1),
       },
     };
 
