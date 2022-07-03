@@ -27,13 +27,17 @@
             v-if="isDetailView || isRawView || isQuickView || isEditView"
           >
             <ContentDivider />
-            <DatasetNavigation />
+            <DatasetNavigation :show-edit="showEdit" />
             <ContentDivider />
             <section class="flex overflow-y-auto flex-col">
               <DetailView v-if="isDetailView" :view-config="viewConfig" />
               <RawView v-if="isRawView" :view-config="viewConfig" />
               <QuickView v-if="isQuickView" :view-config="viewConfig" />
-              <EditView v-if="isEditView" :view-config="viewConfig" />
+              <EditView
+                v-if="isEditView"
+                :view-config="viewConfig"
+                :show-edit="showEdit"
+              />
             </section>
           </template>
         </template>
@@ -43,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { onErrorCaptured, ref, watch } from 'vue';
+import { computed, onErrorCaptured, ref, watch } from 'vue';
 import AppLayout from '../layouts/AppLayout.vue';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../components/content/ContentDivider.vue';
@@ -58,6 +62,7 @@ import DatasetNavigation from '../domain/datasets/header/DatasetNavigation.vue';
 import QuickView from '../domain/datasets/quickView/QuickView.vue';
 import { useI18n } from 'vue-i18n';
 import EditView from '../domain/datasets/editView/EditView.vue';
+import { useAuth } from '../domain/auth/store/auth';
 
 const { t } = useI18n();
 
@@ -106,6 +111,18 @@ watch(
     isLoading.value = false;
   }
 );
+
+// Permissions
+const auth = useAuth();
+const showEdit = computed(() => {
+  if (!isViewConfig(configProvider.currentViewConfig.value)) {
+    return false;
+  }
+  const editRoles = configProvider.currentViewConfig.value.editRoles ?? [];
+  return auth.authorized(editRoles);
+});
+
+// Error handling (should be improved)
 
 const error = ref<Error>();
 

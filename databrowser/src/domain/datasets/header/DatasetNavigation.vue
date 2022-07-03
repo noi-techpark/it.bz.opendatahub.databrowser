@@ -27,6 +27,7 @@
           :active="isCurrentDetailView"
         />
         <TabLink
+          v-if="props.showEdit"
           :label="t('datasets.navigation.editView')"
           :to="editViewPath"
           :active="isCurrentEditView"
@@ -42,6 +43,7 @@
 </template>
 
 <script lang="ts" setup>
+import { defineProps } from 'vue';
 import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
@@ -49,6 +51,8 @@ import { ref, watch } from 'vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import TabLink from '../../../components/tab/TabLink.vue';
 import { useI18n } from 'vue-i18n';
+
+const props = defineProps<{ showEdit: boolean }>();
 
 const { t } = useI18n();
 

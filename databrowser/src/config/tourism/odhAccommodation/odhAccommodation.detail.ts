@@ -8,6 +8,8 @@ export const odhAccommodationDetail: ViewConfig = {
   description: odhAccommodationDescription,
   baseUrl: domains.tourism.baseUrl,
   path: '/v1/Accommodation/{id}',
+  // TODO: insert correct edit role
+  editRoles: ['DataReader'],
   renderConfig: {
     type: 'detail',
     elements: [

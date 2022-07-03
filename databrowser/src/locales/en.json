@@ -36,6 +36,10 @@
     }
   },
   "datasets": {
+    "editView": {
+      "authorizationChecking": "Please wait for authorization check",
+      "notAuthorized": "You are not authorized to edit this dataset"
+    },
     "generated": {
       "categoryName": "All data"
     },
