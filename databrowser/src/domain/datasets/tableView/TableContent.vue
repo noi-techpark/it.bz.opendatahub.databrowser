@@ -30,7 +30,10 @@
           />
         </TableCell>
         <TableCell class="sticky right-0 bg-white">
-          <div class="flex justify-between max-w-[9rem] h-full">
+          <div
+            class="grid gap-2"
+            :class="showEdit ? 'grid-cols-2 w-24' : 'grid-cols-3'"
+          >
             <DetailsLink
               :to="{
                 name: 'DatasetQuickPage',
@@ -54,6 +57,19 @@
               :title="t('datasets.listView.linkDetails')"
             >
               <IconEye class="stroke-current" />
+            </DetailsLink>
+            <DetailsLink
+              v-if="showEdit"
+              :to="{
+                name: 'DatasetEditPage',
+                params: {
+                  pathParams: [...pathParams, row.Id],
+                },
+                query: { language: language },
+              }"
+              :title="t('datasets.listView.linkEdit')"
+            >
+              <IconEdit class="stroke-current" />
             </DetailsLink>
             <DetailsLink
               :to="{
@@ -89,6 +105,7 @@ import { useRoute } from 'vue-router';
 import { useFieldExtraction } from '../../api/service/utils';
 import IconCode from '../../../components/svg/IconCode.vue';
 import IconLayer from '../../../components/svg/IconLayer.vue';
+import IconEdit from '../../../components/svg/IconEdit.vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -103,8 +120,8 @@ const pathParams = computed(() =>
 const props = withDefaults(
   defineProps<{
     rows: any[];
-    // config: TableColumnConfig[];
     renderElements: ListElements[];
+    showEdit: boolean;
   }>(),
   {
     rows: () => [],

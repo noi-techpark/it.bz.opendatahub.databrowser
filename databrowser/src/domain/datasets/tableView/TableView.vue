@@ -15,7 +15,11 @@
     </template>
     <template v-else-if="isSuccess">
       <div class="flex overflow-y-auto">
-        <TableContent :render-elements="renderConfig.elements" :rows="rows" />
+        <TableContent
+          :render-elements="renderConfig.elements"
+          :rows="rows"
+          :show-edit="showEdit"
+        />
         <ExportDatasetToolBox :url="url" :is-table-view="true" />
       </div>
       <TableFooter
@@ -51,7 +55,7 @@ import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
-const props = defineProps<{ viewConfig: ViewConfig }>();
+const props = defineProps<{ showEdit: boolean; viewConfig: ViewConfig }>();
 const { viewConfig } = toRefs(props);
 
 const viewConfigError = computed<string | null>(() =>

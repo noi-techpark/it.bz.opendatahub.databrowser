@@ -11,6 +11,7 @@ export const odhActivityPoiList: ViewConfig = {
   description: odhActivityPoiDescription,
   baseUrl: domains.tourism.baseUrl,
   path: '/v1/ODHActivityPoi',
+  editRoles: ['DataReader'],
   renderConfig: {
     type: 'list',
     elements: [

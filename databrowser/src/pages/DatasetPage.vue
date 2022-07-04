@@ -22,7 +22,11 @@
         </template>
 
         <template v-if="viewConfig != null">
-          <TableView v-if="isTableView" :view-config="viewConfig" />
+          <TableView
+            v-if="isTableView"
+            :view-config="viewConfig"
+            :show-edit="showEdit"
+          />
           <template
             v-if="isDetailView || isRawView || isQuickView || isEditView"
           >
@@ -121,6 +125,7 @@ const showEdit = computed(() => {
     return false;
   }
   const editRoles = configProvider.currentViewConfig.value.editRoles ?? [];
+
   return auth.authorized(editRoles);
 });
 
