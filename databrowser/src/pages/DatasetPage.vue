@@ -17,7 +17,7 @@
       <div class="flex overflow-x-auto flex-col flex-1">
         <template v-if="!isLoading">
           <ContentAlignmentX>
-            <DatasetHeader :view-config="viewConfig" />
+            <DatasetHeader :view-config="viewConfig" :show-edit="showEdit" />
           </ContentAlignmentX>
         </template>
 
@@ -100,6 +100,8 @@ watch(
       } else if (route.name === 'DatasetQuickPage') {
         isQuickView.value = true;
       } else if (route.name === 'DatasetEditPage') {
+        isEditView.value = true;
+      } else if (route.query['op'] === 'new') {
         isEditView.value = true;
       } else {
         isDetailView.value = true;

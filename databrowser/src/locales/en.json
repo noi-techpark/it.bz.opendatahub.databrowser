@@ -44,6 +44,7 @@
       "categoryName": "All data"
     },
     "header": {
+      "addRecord": "Add a record",
       "columnSizeSmall": "small",
       "columnSizeMedium": "medium",
       "columnSizeLarge": "large",

@@ -6,7 +6,7 @@
       :variant="'ghost'"
       :to="link.to"
       size="xs"
-      class="hidden m-1 w-9 h-6 text-center uppercase md:flex md:justify-center md:items-center"
+      class="hidden mx-1 w-9 h-6 text-center uppercase md:flex md:justify-center md:items-center"
       :class="[
         link.selected
           ? 'bg-green-500 bg-opacity-10 border-green-500 focus:text-white'
