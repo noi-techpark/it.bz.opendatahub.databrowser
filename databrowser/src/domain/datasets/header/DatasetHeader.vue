@@ -1,15 +1,20 @@
 <template>
-  <header class="flex flex-wrap items-center pt-1 pb-2 text-xs md:py-3">
+  <header class="flex flex-wrap items-center py-2 text-xs md:py-3">
     <!-- Dataset title -->
-    <span
-      v-if="viewConfig"
-      class="mr-1 w-full text-base font-bold text-black md:w-auto"
+    <div
+      class="flex justify-between items-center mb-2 w-full md:mb-0 md:w-auto"
     >
-      {{ viewConfig?.description?.title }}
-    </span>
-    <span v-else class="mr-3 text-base">
-      No view config found, try to change the view using the provided button
-    </span>
+      <span
+        v-if="viewConfig"
+        class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
+      >
+        {{ viewConfig?.description?.title }}
+      </span>
+      <span v-else class="mr-3 text-base">
+        No view config found, try to change the view using the provided button
+      </span>
+      <AddRecordButton class="md:hidden" />
+    </div>
 
     <!-- More info -->
     <ButtonCustom
@@ -44,8 +49,12 @@
       <span>{{ t('datasets.header.viewGeneratedConfig') }}</span>
     </div>
 
-    <!-- Language picker -->
-    <LanguagePicker class="ml-auto" />
+    <div class="flex ml-auto">
+      <AddRecordButton class="hidden mr-3 md:block" />
+
+      <!-- Language picker -->
+      <LanguagePicker />
+    </div>
   </header>
 </template>
 
@@ -58,6 +67,7 @@ import LanguagePicker from '../../../components/language/LanguagePicker.vue';
 import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
 import { useViewConfigProvider } from '../../viewConfig';
 import { useI18n } from 'vue-i18n';
+import AddRecordButton from './AddRecordButton.vue';
 
 const { t } = useI18n();
 

@@ -8,16 +8,27 @@ export const useAuth = defineStore('auth', {
   getters: {
     user(state) {
       if (state.accessToken) {
-        const decodedToken = jwtDecode<{ name: string; email: string }>(
-          state.accessToken
-        );
+        const decodedToken = jwtDecode<{
+          name: string;
+          email: string;
+          role: string[];
+        }>(state.accessToken);
+
         return {
           name: decodedToken.name,
           email: decodedToken.email,
+          roles: decodedToken.role,
         };
       } else {
         return null;
       }
+    },
+    hasRole(state) {
+      return (role: string) => this.user?.roles.includes(role) ?? false;
+    },
+    authorized(state) {
+      return (roles: string[]) =>
+        roles.find((role) => this.hasRole(role) === true) != null;
     },
   },
   actions: {

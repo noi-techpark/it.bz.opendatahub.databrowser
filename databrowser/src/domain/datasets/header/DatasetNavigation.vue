@@ -27,6 +27,12 @@
           :active="isCurrentDetailView"
         />
         <TabLink
+          v-if="props.showEdit"
+          :label="t('datasets.navigation.editView')"
+          :to="editViewPath"
+          :active="isCurrentEditView"
+        />
+        <TabLink
           :label="t('datasets.navigation.rawView')"
           :to="rawViewPath"
           :active="isCurrentRawView"
@@ -37,6 +43,7 @@
 </template>
 
 <script lang="ts" setup>
+import { defineProps } from 'vue';
 import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
@@ -45,6 +52,8 @@ import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue
 import TabLink from '../../../components/tab/TabLink.vue';
 import { useI18n } from 'vue-i18n';
 
+const props = defineProps<{ showEdit: boolean }>();
+
 const { t } = useI18n();
 
 const route = useRoute();
@@ -52,10 +61,12 @@ const route = useRoute();
 const detailViewPath = ref<RouteLocationRaw>('');
 const quickViewPath = ref<RouteLocationRaw>('');
 const rawViewPath = ref<RouteLocationRaw>('');
+const editViewPath = ref<RouteLocationRaw>('');
 const tableViewPath = ref<RouteLocationRaw>('');
 const isCurrentDetailView = ref(false);
 const isCurrentQuickView = ref(false);
 const isCurrentRawView = ref(false);
+const isCurrentEditView = ref(false);
 
 watch(
   route,
@@ -63,16 +74,18 @@ watch(
     detailViewPath.value = { name: 'DatasetTableAndDetailPage' };
     quickViewPath.value = { name: 'DatasetQuickPage' };
     rawViewPath.value = { name: 'DatasetRawPage' };
+    editViewPath.value = { name: 'DatasetEditPage' };
     tableViewPath.value = {
       name: 'DatasetTableAndDetailPage',
       params: {
-        pathParams: route.params.pathParams.slice(0, -1),
+        pathParams: route.params.pathParams?.slice(0, -1),
       },
     };
 
     isCurrentDetailView.value = route.name === detailViewPath.value.name;
     isCurrentQuickView.value = route.name === quickViewPath.value.name;
     isCurrentRawView.value = route.name === rawViewPath.value.name;
+    isCurrentEditView.value = route.name === editViewPath.value.name;
   },
   { immediate: true }
 );

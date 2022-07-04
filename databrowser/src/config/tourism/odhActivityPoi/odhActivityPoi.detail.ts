@@ -8,6 +8,8 @@ export const odhActivityPoiDetail: ViewConfig = {
   description: odhActivityPoiDescription,
   baseUrl: domains.tourism.baseUrl,
   path: '/v1/ODHActivityPoi/{id}',
+  // TODO: insert correct edit role
+  editRoles: ['DataReader'],
   renderConfig: {
     type: 'detail',
     elements: [

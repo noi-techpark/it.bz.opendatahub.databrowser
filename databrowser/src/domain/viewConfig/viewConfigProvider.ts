@@ -55,11 +55,7 @@ export const createViewConfigProvider = (
       const [route, source] = value as [RouteLocationNormalizedLoaded, string];
 
       // Skip view config resolution if current route is not about datasets
-      if (
-        route.name !== 'DatasetTableAndDetailPage' &&
-        route.name !== 'DatasetRawPage' &&
-        route.name !== 'DatasetQuickPage'
-      ) {
+      if (route.meta.resolveViewConfig !== true) {
         return;
       }
 

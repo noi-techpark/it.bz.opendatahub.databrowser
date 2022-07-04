@@ -52,6 +52,7 @@ export interface ViewConfig {
   path: string;
   renderConfig: ListRenderConfig | DetailRenderConfig;
   description?: ViewConfigDescription;
+  editRoles?: string[];
 }
 
 export interface NoViewConfig {
