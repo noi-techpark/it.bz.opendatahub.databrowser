@@ -13,7 +13,7 @@
       <span v-else class="mr-3 text-base">
         No view config found, try to change the view using the provided button
       </span>
-      <AddRecordButton class="md:hidden" />
+      <AddRecordButton v-if="showEdit" class="md:hidden" />
     </div>
 
     <!-- More info -->
@@ -50,7 +50,7 @@
     </div>
 
     <div class="flex ml-auto">
-      <AddRecordButton class="hidden mr-3 md:block" />
+      <AddRecordButton v-if="showEdit" class="hidden mr-3 md:block" />
 
       <!-- Language picker -->
       <LanguagePicker />
@@ -71,7 +71,7 @@ import AddRecordButton from './AddRecordButton.vue';
 
 const { t } = useI18n();
 
-const props = defineProps<{ viewConfig?: ViewConfig }>();
+const props = defineProps<{ showEdit: boolean; viewConfig?: ViewConfig }>();
 const { viewConfig } = toRefs(props);
 
 const viewConfigProvider = useViewConfigProvider();
