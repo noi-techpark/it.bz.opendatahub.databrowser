@@ -1,6 +1,6 @@
-import { ViewConfigDescription } from '../../../domain/viewConfig/types';
+import { DatasetDescription } from '../../../domain/datasetConfig/types';
 
-export const odhAccommodationDescription: ViewConfigDescription = {
+export const accommodationDescription: DatasetDescription = {
   title: 'Accommodation',
   subtitle: 'This dataset contains tourism accommodations.',
   description:

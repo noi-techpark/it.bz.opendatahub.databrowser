@@ -1,6 +1,6 @@
-import { ViewConfigDescription } from '../../../domain/viewConfig/types';
+import { DatasetDescription } from '../../../domain/datasetConfig/types';
 
-export const odhActivityPoiDescription: ViewConfigDescription = {
+export const odhActivityPoiDescription: DatasetDescription = {
   title: 'Activities and Points of Interest (POIs)',
   subtitle:
     'This dataset contains a collection of activities and points of interest (POIs).',

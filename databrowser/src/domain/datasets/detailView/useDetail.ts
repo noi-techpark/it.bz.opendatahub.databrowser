@@ -1,18 +1,15 @@
-import { Ref, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Router, useRouter } from 'vue-router';
-import {
-  DetailElements,
-  DetailRenderConfig,
-  ViewConfig,
-} from '../../viewConfig/types';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { DatasetConfig, DetailElements } from '../../datasetConfig/types';
 import { DetailCategory } from './types';
 
-const handleSlug = (router: Router, renderConfig: DetailRenderConfig) => {
-  const initialSlug = renderConfig.elements[0]?.slug;
+const handleSlug = (router: Router, elements: DetailElements[]) => {
+  const initialSlug = elements[0]?.slug;
 
   // Compute set of allowed slugs from render config
-  const configuredSlugs = renderConfig.elements.map((vc) => vc.slug);
+  const configuredSlugs = elements.map((vc) => vc.slug);
   const allowedSlugs = new Set(configuredSlugs);
 
   // Slug = URL hash value (if present) without leading '#'
@@ -35,8 +32,10 @@ const handleSlug = (router: Router, renderConfig: DetailRenderConfig) => {
   return slug;
 };
 
-export const useDetail = (viewConfig: Ref<ViewConfig>) => {
+export const useDetail = () => {
   const router = useRouter();
+
+  const datasetConfigStore = useDatasetConfigStore();
 
   const slug = ref('');
   const subcategories = ref<DetailElements['subcategories']>([]);
@@ -46,20 +45,22 @@ export const useDetail = (viewConfig: Ref<ViewConfig>) => {
   const i18n = useI18n();
 
   watch(
-    () => viewConfig.value,
-    (vc) => {
-      const { renderConfig } = vc;
+    () => [datasetConfigStore.config, router.currentRoute.value],
+    (watchedValues) => {
+      const config = watchedValues[0] as DatasetConfig | undefined;
 
-      if (renderConfig.type === 'detail') {
+      if (datasetConfigStore.isDetailView) {
+        const elements = config?.views?.detail?.elements!;
+
         // Handle slug
-        slug.value = handleSlug(router, renderConfig);
+        slug.value = handleSlug(router, elements!);
 
         // Compute categories
-        categories.value = renderConfig.elements.map((element) => {
+        categories.value = elements.map((element) => {
           // If config is generated, use translated name.
           // Otherwise, use name as defined by config
           const name =
-            viewConfig.value.source === 'generated'
+            datasetConfigStore.source === 'generated'
               ? i18n.t('datasets.generated.categoryName')
               : element.name;
 
@@ -75,7 +76,7 @@ export const useDetail = (viewConfig: Ref<ViewConfig>) => {
 
         // Compute subcategories
         subcategories.value =
-          renderConfig.elements.find((config) => config.slug === slug.value)
+          elements.find((config) => config.slug === slug.value)
             ?.subcategories ?? [];
 
         // Compute current category

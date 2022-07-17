@@ -3,7 +3,7 @@
     {{ t('datasets.editView.authorizationChecking') }}
   </template>
   <template v-else>
-    <template v-if="!showEdit">
+    <template v-if="!datasetConfigStore.hasUpdatePermission">
       {{ t('datasets.editView.notAuthorized') }}
     </template>
     <template v-else>
@@ -18,21 +18,17 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, toRefs } from 'vue';
-import { ViewConfig } from '../../viewConfig/types';
-import { useApiForViewConfig } from '../../api/client/client';
+import { useApiForCurrentDataset } from '../../api/client/client';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 
 const { t } = useI18n();
 
-const props = defineProps<{ showEdit: boolean; viewConfig: ViewConfig }>();
-const { viewConfig } = toRefs(props);
-
-const { isError, isSuccess, error } = useApiForViewConfig({
-  viewConfig,
-});
-
 const auth = useAuth();
+
+const datasetConfigStore = useDatasetConfigStore();
+
+const { isError, isSuccess, error } = useApiForCurrentDataset();
 </script>

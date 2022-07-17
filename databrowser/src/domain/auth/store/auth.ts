@@ -26,7 +26,7 @@ export const useAuth = defineStore('auth', {
     hasRole(state) {
       return (role: string) => this.user?.roles.includes(role) ?? false;
     },
-    authorized(state) {
+    hasAnyRole(state) {
       return (roles: string[]) =>
         roles.find((role) => this.hasRole(role) === true) != null;
     },

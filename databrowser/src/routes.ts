@@ -1,65 +1,84 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { View, ViewKey } from './domain/datasetConfig/types';
 
-const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    component: () => import('./pages/HomePage.vue'),
-  },
-  {
-    path: '/dataset/:pathParams+',
-    component: () => import('./pages/DatasetPage.vue'),
-    name: 'DatasetTableAndDetailPage',
-    meta: { resolveViewConfig: true },
-  },
-  {
-    path: '/dataset/:pathParams+/raw',
-    component: () => import('./pages/DatasetPage.vue'),
-    name: 'DatasetRawPage',
-    meta: { resolveViewConfig: true },
-  },
-  {
-    path: '/dataset/:pathParams+/quick',
-    component: () => import('./pages/DatasetPage.vue'),
-    name: 'DatasetQuickPage',
-    meta: { resolveViewConfig: true },
-  },
-  {
-    path: '/dataset/:pathParams+/edit',
-    component: () => import('./pages/DatasetPage.vue'),
-    name: 'DatasetEditPage',
-    meta: { resolveViewConfig: true },
-  },
-  {
-    path: '/about',
-    component: () => import('./pages/AboutPage.vue'),
-  },
-  {
-    path: '/imprint',
-    component: () => import('./pages/ImprintPage.vue'),
-  },
-  {
-    path: '/legal',
-    component: () => import('./pages/LegalPage.vue'),
-  },
-  {
-    path: '/privacy',
-    component: () => import('./pages/PrivacyPage.vue'),
-  },
-  {
-    path: '/sitemap',
-    component: () => import('./pages/SitemapPage.vue'),
-  },
-  {
-    path: '/links',
-    component: () => import('./pages/DatasetLinkPage.vue'),
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/',
-  },
-];
+declare module 'vue-router' {
+  interface RouteMeta {
+    viewKey?: ViewKey;
+  }
+}
+
+export const DatasetPage: Record<Uppercase<ViewKey>, string> = {
+  DETAIL: 'DatasetDetailPage',
+  EDIT: 'DatasetEditPage',
+  QUICK: 'DatasetQuickPage',
+  RAW: 'DatasetRawPage',
+  TABLE: 'DatasetTablePage',
+} as const;
 
 export const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: [
+    {
+      path: '/',
+      component: () => import('./pages/HomePage.vue'),
+    },
+    {
+      path: '/dataset/detail/:domain/:pathParams+/:id',
+      component: () => import('./pages/DatasetPage.vue'),
+      name: DatasetPage.DETAIL,
+      meta: { viewKey: View.DETAIL },
+    },
+    {
+      path: '/dataset/edit/:domain/:pathParams+/:id',
+      component: () => import('./pages/DatasetPage.vue'),
+      name: DatasetPage.EDIT,
+      meta: { viewKey: View.EDIT },
+    },
+    {
+      path: '/dataset/quick/:domain/:pathParams+/:id',
+      component: () => import('./pages/DatasetPage.vue'),
+      name: DatasetPage.QUICK,
+      meta: { viewKey: View.QUICK },
+    },
+    {
+      path: '/dataset/raw/:domain/:pathParams+/:id',
+      component: () => import('./pages/DatasetPage.vue'),
+      name: DatasetPage.RAW,
+      meta: { viewKey: View.RAW },
+    },
+    {
+      path: '/dataset/table/:domain/:pathParams+',
+      component: () => import('./pages/DatasetPage.vue'),
+      name: DatasetPage.TABLE,
+      meta: { viewKey: View.TABLE },
+    },
+    {
+      path: '/about',
+      component: () => import('./pages/AboutPage.vue'),
+    },
+    {
+      path: '/imprint',
+      component: () => import('./pages/ImprintPage.vue'),
+    },
+    {
+      path: '/legal',
+      component: () => import('./pages/LegalPage.vue'),
+    },
+    {
+      path: '/privacy',
+      component: () => import('./pages/PrivacyPage.vue'),
+    },
+    {
+      path: '/sitemap',
+      component: () => import('./pages/SitemapPage.vue'),
+    },
+    {
+      path: '/links',
+      component: () => import('./pages/DatasetLinkPage.vue'),
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/',
+    },
+  ],
 });

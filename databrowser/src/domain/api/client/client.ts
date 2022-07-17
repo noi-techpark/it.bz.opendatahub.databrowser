@@ -2,9 +2,9 @@ import { useQuery, UseQueryOptions } from 'vue-query';
 import { computed, reactive, Ref, watch } from 'vue';
 import { useAuth } from '../../auth/store/auth';
 import { useAxiosFetcher } from './fetcher/axios';
-import { ViewConfig } from '../../viewConfig/types';
 import { useUrlQuery } from '../service/urlQueryHandler';
 import { AxiosResponse } from 'axios';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 
 const useAsQueryKey = (queryKey: Ref<string>) => {
   const result = reactive(['']);
@@ -18,13 +18,13 @@ const useAsQueryKey = (queryKey: Ref<string>) => {
   return result;
 };
 
-export const useApiForViewConfig = (options: {
-  viewConfig: Ref<ViewConfig>;
+export const useApiForCurrentDataset = (options?: {
   resultMapper?: (data: any) => any;
   withQueryParameters?: boolean;
 }) => {
-  const { viewConfig, resultMapper, withQueryParameters = true } = options;
-  const url = computed(() => viewConfig.value.baseUrl + viewConfig.value.path);
+  const { resultMapper, withQueryParameters = true } = options ?? {};
+  const datasetConfigStore = useDatasetConfigStore();
+  const url = computed(() => datasetConfigStore.currentPath ?? '');
   const fetchUrl = withQueryParameters
     ? useUrlQuery().useUrlWithQueryParameters(url)
     : url;

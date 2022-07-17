@@ -35,7 +35,7 @@ import { useFieldExtraction } from '../../api/service/utils';
 import SubCategory from './SubCategory.vue';
 import { DetailCategory, DetailSubCategory } from './types';
 import ContentDivider from '../../../components/content/ContentDivider.vue';
-import { PropertyConfig } from '../../viewConfig/types';
+import { PropertyConfig } from '../../datasetConfig/types';
 
 type PropertyConfigWithValue = PropertyConfig & {
   value: Record<string, string>;

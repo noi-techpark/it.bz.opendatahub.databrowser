@@ -1,18 +1,37 @@
-import { ViewConfig } from '../domain/viewConfig/types';
+import { DatasetConfig, DatasetDomain } from '../domain/datasetConfig/types';
 import {
-  odhAccommodationDetail,
-  odhAccommodationList,
-  odhActivityPoiDetail,
-  odhActivityPoiList,
-  odhActivityPoiTypesDetail,
-  odhActivityPoiTypesList,
+  accommodationConfig,
+  articleConfig,
+  eventShortConfig,
+  odhActivityPoiConfig,
+  odhActivityPoiTypesConfig,
 } from './tourism';
 
-export const embeddedViewConfigs: Record<string, ViewConfig> = {
-  'tourism/v1/Accommodation': odhAccommodationList,
-  'tourism/v1/Accommodation/{id}': odhAccommodationDetail,
-  'tourism/v1/ODHActivityPoi': odhActivityPoiList,
-  'tourism/v1/ODHActivityPoi/{id}': odhActivityPoiDetail,
-  'tourism/v1/ODHActivityPoiTypes': odhActivityPoiTypesList,
-  'tourism/v1/ODHActivityPoiTypes/{id}': odhActivityPoiTypesDetail,
+type EmbeddedDatasetConfigs = Record<
+  DatasetDomain,
+  Record<string, DatasetConfig>
+>;
+
+const datasetConfigs = [
+  accommodationConfig,
+  articleConfig,
+  eventShortConfig,
+  odhActivityPoiConfig,
+  odhActivityPoiTypesConfig,
+];
+
+const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {
+  return datasetConfigs.reduce<EmbeddedDatasetConfigs>((previous, current) => {
+    const configsForDomain = { ...previous[current.route.domain] } ?? {};
+    const path = '/' + current.route.pathParams.join('/');
+    configsForDomain[path] = current;
+    return { ...previous, [current.route.domain]: configsForDomain };
+  }, {});
 };
+
+export const embeddedDatasetConfigs = computeEmbeddedDatasetConfigs();
+
+export const findEmbeddedDatasetConfig = (
+  domain: string,
+  path: string
+): DatasetConfig | undefined => embeddedDatasetConfigs[domain]?.[path];

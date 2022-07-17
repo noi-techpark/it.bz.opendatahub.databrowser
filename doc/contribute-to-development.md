@@ -4,32 +4,28 @@
 
 The projects in the repository rely on common web technologies: HTML, CSS and JavaScript. A developer should therefor have knowledge in that area. Knowledge in the nodejs eco system is beneficial, because the projects use e.g. npm (alternatively yarn) for package management.
 
-The repository contains two types of projects:
-
-- the [Databrowser App](../databrowser) is written in [Vue 3.x](https://v3.vuejs.org/) and uses [nuxt](https://v3.vuejs.org/) as base framework to handle common integrations and features (routing, state management, ...). It embeds a set of Web Components that implement app specific parts, e.g. filter, lists, details.
-- the [Web Components](../web-components) projects provide components and functionalities that are used by the Databrowser App. The idea is to make the Web Components as generic and reusable as possible, so they can be released and reused independently from the Databrowser App. At the moment, all Web Components are implemented with the help of [lit](https://lit.dev/) framework. Other suitable frameworks (or no framework at all) may be used after consultation with the repository maintainers.
-
 ## Project overview
 
-The Databrowser App (or short `app` from here on) provides the container for the Web Components. Using Vue it simplifies common features like navigation, state management and so on. Of course it would have been possible to implement the app using Web Components only, but that would have slowed down initial progress, because it would have been necessary to find / implement custom solutions for the common requirements described above.
+The repository contains two types of projects:
 
-The views are implemented as Web Components. Those components should be as reusable as possible. To meet that requirement, Web Components must not rely on any global app data or state. All input data to Web Components MUST be provided by attributes / properties, all output data MUST be provided as events.
+- the [Databrowser App](../databrowser) is written in [Vue 3.x](https://vuejs.org/) and is the main application. It uses [Pinia](https://pinia.vuejs.org/) as store.
+- the [Web Components](../web-components) projects provide components and functionalities that can be used by the Databrowser App. The idea is to make the Web Components as generic and reusable as possible, so they can be released and reused independently from the Databrowser App. At the moment, all Web Components are implemented with the help of [lit](https://lit.dev/) framework. Other suitable frameworks (or no framework at all) may be used after consultation with the repository maintainers.
+
+> Please note: at the moment there is just a proof-of-concept for the Web Component integration which is in alpha stage. Please contact the repository maintainers before you start working on Web Components for the Databrowser App.
 
 ## Databrowser App
 
-The [Databrowser App](../databrowser) is written in [Vue 3.x](https://v3.vuejs.org/) and uses [nuxt](https://v3.vuejs.org/) as base framework to handle common integrations and features (routing, state management, ...).
+The [Databrowser App](../databrowser) is written in [Vue 3.x](https://vuejs.org/). It consists of a set of [pages](../databrowser/pages), most of those pages serve (semi) static content like privacy information. 
 
-It consists of a set of [pages](../databrowser/pages). Following `nuxt` conventions, a page name translates automatically to a route in the app, e.g. if there is a page `mypage.vue`, this page will be accessible at `http://YOUR_DOMAIN/mypage`. Please take a look at the `nuxt` documentation for further details.
+The [DatasetPage](../databrowser/src/pages/DatasetPage.vue) on the other side is the main entry point for Open Data Hub dataset navigation. The DatasetPage renders different views for a dataset, depending on the current app URL. Please take a look at the [domain/datasets](../databrowser/src/domain/datasets/) folder to find the different view implementations.
 
-The pages are embedded in a layout, that defines common parts of the application, e.g. header, sidebar, footer and search. You can find the layout definitions in the [layouts](../databrowser/layouts) folder. The layout uses Vue components to implement the common parts of the app mentioned above. Those components can be found in the [components](../databrowser/components) folder of the Databrowser app.
-
-The reason to implement the common parts as Vue components is, that it simplifies the implementation of certain global features like navigation and state management: Vue components have access to data and state defined in a Vue application. Another reason to use Vue in that case is, that those parts are tightly coupled with the application itself and not reusable. There is no good reason to use Web Components in this case.
-
-The remaining parts of the Databrowser App are implemented as reusable Web Components.
+The pages are embedded in a layout, that defines common parts of the application, e.g. header, sidebar, footer and search. You can find the layout definitions in the [layouts](../databrowser/src/layouts) folder.
 
 ## Web Components
 
-The [Web Components](../web-components) implement the views of the Databrowser app.
+> Please note that the concepts described in this chapter are still in very early planning / development stage. The current Databrowser App implementation uses Vue components only. Most probably you can skip this entire chapter.
+
+The [Web Components](../web-components) implement the dataset rendering of the Databrowser app.
 
 At the moment, there is a [databrowser-example](../web-components/databrowser-example) project for an example Web Component. It shows how a Web Component can be implemented with the [lit](https://lit.dev/) framework. It can be used as template.
 
@@ -105,4 +101,4 @@ Independently on how you import a Web Component, you still have to register it i
 
 The Databrowser App provides authentication and authorization facilities, using KeyCloak as identity provider.
 
-The auth information can be accessed in Vue components using the `$auth` property. If you want to forward that information to a Web Component, please do so using attributes or properties.
+The auth information can be accessed in Vue components using the `auth` store, accessible by the `useAuth()` command. If you want to forward that information to a Web Component, please do so using attributes or properties.

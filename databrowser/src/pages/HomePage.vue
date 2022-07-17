@@ -22,29 +22,21 @@
             :key="index"
             tag-name="li"
           >
-            <template v-if="isViewConfig(dataset.viewConfig)">
-              <CardTitle>{{ dataset.viewConfig.description?.title }}</CardTitle>
-              <CardText
-                >{{ dataset.viewConfig.description?.subtitle }}
-              </CardText>
-              <CardActions>
-                <ButtonLink
-                  :to="{
-                    name: 'DatasetTableAndDetailPage',
-                    params: { pathParams: dataset.pathParams },
-                  }"
-                  >Discover Dataset</ButtonLink
-                >
-              </CardActions>
-            </template>
-            <template v-else>
-              <CardTitle
-                >No config found for "{{
-                  dataset.pathParams.join('/')
-                }}"</CardTitle
+            <CardTitle>{{ dataset.description?.title }}</CardTitle>
+            <CardText>{{ dataset.description?.subtitle }} </CardText>
+            <CardActions>
+              <ButtonLink
+                :to="{
+                  name: DatasetPage.TABLE,
+                  params: {
+                    domain: datasetRoutes[index].domain,
+                    pathParams: datasetRoutes[index].pathParams,
+                  },
+                }"
               >
-              <CardText>Reason: {{ dataset.viewConfig.reason }}</CardText>
-            </template>
+                Discover Dataset
+              </ButtonLink>
+            </CardActions>
           </CardContainer>
 
           <CardContainer tag-name="li">
@@ -114,22 +106,22 @@ import ContentDivider from '../components/content/ContentDivider.vue';
 import InternalLink from '../components/link/InternalLink.vue';
 import ArrowRight from '../components/svg/ArrowRight.vue';
 import ContentAlignmentY from '../components/content/ContentAlignmentY.vue';
-import { isViewConfig, useViewConfigProvider } from '../domain/viewConfig';
 import { ref } from 'vue';
-import { ResolvedViewConfigWithPathParams } from '../domain/viewConfig/types';
+import { DatasetConfig, DatasetRoute } from '../domain/datasetConfig/types';
+import { resolveDatasetConfig } from '../domain/datasetConfig/resolver';
+import { DatasetPage } from '../routes';
 
-const paths: string[] = [
-  'tourism/v1/Accommodation',
-  'tourism/v1/ODHActivityPoi',
+const datasets = ref<DatasetConfig[]>([]);
+const datasetRoutes: DatasetRoute[] = [
+  {
+    domain: 'tourism',
+    pathParams: ['v1', 'Accommodation'],
+  },
+  {
+    domain: 'tourism',
+    pathParams: ['v1', 'Article'],
+  },
 ];
-
-const datasets = ref<ResolvedViewConfigWithPathParams[]>([]);
-
-const viewConfigProvider = useViewConfigProvider();
-const promises = paths.map((path) =>
-  viewConfigProvider.getViewConfigWithPathParams(path)
-);
-Promise.all(promises).then(
-  (resolvedPromises) => (datasets.value = resolvedPromises)
-);
+const promises = datasetRoutes.map((d) => resolveDatasetConfig(d));
+Promise.all(promises).then((p) => (datasets.value = p));
 </script>

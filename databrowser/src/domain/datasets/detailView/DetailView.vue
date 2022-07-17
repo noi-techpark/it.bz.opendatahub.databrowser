@@ -37,9 +37,8 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, ref, toRefs } from 'vue';
-import { ViewConfig } from '../../viewConfig/types';
-import { useApiForViewConfig } from '../../api/client/client';
+import { ref } from 'vue';
+import { useApiForCurrentDataset } from '../../api/client/client';
 import DetailCategories from './DetailCategories.vue';
 import DetailSubCategories from './DetailSubCategories.vue';
 import { useDetail } from './useDetail';
@@ -48,15 +47,9 @@ import RadioCustom from '../../../components/radio/RadioCustom.vue';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
 
-const props = defineProps<{ viewConfig: ViewConfig }>();
-const { viewConfig } = toRefs(props);
-
 const showAll = ref<string>('false');
 
-const { slug, categories, subcategories, currentCategory } =
-  useDetail(viewConfig);
+const { slug, categories, subcategories, currentCategory } = useDetail();
 
-const { isError, isSuccess, data, error, url } = useApiForViewConfig({
-  viewConfig,
-});
+const { isError, isSuccess, data, error, url } = useApiForCurrentDataset();
 </script>

@@ -18,19 +18,13 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs } from 'vue';
 import VueJsonPretty from 'vue-json-pretty';
-import { ViewConfig } from '../../viewConfig/types';
-import { useApiForViewConfig } from '../../api/client/client';
+import { useApiForCurrentDataset } from '../../api/client/client';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
 
-const props = defineProps<{ viewConfig: ViewConfig }>();
-const { viewConfig } = toRefs(props);
-
-const { isError, isSuccess, data, error, url } = useApiForViewConfig({
-  viewConfig,
+const { isError, isSuccess, data, error, url } = useApiForCurrentDataset({
   withQueryParameters: false,
 });
 </script>

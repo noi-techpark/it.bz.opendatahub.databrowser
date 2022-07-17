@@ -19,23 +19,23 @@
         <TabLink
           :label="t('datasets.navigation.quickView')"
           :to="quickViewPath"
-          :active="isCurrentQuickView"
+          :active="datasetConfigStore.isQuickView"
         />
         <TabLink
           :label="t('datasets.navigation.detailView')"
           :to="detailViewPath"
-          :active="isCurrentDetailView"
+          :active="datasetConfigStore.isDetailView"
         />
         <TabLink
-          v-if="props.showEdit"
+          v-if="datasetConfigStore.hasUpdatePermission"
           :label="t('datasets.navigation.editView')"
           :to="editViewPath"
-          :active="isCurrentEditView"
+          :active="datasetConfigStore.isEditView"
         />
         <TabLink
           :label="t('datasets.navigation.rawView')"
           :to="rawViewPath"
-          :active="isCurrentRawView"
+          :active="datasetConfigStore.isRawView"
         />
       </ContentAlignmentX>
     </div>
@@ -43,50 +43,21 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue';
 import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
-import { RouteLocationRaw, useRoute } from 'vue-router';
-import { ref, watch } from 'vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import TabLink from '../../../components/tab/TabLink.vue';
 import { useI18n } from 'vue-i18n';
-
-const props = defineProps<{ showEdit: boolean }>();
+import { DatasetPage } from '../../../routes';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 
 const { t } = useI18n();
 
-const route = useRoute();
+const datasetConfigStore = useDatasetConfigStore();
 
-const detailViewPath = ref<RouteLocationRaw>('');
-const quickViewPath = ref<RouteLocationRaw>('');
-const rawViewPath = ref<RouteLocationRaw>('');
-const editViewPath = ref<RouteLocationRaw>('');
-const tableViewPath = ref<RouteLocationRaw>('');
-const isCurrentDetailView = ref(false);
-const isCurrentQuickView = ref(false);
-const isCurrentRawView = ref(false);
-const isCurrentEditView = ref(false);
-
-watch(
-  route,
-  (route) => {
-    detailViewPath.value = { name: 'DatasetTableAndDetailPage' };
-    quickViewPath.value = { name: 'DatasetQuickPage' };
-    rawViewPath.value = { name: 'DatasetRawPage' };
-    editViewPath.value = { name: 'DatasetEditPage' };
-    tableViewPath.value = {
-      name: 'DatasetTableAndDetailPage',
-      params: {
-        pathParams: route.params.pathParams?.slice(0, -1),
-      },
-    };
-
-    isCurrentDetailView.value = route.name === detailViewPath.value.name;
-    isCurrentQuickView.value = route.name === quickViewPath.value.name;
-    isCurrentRawView.value = route.name === rawViewPath.value.name;
-    isCurrentEditView.value = route.name === editViewPath.value.name;
-  },
-  { immediate: true }
-);
+const detailViewPath = { name: DatasetPage.DETAIL };
+const quickViewPath = { name: DatasetPage.QUICK };
+const rawViewPath = { name: DatasetPage.RAW };
+const editViewPath = { name: DatasetPage.EDIT };
+const tableViewPath = { name: DatasetPage.TABLE };
 </script>

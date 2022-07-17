@@ -1,4 +1,3 @@
-import { domains } from '../domain';
 import { DocumentState, SupportedDomains } from '../types';
 
 export const initialState: Record<SupportedDomains, DocumentState> = {

@@ -1,5 +1,5 @@
 import { RouteLocationRaw } from 'vue-router';
-import { PropertyConfig } from '../../viewConfig/types';
+import { PropertyConfig } from '../../datasetConfig/types';
 
 export interface DetailCategory {
   name: string;

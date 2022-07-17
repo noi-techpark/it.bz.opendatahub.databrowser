@@ -36,9 +36,9 @@
           >
             <DetailsLink
               :to="{
-                name: 'DatasetQuickPage',
+                name: DatasetPage.QUICK,
                 params: {
-                  pathParams: [...pathParams, row.Id],
+                  id: row.Id,
                 },
                 query: { language: language },
               }"
@@ -48,9 +48,9 @@
             </DetailsLink>
             <DetailsLink
               :to="{
-                name: 'DatasetTableAndDetailPage',
+                name: DatasetPage.DETAIL,
                 params: {
-                  pathParams: [...pathParams, row.Id],
+                  id: row.Id,
                 },
                 query: { language: language },
               }"
@@ -61,9 +61,9 @@
             <DetailsLink
               v-if="showEdit"
               :to="{
-                name: 'DatasetEditPage',
+                name: DatasetPage.EDIT,
                 params: {
-                  pathParams: [...pathParams, row.Id],
+                  id: row.Id,
                 },
                 query: { language: language },
               }"
@@ -73,9 +73,9 @@
             </DetailsLink>
             <DetailsLink
               :to="{
-                name: 'DatasetRawPage',
+                name: DatasetPage.RAW,
                 params: {
-                  pathParams: [...pathParams, row.Id],
+                  id: row.Id,
                 },
                 query: { language: language },
               }"
@@ -91,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, toRefs, withDefaults } from 'vue';
+import { defineProps, toRefs, withDefaults } from 'vue';
 import Cell from '../../../components/listCell/ListCell.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import TableHeaderFilter from '../../../components/table/TableHeaderFilter.vue';
@@ -99,23 +99,16 @@ import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../components/table/TableCell.vue';
 import IconEye from '../../../components/svg/IconEye.vue';
 import DetailsLink from './DetailsLink.vue';
-import { ListElements } from '../../viewConfig/types';
+import { ListElements } from '../../datasetConfig/types';
 import { useApiQuery } from '../../api/service/apiQueryHandler';
-import { useRoute } from 'vue-router';
 import { useFieldExtraction } from '../../api/service/utils';
 import IconCode from '../../../components/svg/IconCode.vue';
 import IconLayer from '../../../components/svg/IconLayer.vue';
 import IconEdit from '../../../components/svg/IconEdit.vue';
 import { useI18n } from 'vue-i18n';
+import { DatasetPage } from '../../../routes';
 
 const { t } = useI18n();
-
-const route = useRoute();
-const pathParams = computed(() =>
-  Array.isArray(route.params.pathParams)
-    ? route.params.pathParams
-    : [route.params.pathParams]
-);
 
 const props = withDefaults(
   defineProps<{

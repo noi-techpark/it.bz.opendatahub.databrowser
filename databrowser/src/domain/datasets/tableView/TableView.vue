@@ -1,9 +1,6 @@
 <template>
   <section class="flex overflow-y-auto flex-col flex-1 justify-start">
-    <template v-if="viewConfigError != null">
-      <div class="bg-red-200">{{ viewConfigError }}</div>
-    </template>
-    <template v-else-if="isError">
+    <template v-if="isError">
       <ShowApiError :error="error" />
     </template>
     <template v-else-if="isLoading">
@@ -16,9 +13,9 @@
     <template v-else-if="isSuccess">
       <div class="flex overflow-y-auto">
         <TableContent
-          :render-elements="renderConfig.elements"
+          :render-elements="elements"
           :rows="rows"
-          :show-edit="showEdit"
+          :show-edit="datasetConfigStore.hasUpdatePermission"
         />
         <ExportDatasetToolBox :url="url" :is-table-view="true" />
       </div>
@@ -33,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, toRefs } from 'vue';
+import { computed } from 'vue';
 import {
   defaultQueryParameters,
   pageSizeOptions,
@@ -44,29 +41,16 @@ import TableContent from './TableContent.vue';
 import { PaginationData } from '../../api/client/types';
 import { AxiosResponse } from 'axios';
 import { useApiQuery } from '../../api/service/apiQueryHandler';
-import { useApiForViewConfig } from '../../api/client/client';
+import { useApiForCurrentDataset } from '../../api/client/client';
 import { stringifyParameter } from '../../api/service/query';
-import { ListRenderConfig, ViewConfig } from '../../viewConfig/types';
 import TableFooter from './TableFooter.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
 import { useI18n } from 'vue-i18n';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 
 const { t } = useI18n();
-
-const props = defineProps<{ showEdit: boolean; viewConfig: ViewConfig }>();
-const { viewConfig } = toRefs(props);
-
-const viewConfigError = computed<string | null>(() =>
-  viewConfig.value.renderConfig.type === 'list'
-    ? null
-    : 'View configuration for table contains no table configuration'
-);
-
-const renderConfig = computed(
-  () => viewConfig.value.renderConfig as ListRenderConfig
-);
 
 // API query is used in several places
 const apiQuery = useApiQuery();
@@ -89,12 +73,12 @@ const resultMapper = (data: AxiosResponse): PaginationData => {
   });
 };
 
-const { isError, isSuccess, isLoading, data, error, url } = useApiForViewConfig(
-  {
-    viewConfig,
-    resultMapper,
-  }
-);
+const datasetConfigStore = useDatasetConfigStore();
+
+const elements = computed(() => datasetConfigStore.tableView?.elements ?? []);
+
+const { isError, isSuccess, isLoading, data, error, url } =
+  useApiForCurrentDataset({ resultMapper });
 
 // Define method to change page
 const paginateTo = (page: string) =>

@@ -13,34 +13,31 @@
       </div>
       <template v-else>
         <div
-          v-for="(viewConfigsWithPathParams, key) in allViewConfigs"
-          :key="key"
+          v-for="(configsForDomain, domain) in configs"
+          :key="domain"
           class="mt-3"
         >
-          <h2 class="text-xl font-semibold uppercase">{{ key }}</h2>
+          <h2 class="text-xl font-semibold uppercase">{{ domain }}</h2>
           <ul>
             <li
-              v-for="(
-                viewConfigWithPathParams, index
-              ) of viewConfigsWithPathParams"
+              v-for="(config, index) of configsForDomain"
               :key="index"
               class="py-1 px-4"
             >
               <router-link
                 :to="{
-                  name: 'DatasetTableAndDetailPage',
+                  name: DatasetPage.TABLE,
                   params: {
-                    pathParams: viewConfigWithPathParams.pathParams,
+                    domain: config.route.domain,
+                    pathParams: config.route.pathParams,
                   },
                 }"
-                >{{ viewConfigWithPathParams.viewConfig.description?.title }}
+                >{{ config.description?.title }}
                 <span
                   :class="{
-                    'text-red-500':
-                      viewConfigWithPathParams.viewConfig.source ===
-                      'generated',
+                    'text-red-500': config.source === 'generated',
                   }"
-                  >({{ viewConfigWithPathParams.viewConfig.source }})</span
+                  >({{ config.source }})</span
                 ></router-link
               >
             </li>
@@ -53,34 +50,51 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useViewConfigProvider } from '../domain/viewConfig';
-import { ViewConfigWithPathParams } from '../domain/viewConfig/types';
+import { DatasetConfig, DatasetDomain } from '../domain/datasetConfig/types';
 import AppLayout from '../layouts/AppLayout.vue';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import { useI18n } from 'vue-i18n';
+import { getDatasetConfigSources } from '../domain/datasetConfig/resolver';
+import { DatasetPage } from '../routes';
 
 const { t } = useI18n();
 
 const isLoading = ref(true);
 
-const configProvider = useViewConfigProvider();
-const allViewConfigs = ref<Record<string, ViewConfigWithPathParams[]>>({});
+const configs = ref<Record<DatasetDomain, DatasetConfig[]>>({});
 
-configProvider
-  .getAllViewConfigs()
-  .then((vcs) =>
-    // Remove all view configs that require a path param because there is
-    // no general way to set such path params
-    Object.entries(vcs).reduce<Record<string, ViewConfigWithPathParams[]>>(
-      (prev, [key, value]) => ({
-        ...prev,
-        [key]: value.filter((v) => !v.viewConfig.path.match('\\{.*\\}')),
-      }),
-      {}
-    )
-  )
-  .then((vcs) => {
-    allViewConfigs.value = vcs;
-    isLoading.value = false;
-  });
+const promises = getDatasetConfigSources().map((source) =>
+  source.getAllDatasetConfigs()
+);
+
+Promise.all(promises).then((sources) => {
+  const configsByDomain = sources.reduce<
+    Record<DatasetDomain, DatasetConfig[]>
+  >((previous, current) => {
+    Object.keys(current).forEach((domain) => {
+      const domainConfigs = previous[domain];
+      previous[domain] =
+        domainConfigs != null
+          ? [...domainConfigs, ...current[domain]]
+          : [...current[domain]];
+    });
+    return previous;
+  }, {});
+
+  Object.values(configsByDomain).forEach((configs) =>
+    configs.sort((a, b) => {
+      // Sort by source; inside same source, sort by description title
+      if (a.source != b.source) {
+        return a.source === 'embedded' ? -1 : 1;
+      }
+      const aTitle = a.description.title ?? '';
+      const bTitle = b.description.title ?? '';
+
+      return aTitle.localeCompare(bTitle);
+    })
+  );
+
+  configs.value = configsByDomain;
+  isLoading.value = false;
+});
 </script>

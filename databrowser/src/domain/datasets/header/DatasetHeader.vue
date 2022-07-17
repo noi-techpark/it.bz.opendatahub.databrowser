@@ -5,20 +5,23 @@
       class="flex justify-between items-center mb-2 w-full md:mb-0 md:w-auto"
     >
       <span
-        v-if="viewConfig"
+        v-if="datasetConfigStore.hasConfig"
         class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
       >
-        {{ viewConfig?.description?.title }}
+        {{ datasetConfigStore.config?.description?.title }}
       </span>
       <span v-else class="mr-3 text-base">
         No view config found, try to change the view using the provided button
       </span>
-      <AddRecordButton v-if="showEdit" class="md:hidden" />
+      <AddRecordButton
+        v-if="datasetConfigStore.hasUpdatePermission"
+        class="md:hidden"
+      />
     </div>
 
     <!-- More info -->
     <ButtonCustom
-      v-if="viewConfig"
+      v-if="datasetConfigStore.hasConfig"
       variant="ghost"
       size="xs"
       class="flex items-center py-1 px-3 mr-1 h-6"
@@ -32,15 +35,19 @@
       :picked="picked"
       :column-width="columnWidth"
       :class="{
-        'animate-pulse outline rounded outline-green-500': !viewConfig,
+        'animate-pulse outline rounded outline-green-500':
+          !datasetConfigStore.hasConfig,
       }"
-      @picked-change="setViewConfigSource"
+      @picked-change="setDatasetConfigSource"
       @column-width-change="columnWidth = $event"
     />
 
     <!-- Show information if current view is auto generated -->
     <div
-      v-if="picked === 'generated' || viewConfig?.source === 'generated'"
+      v-if="
+        picked === 'generated' ||
+        datasetConfigStore.config?.source === 'generated'
+      "
       class="flex items-center py-1 px-3 ml-1 text-[#AA5B00] bg-[#FDF2E6] rounded"
     >
       <span
@@ -50,7 +57,10 @@
     </div>
 
     <div class="flex ml-auto">
-      <AddRecordButton v-if="showEdit" class="hidden mr-3 md:block" />
+      <AddRecordButton
+        v-if="datasetConfigStore.hasUpdatePermission"
+        class="hidden mr-3 md:block"
+      />
 
       <!-- Language picker -->
       <LanguagePicker />
@@ -59,28 +69,25 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, toRefs } from 'vue';
-import { ViewConfig } from '../../viewConfig/types';
+import { ref } from 'vue';
 import ButtonCustom from '../../../components/button/ButtonCustom.vue';
 import IconInfo from '../../../components/svg/IconInfo.vue';
 import LanguagePicker from '../../../components/language/LanguagePicker.vue';
 import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
-import { useViewConfigProvider } from '../../viewConfig';
 import { useI18n } from 'vue-i18n';
 import AddRecordButton from './AddRecordButton.vue';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { SourceType } from '../../datasetConfig/source/types';
 
 const { t } = useI18n();
 
-const props = defineProps<{ showEdit: boolean; viewConfig?: ViewConfig }>();
-const { viewConfig } = toRefs(props);
+const datasetConfigStore = useDatasetConfigStore();
 
-const viewConfigProvider = useViewConfigProvider();
-
-const picked = ref<string>(viewConfigProvider.currentSource.value ?? '');
+const picked = ref<string>(datasetConfigStore.source ?? '');
 const columnWidth = ref<string>('');
 
-const setViewConfigSource = (source: string) => {
+const setDatasetConfigSource = (source: SourceType) => {
   picked.value = source;
-  viewConfigProvider.currentSource.value = source;
+  datasetConfigStore.changeSource(source);
 };
 </script>

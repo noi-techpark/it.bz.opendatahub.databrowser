@@ -1,0 +1,103 @@
+import { SourceType } from './source/types';
+import { SupportedDomains } from '../openApi/types';
+
+export interface PropertyConfig {
+  title: string;
+  component: string;
+  fields: Record<string, string>;
+  params?: Record<string, string>;
+  class?: string;
+}
+
+export interface FilterConfig {
+  name: string;
+  component: string;
+  params?: Record<string, unknown>;
+}
+
+export interface ListElements extends PropertyConfig {
+  filter?: FilterConfig;
+}
+
+export interface DetailElements {
+  name: string;
+  slug: string;
+  subcategories: {
+    name: string;
+    properties: PropertyConfig[];
+  }[];
+}
+
+export type PathParams = string[];
+
+export interface DatasetRoute {
+  domain: SupportedDomains;
+  pathParams: PathParams;
+  id?: string;
+}
+
+export interface DatasetDescription {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+}
+
+export interface TableViewElements {
+  elements: ListElements[];
+}
+export interface DetailViewElements {
+  elements: DetailElements[];
+}
+export interface QuickViewElements {
+  elements: Record<string, unknown>[];
+}
+export interface EditViewElements {
+  elements: Record<string, unknown>[];
+}
+
+export type ListViewConfig = TableViewElements;
+export type DetailViewConfig = DetailViewElements;
+export type QuickViewConfig = QuickViewElements;
+export type EditViewConfig = EditViewElements;
+export type RawViewConfig = unknown;
+
+export interface Operation {
+  rolesAllowed: string[];
+}
+
+export interface DatasetConfig {
+  source: SourceType;
+  baseUrl: string;
+  route: DatasetRoute;
+  description: DatasetDescription;
+  views?: {
+    detail?: DetailViewConfig;
+    edit?: EditViewConfig;
+    quick?: QuickViewConfig;
+    raw?: RawViewConfig;
+    table?: ListViewConfig;
+  };
+  operations?: {
+    readAll?: Operation;
+    read?: Operation;
+    create?: Operation;
+    update?: Operation;
+    delete?: Operation;
+  };
+}
+
+export type ViewKey = keyof Required<DatasetConfig>['views'];
+
+export const View: Record<Uppercase<ViewKey>, ViewKey> = {
+  DETAIL: 'detail',
+  EDIT: 'edit',
+  QUICK: 'quick',
+  RAW: 'raw',
+  TABLE: 'table',
+} as const;
+
+export type OperationKey = keyof Required<DatasetConfig>['operations'];
+
+export type Operations = NonNullable<DatasetConfig['operations']>;
+
+export type DatasetDomain = string;
