@@ -38,7 +38,11 @@
   "datasets": {
     "editView": {
       "authorizationChecking": "Please wait for authorization check",
-      "notAuthorized": "You are not authorized to edit this dataset"
+      "notAuthorized": "You are not authorized to edit this dataset",
+      "footer": {
+        "cancel": "Cancel (ESC)",
+        "save": "Save (ALT + S)"
+      }
     },
     "generated": {
       "categoryName": "All data"

@@ -11,7 +11,10 @@
         <ShowApiError :error="error" />
       </template>
       <template v-if="isSuccess === true">
-        <div>Edit View</div>
+        <div class="flex flex-col justify-between h-screen">
+          <EditContent />
+          <EditFooter @cancel="cancel" @save="save" />
+        </div>
       </template>
     </template>
   </template>
@@ -23,6 +26,8 @@ import ShowApiError from '../../api/components/ShowApiError.vue';
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import EditContent from './EditContent.vue';
+import EditFooter from './EditFooter.vue';
 
 const { t } = useI18n();
 
@@ -31,4 +36,12 @@ const auth = useAuth();
 const datasetConfigStore = useDatasetConfigStore();
 
 const { isError, isSuccess, error } = useApiForCurrentDataset();
+
+const cancel = () => {
+  console.log('Cancelling');
+};
+
+const save = () => {
+  console.log('Saving');
+};
 </script>
