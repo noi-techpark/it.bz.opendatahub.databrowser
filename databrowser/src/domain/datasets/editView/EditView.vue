@@ -12,6 +12,24 @@
       </template>
       <template v-if="isSuccess === true">
         <div class="flex flex-col justify-between h-screen">
+          <div class="flex overflow-y-auto">
+            <ContentAlignmentX class="md:flex md:overflow-y-auto md:px-0">
+              <DetailCategories
+                :categories="categories"
+                :slug="slug"
+                class="overflow-y-auto sticky top-0 py-6 bg-white md:w-1/6 md:h-full"
+              />
+
+              <DetailSubCategories
+                v-if="slug !== ''"
+                class="overflow-y-auto flex-1 pb-6 md:py-6 md:px-20 md:h-full"
+                :data="data"
+                :category="currentCategory"
+                :sub-categories="subcategories"
+                :show-all="true"
+              />
+            </ContentAlignmentX>
+          </div>
           <EditContent />
           <EditFooter @cancel="cancel" @save="save" />
         </div>
@@ -28,6 +46,10 @@ import { useAuth } from '../../auth/store/auth';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import EditContent from './EditContent.vue';
 import EditFooter from './EditFooter.vue';
+import { useDetail } from '../detailView/useDetail';
+import DetailCategories from '../detailView/DetailCategories.vue';
+import DetailSubCategories from '../detailView/DetailSubCategories.vue';
+import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 
 const { t } = useI18n();
 
@@ -35,7 +57,9 @@ const auth = useAuth();
 
 const datasetConfigStore = useDatasetConfigStore();
 
-const { isError, isSuccess, error } = useApiForCurrentDataset();
+const { slug, categories, subcategories, currentCategory } = useDetail();
+
+const { isError, isSuccess, data, error } = useApiForCurrentDataset();
 
 const cancel = () => {
   console.log('Cancelling');

@@ -61,6 +61,31 @@ export const accommodationEditView: EditViewConfig = {
             },
           ],
         },
+        {
+          name: 'Categories',
+          properties: [
+            {
+              title: 'Accommodation category',
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'AccoCategory.Id' },
+              params: {
+                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
+                labelSelector: 'TypeDesc.en',
+                keySelector: 'Id',
+              },
+            },
+            {
+              title: 'Accommodation type',
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'AccoType.Id' },
+              params: {
+                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
+                labelSelector: 'TypeDesc.en',
+                keySelector: 'Id',
+              },
+            },
+          ],
+        },
       ],
     },
     {

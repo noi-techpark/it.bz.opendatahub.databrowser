@@ -49,8 +49,10 @@ export const useDetail = () => {
     (watchedValues) => {
       const config = watchedValues[0] as DatasetConfig | undefined;
 
-      if (datasetConfigStore.isDetailView) {
-        const elements = config?.views?.detail?.elements!;
+      if (datasetConfigStore.isDetailView || datasetConfigStore.isEditView) {
+        const elements = datasetConfigStore.isDetailView
+          ? config?.views?.detail?.elements!
+          : config?.views?.edit?.elements!;
 
         // Handle slug
         slug.value = handleSlug(router, elements!);

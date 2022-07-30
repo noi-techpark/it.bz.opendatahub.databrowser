@@ -28,6 +28,28 @@ export interface DetailElements {
   }[];
 }
 
+export interface EditElements {
+  name: string;
+  slug: string;
+  subcategories: {
+    name: string;
+    properties: {
+      title: string;
+      component: string;
+      fields: Record<string, string>;
+      params?: Record<string, string>;
+      class?: string;
+      required?: boolean;
+      tooltip?: string;
+      reference?: {
+        url: string;
+        labelSelector: string;
+        keySelector: string;
+      };
+    }[];
+  }[];
+}
+
 export type PathParams = string[];
 
 export interface DatasetRoute {
@@ -52,7 +74,7 @@ export interface QuickViewElements {
   elements: Record<string, unknown>[];
 }
 export interface EditViewElements {
-  elements: Record<string, unknown>[];
+  elements: EditElements[];
 }
 
 export type ListViewConfig = TableViewElements;

@@ -5,6 +5,8 @@ import DateCell from '../components/cells/dateCell/DateCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import GpsListCell from '../components/cells/gpsListCell/GpsListCell.vue';
 import HtmlCell from '../components/cells/htmlCell/HtmlCell.vue';
+import InputReferenceCell from '../components/cells/inputReferenceCell/InputReferenceCell.vue';
+import InputSingleLineCell from '../components/cells/inputSingleLineCell/InputSingleLineCell.vue';
 import ImageCell from '../components/cells/imageCell/ImageCell.vue';
 import ImageGalleryCell from '../components/cells/imageGalleryCell/ImageGalleryCell.vue';
 import JsonCell from '../components/cells/jsonCell/JsonCell.vue';
@@ -24,6 +26,8 @@ export default {
     app.component(CellComponent.EditedDateCell, EditedDateCell);
     app.component(CellComponent.GpsListCell, GpsListCell);
     app.component(CellComponent.HtmlCell, HtmlCell);
+    app.component(CellComponent.InputReferenceCell, InputReferenceCell);
+    app.component(CellComponent.InputSingleLineCell, InputSingleLineCell);
     app.component(CellComponent.ImageCell, ImageCell);
     app.component(CellComponent.ImageGalleryCell, ImageGalleryCell);
     app.component(CellComponent.JsonCell, JsonCell);
