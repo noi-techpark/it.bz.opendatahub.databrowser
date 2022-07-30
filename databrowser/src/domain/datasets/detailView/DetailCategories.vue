@@ -30,7 +30,7 @@ import { SelectOption, SelectSize } from '../../../components/select/types';
 
 const props = defineProps<{
   categories: DetailCategory[];
-  slug: string;
+  slug?: string;
 }>();
 
 const { categories, slug } = toRefs(props);
@@ -39,7 +39,7 @@ const selectOptions = computed<SelectOption[]>(() =>
   categories.value.map((category) => ({
     label: category.name,
     value: category.slug,
-    selected: slug.value === category.slug,
+    selected: slug?.value === category.slug,
   }))
 );
 

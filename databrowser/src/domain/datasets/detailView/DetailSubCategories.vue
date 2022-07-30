@@ -78,7 +78,7 @@ const computeAndFilterProperties = (
 };
 
 const hasNonEmptyValue = (o: Record<string, string>) =>
-  Object.values(o).find((v) => v != null);
+  Object.values(o).find((v) => v != null) != null;
 
 const { getValue } = useFieldExtraction();
 </script>

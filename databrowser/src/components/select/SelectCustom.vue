@@ -124,7 +124,10 @@ const emit = defineEmits(['change']);
 watch(
   () => selectedOption.value,
   (newOption, oldOption) => {
-    if (newOption.value !== oldOption.value) {
+    if (newOption == null) {
+      return;
+    }
+    if (newOption.value !== oldOption?.value) {
       // Wait a bit before emitting the value such that the listbox options container can hide
       setTimeout(() => emit('change', newOption.value ?? newOption.label), 50);
     }
