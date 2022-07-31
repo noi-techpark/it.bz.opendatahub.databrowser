@@ -85,6 +85,8 @@ Web Components for dataset rendering are configured the same way as Vue componen
 
 Inside that config you'll find properties called `component` that define which component to use when rendering different parts of a dataset. The property takes a string argument, that is either a registered Vue Component, or a registered Web Component.
 
+> Take a look at [dataset-configuration.md](./dataset-configuration.md) for a description of the configuration.
+
 ### Example integration
 
 An example integration for the [Activity and POI Web Component](https://webcomponents.opendatahub.com/webcomponent/0e5fbede-4a21-4dd3-bf85-7d2be71dfb12?from=%2F) from the [Open Data Hub Web Component Store](https://webcomponents.opendatahub.com/) can be found here:
