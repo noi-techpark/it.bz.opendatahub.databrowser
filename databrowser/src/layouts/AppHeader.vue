@@ -38,59 +38,59 @@ const data: MenuColumn = {
           items: [
             {
               label: 'Areas',
-              url: '/dataset/tourism/v1/Area',
+              url: '/dataset/table/tourism/v1/Area',
             },
             {
               label: 'Districts',
-              url: '/dataset/tourism/v1/District',
+              url: '/dataset/table/tourism/v1/District',
             },
             {
               label: 'Experience Areas',
-              url: '/dataset/tourism/v1/ExperienceArea',
+              url: '/dataset/table/tourism/v1/ExperienceArea',
             },
             {
               label: 'Gastronomy',
-              url: '/dataset/tourism/v1/Gastronomy',
+              url: '/dataset/table/tourism/v1/Gastronomy',
             },
             {
               label: 'Gastronomy Types',
-              url: '/dataset/tourism/v1/GastronomyTypes',
+              url: '/dataset/table/tourism/v1/GastronomyTypes',
             },
             {
               label: 'Locations',
-              url: '/dataset/tourism/v1/Location',
+              url: '/dataset/table/tourism/v1/Location',
             },
             {
               label: 'Meta Regions',
-              url: '/dataset/tourism/v1/MetaRegion',
+              url: '/dataset/table/tourism/v1/MetaRegion',
             },
             {
               label: 'Municipalities',
-              url: '/dataset/tourism/v1/Municipality',
+              url: '/dataset/table/tourism/v1/Municipality',
             },
             {
               label: 'Regions',
-              url: '/dataset/tourism/v1/Region',
+              url: '/dataset/table/tourism/v1/Region',
             },
             {
               label: 'Ski Areas',
-              url: '/dataset/tourism/v1/SkiArea',
+              url: '/dataset/table/tourism/v1/SkiArea',
             },
             {
               label: 'Ski Area List',
-              url: '/dataset/tourism/v1/Location/Skiarea',
+              url: '/dataset/table/tourism/v1/Location/Skiarea',
             },
             {
               label: 'Ski Regions',
-              url: '/dataset/tourism/v1/SkiRegion',
+              url: '/dataset/table/tourism/v1/SkiRegion',
             },
             {
               label: 'Venues',
-              url: '/dataset/tourism/v1/Venue',
+              url: '/dataset/table/tourism/v1/Venue',
             },
             {
               label: 'Venue Types',
-              url: '/dataset/tourism/v1/VenueTypes',
+              url: '/dataset/table/tourism/v1/VenueTypes',
             },
           ],
         },
@@ -99,19 +99,19 @@ const data: MenuColumn = {
           items: [
             {
               label: 'Activities and Points of Interest (POIs)',
-              url: '/dataset/tourism/v1/ODHActivityPoi',
+              url: '/dataset/table/tourism/v1/ODHActivityPoi',
             },
             {
               label: 'Activities and Points of Interest types',
-              url: '/dataset/tourism/v1/ODHActivityPoiTypes',
+              url: '/dataset/table/tourism/v1/ODHActivityPoiTypes',
             },
             {
               label: 'Points of Interest (POIs)',
-              url: '/dataset/tourism/v1/Poi',
+              url: '/dataset/table/tourism/v1/Poi',
             },
             {
               label: 'Points of Interest types',
-              url: '/dataset/tourism/v1/PoiTypes',
+              url: '/dataset/table/tourism/v1/PoiTypes',
             },
           ],
         },
@@ -122,15 +122,15 @@ const data: MenuColumn = {
       items: [
         {
           label: 'Accommodation',
-          url: '/dataset/tourism/v1/Accommodation',
+          url: '/dataset/table/tourism/v1/Accommodation',
         },
         {
           label: 'Accommodation Types',
-          url: '/dataset/tourism/v1/AccommodationTypes',
+          url: '/dataset/table/tourism/v1/AccommodationTypes',
         },
         {
           label: 'Accommodation Features',
-          url: '/dataset/tourism/v1/AccommodationFeatures',
+          url: '/dataset/table/tourism/v1/AccommodationFeatures',
         },
       ],
     },
@@ -142,11 +142,11 @@ const data: MenuColumn = {
           items: [
             {
               label: 'Activities',
-              url: '/dataset/tourism/v1/Activity',
+              url: '/dataset/table/tourism/v1/Activity',
             },
             {
               label: 'Activity Types',
-              url: '/dataset/tourism/v1/ActivityTypes',
+              url: '/dataset/table/tourism/v1/ActivityTypes',
             },
           ],
         },
@@ -155,19 +155,19 @@ const data: MenuColumn = {
           items: [
             {
               label: 'Events',
-              url: '/dataset/tourism/v1/Event',
+              url: '/dataset/table/tourism/v1/Event',
             },
             {
               label: 'Event Topics',
-              url: '/dataset/tourism/v1/EventTopics',
+              url: '/dataset/table/tourism/v1/EventTopics',
             },
             {
               label: 'Event Short',
-              url: '/dataset/tourism/v1/EventShort',
+              url: '/dataset/table/tourism/v1/EventShort',
             },
             {
               label: 'Event Short by Room Occupation',
-              url: '/dataset/tourism/v1/EventShort/GetbyRoomBooked',
+              url: '/dataset/table/tourism/v1/EventShort/GetbyRoomBooked',
             },
           ],
         },
@@ -181,11 +181,11 @@ const data: MenuColumn = {
           items: [
             {
               label: 'Articles',
-              url: '/dataset/tourism/v1/Article',
+              url: '/dataset/table/tourism/v1/Article',
             },
             {
               label: 'Article Types',
-              url: '/dataset/tourism/v1/ArticleTypes',
+              url: '/dataset/table/tourism/v1/ArticleTypes',
             },
           ],
         },
@@ -194,41 +194,41 @@ const data: MenuColumn = {
           items: [
             {
               label: 'Current Realtime Weather LIVE',
-              url: '/dataset/tourism/v1/Weather/Realtime',
+              url: '/dataset/table/tourism/v1/Weather/Realtime',
             },
             {
               label: 'Current Suedtirol Weather LIVE',
-              url: '/dataset/tourism/v1/Weather',
+              url: '/dataset/table/tourism/v1/Weather',
             },
             {
               label: 'District Weather LIVE',
-              url: '/dataset/tourism/v1/Weather/District',
+              url: '/dataset/table/tourism/v1/Weather/District',
             },
             {
               label: 'Weather Measuringpoints',
-              url: '/dataset/tourism/v1/Weather/Measuringpoint',
+              url: '/dataset/table/tourism/v1/Weather/Measuringpoint',
             },
             {
               label: 'SnowReport',
-              url: '/dataset/tourism/v1/Weather/SnowReport',
+              url: '/dataset/table/tourism/v1/Weather/SnowReport',
             },
           ],
         },
         {
           label: 'ODH Tags',
-          url: '/dataset/tourism/v1/ODHTag',
+          url: '/dataset/table/tourism/v1/ODHTag',
         },
         {
           label: 'Tourism Associations',
-          url: '/dataset/tourism/v1/TourismAssociation',
+          url: '/dataset/table/tourism/v1/TourismAssociation',
         },
         {
           label: 'Webcams',
-          url: '/dataset/tourism/v1/WebcamInfo',
+          url: '/dataset/table/tourism/v1/WebcamInfo',
         },
         {
           label: 'Wine Awards',
-          url: '/dataset/tourism/v1/WineAward',
+          url: '/dataset/table/tourism/v1/WineAward',
         },
       ],
     },
