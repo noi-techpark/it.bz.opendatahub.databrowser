@@ -1,5 +1,9 @@
 # View Config Provider (for remote API)
 
+>
+> ## Attention!!!: the text in this document is out of date
+>
+
 The view config provider is used get the view configuration `ViewConfig` for the current route in an async way.
 
 The reason for async support is, that some `ViewConfig` sources may lazy load their data (e.g. remote OpenAPI specifications).

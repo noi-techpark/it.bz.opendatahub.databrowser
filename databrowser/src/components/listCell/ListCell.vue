@@ -3,7 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs, withDefaults } from 'vue';
+import { defineProps, toRefs, watch, withDefaults } from 'vue';
+import { loadWebComponent } from '../../domain/webComponents/lazyLoadedWebComponent';
+import { isRegisteredWebComponent } from '../../domain/webComponents/webComponentRegistry';
 
 const props = withDefaults(
   defineProps<{
@@ -17,4 +19,14 @@ const props = withDefaults(
 );
 
 const { tagName, attributes } = toRefs(props);
+
+watch(
+  () => tagName.value,
+  (name) => {
+    if (isRegisteredWebComponent(name)) {
+      loadWebComponent(name);
+    }
+  },
+  { immediate: true }
+);
 </script>
