@@ -15,6 +15,7 @@
           v-for="property in subcategory.properties"
           :key="property.title"
           :title="property.title"
+          :tooltip="property.tooltip"
         >
           <ComponentRenderer
             :tag-name="property.component"

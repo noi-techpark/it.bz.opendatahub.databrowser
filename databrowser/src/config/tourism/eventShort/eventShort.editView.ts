@@ -76,21 +76,25 @@ export const eventShortEditView: EditViewConfig = {
               title: 'Event description',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'EventDescription' },
+              tooltip: 'Default event description',
             },
             {
               title: 'Event description DE',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'EventDescriptionDE' },
+              tooltip: 'Event description in German',
             },
             {
               title: 'Event description IT',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'EventDescriptionIT' },
+              tooltip: 'Event description in Italian',
             },
             {
               title: 'Event description EN',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'EventDescriptionEN' },
+              tooltip: 'Event description in English',
             },
           ],
         },
@@ -105,12 +109,12 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Name',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'CompanyName' },
             },
             {
               title: 'Company ID',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'CompanyId' },
             },
           ],
@@ -120,22 +124,22 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'CompanyAddressLine1' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'CompanyPostalCode' },
             },
             {
               title: 'City',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'CompanyCity' },
             },
             {
               title: 'Country',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'CompanyCountry' },
             },
           ],
@@ -145,17 +149,17 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'CompanyMail' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'CompanyPhone' },
             },
             {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'CompanyUrl' },
             },
           ],
@@ -171,12 +175,12 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Name',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'ContactFirstName' },
             },
             {
               title: 'Surname',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'ContactLastName' },
             },
           ],
@@ -186,22 +190,22 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'ContactAddressLine1' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'ContactPostalCode' },
             },
             {
               title: 'City',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'ContactCity' },
             },
             {
               title: 'Country',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'ContactCountry' },
             },
           ],
@@ -211,12 +215,12 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'ContactEmail' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'ContactPhone' },
             },
           ],
@@ -232,7 +236,7 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Eventlocation',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'EventLocation' },
             },
           ],
@@ -242,7 +246,7 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Anchor venue room',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AnchorVenueRoomMapping' },
             },
             {
