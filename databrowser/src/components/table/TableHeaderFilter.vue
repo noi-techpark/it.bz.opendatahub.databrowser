@@ -7,7 +7,7 @@
       @visible="visible"
     >
       <template #default="{ events: { close } }">
-        <Cell
+        <ComponentRenderer
           v-if="dropdownVisible"
           :tag-name="filter.component"
           :attributes="{ ...filter.params, initialValue }"
@@ -29,7 +29,7 @@ import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
 import { useAsList } from '../../domain/api/service/utils';
 import { FilterValue } from '../../domain/cellComponents/components/filters/types';
 import Dropdown from '../dropdown/Dropdown.vue';
-import Cell from '../listCell/ListCell.vue';
+import ComponentRenderer from '../componentRenderer/ComponentRenderer.vue';
 
 const props = defineProps<{
   text: string;

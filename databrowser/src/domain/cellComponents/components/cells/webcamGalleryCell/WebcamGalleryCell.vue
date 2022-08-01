@@ -6,27 +6,27 @@
         :key="index"
         class="w-56"
       >
-        <SubCategory title="Name">
+        <SubCategoryItem title="Name">
           <StringCell :text="gpsEntry.name" class="break-all" />
-        </SubCategory>
-        <SubCategory title="Image">
+        </SubCategoryItem>
+        <SubCategoryItem title="Image">
           <ImageCell :src="gpsEntry.image" :alt="gpsEntry.name" />
-        </SubCategory>
-        <SubCategory title="Image-URL (Web-Url)">
+        </SubCategoryItem>
+        <SubCategoryItem title="Image-URL (Web-Url)">
           <StringCell :text="gpsEntry.imageUrl" class="break-all" />
-        </SubCategory>
-        <SubCategory title="Latitude">
+        </SubCategoryItem>
+        <SubCategoryItem title="Latitude">
           <StringCell :text="gpsEntry.latitude" />
-        </SubCategory>
-        <SubCategory title="Longitude">
+        </SubCategoryItem>
+        <SubCategoryItem title="Longitude">
           <StringCell :text="gpsEntry.longitude" />
-        </SubCategory>
-        <SubCategory title="Altitude">
+        </SubCategoryItem>
+        <SubCategoryItem title="Altitude">
           <StringCell :text="gpsEntry.altitude" />
-        </SubCategory>
-        <SubCategory title="Position">
+        </SubCategoryItem>
+        <SubCategoryItem title="Position">
           <StringCell :text="gpsEntry.listPosition" />
-        </SubCategory>
+        </SubCategoryItem>
       </div>
     </div>
   </div>
@@ -37,7 +37,7 @@ import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
 import { useFieldExtraction } from '../../../../api/service/utils';
 import StringCell from '../stringCell/StringCell.vue';
 import ImageCell from '../imageCell/ImageCell.vue';
-import SubCategory from '../../../../datasets/detailView/SubCategory.vue';
+import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 
 /**
  * All fields except "webcams" are expected to be paths that can be resolved by

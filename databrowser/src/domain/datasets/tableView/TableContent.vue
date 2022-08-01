@@ -24,7 +24,7 @@
       <!-- eslint-disable-next-line vue/require-v-for-key -->
       <tr v-for="row in rows">
         <TableCell v-for="col in renderElements" :key="col.title">
-          <Cell
+          <ComponentRenderer
             :tag-name="col.component"
             :attributes="getValue(row, col.fields, col.params)"
             :fields="col.fields"
@@ -93,7 +93,7 @@
 
 <script setup lang="ts">
 import { defineProps, toRefs, withDefaults } from 'vue';
-import Cell from '../../../components/listCell/ListCell.vue';
+import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import TableHeaderFilter from '../../../components/table/TableHeaderFilter.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';

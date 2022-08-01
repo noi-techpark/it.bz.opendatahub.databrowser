@@ -2,34 +2,34 @@
   <div class="flex overflow-auto w-full">
     <div class="flex gap-5">
       <div v-for="(image, index) in resolvedImages" :key="index" class="w-56">
-        <SubCategory
-          ><ImageCell :src="image.src" :alt="image.alt"
-        /></SubCategory>
-        <SubCategory title="Image">
+        <SubCategoryItem>
+          <ImageCell :src="image.src" :alt="image.alt" />
+        </SubCategoryItem>
+        <SubCategoryItem title="Image">
           <StringCell :text="image.name" class="break-all" />
-        </SubCategory>
-        <SubCategory title="Resolution">
+        </SubCategoryItem>
+        <SubCategoryItem title="Resolution">
           <StringTemplateCell
             :p1="image.width"
             :p2="image.height"
             :string-template="'{p1}x{p2} px'"
           />
-        </SubCategory>
-        <SubCategory title="Title">
+        </SubCategoryItem>
+        <SubCategoryItem title="Title">
           <StringCell :text="image.title" />
-        </SubCategory>
-        <SubCategory title="Description">
+        </SubCategoryItem>
+        <SubCategoryItem title="Description">
           <StringCell :text="image.description" />
-        </SubCategory>
-        <SubCategory title="License">
+        </SubCategoryItem>
+        <SubCategoryItem title="License">
           <StringCell :text="image.license" />
-        </SubCategory>
-        <SubCategory title="Position">
+        </SubCategoryItem>
+        <SubCategoryItem title="Position">
           <StringCell :text="image.listPosition" />
-        </SubCategory>
-        <SubCategory title="Active">
+        </SubCategoryItem>
+        <SubCategoryItem title="Active">
           <StringCell :text="image.active" />
-        </SubCategory>
+        </SubCategoryItem>
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@ import { useFieldExtraction } from '../../../../api/service/utils';
 import ImageCell from '../imageCell/ImageCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
 import StringTemplateCell from '../stringTemplateCell/StringTemplateCell.vue';
-import SubCategory from '../../../../datasets/detailView/SubCategory.vue';
+import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 
 /**
  * All fields except "images" are expected to be paths that can be resolved by

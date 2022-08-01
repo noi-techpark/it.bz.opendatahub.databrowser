@@ -6,21 +6,21 @@
         :key="index"
         class="w-56"
       >
-        <SubCategory title="GPS Type">
+        <SubCategoryItem title="GPS Type">
           <StringCell :text="gpsEntry.type" class="break-all" />
-        </SubCategory>
-        <SubCategory title="Latitude">
+        </SubCategoryItem>
+        <SubCategoryItem title="Latitude">
           <StringCell :text="gpsEntry.latitude" />
-        </SubCategory>
-        <SubCategory title="Longitude">
+        </SubCategoryItem>
+        <SubCategoryItem title="Longitude">
           <StringCell :text="gpsEntry.longitude" />
-        </SubCategory>
-        <SubCategory title="Altitude">
+        </SubCategoryItem>
+        <SubCategoryItem title="Altitude">
           <StringCell :text="gpsEntry.altitude" />
-        </SubCategory>
-        <SubCategory title="Altitude Unit">
+        </SubCategoryItem>
+        <SubCategoryItem title="Altitude Unit">
           <StringCell :text="gpsEntry.altitudeUnit" />
-        </SubCategory>
+        </SubCategoryItem>
       </div>
     </div>
   </div>
@@ -29,8 +29,8 @@
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
 import StringCell from '../stringCell/StringCell.vue';
-import SubCategory from '../../../../datasets/detailView/SubCategory.vue';
 import { useFieldExtraction } from '../../../../api/service/utils';
+import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 
 /**
  * All fields except "gpsEntries" are expected to be paths that can be resolved by

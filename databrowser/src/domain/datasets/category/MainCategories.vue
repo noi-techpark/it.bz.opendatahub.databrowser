@@ -24,12 +24,12 @@
 import { computed, defineProps, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import PillLink from '../../../components/pill/PillLink.vue';
-import { DetailCategory } from './types';
+import { Category } from './types';
 import SelectCustom from '../../../components/select/SelectCustom.vue';
 import { SelectOption, SelectSize } from '../../../components/select/types';
 
 const props = defineProps<{
-  categories: DetailCategory[];
+  categories: Category[];
   slug?: string;
 }>();
 

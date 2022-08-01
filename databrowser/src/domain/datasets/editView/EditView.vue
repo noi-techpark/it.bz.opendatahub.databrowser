@@ -14,13 +14,13 @@
         <div class="flex flex-col justify-between h-screen">
           <div class="flex overflow-y-auto">
             <ContentAlignmentX class="md:flex md:overflow-y-auto md:px-0">
-              <DetailCategories
+              <MainCategories
                 :categories="categories"
                 :slug="slug"
                 class="overflow-y-auto sticky top-0 py-6 bg-white md:w-1/6 md:h-full"
               />
 
-              <DetailSubCategories
+              <SubCategories
                 v-if="slug !== ''"
                 class="overflow-y-auto flex-1 pb-6 md:py-6 md:px-20 md:h-full"
                 :data="editStore.current"
@@ -48,8 +48,8 @@ import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigSt
 import EditContent from './EditContent.vue';
 import EditFooter from './EditFooter.vue';
 import { useDetail } from '../detailView/useDetail';
-import DetailCategories from '../detailView/DetailCategories.vue';
-import DetailSubCategories from '../detailView/DetailSubCategories.vue';
+import MainCategories from '../category/MainCategories.vue';
+import SubCategories from '../category/SubCategories.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import EditToolBox from './EditToolBox.vue';
 import { watch } from 'vue';

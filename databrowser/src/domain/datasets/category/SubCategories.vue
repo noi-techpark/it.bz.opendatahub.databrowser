@@ -11,18 +11,18 @@
       <h3 class="font-bold">{{ subcategory.name }}</h3>
       <ContentDivider class="my-1" />
       <div class="flex flex-col text-sm text-gray-500">
-        <SubCategory
+        <SubCategoryItem
           v-for="property in subcategory.properties"
           :key="property.title"
           :title="property.title"
         >
-          <ListCell
+          <ComponentRenderer
             :tag-name="property.component"
             :attributes="getValue(data, property.fields, property.params)"
             :fields="property.fields"
             :class="property.class"
           />
-        </SubCategory>
+        </SubCategoryItem>
       </div>
     </div>
   </div>
@@ -30,11 +30,10 @@
 
 <script setup lang="ts">
 import { computed, defineProps } from 'vue';
-
-import ListCell from '../../../components/listCell/ListCell.vue';
+import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
 import { useFieldExtraction } from '../../api/service/utils';
-import SubCategory from './SubCategory.vue';
-import { DetailCategory, DetailSubCategory } from './types';
+import SubCategoryItem from './SubCategoryItem.vue';
+import { Category, SubCategory } from './types';
 import ContentDivider from '../../../components/content/ContentDivider.vue';
 import { PropertyConfig } from '../../datasetConfig/types';
 
@@ -44,8 +43,8 @@ type PropertyConfigWithValue = PropertyConfig & {
 
 const props = defineProps<{
   data: unknown;
-  subCategories: DetailSubCategory[];
-  category?: DetailCategory;
+  subCategories: SubCategory[];
+  category?: Category;
   showAll?: boolean;
 }>();
 

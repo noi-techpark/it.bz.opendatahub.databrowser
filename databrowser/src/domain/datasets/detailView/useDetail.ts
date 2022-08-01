@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n';
 import { Router, useRouter } from 'vue-router';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { DatasetConfig, DetailElements } from '../../datasetConfig/types';
-import { DetailCategory } from './types';
+import { Category } from '../category/types';
 
 const handleSlug = (router: Router, elements: DetailElements[]) => {
   const initialSlug = elements[0]?.slug;
@@ -39,8 +39,8 @@ export const useDetail = () => {
 
   const slug = ref('');
   const subcategories = ref<DetailElements['subcategories']>([]);
-  const categories = ref<DetailCategory[]>([]);
-  const currentCategory = ref<DetailCategory | undefined>();
+  const categories = ref<Category[]>([]);
+  const currentCategory = ref<Category | undefined>();
 
   const i18n = useI18n();
 

@@ -9,9 +9,9 @@
 
 <script setup lang="ts">
 import { defineProps, toRefs, watch, withDefaults } from 'vue';
-import { useEditStore } from '../../domain/datasets/editView/store/editStore';
 import { loadWebComponent } from '../../domain/webComponents/lazyLoadedWebComponent';
 import { isRegisteredWebComponent } from '../../domain/webComponents/webComponentRegistry';
+import { useUpdate } from './useUpdate';
 
 const props = withDefaults(
   defineProps<{
@@ -38,22 +38,5 @@ watch(
   { immediate: true }
 );
 
-const editStore = useEditStore();
-
-const update = ({ prop, value }: { prop: string; value: unknown }) => {
-  const field = fields.value[prop];
-
-  if (field == null) {
-    console.error(
-      `Got update event from component ${
-        tagName.value
-      } for field ${prop} but no field with that name could be found (known fields: ${JSON.stringify(
-        fields.value
-      )})`
-    );
-    return;
-  }
-
-  editStore.updateCurrent(field, value);
-};
+const update = useUpdate(tagName, fields);
 </script>
