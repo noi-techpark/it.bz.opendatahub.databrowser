@@ -11,15 +11,15 @@
         <ShowApiError :error="error" />
       </template>
       <template v-if="isSuccess === true">
-        <div class="flex flex-col justify-between h-screen">
-          <div class="flex gap-2">
-            <div>isUpdateError: {{ isUpdateError }}</div>
-            <div>isUpdateSuccess: {{ isUpdateSuccess }}</div>
-            <div>isUpdateLoading: {{ isUpdateLoading }}</div>
-            <div>isUpdateIdle: {{ isUpdateIdle }}</div>
-            <div>isUpdatePaused: {{ isUpdatePaused }}</div>
-            <div>updateError: {{ updateError }}</div>
-          </div>
+        <div class="flex gap-2">
+          <div>isUpdateError: {{ isUpdateError }}</div>
+          <div>isUpdateSuccess: {{ isUpdateSuccess }}</div>
+          <div>isUpdateLoading: {{ isUpdateLoading }}</div>
+          <div>isUpdateIdle: {{ isUpdateIdle }}</div>
+          <div>isUpdatePaused: {{ isUpdatePaused }}</div>
+          <div>updateError: {{ updateError }}</div>
+        </div>
+        <div class="flex overflow-auto flex-col justify-between h-screen">
           <div class="flex overflow-y-auto">
             <ContentAlignmentX class="md:flex md:overflow-y-auto md:px-0">
               <MainCategories
@@ -27,7 +27,6 @@
                 :slug="slug"
                 class="overflow-y-auto sticky top-0 py-6 bg-white md:w-1/6 md:h-full"
               />
-
               <SubCategories
                 v-if="slug !== ''"
                 class="overflow-y-auto flex-1 pb-6 md:py-6 md:px-20 md:h-full"
@@ -39,7 +38,6 @@
             </ContentAlignmentX>
             <EditToolBox />
           </div>
-          <EditContent />
           <EditFooter @cancel="cancel" @save="updateData" />
         </div>
       </template>
@@ -53,7 +51,6 @@ import ShowApiError from '../../api/components/ShowApiError.vue';
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
-import EditContent from './EditContent.vue';
 import EditFooter from './EditFooter.vue';
 import { useDetail } from '../detailView/useDetail';
 import MainCategories from '../category/MainCategories.vue';
