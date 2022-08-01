@@ -41,13 +41,13 @@ export const articleEditView: EditViewConfig = {
             },
             {
               title: 'Active on Source',
-              component: CellComponent.StringCell,
-              fields: { text: 'Active' },
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'Active' },
             },
             {
               title: 'Active on ODH',
-              component: CellComponent.StringCell,
-              fields: { text: 'OdhActive' },
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'OdhActive' },
             },
           ],
         },
