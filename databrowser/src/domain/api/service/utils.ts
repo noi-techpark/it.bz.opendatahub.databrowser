@@ -1,9 +1,9 @@
 import { AxiosError } from 'axios';
-import { get } from 'lodash-es';
 import { ref, Ref, watch } from 'vue';
 import { useApiQuery } from './apiQueryHandler';
 import { stringifyParameter } from './query';
 import { ParameterValue } from './types';
+import * as R from 'ramda';
 
 export interface UseAsOptions {
   twoWayBinding?: boolean;
@@ -126,7 +126,9 @@ const extractField = (
 
     const fieldName = replacePlaceholders(sourceField, replacements);
 
-    const value = get(item, fieldName);
+    const path = fieldName.split('.');
+    const lensePath = R.lensPath(path);
+    const value = R.view(lensePath, item);
     return { ...prev, [key]: value };
   }, {});
 

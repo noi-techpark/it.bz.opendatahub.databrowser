@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
-import { get } from 'lodash-es';
 import { Ref } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
+import * as R from 'ramda';
 
 export const buildMapper =
   (
@@ -15,8 +15,8 @@ export const buildMapper =
 
     const mappedData = data
       .map((item) => {
-        const v = get(item, keySelector.value);
-        const l = get(item, labelSelector.value);
+        const v = getPropertyValue(item, keySelector.value);
+        const l = getPropertyValue(item, labelSelector.value);
         const selected = value?.value === v;
         return {
           value: v,
@@ -30,3 +30,9 @@ export const buildMapper =
       ? mappedData
       : [{ label: '--- Please select ---', value: '' }, ...mappedData];
   };
+
+const getPropertyValue = (item: unknown, jsonPath: string) => {
+  const path = jsonPath.split('.');
+  const lensePath = R.lensPath(path);
+  return R.view(lensePath, item);
+};
