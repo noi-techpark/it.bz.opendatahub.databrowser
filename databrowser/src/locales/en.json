@@ -42,6 +42,17 @@
       "footer": {
         "cancel": "Cancel (ESC)",
         "save": "Save (ALT + S)"
+      },
+      "toolbox": {
+        "goodToKnow": "Good to know",
+        "label": {
+          "header": "«Label»",
+          "body": "If a label is signed with two arrows it means that the field options depend on data from other datasets. <strong>For example:</strong> Selection of cities is taken from the insert data from the locations dataset."
+        },
+        "obligatory": {
+          "header": "*",
+          "body": "Obligatory fields"
+        }
       }
     },
     "generated": {

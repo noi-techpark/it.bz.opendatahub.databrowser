@@ -14,12 +14,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, toRefs } from 'vue';
+import { computed, defineEmits, defineProps, toRefs } from 'vue';
 import { useQuery } from 'vue-query';
 import { useAxiosFetcher } from '../../../../api/client/fetcher/axios';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import { SelectSize } from '../../../../../components/select/types';
 import { buildMapper } from './mapper';
+
+const emit = defineEmits(['update']);
 
 const props = defineProps<{
   value?: string | boolean | number;
@@ -49,7 +51,5 @@ const unknownValue = computed(
     options.value.find((o) => o.selected === true) == null
 );
 
-const change = (value: string) => {
-  console.log('CHANGE', value);
-};
+const change = (value: string) => emit('update', { prop: 'value', value });
 </script>

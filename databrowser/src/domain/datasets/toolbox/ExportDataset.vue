@@ -3,7 +3,7 @@
     <ToolBoxCardHeader :margin-top="false">
       Retrieve data for this record
     </ToolBoxCardHeader>
-    <ToolBoxCard label="API datasets" @icon-click="copyUrl">
+    <ToolBoxCard label="API datasets" :break-all="true" @icon-click="copyUrl">
       <template #icon>
         <IconCopy v-if="!copiedUrl" class="text-green-500" />
         <IconCheck v-else class="text-green-500" />

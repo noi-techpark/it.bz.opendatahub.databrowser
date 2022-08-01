@@ -12,6 +12,8 @@ import { createUrlQueryHandler } from './domain/api/service/urlQueryHandler';
 import CookieConsent from 'vue-cookieconsent';
 import './cookieconsent/cookieconsent.css';
 import { consentOptions } from './cookieconsent/consentOptions';
+import VueDiff from 'vue-diff';
+import 'vue-diff/dist/index.css';
 
 const app = createApp(App);
 
@@ -34,9 +36,12 @@ app.use(createPinia());
 // Register Vue cell render components globally for dynamic rendering
 app.use(registerCellComponents);
 
+// Register Vue Diff in order to show JSON diffs (TODO: should this be removed later on?)
+app.use(VueDiff, { componentName: 'VueDiff' });
+
 // Add i18n translation
 const locale = 'en';
-const i18n = setupI18n({ locale });
+const i18n = setupI18n({ locale, warnHtmlMessage: false });
 
 loadLocaleMessages(i18n, locale).then(() => {
   app.use(i18n);

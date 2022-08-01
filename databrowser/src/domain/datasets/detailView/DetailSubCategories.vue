@@ -19,6 +19,7 @@
           <ListCell
             :tag-name="property.component"
             :attributes="getValue(data, property.fields, property.params)"
+            :fields="property.fields"
             :class="property.class"
           />
         </SubCategory>

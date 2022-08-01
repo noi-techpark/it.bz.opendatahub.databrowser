@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="bg-gray-50">
-      <div class="p-4 break-all">
+      <div class="p-4" :class="{ 'break-all': breakAll }">
         <slot></slot>
       </div>
     </div>
@@ -21,8 +21,13 @@
 import { defineEmits, defineProps, withDefaults } from 'vue';
 
 withDefaults(
-  defineProps<{ label: string; marginTop?: boolean; marginBottom?: boolean }>(),
-  { marginTop: false, marginBottom: true }
+  defineProps<{
+    label: string;
+    marginTop?: boolean;
+    marginBottom?: boolean;
+    breakAll?: boolean;
+  }>(),
+  { marginTop: false, marginBottom: true, breakAll: false }
 );
 defineEmits(['icon-click']);
 </script>

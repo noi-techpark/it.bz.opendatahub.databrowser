@@ -17,18 +17,6 @@ export const eventShortEditView: EditViewConfig = {
               required: true,
               tooltip: 'This is the shortname for your event',
             },
-            {
-              title: 'RefTest',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'Shortname' },
-              params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
-                keySelector: 'Id',
-              },
-              required: true,
-              tooltip: 'This is the shortname for your event',
-            },
           ],
         },
         {

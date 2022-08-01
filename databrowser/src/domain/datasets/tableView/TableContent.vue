@@ -27,6 +27,7 @@
           <Cell
             :tag-name="col.component"
             :attributes="getValue(row, col.fields, col.params)"
+            :fields="col.fields"
           />
         </TableCell>
         <TableCell class="sticky right-0 bg-white">

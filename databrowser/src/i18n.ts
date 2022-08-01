@@ -1,7 +1,9 @@
 import { isRef, nextTick } from 'vue';
 import { createI18n, I18n, Locale } from 'vue-i18n';
 
-export const setupI18n = (options = { locale: 'en' }) => {
+export const setupI18n = (
+  options = { locale: 'en', warnHtmlMessage: false }
+) => {
   const i18n = createI18n(options);
   setI18nLanguage(i18n, options.locale);
   return i18n;

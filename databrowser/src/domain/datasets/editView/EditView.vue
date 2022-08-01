@@ -23,12 +23,13 @@
               <DetailSubCategories
                 v-if="slug !== ''"
                 class="overflow-y-auto flex-1 pb-6 md:py-6 md:px-20 md:h-full"
-                :data="data"
+                :data="editStore.current"
                 :category="currentCategory"
                 :sub-categories="subcategories"
                 :show-all="true"
               />
             </ContentAlignmentX>
+            <EditToolBox />
           </div>
           <EditContent />
           <EditFooter @cancel="cancel" @save="save" />
@@ -50,6 +51,10 @@ import { useDetail } from '../detailView/useDetail';
 import DetailCategories from '../detailView/DetailCategories.vue';
 import DetailSubCategories from '../detailView/DetailSubCategories.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
+import EditToolBox from './EditToolBox.vue';
+import { watch } from 'vue';
+import { useEditStore } from './store/editStore';
+import { EditData } from './store/initialState';
 
 const { t } = useI18n();
 
@@ -60,6 +65,20 @@ const datasetConfigStore = useDatasetConfigStore();
 const { slug, categories, subcategories, currentCategory } = useDetail();
 
 const { isError, isSuccess, data, error } = useApiForCurrentDataset();
+
+const editStore = useEditStore();
+
+watch(
+  () => data.value as EditData,
+  (dataValue) => {
+    if (dataValue == null) {
+      return;
+    }
+    editStore.setInitial({ ...dataValue });
+    editStore.setCurrent({ ...dataValue });
+  },
+  { immediate: true }
+);
 
 const cancel = () => {
   console.log('Cancelling');
