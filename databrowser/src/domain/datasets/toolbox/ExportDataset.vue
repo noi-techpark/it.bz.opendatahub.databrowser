@@ -37,7 +37,7 @@ import IconCheck from '../../../components/svg/IconCheck.vue';
 import IconDownload from '../../../components/svg/IconDownload.vue';
 import IconLink from '../../../components/svg/IconLink.vue';
 import { useClipboard } from '@vueuse/core';
-import { useAxiosFileDownloader } from '../../api/client/fetcher/axios';
+import { useAxiosFileDownloader } from '../../api';
 
 const props = defineProps<{ url: string }>();
 

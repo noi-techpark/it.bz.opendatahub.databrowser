@@ -36,13 +36,15 @@ import {
   pageSizeOptions,
   validPageSizes,
 } from './defaultValues';
-import { unifyPagination } from '../../api/client/mapper';
 import TableContent from './TableContent.vue';
-import { PaginationData } from '../../api/client/types';
 import { AxiosResponse } from 'axios';
-import { useApiQuery } from '../../api/service/apiQueryHandler';
-import { useApiForCurrentDataset } from '../../api/client/client';
-import { stringifyParameter } from '../../api/service/query';
+import {
+  PaginationData,
+  stringifyParameter,
+  unifyPagination,
+  useApiReadForCurrentDataset,
+  useApiQuery,
+} from '../../api';
 import TableFooter from './TableFooter.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ShowApiError from '../../api/components/ShowApiError.vue';
@@ -78,7 +80,7 @@ const datasetConfigStore = useDatasetConfigStore();
 const elements = computed(() => datasetConfigStore.tableView?.elements ?? []);
 
 const { isError, isSuccess, isLoading, data, error, url } =
-  useApiForCurrentDataset({ resultMapper });
+  useApiReadForCurrentDataset({ resultMapper });
 
 // Define method to change page
 const paginateTo = (page: string) =>

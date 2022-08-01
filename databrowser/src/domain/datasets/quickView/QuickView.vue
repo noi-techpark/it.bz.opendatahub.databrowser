@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useApiForCurrentDataset } from '../../api/client/client';
+import { useApiReadForCurrentDataset } from '../../api';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 
-const { isError, isSuccess, error } = useApiForCurrentDataset();
+const { isError, isSuccess, error } = useApiReadForCurrentDataset();
 </script>

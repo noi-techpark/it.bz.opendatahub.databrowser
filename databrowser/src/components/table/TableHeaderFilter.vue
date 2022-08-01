@@ -25,8 +25,7 @@
 <script setup lang="ts">
 import { computed, defineProps, ref, toRefs } from 'vue';
 import { FilterConfig } from '../../domain/datasetConfig/types';
-import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
-import { useAsList } from '../../domain/api/service/utils';
+import { useApiQuery, useAsList } from '../../domain/api';
 import { FilterValue } from '../../domain/cellComponents/components/filters/types';
 import Dropdown from '../dropdown/Dropdown.vue';
 import ComponentRenderer from '../componentRenderer/ComponentRenderer.vue';

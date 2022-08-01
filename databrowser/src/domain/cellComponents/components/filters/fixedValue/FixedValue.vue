@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, toRefs, withDefaults } from 'vue';
 import Checkbox from '../../../../../components/checkbox/Checkbox.vue';
-import { useAsSet } from '../../../../api/service/utils';
+import { useAsSet } from '../../../../api';
 import ControlButtons from '../ControlButtons.vue';
 import { FilterValue } from '../types';
 

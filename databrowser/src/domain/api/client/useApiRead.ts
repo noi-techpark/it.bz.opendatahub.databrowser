@@ -18,7 +18,7 @@ const useAsQueryKey = (queryKey: Ref<string>) => {
   return result;
 };
 
-export const useApiForCurrentDataset = (options?: {
+export const useApiReadForCurrentDataset = (options?: {
   resultMapper?: (data: any) => any;
   withQueryParameters?: boolean;
 }) => {
@@ -35,11 +35,11 @@ export const useApiForCurrentDataset = (options?: {
     return resultMapper != null ? resultMapper(data) : data;
   };
 
-  const apiResult = useApi({ queryKey, queryFn, select });
+  const apiResult = useApiRead({ queryKey, queryFn, select });
   return { ...apiResult, url: fetchUrl };
 };
 
-export const useApi = (queryOptions: UseQueryOptions) => {
+export const useApiRead = (queryOptions: UseQueryOptions) => {
   const auth = useAuth();
   const isReady = computed(() => auth.ready);
 

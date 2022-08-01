@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue';
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
-import { useFieldExtraction } from '../../api/service/utils';
+import { useFieldExtraction } from '../../api';
 import SubCategoryItem from './SubCategoryItem.vue';
 import { Category, SubCategory } from './types';
 import ContentDivider from '../../../components/content/ContentDivider.vue';

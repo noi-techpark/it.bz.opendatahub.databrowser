@@ -19,12 +19,12 @@
 
 <script setup lang="ts">
 import VueJsonPretty from 'vue-json-pretty';
-import { useApiForCurrentDataset } from '../../api/client/client';
+import { useApiReadForCurrentDataset } from '../../api';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
 
-const { isError, isSuccess, data, error, url } = useApiForCurrentDataset({
+const { isError, isSuccess, data, error, url } = useApiReadForCurrentDataset({
   withQueryParameters: false,
 });
 </script>

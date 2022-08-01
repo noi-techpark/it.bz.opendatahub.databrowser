@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import { defineEmits, defineProps, ref } from 'vue';
-import { Pagination } from '../../domain/api/client/types';
+import { Pagination } from '../../domain/api';
 import { watch } from 'vue';
 import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
 import ButtonCustom from '../button/ButtonCustom.vue';

@@ -4,7 +4,7 @@ import {
   ROLE_READ,
   ROLE_UPDATE,
 } from '../../../config/tourism/roles';
-import { isWithTourismPagination } from '../../api/client/types';
+import { isWithTourismPagination } from '../../api';
 import { CellComponent } from '../../cellComponents/types';
 import { domains, isDomainKnown, useOpenApi } from '../../openApi';
 import { OpenApi, SupportedDomains } from '../../openApi/types';

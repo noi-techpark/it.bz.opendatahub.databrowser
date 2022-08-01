@@ -38,7 +38,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useApiForCurrentDataset } from '../../api/client/client';
+import { useApiReadForCurrentDataset } from '../../api';
 import MainCategories from '../category/MainCategories.vue';
 import SubCategories from '../category/SubCategories.vue';
 import { useDetail } from './useDetail';
@@ -51,5 +51,5 @@ const showAll = ref<string>('false');
 
 const { slug, categories, subcategories, currentCategory } = useDetail();
 
-const { isError, isSuccess, data, error, url } = useApiForCurrentDataset();
+const { isError, isSuccess, data, error, url } = useApiReadForCurrentDataset();
 </script>

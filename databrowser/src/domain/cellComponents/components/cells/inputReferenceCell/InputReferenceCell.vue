@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { computed, defineEmits, defineProps, toRefs } from 'vue';
 import { useQuery } from 'vue-query';
-import { useAxiosFetcher } from '../../../../api/client/fetcher/axios';
+import { useAxiosFetcher } from '../../../../api';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import { SelectSize } from '../../../../../components/select/types';
 import { buildMapper } from './mapper';

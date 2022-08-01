@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { defineProps, ref, watch } from 'vue';
-import { toErrorString } from '../../api/service/utils';
+import { toErrorString } from '../service/utils';
 const props = defineProps<{ error: unknown }>();
 
 const errorAsString = ref<string>('');

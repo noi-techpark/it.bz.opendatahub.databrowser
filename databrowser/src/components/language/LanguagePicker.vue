@@ -30,9 +30,7 @@ import {
 } from '../../domain/datasets/language';
 import { computed, defineProps, withDefaults } from 'vue';
 import { RouteLocationRaw, useRouter } from 'vue-router';
-import { useApiQuery } from '../../domain/api/service/apiQueryHandler';
-import { stringifyParameter } from '../../domain/api/service/query';
-import { useUrlQuery } from '../../domain/api/service/urlQueryHandler';
+import { stringifyParameter, useApiQuery, useUrlQuery } from '../../domain/api';
 import ButtonLink from '../button/ButtonLink.vue';
 import SelectCustom from '../select/SelectCustom.vue';
 

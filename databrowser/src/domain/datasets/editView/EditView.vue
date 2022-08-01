@@ -12,6 +12,14 @@
       </template>
       <template v-if="isSuccess === true">
         <div class="flex flex-col justify-between h-screen">
+          <div class="flex gap-2">
+            <div>isUpdateError: {{ isUpdateError }}</div>
+            <div>isUpdateSuccess: {{ isUpdateSuccess }}</div>
+            <div>isUpdateLoading: {{ isUpdateLoading }}</div>
+            <div>isUpdateIdle: {{ isUpdateIdle }}</div>
+            <div>isUpdatePaused: {{ isUpdatePaused }}</div>
+            <div>updateError: {{ updateError }}</div>
+          </div>
           <div class="flex overflow-y-auto">
             <ContentAlignmentX class="md:flex md:overflow-y-auto md:px-0">
               <MainCategories
@@ -32,7 +40,7 @@
             <EditToolBox />
           </div>
           <EditContent />
-          <EditFooter @cancel="cancel" @save="save" />
+          <EditFooter @cancel="cancel" @save="updateData" />
         </div>
       </template>
     </template>
@@ -40,7 +48,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useApiForCurrentDataset } from '../../api/client/client';
+import { useApiReadForCurrentDataset } from '../../api';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
@@ -55,6 +63,7 @@ import EditToolBox from './EditToolBox.vue';
 import { watch } from 'vue';
 import { useEditStore } from './store/editStore';
 import { EditData } from './store/initialState';
+import { useApiUpdate } from '../../api';
 
 const { t } = useI18n();
 
@@ -64,7 +73,7 @@ const datasetConfigStore = useDatasetConfigStore();
 
 const { slug, categories, subcategories, currentCategory } = useDetail();
 
-const { isError, isSuccess, data, error } = useApiForCurrentDataset();
+const { isError, isSuccess, data, error, url } = useApiReadForCurrentDataset();
 
 const editStore = useEditStore();
 
@@ -80,11 +89,28 @@ watch(
   { immediate: true }
 );
 
+const {
+  isUpdateSuccess,
+  isUpdateError,
+  isUpdateIdle,
+  isUpdateLoading,
+  isUpdatePaused,
+  updateError,
+  update,
+} = useApiUpdate(url);
+
+const updateData = () => update(editStore.current);
+
+watch(
+  () => isUpdateSuccess.value,
+  (isSuccessValue) => {
+    if (isSuccessValue === true) {
+      editStore.setInitial(editStore.current);
+    }
+  }
+);
+
 const cancel = () => {
   console.log('Cancelling');
-};
-
-const save = () => {
-  console.log('Saving');
 };
 </script>

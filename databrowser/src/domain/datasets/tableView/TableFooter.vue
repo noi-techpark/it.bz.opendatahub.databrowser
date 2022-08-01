@@ -17,7 +17,7 @@
 import { defineEmits, defineProps } from 'vue';
 import SelectCustom from '../../../components/select/SelectCustom.vue';
 import Paginator from '../../../components/paginator/Paginator.vue';
-import { Pagination } from '../../api/client/types';
+import { Pagination } from '../../api';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
