@@ -10,6 +10,7 @@ module.exports = {
         '2xl': '1.625rem',
       },
       colors: {
+        error: '#ff0000',
         green: {
           400: '#50742f',
           500: '#476929',
