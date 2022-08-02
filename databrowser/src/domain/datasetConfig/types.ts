@@ -8,6 +8,7 @@ export interface PropertyConfig {
   params?: Record<string, string>;
   class?: string;
   tooltip?: string;
+  required?: boolean;
 }
 
 export interface FilterConfig {

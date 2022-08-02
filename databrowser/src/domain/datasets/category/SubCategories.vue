@@ -16,6 +16,7 @@
           :key="property.title"
           :title="property.title"
           :tooltip="property.tooltip"
+          :required="property.required"
         >
           <ComponentRenderer
             :tag-name="property.component"
