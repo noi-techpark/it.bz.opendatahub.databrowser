@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n';
 import { Router, useRouter } from 'vue-router';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { DatasetConfig, DetailElements } from '../../datasetConfig/types';
-import { Category } from './types';
+import { Category, SubCategory } from './types';
 
 const handleSlug = (router: Router, elements: DetailElements[]) => {
   const initialSlug = elements[0]?.slug;
@@ -39,63 +39,65 @@ const hasAnyRequiredField = (element: DetailElements) =>
 
 export const useCategories = () => {
   const router = useRouter();
-
   const datasetConfigStore = useDatasetConfigStore();
-
-  const slug = ref('');
-  const subcategories = ref<DetailElements['subcategories']>([]);
-  const categories = ref<Category[]>([]);
-  const currentCategory = ref<Category | undefined>();
-
   const i18n = useI18n();
+
+  const categories = ref<Category[]>([]);
+  const subcategories = ref<SubCategory[]>([]);
+  const slug = ref('');
+  const currentCategory = ref<Category | undefined>();
 
   watch(
     () => [datasetConfigStore.config, router.currentRoute.value],
     (watchedValues) => {
       const config = watchedValues[0] as DatasetConfig | undefined;
 
-      if (datasetConfigStore.isDetailView || datasetConfigStore.isEditView) {
-        const elements = datasetConfigStore.isDetailView
-          ? config?.views?.detail?.elements!
-          : config?.views?.edit?.elements!;
-
-        // Handle slug
-        slug.value = handleSlug(router, elements!);
-
-        // Compute categories
-        categories.value = elements.map((element) => {
-          // If config is generated, use translated name.
-          // Otherwise, use name as defined by config
-          const name =
-            datasetConfigStore.source === 'generated'
-              ? i18n.t('datasets.generated.categoryName')
-              : element.name;
-
-          const isAnyFieldRequired = hasAnyRequiredField(element);
-
-          return {
-            name,
-            slug: element.slug,
-            to: {
-              hash: `#${element.slug}`,
-              query: router.currentRoute.value.query,
-            },
-            isAnyFieldRequired,
-          };
-        });
-
-        // Compute subcategories
-        subcategories.value =
-          elements.find((config) => config.slug === slug.value)
-            ?.subcategories ?? [];
-
-        // Compute current category
-        currentCategory.value = categories.value.find(
-          (category) => slug.value === category.slug
-        );
-      } else {
+      if (!datasetConfigStore.isDetailView && !datasetConfigStore.isEditView) {
+        slug.value = '';
         currentCategory.value = undefined;
+        return;
       }
+
+      const views = config?.views;
+      const elements = datasetConfigStore.isDetailView
+        ? views?.detail?.elements!
+        : views?.edit?.elements!;
+
+      // Handle slug
+      slug.value = handleSlug(router, elements!);
+
+      // Compute categories
+      categories.value = elements.map((element) => {
+        // If config is generated, use translated name.
+        // Otherwise, use name as defined by config
+        const name =
+          datasetConfigStore.source === 'generated'
+            ? i18n.t('datasets.generated.categoryName')
+            : element.name;
+
+        const isAnyFieldRequired = hasAnyRequiredField(element);
+
+        return {
+          name,
+          slug: element.slug,
+          to: {
+            hash: `#${element.slug}`,
+            query: router.currentRoute.value.query,
+          },
+          subCategories: element.subcategories,
+          isAnyFieldRequired,
+        };
+      });
+
+      // Compute subcategories
+      subcategories.value =
+        elements.find((config) => config.slug === slug.value)?.subcategories ??
+        [];
+
+      // Compute current category
+      currentCategory.value = categories.value.find(
+        (category) => slug.value === category.slug
+      );
     },
     { immediate: true }
   );

@@ -14,7 +14,6 @@ export const eventShortEditView: EditViewConfig = {
               title: 'Shortname',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'Shortname' },
-              required: true,
               tooltip: 'This is the shortname for your event',
             },
           ],
@@ -40,6 +39,18 @@ export const eventShortEditView: EditViewConfig = {
               params: {
                 format: 'd/M/yyyy HH:mm',
               },
+            },
+            {
+              title: 'Start date',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'StartDate' },
+              required: true,
+            },
+            {
+              title: 'End date',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'EndDate' },
+              required: true,
             },
           ],
         },

@@ -17,6 +17,7 @@
           :title="property.title"
           :tooltip="property.tooltip"
           :required="property.required"
+          :errors="property.errors"
         >
           <ComponentRenderer
             :tag-name="property.component"
@@ -35,11 +36,11 @@ import { computed, defineProps } from 'vue';
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
 import { useFieldExtraction } from '../../api';
 import SubCategoryItem from './SubCategoryItem.vue';
-import { Category, SubCategory } from './types';
+import { Category, PropertyConfigWithErrors, SubCategory } from './types';
 import ContentDivider from '../../../components/content/ContentDivider.vue';
 import { PropertyConfig } from '../../datasetConfig/types';
 
-type PropertyConfigWithValue = PropertyConfig & {
+type PropertyConfigWithValue = PropertyConfigWithErrors & {
   value: Record<string, string>;
 };
 

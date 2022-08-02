@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-2">
+  <div class="pb-2" :class="{ 'has-error': hasError }">
     <div
       v-if="title != null || tooltip != null"
       class="flex justify-between items-center py-1"
@@ -18,16 +18,26 @@
       </div>
     </div>
     <slot></slot>
+    <ul v-if="hasError" class="mt-1 text-error">
+      <li v-for="(err, index) in errors" :key="index">
+        {{ err }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 import IconInfo from '../../../components/svg/IconInfo.vue';
 
-defineProps<{
+const props = defineProps<{
   title?: string;
   tooltip?: string;
   required?: boolean;
+  errors?: string[];
 }>();
+
+const hasError = computed(
+  () => props.errors != null && props.errors.length > 0
+);
 </script>

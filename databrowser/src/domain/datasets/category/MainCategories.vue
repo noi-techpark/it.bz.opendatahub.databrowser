@@ -14,7 +14,9 @@
         :to="category.to"
         :active="slug === category.slug"
       >
-        {{ computeLabel(category.name, category.isAnyFieldRequired) }}
+        <span :class="{ 'text-error': category.isAnyFieldError === true }">
+          {{ computeLabel(category.name, category.isAnyFieldRequired) }}
+        </span>
       </PillLink>
     </div>
   </div>
