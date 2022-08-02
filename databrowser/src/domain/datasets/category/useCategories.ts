@@ -5,11 +5,11 @@ import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigSt
 import { DatasetConfig, DetailElements } from '../../datasetConfig/types';
 import { Category, SubCategory } from './types';
 
-const handleSlug = (router: Router, elements: DetailElements[]) => {
-  const initialSlug = elements[0]?.slug;
+const handleSlug = (router: Router, elements?: DetailElements[]) => {
+  const initialSlug = elements?.[0]?.slug ?? '';
 
   // Compute set of allowed slugs from render config
-  const configuredSlugs = elements.map((vc) => vc.slug);
+  const configuredSlugs = elements?.map((vc) => vc.slug) ?? [];
   const allowedSlugs = new Set(configuredSlugs);
 
   // Slug = URL hash value (if present) without leading '#'
@@ -64,11 +64,17 @@ export const useCategories = () => {
 
       const views = config?.views;
       const elements = datasetConfigStore.isDetailView
-        ? views?.detail?.elements!
-        : views?.edit?.elements!;
+        ? views?.detail?.elements
+        : views?.edit?.elements;
+
+      // There are cases where there are no elements, e.g,
+      // if permissions change. Do nothing in that case
+      if (elements == null) {
+        return;
+      }
 
       // Handle slug
-      slug.value = handleSlug(router, elements!);
+      slug.value = handleSlug(router, elements);
 
       // Compute categories
       categories.value = elements.map((element) => {

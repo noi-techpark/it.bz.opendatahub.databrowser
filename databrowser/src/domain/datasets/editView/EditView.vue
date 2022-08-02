@@ -6,6 +6,12 @@
     <template v-if="!datasetConfigStore.hasUpdatePermission">
       {{ t('datasets.editView.notAuthorized') }}
     </template>
+    <template v-else-if="datasetConfigStore.isSourceGenerated">
+      {{ t('datasets.editView.notAvailableForGeneratedSource') }}
+    </template>
+    <template v-else-if="datasetConfigStore.config?.views?.edit == null">
+      {{ t('datasets.editView.notEditViewConfigured') }}
+    </template>
     <template v-else>
       <template v-if="isError">
         <ShowApiError :error="error" />

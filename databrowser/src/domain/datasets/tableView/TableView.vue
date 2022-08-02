@@ -15,7 +15,10 @@
         <TableContent
           :render-elements="elements"
           :rows="rows"
-          :show-edit="datasetConfigStore.hasUpdatePermission"
+          :show-edit="
+            datasetConfigStore.hasUpdatePermission &&
+            !datasetConfigStore.isSourceGenerated
+          "
         />
         <ExportDatasetToolBox :url="url" :is-table-view="true" />
       </div>

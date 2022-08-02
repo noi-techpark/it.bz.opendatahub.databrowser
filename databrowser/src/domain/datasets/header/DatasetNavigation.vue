@@ -36,7 +36,7 @@
           :active="datasetConfigStore.isDetailView"
         />
         <TabLink
-          v-if="!isNewView && datasetConfigStore.hasUpdatePermission"
+          v-if="showEditTab"
           :label="t('datasets.navigation.editView')"
           :to="editViewPath"
           :active="datasetConfigStore.isEditView"
@@ -74,4 +74,11 @@ const tableViewPath = { name: DatasetPage.TABLE };
 const newViewPath = { name: DatasetPage.NEW };
 
 const isNewView = computed(() => datasetConfigStore.isNewView);
+
+const showEditTab = computed(
+  () =>
+    !isNewView.value &&
+    !datasetConfigStore.isSourceGenerated &&
+    datasetConfigStore.hasUpdatePermission
+);
 </script>

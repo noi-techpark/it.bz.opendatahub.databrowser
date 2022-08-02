@@ -13,10 +13,7 @@
       <span v-else class="mr-3 text-base">
         No view config found, try to change the view using the provided button
       </span>
-      <AddRecordButton
-        v-if="datasetConfigStore.hasUpdatePermission"
-        class="md:hidden"
-      />
+      <AddRecordButton v-if="showAddRecord" class="md:hidden" />
     </div>
 
     <!-- More info -->
@@ -57,10 +54,7 @@
     </div>
 
     <div class="flex ml-auto">
-      <AddRecordButton
-        v-if="datasetConfigStore.hasUpdatePermission"
-        class="hidden mr-3 md:block"
-      />
+      <AddRecordButton v-if="showAddRecord" class="hidden mr-3 md:block" />
 
       <!-- Language picker -->
       <LanguagePicker />
@@ -69,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import ButtonCustom from '../../../components/button/ButtonCustom.vue';
 import IconInfo from '../../../components/svg/IconInfo.vue';
 import LanguagePicker from '../../../components/language/LanguagePicker.vue';
@@ -90,4 +84,10 @@ const setDatasetConfigSource = (source: SourceType) => {
   picked.value = source;
   datasetConfigStore.changeSource(source);
 };
+
+const showAddRecord = computed(
+  () =>
+    !datasetConfigStore.isSourceGenerated &&
+    datasetConfigStore.hasCreatePermission
+);
 </script>

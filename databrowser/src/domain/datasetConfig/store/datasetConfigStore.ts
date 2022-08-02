@@ -32,16 +32,23 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', {
     isQuickView: (state) => state.viewKey === View.QUICK,
     isRawView: (state) => state.viewKey === View.RAW,
     isTableView: (state) => state.viewKey === View.TABLE,
+    isSourceEmbedded: (state) => state.source === 'embedded',
+    isSourceGenerated: (state) => state.source === 'generated',
     hasDetailView: (state) => state.config?.views?.detail != null,
     hasEditView: (state) => state.config?.views?.edit != null,
     hasNewView: (state) => state.config?.views?.new != null,
     hasQuickView: (state) => state.config?.views?.quick != null,
     hasRawView: (state) => state.config?.views?.raw != null,
     hasTableView: (state) => state.config?.views?.table != null,
+    hasCreatePermission(): boolean {
+      const auth = useAuth();
+      const roles = this.config?.operations?.create?.rolesAllowed;
+      return roles != null ? auth.hasAnyRole(roles) : false;
+    },
     hasUpdatePermission(): boolean {
       const auth = useAuth();
-      const updateRoles = this.config?.operations?.update?.rolesAllowed;
-      return updateRoles != null ? auth.hasAnyRole(updateRoles) : false;
+      const roles = this.config?.operations?.update?.rolesAllowed;
+      return roles != null ? auth.hasAnyRole(roles) : false;
     },
   },
   actions: {
