@@ -89,6 +89,7 @@
     "navigation": {
       "detailView": "Detail View",
       "editView": "Edit View",
+      "newView": "New Record",
       "quickView": "Quick View",
       "rawView": "Raw View",
       "tableView": "Table View"

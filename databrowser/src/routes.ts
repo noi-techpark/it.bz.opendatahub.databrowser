@@ -10,6 +10,7 @@ declare module 'vue-router' {
 export const DatasetPage: Record<Uppercase<ViewKey>, string> = {
   DETAIL: 'DatasetDetailPage',
   EDIT: 'DatasetEditPage',
+  NEW: 'DatasetQuickNew',
   QUICK: 'DatasetQuickPage',
   RAW: 'DatasetRawPage',
   TABLE: 'DatasetTablePage',
@@ -33,6 +34,12 @@ export const router = createRouter({
       component: () => import('./pages/DatasetPage.vue'),
       name: DatasetPage.EDIT,
       meta: { viewKey: View.EDIT },
+    },
+    {
+      path: '/dataset/new/:domain/:pathParams+',
+      component: () => import('./pages/DatasetPage.vue'),
+      name: DatasetPage.NEW,
+      meta: { viewKey: View.NEW },
     },
     {
       path: '/dataset/quick/:domain/:pathParams+/:id',

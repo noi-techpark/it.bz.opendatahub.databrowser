@@ -4,25 +4,22 @@ import { EditData } from './store/initialState';
 
 export const useEditStoreSync = (
   data: Ref<any>,
-  isUpdateSuccess: Ref<boolean>,
-  update: (data?: unknown) => void
+  isMutateSuccess: Ref<boolean>,
+  mutate: (data?: unknown) => unknown
 ) => {
   const editStore = useEditStore();
 
   watch(
     () => data.value as EditData,
     (dataValue) => {
-      if (dataValue == null) {
-        return;
-      }
-      editStore.setInitial({ ...dataValue });
-      editStore.setCurrent({ ...dataValue });
+      editStore.setInitial({ ...(dataValue ?? {}) });
+      editStore.setCurrent({ ...(dataValue ?? {}) });
     },
     { immediate: true }
   );
 
   watch(
-    () => isUpdateSuccess.value,
+    () => isMutateSuccess.value,
     (isSuccessValue) => {
       if (isSuccessValue === true) {
         editStore.setInitial(editStore.current);
@@ -30,8 +27,8 @@ export const useEditStoreSync = (
     }
   );
 
-  const updateData = () => update(editStore.current);
+  const mutateData = () => mutate(editStore.current);
   const resetData = () => editStore.setCurrent(editStore.initial);
 
-  return { update: updateData, reset: resetData };
+  return { mutate: mutateData, reset: resetData };
 };

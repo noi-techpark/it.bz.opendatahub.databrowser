@@ -21,8 +21,8 @@
           :mode="'split'"
           :theme="'dark'"
           :language="'json'"
-          :prev="editStore.initialAsJson"
-          :current="editStore.currentAsJson"
+          :prev="editStore.initialAsJson ?? ''"
+          :current="editStore.currentAsJson ?? ''"
           :input-delay="10"
         />
       </div>

@@ -3,6 +3,7 @@ export {
   useApiCreate,
   useApiDelete,
   useApiUpdate,
+  useApiMutate,
 } from './client/useApiMutation';
 export { unifyPagination } from './client/mapper';
 export {

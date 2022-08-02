@@ -52,7 +52,11 @@ export const useCategories = () => {
     (watchedValues) => {
       const config = watchedValues[0] as DatasetConfig | undefined;
 
-      if (!datasetConfigStore.isDetailView && !datasetConfigStore.isEditView) {
+      if (
+        !datasetConfigStore.isDetailView &&
+        !datasetConfigStore.isEditView &&
+        !datasetConfigStore.isNewView
+      ) {
         slug.value = '';
         currentCategory.value = undefined;
         return;

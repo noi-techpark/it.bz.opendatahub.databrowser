@@ -84,6 +84,7 @@ export type DetailViewConfig = DetailViewElements;
 export type QuickViewConfig = QuickViewElements;
 export type EditViewConfig = EditViewElements;
 export type RawViewConfig = unknown;
+export type NewViewConfig = unknown;
 
 export interface Operation {
   rolesAllowed: string[];
@@ -97,6 +98,7 @@ export interface DatasetConfig {
   views?: {
     detail?: DetailViewConfig;
     edit?: EditViewConfig;
+    new?: NewViewConfig;
     quick?: QuickViewConfig;
     raw?: RawViewConfig;
     table?: ListViewConfig;
@@ -115,6 +117,7 @@ export type ViewKey = keyof Required<DatasetConfig>['views'];
 export const View: Record<Uppercase<ViewKey>, ViewKey> = {
   DETAIL: 'detail',
   EDIT: 'edit',
+  NEW: 'new',
   QUICK: 'quick',
   RAW: 'raw',
   TABLE: 'table',

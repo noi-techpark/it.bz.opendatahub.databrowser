@@ -2,7 +2,7 @@
   <div class="pb-2" :class="{ 'has-error': hasError }">
     <div
       v-if="title != null || tooltip != null"
-      class="flex justify-between items-center py-1"
+      class="flex relative justify-between items-center py-1"
     >
       <div
         v-if="required"

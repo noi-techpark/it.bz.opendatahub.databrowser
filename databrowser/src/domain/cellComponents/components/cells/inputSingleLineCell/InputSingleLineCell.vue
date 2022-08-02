@@ -1,6 +1,5 @@
 <template>
   <InputCustom
-    v-if="text != null"
     :value="text"
     class="p-2 w-full text-black border-gray-400"
     @input="update($event)"

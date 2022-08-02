@@ -15,6 +15,11 @@ export const eventShortDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
+            {
+              title: 'Event location',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventLocation' },
+            },
           ],
         },
         {
@@ -35,6 +40,22 @@ export const eventShortDetailView: DetailViewConfig = {
               title: 'Last Changes',
               component: CellComponent.DateCell,
               fields: { date: 'LastChange' },
+              params: {
+                format: 'd/M/yyyy HH:mm',
+              },
+            },
+            {
+              title: 'Start date',
+              component: CellComponent.DateCell,
+              fields: { date: 'StartDate' },
+              params: {
+                format: 'd/M/yyyy HH:mm',
+              },
+            },
+            {
+              title: 'End date',
+              component: CellComponent.DateCell,
+              fields: { date: 'EndDate' },
               params: {
                 format: 'd/M/yyyy HH:mm',
               },

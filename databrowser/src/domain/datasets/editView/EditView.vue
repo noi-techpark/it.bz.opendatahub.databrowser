@@ -12,12 +12,15 @@
       </template>
       <template v-if="isSuccess === true">
         <div class="flex gap-2">
-          <div>isUpdateError: {{ isUpdateError }}</div>
-          <div>isUpdateSuccess: {{ isUpdateSuccess }}</div>
-          <div>isUpdateLoading: {{ isUpdateLoading }}</div>
-          <div>isUpdateIdle: {{ isUpdateIdle }}</div>
-          <div>isUpdatePaused: {{ isUpdatePaused }}</div>
-          <div v-if="isUpdateError">updateError:</div>
+          <div>isMutateError: {{ isMutateError }}</div>
+          <div>isMutateSuccess: {{ isMutateSuccess }}</div>
+          <div>isMutateLoading: {{ isMutateLoading }}</div>
+          <div>isMutateIdle: {{ isMutateIdle }}</div>
+          <div>isMutatePaused: {{ isMutatePaused }}</div>
+          <div v-if="isMutateError" class="text-error">
+            mutateError:
+            {{ JSON.stringify((mutateError as any).response.data) }}
+          </div>
         </div>
         <div class="flex overflow-auto flex-col justify-between h-screen">
           <div class="flex overflow-y-auto">
@@ -46,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useApiReadForCurrentDataset } from '../../api';
+import { useApiMutate, useApiReadForCurrentDataset } from '../../api';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
@@ -58,9 +61,11 @@ import SubCategories from '../category/SubCategories.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import EditToolBox from './EditToolBox.vue';
 import { useEditStore } from './store/editStore';
-import { useApiUpdate } from '../../api';
 import { useEditStoreSync } from './useEditStoreSync';
 import { useApplyError } from './useApplyError';
+import { computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { DatasetPage } from '../../../routes';
 
 const { t } = useI18n();
 
@@ -72,32 +77,64 @@ const datasetConfigStore = useDatasetConfigStore();
 
 const { slug, categories, subcategories, currentCategory } = useCategories();
 
-const { isError, isSuccess, data, error, url } = useApiReadForCurrentDataset();
+const { isError, isSuccess, data, error, url } = datasetConfigStore.isNewView
+  ? {
+      isError: ref(false),
+      isSuccess: ref(true),
+      data: ref(),
+      error: ref(),
+      url: computed(() => datasetConfigStore.currentPath ?? ''),
+    }
+  : useApiReadForCurrentDataset();
 
-// Config for update. Note the "update" function that, when invoked, triggers the update
+const mutation = computed(() =>
+  datasetConfigStore.isNewView ? 'create' : 'update'
+);
 const {
-  isUpdateSuccess,
-  isUpdateError,
-  isUpdateIdle,
-  isUpdateLoading,
-  isUpdatePaused,
-  updateError,
-  update,
-} = useApiUpdate(url);
+  isMutateSuccess,
+  isMutateError,
+  isMutateIdle,
+  isMutateLoading,
+  isMutatePaused,
+  mutateData,
+  mutateError,
+  mutate,
+} = useApiMutate(url, mutation);
 
 // Enhance categories and subcategories with any errors
 const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =
-  useApplyError(categories, subcategories, updateError);
+  useApplyError(categories, subcategories, mutateError);
 
 // Sync data to edit store
-const storeSync = useEditStoreSync(data, isUpdateSuccess, update);
+const storeSync = useEditStoreSync(data, isMutateSuccess, mutate);
 
-// Save callback
-const save = () => storeSync.update();
+// Save callback triggers request and syncs editStore
+const save = () => {
+  storeSync.mutate();
+};
 
 // Cancel callback
 const cancel = () => {
   storeSync.reset();
   cleanErrors();
 };
+
+// If create mutation was successful,
+// redirect to detail page of new record
+const router = useRouter();
+watch(
+  () => isMutateSuccess.value,
+  (success) => {
+    if (datasetConfigStore.isNewView && success) {
+      const id = mutateData.value?.data.id;
+      if (id != null) {
+        router.push({
+          name: DatasetPage.DETAIL,
+          params: { id },
+        });
+      }
+    }
+  },
+  { immediate: true }
+);
 </script>

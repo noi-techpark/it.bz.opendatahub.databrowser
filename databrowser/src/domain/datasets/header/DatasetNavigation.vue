@@ -17,22 +17,32 @@
         </ButtonLink>
 
         <TabLink
+          v-if="isNewView"
+          :label="t('datasets.navigation.newView')"
+          :to="newViewPath"
+          :active="true"
+        ></TabLink>
+
+        <TabLink
+          v-if="!isNewView"
           :label="t('datasets.navigation.quickView')"
           :to="quickViewPath"
           :active="datasetConfigStore.isQuickView"
         />
         <TabLink
+          v-if="!isNewView"
           :label="t('datasets.navigation.detailView')"
           :to="detailViewPath"
           :active="datasetConfigStore.isDetailView"
         />
         <TabLink
-          v-if="datasetConfigStore.hasUpdatePermission"
+          v-if="!isNewView && datasetConfigStore.hasUpdatePermission"
           :label="t('datasets.navigation.editView')"
           :to="editViewPath"
           :active="datasetConfigStore.isEditView"
         />
         <TabLink
+          v-if="!isNewView"
           :label="t('datasets.navigation.rawView')"
           :to="rawViewPath"
           :active="datasetConfigStore.isRawView"
@@ -50,6 +60,7 @@ import TabLink from '../../../components/tab/TabLink.vue';
 import { useI18n } from 'vue-i18n';
 import { DatasetPage } from '../../../routes';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { computed } from 'vue';
 
 const { t } = useI18n();
 
@@ -60,4 +71,7 @@ const quickViewPath = { name: DatasetPage.QUICK };
 const rawViewPath = { name: DatasetPage.RAW };
 const editViewPath = { name: DatasetPage.EDIT };
 const tableViewPath = { name: DatasetPage.TABLE };
+const newViewPath = { name: DatasetPage.NEW };
+
+const isNewView = computed(() => datasetConfigStore.isNewView);
 </script>

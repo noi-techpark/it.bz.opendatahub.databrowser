@@ -16,6 +16,12 @@ export const eventShortEditView: EditViewConfig = {
               fields: { text: 'Shortname' },
               tooltip: 'This is the shortname for your event',
             },
+            {
+              title: 'Event location',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'EventLocation' },
+              required: true,
+            },
           ],
         },
         {
@@ -59,7 +65,7 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Source',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Source' },
             },
           ],

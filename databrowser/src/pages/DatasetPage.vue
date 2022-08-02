@@ -41,7 +41,11 @@
               <DetailView v-if="datasetConfigStore.isDetailView" />
               <RawView v-if="datasetConfigStore.isRawView" />
               <QuickView v-if="datasetConfigStore.isQuickView" />
-              <EditView v-if="datasetConfigStore.isEditView" />
+              <EditView
+                v-if="
+                  datasetConfigStore.isEditView || datasetConfigStore.isNewView
+                "
+              />
             </section>
           </template>
         </template>

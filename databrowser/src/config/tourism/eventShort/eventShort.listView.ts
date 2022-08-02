@@ -4,6 +4,14 @@ import { ListViewConfig } from '../../../domain/datasetConfig/types';
 export const eventShortListView: ListViewConfig = {
   elements: [
     {
+      title: 'Event location',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'EventLocation',
+      },
+    },
+    {
       title: 'Description',
       component: CellComponent.StringCell,
       class: 'w-48',

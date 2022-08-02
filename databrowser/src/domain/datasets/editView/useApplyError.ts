@@ -5,21 +5,32 @@ import { Category, SubCategory } from '../category/types';
 export const useApplyError = (
   categories: Ref<Category[]>,
   subcategories: Ref<SubCategory[]>,
-  updateError: Ref<any>
+  mutateError: Ref<any>
 ) => {
   const responseErrors = computed(() => {
-    const err = updateError.value;
+    const err = mutateError.value;
 
     if (err == null) {
       return null;
     }
 
     if (err instanceof AxiosError) {
+      const responseData = err.response?.data;
+
+      // For some cases (e.g. error during POST to create a new record),
+      // there is no error object and the error message is just send as
+      // plain text. That case must be handled
+      if (typeof responseData === 'string') {
+        return {
+          title: responseData,
+        };
+      }
+
       // The Open Data Hub error object values can be either of type string or string[].
       // The string type values contain information like HTTP status code. Only the string[]
       // type fields contain true error messages. Those need to be returned
 
-      const responseErrors = err.response?.data.errors as Record<
+      const responseErrors = responseData.errors as Record<
         string,
         string | string[]
       >;
