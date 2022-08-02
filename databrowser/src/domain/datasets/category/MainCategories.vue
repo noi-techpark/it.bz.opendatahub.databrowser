@@ -14,7 +14,7 @@
         :to="category.to"
         :active="slug === category.slug"
       >
-        {{ category.name }}
+        {{ computeLabel(category.name, category.isAnyFieldRequired) }}
       </PillLink>
     </div>
   </div>
@@ -35,9 +35,12 @@ const props = defineProps<{
 
 const { categories, slug } = toRefs(props);
 
+const computeLabel = (name: string, isAnyFieldRequired?: boolean) =>
+  name + (isAnyFieldRequired ? ' *' : '');
+
 const selectOptions = computed<SelectOption[]>(() =>
   categories.value.map((category) => ({
-    label: category.name,
+    label: computeLabel(category.name, category.isAnyFieldRequired),
     value: category.slug,
     selected: slug?.value === category.slug,
   }))

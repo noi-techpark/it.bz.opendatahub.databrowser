@@ -5,6 +5,7 @@ export interface Category {
   name: string;
   slug: string;
   to: RouteLocationRaw;
+  isAnyFieldRequired?: boolean;
 }
 
 export interface SubCategory {

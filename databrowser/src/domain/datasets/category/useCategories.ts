@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n';
 import { Router, useRouter } from 'vue-router';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { DatasetConfig, DetailElements } from '../../datasetConfig/types';
-import { Category } from '../category/types';
+import { Category } from './types';
 
 const handleSlug = (router: Router, elements: DetailElements[]) => {
   const initialSlug = elements[0]?.slug;
@@ -32,7 +32,12 @@ const handleSlug = (router: Router, elements: DetailElements[]) => {
   return slug;
 };
 
-export const useDetail = () => {
+const hasAnyRequiredField = (element: DetailElements) =>
+  element.subcategories.some((sub) =>
+    sub.properties.some((prop) => prop.required === true)
+  );
+
+export const useCategories = () => {
   const router = useRouter();
 
   const datasetConfigStore = useDatasetConfigStore();
@@ -66,6 +71,8 @@ export const useDetail = () => {
               ? i18n.t('datasets.generated.categoryName')
               : element.name;
 
+          const isAnyFieldRequired = hasAnyRequiredField(element);
+
           return {
             name,
             slug: element.slug,
@@ -73,6 +80,7 @@ export const useDetail = () => {
               hash: `#${element.slug}`,
               query: router.currentRoute.value.query,
             },
+            isAnyFieldRequired,
           };
         });
 

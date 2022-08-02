@@ -52,7 +52,7 @@ import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import EditFooter from './EditFooter.vue';
-import { useDetail } from '../detailView/useDetail';
+import { useCategories } from '../category/useCategories';
 import MainCategories from '../category/MainCategories.vue';
 import SubCategories from '../category/SubCategories.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
@@ -68,7 +68,7 @@ const auth = useAuth();
 
 const datasetConfigStore = useDatasetConfigStore();
 
-const { slug, categories, subcategories, currentCategory } = useDetail();
+const { slug, categories, subcategories, currentCategory } = useCategories();
 
 const { isError, isSuccess, data, error, url } = useApiReadForCurrentDataset();
 

@@ -41,7 +41,7 @@ import { ref } from 'vue';
 import { useApiReadForCurrentDataset } from '../../api';
 import MainCategories from '../category/MainCategories.vue';
 import SubCategories from '../category/SubCategories.vue';
-import { useDetail } from './useDetail';
+import { useCategories } from '../category/useCategories';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import RadioCustom from '../../../components/radio/RadioCustom.vue';
 import ShowApiError from '../../api/components/ShowApiError.vue';
@@ -49,7 +49,7 @@ import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
 
 const showAll = ref<string>('false');
 
-const { slug, categories, subcategories, currentCategory } = useDetail();
+const { slug, categories, subcategories, currentCategory } = useCategories();
 
 const { isError, isSuccess, data, error, url } = useApiReadForCurrentDataset();
 </script>
