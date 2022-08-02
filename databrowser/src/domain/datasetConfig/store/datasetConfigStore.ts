@@ -39,7 +39,7 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', {
     hasUpdatePermission(): boolean {
       const auth = useAuth();
       const updateRoles = this.config?.operations?.update?.rolesAllowed;
-      return updateRoles != null ? auth.hasAnyRole(updateRoles) : true;
+      return updateRoles != null ? auth.hasAnyRole(updateRoles) : false;
     },
   },
   actions: {

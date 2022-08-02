@@ -3,6 +3,7 @@ import { DatasetConfig } from '../../../domain/datasetConfig/types';
 import { eventShortDescription } from './eventShort.description';
 import { eventShortRoute } from './eventShort.route';
 import { eventShortViews } from './eventShort.views';
+import { eventShortOperations } from './eventShort.operations';
 
 export const eventShortConfig: DatasetConfig = {
   source: 'embedded',
@@ -10,4 +11,5 @@ export const eventShortConfig: DatasetConfig = {
   route: eventShortRoute,
   description: eventShortDescription,
   views: eventShortViews,
+  operations: eventShortOperations,
 };
