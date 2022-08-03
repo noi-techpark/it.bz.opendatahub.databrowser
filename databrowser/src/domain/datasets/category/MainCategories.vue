@@ -11,6 +11,7 @@
       <PillLink
         v-for="category in categories"
         :key="category.slug"
+        class="py-1 px-4"
         :to="category.to"
         :active="slug === category.slug"
       >

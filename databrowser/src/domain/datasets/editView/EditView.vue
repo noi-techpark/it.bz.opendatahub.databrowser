@@ -29,16 +29,24 @@
           </div>
         </div>
         <div class="flex overflow-auto flex-col justify-between h-screen">
+          <div>
+            <ContentAlignmentX class="flex items-center mt-3">
+              <div class="mr-4 text-sm">
+                {{ t('datasets.detailView.showEmptyFields') }}
+              </div>
+              <ToggleCustom v-model="showAll" :disabled="true" />
+            </ContentAlignmentX>
+          </div>
           <div class="flex overflow-y-auto">
             <ContentAlignmentX class="md:flex md:overflow-y-auto md:px-0">
               <MainCategories
                 :categories="enhancedMainCategories"
                 :slug="slug"
-                class="overflow-y-auto sticky top-0 py-6 bg-white md:w-1/6 md:h-full"
+                class="overflow-y-auto sticky top-0 py-3 bg-white md:w-1/6 md:h-full"
               />
               <SubCategories
                 v-if="slug !== ''"
-                class="overflow-y-auto flex-1 pb-6 md:py-6 md:px-20 md:h-full"
+                class="overflow-y-auto flex-1 pb-6 md:py-3 md:px-20 md:h-full"
                 :data="editStore.current"
                 :category="currentCategory"
                 :sub-categories="enhancedSubcategories"
@@ -72,8 +80,11 @@ import { useApplyError } from './useApplyError';
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { DatasetPage } from '../../../routes';
+import ToggleCustom from '../../../components/toggle/ToggleCustom.vue';
 
 const { t } = useI18n();
+
+const showAll = ref(true);
 
 const auth = useAuth();
 

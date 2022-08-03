@@ -11,7 +11,7 @@
       classNames,
     ]"
     :disabled="disabled"
-    class="block py-1 px-5 font-semibold border focus:outline-none"
+    class="block font-semibold border focus:outline-none"
   >
     <slot></slot>
   </router-link>

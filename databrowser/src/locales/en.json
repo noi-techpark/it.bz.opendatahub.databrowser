@@ -39,6 +39,9 @@
     }
   },
   "datasets": {
+    "detailView": {
+      "showEmptyFields": "Show empty fields"
+    },
     "editView": {
       "authorizationChecking": "Please wait for authorization check",
       "notAuthorized": "You are not authorized to edit this dataset",
