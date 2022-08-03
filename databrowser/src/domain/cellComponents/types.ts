@@ -9,6 +9,7 @@ export enum CellComponent {
   ImageCell = 'ImageCell',
   ImageGalleryCell = 'ImageGalleryCell',
   JsonCell = 'JsonCell',
+  SelectWithOptionsCell = 'SelectWithOptionsCell',
   StateCell = 'StateCell',
   StringCell = 'StringCell',
   StringTemplateCell = 'StringTemplateCell',

@@ -10,6 +10,7 @@ import InputSingleLineCell from '../components/cells/inputSingleLineCell/InputSi
 import ImageCell from '../components/cells/imageCell/ImageCell.vue';
 import ImageGalleryCell from '../components/cells/imageGalleryCell/ImageGalleryCell.vue';
 import JsonCell from '../components/cells/jsonCell/JsonCell.vue';
+import SelectWithOptionsCell from '../components/cells/selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StateCell from '../components/cells/stateCell/StateCell.vue';
 import StringCell from '../components/cells/stringCell/StringCell.vue';
 import StringTemplateCell from '../components/cells/stringTemplateCell/StringTemplateCell.vue';
@@ -32,6 +33,7 @@ export default {
     app.component(CellComponent.ImageCell, ImageCell);
     app.component(CellComponent.ImageGalleryCell, ImageGalleryCell);
     app.component(CellComponent.JsonCell, JsonCell);
+    app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);
     app.component(CellComponent.StateCell, StateCell);
     app.component(CellComponent.StringCell, StringCell);
     app.component(CellComponent.StringTemplateCell, StringTemplateCell);
