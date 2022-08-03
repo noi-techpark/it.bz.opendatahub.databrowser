@@ -8,7 +8,14 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, ref, useAttrs, withDefaults } from 'vue';
+import {
+  defineEmits,
+  defineProps,
+  ref,
+  toRefs,
+  useAttrs,
+  withDefaults,
+} from 'vue';
 import { useMapper } from './mapper';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import { SelectSize } from '../../../../../components/select/types';
@@ -24,9 +31,11 @@ const props = withDefaults(
   }
 );
 
+const { value } = toRefs(props);
+
 const attrs = useAttrs();
 
-const { options, unknownValue } = useMapper(ref(attrs), ref(props.value));
+const { options, unknownValue } = useMapper(ref(attrs), value);
 
 const change = (value: string) => emit('update', { prop: 'value', value });
 </script>

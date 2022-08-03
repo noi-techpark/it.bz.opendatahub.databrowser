@@ -75,8 +75,14 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Source',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'Source' },
+              component: CellComponent.SelectWithOptionsCell,
+              fields: { value: 'Source' },
+              params: {
+                value_001: 'Content',
+                label_001: 'Content',
+                value_002: 'EBMS',
+                label_002: 'EBMS',
+              },
             },
           ],
         },

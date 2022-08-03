@@ -54,7 +54,7 @@ const buildOptions = (
   initialValue: string | boolean | number
 ) => {
   const sortedKeys = Object.keys(optionsWithKeysAndValues).sort();
-  return sortedKeys.reduce<SelectOption[]>((previous, key) => {
+  const options = sortedKeys.reduce<SelectOption[]>((previous, key) => {
     const value = optionsWithKeysAndValues[key].value;
     const label = optionsWithKeysAndValues[key].label;
     const option: SelectOption = { value, label };
@@ -67,6 +67,7 @@ const buildOptions = (
 
     return [...previous, option];
   }, []);
+  return [{ label: '--- Please select ---', value: '' }, ...options];
 };
 
 // The select options are provided as attributes of form
@@ -100,7 +101,7 @@ export const useMapper = (
 
   const unknownValue = computed(
     () =>
-      initialValue != null &&
+      initialValue.value != null &&
       options.value.find((o) => o.selected === true) == null
   );
 
