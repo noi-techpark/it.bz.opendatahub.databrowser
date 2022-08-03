@@ -21,6 +21,6 @@ export const loadResource = (url: string) => {
 
   urls.add(url);
   return new Promise<void>((resolve) => {
-    useScriptTag(url, () => resolve());
+    useScriptTag(url, () => resolve(), { type: 'module' });
   });
 };
