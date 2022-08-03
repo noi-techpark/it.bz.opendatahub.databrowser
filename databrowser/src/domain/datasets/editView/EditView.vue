@@ -37,7 +37,7 @@
               <ToggleCustom v-model="showAll" :disabled="true" />
             </ContentAlignmentX>
           </div>
-          <div class="flex overflow-y-auto">
+          <div class="flex overflow-y-auto grow">
             <ContentAlignmentX class="md:flex md:overflow-y-auto md:px-0">
               <MainCategories
                 :categories="enhancedMainCategories"
