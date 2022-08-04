@@ -8,7 +8,7 @@ export const accommodationListView: ListViewConfig = {
       component: CellComponent.ImageCell,
       class: 'w-40',
       fields: {
-        src: 'ImageGallery.[0].ImageUrl',
+        src: 'ImageGallery.0.ImageUrl',
       },
     },
     {

@@ -363,12 +363,13 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
             {
               title: 'Card (first GPS point - demo only!)',
               fields: {
-                lat: 'GpsInfo[0].Latitude',
-                lon: 'GpsInfo[0].Longitude',
+                lat: 'GpsInfo.0.Latitude',
+                lon: 'GpsInfo.0.Longitude',
               },
               component: WebComponent.ODHActivityPoi,
               params: {
                 zoom: '10',
+                language: 'en',
               },
               class: 'relative h-[800px]',
             },
