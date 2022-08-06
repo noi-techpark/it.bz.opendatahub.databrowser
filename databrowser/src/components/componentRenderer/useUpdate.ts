@@ -4,19 +4,19 @@ import { useEditStore } from '../../domain/datasets/editView/store/editStore';
 
 export const useUpdate = (
   tagName: Ref<string>,
-  fields: Ref<Record<string, string>>
+  fields?: Ref<Record<string, string>>
 ) => {
   const editStore = useEditStore();
 
   return useDebounceFn(({ prop, value }: { prop: string; value: unknown }) => {
-    const field = fields.value[prop];
+    const field = fields?.value[prop];
 
     if (field == null) {
       console.error(
         `Got update event from component ${
           tagName.value
         } for field ${prop} but no field with that name could be found (known fields: ${JSON.stringify(
-          fields.value
+          fields?.value
         )})`
       );
       return;

@@ -17,7 +17,7 @@ const props = withDefaults(
   defineProps<{
     tagName: string;
     attributes: Record<string, unknown>;
-    fields: Record<string, string>;
+    fields?: Record<string, string>;
   }>(),
   {
     tagName: '',
