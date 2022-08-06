@@ -2,10 +2,10 @@
   <div class="divide-y">
     <div class="px-3 divide-y">
       <div v-for="option in filterOptions" :key="option.value" class="py-3">
-        <Checkbox
+        <CheckboxCustom
           :label="option.label"
-          :checked="isChecked(option.value)"
-          @change="change(option.value)"
+          :model-value="isChecked(option.value)"
+          @update:model-value="change(option.value)"
         />
       </div>
     </div>
@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { defineEmits, defineProps, toRefs, withDefaults } from 'vue';
-import Checkbox from '../../../../../components/checkbox/Checkbox.vue';
+import CheckboxCustom from '../../../../../components/checkbox/CheckboxCustom.vue';
 import { useAsSet } from '../../../../api';
 import ControlButtons from '../ControlButtons.vue';
 import { FilterValue } from '../types';
