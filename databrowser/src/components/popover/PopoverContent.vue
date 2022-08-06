@@ -3,7 +3,7 @@
     class="p-4"
     :class="{
       'hover:bg-gray-50 cursor-pointer': props.withHover && !disabled,
-      'text-gray-300': disabled,
+      'text-disabled': disabled,
     }"
   >
     <slot></slot>

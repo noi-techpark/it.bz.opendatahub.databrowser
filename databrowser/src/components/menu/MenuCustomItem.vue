@@ -17,7 +17,7 @@ const props = defineProps<{
 
 const classes = (active?: boolean, disabled?: boolean) => [
   active ? 'bg-gray-50' : '',
-  disabled ? 'text-gray-300' : '',
+  disabled ? 'text-disabled' : '',
   'group flex w-full items-center rounded px-4 py-2',
 ];
 </script>
