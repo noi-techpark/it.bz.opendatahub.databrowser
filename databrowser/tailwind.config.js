@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         error: '#ff0000',
         disabled: '#dcdde1',
+        delete: '#dc2626',
         green: {
           400: '#50742f',
           500: '#476929',
