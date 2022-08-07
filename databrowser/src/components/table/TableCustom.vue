@@ -11,11 +11,11 @@
   @apply w-full border-separate table-fixed;
   border-spacing: 0;
 }
-.data-table th,
-.data-table td {
+.data-table :deep(th),
+.data-table :deep(td) {
   @apply border;
 }
-.data-table tbody tr {
+.data-table :deep(tbody tr) {
   @apply align-top;
 }
 </style>
