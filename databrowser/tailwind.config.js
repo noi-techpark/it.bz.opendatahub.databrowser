@@ -6,6 +6,9 @@ module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      boxShadow: {
+        'table-static-col': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      },
       fontSize: {
         '2xl': '1.625rem',
       },

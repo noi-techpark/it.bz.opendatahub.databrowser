@@ -30,7 +30,7 @@
             :fields="col.fields"
           />
         </TableCell>
-        <TableCell class="sticky right-0 bg-white">
+        <TableCell class="sticky right-0 bg-white shadow-table-static-col">
           <div
             class="grid gap-2"
             :class="showEdit ? 'grid-cols-2 w-24' : 'grid-cols-3'"
