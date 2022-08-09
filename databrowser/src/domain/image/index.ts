@@ -1,0 +1,1 @@
+export { resizeImageWidth } from './image';
