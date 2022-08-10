@@ -1,4 +1,7 @@
-import { CellComponent, FilterComponent } from '../../../domain/cellComponents/types';
+import {
+  CellComponent,
+  FilterComponent,
+} from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 
 export const eventListView: ListViewConfig = {
@@ -24,7 +27,7 @@ export const eventListView: ListViewConfig = {
       component: CellComponent.DateCell,
       class: 'w-32',
       params: {
-        format: 'd. MMMM yyyy'
+        format: 'd. MMMM yyyy',
       },
       fields: {
         date: 'DateBegin',
@@ -35,7 +38,7 @@ export const eventListView: ListViewConfig = {
       component: CellComponent.DateCell,
       class: 'w-32',
       params: {
-        format: 'd. MMMM yyyy'
+        format: 'd. MMMM yyyy',
       },
       fields: {
         date: 'DateEnd',
