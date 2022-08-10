@@ -125,6 +125,10 @@ const datasetRoutes: DatasetRoute[] = [
     domain: 'tourism',
     pathParams: ['v1', 'EventShort'],
   },
+  {
+  domain: 'tourism',
+  pathParams: ['v1', 'ODHActivityPoi?type=32&subtype=2'],
+  },
 ];
 const promises = datasetRoutes.map((d) => resolveDatasetConfig(d));
 Promise.all(promises).then((p) => (datasets.value = p));

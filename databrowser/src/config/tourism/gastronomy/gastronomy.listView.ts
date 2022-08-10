@@ -1,7 +1,7 @@
-import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { CellComponent } from '../../../domain/cellComponents/types';
 
-export const articleListView: ListViewConfig = {
+export const gastronomyListView: ListViewConfig = {
   elements: [
     {
       title: 'Image',
@@ -20,19 +20,12 @@ export const articleListView: ListViewConfig = {
       },
     },
     {
-      title: 'Shortname',
-      component: CellComponent.StringCell,
-      class: 'w-48',
+      title: 'Location',
+      component: CellComponent.TextHighlightCell,
+      class: 'w-40',
       fields: {
-        text: 'Shortname',
-      },
-    },
-    {
-      title: 'Intro text',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'Detail.{language}.IntroText',
+        title: 'LocationInfo.RegionInfo.Name.{language}',
+        subtitle: 'LocationInfo.MunicipalityInfo.Name.{language}',
       },
     },
     {
@@ -47,29 +40,14 @@ export const articleListView: ListViewConfig = {
       },
     },
     {
-      title: 'Type',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'Type',
-      },
-    },
-    {
-      title: 'SubType',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'SubType',
-      },
-    },
-    {
       title: 'Tags',
       component: CellComponent.ArrayCellTags,
       class: 'w-40',
       fields: {
-        items: 'ODHTags',
+        items: 'CategoryCodes',
       },
       params: {
+        fieldName:"Shortname",
         separator: ', ',
         max: '3',
       },
@@ -86,14 +64,11 @@ export const articleListView: ListViewConfig = {
       },
     },
     {
-      title: 'Published on',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
+      title: 'Source',
+      component: CellComponent.StringCell,
+      class: 'w-36',
       fields: {
-        items: 'PublishedOn',
-      },
-      params: {
-        separator: ', ',
+        text: 'Source',
       },
     },
     {
