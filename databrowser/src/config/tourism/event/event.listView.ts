@@ -11,7 +11,7 @@ export const eventListView: ListViewConfig = {
       component: CellComponent.ImageCell,
       class: 'w-36',
       fields: {
-        src: 'Image',
+        src: 'ImageGallery.0.ImageUrl',
       },
     },
     {
