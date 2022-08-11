@@ -5,3 +5,4 @@ export { odhActivityPoiConfig } from './odhActivityPoi/odhActivityPoi.config';
 export { odhActivityPoiTypesConfig } from './odhActivityPoiTypes/odhActivityPoiTypes.config';
 export { eventTopicsConfig } from './eventTopics/eventTopics.config';
 export { accommodationTypesConfig } from './accommodationTypes/accommodationTypes.config';
+export { eventConfig } from './event/event.config';
