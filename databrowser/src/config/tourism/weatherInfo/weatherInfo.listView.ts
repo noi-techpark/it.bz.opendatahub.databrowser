@@ -3,7 +3,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 
 export const weatherInfoListView: ListViewConfig = {
   elements: [
-   /* {
+    {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',
@@ -11,7 +11,7 @@ export const weatherInfoListView: ListViewConfig = {
         src: 'ImageGallery.0.ImageUrl',
       },
     },
-    */
+    
     {
       title: 'Title',
       component: CellComponent.StringCell,
@@ -20,7 +20,7 @@ export const weatherInfoListView: ListViewConfig = {
         text: 'evolutiontitle',
       },
     },
-    /*
+    
     {
       title: 'Edited',
       component: CellComponent.EditedDateCell,
@@ -48,6 +48,6 @@ export const weatherInfoListView: ListViewConfig = {
         state: 'OdhActive',
       },
     },
-    */
+    
   ],
 };
