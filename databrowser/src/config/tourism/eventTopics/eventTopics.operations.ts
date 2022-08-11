@@ -15,20 +15,20 @@ export const eventTopicsOperations: Operations = {
   },
   create: {
     rolesAllowed: extendCreateRoles([
-      'eventTopicsManager',
-      'eventTopicsCreate',
+      'EventTopicsManager',
+      'EventTopicsCreate',
     ]),
   },
   update: {
     rolesAllowed: extendUpdateRoles([
-      'eventTopicsManager',
-      'eventTopicsUpdate',
+      'EventTopicsManager',
+      'EventTopicsUpdate',
     ]),
   },
   delete: {
     rolesAllowed: extendDeleteRoles([
-      'eventTopicsManager',
-      'eventTopicsDelete',
+      'EventTopicsManager',
+      'EventTopicsDelete',
     ]),
   },
 };

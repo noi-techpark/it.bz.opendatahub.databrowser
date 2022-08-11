@@ -15,20 +15,20 @@ export const accommodationTypesOperations: Operations = {
   },
   create: {
     rolesAllowed: extendCreateRoles([
-      'accommodationTypesManager',
-      'accommodationTypesCreate',
+      'AccommodationTypesManager',
+      'AccommodationTypesCreate',
     ]),
   },
   update: {
     rolesAllowed: extendUpdateRoles([
-      'accommodationTypesManager',
-      'accommodationTypesUpdate',
+      'AccommodationTypesManager',
+      'AccommodationTypesUpdate',
     ]),
   },
   delete: {
     rolesAllowed: extendDeleteRoles([
-      'accommodationTypesManager',
-      'accommodationTypesDelete',
+      'AccommodationTypesManager',
+      'AccommodationTypesDelete',
     ]),
   },
 };
