@@ -8,6 +8,14 @@ import {
   gastronomyConfig,
   weinkellereienConfig,
   venueConfig,
+  weatherInfoConfig,
+  municipalityConfig,
+  districtConfig,
+  regionConfig,
+  metaRegionConfig,
+  tourismAssociationListConfig,
+  skiRegionConfig,
+  skiAreaConfig,
 
 
 } from './tourism';
@@ -26,6 +34,15 @@ const datasetConfigs = [
   gastronomyConfig,
   weinkellereienConfig,
   venueConfig,
+  weatherInfoConfig,
+  municipalityConfig,
+  districtConfig,
+  regionConfig,
+  metaRegionConfig,
+  tourismAssociationListConfig,
+  skiRegionConfig,
+  skiAreaConfig,
+
  
 ];
 

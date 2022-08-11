@@ -6,3 +6,11 @@ export { odhActivityPoiTypesConfig } from './odhActivityPoiTypes/odhActivityPoiT
 export { gastronomyConfig } from './gastronomy/gastronomy.config';
 export { weinkellereienConfig } from './weinkellereien/weinkellereien.config';
 export { venueConfig } from './venue/venue.config';
+export { weatherInfoConfig } from './weatherInfo/weatherInfo.config';
+export { municipalityConfig } from './municipality/municipality.config';
+export { districtConfig } from './district/district.config';
+export { regionConfig } from './region/region.config';
+export { metaRegionConfig } from './metaRegion/metaRegion.config';
+export { tourismAssociationListConfig } from './tourismAssociationList/tourismAssociationList.config';
+export { skiRegionConfig } from './skiRegion/skiRegion.config';
+export { skiAreaConfig } from './skiArea/skiArea.config';
