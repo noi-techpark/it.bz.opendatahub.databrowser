@@ -1,53 +1,55 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 
-export const weatherInfoListView: ListViewConfig = {
+export const snowReportListView: ListViewConfig = {
+  //edit source odh
   elements: [
     {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',
       fields: {
-        src: 'Weather.{language}.Conditions.0.WeatherImgurl',
-      },
-    },
-    
-    {
-      title: 'Title',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'Weather.{language}.Conditions.0.Title',
+        src: 'SkiMapUrl',
       },
     },
     {
-      title: 'Date',
-      component: CellComponent.DateCell,
-      class: 'w-48',
-      params: {
-        format: 'd. MM yyyy'
-      },
-      fields: {
-        date: 'Weather.{language}.Conditions.0.date',
-      },
-    },
-    {
-      title: 'Reliability',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'Weather.{language}.Conditions.0.Reliability',
-      },
-    },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
+      title: 'Logo',
+      component: CellComponent.ImageCell,
       class: 'w-40',
       fields: {
-        items: 'HasLanguage',
+        src: 'contactlogo',
       },
-      params: {
-        separator: ', ',
+    },
+    {
+      title: 'Name',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'Areaname',
+      },
+    },
+     {
+      title: 'Location',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'contactcity',
+      },
+    },
+    {
+      title: 'Slope km',
+      component: CellComponent.StringCell,
+      class: 'w-36',
+      fields: {
+        text: 'SkiAreaSlopeKm',
+      },
+    },
+    {
+      title: 'Source',
+      component: CellComponent.StringCell,
+      class: 'w-36',
+      fields: {
+        text: 'lang',
       },
     },
     {
@@ -55,7 +57,7 @@ export const weatherInfoListView: ListViewConfig = {
       component: CellComponent.EditedDateCell,
       class: 'w-40',
       fields: {
-        date: 'LastChange',
+        date: 'Measuringpoints.0.LastUpdate',
       },
       params: {
         format: 'dd. MMMM yyyy',
@@ -66,7 +68,7 @@ export const weatherInfoListView: ListViewConfig = {
       component: CellComponent.StringCell,
       class: 'w-36',
       fields: {
-        text: 'LicenseInfo.LicenseHolder',
+        text: 'Measuringpoints.0.Source',
       },
     },
     {

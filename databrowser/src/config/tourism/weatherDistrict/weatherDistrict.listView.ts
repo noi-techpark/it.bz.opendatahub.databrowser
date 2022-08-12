@@ -1,14 +1,14 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 
-export const weatherInfoListView: ListViewConfig = {
+export const weatherDistrictListView: ListViewConfig = {
   elements: [
     {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',
       fields: {
-        src: 'Weather.{language}.Conditions.0.WeatherImgurl',
+        src: 'BezirksForecast.0.WeatherImgUrl',
       },
     },
     
@@ -17,7 +17,7 @@ export const weatherInfoListView: ListViewConfig = {
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
-        text: 'Weather.{language}.Conditions.0.Title',
+        text: 'BezirksForecast.0.WeatherDesc',
       },
     },
     {
@@ -28,15 +28,31 @@ export const weatherInfoListView: ListViewConfig = {
         format: 'd. MM yyyy'
       },
       fields: {
-        date: 'Weather.{language}.Conditions.0.date',
+        date: 'BezirksForecast.0.date',
       },
     },
     {
-      title: 'Reliability',
+      title: 'Location',
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
-        text: 'Weather.{language}.Conditions.0.Reliability',
+        text: 'DistrictName',
+      },
+    },
+    {
+      title: 'Max Temperature',
+      component: CellComponent.StringCell,
+      class: 'w-36',
+      fields: {
+        text: 'BezirksForecast.0.MaxTemp',
+      },
+    },
+    {
+      title: 'Min Temperature',
+      component: CellComponent.StringCell,
+      class: 'w-36',
+      fields: {
+        text: 'BezirksForecast.0.MinTemp',
       },
     },
     {
@@ -55,7 +71,7 @@ export const weatherInfoListView: ListViewConfig = {
       component: CellComponent.EditedDateCell,
       class: 'w-40',
       fields: {
-        date: 'LastChange',
+        date: 'date',
       },
       params: {
         format: 'dd. MMMM yyyy',

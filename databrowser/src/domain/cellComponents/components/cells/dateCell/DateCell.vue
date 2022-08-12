@@ -19,6 +19,8 @@ const props = withDefaults(
 
 const { date, format } = toRefs(props);
 
+console.log(date.value)
+
 const formattedDate = computed(() => {
   if (format == null) {
     return date;

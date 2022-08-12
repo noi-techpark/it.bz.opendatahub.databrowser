@@ -16,6 +16,10 @@ import {
   tourismAssociationListConfig,
   skiRegionConfig,
   skiAreaConfig,
+  weatherDistrictConfig,
+  weatherRealTimeConfig,
+  measuringPointConfig,
+  snowReportConfig,
 
 
 } from './tourism';
@@ -42,6 +46,10 @@ const datasetConfigs = [
   tourismAssociationListConfig,
   skiRegionConfig,
   skiAreaConfig,
+  weatherDistrictConfig,
+  weatherRealTimeConfig,
+  measuringPointConfig,
+  snowReportConfig,
 
  
 ];

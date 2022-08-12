@@ -1,42 +1,46 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 
-export const weatherInfoListView: ListViewConfig = {
+export const measuringPointListView: ListViewConfig = {
   elements: [
     {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',
       fields: {
-        src: 'Weather.{language}.Conditions.0.WeatherImgurl',
+        src: 'BezirksForecast.0.WeatherImgUrl',
       },
     },
-    
     {
       title: 'Title',
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
-        text: 'Weather.{language}.Conditions.0.Title',
+        text: 'Shortname',
       },
     },
     {
-      title: 'Date',
-      component: CellComponent.DateCell,
-      class: 'w-48',
-      params: {
-        format: 'd. MM yyyy'
-      },
-      fields: {
-        date: 'Weather.{language}.Conditions.0.date',
-      },
-    },
-    {
-      title: 'Reliability',
+      title: 'Snow height',
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
-        text: 'Weather.{language}.Conditions.0.Reliability',
+        text: 'SnowHeight',
+      },
+    },
+    {
+      title: 'Temperature',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'Temperature',
+      },
+    },
+    {
+      title: 'Altitude',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'Altitude',
       },
     },
     {
@@ -66,7 +70,7 @@ export const weatherInfoListView: ListViewConfig = {
       component: CellComponent.StringCell,
       class: 'w-36',
       fields: {
-        text: 'LicenseInfo.LicenseHolder',
+        text: 'Source',
       },
     },
     {

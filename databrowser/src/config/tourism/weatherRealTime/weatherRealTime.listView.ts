@@ -1,53 +1,38 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 
-export const weatherInfoListView: ListViewConfig = {
+export const weatherRealTimeListView: ListViewConfig = {
   elements: [
     {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      fields: {
-        src: 'Weather.{language}.Conditions.0.WeatherImgurl',
-      },
-    },
-    
-    {
-      title: 'Title',
+      title: 'Location',
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
-        text: 'Weather.{language}.Conditions.0.Title',
+        text: 'name',
       },
     },
     {
-      title: 'Date',
-      component: CellComponent.DateCell,
-      class: 'w-48',
-      params: {
-        format: 'd. MM yyyy'
-      },
-      fields: {
-        date: 'Weather.{language}.Conditions.0.date',
-      },
-    },
-    {
-      title: 'Reliability',
+      title: 'StationId',
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
-        text: 'Weather.{language}.Conditions.0.Reliability',
+        text: 'id',
       },
     },
     {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
+      title: 'Temperature',
+      component: CellComponent.StringCell,
+      class: 'w-48',
       fields: {
-        items: 'HasLanguage',
+        text: 't',
       },
-      params: {
-        separator: ', ',
+    },
+    {
+      title: 'Altitude',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'altitude',
       },
     },
     {
@@ -55,7 +40,7 @@ export const weatherInfoListView: ListViewConfig = {
       component: CellComponent.EditedDateCell,
       class: 'w-40',
       fields: {
-        date: 'LastChange',
+        date: 'lastUpdated',
       },
       params: {
         format: 'dd. MMMM yyyy',
@@ -66,7 +51,7 @@ export const weatherInfoListView: ListViewConfig = {
       component: CellComponent.StringCell,
       class: 'w-36',
       fields: {
-        text: 'LicenseInfo.LicenseHolder',
+        text: 'LicenseRealTime.LicenseHolder',
       },
     },
     {
