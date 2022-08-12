@@ -8,6 +8,7 @@ import {
   eventConfig,
   eventTopicsConfig,
   accommodationTypesConfig,
+  webcamInfoConfig,
 } from './tourism';
 
 type EmbeddedDatasetConfigs = Record<
@@ -24,6 +25,7 @@ const datasetConfigs = [
   eventConfig,
   eventTopicsConfig,
   accommodationTypesConfig,
+  webcamInfoConfig,
 ];
 
 const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {
