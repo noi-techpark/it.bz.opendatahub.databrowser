@@ -24,7 +24,7 @@ export const useAuth = defineStore('auth', {
       }
     },
     hasRole(state) {
-      return (role: string) => this.user?.roles.includes(role) ?? false;
+      return (role: string) => this.user?.roles?.includes(role) ?? false;
     },
     hasAnyRole(state) {
       return (roles: string[]) =>
