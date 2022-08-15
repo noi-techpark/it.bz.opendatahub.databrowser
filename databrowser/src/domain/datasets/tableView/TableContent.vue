@@ -26,7 +26,7 @@
         <TableCell v-for="col in renderElements" :key="col.title">
           <ComponentRenderer
             :tag-name="col.component"
-            :attributes="getValue(row, col.fields, col.params)"
+            :attributes="mapWithIndex(row, col.fields, col.params)"
             :fields="col.fields"
           />
         </TableCell>
@@ -101,7 +101,7 @@ import TableCell from '../../../components/table/TableCell.vue';
 import IconEye from '../../../components/svg/IconEye.vue';
 import DetailsLink from './DetailsLink.vue';
 import { ListElements } from '../../datasetConfig/types';
-import { useApiQuery, useFieldExtraction } from '../../api';
+import { useApiQuery, usePropertyMapping } from '../../api';
 import IconCode from '../../../components/svg/IconCode.vue';
 import IconLayer from '../../../components/svg/IconLayer.vue';
 import IconEdit from '../../../components/svg/IconEdit.vue';
@@ -123,6 +123,6 @@ const props = withDefaults(
 
 const { rows, renderElements } = toRefs(props);
 
-const { getValue } = useFieldExtraction();
+const { mapWithIndex } = usePropertyMapping();
 const language = useApiQuery().useApiParameter('language');
 </script>

@@ -72,7 +72,7 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Shortname' },
             },
           ],
@@ -82,27 +82,27 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Title',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.Title' },
             },
             {
               title: 'Header',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.Header' },
             },
             {
               title: 'Subheader',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.SubHeader' },
             },
             {
               title: 'Intro text',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.IntroText' },
             },
             {
               title: 'Base text',
-              component: CellComponent.HtmlCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { html: 'Detail.{language}.BaseText' },
             },
           ],
@@ -118,17 +118,17 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Name',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AccoDetail.{language}.Name' },
             },
             {
               title: 'First Name',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AccoDetail.{language}.Firstname' },
             },
             {
               title: 'Surname',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AccoDetail.{language}.Lastname' },
             },
           ],
@@ -138,22 +138,22 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AccoDetail.{language}.Street' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AccoDetail.{language}.Zip' },
             },
             {
               title: 'City',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AccoDetail.{language}.City' },
             },
             {
               title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AccoDetail.{language}.CountryCode' },
             },
           ],
@@ -163,17 +163,17 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AccoDetail.{language}.Email' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AccoDetail.{language}.Phone' },
             },
             {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'AccoDetail.{language}.Website' },
             },
           ],
@@ -185,11 +185,11 @@ export const articleEditView: EditViewConfig = {
       slug: 'images',
       subcategories: [
         {
-          name: 'Images',
+          name: '',
           properties: [
             {
               title: '',
-              component: CellComponent.ImageGalleryCell,
+              component: CellComponent.EditImageGalleryCell,
               fields: {
                 images: 'ImageGallery',
               },
@@ -201,9 +201,10 @@ export const articleEditView: EditViewConfig = {
                 height: 'Height',
                 title: 'ImageTitle.{language}',
                 description: 'ImageDesc.{language}',
+                copyright: 'CopyRight',
                 license: 'License',
                 listPosition: 'ListPosition',
-                active: '',
+                source: 'ImageSource',
               },
             },
           ],
@@ -219,24 +220,24 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Region / TVB',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
             {
               title: 'Tourismorganization',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'TourismorganizationId' },
             },
             {
               title: 'Municipality',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: {
                 text: 'LocationInfo.MunicipalityInfo.Name.{language}',
               },
             },
             {
               title: 'District',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
             },
           ],

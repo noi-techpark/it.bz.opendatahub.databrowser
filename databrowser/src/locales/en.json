@@ -49,7 +49,9 @@
       "notEditViewConfigured": "The edit view is not configured for this dataset. Please contact @:contact.email",
       "footer": {
         "cancel": "Cancel (ESC)",
-        "save": "Save (ALT + S)"
+        "cancelMobile": "Cancel",
+        "save": "Save (ALT + S)",
+        "saveMobile": "Save"
       },
       "toolbox": {
         "goodToKnow": "Good to know",
