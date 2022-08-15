@@ -32,6 +32,7 @@ jobs:
       VITE_APP_KEYCLOAK_REALM: "noi"
       VITE_APP_KEYCLOAK_CLIENT_ID: "it.bz.opendatahub.databrowser"
       VITE_APP_KEYCLOAK_REDIRECT_URI: "https://databrowser.opendatahub.testingmachine.eu/silent-check-sso.html"
+      VITE_APP_IMAGE_UPLOAD_URL: "https://api.tourism.testingmachine.eu/v1/FileUpload/Image"
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
@@ -61,6 +62,7 @@ jobs:
       VITE_APP_KEYCLOAK_REALM: "noi"
       VITE_APP_KEYCLOAK_CLIENT_ID: "it.bz.opendatahub.databrowser"
       VITE_APP_KEYCLOAK_REDIRECT_URI: "https://databrowser.opendatahub.bz.it/silent-check-sso.html"
+      VITE_APP_IMAGE_UPLOAD_URL: "https://tourism.opendatahub.bz.it/v1/FileUpload/Image"
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
