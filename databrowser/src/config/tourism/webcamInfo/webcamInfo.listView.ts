@@ -20,6 +20,14 @@ export const webcamInfoListView: ListViewConfig = {
       },
     },
     {
+      title: 'Webcam URL',
+      component: CellComponent.StringCell,
+      class: 'w-40',
+      fields: {
+        text: 'Webcamurl',
+      },
+    },
+    {
       title: 'GPS',
       component: CellComponent.GpsListCell,
       class: 'w-40',
