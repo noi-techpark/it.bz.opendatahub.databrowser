@@ -1,7 +1,7 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 
-export const eventTopicsListView: ListViewConfig = {
+export const webcamInfoListView: ListViewConfig = {
   elements: [
     {
       title: 'Image',

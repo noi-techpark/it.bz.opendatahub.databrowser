@@ -1,5 +1,5 @@
-import { eventTopicsListView } from './webcamInfo.listView';
+import { webcamInfoListView } from './webcamInfo.listView';
 
 export const webcamInfoViews = {
-  table: eventTopicsListView,
+  table: webcamInfoListView,
 };
