@@ -117,7 +117,7 @@ For support, please contact [Christian Gapp](https://github.com/gappc), [AboutBi
 
 ### Contributing
 
-If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.
+Please take a look at the [Contributor Guidelines](https://github.com/noi-techpark/odh-docs/wiki/Contributor-Guidelines%3A-Getting-started).
 
 ### Versioning
 
