@@ -7,6 +7,8 @@ import {
   odhActivityPoiTypesConfig,
   eventTopicsConfig,
   accommodationTypesConfig,
+  webcamInfoConfig,
+  wineAwardConfig,
 } from './tourism';
 
 type EmbeddedDatasetConfigs = Record<
@@ -22,6 +24,8 @@ const datasetConfigs = [
   odhActivityPoiTypesConfig,
   eventTopicsConfig,
   accommodationTypesConfig,
+  webcamInfoConfig,
+  wineAwardConfig,
 ];
 
 const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {
