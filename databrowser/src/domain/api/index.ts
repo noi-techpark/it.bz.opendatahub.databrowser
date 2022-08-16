@@ -15,5 +15,12 @@ export * from './client/types';
 export { createApiQueryHandler, useApiQuery } from './service/apiQueryHandler';
 export { stringifyParameter } from './service/query';
 export { createUrlQueryHandler, useUrlQuery } from './service/urlQueryHandler';
-export { useAsList, useAsSet, useFieldExtraction } from './service/utils';
+export {
+  replacePlaceholders,
+  useApiParameterReplacements,
+  useAsList,
+  useAsSet,
+  usePropertyMapping,
+  useReplaceWithApiParameters,
+} from './service/utils';
 export * from './service/types';

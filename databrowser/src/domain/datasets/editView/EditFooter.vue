@@ -2,11 +2,21 @@
   <div class="flex justify-between w-full bg-green-500">
     <EditFooterButton @click="cancel">
       <IconClose class="mr-2 h-4" />
-      <span>{{ t('datasets.editView.footer.cancel') }}</span>
+      <span class="inline md:hidden">
+        {{ t('datasets.editView.footer.cancelMobile') }}
+      </span>
+      <span class="hidden md:inline">
+        {{ t('datasets.editView.footer.cancel') }}
+      </span>
     </EditFooterButton>
     <EditFooterButton @click="save">
       <IconCheck class="mr-2 h-4" />
-      <span>{{ t('datasets.editView.footer.save') }}</span>
+      <span class="inline md:hidden">
+        {{ t('datasets.editView.footer.saveMobile') }}
+      </span>
+      <span class="hidden md:inline">
+        {{ t('datasets.editView.footer.save') }}
+      </span>
     </EditFooterButton>
   </div>
 </template>
