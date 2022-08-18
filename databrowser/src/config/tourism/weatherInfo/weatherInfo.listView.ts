@@ -25,7 +25,7 @@ export const weatherInfoListView: ListViewConfig = {
       component: CellComponent.DateCell,
       class: 'w-48',
       params: {
-        format: 'd. MM yyyy'
+        format: 'd. MM. yyyy'
       },
       fields: {
         date: 'Weather.{language}.Conditions.0.date',

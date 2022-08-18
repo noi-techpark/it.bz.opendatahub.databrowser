@@ -70,6 +70,7 @@ export const articleListView: ListViewConfig = {
         items: 'ODHTags',
       },
       params: {
+        fieldName:"Id",
         separator: ', ',
         max: '3',
       },
@@ -82,7 +83,7 @@ export const articleListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'dd MMMM yyyy',
       },
     },
     {

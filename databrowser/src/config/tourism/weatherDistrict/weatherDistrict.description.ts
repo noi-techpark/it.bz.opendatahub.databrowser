@@ -2,7 +2,7 @@ import { DatasetDescription } from '../../../domain/datasetConfig/types';
 
 export const weatherDistrictDescription: DatasetDescription = {
   title: 'Weather District',
-  subtitle: 'This dataset contains tourism accommodations.',
+  subtitle: 'his dataset contains Live weather data for each South Tyrolean district.',
   description:
-    'This dataset contains various data about accommodations, mainly located in the South Tyrol region.',
+    'This dataset contains Live weather data for each South Tyrolean district.',
 };

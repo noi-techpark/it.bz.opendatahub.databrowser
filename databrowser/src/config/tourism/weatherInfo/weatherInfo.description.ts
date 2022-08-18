@@ -2,7 +2,7 @@ import { DatasetDescription } from '../../../domain/datasetConfig/types';
 
 export const weatherInfoDescription: DatasetDescription = {
   title: 'WeatherInfo',
-  subtitle: 'This dataset contains tourism accommodations.',
+  subtitle: 'This dataset contains South Tyrol Weather history.',
   description:
-    'This dataset contains various data about accommodations, mainly located in the South Tyrol region.',
+    'This dataset contains South Tyrol Weather history.',
 };

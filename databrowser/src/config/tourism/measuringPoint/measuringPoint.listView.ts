@@ -36,6 +36,19 @@ export const measuringPointListView: ListViewConfig = {
       },
     },
     {
+      title: 'GPS',
+      component: CellComponent.GpsListCell,
+      class: 'w-40',
+      fields: { gpsEntries: 'GpsPoints.position' },
+      params: {
+        type: 'position',
+        latitude: 'Latitude',
+        longitude: 'Longitude',
+        altitude: 'Altitude',
+        altitudeUnit: 'AltitudeUnitofMeasure',
+      },
+    },
+    {
       title: 'Altitude',
       component: CellComponent.StringCell,
       class: 'w-48',

@@ -25,7 +25,7 @@ export const weatherDistrictListView: ListViewConfig = {
       component: CellComponent.DateCell,
       class: 'w-48',
       params: {
-        format: 'd. MM yyyy'
+        format: 'd. MM. yyyy'
       },
       fields: {
         date: 'BezirksForecast.0.date',

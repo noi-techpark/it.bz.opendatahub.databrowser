@@ -2,7 +2,7 @@ import { DatasetDescription } from '../../../domain/datasetConfig/types';
 
 export const snowReportDescription: DatasetDescription = {
   title: 'Snow Report',
-  subtitle: 'This dataset contains tourism accommodations.',
+  subtitle: 'This dataset contains detailed report of all South Tyrolean Ski Areas.',
   description:
-    'This dataset contains various data about accommodations, mainly located in the South Tyrol region.',
+    'Snow Report Data dataset contains detailed report of all South Tyrolean Ski Areas. Lifts, Slopes, Ski tracks, Sledges (status and conditions) data provided by LTS (daily updated), Measuring points (snow height, last snow day) data provided by LTS (daily updated), Ski Areas basic data provided by IDM.',
 };

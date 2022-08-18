@@ -4,7 +4,6 @@ export { eventShortConfig } from './eventShort/eventShort.config';
 export { odhActivityPoiConfig } from './odhActivityPoi/odhActivityPoi.config';
 export { odhActivityPoiTypesConfig } from './odhActivityPoiTypes/odhActivityPoiTypes.config';
 export { gastronomyConfig } from './gastronomy/gastronomy.config';
-export { weinkellereienConfig } from './weinkellereien/weinkellereien.config';
 export { venueConfig } from './venue/venue.config';
 export { weatherInfoConfig } from './weatherInfo/weatherInfo.config';
 export { weatherDistrictConfig } from './weatherDistrict/weatherDistrict.config';
