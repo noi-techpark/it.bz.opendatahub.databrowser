@@ -22,10 +22,10 @@ export const weatherDistrictListView: ListViewConfig = {
     },
     {
       title: 'Date',
-      component: CellComponent.DateCell,
+      component: CellComponent.DateCellOrdinal,
       class: 'w-48',
       params: {
-        format: 'd. MM. yyyy'
+        format: 'dd MMMM yyyy'
       },
       fields: {
         date: 'BezirksForecast.0.date',

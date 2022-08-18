@@ -1,13 +1,9 @@
 <template>
-  <div v-if="date != null">
-    <span class="block">{{ formattedDistance }}</span>
-    <span class="block text-gray-600">{{ formattedDate }}</span>
-  </div>
+  <span v-if="date != null">{{ formattedDate }}</span>
 </template>
 
 <script setup lang="ts">
 import { computed, defineProps, toRefs, withDefaults } from 'vue';
-import { format as formatFn, formatDistanceToNow } from 'date-fns';
 
 const props = withDefaults(
   defineProps<{
@@ -32,6 +28,8 @@ const nth = function(d) {
     }
 };
 
+console.log(date.value)
+
 const formattedDate = computed(() => {
   if (format == null) {
     return date;
@@ -43,16 +41,6 @@ const formattedDate = computed(() => {
     const year = fullDate.getFullYear();
 
     return (day + nth(day) + ' ' + month + ' ' + year)
-  }
-  return '';
-});
-
-const formattedDistance = computed(() => {
-  if (date.value != null) {
-    return formatDistanceToNow(Date.parse(date.value), {
-      addSuffix: true,
-      includeSeconds: true,
-    });
   }
   return '';
 });

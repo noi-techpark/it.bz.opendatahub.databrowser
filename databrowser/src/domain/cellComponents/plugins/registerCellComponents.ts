@@ -2,6 +2,7 @@ import { App } from 'vue';
 
 import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
+import DateCellOrdinal from '../components/cells/dateCellOrdinal/DateCellOrdinal.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import GpsListCell from '../components/cells/gpsListCell/GpsListCell.vue';
 import HtmlCell from '../components/cells/htmlCell/HtmlCell.vue';
@@ -28,6 +29,7 @@ export default {
   install: (app: App) => {
     app.component(CellComponent.ArrayCell, ArrayCell);
     app.component(CellComponent.DateCell, DateCell);
+    app.component(CellComponent.DateCellOrdinal, DateCellOrdinal);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
     app.component(CellComponent.GpsListCell, GpsListCell);
     app.component(CellComponent.HtmlCell, HtmlCell);

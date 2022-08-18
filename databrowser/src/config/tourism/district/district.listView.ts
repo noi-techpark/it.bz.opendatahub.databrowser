@@ -15,9 +15,9 @@ export const districtListView: ListViewConfig = {
       title: 'GPS',
       component: CellComponent.GpsListCell,
       class: 'w-40',
-      fields: { gpsEntries: 'GpsPoints.0' },
+      fields: { gpsEntries: 'GpsPoints[0].Latitude'},
       params: {
-        type: 'position',
+        type: 'position', 
         latitude: 'Latitude',
         longitude: 'Longitude',
         altitude: 'Altitude',
