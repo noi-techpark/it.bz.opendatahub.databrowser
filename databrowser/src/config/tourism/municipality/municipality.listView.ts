@@ -28,6 +28,19 @@ export const municipalityListView: ListViewConfig = {
       },
     },
     {
+      title: 'GPS',
+      component: CellComponent.GpsListCell,
+      class: 'w-40',
+      fields: { gpsEntries: 'GpsPoints.0' },
+      params: {
+        type: 'position',
+        latitude: 'Latitude',
+        longitude: 'Longitude',
+        altitude: 'Altitude',
+        altitudeUnit: 'AltitudeUnitofMeasure',
+      },
+    },
+    {
       title: 'Languages',
       component: CellComponent.ArrayCell,
       class: 'w-40',
@@ -46,7 +59,7 @@ export const municipalityListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'dd MMMM yyyy',
       },
     },
     {

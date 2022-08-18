@@ -98,7 +98,7 @@ export const odhActivityPoiListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'dd MMMM yyyy',
       },
     },
     {

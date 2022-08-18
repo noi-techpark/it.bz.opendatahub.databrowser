@@ -47,7 +47,7 @@ export const accommodationListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'dd MMMM yyyy',
       },
     },
     {

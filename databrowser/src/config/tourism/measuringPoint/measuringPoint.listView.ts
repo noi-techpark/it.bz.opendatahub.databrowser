@@ -39,9 +39,9 @@ export const measuringPointListView: ListViewConfig = {
       title: 'GPS',
       component: CellComponent.GpsListCell,
       class: 'w-40',
-      fields: { gpsEntries: 'GpsPoints.position' },
+      fields: { gpsEntries: 'GpsPoints[0].position[0]' },
       params: {
-        type: 'position',
+        type: 'Gpstype',
         latitude: 'Latitude',
         longitude: 'Longitude',
         altitude: 'Altitude',
@@ -75,7 +75,7 @@ export const measuringPointListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'dd MMMM yyyy',
       },
     },
     {

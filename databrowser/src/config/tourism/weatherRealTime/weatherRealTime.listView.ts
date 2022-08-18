@@ -43,7 +43,7 @@ export const weatherRealTimeListView: ListViewConfig = {
         date: 'lastUpdated',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'dd MMMM yyyy',
       },
     },
     {

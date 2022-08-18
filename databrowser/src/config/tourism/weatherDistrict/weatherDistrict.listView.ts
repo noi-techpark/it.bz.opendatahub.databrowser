@@ -74,7 +74,7 @@ export const weatherDistrictListView: ListViewConfig = {
         date: 'date',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'dd MMMM yyyy',
       },
     },
     {
