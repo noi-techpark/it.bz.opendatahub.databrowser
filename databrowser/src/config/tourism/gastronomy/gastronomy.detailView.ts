@@ -15,8 +15,38 @@ export const gastronomyDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
+            {
+              title: 'Max Seating Capacity',
+              component: CellComponent.StringCell,
+              fields: { text: 'MaxSeatingCapacity' },
+            },
+            {
+              title: 'Category',
+              component: CellComponent.ArrayCellTags,
+              fields: {
+                items: 'CategoryCodes',
+              },
+              params: {
+                fieldName:"Shortname",
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'Facilities',
+              component: CellComponent.ArrayCellTags,
+              fields: {
+                items: 'Facilities',
+              },
+              params: {
+                fieldName:"Shortname",
+                separator: ', ',
+                max: '3',
+              },
+            },
           ],
         },
+        
         {
           name: 'IDs',
           properties: [

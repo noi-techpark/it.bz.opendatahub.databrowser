@@ -15,6 +15,20 @@ export const municipalityDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
+            {
+              title: 'CAP',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Plz',
+              },
+            },
+            {
+              title: 'Inhabitants',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Inhabitants',
+              },
+            },
           ],
         },
         {

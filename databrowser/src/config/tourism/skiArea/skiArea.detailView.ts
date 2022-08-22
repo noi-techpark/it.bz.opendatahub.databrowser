@@ -29,6 +29,58 @@ export const skiAreaDetailView: DetailViewConfig = {
           ],
         },
         {
+          name: 'Slope information',
+          properties: [
+            {
+              title: 'Total slope Km',
+              component: CellComponent.StringCell,
+              fields: { text: 'TotalSlopeKm' },
+            },
+            {
+              title: 'Slope Km Blue',
+              component: CellComponent.StringCell,
+              fields: { text: 'SlopeKmBlue' },
+            },
+            {
+              title: 'Slope Km Black',
+              component: CellComponent.StringCell,
+              fields: { text: 'SlopeKmBlack' },
+            },
+            {
+              title: 'Slope Km Red',
+              component: CellComponent.StringCell,
+              fields: { text: 'SlopeKmRed' },
+            },
+          ],
+        },
+        {
+          name: 'Altimeters',
+          properties: [
+            {
+              title: 'Altimeters From',
+              component: CellComponent.StringCell,
+              fields: { text: 'AltitudeFrom' },
+            },
+            {
+              title: 'Altimeters To',
+              component: CellComponent.StringCell,
+              fields: { text: 'AltitudeTo' },
+            },
+          ],
+        },
+         {
+          name: 'Ski map',
+          properties: [
+            {
+              title: 'Ski map',
+              component: CellComponent.ImageCell,
+              fields: {
+                src: 'SkiAreaMapURL',
+              },
+            },
+          ],
+        },
+        {
           name: 'Data states',
           properties: [
             {
