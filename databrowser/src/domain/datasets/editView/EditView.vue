@@ -24,7 +24,10 @@
             </div>
             <ToggleCustom v-model="showAll" :disabled="true" />
           </ContentAlignmentX>
-          <div class="flex overflow-y-auto grow">
+          <div
+            class="flex overflow-y-auto grow"
+            :class="[{ 'opacity-50 pointer-events-none': isMutateLoading }]"
+          >
             <ContentAlignmentX
               class="md:flex md:overflow-y-auto md:px-0 md:border-r"
             >
@@ -44,7 +47,11 @@
             </ContentAlignmentX>
             <EditToolBox />
           </div>
-          <EditFooter @cancel="cancel" @save="save" />
+          <EditFooter
+            :is-saving="isMutateLoading"
+            @cancel="cancel"
+            @save="save"
+          />
         </div>
       </template>
     </template>
@@ -96,10 +103,8 @@ const { isError, isSuccess, data, error, url } = datasetConfigStore.isNewView
 const mutation = computed(() =>
   datasetConfigStore.isNewView ? 'create' : 'update'
 );
-const { isMutateSuccess, mutateData, mutateError, mutate } = useApiMutate(
-  url,
-  mutation
-);
+const { isMutateSuccess, isMutateLoading, mutateData, mutateError, mutate } =
+  useApiMutate(url, mutation);
 
 // Enhance categories and subcategories with any errors
 const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =

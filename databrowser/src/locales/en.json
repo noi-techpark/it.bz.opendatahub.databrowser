@@ -51,7 +51,8 @@
         "cancel": "Cancel (ESC)",
         "cancelMobile": "Cancel",
         "save": "Save (ALT + S)",
-        "saveMobile": "Save"
+        "saveMobile": "Save",
+        "saving": "Saving your changes ..."
       },
       "toolbox": {
         "goodToKnow": "Good to know",
