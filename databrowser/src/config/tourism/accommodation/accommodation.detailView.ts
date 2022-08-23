@@ -14,9 +14,22 @@ export const accommodationDetailView: DetailViewConfig = {
               title: 'Shortname',
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
+              
             },
+            {
+              title: 'Accommodation Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoTypeId' },
+            },
+            {
+              title: 'Category',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoCategoryId' },
+            },
+            
           ],
         },
+       
         {
           name: 'IDs',
           properties: [
@@ -74,6 +87,16 @@ export const accommodationDetailView: DetailViewConfig = {
               title: 'Shortname',
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
+            },
+             {
+              title: 'Accommodation Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoTypeId' },
+            },
+            {
+              title: 'Category',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoCategoryId' },
             },
           ],
         },

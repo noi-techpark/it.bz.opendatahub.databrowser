@@ -15,6 +15,14 @@ export const odhActivityPoiListView: ListViewConfig = {
       },
     },
     {
+      title: 'Logo',
+      component: CellComponent.ImageCell,
+      class: 'w-40',
+      fields: {
+        src: 'ContactInfos.{language}.LogoUrl',
+      },
+    },
+    {
       title: 'Title',
       component: CellComponent.StringCell,
       class: 'w-48',
@@ -33,6 +41,7 @@ export const odhActivityPoiListView: ListViewConfig = {
         separator: ', ',
       },
     },
+   
     {
       title: 'Location',
       component: CellComponent.TextHighlightCell,
@@ -41,6 +50,11 @@ export const odhActivityPoiListView: ListViewConfig = {
         title: 'LocationInfo.RegionInfo.Name.{language}',
         subtitle: 'LocationInfo.MunicipalityInfo.Name.{language}',
       },
+    },
+    {
+      title: 'Web-URL',
+      component: CellComponent.StringCell,
+      fields: { text: 'ContactInfos.{language}.Url' },
     },
     {
       title: 'Languages',
