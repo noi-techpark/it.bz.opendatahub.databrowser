@@ -23,7 +23,7 @@ export const weatherInfoListView: ListViewConfig = {
     {
       title: 'Date',
       component: CellComponent.DateCellOrdinal,
-      class: 'w-48',
+      class: 'w-36',
       params: {
         format: 'dd MMMM yyyy'
       },

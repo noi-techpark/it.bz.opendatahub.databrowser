@@ -11,9 +11,34 @@ export const articleDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              fields: { text: 'Detail.{language}.Title' },
+            },
+            {
+              title: 'Highlight',
+              component: CellComponent.StringCell,
+              fields: { text: 'Highlight' },
+            },
+            {
+              title: 'Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'Type' },
+            },
+            {
+              title: 'Sub Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'SubType' },
+            },
+            {
+              title: 'Article Date',
+              component: CellComponent.StringCell,
+              fields: { text: 'ArticleDate' },
+            },
+            {
+              title: 'Article Date To',
+              component: CellComponent.StringCell,
+              fields: { text: 'ArticleDateTo' },
             },
           ],
         },
