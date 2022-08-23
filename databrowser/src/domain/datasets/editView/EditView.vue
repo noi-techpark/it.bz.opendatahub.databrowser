@@ -17,32 +17,24 @@
         <ShowApiError :error="error" />
       </template>
       <template v-if="isSuccess === true">
-        <div class="flex gap-2">
-          <div>isMutateError: {{ isMutateError }}</div>
-          <div>isMutateSuccess: {{ isMutateSuccess }}</div>
-          <div>isMutateLoading: {{ isMutateLoading }}</div>
-          <div>isMutateIdle: {{ isMutateIdle }}</div>
-          <div>isMutatePaused: {{ isMutatePaused }}</div>
-          <div v-if="isMutateError" class="text-error">
-            mutateError:
-            {{ JSON.stringify((mutateError as any).response.data) }}
-          </div>
-        </div>
         <div class="flex overflow-auto flex-col justify-between h-screen">
-          <div>
-            <ContentAlignmentX class="flex items-center mt-3">
-              <div class="mr-4 text-sm">
-                {{ t('datasets.detailView.showEmptyFields') }}
-              </div>
-              <ToggleCustom v-model="showAll" :disabled="true" />
-            </ContentAlignmentX>
-          </div>
-          <div class="flex overflow-y-auto grow">
-            <ContentAlignmentX class="md:flex md:overflow-y-auto md:px-0">
+          <ContentAlignmentX class="hidden items-center mt-3 md:flex">
+            <div class="mr-4 text-sm">
+              {{ t('datasets.detailView.showEmptyFields') }}
+            </div>
+            <ToggleCustom v-model="showAll" :disabled="true" />
+          </ContentAlignmentX>
+          <div
+            class="flex overflow-y-auto grow"
+            :class="[{ 'opacity-50 pointer-events-none': isMutateLoading }]"
+          >
+            <ContentAlignmentX
+              class="md:flex md:overflow-y-auto md:px-0 md:border-r"
+            >
               <MainCategories
                 :categories="enhancedMainCategories"
                 :slug="slug"
-                class="overflow-y-auto sticky top-0 py-3 bg-white md:w-1/6 md:h-full"
+                class="overflow-y-auto sticky top-0 z-20 py-3 bg-white md:w-1/6 md:h-full"
               />
               <SubCategories
                 v-if="slug !== ''"
@@ -55,7 +47,11 @@
             </ContentAlignmentX>
             <EditToolBox />
           </div>
-          <EditFooter @cancel="cancel" @save="save" />
+          <EditFooter
+            :is-saving="isMutateLoading"
+            @cancel="cancel"
+            @save="save"
+          />
         </div>
       </template>
     </template>
@@ -102,21 +98,13 @@ const { isError, isSuccess, data, error, url } = datasetConfigStore.isNewView
       error: ref(),
       url: computed(() => datasetConfigStore.currentPath ?? ''),
     }
-  : useApiReadForCurrentDataset();
+  : useApiReadForCurrentDataset({ withQueryParameters: false });
 
 const mutation = computed(() =>
   datasetConfigStore.isNewView ? 'create' : 'update'
 );
-const {
-  isMutateSuccess,
-  isMutateError,
-  isMutateIdle,
-  isMutateLoading,
-  isMutatePaused,
-  mutateData,
-  mutateError,
-  mutate,
-} = useApiMutate(url, mutation);
+const { isMutateSuccess, isMutateLoading, mutateData, mutateError, mutate } =
+  useApiMutate(url, mutation);
 
 // Enhance categories and subcategories with any errors
 const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =

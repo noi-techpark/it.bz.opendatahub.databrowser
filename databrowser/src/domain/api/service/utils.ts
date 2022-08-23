@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { ref, Ref, watch } from 'vue';
+import { computed, ref, Ref, watch } from 'vue';
 import { useApiQuery } from './apiQueryHandler';
 import { stringifyParameter } from './query';
 import { ParameterValue } from './types';
@@ -93,46 +93,65 @@ export const toErrorString = (error: unknown): string => {
   return JSON.stringify(error);
 };
 
-export const useFieldExtraction = () => {
+export const useApiParameterReplacements = () => {
   const apiQuery = useApiQuery();
 
-  const getValue = (
-    item: any,
-    fields: Record<string, string>,
-    params?: Record<string, string>
-  ) => {
-    const replacements = Object.entries(apiQuery.allApiParameters.value).reduce(
+  return computed(() =>
+    Object.entries(apiQuery.allApiParameters.value).reduce<
+      Record<string, string>
+    >(
       (previous, [key, value]) => ({
         ...previous,
         [key]: stringifyParameter(value),
       }),
       {}
-    );
+    )
+  );
+};
 
-    const extractedFields = extractField(item, fields, replacements);
+export const useReplaceWithApiParameters = () => {
+  const replacements = useApiParameterReplacements();
+
+  const replace = (s: string): string =>
+    replacePlaceholders(s, replacements.value);
+
+  return { replace };
+};
+
+export const usePropertyMapping = () => {
+  const replacements = useApiParameterReplacements();
+
+  const mapWithIndex = (
+    item: unknown,
+    propertyMapping: Record<string, string>,
+    params?: Record<string, unknown>
+  ) => {
+    const extractedFields = mapValuesWithIndex(
+      item,
+      propertyMapping,
+      replacements.value
+    );
     return { ...extractedFields, ...params };
   };
 
-  return { getValue };
+  const mapWithReverseIndex = (
+    item: Record<string, unknown>,
+    reversePropertyMapping: Record<string, string>,
+    baseItem?: Record<string, unknown>
+  ) => {
+    const extractedFields = mapValuesWithReverseIndex(
+      item,
+      reversePropertyMapping,
+      replacements.value,
+      baseItem
+    );
+    return { ...extractedFields };
+  };
+
+  return { mapWithIndex, mapWithReverseIndex };
 };
 
-const extractField = (
-  item: unknown,
-  fields: Record<string, string>,
-  replacements?: Record<string, string>
-) =>
-  Object.keys(fields).reduce((prev, key) => {
-    const sourceField = fields[key];
-
-    const fieldName = replacePlaceholders(sourceField, replacements);
-
-    const path = fieldName.split('.');
-    const lensePath = R.lensPath(path);
-    const value = R.view(lensePath, item);
-    return { ...prev, [key]: value };
-  }, {});
-
-const replacePlaceholders = (
+export const replacePlaceholders = (
   s: string,
   replacements?: Record<string, string>
 ): string => {
@@ -145,3 +164,39 @@ const replacePlaceholders = (
     s
   );
 };
+
+const mapValuesWithIndex = (
+  item: unknown,
+  propertyMapping: Record<string, string>,
+  replacements: Record<string, string>
+) =>
+  Object.keys(propertyMapping).reduce<Record<string, unknown>>((prev, key) => {
+    const property = propertyMapping[key];
+    const propertyWithReplacements = replacePlaceholders(
+      property,
+      replacements
+    );
+    const path = propertyWithReplacements.split('.');
+    const lensePath = R.lensPath(path);
+    const value = R.view(lensePath, item);
+    return { ...prev, [key]: value };
+  }, {});
+
+const mapValuesWithReverseIndex = (
+  item: Record<string, unknown>,
+  reversePropertyMapping: Record<string, string>,
+  replacements: Record<string, string>,
+  baseItem?: Record<string, unknown>
+) =>
+  Object.entries(reversePropertyMapping).reduce<Record<string, unknown>>(
+    (prev, [itemKey, resultKey]) => {
+      const propertyWithReplacements = replacePlaceholders(
+        resultKey,
+        replacements
+      );
+      const path = propertyWithReplacements.split('.');
+      const value = item[itemKey];
+      return R.assocPath(path, value, prev);
+    },
+    baseItem ?? {}
+  );

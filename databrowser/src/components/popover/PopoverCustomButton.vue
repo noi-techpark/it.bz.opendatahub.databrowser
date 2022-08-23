@@ -1,5 +1,7 @@
 <template>
-  <PopoverButton v-slot="{ open }"><slot :open="open"></slot></PopoverButton>
+  <PopoverButton v-slot="{ open, close }">
+    <slot :open="open" :close="close"></slot>
+  </PopoverButton>
 </template>
 
 <script setup lang="ts">
