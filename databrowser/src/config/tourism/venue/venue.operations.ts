@@ -14,21 +14,12 @@ export const venueOperations: Operations = {
     rolesAllowed: ROLE_READ,
   },
   create: {
-    rolesAllowed: extendCreateRoles([
-      'VenueManager',
-      'VenueCreate',
-    ]),
+    rolesAllowed: extendCreateRoles(['VenueManager', 'VenueCreate']),
   },
   update: {
-    rolesAllowed: extendUpdateRoles([
-      'VenueManager',
-      'VenueUpdate',
-    ]),
+    rolesAllowed: extendUpdateRoles(['VenueManager', 'VenueUpdate']),
   },
   delete: {
-    rolesAllowed: extendDeleteRoles([
-      'VenueManager',
-      'VenueDelete',
-    ]),
+    rolesAllowed: extendDeleteRoles(['VenueManager', 'VenueDelete']),
   },
 };

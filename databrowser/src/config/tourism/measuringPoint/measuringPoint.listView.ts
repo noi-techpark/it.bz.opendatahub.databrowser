@@ -94,6 +94,5 @@ export const measuringPointListView: ListViewConfig = {
         state: 'OdhActive',
       },
     },
-    
   ],
 };

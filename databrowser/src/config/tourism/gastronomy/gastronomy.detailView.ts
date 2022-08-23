@@ -27,7 +27,7 @@ export const gastronomyDetailView: DetailViewConfig = {
                 items: 'CategoryCodes',
               },
               params: {
-                fieldName:"Shortname",
+                fieldName: 'Shortname',
                 separator: ', ',
                 max: '3',
               },
@@ -39,14 +39,14 @@ export const gastronomyDetailView: DetailViewConfig = {
                 items: 'Facilities',
               },
               params: {
-                fieldName:"Shortname",
+                fieldName: 'Shortname',
                 separator: ', ',
                 max: '3',
               },
             },
           ],
         },
-        
+
         {
           name: 'IDs',
           properties: [

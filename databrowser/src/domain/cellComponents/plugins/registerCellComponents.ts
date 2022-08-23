@@ -52,7 +52,5 @@ export default {
     app.component(FilterComponent.FixedValue, FixedValue);
 
     app.component(CellComponent.ArrayCellTags, ArrayCellTags);
-
-
   },
 };

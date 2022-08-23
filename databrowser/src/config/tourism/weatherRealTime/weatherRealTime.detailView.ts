@@ -190,7 +190,9 @@ export const weatherRealTimeDetailView: DetailViewConfig = {
             {
               title: 'Region / TVB',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationRealTime.RegionRealTime.Name.{language}' },
+              fields: {
+                text: 'LocationRealTime.RegionRealTime.Name.{language}',
+              },
             },
             {
               title: 'Tourismorganization',
@@ -207,7 +209,9 @@ export const weatherRealTimeDetailView: DetailViewConfig = {
             {
               title: 'District',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationRealTime.DistrictRealTime.Name.{language}' },
+              fields: {
+                text: 'LocationRealTime.DistrictRealTime.Name.{language}',
+              },
             },
           ],
         },

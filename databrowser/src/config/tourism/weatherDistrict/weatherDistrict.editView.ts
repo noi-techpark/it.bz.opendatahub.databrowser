@@ -215,7 +215,9 @@ export const weatherDistrictEditView: EditViewConfig = {
             {
               title: 'Region / TVB',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationDistrict.RegionDistrict.Name.{language}' },
+              fields: {
+                text: 'LocationDistrict.RegionDistrict.Name.{language}',
+              },
             },
             {
               title: 'Tourismorganization',
@@ -232,7 +234,9 @@ export const weatherDistrictEditView: EditViewConfig = {
             {
               title: 'District',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationDistrict.DistrictDistrict.Name.{language}' },
+              fields: {
+                text: 'LocationDistrict.DistrictDistrict.Name.{language}',
+              },
             },
           ],
         },

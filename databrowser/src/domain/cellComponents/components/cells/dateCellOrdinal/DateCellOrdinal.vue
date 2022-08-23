@@ -18,17 +18,21 @@ const props = withDefaults(
 
 const { date, format } = toRefs(props);
 
-const nth = function(d) {
-    if (d > 3 && d < 21) return 'th';
-    switch (d % 10) {
-        case 1:  return "st";
-        case 2:  return "nd";
-        case 3:  return "rd";
-        default: return "th";
-    }
+const nth = function (d) {
+  if (d > 3 && d < 21) return 'th';
+  switch (d % 10) {
+    case 1:
+      return 'st';
+    case 2:
+      return 'nd';
+    case 3:
+      return 'rd';
+    default:
+      return 'th';
+  }
 };
 
-console.log(date.value)
+console.log(date.value);
 
 const formattedDate = computed(() => {
   if (format == null) {
@@ -36,11 +40,24 @@ const formattedDate = computed(() => {
   }
   if (date != null) {
     const fullDate = new Date(Date.parse(date.value));
-    const day = fullDate.getDate()
-    const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][fullDate.getMonth()];
+    const day = fullDate.getDate();
+    const month = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ][fullDate.getMonth()];
     const year = fullDate.getFullYear();
 
-    return (day + nth(day) + ' ' + month + ' ' + year)
+    return day + nth(day) + ' ' + month + ' ' + year;
   }
   return '';
 });

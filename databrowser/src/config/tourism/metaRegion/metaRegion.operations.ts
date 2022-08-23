@@ -14,21 +14,12 @@ export const metaRegionOperations: Operations = {
     rolesAllowed: ROLE_READ,
   },
   create: {
-    rolesAllowed: extendCreateRoles([
-      'MetaRegionManager',
-      'MetaRegionCreate',
-    ]),
+    rolesAllowed: extendCreateRoles(['MetaRegionManager', 'MetaRegionCreate']),
   },
   update: {
-    rolesAllowed: extendUpdateRoles([
-      'MetaRegionManager',
-      'MetaRegionUpdate',
-    ]),
+    rolesAllowed: extendUpdateRoles(['MetaRegionManager', 'MetaRegionUpdate']),
   },
   delete: {
-    rolesAllowed: extendDeleteRoles([
-      'MetaRegionManager',
-      'MetaRegionDelete',
-    ]),
+    rolesAllowed: extendDeleteRoles(['MetaRegionManager', 'MetaRegionDelete']),
   },
 };

@@ -48,8 +48,8 @@ export const eventShortListView: ListViewConfig = {
       title: 'Rooms',
       component: CellComponent.TypeBasedCell,
       class: 'w-40',
-      fields: { 
-        data: 'RoomBooked' 
+      fields: {
+        data: 'RoomBooked',
       },
     },
     {

@@ -11,7 +11,7 @@ export const weatherInfoListView: ListViewConfig = {
         src: 'Weather.{language}.Conditions.0.WeatherImgurl',
       },
     },
-    
+
     {
       title: 'Title',
       component: CellComponent.StringCell,
@@ -25,7 +25,7 @@ export const weatherInfoListView: ListViewConfig = {
       component: CellComponent.DateCellOrdinal,
       class: 'w-36',
       params: {
-        format: 'dd MMMM yyyy'
+        format: 'dd MMMM yyyy',
       },
       fields: {
         date: 'Weather.{language}.Conditions.0.date',
@@ -77,6 +77,5 @@ export const weatherInfoListView: ListViewConfig = {
         state: 'OdhActive',
       },
     },
-    
   ],
 };

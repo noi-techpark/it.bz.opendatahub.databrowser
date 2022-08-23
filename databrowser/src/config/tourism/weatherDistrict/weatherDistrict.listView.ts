@@ -11,7 +11,7 @@ export const weatherDistrictListView: ListViewConfig = {
         src: 'BezirksForecast.0.WeatherImgUrl',
       },
     },
-    
+
     {
       title: 'Title',
       component: CellComponent.StringCell,
@@ -25,7 +25,7 @@ export const weatherDistrictListView: ListViewConfig = {
       component: CellComponent.DateCellOrdinal,
       class: 'w-48',
       params: {
-        format: 'dd MMMM yyyy'
+        format: 'dd MMMM yyyy',
       },
       fields: {
         date: 'BezirksForecast.0.date',
@@ -93,6 +93,5 @@ export const weatherDistrictListView: ListViewConfig = {
         state: 'OdhActive',
       },
     },
-    
   ],
 };

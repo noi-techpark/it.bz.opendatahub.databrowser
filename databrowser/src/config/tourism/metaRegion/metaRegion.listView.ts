@@ -3,7 +3,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 
 export const metaRegionListView: ListViewConfig = {
   elements: [
-     {
+    {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',

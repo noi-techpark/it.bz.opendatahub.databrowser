@@ -14,21 +14,12 @@ export const gastronomyOperations: Operations = {
     rolesAllowed: ROLE_READ,
   },
   create: {
-    rolesAllowed: extendCreateRoles([
-      'GastronomyManager',
-      'GastronomyCreate',
-    ]),
+    rolesAllowed: extendCreateRoles(['GastronomyManager', 'GastronomyCreate']),
   },
   update: {
-    rolesAllowed: extendUpdateRoles([
-      'GastronomyManager',
-      'GastronomyUpdate',
-    ]),
+    rolesAllowed: extendUpdateRoles(['GastronomyManager', 'GastronomyUpdate']),
   },
   delete: {
-    rolesAllowed: extendDeleteRoles([
-      'GastronomyManager',
-      'GastronomyDelete',
-    ]),
+    rolesAllowed: extendDeleteRoles(['GastronomyManager', 'GastronomyDelete']),
   },
 };

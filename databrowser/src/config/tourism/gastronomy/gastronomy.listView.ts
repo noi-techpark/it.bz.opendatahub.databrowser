@@ -47,7 +47,7 @@ export const gastronomyListView: ListViewConfig = {
         items: 'CategoryCodes',
       },
       params: {
-        fieldName:"Shortname",
+        fieldName: 'Shortname',
         separator: ', ',
         max: '3',
       },

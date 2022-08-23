@@ -14,21 +14,12 @@ export const districtOperations: Operations = {
     rolesAllowed: ROLE_READ,
   },
   create: {
-    rolesAllowed: extendCreateRoles([
-      'DistrictManager',
-      'DistrictCreate',
-    ]),
+    rolesAllowed: extendCreateRoles(['DistrictManager', 'DistrictCreate']),
   },
   update: {
-    rolesAllowed: extendUpdateRoles([
-      'DistrictManager',
-      'DistrictUpdate',
-    ]),
+    rolesAllowed: extendUpdateRoles(['DistrictManager', 'DistrictUpdate']),
   },
   delete: {
-    rolesAllowed: extendDeleteRoles([
-      'DistrictManager',
-      'DistrictDelete',
-    ]),
+    rolesAllowed: extendDeleteRoles(['DistrictManager', 'DistrictDelete']),
   },
 };

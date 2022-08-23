@@ -68,7 +68,7 @@ export const skiAreaDetailView: DetailViewConfig = {
             },
           ],
         },
-         {
+        {
           name: 'Ski map',
           properties: [
             {

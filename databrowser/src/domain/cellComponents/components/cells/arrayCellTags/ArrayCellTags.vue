@@ -38,17 +38,11 @@ const more = ref(false);
 const newItems = computed(() => {
   return [
     ...items.value
-      .map((item) =>
-        item.hasOwnProperty(fieldName.value) ? item[fieldName.value] : ''
-      )
+      .map((item) => item[fieldName.value])
       .slice(0, parseInt(max.value)),
   ];
 });
 const newItemsAll = computed(() => {
-  return [
-    ...items.value.map((item) =>
-      item.hasOwnProperty(fieldName.value) ? item[fieldName.value] : ''
-    ),
-  ];
+  return [...items.value.map((item) => item[fieldName.value])];
 });
 </script>

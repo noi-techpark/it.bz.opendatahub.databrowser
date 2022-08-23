@@ -14,21 +14,12 @@ export const snowReportOperations: Operations = {
     rolesAllowed: ROLE_READ,
   },
   create: {
-    rolesAllowed: extendCreateRoles([
-      'SnowReportManager',
-      'SnowReportCreate',
-    ]),
+    rolesAllowed: extendCreateRoles(['SnowReportManager', 'SnowReportCreate']),
   },
   update: {
-    rolesAllowed: extendUpdateRoles([
-      'SnowReportManager',
-      'SnowReportUpdate',
-    ]),
+    rolesAllowed: extendUpdateRoles(['SnowReportManager', 'SnowReportUpdate']),
   },
   delete: {
-    rolesAllowed: extendDeleteRoles([
-      'SnowReportManager',
-      'SnowReportDelete',
-    ]),
+    rolesAllowed: extendDeleteRoles(['SnowReportManager', 'SnowReportDelete']),
   },
 };

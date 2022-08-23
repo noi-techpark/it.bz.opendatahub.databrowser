@@ -62,6 +62,5 @@ export const weatherRealTimeListView: ListViewConfig = {
         state: 'OdhActive',
       },
     },
-    
   ],
 };

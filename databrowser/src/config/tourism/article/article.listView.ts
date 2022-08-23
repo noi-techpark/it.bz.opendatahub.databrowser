@@ -70,7 +70,7 @@ export const articleListView: ListViewConfig = {
         items: 'ODHTags',
       },
       params: {
-        fieldName:"Id",
+        fieldName: 'Id',
         separator: ', ',
         max: '3',
       },

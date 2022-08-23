@@ -14,21 +14,12 @@ export const skiAreaOperations: Operations = {
     rolesAllowed: ROLE_READ,
   },
   create: {
-    rolesAllowed: extendCreateRoles([
-      'SkiAreaManager',
-      'SkiAreaCreate',
-    ]),
+    rolesAllowed: extendCreateRoles(['SkiAreaManager', 'SkiAreaCreate']),
   },
   update: {
-    rolesAllowed: extendUpdateRoles([
-      'SkiAreaManager',
-      'SkiAreaUpdate',
-    ]),
+    rolesAllowed: extendUpdateRoles(['SkiAreaManager', 'SkiAreaUpdate']),
   },
   delete: {
-    rolesAllowed: extendDeleteRoles([
-      'SkiAreaManager',
-      'SkiAreaDelete',
-    ]),
+    rolesAllowed: extendDeleteRoles(['SkiAreaManager', 'SkiAreaDelete']),
   },
 };

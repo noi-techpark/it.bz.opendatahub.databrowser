@@ -28,7 +28,7 @@ export const snowReportListView: ListViewConfig = {
         text: 'Areaname',
       },
     },
-     {
+    {
       title: 'Location',
       component: CellComponent.StringCell,
       class: 'w-48',
@@ -79,6 +79,5 @@ export const snowReportListView: ListViewConfig = {
         state: 'OdhActive',
       },
     },
-    
   ],
 };

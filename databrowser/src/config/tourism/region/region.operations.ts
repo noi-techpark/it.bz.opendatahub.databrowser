@@ -14,21 +14,12 @@ export const regionOperations: Operations = {
     rolesAllowed: ROLE_READ,
   },
   create: {
-    rolesAllowed: extendCreateRoles([
-      'RegionManager',
-      'RegionCreate',
-    ]),
+    rolesAllowed: extendCreateRoles(['RegionManager', 'RegionCreate']),
   },
   update: {
-    rolesAllowed: extendUpdateRoles([
-      'RegionManager',
-      'RegionUpdate',
-    ]),
+    rolesAllowed: extendUpdateRoles(['RegionManager', 'RegionUpdate']),
   },
   delete: {
-    rolesAllowed: extendDeleteRoles([
-      'RegionManager',
-      'RegionDelete',
-    ]),
+    rolesAllowed: extendDeleteRoles(['RegionManager', 'RegionDelete']),
   },
 };
