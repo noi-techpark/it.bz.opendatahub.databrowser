@@ -80,6 +80,7 @@ import DiscardChangesDialog from './dialogs/DiscardChangesDialog.vue';
 import LeaveSectionDialog from './dialogs/LeaveSectionDialog.vue';
 import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
 import { useDialogsStore } from './dialogs/store/dialogsStore';
+import { useEventListener } from '@vueuse/core';
 
 const { t } = useI18n();
 
@@ -157,4 +158,13 @@ watch(
   },
   { immediate: true }
 );
+
+// Listen for window close / reload event and let the user know
+// if there are unsaved changes
+useEventListener(window, 'beforeunload', (evt) => {
+  if (!editStore.isEqual) {
+    evt.returnValue = 'Do you really want to close?';
+    return evt.returnValue;
+  }
+});
 </script>
