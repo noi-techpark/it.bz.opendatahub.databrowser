@@ -9,6 +9,20 @@ import {
   accommodationTypesConfig,
   webcamInfoConfig,
   wineAwardConfig,
+  gastronomyConfig,
+  venueConfig,
+  weatherInfoConfig,
+  municipalityConfig,
+  districtConfig,
+  regionConfig,
+  metaRegionConfig,
+  tourismAssociationListConfig,
+  skiRegionConfig,
+  skiAreaConfig,
+  weatherDistrictConfig,
+  weatherRealTimeConfig,
+  measuringPointConfig,
+  snowReportConfig,
 } from './tourism';
 
 type EmbeddedDatasetConfigs = Record<
@@ -26,6 +40,20 @@ const datasetConfigs = [
   accommodationTypesConfig,
   webcamInfoConfig,
   wineAwardConfig,
+  gastronomyConfig,
+  venueConfig,
+  weatherInfoConfig,
+  municipalityConfig,
+  districtConfig,
+  regionConfig,
+  metaRegionConfig,
+  tourismAssociationListConfig,
+  skiRegionConfig,
+  skiAreaConfig,
+  weatherDistrictConfig,
+  weatherRealTimeConfig,
+  measuringPointConfig,
+  snowReportConfig,
 ];
 
 const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {

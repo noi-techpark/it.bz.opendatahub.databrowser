@@ -4,6 +4,14 @@ import { ListViewConfig } from '../../../domain/datasetConfig/types';
 export const eventShortListView: ListViewConfig = {
   elements: [
     {
+      title: 'Title',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'Shortname',
+      },
+    },
+    {
       title: 'Event location',
       component: CellComponent.StringCell,
       class: 'w-48',
@@ -37,6 +45,14 @@ export const eventShortListView: ListViewConfig = {
       },
     },
     {
+      title: 'Rooms',
+      component: CellComponent.TypeBasedCell,
+      class: 'w-40',
+      fields: {
+        data: 'RoomBooked',
+      },
+    },
+    {
       title: 'Languages',
       component: CellComponent.ArrayCell,
       class: 'w-40',
@@ -55,7 +71,7 @@ export const eventShortListView: ListViewConfig = {
         date: 'StartDate',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {
@@ -66,7 +82,34 @@ export const eventShortListView: ListViewConfig = {
         date: 'EndDate',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'do MMMM yyyy',
+      },
+    },
+    {
+      title: 'Edited',
+      component: CellComponent.EditedDateCell,
+      class: 'w-40',
+      fields: {
+        date: 'LastChange',
+      },
+      params: {
+        format: 'do MMMM yyyy',
+      },
+    },
+    {
+      title: 'Source',
+      component: CellComponent.StringCell,
+      class: 'w-36',
+      fields: {
+        text: 'Source',
+      },
+    },
+    {
+      title: 'ODH state',
+      component: CellComponent.StateCell,
+      class: 'w-36',
+      fields: {
+        state: 'OdhActive',
       },
     },
   ],

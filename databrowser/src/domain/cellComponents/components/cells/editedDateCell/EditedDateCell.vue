@@ -8,7 +8,6 @@
 <script setup lang="ts">
 import { computed, defineProps, toRefs, withDefaults } from 'vue';
 import { format as formatFn, formatDistanceToNow } from 'date-fns';
-
 const props = withDefaults(
   defineProps<{
     date?: string;
@@ -19,9 +18,7 @@ const props = withDefaults(
     format: undefined,
   }
 );
-
 const { date, format } = toRefs(props);
-
 const formattedDate = computed(() => {
   if (format == null) {
     return date;
@@ -31,7 +28,6 @@ const formattedDate = computed(() => {
   }
   return '';
 });
-
 const formattedDistance = computed(() => {
   if (date.value != null) {
     return formatDistanceToNow(Date.parse(date.value), {

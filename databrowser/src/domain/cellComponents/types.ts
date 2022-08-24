@@ -1,5 +1,6 @@
 export enum CellComponent {
   ArrayCell = 'ArrayCell',
+  ArrayCellTags = 'ArrayCellTags',
   DateCell = 'DateCell',
   EditedDateCell = 'EditedDateCell',
   EditImageGalleryCell = 'EditImageGalleryCell',

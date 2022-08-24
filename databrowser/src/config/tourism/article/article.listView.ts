@@ -4,6 +4,14 @@ import { ListViewConfig } from '../../../domain/datasetConfig/types';
 export const articleListView: ListViewConfig = {
   elements: [
     {
+      title: 'Image',
+      component: CellComponent.ImageCell,
+      class: 'w-40',
+      fields: {
+        src: 'ImageGallery.0.ImageUrl',
+      },
+    },
+    {
       title: 'Title',
       component: CellComponent.StringCell,
       class: 'w-48',
@@ -47,6 +55,27 @@ export const articleListView: ListViewConfig = {
       },
     },
     {
+      title: 'SubType',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'SubType',
+      },
+    },
+    {
+      title: 'Tags',
+      component: CellComponent.ArrayCellTags,
+      class: 'w-40',
+      fields: {
+        items: 'ODHTags',
+      },
+      params: {
+        fieldName: 'Id',
+        separator: ', ',
+        max: '3',
+      },
+    },
+    {
       title: 'Edited',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
@@ -54,7 +83,7 @@ export const articleListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {
@@ -66,6 +95,14 @@ export const articleListView: ListViewConfig = {
       },
       params: {
         separator: ', ',
+      },
+    },
+    {
+      title: 'ODH state',
+      component: CellComponent.StateCell,
+      class: 'w-36',
+      fields: {
+        state: 'OdhActive',
       },
     },
   ],

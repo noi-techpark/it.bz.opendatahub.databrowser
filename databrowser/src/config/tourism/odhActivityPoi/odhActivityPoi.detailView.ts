@@ -12,9 +12,39 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              fields: {
+                text: 'Detail.{language}.Title',
+              },
+            },
+            {
+              title: 'Type',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Type',
+              },
+            },
+            {
+              title: 'Sub Type',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'SubType',
+              },
+            },
+            {
+              title: 'Poi Type',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'PoiType',
+              },
+            },
+            {
+              title: 'Novelty',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'AdditionalPoiInfos.{language}.Novelty',
+              },
             },
           ],
         },
@@ -37,6 +67,113 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               title: 'Outdoor Active ID',
               component: CellComponent.StringCell,
               fields: { text: 'OutdooractiveID' },
+            },
+          ],
+        },
+        {
+          name: 'Additional Information',
+          properties: [
+            {
+              title: 'Highlight',
+              component: CellComponent.StringCell,
+              fields: { text: 'Highlight' },
+            },
+            {
+              title: 'Open',
+              component: CellComponent.StringCell,
+              fields: { text: 'IsOpen' },
+            },
+            {
+              title: 'Free Entrance',
+              component: CellComponent.StringCell,
+              fields: { text: 'HasFreeEntrance' },
+            },
+            {
+              title: 'Prepared',
+              component: CellComponent.StringCell,
+              fields: { text: 'IsPrepared' },
+            },
+            {
+              title: 'With Ligth',
+              component: CellComponent.StringCell,
+              fields: { text: 'IsWithLigth' },
+            },
+            {
+              title: 'Has Rentals',
+              component: CellComponent.StringCell,
+              fields: { text: 'HasRentals' },
+            },
+            {
+              title: 'Runs To Valley',
+              component: CellComponent.StringCell,
+              fields: { text: 'RunToValley' },
+            },
+            {
+              title: 'Lift Available',
+              component: CellComponent.StringCell,
+              fields: { text: 'LiftAvailable' },
+            },
+            {
+              title: 'Feet Climb',
+              component: CellComponent.StringCell,
+              fields: { text: 'FeetClimb' },
+            },
+            {
+              title: 'Author Tip',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.AuthorTip',
+              },
+            },
+            {
+              title: 'Parking Info',
+              component: CellComponent.StringCell,
+              fields: { text: 'ParkingInfo' },
+            },
+            {
+              title: 'Public Transportation Info',
+              component: CellComponent.StringCell,
+              fields: { text: 'PublicTransportationInfo' },
+            },
+            {
+              title: 'Safety Info',
+              component: CellComponent.StringCell,
+              fields: { text: 'SafetyInfo' },
+            },
+            {
+              title: 'Equipment Info',
+              component: CellComponent.StringCell,
+              fields: { text: 'EquipmentInfo' },
+            },
+          ],
+        },
+        {
+          name: 'Target Group',
+          properties: [
+            {
+              title: 'Age from',
+              component: CellComponent.StringCell,
+              fields: { text: 'AgeFrom' },
+            },
+            {
+              title: 'Age to',
+              component: CellComponent.StringCell,
+              fields: { text: 'AgeTo' },
+            },
+          ],
+        },
+        {
+          name: 'Other',
+          properties: [
+            {
+              title: 'Tourism organization Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'TourismorganizationId' },
+            },
+            {
+              title: 'District',
+              component: CellComponent.StringCell,
+              fields: { text: 'DistrictInfo.Name.de' },
             },
           ],
         },
