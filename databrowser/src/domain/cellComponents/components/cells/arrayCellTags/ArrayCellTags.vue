@@ -16,7 +16,7 @@ import { defineProps, withDefaults, toRefs, computed, ref } from 'vue';
 
 const props = withDefaults(
   defineProps<{
-    items?: {}[];
+    items?: Record<string, unknown>[];
     separator?: string;
     max?: string;
     fieldName?: string;
