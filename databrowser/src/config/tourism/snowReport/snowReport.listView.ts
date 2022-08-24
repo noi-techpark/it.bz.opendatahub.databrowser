@@ -60,7 +60,7 @@ export const snowReportListView: ListViewConfig = {
         date: 'Measuringpoints.0.LastUpdate',
       },
       params: {
-        format: 'dd MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {

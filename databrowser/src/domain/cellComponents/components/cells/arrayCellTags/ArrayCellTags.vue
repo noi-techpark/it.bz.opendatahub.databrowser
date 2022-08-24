@@ -8,8 +8,6 @@
     <div v-else>
       <span v-if="newItems != null">{{ newItems?.join(separator) }}</span>
     </div>
-
-    <!-- <span v-if="newItems != null">{{ newItems?.join(separator) }}</span>  -->
   </div>
 </template>
 

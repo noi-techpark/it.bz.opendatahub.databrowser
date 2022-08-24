@@ -46,7 +46,7 @@ export const skiRegionListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {

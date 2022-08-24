@@ -1,7 +1,7 @@
 export enum CellComponent {
   ArrayCell = 'ArrayCell',
+  ArrayCellTags = 'ArrayCellTags',
   DateCell = 'DateCell',
-  DateCellOrdinal = 'DateCellOrdinal',
   EditedDateCell = 'EditedDateCell',
   EditImageGalleryCell = 'EditImageGalleryCell',
   GpsListCell = 'GpsListCell',
@@ -19,8 +19,6 @@ export enum CellComponent {
   ToggleCell = 'ToggleCell',
   TypeBasedCell = 'TypeBasedCell',
   WebcamGalleryCell = 'WebcamGalleryCell',
-
-  ArrayCellTags = 'ArrayCellTags',
 }
 
 export enum FilterComponent {

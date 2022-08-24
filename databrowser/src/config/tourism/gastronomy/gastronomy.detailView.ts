@@ -101,9 +101,49 @@ export const gastronomyDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Title',
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
+            },
+            {
+              title: 'Meta Title',
+              component: CellComponent.StringCell,
+              fields: { text: 'Meta Title' },
+            },
+            {
+              title: 'Meta Desc',
+              component: CellComponent.StringCell,
+              fields: { text: 'MetaDesc' },
+            },
+            {
+              title: 'Header',
+              component: CellComponent.StringCell,
+              fields: { text: 'Header' },
+            },
+            {
+              title: 'Sub Header',
+              component: CellComponent.StringCell,
+              fields: { text: 'SubHeader' },
+            },
+            {
+              title: 'Intro Text',
+              component: CellComponent.StringCell,
+              fields: { text: 'IntroText' },
+            },
+            {
+              title: 'Base Text',
+              component: CellComponent.StringCell,
+              fields: { text: 'BaseText' },
+            },
+            {
+              title: 'Additional Text',
+              component: CellComponent.StringCell,
+              fields: { text: 'AdditionalText' },
+            },
+            {
+              title: 'Get There Text',
+              component: CellComponent.StringCell,
+              fields: { text: 'GetThereText' },
             },
           ],
         },
@@ -119,17 +159,27 @@ export const gastronomyDetailView: DetailViewConfig = {
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              fields: { text: 'ContactInfos.{language}.CompanyName' },
             },
             {
               title: 'First Name',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
+              fields: { text: 'ContactInfos.{language}.Givenname' },
             },
             {
               title: 'Surname',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
+              fields: { text: 'ContactInfos.{language}.Surname' },
+            },
+            {
+              title: 'Name Prefix',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.NamePrefix' },
+            },
+            {
+              title: 'Tax number',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Tax' },
             },
           ],
         },
@@ -139,22 +189,27 @@ export const gastronomyDetailView: DetailViewConfig = {
             {
               title: 'Street and House No',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
+              fields: { text: 'ContactInfos.{language}.Address' },
             },
             {
               title: 'ZIP-Code',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
+              fields: { text: 'ContactInfos.{language}.ZipCode' },
             },
             {
               title: 'City',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
+              fields: { text: 'ContactInfos.{language}.City' },
+            },
+            {
+              title: 'Country',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CountryName' },
             },
             {
               title: 'Country Abbrevation',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
+              fields: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
         },
@@ -164,17 +219,22 @@ export const gastronomyDetailView: DetailViewConfig = {
             {
               title: 'E-Mail',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
+              fields: { text: 'ContactInfos.{language}.Email' },
             },
             {
               title: 'Phone Number',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
+              fields: { text: 'ContactInfos.{language}.Phonenumber' },
+            },
+            {
+              title: 'Fax Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Faxnumber' },
             },
             {
               title: 'Web-URL',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              fields: { text: 'ContactInfos.{language}.Url' },
             },
           ],
         },

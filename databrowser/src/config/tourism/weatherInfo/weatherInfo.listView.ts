@@ -22,10 +22,10 @@ export const weatherInfoListView: ListViewConfig = {
     },
     {
       title: 'Date',
-      component: CellComponent.DateCellOrdinal,
+      component: CellComponent.DateCell,
       class: 'w-36',
       params: {
-        format: 'dd MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
       fields: {
         date: 'Weather.{language}.Conditions.0.date',
@@ -58,7 +58,7 @@ export const weatherInfoListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {

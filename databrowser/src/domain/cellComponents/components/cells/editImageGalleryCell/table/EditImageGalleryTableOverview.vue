@@ -135,7 +135,6 @@ import UseFullscreen from '../../../../../../components/fullscreen/UseFullscreen
 import IconExpanded from '../../../../../../components/svg/IconExpanded.vue';
 import CheckboxCustom from '../../../../../../components/checkbox/CheckboxCustom.vue';
 import IconDragAndDrop from '../../../../../../components/svg/IconDragAndDrop.vue';
-// import { VueDraggableNext } from 'vue-draggable-next';
 import TableCustom from '../../../../../../components/table/TableCustom.vue';
 import TableHeader from '../../../../../../components/table/TableHeader.vue';
 import { useImageSelection } from './useImageSelection';

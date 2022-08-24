@@ -65,7 +65,7 @@ const data: MenuColumn = {
               url: '/dataset/table/tourism/v1/MetaRegion',
             },
             {
-              label: 'municipality',
+              label: 'Municipality',
               url: '/dataset/table/tourism/v1/Municipality',
             },
             {

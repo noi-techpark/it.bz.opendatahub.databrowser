@@ -59,7 +59,7 @@ export const municipalityListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {

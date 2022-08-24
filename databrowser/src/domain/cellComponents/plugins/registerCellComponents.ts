@@ -1,8 +1,8 @@
 import { App } from 'vue';
 
 import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
+import ArrayCellTags from '../components/cells/arrayCellTags/ArrayCellTags.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
-import DateCellOrdinal from '../components/cells/dateCellOrdinal/DateCellOrdinal.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditImageGalleryCell.vue';
 import GpsListCell from '../components/cells/gpsListCell/GpsListCell.vue';
@@ -22,15 +22,13 @@ import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamGalleryCell from '../components/cells/webcamGalleryCell/WebcamGalleryCell.vue';
 import FixedValue from '../components/filters/fixedValue/FixedValue.vue';
 
-import ArrayCellTags from '../components/cells/arrayCellTags/ArrayCellTags.vue';
-
 import { CellComponent, FilterComponent } from '../types';
 
 export default {
   install: (app: App) => {
     app.component(CellComponent.ArrayCell, ArrayCell);
+    app.component(CellComponent.ArrayCellTags, ArrayCellTags);
     app.component(CellComponent.DateCell, DateCell);
-    app.component(CellComponent.DateCellOrdinal, DateCellOrdinal);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
     app.component(CellComponent.EditImageGalleryCell, EditImageGalleryCell);
     app.component(CellComponent.GpsListCell, GpsListCell);
@@ -50,7 +48,5 @@ export default {
     app.component(CellComponent.WebcamGalleryCell, WebcamGalleryCell);
 
     app.component(FilterComponent.FixedValue, FixedValue);
-
-    app.component(CellComponent.ArrayCellTags, ArrayCellTags);
   },
 };

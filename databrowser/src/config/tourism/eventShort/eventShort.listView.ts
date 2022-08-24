@@ -71,7 +71,7 @@ export const eventShortListView: ListViewConfig = {
         date: 'StartDate',
       },
       params: {
-        format: 'dd MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {
@@ -82,7 +82,7 @@ export const eventShortListView: ListViewConfig = {
         date: 'EndDate',
       },
       params: {
-        format: 'dd MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {
@@ -93,7 +93,7 @@ export const eventShortListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {

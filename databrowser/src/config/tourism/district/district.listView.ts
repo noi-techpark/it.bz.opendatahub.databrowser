@@ -11,19 +11,6 @@ export const districtListView: ListViewConfig = {
         text: 'Detail.{language}.Title',
       },
     },
-    // {
-    //   title: 'GPS',
-    //   component: CellComponent.GpsListCell,
-    //   class: 'w-40',
-    //   fields: { gpsEntries: 'GpsPoints[0].Latitude'},
-    //   params: {
-    //     type: 'position',
-    //     latitude: 'Latitude',
-    //     longitude: 'Longitude',
-    //     altitude: 'Altitude',
-    //     altitudeUnit: 'AltitudeUnitofMeasure',
-    //   },
-    // },
     {
       title: 'Languages',
       component: CellComponent.ArrayCell,
@@ -43,7 +30,7 @@ export const districtListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {
