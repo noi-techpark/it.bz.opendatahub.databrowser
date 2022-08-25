@@ -37,6 +37,12 @@ import { TabPanel } from '@headlessui/vue';
 import ToolBoxCardHeader from '../toolbox/ToolBoxCardHeader.vue';
 import ToolBoxCard from '../toolbox/ToolBoxCard.vue';
 import { useEditStore } from './store/editStore';
+import { defineAsyncComponent } from 'vue';
+import 'vue-diff/dist/index.css';
+
+const VueDiff = defineAsyncComponent(() =>
+  import('vue-diff').then((exports) => exports.Diff)
+);
 
 const { t } = useI18n();
 
