@@ -1,20 +1,9 @@
 <template>
   <div>
-    <div
-      class="flex gap-5 justify-between mt-2 mb-5"
-      :class="anyImageSelected && hasImages ? 'text-default' : 'text-disabled'"
-    >
-      <div>
-        <AddImagesButton class="md:hidden" />
-      </div>
-      <div>
-        <DeleteImagesButton
-          :disabled="!anyImageSelected || !hasImages"
-          text="Delete"
-          @delete-images="deleteSelectedImages"
-        />
-      </div>
-    </div>
+    <EditImageGalleryTableHeader
+      :any-image-selected="anyImageSelected"
+      @delete-images="deleteSelectedImages"
+    />
     <TableCustom>
       <colgroup>
         <col v-if="hasImages" class="w-0 md:w-10" />
@@ -79,7 +68,7 @@
               class="flex justify-center items-center md:items-stretch"
             >
               <div
-                class="flex relative justify-center cursor-pointer image-preview"
+                class="group flex relative justify-center cursor-pointer"
                 :class="{ 'items-center': !isFullscreen }"
                 @click="toggle()"
               >
@@ -90,7 +79,7 @@
                 />
                 <IconExpanded
                   v-if="!isFullscreen"
-                  class="absolute text-white transition-all"
+                  class="absolute text-white transition-all group-hover:scale-125"
                 />
               </div>
             </UseFullscreen>
@@ -141,9 +130,9 @@ import TableHeader from '../../../../../../components/table/TableHeader.vue';
 import { useImageSelection } from './useImageSelection';
 import ConfirmDeleteSingle from './ConfirmDeleteSingle.vue';
 import AddImagesButton from '../AddImagesButton.vue';
-import DeleteImagesButton from '../DeleteImagesButton.vue';
 import RowSettings from './RowSettings.vue';
 import { resizeImageWidth } from '../../../../../image';
+import EditImageGalleryTableHeader from './EditImageGalleryTableHeader.vue';
 
 interface ImageGalleryEntry {
   alt?: string;
@@ -211,9 +200,3 @@ const deleteSingleConfirm = (index: number) => {
   emit('deleteImages', [index]);
 };
 </script>
-
-<style scoped>
-.image-preview:hover svg {
-  @apply scale-125;
-}
-</style>
