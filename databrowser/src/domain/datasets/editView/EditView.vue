@@ -14,9 +14,12 @@
     </template>
     <template v-else>
       <template v-if="isError">
-        <ShowApiError :error="error" />
+        <ShowApiError :error="error" class="overflow-auto h-24" />
       </template>
-      <template v-if="isSuccess === true">
+      <template v-if="isMutateError">
+        <ShowApiError :error="mutateError" class="overflow-auto h-24" />
+      </template>
+      <template v-if="isSuccess">
         <DiscardChangesDialog @discard="resetAndCleanup" />
         <LeaveSectionDialog
           :is-save-success="isMutateSuccess"
@@ -107,8 +110,15 @@ const { isError, isSuccess, data, error, url } = datasetConfigStore.isNewView
 const mutation = computed(() =>
   datasetConfigStore.isNewView ? 'create' : 'update'
 );
-const { isMutateSuccess, isMutateLoading, mutateData, mutateError, mutate } =
-  useApiMutate(url, mutation);
+const {
+  isMutateSuccess,
+  isMutateLoading,
+  isMutateError,
+  mutateData,
+  mutateError,
+  resetMutate,
+  mutate,
+} = useApiMutate(url, mutation);
 
 // Enhance categories and subcategories with any errors
 const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =
@@ -124,6 +134,7 @@ const saveChanges = () => storeSync.mutate();
 const resetAndCleanup = () => {
   storeSync.reset();
   cleanErrors();
+  resetMutate.value();
 };
 
 const dialogsStore = useDialogsStore();

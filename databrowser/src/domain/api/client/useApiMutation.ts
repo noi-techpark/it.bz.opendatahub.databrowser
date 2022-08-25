@@ -41,7 +41,7 @@ export const useApiUpdate = (url: Ref<string>) => {
     isUpdatePaused: mut.isPaused,
     updateData: mut.data,
     updateError: mut.error,
-    reset: mut.reset,
+    resetUpdate: mut.reset,
     update: mut.invoke,
   };
 };
@@ -57,7 +57,7 @@ export const useApiCreate = (url: Ref<string>) => {
     isCreatePaused: mut.isPaused,
     createData: mut.data,
     createError: mut.error,
-    reset: mut.reset,
+    resetCreate: mut.reset,
     create: mut.invoke,
   };
 };
@@ -73,7 +73,7 @@ export const useApiDelete = (url: Ref<string>) => {
     isDeletePaused: mut.isPaused,
     deleteData: mut.data,
     deleteError: mut.error,
-    reset: mut.reset,
+    resetDelete: mut.reset,
     delete: mut.invoke as () => void,
   };
 };
@@ -90,7 +90,7 @@ export const useApiMutate = (url: Ref<string>, mutation: Ref<Mutation>) => {
     isMutatePaused: mut.isPaused,
     mutateData: mut.data,
     mutateError: mut.error,
-    reset: mut.reset,
+    resetMutate: mut.reset,
     mutate: mut.invoke as () => void,
   };
 };
