@@ -24,7 +24,7 @@ import { onKeyStroke } from '@vueuse/core';
 import DialogCustom from '../../../../components/dialog/DialogCustom.vue';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import { Variant } from '../../../../components/button/types';
-import { useDialogsStore } from './store/dialogsStore';
+import { useDialogsStore } from './dialogsStore';
 
 const { t } = useI18n();
 

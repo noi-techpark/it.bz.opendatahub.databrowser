@@ -1,5 +1,14 @@
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { initialState } from './initialState';
+
+interface State {
+  discardChangesDialogVisible: boolean;
+  leaveSectionDialogVisible: boolean;
+}
+
+const initialState: State = {
+  discardChangesDialogVisible: false,
+  leaveSectionDialogVisible: false,
+};
 
 export const useDialogsStore = defineStore('dialogsStore', {
   state: () => initialState,

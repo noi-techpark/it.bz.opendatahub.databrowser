@@ -36,7 +36,7 @@ import DialogCustom from '../../../../components/dialog/DialogCustom.vue';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import { Variant } from '../../../../components/button/types';
 import { useEditStore } from '../store/editStore';
-import { useDialogsStore } from './store/dialogsStore';
+import { useDialogsStore } from './dialogsStore';
 
 const { t } = useI18n();
 

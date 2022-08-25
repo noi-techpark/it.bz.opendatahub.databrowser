@@ -82,7 +82,7 @@ import { DatasetPage } from '../../../routes';
 import DiscardChangesDialog from './dialogs/DiscardChangesDialog.vue';
 import LeaveSectionDialog from './dialogs/LeaveSectionDialog.vue';
 import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
-import { useDialogsStore } from './dialogs/store/dialogsStore';
+import { useDialogsStore } from './dialogs/dialogsStore';
 import { useEventListener } from '@vueuse/core';
 
 const { t } = useI18n();
