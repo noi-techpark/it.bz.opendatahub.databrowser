@@ -7,9 +7,9 @@
     leave-from-class="transform scale-100 opacity-100"
     leave-to-class="transform scale-95 opacity-0"
   >
-    <PopoverPanel class="z-20">
+    <PopoverPanel v-slot="{ open, close }" class="z-20">
       <div class="bg-white rounded ring-1 ring-gray-400 shadow-md">
-        <slot></slot>
+        <slot :open="open" :close="close"></slot>
       </div>
     </PopoverPanel>
   </transition>

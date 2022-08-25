@@ -2,6 +2,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import * as R from 'ramda';
 import { markRaw } from 'vue';
 import { EditData, initialState } from './initialState';
+import { PropertyUpdate } from './types';
 
 export const useEditStore = defineStore('editStore', {
   state: () => initialState,
@@ -23,10 +24,13 @@ export const useEditStore = defineStore('editStore', {
     setCurrent(next: EditData) {
       this.current = markRaw(next);
     },
-    updateCurrent(prop: string, value: unknown) {
-      const path = prop.split('.');
-      const current = R.assocPath(path, value, this.current);
-      this.setCurrent(markRaw(current));
+    updateProperties(update: PropertyUpdate) {
+      const updates = Array.isArray(update) ? update : [update];
+      const next = updates.reduce<EditData>((previous, { prop, value }) => {
+        const path = prop.split('.');
+        return R.assocPath(path, value, previous);
+      }, this.current);
+      this.setCurrent(markRaw(next));
     },
   },
 });

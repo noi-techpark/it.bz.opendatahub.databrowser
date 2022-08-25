@@ -29,12 +29,12 @@
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
 import StringCell from '../stringCell/StringCell.vue';
-import { useFieldExtraction } from '../../../../api';
+import { usePropertyMapping } from '../../../../api';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 
 /**
- * All fields except "gpsEntries" are expected to be paths that can be resolved by
- * lodash "get" function (see https://docs-lodash.com/v4/get/) using the "gpsEntries"
+ * All fields except "gpsEntries" are expected to be json paths that can be resolved by
+ * the ramda "view" function (see https://ramdajs.com/docs/#view) using the "images"
  * as base object.
  */
 export interface GpsListCellProps {
@@ -58,13 +58,11 @@ const fields = Object.entries(fieldsAsRef).reduce(
   {}
 );
 
-const { getValue } = useFieldExtraction();
+const { mapWithIndex } = usePropertyMapping();
 
 const resolvedGpsEntries: ComputedRef<GpsListCellProps[]> = computed(() => {
   return (
-    gpsEntries?.value?.map(
-      (gpsEntry) => getValue(gpsEntry, fields) as GpsListCellProps
-    ) ?? []
+    gpsEntries?.value?.map((gpsEntry) => mapWithIndex(gpsEntry, fields)) ?? []
   );
 });
 </script>

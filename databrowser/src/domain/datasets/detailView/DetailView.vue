@@ -4,19 +4,14 @@
   </template>
   <template v-if="isSuccess === true">
     <div>
-      <ContentAlignmentX class="flex items-center mt-3">
-        <div class="mr-4 text-sm">
-          {{ t('datasets.detailView.showEmptyFields') }}
-        </div>
-        <ToggleCustom v-model="showAll" />
-      </ContentAlignmentX>
+      <ShowEmptyFields v-model="showAll" />
     </div>
     <div class="flex overflow-y-auto">
       <ContentAlignmentX class="md:flex md:overflow-y-auto md:px-0">
         <MainCategories
           :categories="categories"
           :slug="slug"
-          class="overflow-y-auto sticky top-0 py-3 bg-white md:w-1/6 md:h-full"
+          class="overflow-y-auto sticky top-0 z-20 py-3 bg-white md:w-1/6 md:h-full"
         />
 
         <SubCategories
@@ -42,10 +37,7 @@ import { useCategories } from '../category/useCategories';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
-import ToggleCustom from '../../../components/toggle/ToggleCustom.vue';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
+import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
 
 const showAll = ref(false);
 

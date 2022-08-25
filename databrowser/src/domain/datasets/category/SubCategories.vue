@@ -21,7 +21,7 @@
         >
           <ComponentRenderer
             :tag-name="property.component"
-            :attributes="getValue(data, property.fields, property.params)"
+            :attributes="property.value"
             :fields="property.fields"
             :class="property.class"
           />
@@ -34,14 +34,14 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue';
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
-import { useFieldExtraction } from '../../api';
+import { usePropertyMapping } from '../../api';
 import SubCategoryItem from './SubCategoryItem.vue';
 import { Category, PropertyConfigWithErrors, SubCategory } from './types';
 import ContentDivider from '../../../components/content/ContentDivider.vue';
 import { PropertyConfig } from '../../datasetConfig/types';
 
 type PropertyConfigWithValue = PropertyConfigWithErrors & {
-  value: Record<string, string>;
+  value: Record<string, unknown>;
 };
 
 const props = defineProps<{
@@ -70,7 +70,7 @@ const computeAndFilterProperties = (
   // Compute property values
   const propertiesWithValue = properties.map((property) => ({
     ...property,
-    value: getValue(data, property.fields, property.params),
+    value: mapWithIndex(data, property.fields, property.params),
   }));
 
   // If all properties should be shown, return all properties.
@@ -80,8 +80,8 @@ const computeAndFilterProperties = (
     : propertiesWithValue.filter((p) => hasNonEmptyValue(p.value));
 };
 
-const hasNonEmptyValue = (o: Record<string, string>) =>
+const hasNonEmptyValue = (o: Record<string, unknown>) =>
   Object.values(o).find((v) => v != null) != null;
 
-const { getValue } = useFieldExtraction();
+const { mapWithIndex } = usePropertyMapping();
 </script>

@@ -1,7 +1,9 @@
 export enum CellComponent {
   ArrayCell = 'ArrayCell',
+  ArrayCellTags = 'ArrayCellTags',
   DateCell = 'DateCell',
   EditedDateCell = 'EditedDateCell',
+  EditImageGalleryCell = 'EditImageGalleryCell',
   GpsListCell = 'GpsListCell',
   HtmlCell = 'HtmlCell',
   InputReferenceCell = 'InputReferenceCell',

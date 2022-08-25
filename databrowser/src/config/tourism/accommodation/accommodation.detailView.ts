@@ -101,6 +101,11 @@ export const accommodationDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Lastname' },
             },
+            {
+              title: 'Vsst',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Vat' },
+            },
           ],
         },
         {
@@ -140,6 +145,11 @@ export const accommodationDetailView: DetailViewConfig = {
               title: 'Phone Number',
               component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Phone' },
+            },
+            {
+              title: 'Mobile Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Mobile' },
             },
             {
               title: 'Web-URL',

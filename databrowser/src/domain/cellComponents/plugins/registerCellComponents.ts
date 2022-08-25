@@ -1,8 +1,10 @@
 import { App } from 'vue';
 
 import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
+import ArrayCellTags from '../components/cells/arrayCellTags/ArrayCellTags.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
+import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditImageGalleryCell.vue';
 import GpsListCell from '../components/cells/gpsListCell/GpsListCell.vue';
 import HtmlCell from '../components/cells/htmlCell/HtmlCell.vue';
 import InputReferenceCell from '../components/cells/inputReferenceCell/InputReferenceCell.vue';
@@ -19,13 +21,16 @@ import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamGalleryCell from '../components/cells/webcamGalleryCell/WebcamGalleryCell.vue';
 import FixedValue from '../components/filters/fixedValue/FixedValue.vue';
+
 import { CellComponent, FilterComponent } from '../types';
 
 export default {
   install: (app: App) => {
     app.component(CellComponent.ArrayCell, ArrayCell);
+    app.component(CellComponent.ArrayCellTags, ArrayCellTags);
     app.component(CellComponent.DateCell, DateCell);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
+    app.component(CellComponent.EditImageGalleryCell, EditImageGalleryCell);
     app.component(CellComponent.GpsListCell, GpsListCell);
     app.component(CellComponent.HtmlCell, HtmlCell);
     app.component(CellComponent.InputReferenceCell, InputReferenceCell);
