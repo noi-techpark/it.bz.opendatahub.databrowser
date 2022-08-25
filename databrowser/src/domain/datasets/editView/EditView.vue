@@ -158,7 +158,10 @@ watch(
   () => isMutateSuccess.value,
   (success) => {
     if (datasetConfigStore.isNewView && success) {
-      const id = mutateData.value?.data.id;
+      // At the moment there are at least two different forms of response
+      // when a new record is created. The first one is from the EventShort
+      // dataset, the second comes from the Article dataset
+      const id = mutateData.value?.data.id ?? mutateData.value?.data.Value.id;
       if (id != null) {
         router.push({
           name: DatasetPage.DETAIL,
