@@ -95,7 +95,12 @@
           <span class="font-semibold">Preview of image</span>
           <button @click="toggle()">
             <IconExpanded
-              class="text-green-500 transition-all hover:scale-125 cursor-pointer"
+              class="
+                text-green-500
+                transition-all
+                hover:scale-125
+                cursor-pointer
+              "
             />
           </button>
         </div>
@@ -120,7 +125,7 @@ import { defineEmits, defineProps, ref, watch } from 'vue';
 import IconExpanded from '../../../../../../components/svg/IconExpanded.vue';
 import SubCategoryItem from '../../../../../datasets/category/SubCategoryItem.vue';
 import InputSingleLineCell from '../../inputSingleLineCell/InputSingleLineCell.vue';
-import { useFileDialog, useFullscreen } from '@vueuse/core';
+//import { useFileDialog, useFullscreen } from '@vueuse/core';
 import IconUpload from '../../../../../../components/svg/IconUpload.vue';
 import IconDownload from '../../../../../../components/svg/IconDownload.vue';
 import IconCopy from '../../../../../../components/svg/IconCopy.vue';

@@ -41,7 +41,7 @@ export const odhActivityPoiListView: ListViewConfig = {
         separator: ', ',
       },
     },
-   
+
     {
       title: 'Location',
       component: CellComponent.TextHighlightCell,
@@ -54,6 +54,7 @@ export const odhActivityPoiListView: ListViewConfig = {
     {
       title: 'Web-URL',
       component: CellComponent.StringCell,
+      class: 'w-36',
       fields: { text: 'ContactInfos.{language}.Url' },
     },
     {

@@ -14,7 +14,7 @@ export const accommodationDetailView: DetailViewConfig = {
               title: 'Shortname',
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
-              
+
             },
             {
               title: 'Accommodation Type',
@@ -26,10 +26,82 @@ export const accommodationDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'AccoCategoryId' },
             },
-            
+            {
+              title: 'Boardings',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'BoardIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+
           ],
         },
-       
+
+        {
+          name: 'Characteristics',
+          properties: [
+            {
+              title: 'Room',
+              component: CellComponent.StringCell,
+              fields: { text: 'HasApartment' },
+              class: 'break-all',
+            },
+            {
+              title: 'Gastronomy',
+              component: CellComponent.StringCell,
+              fields: { text: 'IsGastronomy' },
+              class: 'break-all',
+            },
+            {
+              title: 'Is Bookable',
+              component: CellComponent.StringCell,
+              fields: { text: 'IsBookable' },
+              class: 'break-all',
+            },
+            {
+              title: 'Special Features',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SpecialFeaturesIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+
+            {
+              title: 'Features',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'Name',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'Badges',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'AccoBadges',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+
+          ],
+        },
+
         {
           name: 'IDs',
           properties: [
@@ -88,7 +160,7 @@ export const accommodationDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
-             {
+            {
               title: 'Accommodation Type',
               component: CellComponent.StringCell,
               fields: { text: 'AccoTypeId' },
