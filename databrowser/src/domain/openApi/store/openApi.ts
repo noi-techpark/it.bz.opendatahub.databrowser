@@ -1,8 +1,10 @@
-import SwaggerClient from 'swagger-client';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { OpenApi, SupportedDomains } from '../types';
 import { initialState } from './initialState';
 import { domains } from '../domain';
+
+const dynamicSwaggerClientImport = async () =>
+  await import('swagger-client').then((exports) => exports.default);
 
 // Internal store for loaded OpenAPI documents. The documents are not stored in the
 // state because they won't change and because they may be several KB in size.
@@ -47,6 +49,7 @@ export const useOpenApi = defineStore('openApi', {
       const url = domains[domain].documentUrl;
 
       try {
+        const SwaggerClient = await dynamicSwaggerClientImport();
         const response = (await SwaggerClient(url)) as {
           spec: OpenApi.Document;
         };
