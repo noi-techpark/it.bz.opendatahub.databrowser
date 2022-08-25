@@ -11,6 +11,17 @@ export const articleEditView: EditViewConfig = {
           name: 'General data',
           properties: [
             {
+              title: 'Type',
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'Type' },
+              params: {
+                url: 'https://api.tourism.testingmachine.eu/v1/ArticleTypes',
+                labelSelector: 'Key',
+                keySelector: 'Key',
+              },
+              required: true,
+            },
+            {
               title: 'Shortname',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'Shortname' },
