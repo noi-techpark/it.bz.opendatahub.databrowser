@@ -103,26 +103,26 @@ export const webcamInfoDetailView: DetailViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-        name: 'Tags',
-        properties: [
-          {
-            title: 'ODH Tags',
-            component: CellComponent.ArrayCellTags,
-            class: 'w-40',
-            fields: {
-              items: 'ODHTags',
+          name: 'Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
             },
-          }
-          {
-            title: 'SMG Tags',
-            component: CellComponent.ArrayCellTags,
-            class: 'w-40',
-            fields: {
-              items: 'SmgTags',
+            {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
             },
-          }
-        ]
-      }
+          ],
+        },
       ],
     },
     {
