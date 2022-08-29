@@ -16,6 +16,17 @@ export const articleDetailView: DetailViewConfig = {
               fields: { text: 'Detail.{language}.Title' },
             },
             {
+              title: 'Shortname',
+              component: CellComponent.StringCell,
+              fields: { text: 'Shortname' },
+            },
+            {
+              title: 'Logo',
+              component: CellComponent.StringCell,
+              fields: { text: 'LogoUrl' },
+            },
+
+            {
               title: 'Highlight',
               component: CellComponent.StringCell,
               fields: { text: 'Highlight' },
@@ -70,10 +81,27 @@ export const articleDetailView: DetailViewConfig = {
               fields: { text: 'Active' },
             },
             {
+              title: 'Active on SMG',
+              component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
+            },
+            {
               title: 'Active on ODH',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
             },
+            {
+              title: 'Active on',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'PublishedOn',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+
           ],
         },
         {
@@ -84,6 +112,7 @@ export const articleDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Source' },
             },
+
           ],
         },
       ],
@@ -129,6 +158,16 @@ export const articleDetailView: DetailViewConfig = {
               title: 'Base text',
               component: CellComponent.HtmlCell,
               fields: { html: 'Detail.{language}.BaseText' },
+            },
+            {
+              title: 'Additional text',
+              component: CellComponent.StringCell,
+              fields: { html: 'Detail.{language}.AdditionalText' },
+            },
+            {
+              title: 'Get there text',
+              component: CellComponent.StringCell,
+              fields: { html: 'Detail.{language}.GetThereText' },
             },
           ],
         },
@@ -249,6 +288,7 @@ export const articleDetailView: DetailViewConfig = {
                 license: 'License',
                 listPosition: 'ListPosition',
                 active: '',
+
               },
             },
           ],
@@ -284,6 +324,43 @@ export const articleDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
             },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'tags',
+      subcategories: [
+        {
+          name: 'ODH Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
+
+            },
+
           ],
         },
       ],

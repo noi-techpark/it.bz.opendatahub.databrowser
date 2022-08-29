@@ -635,26 +635,7 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               },
 
             },
-            {
-              title: 'Experience',
-              component: CellComponent.StringCell,
-              fields: { text: 'Ratings.Experience' },
-            },
-            {
-              title: 'Landscape',
-              component: CellComponent.StringCell,
-              fields: { text: 'Ratings.Landscape' },
-            },
-            {
-              title: 'Difficulty',
-              component: CellComponent.StringCell,
-              fields: { text: 'Ratings.Difficulty' },
-            },
-            {
-              title: 'Technique',
-              component: CellComponent.StringCell,
-              fields: { text: 'Ratings.Technique' },
-            },
+
           ],
         },
       ],
@@ -741,7 +722,7 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
             },
             {
               title: 'Exposition (hh:mm)',
-              component: CellComponent.ArrayCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Exposition' },
             },
           ],

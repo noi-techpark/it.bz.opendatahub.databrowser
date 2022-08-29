@@ -62,6 +62,20 @@ export const accommodationDetailView: DetailViewConfig = {
               fields: { text: 'IsBookable' },
               class: 'break-all',
             },
+
+            {
+              title: 'Features',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'Features',
+              },
+              params: {
+                fieldName: 'Name',
+                separator: ', ',
+                max: '3',
+              },
+            },
             {
               title: 'Special Features',
               component: CellComponent.ArrayCell,
@@ -75,11 +89,11 @@ export const accommodationDetailView: DetailViewConfig = {
             },
 
             {
-              title: 'Features',
+              title: 'Badges',
               component: CellComponent.ArrayCellTags,
               class: 'w-40',
               fields: {
-                items: 'Name',
+                items: 'AccoBadges',
               },
               params: {
                 fieldName: 'Id',
@@ -88,17 +102,18 @@ export const accommodationDetailView: DetailViewConfig = {
               },
             },
             {
-              title: 'Badges',
-              component: CellComponent.ArrayCell,
+              title: 'Booking Channel',
+              component: CellComponent.ArrayCellTags,
               class: 'w-40',
               fields: {
-                items: 'AccoBadges',
+                items: 'AccoBookingChannel',
               },
               params: {
+                fieldName: 'Id',
                 separator: ', ',
+                max: '3',
               },
             },
-
           ],
         },
 
@@ -111,6 +126,53 @@ export const accommodationDetailView: DetailViewConfig = {
               fields: { text: 'Id' },
               class: 'break-all',
             },
+            {
+              title: 'Region ID',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'RegionInfo',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'Municipality ID',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'MunicipalityInfo',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'HGV ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'HgvId' },
+              class: 'break-all',
+            },
+            {
+              title: 'District ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'DistrictId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Marketing Group IDs',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'MarketingGroupIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+
+
           ],
         },
         {
@@ -124,6 +186,12 @@ export const accommodationDetailView: DetailViewConfig = {
                 format: 'd/M/yyyy HH:mm',
               },
             },
+            {
+              title: 'Active on SMG',
+              component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
+            },
+
             {
               title: 'Active on Source',
               component: CellComponent.StringCell,
@@ -155,6 +223,7 @@ export const accommodationDetailView: DetailViewConfig = {
         {
           name: 'General data',
           properties: [
+
             {
               title: 'Shortname',
               component: CellComponent.StringCell,
@@ -169,6 +238,16 @@ export const accommodationDetailView: DetailViewConfig = {
               title: 'Category',
               component: CellComponent.StringCell,
               fields: { text: 'AccoCategoryId' },
+            },
+            {
+              title: 'Long description',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Longdesc' },
+            },
+            {
+              title: 'Short description',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.ShortDesc' },
             },
           ],
         },
@@ -195,11 +274,6 @@ export const accommodationDetailView: DetailViewConfig = {
               title: 'Surname',
               component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Lastname' },
-            },
-            {
-              title: 'Vsst',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Vat' },
             },
           ],
         },
@@ -242,11 +316,6 @@ export const accommodationDetailView: DetailViewConfig = {
               fields: { text: 'AccoDetail.{language}.Phone' },
             },
             {
-              title: 'Mobile Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Mobile' },
-            },
-            {
               title: 'Web-URL',
               component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Website' },
@@ -285,6 +354,38 @@ export const accommodationDetailView: DetailViewConfig = {
         },
       ],
     },
+
+    {
+      name: 'Season/ Opening hours',
+      slug: 'season-opening-hours',
+      subcategories: [
+        {
+          name: 'Season/ Opening hours',
+          properties: [
+            {
+              title: 'Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'Shortname' },
+            },
+
+            {
+              title: 'Municipality',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'LocationInfo.MunicipalityInfo.Name.{language}',
+              },
+            },
+            {
+              title: 'District',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+            },
+          ],
+        },
+      ],
+    },
+
+
     {
       name: 'Location',
       slug: 'location',
@@ -317,6 +418,75 @@ export const accommodationDetailView: DetailViewConfig = {
           ],
         },
       ],
+
     },
+    {
+      name: 'GPS Data',
+      slug: 'gps-data',
+      subcategories: [
+        {
+          name: 'GPS Data',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.GpsListCell,
+              fields: { gpsEntries: 'GpsInfo' },
+              params: {
+                type: 'Gpstype',
+                latitude: 'Latitude',
+                longitude: 'Longitude',
+                altitude: 'Altitude',
+                altitudeUnit: 'AltitudeUnitofMeasure',
+              },
+            },
+            {
+              title: 'GPS Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'Gpstype' },
+            },
+
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'tags',
+      subcategories: [
+        {
+          name: 'ODH Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
+
+            },
+
+          ],
+        },
+
+      ],
+    },
+
   ],
 };
