@@ -14,7 +14,6 @@ export const accommodationDetailView: DetailViewConfig = {
               title: 'Shortname',
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
-
             },
             {
               title: 'Accommodation Type',
@@ -40,7 +39,6 @@ export const accommodationDetailView: DetailViewConfig = {
 
           ],
         },
-
         {
           name: 'Characteristics',
           properties: [
@@ -62,7 +60,6 @@ export const accommodationDetailView: DetailViewConfig = {
               fields: { text: 'IsBookable' },
               class: 'break-all',
             },
-
             {
               title: 'Features',
               component: CellComponent.ArrayCellTags,
@@ -87,7 +84,6 @@ export const accommodationDetailView: DetailViewConfig = {
                 separator: ', ',
               },
             },
-
             {
               title: 'Badges',
               component: CellComponent.ArrayCellTags,
@@ -116,7 +112,6 @@ export const accommodationDetailView: DetailViewConfig = {
             },
           ],
         },
-
         {
           name: 'IDs',
           properties: [
@@ -171,8 +166,6 @@ export const accommodationDetailView: DetailViewConfig = {
                 separator: ', ',
               },
             },
-
-
           ],
         },
         {
@@ -191,7 +184,6 @@ export const accommodationDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'SmgActive' },
             },
-
             {
               title: 'Active on Source',
               component: CellComponent.StringCell,
@@ -223,7 +215,6 @@ export const accommodationDetailView: DetailViewConfig = {
         {
           name: 'General data',
           properties: [
-
             {
               title: 'Shortname',
               component: CellComponent.StringCell,
@@ -354,7 +345,6 @@ export const accommodationDetailView: DetailViewConfig = {
         },
       ],
     },
-
     {
       name: 'Season/ Opening hours',
       slug: 'season-opening-hours',
@@ -371,8 +361,6 @@ export const accommodationDetailView: DetailViewConfig = {
         },
       ],
     },
-
-
     {
       name: 'Location',
       slug: 'location',
@@ -405,7 +393,6 @@ export const accommodationDetailView: DetailViewConfig = {
           ],
         },
       ],
-
     },
     {
       name: 'GPS Data',
@@ -453,14 +440,10 @@ export const accommodationDetailView: DetailViewConfig = {
               params: {
                 separator: ', ',
               },
-
             },
-
           ],
         },
-
       ],
     },
-
   ],
 };
