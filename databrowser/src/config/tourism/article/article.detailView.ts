@@ -101,7 +101,6 @@ export const articleDetailView: DetailViewConfig = {
                 separator: ', ',
               },
             },
-
           ],
         },
         {
@@ -112,7 +111,6 @@ export const articleDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Source' },
             },
-
           ],
         },
       ],
@@ -198,7 +196,6 @@ export const articleDetailView: DetailViewConfig = {
                 license: 'License',
                 listPosition: 'ListPosition',
                 active: '',
-
               },
             },
           ],
@@ -268,9 +265,7 @@ export const articleDetailView: DetailViewConfig = {
               params: {
                 separator: ', ',
               },
-
             },
-
           ],
         },
       ],

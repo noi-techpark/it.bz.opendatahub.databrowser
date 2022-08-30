@@ -37,7 +37,6 @@ export const eventShortDetailView: DetailViewConfig = {
               fields: { text: 'EventLocation' },
             },
           ],
-
         },
         {
           name: 'Organizer Info',
@@ -131,17 +130,14 @@ export const eventShortDetailView: DetailViewConfig = {
         {
           name: 'Characteristics',
           properties: [
-
             {
               title: 'Sold out',
               component: CellComponent.StringCell,
               fields: { text: 'SoldOut' },
               class: 'break-all',
             },
-
           ],
         },
-
         {
           name: 'Additional information',
           properties: [
@@ -229,11 +225,8 @@ export const eventShortDetailView: DetailViewConfig = {
                 max: '3',
               },
             },
-
           ],
         },
-
-
         {
           name: 'IDs',
           properties: [
@@ -323,7 +316,6 @@ export const eventShortDetailView: DetailViewConfig = {
             },
           ],
         },
-
       ],
     },
 
@@ -334,7 +326,6 @@ export const eventShortDetailView: DetailViewConfig = {
         {
           name: 'Title & Description',
           properties: [
-
             {
               title: 'Shortname',
               component: CellComponent.StringCell,
@@ -359,15 +350,10 @@ export const eventShortDetailView: DetailViewConfig = {
               fields: { text: 'EventDescriptionIT' },
               class: 'break-all',
             },
-
           ],
-
-
         },
-
       ],
     },
-
     {
       name: 'Contact',
       slug: 'company',
@@ -460,13 +446,10 @@ export const eventShortDetailView: DetailViewConfig = {
                 active: '',
               },
             },
-
           ],
         },
       ],
     },
-
-
     {
       name: 'GPS Data',
       slug: 'gps-data',
@@ -486,7 +469,6 @@ export const eventShortDetailView: DetailViewConfig = {
                 altitudeUnit: 'AltitudeUnitofMeasure',
               },
             },
-
           ],
         },
       ],

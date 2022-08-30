@@ -490,7 +490,6 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
                 active: '',
               },
             },
-
           ],
         },
       ],
@@ -533,7 +532,6 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
                 max: '3',
               },
             },
-
           ],
         },
       ],
@@ -607,8 +605,6 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
         },
       ],
     },
-
-
     {
       name: 'Tags',
       slug: 'tags',
@@ -639,14 +635,11 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               params: {
                 separator: ', ',
               },
-
             },
-
           ],
         },
       ],
     },
-
     {
       name: 'Ratings',
       slug: 'ratings',
@@ -680,7 +673,6 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               fields: { text: 'Ratings.Technique' },
             },
           ],
-
         },
       ],
     },
@@ -781,7 +773,7 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'FeetClimb' },
             },
-          ]
+          ],
         },
         {
           name: 'Target Group',
@@ -796,13 +788,10 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'AgeTo' },
             },
-
-          ]
+          ],
         },
       ],
-
     },
-
     {
       name: 'POI Details',
       slug: 'poi-details',

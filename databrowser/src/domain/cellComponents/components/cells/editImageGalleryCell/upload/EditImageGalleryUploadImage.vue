@@ -8,16 +8,7 @@
     </div>
     <div
       ref="dropZoneRef"
-      class="
-        flex
-        justify-center
-        items-center
-        my-5
-        w-full
-        h-24
-        rounded
-        border-2 border-dashed
-      "
+      class="flex justify-center items-center my-5 w-full h-24 rounded border-2 border-dashed"
       :class="{ 'border-green-400': isOverDropZone, hidden: uploading }"
     >
       Drop your logos / files here or &nbsp;
@@ -44,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-//import { useDropZone, useFileDialog } from '@vueuse/core';
+import { useDropZone, useFileDialog } from '@vueuse/core';
 import { defineEmits, ref, watch } from 'vue';
 import IconDelete from '../../../../../../components/svg/IconDelete.vue';
 import ProgressBar from '../../../../../../components/progress/ProgressBar.vue';
