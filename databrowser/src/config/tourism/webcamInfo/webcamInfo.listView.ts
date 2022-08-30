@@ -21,7 +21,7 @@ export const webcamInfoListView: ListViewConfig = {
     },
     {
       title: 'Webcam URL',
-      component: CellComponent.StringCell,
+      component: CellComponent.UrlCell,
       class: 'w-40',
       fields: {
         text: 'Webcamurl',
