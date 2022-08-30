@@ -133,7 +133,7 @@ export const webcamInfoDetailView: DetailViewConfig = {
           name: 'Webcam Details',
           properties: [
             {
-              title: 'Vintage',
+              title: 'Name',
               component: CellComponent.StringCell,
               fields: { text: 'Webcamname.{language}' },
             },
