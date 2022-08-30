@@ -508,22 +508,32 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               fields: { text: 'Shortname' },
             },
             {
-              title: 'Tourismorganization',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
-            },
-            {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
+              title: 'Start Date and Time',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
               fields: {
-                text: 'LocationInfo.MunicipalityInfo.Name.{language}',
+                items: 'OperationSchedule',
+              },
+              params: {
+                fieldName: 'Start',
+                separator: ', ',
+                max: '3',
               },
             },
             {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+              title: 'End Date and Time',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'OperationSchedule',
+              },
+              params: {
+                fieldName: 'Stop',
+                separator: ', ',
+                max: '3',
+              },
             },
+
           ],
         },
       ],
@@ -598,11 +608,7 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
       ],
     },
 
-    {
-      name: 'Links',
-      slug: 'links',
-      subcategories: [],
-    },
+
     {
       name: 'Tags',
       slug: 'tags',

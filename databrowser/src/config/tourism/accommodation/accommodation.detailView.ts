@@ -183,7 +183,7 @@ export const accommodationDetailView: DetailViewConfig = {
               component: CellComponent.DateCell,
               fields: { date: 'LastChange' },
               params: {
-                format: 'd/M/yyyy HH:mm',
+                format: 'do/M/yyyy HH:mm',
               },
             },
             {
@@ -368,18 +368,7 @@ export const accommodationDetailView: DetailViewConfig = {
               fields: { text: 'Shortname' },
             },
 
-            {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationInfo.MunicipalityInfo.Name.{language}',
-              },
-            },
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
-            },
+
           ],
         },
       ],
@@ -427,18 +416,7 @@ export const accommodationDetailView: DetailViewConfig = {
         {
           name: 'GPS Data',
           properties: [
-            {
-              title: '',
-              component: CellComponent.GpsListCell,
-              fields: { gpsEntries: 'GpsInfo' },
-              params: {
-                type: 'Gpstype',
-                latitude: 'Latitude',
-                longitude: 'Longitude',
-                altitude: 'Altitude',
-                altitudeUnit: 'AltitudeUnitofMeasure',
-              },
-            },
+
             {
               title: 'GPS Type',
               component: CellComponent.StringCell,
