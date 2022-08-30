@@ -367,8 +367,6 @@ export const accommodationDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
-
-
           ],
         },
       ],
@@ -416,13 +414,11 @@ export const accommodationDetailView: DetailViewConfig = {
         {
           name: 'GPS Data',
           properties: [
-
             {
               title: 'GPS Type',
               component: CellComponent.StringCell,
               fields: { text: 'Gpstype' },
             },
-
           ],
         },
       ],
