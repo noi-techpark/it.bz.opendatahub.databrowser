@@ -15,6 +15,27 @@ export const skiAreaDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
+            {
+              title: 'Ski region name',
+              component: CellComponent.StringCell,
+              fields: { text: 'SkiRegionName.{language}' },
+            },
+            {
+              title: 'Logo',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ContactInfos.{language}.LogoUrl',
+              },
+            },
+            {
+              title: 'Image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ImageGallery.0.ImageUrl',
+              },
+            },
           ],
         },
         {
@@ -25,6 +46,48 @@ export const skiAreaDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Id' },
               class: 'break-all',
+            },
+            {
+              title: 'CustomId',
+              component: CellComponent.StringCell,
+              fields: { text: 'CustomId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Tourismverein Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'TourismvereinIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'Region Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'RegionIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'SkiRegionId',
+              component: CellComponent.StringCell,
+              fields: { text: 'SkiRegionId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Area Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'AreaId',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
@@ -94,12 +157,22 @@ export const skiAreaDetailView: DetailViewConfig = {
             {
               title: 'Active on Source',
               component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
+            },
+            {
+              title: 'Active on Source',
+              component: CellComponent.StringCell,
               fields: { text: 'Active' },
             },
             {
               title: 'Active on ODH',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
+            },
+            {
+              title: 'Published on',
+              component: CellComponent.ArrayCell,
+              fields: { items: 'PublishedOn' },
             },
           ],
         },
@@ -123,9 +196,67 @@ export const skiAreaDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Meta Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              fields: {
+                text: 'Detail.{language}.MetaTitle',
+              },
+            },
+            {
+              title: 'Meta Description',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.MetaDesc',
+              },
+            },
+            {
+              title: 'Title',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.Title',
+              },
+            },
+            {
+              title: 'Header',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.Header',
+              },
+            },
+            {
+              title: 'SubHeader',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.SubHeader',
+              },
+            },
+            {
+              title: 'Intro Text',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.IntroText',
+              },
+            },
+            {
+              title: 'BaseText',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.BaseText',
+              },
+            },
+            {
+              title: 'AdditionalText',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.AdditionalText',
+              },
+            },
+            {
+              title: 'GetThereText',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.GetThereText',
+              },
             },
           ],
         },
@@ -141,17 +272,32 @@ export const skiAreaDetailView: DetailViewConfig = {
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              fields: { text: 'ContactInfos.{language}.CompanyName' },
             },
             {
               title: 'First Name',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
+              fields: { text: 'ContactInfos.{language}.Givenname' },
             },
             {
               title: 'Surname',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
+              fields: { text: 'ContactInfos.{language}.Surname' },
+            },
+            {
+              title: 'Name prefix',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.NamePrefix' },
+            },
+            {
+              title: 'Tax Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Tax' },
+            },
+            {
+              title: 'Vat-ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Vat' },
             },
           ],
         },
@@ -161,22 +307,27 @@ export const skiAreaDetailView: DetailViewConfig = {
             {
               title: 'Street and House No',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
+              fields: { text: 'ContactInfos.{language}.Address' },
             },
             {
               title: 'ZIP-Code',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
+              fields: { text: 'ContactInfos.{language}.ZipCode' },
             },
             {
               title: 'City',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
+              fields: { text: 'ContactInfos.{language}.City' },
+            },
+            {
+              title: 'Country',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CountryName' },
             },
             {
               title: 'Country Abbrevation',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
+              fields: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
         },
@@ -186,17 +337,17 @@ export const skiAreaDetailView: DetailViewConfig = {
             {
               title: 'E-Mail',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
+              fields: { text: 'ContactInfos.{language}.Email' },
             },
             {
               title: 'Phone Number',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
+              fields: { text: 'ContactInfos.{language}.Phonenumber' },
             },
             {
               title: 'Web-URL',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              fields: { text: 'ContactInfos.{language}.Url' },
             },
           ],
         },
@@ -240,26 +391,64 @@ export const skiAreaDetailView: DetailViewConfig = {
           name: 'Location',
           properties: [
             {
-              title: 'SkiArea / TVB',
+              title: 'Region',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.AreaInfo.Name.{language}' },
+              fields: { text: 'LocationInfo.RegionInfo.{language}' },
             },
             {
-              title: 'Tourismorganization',
+              title: 'Valley',
               component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
+              fields: { text: 'LocationInfo.TvInfo.{language}' },
             },
             {
-              title: 'skiArea',
+              title: 'District',
               component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.DistrictInfo.{language}' },
+            },
+            {
+              title: 'Municipality',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.MunicipalityInfo.{language}' },
+            },
+            {
+              title: 'Ski Region',
+              component: CellComponent.StringCell,
+              fields: { text: 'SkiRegionName.{language}' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'Tags',
+      subcategories: [
+        {
+          name: 'Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
               fields: {
-                text: 'LocationInfo.skiAreaInfo.Name.{language}',
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
               },
             },
             {
-              title: 'SkiArea',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.AreaInfo.Name.{language}' },
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
