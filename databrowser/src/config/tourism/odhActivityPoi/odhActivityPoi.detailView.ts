@@ -19,6 +19,18 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               },
             },
             {
+              title: 'Shortname',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Shortname',
+              },
+            },
+            {
+              title: 'Logo',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.LogoUrl' },
+            },
+            {
               title: 'Type',
               component: CellComponent.StringCell,
               fields: {
@@ -63,6 +75,43 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               fields: { text: 'CustomId' },
               class: 'break-all',
             },
+            {
+              title: 'Owner ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'OwnerRid' },
+              class: 'break-all',
+            },
+            {
+              title: 'Region ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.RegionInfo.Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'Area ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.AreaInfo.Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'Municipality ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.MunicipalityInfo.Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'District ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.DistrictInfo.Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'District RID',
+              component: CellComponent.StringCell,
+              fields: { text: 'OwnerRid' },
+              class: 'break-all',
+            },
+
             {
               title: 'Outdoor Active ID',
               component: CellComponent.StringCell,
@@ -197,6 +246,11 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               title: 'Active on ODH',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
+            },
+            {
+              title: 'Active on SMG',
+              component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
             },
           ],
         },
@@ -441,9 +495,46 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
       ],
     },
     {
-      name: 'Season / Opening Hours',
+      name: 'Season/ Opening hours',
       slug: 'season-opening-hours',
-      subcategories: [],
+      subcategories: [
+        {
+          name: 'Season/ Opening hours',
+          properties: [
+            {
+              title: 'Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'Shortname' },
+            },
+            {
+              title: 'Start Date and Time',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'OperationSchedule',
+              },
+              params: {
+                fieldName: 'Start',
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'End Date and Time',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'OperationSchedule',
+              },
+              params: {
+                fieldName: 'Stop',
+                separator: ', ',
+                max: '3',
+              },
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'Location',
@@ -515,14 +606,39 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
       ],
     },
     {
-      name: 'Files',
-      slug: 'files',
-      subcategories: [],
-    },
-    {
       name: 'Tags',
       slug: 'tags',
-      subcategories: [],
+      subcategories: [
+        {
+          name: 'ODH Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'Ratings',
@@ -566,15 +682,113 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
       subcategories: [
         {
           name: 'Characteristics',
-          properties: [],
+          properties: [
+            {
+              title: 'Difficulty',
+              component: CellComponent.StringCell,
+              fields: { text: 'Ratings.Difficulty' },
+            },
+            {
+              title: 'Altitude difference (m)',
+              component: CellComponent.StringCell,
+              fields: { text: 'AltitudeDifference' },
+            },
+            {
+              title: 'Altitude Highest Point (m)',
+              component: CellComponent.StringCell,
+              fields: { text: 'AltitudeHighestPoint' },
+            },
+            {
+              title: 'Altitude Lowest Point (m)',
+              component: CellComponent.StringCell,
+              fields: { text: 'AltitudeLowestPoint' },
+            },
+            {
+              title: 'Altitude Sum Up (m)',
+              component: CellComponent.StringCell,
+              fields: { text: 'AltitudeSumUp' },
+            },
+            {
+              title: 'Length (m)',
+              component: CellComponent.StringCell,
+              fields: { text: 'DistanceLength' },
+            },
+            {
+              title: 'Duration (hh:mm)',
+              component: CellComponent.StringCell,
+              fields: { text: 'DistanceDuration' },
+            },
+            {
+              title: 'Exposition (hh:mm)',
+              component: CellComponent.StringCell,
+              fields: { text: 'Exposition' },
+            },
+          ],
         },
         {
-          name: 'Additional Information',
-          properties: [],
+          name: 'Additional information',
+          properties: [
+            {
+              title: 'Highlight',
+              component: CellComponent.StringCell,
+              fields: { text: 'Highlight' },
+            },
+            {
+              title: 'Open',
+              component: CellComponent.StringCell,
+              fields: { text: 'IsOpen' },
+            },
+            {
+              title: 'Free entrance',
+              component: CellComponent.StringCell,
+              fields: { text: 'HasFreeEntrance' },
+            },
+            {
+              title: 'Prepared',
+              component: CellComponent.StringCell,
+              fields: { text: 'IsPrepared' },
+            },
+            {
+              title: 'With Light',
+              component: CellComponent.StringCell,
+              fields: { text: 'IsWithLigth' },
+            },
+            {
+              title: 'Has Rental',
+              component: CellComponent.StringCell,
+              fields: { text: 'HasRentals' },
+            },
+            {
+              title: 'Run to Valley',
+              component: CellComponent.StringCell,
+              fields: { text: 'RunToValley' },
+            },
+            {
+              title: 'Lift Available',
+              component: CellComponent.StringCell,
+              fields: { text: 'LiftAvailable' },
+            },
+            {
+              title: 'Feet Climb',
+              component: CellComponent.StringCell,
+              fields: { text: 'FeetClimb' },
+            },
+          ],
         },
         {
           name: 'Target Group',
-          properties: [],
+          properties: [
+            {
+              title: 'Age from',
+              component: CellComponent.StringCell,
+              fields: { text: 'AgeFrom' },
+            },
+            {
+              title: 'Age to',
+              component: CellComponent.StringCell,
+              fields: { text: 'AgeTo' },
+            },
+          ],
         },
       ],
     },

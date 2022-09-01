@@ -16,6 +16,17 @@ export const articleDetailView: DetailViewConfig = {
               fields: { text: 'Detail.{language}.Title' },
             },
             {
+              title: 'Shortname',
+              component: CellComponent.StringCell,
+              fields: { text: 'Shortname' },
+            },
+            {
+              title: 'Logo',
+              component: CellComponent.StringCell,
+              fields: { text: 'LogoUrl' },
+            },
+
+            {
               title: 'Highlight',
               component: CellComponent.StringCell,
               fields: { text: 'Highlight' },
@@ -70,9 +81,25 @@ export const articleDetailView: DetailViewConfig = {
               fields: { text: 'Active' },
             },
             {
+              title: 'Active on SMG',
+              component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
+            },
+            {
               title: 'Active on ODH',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
+            },
+            {
+              title: 'Active on',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'PublishedOn',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
@@ -130,101 +157,21 @@ export const articleDetailView: DetailViewConfig = {
               component: CellComponent.HtmlCell,
               fields: { html: 'Detail.{language}.BaseText' },
             },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Contact',
-      slug: 'contact',
-      subcategories: [
-        {
-          name: 'Name and Company Data',
-          properties: [
             {
-              title: 'Name',
+              title: 'Additional text',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.CompanyName' },
+              fields: { html: 'Detail.{language}.AdditionalText' },
             },
             {
-              title: 'First Name',
+              title: 'Get there text',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Givenname' },
-            },
-            {
-              title: 'Surname',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Surname' },
-            },
-            {
-              title: 'Name Prefix',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.NamePrefix' },
-            },
-            {
-              title: 'Tax number',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Tax' },
-            },
-          ],
-        },
-        {
-          name: 'Address',
-          properties: [
-            {
-              title: 'Street and House No',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Address' },
-            },
-            {
-              title: 'ZIP-Code',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.ZipCode' },
-            },
-            {
-              title: 'City',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.City' },
-            },
-            {
-              title: 'Country',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.CountryName' },
-            },
-            {
-              title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.CountryCode' },
-            },
-          ],
-        },
-        {
-          name: 'Contact Details',
-          properties: [
-            {
-              title: 'E-Mail',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Email' },
-            },
-            {
-              title: 'Phone Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Phonenumber' },
-            },
-            {
-              title: 'Fax Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Faxnumber' },
-            },
-            {
-              title: 'Web-URL',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Url' },
+              fields: { html: 'Detail.{language}.GetThereText' },
             },
           ],
         },
       ],
     },
+
     {
       name: 'Images',
       slug: 'images',
@@ -283,6 +230,41 @@ export const articleDetailView: DetailViewConfig = {
               title: 'District',
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'tags',
+      subcategories: [
+        {
+          name: 'ODH Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
