@@ -14,6 +14,7 @@ export enum CellComponent {
   SelectWithOptionsCell = 'SelectWithOptionsCell',
   StateCell = 'StateCell',
   StringCell = 'StringCell',
+  UrlCell = 'UrlCell',
   StringTemplateCell = 'StringTemplateCell',
   TextHighlightCell = 'TextHighlightCell',
   ToggleCell = 'ToggleCell',

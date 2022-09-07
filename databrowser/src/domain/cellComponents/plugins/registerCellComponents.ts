@@ -15,6 +15,7 @@ import JsonCell from '../components/cells/jsonCell/JsonCell.vue';
 import SelectWithOptionsCell from '../components/cells/selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StateCell from '../components/cells/stateCell/StateCell.vue';
 import StringCell from '../components/cells/stringCell/StringCell.vue';
+import UrlCell from '../components/cells/UrlCell/UrlCell.vue';
 import StringTemplateCell from '../components/cells/stringTemplateCell/StringTemplateCell.vue';
 import TextHighlightCell from '../components/cells/textHighlightCell/TextHighlightCell.vue';
 import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
@@ -41,6 +42,7 @@ export default {
     app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);
     app.component(CellComponent.StateCell, StateCell);
     app.component(CellComponent.StringCell, StringCell);
+    app.component(CellComponent.UrlCell, UrlCell);
     app.component(CellComponent.StringTemplateCell, StringTemplateCell);
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
     app.component(CellComponent.ToggleCell, ToggleCell);

@@ -15,37 +15,76 @@ export const eventDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
-          ],
-        },
-        {
-          name: 'IDs',
-          properties: [
             {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-              class: 'break-all',
+              title: 'Logo',
+              component: CellComponent.ImageCell,
+              fields: {
+                src: 'ContactInfos.{language}.LogoUrl',
+              },
+            },
+            {
+              title: 'Image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ImageGallery.0.ImageUrl',
+              },
             },
           ],
         },
         {
-          name: 'Data states',
+          name: 'Ids',
+          properties: [
+            {
+              title: 'Tv Info',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.TvInfo.Id' },
+            },
+            {
+              title: 'Region Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.RegionInfo.Id' },
+            },
+            {
+              title: 'Area Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.AreaInfo.Id' },
+            },
+            {
+              title: 'Municipality Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.MunicipalityInfo.Id' },
+            },
+            {
+              title: 'District Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'DistrictId' },
+            },
+          ],
+        },
+        {
+          name: 'Data States',
           properties: [
             {
               title: 'Last Changes',
               component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
+              fields: { date: '_Meta.LastUpdate' },
               params: {
-                format: 'd/M/yyyy HH:mm',
+                format: 'do MMMM yyyy HH:mm',
               },
             },
             {
-              title: 'Active on Source',
+              title: 'Active',
               component: CellComponent.StringCell,
               fields: { text: 'Active' },
             },
             {
-              title: 'Active on ODH',
+              title: 'SMG Active',
+              component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
+            },
+            {
+              title: 'ODH Active',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
             },
@@ -57,7 +96,7 @@ export const eventDetailView: DetailViewConfig = {
             {
               title: 'Source',
               component: CellComponent.StringCell,
-              fields: { text: 'Source' },
+              fields: { text: '_Meta.Source' },
             },
           ],
         },
@@ -71,15 +110,15 @@ export const eventDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Meta Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              fields: { text: 'Detail.{language}.MetaTitle' },
             },
-          ],
-        },
-        {
-          name: 'Detail',
-          properties: [
+            {
+              title: 'Meta Description',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.MetaDesc' },
+            },
             {
               title: 'Title',
               component: CellComponent.StringCell,
@@ -91,90 +130,29 @@ export const eventDetailView: DetailViewConfig = {
               fields: { text: 'Detail.{language}.Header' },
             },
             {
-              title: 'Subheader',
+              title: 'Sub Header',
               component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.SubHeader' },
             },
             {
-              title: 'Intro text',
+              title: 'Intro Text',
               component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.IntroText' },
             },
             {
-              title: 'Base text',
-              component: CellComponent.HtmlCell,
-              fields: { html: 'Detail.{language}.BaseText' },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Contact',
-      slug: 'contact',
-      subcategories: [
-        {
-          name: 'Name and Company Data',
-          properties: [
-            {
-              title: 'Name',
+              title: 'Base Text',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              fields: { text: 'Detail.{language}.BaseText' },
             },
             {
-              title: 'First Name',
+              title: 'Additional Text',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
+              fields: { text: 'Detail.{language}.AdditionalText' },
             },
             {
-              title: 'Surname',
+              title: 'GetThereText',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
-            },
-          ],
-        },
-        {
-          name: 'Address',
-          properties: [
-            {
-              title: 'Street and House No',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
-            },
-            {
-              title: 'ZIP-Code',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
-            },
-            {
-              title: 'City',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
-            },
-            {
-              title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
-            },
-          ],
-        },
-        {
-          name: 'Contact Details',
-          properties: [
-            {
-              title: 'E-Mail',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
-            },
-            {
-              title: 'Phone Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
-            },
-            {
-              title: 'Web-URL',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              fields: { text: 'Detail.{language}.GetThereText' },
             },
           ],
         },
@@ -206,38 +184,272 @@ export const eventDetailView: DetailViewConfig = {
                 active: '',
               },
             },
+            {
+              title: 'License',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'LicenseInfo.License',
+              },
+            },
           ],
         },
       ],
     },
     {
-      name: 'Location',
-      slug: 'location',
+      name: 'GPS Data',
+      slug: 'GPS-data',
       subcategories: [
+        {
+          name: 'General data',
+          properties: [
+            {
+              title: 'Gps Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'Gpstype' },
+            },
+            {
+              title: 'Latitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'Latitude' },
+            },
+            {
+              title: 'Longitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'Longitude' },
+            },
+            {
+              title: 'Altitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'Altitude' },
+            },
+            {
+              title: 'Altitude Unit',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.AltitudeUnitofMeasure' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Files',
+      slug: 'files',
+      subcategories: [
+        {
+          name: 'General data',
+          properties: [
+            {
+              title: 'PDF',
+              component: CellComponent.StringCell,
+              fields: { text: 'Pdf' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'tags',
+      subcategories: [
+        {
+          name: 'General data',
+          properties: [
+            {
+              title: 'SMG Tags',
+              component: CellComponent.StringCell,
+              fields: { text: 'SmgTags' },
+            },
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCell,
+              fields: { text: 'ODHTags' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Event details',
+      slug: 'Event-details',
+      subcategories: [
+        {
+          name: 'Time and date',
+          properties: [
+            {
+              title: 'Date Begin',
+              component: CellComponent.DateCell,
+              fields: { date: 'DateBegin' },
+              params: {
+                format: 'do MMMM yyyy',
+              },
+            },
+            {
+              title: 'Date End',
+              component: CellComponent.DateCell,
+              fields: { date: 'EventDatesEnd' },
+              params: {
+                format: 'do MMMM yyyy',
+              },
+            },
+            {
+              title: 'Entrance',
+              component: CellComponent.StringCell,
+              fields: { text: 'Entrance' },
+            },
+            {
+              title: 'Start',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventDate.Begin' },
+            },
+            {
+              title: 'End',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventDate.End' },
+            },
+          ],
+        },
+        {
+          name: 'Organizer Info',
+          properties: [
+            {
+              title: 'CompanyName',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CompanyName' },
+            },
+            {
+              title: 'Tax Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Tax' },
+            },
+            {
+              title: 'Vat',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Vat' },
+            },
+          ],
+        },
+        {
+          name: 'Address',
+          properties: [
+            {
+              title: 'Address',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Address' },
+            },
+            {
+              title: 'Zip Code',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.ZipCode' },
+            },
+            {
+              title: 'Country Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CountryName' },
+            },
+            {
+              title: 'Country Code',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CountryCode' },
+            },
+          ],
+        },
+        {
+          name: 'Contact details',
+          properties: [
+            {
+              title: 'Email',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Email' },
+            },
+            {
+              title: 'Phonenumber',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Phonenumber' },
+            },
+            {
+              title: 'Url',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Url' },
+            },
+          ],
+        },
         {
           name: 'Location',
           properties: [
             {
-              title: 'Region / TVB',
+              title: 'Location',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.TvInfo.Name.{language}' },
+            },
+            {
+              title: 'Region Name',
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
+          ],
+        },
+        {
+          name: 'Characteristics',
+          properties: [
             {
-              title: 'Tourismorganization',
+              title: 'Single Days',
               component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
+              fields: { text: 'EventDate.SingleDays' },
             },
             {
-              title: 'Municipality',
+              title: 'Ticket',
               component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationInfo.MunicipalityInfo.Name.{language}',
-              },
+              fields: { text: 'Ticket' },
+            },
+          ],
+        },
+        {
+          name: 'Price',
+          properties: [
+            {
+              title: 'Event Price',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventPrice.0' },
             },
             {
-              title: 'District',
+              title: 'Type',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+              fields: { text: 'Type' },
+            },
+          ],
+        },
+        {
+          name: 'Additional Information',
+          properties: [
+            {
+              title: 'MinPersons',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventDate.MinPersons' },
+            },
+            {
+              title: 'MaxPersons',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventDate.MaxPersons' },
+            },
+            {
+              title: 'Ranc',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventDate.Ranc' },
+            },
+            {
+              title: 'SignOn',
+              component: CellComponent.StringCell,
+              fields: { text: 'SignOn' },
+            },
+            {
+              title: 'PayMet',
+              component: CellComponent.StringCell,
+              fields: { text: 'PayMet' },
+            },
+            {
+              title: 'Topics',
+              component: CellComponent.StringCell,
+              fields: { text: 'Topics' },
             },
           ],
         },

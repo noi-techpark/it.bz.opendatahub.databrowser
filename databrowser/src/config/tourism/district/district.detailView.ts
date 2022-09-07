@@ -26,6 +26,42 @@ export const districtDetailView: DetailViewConfig = {
               fields: { text: 'Id' },
               class: 'break-all',
             },
+            {
+              title: 'Custom ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'CustomId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Siag ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'SiagId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Tourismverein ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'TourismvereinId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Region ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'Region.Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'Municipality ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'Municipality.Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'HGV ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'hgv.id' },
+              class: 'break-all',
+            },
           ],
         },
         {
@@ -40,14 +76,29 @@ export const districtDetailView: DetailViewConfig = {
               },
             },
             {
-              title: 'Active on Source',
+              title: 'Is comune',
+              component: CellComponent.StringCell,
+              fields: { text: 'IsComune' },
+            },
+            {
+              title: 'Active',
               component: CellComponent.StringCell,
               fields: { text: 'Active' },
+            },
+            {
+              title: 'Active on SMG',
+              component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
             },
             {
               title: 'Active on ODH',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
+            },
+            {
+              title: 'Visible in Search',
+              component: CellComponent.StringCell,
+              fields: { text: 'VisibleInSearch' },
             },
           ],
         },
@@ -68,12 +119,52 @@ export const districtDetailView: DetailViewConfig = {
       slug: 'text-information',
       subcategories: [
         {
-          name: 'General data',
+          name: '',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Meta Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              fields: { text: 'MetaTitle' },
+            },
+            {
+              title: 'Meta Description',
+              component: CellComponent.StringCell,
+              fields: { text: 'MetaDesc' },
+            },
+            {
+              title: 'Title',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.Title' },
+            },
+            {
+              title: 'Header',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.Header' },
+            },
+            {
+              title: 'Sub Header',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.SubHeader' },
+            },
+            {
+              title: 'Intro Text',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.IntroText' },
+            },
+            {
+              title: 'Base Text',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.BaseText' },
+            },
+            {
+              title: 'Additional Text',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.AdditionalText' },
+            },
+            {
+              title: 'Get There Text',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.GetThereText' },
             },
           ],
         },
