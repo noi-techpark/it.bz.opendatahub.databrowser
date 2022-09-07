@@ -129,44 +129,43 @@ export const districtDetailView: DetailViewConfig = {
             {
               title: 'Meta Description',
               component: CellComponent.StringCell,
-              fields: { text: 'MetaDesc'},
+              fields: { text: 'MetaDesc' },
             },
             {
               title: 'Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.Title'},
+              fields: { text: 'Detail.{language}.Title' },
             },
             {
               title: 'Header',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.Header'},
+              fields: { text: 'Detail.{language}.Header' },
             },
             {
               title: 'Sub Header',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.SubHeader'},
+              fields: { text: 'Detail.{language}.SubHeader' },
             },
             {
               title: 'Intro Text',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.IntroText'},
+              fields: { text: 'Detail.{language}.IntroText' },
             },
             {
               title: 'Base Text',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.BaseText'},
+              fields: { text: 'Detail.{language}.BaseText' },
             },
             {
               title: 'Additional Text',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.AdditionalText'},
+              fields: { text: 'Detail.{language}.AdditionalText' },
             },
             {
               title: 'Get There Text',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.GetThereText'},
+              fields: { text: 'Detail.{language}.GetThereText' },
             },
-            
           ],
         },
       ],
