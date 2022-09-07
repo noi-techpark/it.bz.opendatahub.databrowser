@@ -11,7 +11,7 @@ import { defineProps, withDefaults } from 'vue';
 
 withDefaults(
   defineProps<{
-    text?: string | boolean | number;
+    text?: string | undefined;
   }>(),
   {
     text: undefined,
