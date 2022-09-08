@@ -171,77 +171,6 @@ export const districtDetailView: DetailViewConfig = {
       ],
     },
     {
-      name: 'Contact',
-      slug: 'contact',
-      subcategories: [
-        {
-          name: 'Name and Company Data',
-          properties: [
-            {
-              title: 'Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
-            },
-            {
-              title: 'First Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
-            },
-            {
-              title: 'Surname',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
-            },
-          ],
-        },
-        {
-          name: 'Address',
-          properties: [
-            {
-              title: 'Street and House No',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
-            },
-            {
-              title: 'ZIP-Code',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
-            },
-            {
-              title: 'City',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
-            },
-            {
-              title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
-            },
-          ],
-        },
-        {
-          name: 'Contact Details',
-          properties: [
-            {
-              title: 'E-Mail',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
-            },
-            {
-              title: 'Phone Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
-            },
-            {
-              title: 'Web-URL',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
-            },
-          ],
-        },
-      ],
-    },
-    {
       name: 'Images',
       slug: 'images',
       subcategories: [
@@ -255,7 +184,7 @@ export const districtDetailView: DetailViewConfig = {
                 images: 'ImageGallery',
               },
               params: {
-                alt: 'ImageAltText.{language}',
+                alt: 'ImageTitle.{language}',
                 src: 'ImageUrl',
                 name: 'ImageName',
                 width: 'Width',
@@ -281,24 +210,12 @@ export const districtDetailView: DetailViewConfig = {
             {
               title: 'Region / TVB',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
+              fields: { text: 'Region.Id' },
             },
             {
-              title: 'Tourismorganization',
+              title: 'Municipality',
               component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
-            },
-            {
-              title: 'district',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationInfo.districtInfo.Name.{language}',
-              },
-            },
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+              fields: { text: 'Municipality.Id' },
             },
           ],
         },
