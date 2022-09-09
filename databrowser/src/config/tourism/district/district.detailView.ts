@@ -236,17 +236,12 @@ export const districtDetailView: DetailViewConfig = {
             {
               title: 'Latitude',
               component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.Latitude' },
+              fields: { text: 'GpsPoints.position.Latitude' },
             },
             {
               title: 'Longitude',
               component: CellComponent.StringCell,
               fields: { text: 'GpsPoints.position.Longitude' },
-            },
-            {
-              title: 'Altitude',
-              component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.position.Altitude' },
             },
             {
               title: 'Altitude',
