@@ -221,5 +221,73 @@ export const districtDetailView: DetailViewConfig = {
         },
       ],
     },
+    {
+      name: 'GPS Data',
+      slug: 'GPS Data',
+      subcategories: [
+        {
+          name: 'GPS Data',
+          properties: [
+            {
+              title: 'GPS Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Gpstype' },
+            },
+            {
+              title: 'Latitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.Latitude' },
+            },
+            {
+              title: 'Longitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Longitude' },
+            },
+            {
+              title: 'Altitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Altitude' },
+            },
+            {
+              title: 'Altitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Altitude' },
+            },
+            {
+              title: 'Altitude Unit',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.AltitudeUnitofMeasure' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'tags',
+      subcategories: [
+        {
+          name: 'Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
+            },
+            {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
