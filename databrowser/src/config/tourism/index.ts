@@ -22,3 +22,4 @@ export { skiAreaConfig } from './skiArea/skiArea.config';
 export { measuringPointConfig } from './measuringPoint/measuringPoint.config';
 export { snowReportConfig } from './snowReport/snowReport.config';
 export { eventConfig } from './event/event.config';
+export { experienceAreaConfig } from './experienceArea/experienceArea.config';
