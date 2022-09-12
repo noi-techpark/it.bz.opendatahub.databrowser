@@ -1,7 +1,7 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 
-export const articleEditView: EditViewConfig = {
+export const eventEditView: EditViewConfig = {
   elements: [
     {
       name: 'Main data',
@@ -10,17 +10,6 @@ export const articleEditView: EditViewConfig = {
         {
           name: 'General data',
           properties: [
-            {
-              title: 'Type',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'Type' },
-              params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ArticleTypes',
-                labelSelector: 'Key',
-                keySelector: 'Key',
-              },
-              required: true,
-            },
             {
               title: 'Shortname',
               component: CellComponent.InputSingleLineCell,
@@ -83,7 +72,7 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
           ],
@@ -93,27 +82,27 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Title' },
             },
             {
               title: 'Header',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Header' },
             },
             {
               title: 'Subheader',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.SubHeader' },
             },
             {
               title: 'Intro text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.IntroText' },
             },
             {
               title: 'Base text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.HtmlCell,
               fields: { html: 'Detail.{language}.BaseText' },
             },
           ],
@@ -129,17 +118,17 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Name' },
             },
             {
               title: 'First Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Firstname' },
             },
             {
               title: 'Surname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Lastname' },
             },
           ],
@@ -149,22 +138,22 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Street' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Zip' },
             },
             {
               title: 'City',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.City' },
             },
             {
               title: 'Country Abbrevation',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.CountryCode' },
             },
           ],
@@ -174,17 +163,17 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Email' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Phone' },
             },
             {
               title: 'Web-URL',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Website' },
             },
           ],
@@ -196,11 +185,11 @@ export const articleEditView: EditViewConfig = {
       slug: 'images',
       subcategories: [
         {
-          name: '',
+          name: 'Images',
           properties: [
             {
               title: '',
-              component: CellComponent.EditImageGalleryCell,
+              component: CellComponent.ImageGalleryCell,
               fields: {
                 images: 'ImageGallery',
               },
@@ -212,10 +201,9 @@ export const articleEditView: EditViewConfig = {
                 height: 'Height',
                 title: 'ImageTitle.{language}',
                 description: 'ImageDesc.{language}',
-                copyright: 'CopyRight',
                 license: 'License',
                 listPosition: 'ListPosition',
-                source: 'ImageSource',
+                active: '',
               },
             },
           ],
@@ -231,24 +219,24 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Region / TVB',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
             {
               title: 'Tourismorganization',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'TourismorganizationId' },
             },
             {
               title: 'Municipality',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'LocationInfo.MunicipalityInfo.Name.{language}',
               },
             },
             {
               title: 'District',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
             },
           ],

@@ -39,7 +39,7 @@
               :to="{
                 name: DatasetPage.QUICK,
                 params: {
-                  id: row.Id,
+                  id: rowId(row),
                 },
                 query: { language: language },
               }"
@@ -51,7 +51,7 @@
               :to="{
                 name: DatasetPage.DETAIL,
                 params: {
-                  id: row.Id,
+                  id: rowId(row),
                 },
                 query: { language: language },
               }"
@@ -64,7 +64,7 @@
               :to="{
                 name: DatasetPage.EDIT,
                 params: {
-                  id: row.Id,
+                  id: rowId(row),
                 },
                 query: { language: language },
               }"
@@ -76,7 +76,7 @@
               :to="{
                 name: DatasetPage.RAW,
                 params: {
-                  id: row.Id,
+                  id: rowId(row),
                 },
                 query: { language: language },
               }"
@@ -125,4 +125,6 @@ const { rows, renderElements } = toRefs(props);
 
 const { mapWithIndex } = usePropertyMapping();
 const language = useApiQuery().useApiParameter('language');
+
+const rowId = (row: any) => row.Id ?? row.id;
 </script>

@@ -124,7 +124,7 @@ const parse = (
 
         const viewKey = mapOperationToViewKey(operation);
         const schema = schemaFromEndpointMethod(operation, openApiOperation);
-        const schemaProperties = schema?.properties;
+        const schemaProperties = extractSchemaProperties(schema);
 
         if (viewKey === 'table') {
           // Handle tourism pagination style result
@@ -240,6 +240,9 @@ const mapOperationToViewKey = (
   }
 };
 
+const isArraySchema = (schema: any): schema is OpenApi.ArraySchemaObject =>
+  schema?.items != null;
+
 const schemaFromEndpointMethod = (
   operation: OperationKey,
   endpointMethod: OpenApi.OperationObject
@@ -259,6 +262,18 @@ const schemaFromEndpointMethod = (
     return requestBody?.content['application/json']?.schema as
       | OpenApi.SchemaObject
       | undefined;
+  }
+};
+
+const extractSchemaProperties = (schema?: OpenApi.SchemaObject) => {
+  if (schema == null) {
+    return;
+  }
+  if (schema.properties != null) {
+    return schema.properties;
+  }
+  if (isArraySchema(schema)) {
+    return (schema.items as OpenApi.SchemaObject).properties;
   }
 };
 

@@ -14,16 +14,19 @@
     </template>
     <template v-else>
       <template v-if="isError">
-        <ShowApiError :error="error" />
+        <ShowApiError :error="error" class="overflow-auto h-24" />
       </template>
-      <template v-if="isSuccess === true">
+      <template v-if="isMutateError">
+        <ShowApiError :error="mutateError" class="overflow-auto h-24" />
+      </template>
+      <template v-if="isSuccess">
+        <DiscardChangesDialog @discard="resetAndCleanup" />
+        <LeaveSectionDialog
+          :is-save-success="isMutateSuccess"
+          @save-changes="saveChanges"
+        />
         <div class="flex overflow-auto flex-col justify-between h-screen">
-          <ContentAlignmentX class="hidden items-center mt-3 md:flex">
-            <div class="mr-4 text-sm">
-              {{ t('datasets.detailView.showEmptyFields') }}
-            </div>
-            <ToggleCustom v-model="showAll" :disabled="true" />
-          </ContentAlignmentX>
+          <ShowEmptyFields v-model="showAll" :disabled="true" />
           <div
             class="flex overflow-y-auto grow"
             :class="[{ 'opacity-50 pointer-events-none': isMutateLoading }]"
@@ -49,8 +52,8 @@
           </div>
           <EditFooter
             :is-saving="isMutateLoading"
-            @cancel="cancel"
-            @save="save"
+            @cancel="tryToDiscardChanges"
+            @save="saveChanges"
           />
         </div>
       </template>
@@ -76,7 +79,11 @@ import { useApplyError } from './useApplyError';
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { DatasetPage } from '../../../routes';
-import ToggleCustom from '../../../components/toggle/ToggleCustom.vue';
+import DiscardChangesDialog from './dialogs/DiscardChangesDialog.vue';
+import LeaveSectionDialog from './dialogs/LeaveSectionDialog.vue';
+import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
+import { useDialogsStore } from './dialogs/dialogsStore';
+import { useEventListener } from '@vueuse/core';
 
 const { t } = useI18n();
 
@@ -103,8 +110,15 @@ const { isError, isSuccess, data, error, url } = datasetConfigStore.isNewView
 const mutation = computed(() =>
   datasetConfigStore.isNewView ? 'create' : 'update'
 );
-const { isMutateSuccess, isMutateLoading, mutateData, mutateError, mutate } =
-  useApiMutate(url, mutation);
+const {
+  isMutateSuccess,
+  isMutateLoading,
+  isMutateError,
+  mutateData,
+  mutateError,
+  resetMutate,
+  mutate,
+} = useApiMutate(url, mutation);
 
 // Enhance categories and subcategories with any errors
 const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =
@@ -113,15 +127,28 @@ const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =
 // Sync data to edit store
 const storeSync = useEditStoreSync(data, isMutateSuccess, mutate);
 
-// Save callback triggers request and syncs editStore
-const save = () => {
-  storeSync.mutate();
-};
+// Triggers request and sync editStore
+const saveChanges = () => storeSync.mutate();
 
-// Cancel callback
-const cancel = () => {
+// Reset store and cleanup errors
+const resetAndCleanup = () => {
   storeSync.reset();
   cleanErrors();
+  resetMutate.value();
+};
+
+const dialogsStore = useDialogsStore();
+
+// Cancel callback
+const tryToDiscardChanges = () => {
+  if (editStore.isEqual) {
+    // If there are no changes, just clean everything up
+    resetAndCleanup();
+  } else if (!dialogsStore.isAnyDialogOpen) {
+    // If there are changes and no dialog is visible, then show
+    // dialog to decide if discard changes or not
+    dialogsStore.discardChangesDialogVisible = true;
+  }
 };
 
 // If create mutation was successful,
@@ -131,7 +158,10 @@ watch(
   () => isMutateSuccess.value,
   (success) => {
     if (datasetConfigStore.isNewView && success) {
-      const id = mutateData.value?.data.id;
+      // At the moment there are at least two different forms of response
+      // when a new record is created. The first one is from the EventShort
+      // dataset, the second comes from the Article dataset
+      const id = mutateData.value?.data.id ?? mutateData.value?.data.Value.id;
       if (id != null) {
         router.push({
           name: DatasetPage.DETAIL,
@@ -142,4 +172,13 @@ watch(
   },
   { immediate: true }
 );
+
+// Listen for window close / reload event and let the user know
+// if there are unsaved changes
+useEventListener(window, 'beforeunload', (evt) => {
+  if (!editStore.isEqual) {
+    evt.returnValue = 'Do you really want to close?';
+    return evt.returnValue;
+  }
+});
 </script>
