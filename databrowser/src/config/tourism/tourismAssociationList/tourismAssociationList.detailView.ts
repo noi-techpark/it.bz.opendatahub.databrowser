@@ -16,11 +16,6 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
               fields: { text: 'Shortname' },
             },
             {
-              title: 'Ski region name',
-              component: CellComponent.StringCell,
-              fields: { text: 'SkiRegionName.{language}' },
-            },
-            {
               title: 'Logo',
               component: CellComponent.ImageCell,
               class: 'w-40',
@@ -54,20 +49,27 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
               class: 'break-all',
             },
             {
-              title: 'RegionId',
-              component: CellComponent.StringCell,
-              fields: { text: 'RegionId' },
-              class: 'break-all',
+              title: 'Region Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'RegionIds',
+              },
+              params: {
+                separator: ', ',
+              },
             },
             {
-              title: 'Ski area Ids',
-              component: CellComponent.StringCell,
-              fields: { text: 'SkiareaIds' },
-              class: 'break-all',
+              title: 'Ski Area Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'SkiAreaIds',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
-
         {
           name: 'Data states',
           properties: [
@@ -100,9 +102,9 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
               fields: { items: 'PublishedOn' },
             },
             {
-              title: 'Visible In Search',
-              component: CellComponent.ArrayCell,
-              fields: { items: 'VisibleInSearch' },
+              title: 'visible in search',
+              component: CellComponent.StringCell,
+              fields: { text: 'VisibleInSearch' },
             },
           ],
         },
@@ -162,9 +164,9 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
             },
             {
               title: 'Intro Text',
-              component: CellComponent.StringCell,
+              component: CellComponent.HtmlCell,
               fields: {
-                text: 'Detail.{language}.IntroText',
+                html: 'Detail.{language}.IntroText',
               },
             },
             {
@@ -308,42 +310,6 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
                 listPosition: 'ListPosition',
                 active: '',
               },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Location',
-      slug: 'location',
-      subcategories: [
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Region',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.{language}' },
-            },
-            {
-              title: 'Valley',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.TvInfo.{language}' },
-            },
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.{language}' },
-            },
-            {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.MunicipalityInfo.{language}' },
-            },
-            {
-              title: 'Ski Region',
-              component: CellComponent.StringCell,
-              fields: { text: 'SkiRegionName.{language}' },
             },
           ],
         },

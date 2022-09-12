@@ -232,9 +232,9 @@ export const skiAreaDetailView: DetailViewConfig = {
             },
             {
               title: 'Intro Text',
-              component: CellComponent.StringCell,
+              component: CellComponent.HtmlCell,
               fields: {
-                text: 'Detail.{language}.IntroText',
+                html: 'Detail.{language}.IntroText',
               },
             },
             {
