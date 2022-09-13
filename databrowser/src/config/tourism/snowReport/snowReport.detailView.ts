@@ -11,9 +11,30 @@ export const snowReportDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Ski region',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              fields: { text: 'Skiregion' },
+            },
+            {
+              title: 'Area name',
+              component: CellComponent.StringCell,
+              fields: { text: 'Areaname' },
+            },
+            {
+              title: 'Logo',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'contactlogo',
+              },
+            },
+            {
+              title: 'Ski Map',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'SkiMapUrl',
+              },
             },
           ],
         },
@@ -26,6 +47,12 @@ export const snowReportDetailView: DetailViewConfig = {
               fields: { text: 'Id' },
               class: 'break-all',
             },
+            {
+              title: 'RID',
+              component: CellComponent.StringCell,
+              fields: { text: 'RID' },
+              class: 'break-all',
+            },
           ],
         },
         {
@@ -34,7 +61,7 @@ export const snowReportDetailView: DetailViewConfig = {
             {
               title: 'Last Changes',
               component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
+              fields: { date: 'LastUpdate' },
               params: {
                 format: 'd/M/yyyy HH:mm',
               },
@@ -56,24 +83,8 @@ export const snowReportDetailView: DetailViewConfig = {
           properties: [
             {
               title: 'Source',
-              component: CellComponent.StringCell,
-              fields: { text: 'Source' },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Text information',
-      slug: 'text-information',
-      subcategories: [
-        {
-          name: 'General data',
-          properties: [
-            {
-              title: 'Shortname',
-              component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              component: CellComponent.ArrayCell,
+              fields: { items: '' },
             },
           ],
         },
@@ -84,47 +95,22 @@ export const snowReportDetailView: DetailViewConfig = {
       slug: 'contact',
       subcategories: [
         {
-          name: 'Name and Company Data',
-          properties: [
-            {
-              title: 'Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
-            },
-            {
-              title: 'First Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
-            },
-            {
-              title: 'Surname',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
-            },
-          ],
-        },
-        {
           name: 'Address',
           properties: [
             {
-              title: 'Street and House No',
+              title: 'Address',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
+              fields: { text: 'contactadress' },
             },
             {
               title: 'ZIP-Code',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
+              fields: { text: 'contactcap' },
             },
             {
               title: 'City',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
-            },
-            {
-              title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
+              fields: { text: 'contactcity' },
             },
           ],
         },
@@ -134,84 +120,40 @@ export const snowReportDetailView: DetailViewConfig = {
             {
               title: 'E-Mail',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
+              fields: { text: 'contactmail' },
             },
             {
               title: 'Phone Number',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
+              fields: { text: 'contacttel' },
             },
             {
               title: 'Web-URL',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              fields: { text: 'contactweburl' },
             },
           ],
         },
       ],
     },
     {
-      name: 'Images',
-      slug: 'images',
+      name: 'GPS Data',
+      slug: 'gps',
       subcategories: [
         {
-          name: 'Images',
+          name: 'GPS Data',
           properties: [
             {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Location',
-      slug: 'location',
-      subcategories: [
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Region / TVB',
+              title: 'Nort',
               component: CellComponent.StringCell,
               fields: {
-                text: 'LocationDistrict.RegionDistrict.Name.{language}',
+                text: 'contactgpsnorth',
               },
             },
             {
-              title: 'Tourismorganization',
+              title: 'East',
               component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
-            },
-            {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationDistrict.MunicipalityDistrict.Name.{language}',
-              },
-            },
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationDistrict.DistrictDistrict.Name.{language}',
-              },
+              fields: { text: 'contactgpseast' },
             },
           ],
         },
