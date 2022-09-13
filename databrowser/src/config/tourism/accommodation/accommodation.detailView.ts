@@ -85,30 +85,16 @@ export const accommodationDetailView: DetailViewConfig = {
             },
             {
               title: 'Badges',
-              component: CellComponent.ArrayCellTags,
+              component: CellComponent.ArrayCell,
               class: 'w-40',
               fields: {
                 items: 'AccoBadges',
               },
               params: {
-                fieldName: 'Id',
                 separator: ', ',
-                max: '3',
               },
             },
-            {
-              title: 'Booking Channel',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'AccoBookingChannel',
-              },
-              params: {
-                fieldName: 'Id',
-                separator: ', ',
-                max: '3',
-              },
-            },
+       
           ],
         },
         {

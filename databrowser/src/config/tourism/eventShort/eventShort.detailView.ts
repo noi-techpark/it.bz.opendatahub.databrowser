@@ -105,29 +105,6 @@ export const eventShortDetailView: DetailViewConfig = {
           ],
         },
         {
-          name: 'Contact details',
-          properties: [
-            {
-              title: 'Email',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactEmail' },
-              class: 'break-all',
-            },
-            {
-              title: 'Phone Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactPhone' },
-              class: 'break-all',
-            },
-            {
-              title: 'Web-URL',
-              component: CellComponent.StringCell,
-              fields: { text: 'WebAddress' },
-              class: 'break-all',
-            },
-          ],
-        },
-        {
           name: 'Characteristics',
           properties: [
             {
