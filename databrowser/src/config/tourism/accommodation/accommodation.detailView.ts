@@ -94,7 +94,6 @@ export const accommodationDetailView: DetailViewConfig = {
                 separator: ', ',
               },
             },
-       
           ],
         },
         {
