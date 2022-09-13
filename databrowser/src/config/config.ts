@@ -24,6 +24,7 @@ import {
   measuringPointConfig,
   snowReportConfig,
   eventConfig,
+  experienceAreaConfig,
 } from './tourism';
 
 type EmbeddedDatasetConfigs = Record<
@@ -56,6 +57,7 @@ const datasetConfigs = [
   measuringPointConfig,
   snowReportConfig,
   eventConfig,
+  experienceAreaConfig,
 ];
 
 const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {

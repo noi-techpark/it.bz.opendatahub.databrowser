@@ -1,7 +1,7 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 
-export const districtDetailView: DetailViewConfig = {
+export const experienceAreaDetailView: DetailViewConfig = {
   elements: [
     {
       name: 'Main data',
@@ -15,6 +15,14 @@ export const districtDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
+            {
+              title: 'Image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ImageGallery.0.ImageUrl',
+              },
+            },
           ],
         },
         {
@@ -27,40 +35,38 @@ export const districtDetailView: DetailViewConfig = {
               class: 'break-all',
             },
             {
-              title: 'Custom ID',
+              title: 'Custom Id',
               component: CellComponent.StringCell,
               fields: { text: 'CustomId' },
               class: 'break-all',
             },
             {
-              title: 'Siag ID',
+              title: 'Company Id',
               component: CellComponent.StringCell,
-              fields: { text: 'SiagId' },
+              fields: { text: 'CompanyId' },
               class: 'break-all',
             },
             {
-              title: 'Tourismverein ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismvereinId' },
-              class: 'break-all',
+              title: 'Tourismverein IDs',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'TourismvereinIds',
+              },
+              params: {
+                separator: ', ',
+              },
             },
             {
-              title: 'Region ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Region.Id' },
-              class: 'break-all',
-            },
-            {
-              title: 'Municipality ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Municipality.Id' },
-              class: 'break-all',
-            },
-            {
-              title: 'HGV ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'hgv.id' },
-              class: 'break-all',
+              title: 'District IDs',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'DistrictIds',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
@@ -74,11 +80,6 @@ export const districtDetailView: DetailViewConfig = {
               params: {
                 format: 'd/M/yyyy HH:mm',
               },
-            },
-            {
-              title: 'Is comune',
-              component: CellComponent.StringCell,
-              fields: { text: 'IsComune' },
             },
             {
               title: 'Active',
@@ -119,17 +120,17 @@ export const districtDetailView: DetailViewConfig = {
       slug: 'text-information',
       subcategories: [
         {
-          name: '',
+          name: 'General data',
           properties: [
             {
               title: 'Meta Title',
               component: CellComponent.StringCell,
-              fields: { text: 'MetaTitle' },
+              fields: { text: 'Detail.{language}.MetaTitle' },
             },
             {
-              title: 'Meta Description',
+              title: 'Description',
               component: CellComponent.StringCell,
-              fields: { text: 'MetaDesc' },
+              fields: { text: 'Detail.{language}.MetaDesc' },
             },
             {
               title: 'Title',
@@ -142,9 +143,9 @@ export const districtDetailView: DetailViewConfig = {
               fields: { text: 'Detail.{language}.Header' },
             },
             {
-              title: 'Sub Header',
+              title: 'Subheader',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.SubHeader' },
+              fields: { text: 'Detail.{language}.Subheader' },
             },
             {
               title: 'Intro Text',
@@ -162,7 +163,7 @@ export const districtDetailView: DetailViewConfig = {
               fields: { text: 'Detail.{language}.AdditionalText' },
             },
             {
-              title: 'Get There Text',
+              title: 'There Text',
               component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.GetThereText' },
             },
@@ -183,18 +184,16 @@ export const districtDetailView: DetailViewConfig = {
               fields: {
                 images: 'ImageGallery',
               },
-              params: {
-                alt: 'ImageTitle.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
+            },
+            {
+              title: 'License',
+              component: CellComponent.StringCell,
+              fields: { text: 'LicenseInfo.License' },
+            },
+            {
+              title: 'License Holder',
+              component: CellComponent.StringCell,
+              fields: { text: 'LicenseInfo.LicenseHolder' },
             },
           ],
         },
@@ -205,17 +204,18 @@ export const districtDetailView: DetailViewConfig = {
       slug: 'location',
       subcategories: [
         {
-          name: 'Location',
+          name: 'Locations',
           properties: [
             {
-              title: 'Region / TVB',
-              component: CellComponent.StringCell,
-              fields: { text: 'Region.Id' },
-            },
-            {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
-              fields: { text: 'Municipality.Id' },
+              title: 'Districts',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'Districts',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
@@ -223,15 +223,15 @@ export const districtDetailView: DetailViewConfig = {
     },
     {
       name: 'GPS Data',
-      slug: 'GPS Data',
+      slug: 'gps Data',
       subcategories: [
         {
           name: 'GPS Data',
           properties: [
             {
-              title: 'GPS Type',
+              title: 'Gpstype',
               component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.position.Gpstype' },
+              fields: { text: 'Gpstype' },
             },
             {
               title: 'Latitude',
@@ -265,19 +265,25 @@ export const districtDetailView: DetailViewConfig = {
           name: 'Tags',
           properties: [
             {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
               title: 'ODH Tags',
-              component: CellComponent.ArrayCellTags,
+              component: CellComponent.ArrayCell,
               class: 'w-40',
               fields: {
                 items: 'ODHTags',
               },
-            },
-            {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'SmgTags',
+              params: {
+                separator: ', ',
               },
             },
           ],

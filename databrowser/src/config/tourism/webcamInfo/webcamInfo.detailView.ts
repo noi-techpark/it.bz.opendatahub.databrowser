@@ -82,17 +82,29 @@ export const webcamInfoDetailView: DetailViewConfig = {
           name: 'GPS Data',
           properties: [
             {
-              title: '',
-              component: CellComponent.GpsListCell,
-              class: 'w-40',
-              fields: { gpsEntries: 'GpsInfos' },
-              params: {
-                type: 'Gpstype',
-                latitude: 'Latitude',
-                longitude: 'Longitude',
-                altitude: 'Altitude',
-                altitudeUnit: 'AltitudeUnitofMeasure',
-              },
+              title: 'GPS Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Gpstype' },
+            },
+            {
+              title: 'Latitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Latitude' },
+            },
+            {
+              title: 'Longitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Longitude' },
+            },
+            {
+              title: 'Altitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Altitude' },
+            },
+            {
+              title: 'Altitude Unit',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.AltitudeUnitofMeasure' },
             },
           ],
         },
