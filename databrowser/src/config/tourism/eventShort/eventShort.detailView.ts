@@ -120,13 +120,13 @@ export const eventShortDetailView: DetailViewConfig = {
           properties: [
             {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'WebAddress' },
               class: 'break-all',
             },
             {
               title: 'Video-URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'VideoUrl' },
               class: 'break-all',
             },
@@ -390,7 +390,7 @@ export const eventShortDetailView: DetailViewConfig = {
             },
             {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'CompanyUrl' },
             },
           ],

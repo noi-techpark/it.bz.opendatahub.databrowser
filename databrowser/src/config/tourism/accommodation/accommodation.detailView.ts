@@ -292,7 +292,7 @@ export const accommodationDetailView: DetailViewConfig = {
             },
             {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'AccoDetail.{language}.Website' },
             },
           ],

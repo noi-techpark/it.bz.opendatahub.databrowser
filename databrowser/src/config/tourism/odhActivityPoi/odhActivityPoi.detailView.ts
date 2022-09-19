@@ -452,12 +452,12 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
             },
             {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'ContactInfos.{language}.Url' },
             },
             {
               title: 'Additional URL (Independent URL)',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: '' },
             },
           ],

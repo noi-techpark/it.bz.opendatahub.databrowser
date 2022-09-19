@@ -53,7 +53,7 @@ export const odhActivityPoiListView: ListViewConfig = {
     },
     {
       title: 'Web-URL',
-      component: CellComponent.StringCell,
+      component: CellComponent.UrlCell,
       class: 'w-36',
       fields: { text: 'ContactInfos.{language}.Url' },
     },
