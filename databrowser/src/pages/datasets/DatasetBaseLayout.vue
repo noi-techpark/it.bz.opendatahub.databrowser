@@ -1,16 +1,14 @@
 <template>
   <AppLayout :show-app-footer="false">
-    <div v-if="error != null" class="bg-red-100">
-      <h2>ERROR</h2>
-      {{ JSON.stringify(error) }}
+    <div v-if="error != null">
+      <AlertError :title="'Error!'" :content="error.message" />
     </div>
 
-    <div
-      v-if="datasetConfigStore.resolution.state === 'error'"
-      class="bg-red-100"
-    >
-      <h2>ERROR</h2>
-      {{ JSON.stringify(datasetConfigStore.resolution.error) }}
+    <div v-if="datasetConfigStore.resolution.state === 'error'">
+      <AlertError
+        :title="'Error!'"
+        :content="datasetConfigStore.resolution.error"
+      />
     </div>
 
     <ContentAlignmentX>
@@ -49,6 +47,7 @@ import { useI18n } from 'vue-i18n';
 import { useDatasetConfigStore } from '../../domain/datasetConfig/store/datasetConfigStore';
 import { useRouter } from 'vue-router';
 import { useConfigRouterWatcher } from '../../domain/datasetConfig/routerWatcher';
+import AlertError from '../../components/alert/AlertError.vue';
 
 const { t } = useI18n();
 

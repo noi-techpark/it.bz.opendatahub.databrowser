@@ -4,13 +4,22 @@
   </template>
   <template v-else>
     <template v-if="!datasetConfigStore.hasUpdatePermission">
-      {{ t('datasets.editView.notAuthorized') }}
+      <AlertError
+        :title="'Error!'"
+        :content="t('datasets.editView.notAuthorized')"
+      />
     </template>
     <template v-else-if="datasetConfigStore.isSourceGenerated">
-      {{ t('datasets.editView.notAvailableForGeneratedSource') }}
+      <AlertError
+        :title="'Error!'"
+        :content="t('datasets.editView.notAvailableForGeneratedSource')"
+      />
     </template>
     <template v-else-if="datasetConfigStore.config?.views?.edit == null">
-      {{ t('datasets.editView.notEditViewConfigured') }}
+      <AlertError
+        :title="'Error!'"
+        :content="t('datasets.editView.noEditViewConfigured')"
+      />
     </template>
     <template v-else>
       <template v-if="isError">
@@ -84,6 +93,7 @@ import LeaveSectionDialog from './dialogs/LeaveSectionDialog.vue';
 import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
 import { useDialogsStore } from './dialogs/dialogsStore';
 import { useEventListener } from '@vueuse/core';
+import AlertError from '../../../components/alert/AlertError.vue';
 
 const { t } = useI18n();
 
