@@ -69,10 +69,8 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', {
       };
     },
     setError(error: unknown) {
-      this.viewKey = undefined;
       this.config = undefined;
       this.source = undefined;
-      this.datasetRoute = undefined;
       const message: string =
         error instanceof Error ? error.message : (error as string);
       this.resolution = {
