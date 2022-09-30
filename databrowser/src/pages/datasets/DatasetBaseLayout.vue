@@ -24,11 +24,9 @@
 
     <div class="flex overflow-y-auto h-full">
       <div class="flex overflow-x-auto flex-col flex-1">
-        <template v-if="datasetConfigStore.resolution.state === 'success'">
-          <ContentAlignmentX>
-            <DatasetHeader />
-          </ContentAlignmentX>
-        </template>
+        <ContentAlignmentX>
+          <DatasetHeader />
+        </ContentAlignmentX>
         <template v-if="datasetConfigStore.config != null">
           <slot></slot>
         </template>
