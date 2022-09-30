@@ -11,15 +11,6 @@ export const weatherDistrictListView: ListViewConfig = {
         src: 'BezirksForecast.0.WeatherImgUrl',
       },
     },
-
-    {
-      title: 'Title',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'BezirksForecast.0.WeatherDesc',
-      },
-    },
     {
       title: 'Date',
       component: CellComponent.DateCell,
@@ -32,11 +23,19 @@ export const weatherDistrictListView: ListViewConfig = {
       },
     },
     {
-      title: 'Location',
+      title: 'District name',
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
         text: 'DistrictName',
+      },
+    },
+    {
+      title: 'Weather description',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'BezirksForecast.0.WeatherDesc',
       },
     },
     {
