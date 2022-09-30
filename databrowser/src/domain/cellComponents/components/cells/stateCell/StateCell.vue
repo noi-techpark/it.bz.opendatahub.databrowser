@@ -2,7 +2,7 @@
 <template>
   <div v-if="state != null">
     <span v-if="state === true" class="active">Active</span>
-    <span v-else class="not-active">Not active</span>
+    <span v-else class="not-active">Inactive</span>
   </div>
 </template>
 
@@ -19,17 +19,16 @@ withDefaults(
 );
 </script>
 
-<style>
+<style scoped>
+span {
+  @apply list-item list-inside py-1 px-2.5 rounded float-left;
+}
 .active {
-  @apply py-1 px-5 rounded-full border;
   background-color: rgba(61, 149, 252, 0.1);
-  border-color: #3d95fc;
-  color: #3d95fc;
+  color: #2264e5;
 }
 .not-active {
-  @apply py-1 px-5 rounded-full border;
   background-color: rgba(255, 25, 87, 0.1);
-  border-color: #ff1957;
-  color: #ff1957;
+  color: #d12953;
 }
 </style>
