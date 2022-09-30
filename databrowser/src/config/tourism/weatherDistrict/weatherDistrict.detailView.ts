@@ -21,131 +21,131 @@ export const weatherDistrictDetailView: DetailViewConfig = {
           name: 'Forecast',
           properties: [
             {
-                title: 'Date',
-                component: CellComponent.DateCell,
-                class: 'w-48',
-                params: {
-                  format: 'do MMMM yyyy',
-                },
-                fields: {
-                  date: 'BezirksForecast.0.date',
-                },
+              title: 'Date',
+              component: CellComponent.DateCell,
+              class: 'w-48',
+              params: {
+                format: 'do MMMM yyyy',
               },
-              {
-                title: 'Weather image',
-                component: CellComponent.ImageCell,
-                class: 'w-40',
-                fields: {
-                  text: 'BezirksForecast.0.WeatherImgUrl',
-                },
-                params:{
-                  width:'20%'
-                },
+              fields: {
+                date: 'BezirksForecast.0.date',
               },
-              {
-                title: 'Weather description',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.WeatherDesc',
-                },
+            },
+            {
+              title: 'Weather image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                text: 'BezirksForecast.0.WeatherImgUrl',
               },
-              {
-                title: 'Weather code',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.WeatherCode',
-                },
+              params: {
+                width: '20%',
               },
-              {
-                title: 'Weather code',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.WeatherCode',
-                },
+            },
+            {
+              title: 'Weather description',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.WeatherDesc',
               },
-              {
-                title: 'Max temp',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.MaxTemp',
-                },
+            },
+            {
+              title: 'Weather code',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.WeatherCode',
               },
-              {
-                title: 'Min temp',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.MinTemp',
-                },
+            },
+            {
+              title: 'Weather code',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.WeatherCode',
               },
-              {
-                title: 'Freeze',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.Freeze',
-                },
+            },
+            {
+              title: 'Max temp',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.MaxTemp',
               },
-              {
-                title: 'Rain from',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.RainFrom',
-                },
+            },
+            {
+              title: 'Min temp',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.MinTemp',
               },
-              {
-                title: 'Rain to',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.RainTo',
-                },
+            },
+            {
+              title: 'Freeze',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.Freeze',
               },
-              {
-                title: 'Part1',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.Part1',
-                },
+            },
+            {
+              title: 'Rain from',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.RainFrom',
               },
-              {
-                title: 'Part2',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.Part2',
-                },
+            },
+            {
+              title: 'Rain to',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.RainTo',
               },
-              {
-                title: 'Part3',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.Part3',
-                },
+            },
+            {
+              title: 'Part1',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.Part1',
               },
-              {
-                title: 'Part4',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.Part4',
-                },
+            },
+            {
+              title: 'Part2',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.Part2',
               },
-              {
-                title: 'Thunderstorm',
-                component: CellComponent.StringCell,
-                class: 'w-36',
-                fields: {
-                  text: 'BezirksForecast.0.Thunderstorm',
-                },
+            },
+            {
+              title: 'Part3',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.Part3',
               },
+            },
+            {
+              title: 'Part4',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.Part4',
+              },
+            },
+            {
+              title: 'Thunderstorm',
+              component: CellComponent.StringCell,
+              class: 'w-36',
+              fields: {
+                text: 'BezirksForecast.0.Thunderstorm',
+              },
+            },
           ],
         },
       ],
