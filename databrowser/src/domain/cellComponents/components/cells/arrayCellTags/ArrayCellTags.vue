@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="items.length > 0">
     <div v-if="items.length > 3">
       <h1 v-if="more">{{ newItemsAll?.join(separator) }}</h1>
       <h1 v-else>{{ newItems?.join(separator) }}</h1>
@@ -22,7 +22,7 @@ const props = withDefaults(
     fieldName?: string;
   }>(),
   {
-    items: undefined,
+    items: () => [],
     separator: undefined,
     max: undefined,
     fieldName: undefined,
