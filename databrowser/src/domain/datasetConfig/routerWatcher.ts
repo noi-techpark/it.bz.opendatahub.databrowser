@@ -93,13 +93,13 @@ const isSameRouteConfig = (
   }
 
   // Get current route into
-  const viewKey = route.meta.viewKey;
+  const viewKey = routeNameToViewKey(route.name);
   const routeDomain = route.params.domain as string;
   const routePathParams = toArray(route.params.pathParams).join('/');
   const routeId = route.params.id as string;
 
   // Get old route info to compare to current route
-  const oldViewKey = oldRoute.meta.viewKey;
+  const oldViewKey = routeNameToViewKey(oldRoute.name);
   const oldRouteDomain = oldRoute.params.domain as string;
   const oldRoutePathParams = toArray(oldRoute.params.pathParams).join('/');
   const oldRouteId = oldRoute.params.id as string;
