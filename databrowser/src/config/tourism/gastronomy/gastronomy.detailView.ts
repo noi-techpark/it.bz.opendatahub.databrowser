@@ -44,9 +44,24 @@ export const gastronomyDetailView: DetailViewConfig = {
                 max: '3',
               },
             },
+            {
+              title: 'Logo',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ContactInfos.{language}.LogoUrl',
+              },
+            },
+            {
+              title: 'Image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ImageGallery.0.ImageUrl',
+              },
+            },
           ],
         },
-
         {
           name: 'IDs',
           properties: [
@@ -54,6 +69,42 @@ export const gastronomyDetailView: DetailViewConfig = {
               title: 'ID',
               component: CellComponent.StringCell,
               fields: { text: 'Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'Region ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.RegionInfo.Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'Area ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.AreaInfo.Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'Municipality ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.MunicipalityInfo.Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'District ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'DistrictId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Accommodation ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccommodationId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Marketing group ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'MarketinggroupId' },
               class: 'break-all',
             },
           ],
@@ -72,12 +123,22 @@ export const gastronomyDetailView: DetailViewConfig = {
             {
               title: 'Active on Source',
               component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
+            },
+            {
+              title: 'Active on Source',
+              component: CellComponent.StringCell,
               fields: { text: 'Active' },
             },
             {
               title: 'Active on ODH',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
+            },
+            {
+              title: 'Published on',
+              component: CellComponent.ArrayCell,
+              fields: { items: 'PublishedOn' },
             },
           ],
         },
@@ -101,49 +162,67 @@ export const gastronomyDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Title',
-              component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
-            },
-            {
               title: 'Meta Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Meta Title' },
+              fields: {
+                text: 'Detail.{language}.MetaTitle',
+              },
             },
             {
-              title: 'Meta Desc',
+              title: 'Meta Description',
               component: CellComponent.StringCell,
-              fields: { text: 'MetaDesc' },
+              fields: {
+                text: 'Detail.{language}.MetaDesc',
+              },
+            },
+            {
+              title: 'Title',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.Title',
+              },
             },
             {
               title: 'Header',
               component: CellComponent.StringCell,
-              fields: { text: 'Header' },
+              fields: {
+                text: 'Detail.{language}.Header',
+              },
             },
             {
-              title: 'Sub Header',
+              title: 'SubHeader',
               component: CellComponent.StringCell,
-              fields: { text: 'SubHeader' },
+              fields: {
+                text: 'Detail.{language}.SubHeader',
+              },
             },
             {
               title: 'Intro Text',
-              component: CellComponent.StringCell,
-              fields: { text: 'IntroText' },
+              component: CellComponent.HtmlCell,
+              fields: {
+                html: 'Detail.{language}.IntroText',
+              },
             },
             {
-              title: 'Base Text',
+              title: 'BaseText',
               component: CellComponent.StringCell,
-              fields: { text: 'BaseText' },
+              fields: {
+                text: 'Detail.{language}.BaseText',
+              },
             },
             {
-              title: 'Additional Text',
+              title: 'AdditionalText',
               component: CellComponent.StringCell,
-              fields: { text: 'AdditionalText' },
+              fields: {
+                text: 'Detail.{language}.AdditionalText',
+              },
             },
             {
-              title: 'Get There Text',
+              title: 'GetThereText',
               component: CellComponent.StringCell,
-              fields: { text: 'GetThereText' },
+              fields: {
+                text: 'Detail.{language}.GetThereText',
+              },
             },
           ],
         },
@@ -172,14 +251,19 @@ export const gastronomyDetailView: DetailViewConfig = {
               fields: { text: 'ContactInfos.{language}.Surname' },
             },
             {
-              title: 'Name Prefix',
+              title: 'Name prefix',
               component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.NamePrefix' },
             },
             {
-              title: 'Tax number',
+              title: 'Tax Number',
               component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Tax' },
+            },
+            {
+              title: 'Vat-ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Vat' },
             },
           ],
         },
@@ -227,13 +311,8 @@ export const gastronomyDetailView: DetailViewConfig = {
               fields: { text: 'ContactInfos.{language}.Phonenumber' },
             },
             {
-              title: 'Fax Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Faxnumber' },
-            },
-            {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'ContactInfos.{language}.Url' },
             },
           ],
@@ -278,14 +357,9 @@ export const gastronomyDetailView: DetailViewConfig = {
           name: 'Location',
           properties: [
             {
-              title: 'Region / TVB',
+              title: 'Region',
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
-            },
-            {
-              title: 'Tourismorganization',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
             },
             {
               title: 'Municipality',
@@ -298,6 +372,76 @@ export const gastronomyDetailView: DetailViewConfig = {
               title: 'District',
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'GPS Data',
+      slug: 'Gps',
+      subcategories: [
+        {
+          name: 'GPS Data',
+          properties: [
+            {
+              title: 'GPS Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Gpstype' },
+            },
+            {
+              title: 'Latitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Latitude' },
+            },
+            {
+              title: 'Longitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Longitude' },
+            },
+            {
+              title: 'Altitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Altitude' },
+            },
+            {
+              title: 'Altitude Unit',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.AltitudeUnitofMeasure' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'Tags',
+      subcategories: [
+        {
+          name: 'Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
