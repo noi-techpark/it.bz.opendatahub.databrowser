@@ -15,6 +15,14 @@ export const metaRegionDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
+            {
+              title: 'Image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ImageGallery.0.ImageUrl',
+              },
+            },
           ],
         },
         {
@@ -25,6 +33,43 @@ export const metaRegionDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Id' },
               class: 'break-all',
+            },
+            {
+              title: 'CustomId',
+              component: CellComponent.StringCell,
+              fields: { text: 'CustomId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Tourismverein ID',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'TourismvereinIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'Region Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'RegionIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'District Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'DistrictIds',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
@@ -42,12 +87,27 @@ export const metaRegionDetailView: DetailViewConfig = {
             {
               title: 'Active on Source',
               component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
+            },
+            {
+              title: 'Active on Source',
+              component: CellComponent.StringCell,
               fields: { text: 'Active' },
             },
             {
               title: 'Active on ODH',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
+            },
+            {
+              title: 'Published on',
+              component: CellComponent.ArrayCell,
+              fields: { items: 'PublishedOn' },
+            },
+            {
+              title: 'visible in search',
+              component: CellComponent.StringCell,
+              fields: { text: 'VisibleInSearch' },
             },
           ],
         },
@@ -71,80 +131,67 @@ export const metaRegionDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Meta Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Contact',
-      slug: 'contact',
-      subcategories: [
-        {
-          name: 'Name and Company Data',
-          properties: [
-            {
-              title: 'Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              fields: {
+                text: 'Detail.{language}.MetaTitle',
+              },
             },
             {
-              title: 'First Name',
+              title: 'Meta Description',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
+              fields: {
+                text: 'Detail.{language}.MetaDesc',
+              },
             },
             {
-              title: 'Surname',
+              title: 'Title',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
-            },
-          ],
-        },
-        {
-          name: 'Address',
-          properties: [
-            {
-              title: 'Street and House No',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
+              fields: {
+                text: 'Detail.{language}.Title',
+              },
             },
             {
-              title: 'ZIP-Code',
+              title: 'Header',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
+              fields: {
+                text: 'Detail.{language}.Header',
+              },
             },
             {
-              title: 'City',
+              title: 'SubHeader',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
+              fields: {
+                text: 'Detail.{language}.SubHeader',
+              },
             },
             {
-              title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
-            },
-          ],
-        },
-        {
-          name: 'Contact Details',
-          properties: [
-            {
-              title: 'E-Mail',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
+              title: 'Intro Text',
+              component: CellComponent.HtmlCell,
+              fields: {
+                html: 'Detail.{language}.IntroText',
+              },
             },
             {
-              title: 'Phone Number',
+              title: 'BaseText',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
+              fields: {
+                text: 'Detail.{language}.BaseText',
+              },
             },
             {
-              title: 'Web-URL',
+              title: 'AdditionalText',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              fields: {
+                text: 'Detail.{language}.AdditionalText',
+              },
+            },
+            {
+              title: 'GetThereText',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.GetThereText',
+              },
             },
           ],
         },
@@ -181,33 +228,70 @@ export const metaRegionDetailView: DetailViewConfig = {
       ],
     },
     {
-      name: 'Location',
-      slug: 'location',
+      name: 'GPS Data',
+      slug: 'Gps',
       subcategories: [
         {
-          name: 'Location',
+          name: 'GPS Data',
           properties: [
             {
-              title: 'MetaRegion / TVB',
+              title: 'GPS Type',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.MetaRegionInfo.Name.{language}' },
+              fields: { text: 'GpsPoints.position.Gpstype' },
             },
             {
-              title: 'Tourismorganization',
+              title: 'Latitude',
               component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
+              fields: { text: 'GpsPoints.position.Latitude' },
             },
             {
-              title: 'metaRegion',
+              title: 'Longitude',
               component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Longitude' },
+            },
+            {
+              title: 'Altitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Altitude' },
+            },
+            {
+              title: 'Altitude Unit',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.AltitudeUnitofMeasure' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'Tags',
+      subcategories: [
+        {
+          name: 'Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
               fields: {
-                text: 'LocationInfo.metaRegionInfo.Name.{language}',
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
               },
             },
             {
-              title: 'MetaRegion',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.MetaRegionInfo.Name.{language}' },
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
