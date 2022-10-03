@@ -22,6 +22,9 @@ export const regionDetailView: DetailViewConfig = {
               fields: {
                 src: 'ContactInfos.{language}.LogoUrl',
               },
+              params: {
+                width: '15%',
+              },
             },
             {
               title: 'Image',
