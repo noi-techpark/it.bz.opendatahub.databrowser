@@ -168,7 +168,7 @@ export const regionEditView: EditViewConfig = {
             },
             {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'AccoDetail.{language}.Website' },
             },
           ],
