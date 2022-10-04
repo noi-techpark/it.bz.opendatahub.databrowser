@@ -55,18 +55,7 @@ export const weatherDistrictListView: ListViewConfig = {
       },
     },
     {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
-    {
-      title: 'Edited',
+      title: 'Last updated',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
       fields: {
@@ -82,14 +71,6 @@ export const weatherDistrictListView: ListViewConfig = {
       class: 'w-36',
       fields: {
         text: 'LicenseInfo.LicenseHolder',
-      },
-    },
-    {
-      title: 'ODH state',
-      component: CellComponent.StateCell,
-      class: 'w-36',
-      fields: {
-        state: 'OdhActive',
       },
     },
   ],
