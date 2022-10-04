@@ -20,6 +20,22 @@ export const accommodationListView: ListViewConfig = {
       },
     },
     {
+      title: 'Accommodation Type',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'AccoTypeId',
+      },
+    },
+    {
+      title: 'Category',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'AccoCategoryId',
+      },
+    },
+    {
       title: 'Location',
       component: CellComponent.TextHighlightCell,
       class: 'w-40',
