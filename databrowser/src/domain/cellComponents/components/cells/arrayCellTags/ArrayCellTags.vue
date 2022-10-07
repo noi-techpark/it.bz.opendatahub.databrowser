@@ -1,6 +1,6 @@
 <template>
-  <div v-if="items.length > 0">
-    <div v-if="items.length > 3">
+  <div v-if="itemsInternal.length > 0">
+    <div v-if="itemsInternal.length > 3">
       <h1 v-if="more">{{ newItemsAll?.join(separator) }}</h1>
       <h1 v-else>{{ newItems?.join(separator) }}</h1>
       <button @click="more = !more">+more</button>
@@ -31,16 +31,18 @@ const props = withDefaults(
 
 const { items, max, fieldName } = toRefs(props);
 
+const itemsInternal = computed(() => items.value ?? []);
+
 const more = ref(false);
 
 const newItems = computed(() => {
   return [
-    ...items.value
+    ...itemsInternal.value
       .map((item) => item[fieldName.value])
-      .slice(0, parseInt(max.value)),
+      .slice(0, parseInt(max.value, 10)),
   ];
 });
 const newItemsAll = computed(() => {
-  return [...items.value.map((item) => item[fieldName.value])];
+  return [...itemsInternal.value.map((item) => item[fieldName.value])];
 });
 </script>
