@@ -88,7 +88,7 @@ export const articleListView: ListViewConfig = {
       title: 'Published On',
       component: CellComponent.UrlCell,
       class: 'w-40',
-      fields: { text: 'PublishedOn' },
+      fields: { text: 'PublishedOn.0' },
     },
     {
       title: 'ODH state',
