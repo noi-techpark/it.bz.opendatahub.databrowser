@@ -44,9 +44,9 @@
     },
     "editView": {
       "authorizationChecking": "Please wait for authorization check",
-      "notAuthorized": "You are not authorized to edit this dataset",
+      "notAuthorized": "You have no permissions to access this data. Please login or check your rights within your profile.",
       "notAvailableForGeneratedSource": "The edit view is not available while you use a generated config",
-      "notEditViewConfigured": "The edit view is not configured for this dataset. Please contact @:contact.email",
+      "noEditViewConfigured": "There is not edit view configuration for this dataset. Please contact @:contact.email",
       "dialog": {
         "discardChanges": {
           "buttonNo": "No (n)",

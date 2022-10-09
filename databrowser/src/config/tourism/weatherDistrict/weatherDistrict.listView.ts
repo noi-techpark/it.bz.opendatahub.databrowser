@@ -11,15 +11,6 @@ export const weatherDistrictListView: ListViewConfig = {
         src: 'BezirksForecast.0.WeatherImgUrl',
       },
     },
-
-    {
-      title: 'Title',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'BezirksForecast.0.WeatherDesc',
-      },
-    },
     {
       title: 'Date',
       component: CellComponent.DateCell,
@@ -32,11 +23,19 @@ export const weatherDistrictListView: ListViewConfig = {
       },
     },
     {
-      title: 'Location',
+      title: 'District name',
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
         text: 'DistrictName',
+      },
+    },
+    {
+      title: 'Weather description',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'BezirksForecast.0.WeatherDesc',
       },
     },
     {
@@ -56,18 +55,7 @@ export const weatherDistrictListView: ListViewConfig = {
       },
     },
     {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
-    {
-      title: 'Edited',
+      title: 'Last updated',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
       fields: {
@@ -83,14 +71,6 @@ export const weatherDistrictListView: ListViewConfig = {
       class: 'w-36',
       fields: {
         text: 'LicenseInfo.LicenseHolder',
-      },
-    },
-    {
-      title: 'ODH state',
-      component: CellComponent.StateCell,
-      class: 'w-36',
-      fields: {
-        state: 'OdhActive',
       },
     },
   ],

@@ -29,11 +29,9 @@ export const articleListView: ListViewConfig = {
     },
     {
       title: 'Intro text',
-      component: CellComponent.StringCell,
+      component: CellComponent.HtmlCell,
       class: 'w-48',
-      fields: {
-        text: 'Detail.{language}.IntroText',
-      },
+      fields: { html: 'Detail.{language}.IntroText' },
     },
     {
       title: 'Languages',
@@ -87,15 +85,10 @@ export const articleListView: ListViewConfig = {
       },
     },
     {
-      title: 'Published on',
-      component: CellComponent.ArrayCell,
+      title: 'Published On',
+      component: CellComponent.UrlCell,
       class: 'w-40',
-      fields: {
-        items: 'PublishedOn',
-      },
-      params: {
-        separator: ', ',
-      },
+      fields: { text: 'PublishedOn.0' },
     },
     {
       title: 'ODH state',

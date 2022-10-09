@@ -1,9 +1,9 @@
 import { watch } from 'vue';
 import { RouteLocationNormalizedLoaded, Router } from 'vue-router';
 import { SupportedDomains } from '../openApi/types';
-import { DatasetRoute } from './types';
-import { resolveDatasetConfig } from './resolver';
+import { DatasetRoute, View, ViewKey } from './types';
 import { useDatasetConfigStore } from './store/datasetConfigStore';
+import { DatasetPage } from '../../routes';
 
 export const useConfigRouterWatcher = (router: Router) => {
   const datasetConfigStore = useDatasetConfigStore();
@@ -23,7 +23,7 @@ export const useConfigRouterWatcher = (router: Router) => {
       }
 
       // Get route info
-      const viewKey = route.meta.viewKey;
+      const viewKey = routeNameToViewKey(route.name);
       const routeDomain = route.params.domain as SupportedDomains;
       const routePathParams = route.params.pathParams;
       const routeId = route.params.id as string;
@@ -59,6 +59,30 @@ export const useConfigRouterWatcher = (router: Router) => {
   );
 };
 
+const routeNameToViewKey = (
+  name?: string | symbol | null
+): ViewKey | undefined => {
+  if (name == null) {
+    return undefined;
+  }
+  switch (name) {
+    case DatasetPage.DETAIL:
+      return View.DETAIL;
+    case DatasetPage.EDIT:
+      return View.EDIT;
+    case DatasetPage.NEW:
+      return View.NEW;
+    case DatasetPage.QUICK:
+      return View.QUICK;
+    case DatasetPage.RAW:
+      return View.RAW;
+    case DatasetPage.TABLE:
+      return View.TABLE;
+    default:
+      return undefined;
+  }
+};
+
 const isSameRouteConfig = (
   route: RouteLocationNormalizedLoaded,
   oldRoute?: RouteLocationNormalizedLoaded
@@ -69,13 +93,13 @@ const isSameRouteConfig = (
   }
 
   // Get current route into
-  const viewKey = route.meta.viewKey;
+  const viewKey = routeNameToViewKey(route.name);
   const routeDomain = route.params.domain as string;
   const routePathParams = toArray(route.params.pathParams).join('/');
   const routeId = route.params.id as string;
 
   // Get old route info to compare to current route
-  const oldViewKey = oldRoute.meta.viewKey;
+  const oldViewKey = routeNameToViewKey(oldRoute.name);
   const oldRouteDomain = oldRoute.params.domain as string;
   const oldRoutePathParams = toArray(oldRoute.params.pathParams).join('/');
   const oldRouteId = oldRoute.params.id as string;

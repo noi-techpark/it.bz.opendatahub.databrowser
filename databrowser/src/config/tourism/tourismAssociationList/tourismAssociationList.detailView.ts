@@ -15,6 +15,25 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
+            {
+              title: 'Logo',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ContactInfos.{language}.LogoUrl',
+              },
+              params: {
+                width: '15%',
+              },
+            },
+            {
+              title: 'Image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ImageGallery.0.ImageUrl',
+              },
+            },
           ],
         },
         {
@@ -25,6 +44,32 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Id' },
               class: 'break-all',
+            },
+            {
+              title: 'CustomId',
+              component: CellComponent.StringCell,
+              fields: { text: 'CustomId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Region Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'RegionIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'Ski Area Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'SkiAreaIds',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
@@ -42,12 +87,27 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
             {
               title: 'Active on Source',
               component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
+            },
+            {
+              title: 'Active on Source',
+              component: CellComponent.StringCell,
               fields: { text: 'Active' },
             },
             {
               title: 'Active on ODH',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
+            },
+            {
+              title: 'Published on',
+              component: CellComponent.ArrayCell,
+              fields: { items: 'PublishedOn' },
+            },
+            {
+              title: 'visible in search',
+              component: CellComponent.StringCell,
+              fields: { text: 'VisibleInSearch' },
             },
           ],
         },
@@ -71,9 +131,67 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Meta Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              fields: {
+                text: 'Detail.{language}.MetaTitle',
+              },
+            },
+            {
+              title: 'Meta Description',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.MetaDesc',
+              },
+            },
+            {
+              title: 'Title',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.Title',
+              },
+            },
+            {
+              title: 'Header',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.Header',
+              },
+            },
+            {
+              title: 'SubHeader',
+              component: CellComponent.HtmlCell,
+              fields: {
+                html: 'Detail.{language}.SubHeader',
+              },
+            },
+            {
+              title: 'Intro Text',
+              component: CellComponent.HtmlCell,
+              fields: {
+                html: 'Detail.{language}.IntroText',
+              },
+            },
+            {
+              title: 'BaseText',
+              component: CellComponent.HtmlCell,
+              fields: {
+                html: 'Detail.{language}.BaseText',
+              },
+            },
+            {
+              title: 'AdditionalText',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.AdditionalText',
+              },
+            },
+            {
+              title: 'GetThereText',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.GetThereText',
+              },
             },
           ],
         },
@@ -89,17 +207,32 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              fields: { text: 'ContactInfos.{language}.CompanyName' },
             },
             {
               title: 'First Name',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
+              fields: { text: 'ContactInfos.{language}.Givenname' },
             },
             {
               title: 'Surname',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
+              fields: { text: 'ContactInfos.{language}.Surname' },
+            },
+            {
+              title: 'Name prefix',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.NamePrefix' },
+            },
+            {
+              title: 'Tax Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Tax' },
+            },
+            {
+              title: 'Vat-ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Vat' },
             },
           ],
         },
@@ -109,22 +242,27 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
             {
               title: 'Street and House No',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
+              fields: { text: 'ContactInfos.{language}.Address' },
             },
             {
               title: 'ZIP-Code',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
+              fields: { text: 'ContactInfos.{language}.ZipCode' },
             },
             {
               title: 'City',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
+              fields: { text: 'ContactInfos.{language}.City' },
+            },
+            {
+              title: 'Country',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CountryName' },
             },
             {
               title: 'Country Abbrevation',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
+              fields: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
         },
@@ -134,17 +272,17 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
             {
               title: 'E-Mail',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
+              fields: { text: 'ContactInfos.{language}.Email' },
             },
             {
               title: 'Phone Number',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
+              fields: { text: 'ContactInfos.{language}.Phonenumber' },
             },
             {
               title: 'Web-URL',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              fields: { text: 'ContactInfos.{language}.Url' },
             },
           ],
         },
@@ -181,33 +319,71 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
       ],
     },
     {
-      name: 'Location',
-      slug: 'location',
+      name: 'GPS Data',
+      slug: 'Gps',
       subcategories: [
         {
-          name: 'Location',
+          name: 'GPS Data',
           properties: [
             {
-              title: 'Region / TVB',
+              title: 'GPS Type',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
+              fields: { text: 'GpsPoints.position.Gpstype' },
             },
             {
-              title: 'Tourismorganization',
+              title: 'Latitude',
               component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
+              fields: { text: 'GpsPoints.position.Latitude' },
             },
             {
-              title: 'region',
+              title: 'Longitude',
               component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Longitude' },
+            },
+            {
+              title: 'Altitude',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.Altitude' },
+            },
+            {
+              title: 'Altitude Unit',
+              component: CellComponent.StringCell,
+              fields: { text: 'GpsPoints.position.AltitudeUnitofMeasure' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'Tags',
+      subcategories: [
+        {
+          name: 'Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
               fields: {
-                text: 'LocationInfo.regionInfo.Name.{language}',
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
               },
             },
             {
-              title: 'Region',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },

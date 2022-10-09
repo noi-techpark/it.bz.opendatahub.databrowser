@@ -13,6 +13,9 @@ module.exports = {
         '2xl': '1.625rem',
       },
       colors: {
+        'alert-info': '#234009',
+        'alert-warning': '#65603b',
+        'alert-error': '#d12953',
         error: '#ff0000',
         disabled: '#dcdde1',
         delete: '#dc2626',
@@ -36,5 +39,13 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    'bg-alert-info',
+    'text-alert-info',
+    'bg-alert-warning',
+    'text-alert-warning',
+    'bg-alert-error',
+    'text-alert-error',
+  ],
   plugins: [tailwindForms],
 };

@@ -1,16 +1,10 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import { View, ViewKey } from './domain/datasetConfig/types';
-
-declare module 'vue-router' {
-  interface RouteMeta {
-    viewKey?: ViewKey;
-  }
-}
 
 export const DatasetPage: Record<Uppercase<ViewKey>, string> = {
   DETAIL: 'DatasetDetailPage',
   EDIT: 'DatasetEditPage',
-  NEW: 'DatasetQuickNew',
+  NEW: 'DatasetNewPage',
   QUICK: 'DatasetQuickPage',
   RAW: 'DatasetRawPage',
   TABLE: 'DatasetTablePage',
@@ -25,39 +19,34 @@ export const router = createRouter({
     },
     {
       path: '/dataset/detail/:domain/:pathParams+/:id',
-      component: () => import('./pages/DatasetPage.vue'),
+      component: () => import('./pages/datasets/DatasetDetailPage.vue'),
       name: DatasetPage.DETAIL,
-      meta: { viewKey: View.DETAIL },
     },
     {
       path: '/dataset/edit/:domain/:pathParams+/:id',
-      component: () => import('./pages/DatasetPage.vue'),
+      component: () => import('./pages/datasets/DatasetEditPage.vue'),
       name: DatasetPage.EDIT,
-      meta: { viewKey: View.EDIT },
     },
     {
       path: '/dataset/new/:domain/:pathParams+',
-      component: () => import('./pages/DatasetPage.vue'),
+      component: () => import('./pages/datasets/DatasetEditPage.vue'),
       name: DatasetPage.NEW,
       meta: { viewKey: View.NEW },
     },
     {
       path: '/dataset/quick/:domain/:pathParams+/:id',
-      component: () => import('./pages/DatasetPage.vue'),
+      component: () => import('./pages/datasets/DatasetQuickPage.vue'),
       name: DatasetPage.QUICK,
-      meta: { viewKey: View.QUICK },
     },
     {
       path: '/dataset/raw/:domain/:pathParams+/:id',
-      component: () => import('./pages/DatasetPage.vue'),
+      component: () => import('./pages/datasets/DatasetRawPage.vue'),
       name: DatasetPage.RAW,
-      meta: { viewKey: View.RAW },
     },
     {
       path: '/dataset/table/:domain/:pathParams+',
-      component: () => import('./pages/DatasetPage.vue'),
+      component: () => import('./pages/datasets/DatasetTablePage.vue'),
       name: DatasetPage.TABLE,
-      meta: { viewKey: View.TABLE },
     },
     {
       path: '/about',

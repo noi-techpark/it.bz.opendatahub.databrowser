@@ -53,7 +53,7 @@ const props = defineProps<GpsListCellProps>();
 const { gpsEntries, ...fieldsAsRef } = toRefs(props);
 
 const fields = Object.entries(fieldsAsRef).reduce(
-  (previous: GpsListEntry, [key, value]: [string, Ref<string>]) =>
+  (previous: GpsListEntry, [key, value]: [string, Ref<string | undefined>]) =>
     value?.value == null ? previous : { ...previous, [key]: value.value },
   {}
 );

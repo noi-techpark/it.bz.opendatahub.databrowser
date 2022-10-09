@@ -1,13 +1,11 @@
 <template>
-  <div class="bg-red-200">
-    <h2>Got error from API</h2>
-    <div>{{ errorAsString }}</div>
-  </div>
+  <AlertError :title="'Got error from API'" :content="errorAsString" />
 </template>
 
 <script setup lang="ts">
 import { defineProps, ref, watch } from 'vue';
 import { toErrorString } from '../service/utils';
+import AlertError from '../../../components/alert/AlertError.vue';
 const props = defineProps<{ error: unknown }>();
 
 const errorAsString = ref<string>('');
