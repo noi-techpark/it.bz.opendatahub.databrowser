@@ -1,9 +1,7 @@
 <template>
   <div class="flex overflow-auto w-full">
     <div class="flex gap-5">
-      <div
-        class="w-56"
-      >
+      <div class="w-56">
         <SubCategoryItem title="GPS Type">
           <StringCell :text="type" class="break-all" />
         </SubCategoryItem>
@@ -25,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps} from 'vue';
+import { defineProps, withDefaults } from 'vue';
 import StringCell from '../stringCell/StringCell.vue';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 
@@ -35,20 +33,20 @@ import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
  * as base object.
  */
 
- withDefaults(
+withDefaults(
   defineProps<{
-  type?: string;
-  latitude?: string;
-  longitude?: string;
-  altitude?: string;
-  altitudeUnit?: string;
+    type?: string;
+    latitude?: string;
+    longitude?: string;
+    altitude?: string;
+    altitudeUnit?: string;
   }>(),
   {
     type: undefined,
     latitude: undefined,
     longitude: undefined,
     altitude: undefined,
-    altitudeUnit: undefined
+    altitudeUnit: undefined,
   }
 );
 </script>
