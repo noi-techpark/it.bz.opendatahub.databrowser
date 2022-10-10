@@ -201,7 +201,7 @@ export const snowReportDetailView: DetailViewConfig = {
           name: '',
           properties: [
             {
-              title: 'SkiArea slope km',
+              title: 'Ski Area slope km',
               component: CellComponent.StringCell,
               fields: { text: 'SkiAreaSlopeKm' },
             },
