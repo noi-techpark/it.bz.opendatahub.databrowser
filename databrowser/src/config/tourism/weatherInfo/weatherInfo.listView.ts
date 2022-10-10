@@ -11,32 +11,44 @@ export const weatherInfoListView: ListViewConfig = {
         src: 'Weather.{language}.Conditions.0.WeatherImgurl',
       },
     },
-
     {
-      title: 'Title',
+      title: 'Evolution Title',
       component: CellComponent.StringCell,
       class: 'w-48',
+      fields: {
+        text: 'Weather.{language}.evolutiontitle',
+      },
+    },
+    {
+      title: 'Evolution',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'Weather.{language}.evolution',
+      },
+    },
+    {
+      title: 'Condition Title',
+      component: CellComponent.StringCell,
+      class: 'w-40',
       fields: {
         text: 'Weather.{language}.Conditions.0.Title',
       },
     },
     {
-      title: 'Date',
-      component: CellComponent.DateCell,
-      class: 'w-36',
-      params: {
-        format: 'do MMMM yyyy',
-      },
+      title: 'Conditions',
+      component: CellComponent.StringCell,
+      class: 'w-40',
       fields: {
-        date: 'Weather.{language}.Conditions.0.date',
+        text: 'Weather.{language}.Conditions.0.WeatherCondition',
       },
     },
     {
-      title: 'Reliability',
+      title: 'Temperatures',
       component: CellComponent.StringCell,
-      class: 'w-48',
+      class: 'w-40',
       fields: {
-        text: 'Weather.{language}.Conditions.0.Reliability',
+        text: 'Weather.{language}.Conditions.0.Temperatures',
       },
     },
     {
@@ -55,7 +67,7 @@ export const weatherInfoListView: ListViewConfig = {
       component: CellComponent.EditedDateCell,
       class: 'w-40',
       fields: {
-        date: 'LastChange',
+        date: 'Weather.{language}.Conditions.0.date',
       },
       params: {
         format: 'do MMMM yyyy',
@@ -63,18 +75,10 @@ export const weatherInfoListView: ListViewConfig = {
     },
     {
       title: 'Source',
-      component: CellComponent.StringCell,
+      component: CellComponent.UrlCell,
       class: 'w-36',
       fields: {
         text: 'LicenseInfo.LicenseHolder',
-      },
-    },
-    {
-      title: 'ODH state',
-      component: CellComponent.StateCell,
-      class: 'w-36',
-      fields: {
-        state: 'OdhActive',
       },
     },
   ],
