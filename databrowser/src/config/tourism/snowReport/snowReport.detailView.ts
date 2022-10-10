@@ -8,8 +8,13 @@ export const snowReportDetailView: DetailViewConfig = {
       slug: 'main-data',
       subcategories: [
         {
-          name: '',
+          name: 'Shortname',
           properties: [
+            {
+              title: '',
+              component: CellComponent.StringCell,
+              fields: { text: 'Areaname' },
+            },
             {
               title: 'ID',
               component: CellComponent.StringCell,
@@ -54,8 +59,16 @@ export const snowReportDetailView: DetailViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.StringCell,
-              fields: { text: 'Measuringpoints.0.Shortname' },
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'Measuringpoints',
+              },
+              params: {
+                fieldName: 'Shortname',
+                separator: ', ',
+                max: '3',
+              },
             },
             {
               title: 'ID',
@@ -63,14 +76,16 @@ export const snowReportDetailView: DetailViewConfig = {
               fields: { text: 'Id' },
             },
             {
-              title: 'Last update',
-              component: CellComponent.EditedDateCell,
+              title: 'Last Update',
+              component: CellComponent.ArrayCellTags,
               class: 'w-40',
               fields: {
-                date: 'Measuringpoints.0.LastUpdate',
+                items: 'Measuringpoints',
               },
               params: {
-                format: 'do MMMM yyyy',
+                fieldName: 'LastUpdate',
+                separator: ', ',
+                max: '3',
               },
             },
             {
