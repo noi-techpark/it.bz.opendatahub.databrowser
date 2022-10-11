@@ -443,7 +443,7 @@ export const eventShortDetailView: DetailViewConfig = {
                 longitude: 'GpsPoints.position.Longitude',
                 altitude: 'GpsPoints.position.Altitude',
                 altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
-            }
+              },
             },
           ],
         },
