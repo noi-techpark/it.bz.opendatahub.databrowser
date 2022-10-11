@@ -581,7 +581,7 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.GpsListCell,
+              component: CellComponent.GpsPointsCell,
               class: 'w-48',
               fields: {
                 type: 'GpsPoints.position.Gpstype',

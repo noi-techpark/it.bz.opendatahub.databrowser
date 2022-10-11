@@ -29,7 +29,7 @@ export const municipalityListView: ListViewConfig = {
     },
     {
       title: 'GPS Data',
-      component: CellComponent.GpsListCell,
+      component: CellComponent.GpsPointsCell,
       class: 'w-48',
       fields: {
         type: 'GpsPoints.position.Gpstype',

@@ -382,32 +382,19 @@ export const gastronomyDetailView: DetailViewConfig = {
       slug: 'Gps',
       subcategories: [
         {
-          name: 'GPS Data',
+          name: '',
           properties: [
             {
-              title: 'GPS Type',
-              component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.position.Gpstype' },
-            },
-            {
-              title: 'Latitude',
-              component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.position.Latitude' },
-            },
-            {
-              title: 'Longitude',
-              component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.position.Longitude' },
-            },
-            {
-              title: 'Altitude',
-              component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.position.Altitude' },
-            },
-            {
-              title: 'Altitude Unit',
-              component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.position.AltitudeUnitofMeasure' },
+              title: '',
+              component: CellComponent.GpsPointsCell,
+              class: 'w-48',
+              fields: {
+                type: 'GpsPoints.position.Gpstype',
+                latitude: 'GpsPoints.position.Latitude',
+                longitude: 'GpsPoints.position.Longitude',
+                altitude: 'GpsPoints.position.Altitude',
+                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+              },
             },
           ],
         },

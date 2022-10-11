@@ -436,7 +436,7 @@ export const eventShortDetailView: DetailViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.GpsListCell,
+              component: CellComponent.GpsPointsCell,
               fields: {
                 type: 'GpsPoints.position.Gpstype',
                 latitude: 'GpsPoints.position.Latitude',
