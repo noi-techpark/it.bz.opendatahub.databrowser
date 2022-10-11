@@ -37,6 +37,22 @@ export const snowReportListView: ListViewConfig = {
       },
     },
     {
+      title: 'Station Snow Height',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'Measuringpoints.0.Shortname',
+      },
+    },
+    {
+      title: 'Snow Height',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'Measuringpoints.0.SnowHeight',
+      },
+    },
+    {
       title: 'Slope km',
       component: CellComponent.StringCell,
       class: 'w-36',
