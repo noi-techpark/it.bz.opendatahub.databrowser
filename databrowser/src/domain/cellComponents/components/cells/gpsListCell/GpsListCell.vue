@@ -1,20 +1,20 @@
 <template>
-  <div class="flex overflow-auto w-full">
+  <div v-if="isAnyPropertySet" class="flex overflow-auto w-full">
     <div class="flex gap-5">
       <div class="w-56">
-        <SubCategoryItem title="GPS Type">
+        <SubCategoryItem v-if="type != null" title="GPS Type">
           <StringCell :text="type" class="break-all" />
         </SubCategoryItem>
-        <SubCategoryItem title="Latitude">
+        <SubCategoryItem v-if="latitude != null" title="Latitude">
           <StringCell :text="latitude" />
         </SubCategoryItem>
-        <SubCategoryItem title="Longitude">
+        <SubCategoryItem v-if="longitude != null" title="Longitude">
           <StringCell :text="longitude" />
         </SubCategoryItem>
-        <SubCategoryItem title="Altitude">
+        <SubCategoryItem v-if="altitude != null" title="Altitude">
           <StringCell :text="altitude" />
         </SubCategoryItem>
-        <SubCategoryItem title="Altitude Unit">
+        <SubCategoryItem v-if="altitudeUnit != null" title="Altitude Unit">
           <StringCell :text="altitudeUnit" />
         </SubCategoryItem>
       </div>
@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
+import { computed, defineProps } from 'vue';
 import StringCell from '../stringCell/StringCell.vue';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 
@@ -33,20 +33,20 @@ import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
  * as base object.
  */
 
-withDefaults(
-  defineProps<{
-    type?: string;
-    latitude?: string;
-    longitude?: string;
-    altitude?: string;
-    altitudeUnit?: string;
-  }>(),
-  {
-    type: undefined,
-    latitude: undefined,
-    longitude: undefined,
-    altitude: undefined,
-    altitudeUnit: undefined,
-  }
+const props = defineProps<{
+  type?: string;
+  latitude?: string;
+  longitude?: string;
+  altitude?: string;
+  altitudeUnit?: string;
+}>();
+
+const isAnyPropertySet = computed(
+  () =>
+    props.type != null ||
+    props.latitude != null ||
+    props.longitude != null ||
+    props.altitude != null ||
+    props.altitudeUnit != null
 );
 </script>
