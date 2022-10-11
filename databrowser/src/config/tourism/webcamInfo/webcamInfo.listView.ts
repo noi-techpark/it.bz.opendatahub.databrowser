@@ -28,16 +28,15 @@ export const webcamInfoListView: ListViewConfig = {
       },
     },
     {
-      title: 'GPS',
+      title: 'GPS Data',
       component: CellComponent.GpsListCell,
-      class: 'w-40',
-      fields: { gpsEntries: 'GpsInfos' },
-      params: {
-        type: 'Gpstype',
-        latitude: 'Latitude',
-        longitude: 'Longitude',
-        altitude: 'Altitude',
-        altitudeUnit: 'AltitudeUnitofMeasure',
+      class: 'w-48',
+      fields: {
+        type: 'GpsPoints.position.Gpstype',
+        latitude: 'GpsPoints.position.Latitude',
+        longitude: 'GpsPoints.position.Longitude',
+        altitude: 'GpsPoints.position.Altitude',
+        altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
       },
     },
     {
