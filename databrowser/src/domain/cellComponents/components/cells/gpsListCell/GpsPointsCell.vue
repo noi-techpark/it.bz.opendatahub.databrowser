@@ -27,12 +27,6 @@ import { computed, defineProps } from 'vue';
 import StringCell from '../stringCell/StringCell.vue';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 
-/**
- * All fields except "gpsEntries" are expected to be json paths that can be resolved by
- * the ramda "view" function (see https://ramdajs.com/docs/#view) using the "images"
- * as base object.
- */
-
 const props = defineProps<{
   type?: string;
   latitude?: string;
