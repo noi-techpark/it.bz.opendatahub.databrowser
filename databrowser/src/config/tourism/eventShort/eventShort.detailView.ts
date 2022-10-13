@@ -436,14 +436,13 @@ export const eventShortDetailView: DetailViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.GpsListCell,
-              fields: { gpsEntries: 'GpsInfo' },
-              params: {
-                type: 'Gpstype',
-                latitude: 'Latitude',
-                longitude: 'Longitude',
-                altitude: 'Altitude',
-                altitudeUnit: 'AltitudeUnitofMeasure',
+              component: CellComponent.GpsPointsCell,
+              fields: {
+                type: 'GpsPoints.position.Gpstype',
+                latitude: 'GpsPoints.position.Latitude',
+                longitude: 'GpsPoints.position.Longitude',
+                altitude: 'GpsPoints.position.Altitude',
+                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
               },
             },
           ],

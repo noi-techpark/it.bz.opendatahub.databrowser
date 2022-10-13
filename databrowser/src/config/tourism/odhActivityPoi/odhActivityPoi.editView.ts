@@ -351,7 +351,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.GpsListCell,
+              component: CellComponent.GpsPointsCell,
               fields: { gpsEntries: 'GpsInfo' },
               params: {
                 type: 'Gpstype',

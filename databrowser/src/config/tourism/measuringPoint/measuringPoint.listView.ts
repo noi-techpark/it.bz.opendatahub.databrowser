@@ -4,19 +4,27 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 export const measuringPointListView: ListViewConfig = {
   elements: [
     {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      fields: {
-        src: 'BezirksForecast.0.WeatherImgUrl',
-      },
-    },
-    {
-      title: 'Title',
+      title: 'Short name',
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
         text: 'Shortname',
+      },
+    },
+    {
+      title: 'Region info',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'LocationInfo.RegionInfo.Name.{language}',
+      },
+    },
+    {
+      title: 'TV info',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'LocationInfo.TvInfo.Name.{language}',
       },
     },
     {
@@ -36,46 +44,11 @@ export const measuringPointListView: ListViewConfig = {
       },
     },
     {
-      title: 'GPS',
-      component: CellComponent.GpsListCell,
-      class: 'w-40',
-      fields: { gpsEntries: 'GpsPoints[0].position[0]' },
-      params: {
-        type: 'Gpstype',
-        latitude: 'Latitude',
-        longitude: 'Longitude',
-        altitude: 'Altitude',
-        altitudeUnit: 'AltitudeUnitofMeasure',
-      },
-    },
-    {
-      title: 'Altitude',
+      title: 'Last update',
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
-        text: 'Altitude',
-      },
-    },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'do MMMM yyyy',
+        text: 'LastUpdate',
       },
     },
     {
