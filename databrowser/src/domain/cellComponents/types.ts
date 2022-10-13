@@ -4,7 +4,7 @@ export enum CellComponent {
   DateCell = 'DateCell',
   EditedDateCell = 'EditedDateCell',
   EditImageGalleryCell = 'EditImageGalleryCell',
-  GpsListCell = 'GpsListCell',
+  GpsPointsCell = 'GpsPointsCell',
   HtmlCell = 'HtmlCell',
   InputReferenceCell = 'InputReferenceCell',
   InputSingleLineCell = 'InputSingleLineCell',

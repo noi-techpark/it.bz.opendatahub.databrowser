@@ -5,7 +5,7 @@ import ArrayCellTags from '../components/cells/arrayCellTags/ArrayCellTags.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditImageGalleryCell.vue';
-import GpsListCell from '../components/cells/gpsListCell/GpsListCell.vue';
+import GpsPointsCell from '../components/cells/gpsPointsCell/GpsPointsCell.vue';
 import HtmlCell from '../components/cells/htmlCell/HtmlCell.vue';
 import InputReferenceCell from '../components/cells/inputReferenceCell/InputReferenceCell.vue';
 import InputSingleLineCell from '../components/cells/inputSingleLineCell/InputSingleLineCell.vue';
@@ -32,7 +32,7 @@ export default {
     app.component(CellComponent.DateCell, DateCell);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
     app.component(CellComponent.EditImageGalleryCell, EditImageGalleryCell);
-    app.component(CellComponent.GpsListCell, GpsListCell);
+    app.component(CellComponent.GpsPointsCell, GpsPointsCell);
     app.component(CellComponent.HtmlCell, HtmlCell);
     app.component(CellComponent.InputReferenceCell, InputReferenceCell);
     app.component(CellComponent.InputSingleLineCell, InputSingleLineCell);
