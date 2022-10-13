@@ -21,6 +21,7 @@
     "pinia": "^2.0.13",
     "ramda": "^0.28.0",
     "swagger-client": "^3.18.4",
+    "uuid": "^9.0.0",
     "vue": "^3.2.33",
     "vue-axios": "^3.4.0",
     "vue-cookieconsent": "^0.0.11",
@@ -34,6 +35,7 @@
   "devDependencies": {
     "@types/node": "^17.0.30",
     "@types/ramda": "^0.28.15",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "@vitejs/plugin-vue": "^2.3.1",

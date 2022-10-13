@@ -1,8 +1,8 @@
 <template>
   <InputCustom
-    :value="text"
-    class="p-2 w-full text-black border-gray-400"
-    @input="update($event)"
+    input-classes="w-full"
+    :model-value="text"
+    @update:model-value="update($event)"
   />
 </template>
 
@@ -17,14 +17,14 @@ withDefaults(
     text?: string | boolean | number;
   }>(),
   {
-    text: undefined,
+    text: 'undefined',
   }
 );
 
-const update = (event: Event) =>
+const update = (value: unknown) =>
   emit('update', {
     prop: 'text',
-    value: (event.target as HTMLInputElement).value,
+    value,
   });
 </script>
 
