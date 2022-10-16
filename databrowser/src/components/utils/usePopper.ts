@@ -1,7 +1,9 @@
-import { ref, onMounted, watchEffect } from 'vue';
+import { ref, onMounted, watchEffect, Ref } from 'vue';
 import { createPopper, OptionsGeneric } from '@popperjs/core';
 
-export function usePopper(options: OptionsGeneric<any>) {
+export const usePopper = (
+  options: OptionsGeneric<any>
+): [Ref<any>, Ref<any>] => {
   const reference = ref<any>(null);
   const popper = ref<any>(null);
 
@@ -27,4 +29,4 @@ export function usePopper(options: OptionsGeneric<any>) {
   });
 
   return [reference, popper];
-}
+};

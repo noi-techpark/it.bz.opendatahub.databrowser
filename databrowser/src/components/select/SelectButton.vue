@@ -1,7 +1,7 @@
 <template>
   <ListboxButton
-    class="relative pr-9 pl-3 w-full leading-tight text-left focus:text-green-500 border"
-    :class="[open ? 'rounded-t' : 'rounded', classNames]"
+    class="relative pr-9 pl-3 w-full leading-tight text-left border border-gray-300"
+    :class="[open ? onOpenRoundedClass : 'rounded', classNames]"
   >
     <span class="block">{{ selectedOption?.label }}</span>
     <span
@@ -14,15 +14,20 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 import { ListboxButton } from '@headlessui/vue';
 import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
 import IconStrokedArrowUp from '../svg/IconStrokedArrowUp.vue';
 import { SelectOption } from './types';
 
-defineProps<{
+const props = defineProps<{
   open: boolean;
   classNames: string;
   selectedOption: SelectOption;
+  isBottomPlacement: boolean;
 }>();
+
+const onOpenRoundedClass = computed(() =>
+  props.isBottomPlacement ? 'rounded-t' : 'rounded-b'
+);
 </script>

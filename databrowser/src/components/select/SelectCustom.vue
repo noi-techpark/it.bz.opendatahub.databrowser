@@ -1,11 +1,13 @@
 <template>
   <div>
     <Listbox v-slot="{ open }" v-model="selectedOption">
-      <div ref="trigger" class="relative text-green-500">
+      <div ref="trigger" class="text-black">
         <SelectButton
+          :id="id"
           :open="open"
           :class-names="classNames"
           :selected-option="selectedOption"
+          :is-bottom-placement="isBottomStartPlacement"
         />
 
         <Teleport to="body">
@@ -22,6 +24,7 @@
                 v-model="searchTerm"
                 :show-search="showSearch"
                 :search-results="searchResults"
+                :is-bottom-placement="isBottomStartPlacement"
               />
             </transition>
           </div>
@@ -42,12 +45,14 @@ import { selectSizeStyles } from './styles';
 import { useOptionsContainerPositioning } from './useOptionsContainerPositioning';
 import SelectButton from './SelectButton.vue';
 import SelectOptionsBox from './SelectOptionsBox.vue';
+import { randomId } from '../utils/random';
 
 // Handle input props
 const props = withDefaults(
   defineProps<{
     options: SelectOption[];
     size?: SelectSize;
+    id?: string;
     // Show the search box if there are at least this amount of options (default 7)
     // Set this number to zero to always show the search
     // Set this number to Infinity to always hide the search
@@ -56,6 +61,7 @@ const props = withDefaults(
   {
     options: () => [],
     size: SelectSize.sm,
+    id: randomId(),
     showSearchWhenAtLeastCountOptions: 7,
   }
 );
@@ -68,7 +74,11 @@ const selectedOption = useSelectedOption(options);
 const classNames = computed(() => selectSizeStyles[size.value]);
 
 // Position options container dynamically
-const [trigger, container] = useOptionsContainerPositioning();
+const [trigger, container, placement] = useOptionsContainerPositioning();
+
+const isBottomStartPlacement = computed(
+  () => placement.value === 'bottom-start'
+);
 
 // Handle search
 const showSearch = computed(

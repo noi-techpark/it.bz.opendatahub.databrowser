@@ -15,12 +15,7 @@
           'relative cursor-pointer select-none pl-4 pr-8 py-1',
         ]"
       >
-        <span
-          :class="[
-            selected ? 'font-semibold bg-gray-50' : '',
-            'block uppercase',
-          ]"
-        >
+        <span :class="[selected ? 'font-semibold bg-gray-50' : '', 'block']">
           {{ option.label }}
         </span>
       </li>
