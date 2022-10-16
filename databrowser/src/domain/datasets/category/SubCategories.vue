@@ -10,7 +10,7 @@
     >
       <h3 class="font-bold">{{ subcategory.name }}</h3>
       <ContentDivider class="my-1" />
-      <div class="flex flex-col text-sm text-gray-500">
+      <div class="flex flex-col text-gray-500">
         <SubCategoryItem
           v-for="property in subcategory.properties"
           :key="property.title"
