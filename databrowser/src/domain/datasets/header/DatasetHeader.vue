@@ -40,18 +40,17 @@
     />
 
     <!-- Show information if current view is auto generated -->
-    <div
+    <TagCustom
       v-if="
         picked === 'generated' ||
         datasetConfigStore.config?.source === 'generated'
       "
-      class="flex items-center py-1 px-3 ml-1 text-[#AA5B00] bg-[#FDF2E6] rounded"
-    >
-      <span
-        class="inline-block mr-1 w-1 h-1 bg-current rounded-full dot"
-      ></span>
-      <span>{{ t('datasets.header.viewGeneratedConfig') }}</span>
-    </div>
+      :text="t('datasets.header.viewGeneratedConfig')"
+      class="ml-1"
+      size="xs"
+      type="yellow"
+      has-dot
+    />
 
     <div class="flex ml-auto">
       <AddRecordButton v-if="showAddRecord" class="hidden mr-3 md:block" />
@@ -72,6 +71,7 @@ import { useI18n } from 'vue-i18n';
 import AddRecordButton from './AddRecordButton.vue';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { SourceType } from '../../datasetConfig/source/types';
+import TagCustom from '../../../components/tag/TagCustom.vue';
 
 const { t } = useI18n();
 
