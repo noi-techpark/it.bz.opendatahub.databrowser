@@ -11,6 +11,7 @@ module.exports = {
       },
       fontSize: {
         '2xl': '1.625rem',
+        '3xl': '2rem',
       },
       colors: {
         'hint-calm': '#2264E5',

@@ -10,8 +10,8 @@
           :is-bottom-placement="isBottomStartPlacement"
         />
 
-        <Teleport to="body">
-          <div ref="container" class="z-20" :class="{ hidden: !open }">
+        <Teleport to="#popper-root">
+          <div ref="container" class="absolute" :class="{ hidden: !open }">
             <transition
               enter-active-class="transition duration-100 ease-out"
               enter-from-class="transform scale-95 opacity-0"
@@ -42,10 +42,10 @@ import { useEmitChange } from './useEmitChange';
 import { useSearch } from './useSearch';
 import { useSelectedOption } from './useSelectedOption';
 import { selectSizeStyles } from './styles';
-import { useOptionsContainerPositioning } from './useOptionsContainerPositioning';
 import SelectButton from './SelectButton.vue';
 import SelectOptionsBox from './SelectOptionsBox.vue';
 import { randomId } from '../utils/random';
+import { useFloatingUi } from '../utils/useFloatingUi';
 
 // Handle input props
 const props = withDefaults(
@@ -74,7 +74,11 @@ const selectedOption = useSelectedOption(options);
 const classNames = computed(() => selectSizeStyles[size.value]);
 
 // Position options container dynamically
-const [trigger, container, placement] = useOptionsContainerPositioning();
+const [trigger, container, placement] = useFloatingUi({
+  placement: 'bottom-start',
+  matchReferenceWidth: true,
+  offset: -1,
+});
 
 const isBottomStartPlacement = computed(
   () => placement.value === 'bottom-start'
