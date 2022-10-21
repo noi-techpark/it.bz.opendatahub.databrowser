@@ -10,7 +10,7 @@
       </HeroSubTitle>
     </HeroContainer>
 
-    <PageGridContent class="pt-0 lg:pt-8" disable-padding-top="">
+    <PageGridContent class="pt-0 lg:pt-8" disable-padding-top>
       <CardGrid>
         <div class="order-last lg:order-first">
           <CardTitle>What is it</CardTitle>
