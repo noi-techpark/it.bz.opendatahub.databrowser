@@ -99,7 +99,7 @@
               <IconMail /> Share data
             </ButtonRawLink>
             <ButtonRawLink
-              href="https://opendatahub.bz.it"
+              href="https://opendatahub.com"
               target="blank"
               :size="Size.md2col"
               :variant="Variant.ghost"
@@ -122,7 +122,7 @@
               <IconMail /> Provide showcase
             </ButtonRawLink>
             <ButtonRawLink
-              href="https://opendatahub.bz.it"
+              href="https://opendatahub.com"
               target="blank"
               :size="Size.md2col"
               :variant="Variant.ghost"
