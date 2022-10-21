@@ -1,34 +1,22 @@
 <template>
   <div>
     <Listbox v-slot="{ open }" v-model="selectedOption">
-      <div ref="trigger" class="text-black">
+      <div class="relative text-black">
         <SelectButton
           :id="id"
           :open="open"
           :class-names="classNames"
           :selected-option="selectedOption"
-          :is-bottom-placement="isBottomStartPlacement"
+          :is-bottom-placement="true"
         />
-
-        <Teleport to="body">
-          <div ref="container" class="z-20" :class="{ hidden: !open }">
-            <transition
-              enter-active-class="transition duration-100 ease-out"
-              enter-from-class="transform scale-95 opacity-0"
-              enter-to-class="transform scale-100 opacity-100"
-              leave-active-class="transition duration-75 ease-out"
-              leave-from-class="transform scale-100 opacity-100"
-              leave-to-class="transform scale-95 opacity-0"
-            >
-              <SelectOptionsBox
-                v-model="searchTerm"
-                :show-search="showSearch"
-                :search-results="searchResults"
-                :is-bottom-placement="isBottomStartPlacement"
-              />
-            </transition>
-          </div>
-        </Teleport>
+        <SelectOptionsBox
+          v-model="searchTerm"
+          :show-search="showSearch"
+          :search-results="searchResults"
+          :is-bottom-placement="true"
+          :class="{ hidden: !open }"
+          class="absolute z-20 w-full border-t-0"
+        />
       </div>
     </Listbox>
   </div>
@@ -42,7 +30,6 @@ import { useEmitChange } from './useEmitChange';
 import { useSearch } from './useSearch';
 import { useSelectedOption } from './useSelectedOption';
 import { selectSizeStyles } from './styles';
-import { useOptionsContainerPositioning } from './useOptionsContainerPositioning';
 import SelectButton from './SelectButton.vue';
 import SelectOptionsBox from './SelectOptionsBox.vue';
 import { randomId } from '../utils/random';
@@ -72,13 +59,6 @@ const selectedOption = useSelectedOption(options);
 
 // Compute CSS classes based on size
 const classNames = computed(() => selectSizeStyles[size.value]);
-
-// Position options container dynamically
-const [trigger, container, placement] = useOptionsContainerPositioning();
-
-const isBottomStartPlacement = computed(
-  () => placement.value === 'bottom-start'
-);
 
 // Handle search
 const showSearch = computed(

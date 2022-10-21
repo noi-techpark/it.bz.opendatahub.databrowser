@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="to" :class="className"><slot></slot></router-link>
+  <a :href="href" :class="className"><slot></slot></a>
 </template>
 
 <script setup lang="ts">
@@ -7,11 +7,10 @@ import { defineProps, withDefaults } from 'vue';
 import { Size, Tone, Variant } from './types';
 import { computed } from 'vue';
 import { sizeClass, variantClass } from './styles';
-import { RouteLocationRaw } from 'vue-router';
 
 const props = withDefaults(
   defineProps<{
-    to: RouteLocationRaw;
+    href: string;
     variant?: string;
     size?: string;
     tone?: string;
