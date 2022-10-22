@@ -27,6 +27,11 @@ const className = computed(() => {
   const variant = props.variant as Variant;
   const tone = props.tone as Tone;
   const size = props.size as Size;
-  return 'inline-block ' + variantClass[variant][tone] + ' ' + sizeClass[size];
+  return (
+    'inline-flex items-center ' +
+    variantClass[variant][tone] +
+    ' ' +
+    sizeClass[size]
+  );
 });
 </script>

@@ -5,7 +5,7 @@
         <img
           :alt="t('header.logo')"
           class="h-8"
-          src="/logo-open-data-hub-black.png"
+          src="/logo-open-data-hub-black.svg"
         />
       </router-link>
       <div class="inline-flex items-center ml-4">

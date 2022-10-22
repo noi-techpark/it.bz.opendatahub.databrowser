@@ -44,11 +44,26 @@ export const measuringPointListView: ListViewConfig = {
       },
     },
     {
-      title: 'Last update',
-      component: CellComponent.StringCell,
+      title: 'GPS Data',
+      component: CellComponent.GpsPointsCell,
       class: 'w-48',
       fields: {
-        text: 'LastUpdate',
+        type: 'GpsPoints.position.Gpstype',
+        latitude: 'GpsPoints.position.Latitude',
+        longitude: 'GpsPoints.position.Longitude',
+        altitude: 'GpsPoints.position.Altitude',
+        altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+      },
+    },
+    {
+      title: 'Last update',
+      component: CellComponent.EditedDateCell,
+      class: 'w-40',
+      fields: {
+        date: '_Meta.LastUpdate',
+      },
+      params: {
+        format: 'do MMMM yyyy',
       },
     },
     {

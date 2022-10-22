@@ -18,6 +18,7 @@
     <SelectCustom
       class="w-16 h-6 md:hidden"
       :options="links"
+      :show-search-when-at-least-count-options="Infinity"
       @change="selected = $event"
     ></SelectCustom>
   </div>

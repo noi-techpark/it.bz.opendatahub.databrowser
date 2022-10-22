@@ -73,6 +73,17 @@ export const router = createRouter({
       component: () => import('./pages/DatasetLinkPage.vue'),
     },
     {
+      path: '/dataset-overview',
+      component: () => import('./pages/datasets/overview/OverviewListPage.vue'),
+      name: 'OverviewListPage',
+    },
+    {
+      path: '/dataset-overview/:id',
+      component: () =>
+        import('./pages/datasets/overview/OverviewDetailPage.vue'),
+      name: 'OverviewDetailPage',
+    },
+    {
       path: '/:pathMatch(.*)*',
       redirect: '/',
     },

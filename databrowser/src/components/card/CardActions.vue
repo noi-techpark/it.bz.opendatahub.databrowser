@@ -1,3 +1,3 @@
 <template>
-  <div class="flex flex-wrap pt-3 space-x-2 lg:pt-4"><slot></slot></div>
+  <div class="flex flex-wrap gap-3 pt-5"><slot></slot></div>
 </template>
