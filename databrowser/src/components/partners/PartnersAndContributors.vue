@@ -45,8 +45,7 @@ const partners: Partner[] = [
   },
   {
     imageAlt: 'studiohug company logo',
-    imageSrc:
-      'https://www.studiohug.com/assets/img/favicons/android-icon-192x192.png',
+    imageSrc: '/logo-studio-hug-black.svg',
     linkTitle: 'studiohug homepage',
     url: 'https://www.studiohug.com/',
   },
