@@ -9,6 +9,7 @@ export { webcamInfoConfig } from './webcamInfo/webcamInfo.config';
 export { wineAwardConfig } from './wineAward/wineAward.config';
 export { gastronomyConfig } from './gastronomy/gastronomy.config';
 export { venueConfig } from './venue/venue.config';
+export { weatherConfig } from './weather/weather.config';
 export { weatherInfoConfig } from './weatherInfo/weatherInfo.config';
 export { weatherDistrictConfig } from './weatherDistrict/weatherDistrict.config';
 export { weatherRealTimeConfig } from './weatherRealTime/weatherRealTime.config';
