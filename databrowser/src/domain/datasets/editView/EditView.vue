@@ -60,7 +60,9 @@
             <EditToolBox />
           </div>
           <EditFooter
+            class="transition-all"
             :is-saving="isMutateLoading"
+            :class="{ hidden: editStore.isEqual }"
             @cancel="tryToDiscardChanges"
             @save="saveChanges"
           />
