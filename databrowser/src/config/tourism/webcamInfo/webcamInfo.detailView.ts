@@ -28,9 +28,13 @@ export const webcamInfoDetailView: DetailViewConfig = {
             },
             {
               title: 'Area Ids',
-              component: CellComponent.StringCell,
-              fields: { text: 'AreaIds' },
-              class: 'break-all',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'AreaIds',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
