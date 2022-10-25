@@ -142,17 +142,17 @@ export const webcamInfoDetailView: DetailViewConfig = {
             },
             {
               title: 'Image URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'Webcamurl' },
             },
             {
               title: 'Stream URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'Streamurl' },
             },
             {
               title: 'Preview URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'Previewurl' },
             },
             {
