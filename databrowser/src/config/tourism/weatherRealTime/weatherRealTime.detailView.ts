@@ -11,207 +11,154 @@ export const weatherRealTimeDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
-              component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
-            },
-          ],
-        },
-        {
-          name: 'IDs',
-          properties: [
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-              class: 'break-all',
-            },
-          ],
-        },
-        {
-          name: 'Data states',
-          properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
-              params: {
-                format: 'd/M/yyyy HH:mm',
-              },
-            },
-            {
-              title: 'Active on Source',
-              component: CellComponent.StringCell,
-              fields: { text: 'Active' },
-            },
-            {
-              title: 'Active on ODH',
-              component: CellComponent.StringCell,
-              fields: { text: 'OdhActive' },
-            },
-          ],
-        },
-        {
-          name: 'Source',
-          properties: [
-            {
-              title: 'Source',
-              component: CellComponent.StringCell,
-              fields: { text: 'Source' },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Text information',
-      slug: 'text-information',
-      subcategories: [
-        {
-          name: 'General data',
-          properties: [
-            {
-              title: 'Shortname',
-              component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Contact',
-      slug: 'contact',
-      subcategories: [
-        {
-          name: 'Name and Company Data',
-          properties: [
-            {
               title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              fields: { text: 'name' },
             },
             {
-              title: 'First Name',
+              title: 'Category Id',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
+              fields: { text: 'categoryId' },
             },
             {
-              title: 'Surname',
+              title: 'Id',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
+              fields: { text: 'id' },
             },
           ],
         },
         {
-          name: 'Address',
+          name: 'GPS Data',
           properties: [
             {
-              title: 'Street and House No',
+              title: 'Altitude',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
+              fields: { text: 'altitude' },
             },
             {
-              title: 'ZIP-Code',
+              title: 'Latitude',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
+              fields: { text: 'latitude' },
             },
             {
-              title: 'City',
+              title: 'Longitude',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
-            },
-            {
-              title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
+              fields: { text: 'longitude' },
             },
           ],
         },
         {
-          name: 'Contact Details',
+          name: 'Measurements',
           properties: [
             {
-              title: 'E-Mail',
+              title: 'Description',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
+              fields: { text: 'measurements.0.description' },
             },
             {
-              title: 'Phone Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
+              title: 'Image URL',
+              component: CellComponent.UrlCell,
+              fields: { text: 'measurements.0.imageUrl' },
             },
             {
-              title: 'Web-URL',
+              title: 'code',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              fields: { text: 'measurements.0.code' },
             },
           ],
         },
-      ],
-    },
-    {
-      name: 'Images',
-      slug: 'images',
-      subcategories: [
         {
-          name: 'Images',
+          name: 'Others',
           properties: [
             {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Location',
-      slug: 'location',
-      subcategories: [
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Region / TVB',
+              title: 'code',
               component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationRealTime.RegionRealTime.Name.{language}',
-              },
+              fields: { text: 'code' },
             },
             {
-              title: 'Tourismorganization',
+              title: 'wind direction | dd',
               component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
+              fields: { text: 'dd' },
             },
             {
-              title: 'Municipality',
+              title: 'wind intensity (km) | ff',
               component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationRealTime.MunicipalityRealTime.Name.{language}',
-              },
+              fields: { text: 'ff' },
             },
             {
-              title: 'District',
+              title: 'snow depth (cm) | hs',
               component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationRealTime.DistrictRealTime.Name.{language}',
-              },
+              fields: { text: 'hs' },
+            },
+            {
+              title: 'lwdType',
+              component: CellComponent.StringCell,
+              fields: { text: 'lwdType' },
+            },
+            {
+              title: 'precipitation (mm) | n',
+              component: CellComponent.StringCell,
+              fields: { text: 'n' },
+            },
+            {
+              title: 'air pressure (hPa) | p',
+              component: CellComponent.StringCell,
+              fields: { text: 'p' },
+            },
+            {
+              title: 'flow rate (m³/s) | q',
+              component: CellComponent.StringCell,
+              fields: { text: 'q' },
+            },
+            {
+              title: 'relative humidity (%) | rh',
+              component: CellComponent.StringCell,
+              fields: { text: 'rh' },
+            },
+            {
+              title: 'air temperature (°C) | t',
+              component: CellComponent.StringCell,
+              fields: { text: 't' },
+            },
+            {
+              title: 'VAX Code',
+              component: CellComponent.StringCell,
+              fields: { text: 'vaxcode' },
+            },
+            {
+              title: 'water level (cm) | w',
+              component: CellComponent.StringCell,
+              fields: { text: 'w' },
+            },
+            {
+              title: 'max wind speed (km/h) |wMax',
+              component: CellComponent.StringCell,
+              fields: { text: 'wMax' },
+            },
+            {
+              title: 'sunshine duration (hh:min) | sd',
+              component: CellComponent.StringCell,
+              fields: { text: 'sd' },
+            },
+            {
+              title: 'global radiation (W/m²) | gs',
+              component: CellComponent.StringCell,
+              fields: { text: 'gs' },
+            },
+            {
+              title: 'water temperature (°C) | wt',
+              component: CellComponent.StringCell,
+              fields: { text: 'wt' },
+            },
+            {
+              title: 'visibility',
+              component: CellComponent.StringCell,
+              fields: { text: 'visibility' },
+            },
+            {
+              title: 'Zoom Level',
+              component: CellComponent.StringCell,
+              fields: { text: 'zoomLevel' },
             },
           ],
         },
