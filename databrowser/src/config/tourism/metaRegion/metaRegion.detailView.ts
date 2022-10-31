@@ -232,7 +232,7 @@ export const metaRegionDetailView: DetailViewConfig = {
       slug: 'Gps',
       subcategories: [
         {
-          name: '',
+          name: 'GPS Data',
           properties: [
             {
               title: '',
