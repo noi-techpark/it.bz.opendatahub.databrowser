@@ -27,6 +27,12 @@ export const weatherRealTimeDetailView: DetailViewConfig = {
             },
           ],
         },
+      ],
+    },
+    {
+      name: 'GPS Data',
+      slug: 'gps-data',
+      subcategories: [
         {
           name: 'GPS Data',
           properties: [
@@ -47,6 +53,12 @@ export const weatherRealTimeDetailView: DetailViewConfig = {
             },
           ],
         },
+      ],
+    },
+    {
+      name: 'Measurements',
+      slug: 'measurements',
+      subcategories: [
         {
           name: 'Measurements',
           properties: [
@@ -67,6 +79,12 @@ export const weatherRealTimeDetailView: DetailViewConfig = {
             },
           ],
         },
+      ],
+    },
+    {
+      name: 'Others',
+      slug: 'others',
+      subcategories: [
         {
           name: 'Others',
           properties: [
