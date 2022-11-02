@@ -79,7 +79,7 @@ export const webcamInfoDetailView: DetailViewConfig = {
       slug: 'GPS Data',
       subcategories: [
         {
-          name: '',
+          name: 'GPS Data',
           properties: [
             {
               title: '',

@@ -200,7 +200,7 @@ export const eventDetailView: DetailViewConfig = {
       slug: 'GPS-data',
       subcategories: [
         {
-          name: '',
+          name: 'GPS Data',
           properties: [
             {
               title: '',
