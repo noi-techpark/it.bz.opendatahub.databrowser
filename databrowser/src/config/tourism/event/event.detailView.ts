@@ -435,8 +435,15 @@ export const eventDetailView: DetailViewConfig = {
             },
             {
               title: 'Topics',
-              component: CellComponent.StringCell,
-              fields: { text: 'Topics' },
+              component: CellComponent.ArrayCellTags,
+              fields: {
+                items: 'Topics',
+              },
+              params: {
+                fieldName: 'TopicInfo',
+                separator: ', ',
+                max: '3',
+              },
             },
           ],
         },
