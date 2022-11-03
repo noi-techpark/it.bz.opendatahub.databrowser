@@ -72,17 +72,17 @@ export const skiRegionEditView: EditViewConfig = {
             {
               title: 'Active on Source',
               component: CellComponent.ToggleCell,
-              fields: { text: 'SmgActive' },
+              fields: { enabled: 'SmgActive' },
             },
             {
               title: 'Active on Source',
               component: CellComponent.ToggleCell,
-              fields: { text: 'Active' },
+              fields: { enabled: 'Active' },
             },
             {
               title: 'Active on ODH',
               component: CellComponent.ToggleCell,
-              fields: { text: 'OdhActive' },
+              fields: { enabled: 'OdhActive' },
             },
             {
               title: 'Published on',
