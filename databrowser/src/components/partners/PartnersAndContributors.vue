@@ -17,7 +17,7 @@
         target="_blank"
       >
         <img
-          class="object-cover h-16 rounded"
+          class="h-16 rounded"
           :alt="partner.imageAlt"
           :src="partner.imageSrc"
         />
