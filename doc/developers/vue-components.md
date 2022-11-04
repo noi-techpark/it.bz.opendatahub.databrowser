@@ -1,6 +1,6 @@
 # Vue Components
 
-The Databrowser App provides different views to present the [Open Data Hub](https://opendatahub.bz.it/) datasets, e.g.
+The Data Browser App provides different views to present the [Open Data Hub](https://opendatahub.bz.it/) datasets, e.g.
 
 - The table view shows a list of dataset entries
 - The detail view shows the details for a dataset
@@ -52,7 +52,7 @@ withDefaults(
 </script>
 ```
 
-The next step is to register the new component to be usable by the Databrowser App:
+The next step is to register the new component to be usable by the Data Browser App:
 
 1. add the component name to the [types.ts](../../databrowser/src/domain/cellComponents/types.ts) file to the enum `CellComponent`
 

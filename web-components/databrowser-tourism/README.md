@@ -1,4 +1,4 @@
-# Databrowser Tourism Web Component: databrowser-tourism
+# Data Browser Tourism Web Component: databrowser-tourism
 
 This project contains Web Components to render Tourism data from [Open Data Hub](https://opendatahub.bz.it/).
 

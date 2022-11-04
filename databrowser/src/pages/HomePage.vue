@@ -2,7 +2,7 @@
   <AppLayout>
     <HeroContainer>
       <HeroTitle>
-        This is the databrowser of the open data hub of South-Tyrol.
+        This is the Data Browser of the Open Data Hub of South-Tyrol.
       </HeroTitle>
       <HeroSubTitle>
         Explore and navigate through open data you need to build your next
@@ -32,9 +32,9 @@
       <ContentDivider />
 
       <div>
-        <CardTitle>Datasets within the Databrowser</CardTitle>
+        <CardTitle>Datasets within the Data Bsrowser</CardTitle>
         <CardText>
-          The databrowser provides all necessary information and access to open
+          The Data Browser provides all necessary information and access to open
           data from different fields and sources.
         </CardText>
         <CardActions>

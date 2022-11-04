@@ -1,4 +1,4 @@
-# Databrowser Web Component: databrowser-example
+# Data Browser Web Component: databrowser-example
 
 This project contains the `databrowser-example` Web Component.
 

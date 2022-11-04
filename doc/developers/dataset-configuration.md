@@ -1,6 +1,6 @@
 # Dataset configuration
 
-The dataset views of the Databrowser App are configured in files located at the [dataset configs](../../databrowser/src/config) folder.
+The dataset views of the Data Browser App are configured in files located at the [dataset configs](../../databrowser/src/config) folder.
 
 For example, if you want to modify the detail view configuration of the `EventShort` dataset, adjust the config in [eventShort.detailView.ts](../../databrowser/src/config/tourism/eventShort/eventShort.detailView.ts) file.
 
@@ -10,14 +10,14 @@ For example, if you want to modify the detail view configuration of the `EventSh
 
 Each view for each dataset is defined by the appropriate configuration.
 
-Where no configuration for a dataset is provided, the Databrowser tries to generate a configuration on a best-effort basis with the information provided by the OpenAPI definitions provided by the Open Data Hub. This is referred to as `autoconfiguration` or `no-config`. Usually you do not have to bother with that system.
+Where no configuration for a dataset is provided, the Data Browser tries to generate a configuration on a best-effort basis with the information provided by the OpenAPI definitions provided by the Open Data Hub. This is referred to as `autoconfiguration` or `no-config`. Usually you do not have to bother with that system.
 
 Each dataset configuration is of type `DatasetConfig` (see [types.ts](../../databrowser/src/domain/datasetConfig/types.ts)). It consists of properties common to all views of a given dataset:
 
 - source (type: SourceType): describes the source of the configuration, possible values are 'embedded' and 'generated'
 - baseUrl (type: string): defines the base URL of the endpoint where the dataset is loaded from
 - route (type: DatasetRoute): gives additional routing information for the dataset, like domain (e.g. `tourism`) and path parameter (e.g. `['v1', 'EventShort']` for the EventShort dataset). Note that the optional `id` property is only used internally - do not set this in the configuration
-- description (type: DatasetDescription): provides a description for the dataset with `title`, `subtitle` and `description` properties. The description is shown in different places of the Databrowser, e.g. in the upper left of the different views
+- description (type: DatasetDescription): provides a description for the dataset with `title`, `subtitle` and `description` properties. The description is shown in different places of the Data Browser, e.g. in the upper left of the different views
 - views (type: Record<string, *ViewConfig>): the `views` attribute contains the different view configurations of a dataset (`table`, `detail`, `raw`, `quick` and `edit`)
 - operations (type: Record<string, Operation>): contains information for the different endpoint operations (`readAll`, `read`, `create`, `update` and `delete`). At the moment it contains only information about the roles necessary to invoke an operation (authorization). For example, to update a dataset a user must have a certain role like `DatasetWriter`.
 

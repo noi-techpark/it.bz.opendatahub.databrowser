@@ -1,6 +1,6 @@
 # Web components
 
-The Databrowser App provides different views to present the [Open Data Hub](https://opendatahub.bz.it/) datasets, e.g.
+The Data Browser App provides different views to present the [Open Data Hub](https://opendatahub.bz.it/) datasets, e.g.
 
 - The table view shows a list of dataset entries
 - The detail view shows the details for a dataset
@@ -9,7 +9,7 @@ The Databrowser App provides different views to present the [Open Data Hub](http
 
 Each view is build out of dynamically created components, that render parts of datasets. There is e.g. a component that knows how to render string data, another one knows how to render GPS data. The render configurations are defined in the [config](../../databrowser/src/config) folder.
 
-Many components used to render datasets are implemented as Vue components, but the Databrowser App supports also the usage of [Web Components]((https://developer.mozilla.org/en-US/docs/Web/Web_Components)).
+Many components used to render datasets are implemented as Vue components, but the Data Browser App supports also the usage of [Web Components]((https://developer.mozilla.org/en-US/docs/Web/Web_Components)).
 
 > *Taken from [https://vuejs.org/guide/extras/web-components.html](https://vuejs.org/guide/extras/web-components.html) on 2022-31-07*
 >
@@ -37,7 +37,7 @@ Take a look at the [Vue example](#vue-example-web-components) instead or take a 
 
 ## Requirements for Web Components
 
-There are requirements that must be met by a Web Component to be used in the Databrowser App:
+There are requirements that must be met by a Web Component to be used in the Data Browser App:
 
 ### Browser build
 
@@ -59,9 +59,9 @@ customElements.define('my-component', MyComponent);
 
 ### Script loading
 
-Loading all known Web Components on application startup should be avoided because it affects the performance. A better strategy is to leave the decision on when to load a Web Component to the Databrowser App.
+Loading all known Web Components on application startup should be avoided because it affects the performance. A better strategy is to leave the decision on when to load a Web Component to the Data Browser App.
 
-For this to work, you must add your Web Component to the facilities provided by the Databrowser app
+For this to work, you must add your Web Component to the facilities provided by the Data Browser app
 
 1. Add the name under which your Web Component is registered as custom element (= HTML tag name) to the [webComponentRegistry](../../databrowser/src/domain/webComponents/webComponentRegistry.ts) file as new entry for the enum `WebComponent`. That way it is easier to reuse the tag name.
 
@@ -77,7 +77,7 @@ The parameters that a Web Component expects must be provided **as attributes** (
 <my-component attrX="valueX" attrY="valueY"></my-component>
 ```
 
-Please be aware that attributes accept strings only, it is not possible to provide objects, arrays and functions to Web Components. A workaround for objects and arrays is to provide the data as JSON and then, inside the Web Component, to parse that data. **The Databrowser App has no support for that kind of functionality**.
+Please be aware that attributes accept strings only, it is not possible to provide objects, arrays and functions to Web Components. A workaround for objects and arrays is to provide the data as JSON and then, inside the Web Component, to parse that data. **The Data Browser App has no support for that kind of functionality**.
 
 ## How to use Web Components
 

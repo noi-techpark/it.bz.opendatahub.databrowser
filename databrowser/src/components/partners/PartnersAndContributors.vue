@@ -4,8 +4,8 @@
       Partners and contributors
     </span>
     <CardText>
-      The databrowser provides all necessary information and access to open data
-      from different fields and sources.
+      The Data Browser provides all necessary information and access to open
+      data from different fields and sources.
     </CardText>
     <div class="grid grid-cols-2 gap-3 rounded lg:grid-cols-4">
       <a
