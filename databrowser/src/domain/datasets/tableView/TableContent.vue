@@ -36,6 +36,7 @@
             :class="showEdit ? 'grid-cols-2 w-24' : 'grid-cols-3'"
           >
             <DetailsLink
+              v-if="showQuick"
               :to="{
                 name: DatasetPage.QUICK,
                 params: {
@@ -115,6 +116,7 @@ const props = withDefaults(
     rows: any[];
     renderElements: ListElements[];
     showEdit: boolean;
+    showQuick: boolean;
   }>(),
   {
     rows: () => [],
