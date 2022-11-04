@@ -3,6 +3,9 @@
     <HeroContainer>
       <HeroTitle>List of all datasets</HeroTitle>
       <HeroSubTitle>{{ `${results.length} datasets found` }}</HeroSubTitle>
+      <router-link to="/links" class="text-green-500">
+        Show to all available Endpoints
+      </router-link>
     </HeroContainer>
 
     <PageGridContent>

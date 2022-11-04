@@ -232,6 +232,10 @@ const data: MenuColumn = {
         },
       ],
     },
+    {
+      label: 'All available endpoints',
+      url: '/links',
+    },
   ],
 };
 </script>
