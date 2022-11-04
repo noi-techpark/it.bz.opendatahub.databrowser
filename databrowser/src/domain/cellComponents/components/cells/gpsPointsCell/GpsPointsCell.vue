@@ -1,7 +1,7 @@
 <template>
   <div v-if="isAnyPropertySet" class="flex overflow-auto w-full">
     <div class="flex gap-5">
-      <div class="w-56">
+      <div class="w-36">
         <SubCategoryItem v-if="type != null" title="GPS Type">
           <StringCell :text="type" class="break-all" />
         </SubCategoryItem>
