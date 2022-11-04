@@ -11,11 +11,12 @@
     >
       <li
         :class="[
-          active || selected ? 'bg-gray-50' : '',
+          { 'bg-green-500 bg-opacity-10': active || selected },
+          { 'text-green-500': selected },
           'relative cursor-pointer select-none pl-4 pr-8 py-1',
         ]"
       >
-        <span :class="[selected ? 'font-semibold bg-gray-50' : '', 'block']">
+        <span :class="[{ 'font-semibold': selected }, 'block']">
           {{ option.label }}
         </span>
       </li>
