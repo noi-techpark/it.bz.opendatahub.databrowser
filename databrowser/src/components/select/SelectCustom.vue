@@ -4,18 +4,18 @@
       <div class="relative text-black">
         <SelectButton
           :id="id"
-          :open="open"
-          :class-names="classNames"
+          :class="[
+            !open ? 'rounded' : isBottomPlacement ? 'rounded-t' : 'rounded-b',
+            buttonClassNames,
+          ]"
           :selected-option="selectedOption"
-          :is-bottom-placement="true"
         />
         <SelectOptionsBox
           v-model="searchTerm"
           :show-search="showSearch"
           :search-results="searchResults"
-          :is-bottom-placement="true"
-          :class="{ hidden: !open }"
-          class="absolute z-20 w-full border-t-0"
+          :class="[{ hidden: !open }, optionsClassNames]"
+          class="absolute z-20 w-full"
         />
       </div>
     </Listbox>
@@ -25,11 +25,11 @@
 <script setup lang="ts">
 import { computed, defineEmits, defineProps, toRefs, withDefaults } from 'vue';
 import { Listbox } from '@headlessui/vue';
-import { SelectOption, SelectSize } from './types';
+import { SelectOption, SelectOptionsPlacement, SelectSize } from './types';
 import { useEmitChange } from './useEmitChange';
 import { useSearch } from './useSearch';
 import { useSelectedOption } from './useSelectedOption';
-import { selectSizeStyles } from './styles';
+import { selectButtonSizeStyles, selectOptionsSizeStyles } from './styles';
 import SelectButton from './SelectButton.vue';
 import SelectOptionsBox from './SelectOptionsBox.vue';
 import { randomId } from '../utils/random';
@@ -44,12 +44,14 @@ const props = withDefaults(
     // Set this number to zero to always show the search
     // Set this number to Infinity to always hide the search
     showSearchWhenAtLeastCountOptions?: number;
+    optionsPlacement?: SelectOptionsPlacement;
   }>(),
   {
     options: () => [],
     size: SelectSize.sm,
     id: randomId(),
     showSearchWhenAtLeastCountOptions: 7,
+    optionsPlacement: 'bottom',
   }
 );
 const { options, size, showSearchWhenAtLeastCountOptions } = toRefs(props);
@@ -57,8 +59,14 @@ const { options, size, showSearchWhenAtLeastCountOptions } = toRefs(props);
 // Compute selected option
 const selectedOption = useSelectedOption(options);
 
-// Compute CSS classes based on size
-const classNames = computed(() => selectSizeStyles[size.value]);
+// Handle options placement
+const isBottomPlacement = computed(() => props.optionsPlacement === 'bottom');
+
+// Compute CSS classes based on size and option placement
+const buttonClassNames = computed(() => selectButtonSizeStyles[size.value]);
+const optionsClassNames = computed(
+  () => selectOptionsSizeStyles[size.value][props.optionsPlacement]
+);
 
 // Handle search
 const showSearch = computed(
