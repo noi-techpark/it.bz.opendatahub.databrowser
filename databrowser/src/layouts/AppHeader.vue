@@ -37,10 +37,6 @@ const data: MenuColumn = {
           label: 'Locations',
           items: [
             {
-              label: 'Areas',
-              url: '/dataset/table/tourism/v1/Area',
-            },
-            {
               label: 'Districts',
               url: '/dataset/table/tourism/v1/District',
             },
@@ -213,6 +209,10 @@ const data: MenuColumn = {
               url: '/dataset/table/tourism/v1/Weather/SnowReport',
             },
           ],
+        },
+        {
+          label: 'Areas',
+          url: '/dataset/table/tourism/v1/Area',
         },
         {
           label: 'ODH Tags',
