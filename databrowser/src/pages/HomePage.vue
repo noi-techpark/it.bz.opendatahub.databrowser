@@ -5,7 +5,7 @@
         This is the Data Browser of the Open Data Hub of South-Tyrol.
       </HeroTitle>
       <HeroSubTitle>
-        Explore and navigate through open data you need to build your next
+        Explore and navigate through Open Data you need to build your next
         service.
       </HeroSubTitle>
     </HeroContainer>
@@ -74,7 +74,7 @@
               <IconDeveloper />
               Developers
               <IconAgency />
-              Agencies and businesses working with open data
+              Agencies and businesses working with Open Data
               <IconDataanalyst />
               Data analysts
             </CardIconGrid>
@@ -88,7 +88,7 @@
         <div>
           <CardTitle>Share data</CardTitle>
           <CardText>
-            You like the idea of open data and would like to share your data
+            You like the idea of Open Data and would like to share your data
             with others?
           </CardText>
           <CardActions>
@@ -109,9 +109,9 @@
           </CardActions>
         </div>
         <div>
-          <CardTitle>Show us what you did with open data</CardTitle>
+          <CardTitle>Show us what you did with Open Data</CardTitle>
           <CardText>
-            You worked with open data and would like to inspire others by
+            You worked with Open Data and would like to inspire others by
             showcasing your work? We are looking forward to seeing what you did.
           </CardText>
           <CardActions>
