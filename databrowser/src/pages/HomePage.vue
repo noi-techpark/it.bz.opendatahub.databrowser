@@ -32,7 +32,7 @@
       <ContentDivider />
 
       <div>
-        <CardTitle>Datasets within the Data Bsrowser</CardTitle>
+        <CardTitle>Datasets within the Data Browser</CardTitle>
         <CardText>
           The Data Browser provides all necessary information and access to open
           data from different fields and sources.
