@@ -34,8 +34,8 @@
       <div>
         <CardTitle>Datasets within the Data Browser</CardTitle>
         <CardText>
-          The Data Browser provides all necessary information and access to open
-          data from different fields and sources.
+          The Data Browser provides all necessary information and access to Open
+          Data from different fields and sources.
         </CardText>
         <CardActions>
           <ButtonLink
