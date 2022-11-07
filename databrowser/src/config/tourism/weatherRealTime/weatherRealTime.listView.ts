@@ -4,27 +4,11 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 export const weatherRealTimeListView: ListViewConfig = {
   elements: [
     {
-      title: 'Location',
+      title: 'Name (Location)',
       component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
         text: 'name',
-      },
-    },
-    {
-      title: 'StationId',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'id',
-      },
-    },
-    {
-      title: 'Temperature',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 't',
       },
     },
     {
@@ -36,7 +20,16 @@ export const weatherRealTimeListView: ListViewConfig = {
       },
     },
     {
-      title: 'Edited',
+      title: 'GPS Data',
+      component: CellComponent.GpsPointsCell,
+      class: 'w-48',
+      fields: {
+        latitude: 'latitude',
+        longitude: 'longitude',
+      },
+    },
+    {
+      title: 'Last time updated',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
       fields: {
@@ -44,22 +37,6 @@ export const weatherRealTimeListView: ListViewConfig = {
       },
       params: {
         format: 'do MMMM yyyy',
-      },
-    },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-36',
-      fields: {
-        text: 'LicenseRealTime.LicenseHolder',
-      },
-    },
-    {
-      title: 'ODH state',
-      component: CellComponent.StateCell,
-      class: 'w-36',
-      fields: {
-        state: 'OdhActive',
       },
     },
   ],

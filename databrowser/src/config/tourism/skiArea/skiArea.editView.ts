@@ -12,8 +12,32 @@ export const skiAreaEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Shortname' },
+            },
+            {
+              title: 'Ski region name',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'SkiRegionName.{language}' },
+            },
+            {
+              title: 'Logo',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ContactInfos.{language}.LogoUrl',
+              },
+              params: {
+                width: '15%',
+              },
+            },
+            {
+              title: 'Image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ImageGallery.0.ImageUrl',
+              },
             },
           ],
         },
@@ -25,6 +49,100 @@ export const skiAreaEditView: EditViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Id' },
               class: 'break-all',
+            },
+            {
+              title: 'CustomId',
+              component: CellComponent.StringCell,
+              fields: { text: 'CustomId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Tourismverein Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'TourismvereinIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'Region Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'RegionIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'SkiRegionId',
+              component: CellComponent.StringCell,
+              fields: { text: 'SkiRegionId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Area Ids',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'AreaId',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+          ],
+        },
+        {
+          name: 'Slope information',
+          properties: [
+            {
+              title: 'Total slope Km',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'TotalSlopeKm' },
+            },
+            {
+              title: 'Slope Km Blue',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'SlopeKmBlue' },
+            },
+            {
+              title: 'Slope Km Black',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'SlopeKmBlack' },
+            },
+            {
+              title: 'Slope Km Red',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'SlopeKmRed' },
+            },
+          ],
+        },
+        {
+          name: 'Altimeters',
+          properties: [
+            {
+              title: 'Altimeters From',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'AltitudeFrom' },
+            },
+            {
+              title: 'Altimeters To',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'AltitudeTo' },
+            },
+          ],
+        },
+        {
+          name: 'Ski map',
+          properties: [
+            {
+              title: 'Ski map',
+              component: CellComponent.ImageCell,
+              fields: {
+                src: 'SkiAreaMapURL',
+              },
             },
           ],
         },
@@ -41,6 +159,11 @@ export const skiAreaEditView: EditViewConfig = {
             },
             {
               title: 'Active on Source',
+              component: CellComponent.StringCell,
+              fields: { text: 'SmgActive' },
+            },
+            {
+              title: 'Active on Source',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'Active' },
             },
@@ -48,6 +171,11 @@ export const skiAreaEditView: EditViewConfig = {
               title: 'Active on ODH',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'OdhActive' },
+            },
+            {
+              title: 'Published on',
+              component: CellComponent.ArrayCell,
+              fields: { items: 'PublishedOn' },
             },
           ],
         },
@@ -61,31 +189,6 @@ export const skiAreaEditView: EditViewConfig = {
             },
           ],
         },
-        {
-          name: 'Categories',
-          properties: [
-            {
-              title: 'Accommodation category',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoCategory.Id' },
-              params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
-                keySelector: 'Id',
-              },
-            },
-            {
-              title: 'Accommodation type',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoType.Id' },
-              params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
-                keySelector: 'Id',
-              },
-            },
-          ],
-        },
       ],
     },
     {
@@ -96,9 +199,67 @@ export const skiAreaEditView: EditViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
-              component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              title: 'Meta Title',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.MetaTitle',
+              },
+            },
+            {
+              title: 'Meta Description',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.MetaDesc',
+              },
+            },
+            {
+              title: 'Title',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.Title',
+              },
+            },
+            {
+              title: 'Header',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.Header',
+              },
+            },
+            {
+              title: 'SubHeader',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.SubHeader',
+              },
+            },
+            {
+              title: 'Intro Text',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.IntroText',
+              },
+            },
+            {
+              title: 'BaseText',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.BaseText',
+              },
+            },
+            {
+              title: 'AdditionalText',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.AdditionalText',
+              },
+            },
+            {
+              title: 'GetThereText',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.GetThereText',
+              },
             },
           ],
         },
@@ -113,18 +274,33 @@ export const skiAreaEditView: EditViewConfig = {
           properties: [
             {
               title: 'Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.CompanyName' },
             },
             {
               title: 'First Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Givenname' },
             },
             {
               title: 'Surname',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Surname' },
+            },
+            {
+              title: 'Name prefix',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.NamePrefix' },
+            },
+            {
+              title: 'Tax Number',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Tax' },
+            },
+            {
+              title: 'Vat-ID',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Vat' },
             },
           ],
         },
@@ -133,23 +309,28 @@ export const skiAreaEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Address' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.ZipCode' },
             },
             {
               title: 'City',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.City' },
+            },
+            {
+              title: 'Country',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.CountryName' },
             },
             {
               title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
         },
@@ -158,18 +339,18 @@ export const skiAreaEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Email' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Phonenumber' },
             },
             {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              component: CellComponent.UrlCell,
+              fields: { text: 'ContactInfos.{language}.Url' },
             },
           ],
         },
@@ -184,7 +365,7 @@ export const skiAreaEditView: EditViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.ImageGalleryCell,
+              component: CellComponent.EditImageGalleryCell,
               fields: {
                 images: 'ImageGallery',
               },
@@ -213,26 +394,87 @@ export const skiAreaEditView: EditViewConfig = {
           name: 'Location',
           properties: [
             {
-              title: 'SkiArea / TVB',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.AreaInfo.Name.{language}' },
+              title: 'Region',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'LocationInfo.RegionInfo.{language}' },
             },
             {
-              title: 'Tourismorganization',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
+              title: 'Valley',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'LocationInfo.TvInfo.{language}' },
             },
             {
-              title: 'skiArea',
-              component: CellComponent.StringCell,
+              title: 'District',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'LocationInfo.DistrictInfo.{language}' },
+            },
+            {
+              title: 'Municipality',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'LocationInfo.MunicipalityInfo.{language}' },
+            },
+            {
+              title: 'Ski Region',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'SkiRegionName.{language}' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'GPS Data',
+      slug: 'Gps',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.GpsPointsCell,
+              class: 'w-48',
               fields: {
-                text: 'LocationInfo.skiAreaInfo.Name.{language}',
+                type: 'GpsPoints.position.Gpstype',
+                latitude: 'GpsPoints.position.Latitude',
+                longitude: 'GpsPoints.position.Longitude',
+                altitude: 'GpsPoints.position.Altitude',
+                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'Tags',
+      subcategories: [
+        {
+          name: 'Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
               },
             },
             {
-              title: 'SkiArea',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.AreaInfo.Name.{language}' },
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },

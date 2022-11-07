@@ -226,7 +226,7 @@ export const experienceAreaDetailView: DetailViewConfig = {
       slug: 'gps Data',
       subcategories: [
         {
-          name: '',
+          name: 'GPS Data',
           properties: [
             {
               title: '',

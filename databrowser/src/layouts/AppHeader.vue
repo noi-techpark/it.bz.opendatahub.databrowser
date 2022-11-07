@@ -37,10 +37,6 @@ const data: MenuColumn = {
           label: 'Locations',
           items: [
             {
-              label: 'Areas',
-              url: '/dataset/table/tourism/v1/Area',
-            },
-            {
               label: 'Districts',
               url: '/dataset/table/tourism/v1/District',
             },
@@ -215,6 +211,10 @@ const data: MenuColumn = {
           ],
         },
         {
+          label: 'Areas',
+          url: '/dataset/table/tourism/v1/Area',
+        },
+        {
           label: 'ODH Tags',
           url: '/dataset/table/tourism/v1/ODHTag',
         },
@@ -231,6 +231,10 @@ const data: MenuColumn = {
           url: '/dataset/table/tourism/v1/WineAward',
         },
       ],
+    },
+    {
+      label: 'All available endpoints',
+      url: '/links',
     },
   ],
 };

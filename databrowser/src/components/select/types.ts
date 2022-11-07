@@ -9,3 +9,5 @@ export interface SelectOption {
   disabled?: boolean;
   selected?: boolean;
 }
+
+export type SelectOptionsPlacement = 'bottom' | 'top';

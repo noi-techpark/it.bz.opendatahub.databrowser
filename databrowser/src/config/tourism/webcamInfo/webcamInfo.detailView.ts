@@ -28,9 +28,13 @@ export const webcamInfoDetailView: DetailViewConfig = {
             },
             {
               title: 'Area Ids',
-              component: CellComponent.StringCell,
-              fields: { text: 'AreaIds' },
-              class: 'break-all',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'AreaIds',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
@@ -79,7 +83,7 @@ export const webcamInfoDetailView: DetailViewConfig = {
       slug: 'GPS Data',
       subcategories: [
         {
-          name: '',
+          name: 'GPS Data',
           properties: [
             {
               title: '',
@@ -138,17 +142,17 @@ export const webcamInfoDetailView: DetailViewConfig = {
             },
             {
               title: 'Image URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'Webcamurl' },
             },
             {
               title: 'Stream URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'Streamurl' },
             },
             {
               title: 'Preview URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'Previewurl' },
             },
             {

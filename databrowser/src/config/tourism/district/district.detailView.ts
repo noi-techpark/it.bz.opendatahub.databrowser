@@ -226,7 +226,7 @@ export const districtDetailView: DetailViewConfig = {
       slug: 'GPS Data',
       subcategories: [
         {
-          name: '',
+          name: 'GPS Data',
           properties: [
             {
               title: '',

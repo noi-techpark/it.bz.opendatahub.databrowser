@@ -281,7 +281,7 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
             },
             {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'ContactInfos.{language}.Url' },
             },
           ],
@@ -323,7 +323,7 @@ export const tourismAssociationListDetailView: DetailViewConfig = {
       slug: 'Gps',
       subcategories: [
         {
-          name: '',
+          name: 'GPS Data',
           properties: [
             {
               title: '',

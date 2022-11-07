@@ -1,8 +1,8 @@
-# Open Data Hub Databrowser - Application
+# Open Data Hub Data Browser - Application
 
-This directory/project provides the [Open Data Hub](https://opendatahub.bz.it/) Databrowser Application.
+This directory/project provides the [Open Data Hub](https://opendatahub.bz.it/) Data Browser Application.
 
-It is part of a mono repository, together with the [Databrowser Web Components](../web-components).
+It is part of a mono repository, together with the [Data Browser Web Components](../web-components).
 
 ## Table of Contents
 

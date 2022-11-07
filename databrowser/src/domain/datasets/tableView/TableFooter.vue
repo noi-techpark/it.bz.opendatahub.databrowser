@@ -3,6 +3,7 @@
     <span class="block mr-3">{{ t('datasets.listView.linesPerPage') }}</span>
     <SelectCustom
       class="mr-6 w-16"
+      options-placement="top"
       :options="paginationOptions"
       @change="$emit('pageSizeChanges', $event)"
     />

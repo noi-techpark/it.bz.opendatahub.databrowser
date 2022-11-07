@@ -1,8 +1,8 @@
-# Open Data Hub Databrowser
+# Data Browser for the Open Data Hub
 
-This is the mono repository for the Open Data Hub Databrowser.
+This is the mono repository for the Open Data Hub Data Browser.
 
-It contains the [Databrowser application](./databrowser) and its [Web Components](./web-components). You can find more details about those projects (development, build and more) in the corresponding folders.
+It contains the [Data Browser application](./databrowser) and its [Web Components](./web-components). You can find more details about those projects (development, build and more) in the corresponding folders.
 
 ## Table of Contents
 

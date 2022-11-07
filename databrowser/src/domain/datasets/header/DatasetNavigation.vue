@@ -24,7 +24,7 @@
         ></TabLink>
 
         <TabLink
-          v-if="!isNewView"
+          v-if="showQuickViewTab"
           :label="t('datasets.navigation.quickView')"
           :to="quickViewPath"
           :active="datasetConfigStore.isQuickView"
@@ -80,5 +80,9 @@ const showEditTab = computed(
     !isNewView.value &&
     !datasetConfigStore.isSourceGenerated &&
     datasetConfigStore.hasUpdatePermission
+);
+
+const showQuickViewTab = computed(
+  () => !isNewView.value && datasetConfigStore.hasQuickView
 );
 </script>

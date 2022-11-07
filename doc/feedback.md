@@ -1,10 +1,10 @@
-# Web Components for Databrowser - current feedback
+# Web Components for Data Browser - current feedback
 
 > Please note that this document was intended as feedback during early project stages. It's technical descriptions are still correct, but its contents is out of date.
 >
 > If you want to implement Web Components, please take a look at the [the documentation on Web Components](./developers/web-components.md).
 
-This document contains the problems and solutions encountered so far when using Web Components in the Databrowser project.
+This document contains the problems and solutions encountered so far when using Web Components in the Data Browser project.
 
 It should be an entry point for further discussions. It is not defined yet, where those discussions should take place.
 

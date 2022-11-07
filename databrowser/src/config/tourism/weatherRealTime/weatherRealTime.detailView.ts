@@ -27,26 +27,33 @@ export const weatherRealTimeDetailView: DetailViewConfig = {
             },
           ],
         },
+      ],
+    },
+    {
+      name: 'GPS Data',
+      slug: 'gps-data',
+      subcategories: [
         {
           name: 'GPS Data',
           properties: [
             {
-              title: 'Altitude',
-              component: CellComponent.StringCell,
-              fields: { text: 'altitude' },
-            },
-            {
-              title: 'Latitude',
-              component: CellComponent.StringCell,
-              fields: { text: 'latitude' },
-            },
-            {
-              title: 'Longitude',
-              component: CellComponent.StringCell,
-              fields: { text: 'longitude' },
+              title: 'GPS Data',
+              component: CellComponent.GpsPointsCell,
+              class: 'w-48',
+              fields: {
+                altitude: 'altitude',
+                latitude: 'latitude',
+                longitude: 'longitude',
+              },
             },
           ],
         },
+      ],
+    },
+    {
+      name: 'Measurements',
+      slug: 'measurements',
+      subcategories: [
         {
           name: 'Measurements',
           properties: [
@@ -67,6 +74,12 @@ export const weatherRealTimeDetailView: DetailViewConfig = {
             },
           ],
         },
+      ],
+    },
+    {
+      name: 'Others',
+      slug: 'others',
+      subcategories: [
         {
           name: 'Others',
           properties: [

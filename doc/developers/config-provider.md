@@ -21,7 +21,7 @@ At the moment there are two config sources:
 
 ### Embedded configuration
 
-The embedded configuration source contains `ViewConfig` definitions that are part of the Databrowser 2.0. Those definitions are managed by the community.
+The embedded configuration source contains `ViewConfig` definitions that are part of the Data Browser 2.0. Those definitions are managed by the community.
 
 There may be routes that don't match any embedded definition. The result for such routes is empty.
 

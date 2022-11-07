@@ -3,7 +3,7 @@
     <CardTitle>Data access</CardTitle>
     <div class="flex flex-wrap gap-5 md:flex-nowrap md:gap-16">
       <div class="flex flex-col w-full md:w-fit">
-        <CardText>View in databrowser</CardText>
+        <CardText>View in Data Browser</CardText>
         <ButtonLink
           class="mt-2"
           :size="Size.xm2col"

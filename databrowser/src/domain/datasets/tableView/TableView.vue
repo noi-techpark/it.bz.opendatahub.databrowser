@@ -19,6 +19,7 @@
             datasetConfigStore.hasUpdatePermission &&
             !datasetConfigStore.isSourceGenerated
           "
+          :show-quick="datasetConfigStore.hasQuickView"
         />
         <ExportDatasetToolBox :url="url" :is-table-view="true" />
       </div>

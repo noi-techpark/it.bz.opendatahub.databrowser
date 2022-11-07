@@ -1,4 +1,4 @@
-# Databrowser generic Web Components: databrowser-generic
+# Data Browser generic Web Components: databrowser-generic
 
 This project contains generic Web Components to render OpenAPI data (e.g. tourism and mobility data from [Open Data Hub](https://opendatahub.bz.it/)).
 
