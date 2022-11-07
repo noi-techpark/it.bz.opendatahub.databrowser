@@ -11,195 +11,40 @@ export const measuringPointEditView: EditViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
-              component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
-            },
-          ],
-        },
-        {
-          name: 'IDs',
-          properties: [
-            {
               title: 'ID',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Id' },
-              class: 'break-all',
             },
-          ],
-        },
-        {
-          name: 'Data states',
-          properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
-              params: {
-                format: 'd/M/yyyy HH:mm',
-              },
-            },
-            {
-              title: 'Active on Source',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'Active' },
-            },
-            {
-              title: 'Active on ODH',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'OdhActive' },
-            },
-          ],
-        },
-        {
-          name: 'Source',
-          properties: [
-            {
-              title: 'Source',
-              component: CellComponent.StringCell,
-              fields: { text: 'Source' },
-            },
-          ],
-        },
-        {
-          name: 'Categories',
-          properties: [
-            {
-              title: 'Accommodation category',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoCategory.Id' },
-              params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
-                keySelector: 'Id',
-              },
-            },
-            {
-              title: 'Accommodation type',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoType.Id' },
-              params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
-                keySelector: 'Id',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Text information',
-      slug: 'text-information',
-      subcategories: [
-        {
-          name: 'General data',
-          properties: [
             {
               title: 'Shortname',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Shortname' },
             },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Contact',
-      slug: 'contact',
-      subcategories: [
-        {
-          name: 'Name and Company Data',
-          properties: [
             {
-              title: 'Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              title: 'Owner ID',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'OwnerId' },
             },
             {
-              title: 'First Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
-            },
-            {
-              title: 'Surname',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
-            },
-          ],
-        },
-        {
-          name: 'Address',
-          properties: [
-            {
-              title: 'Street and House No',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
-            },
-            {
-              title: 'ZIP-Code',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
-            },
-            {
-              title: 'City',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
-            },
-            {
-              title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
-            },
-          ],
-        },
-        {
-          name: 'Contact Details',
-          properties: [
-            {
-              title: 'E-Mail',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
-            },
-            {
-              title: 'Phone Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
-            },
-            {
-              title: 'Web-URL',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Images',
-      slug: 'images',
-      subcategories: [
-        {
-          name: 'Images',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
+              title: 'Last update',
+              component: CellComponent.EditedDateCell, //date picker when ready
+              class: 'w-40',
               fields: {
-                images: 'ImageGallery',
+                date: '_Meta.LastUpdate',
               },
               params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
+                format: 'do MMMM yyyy',
               },
+            },
+            {
+              title: 'Active',
+              component: CellComponent.ToggleCell,
+              fields: { text: 'Active' },
+            },
+            {
+              title: 'Smg Active',
+              component: CellComponent.ToggleCell,
+              fields: { text: 'SmgActive' },
             },
           ],
         },
@@ -213,30 +58,68 @@ export const measuringPointEditView: EditViewConfig = {
           name: 'Location',
           properties: [
             {
-              title: 'Region / TVB',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationDistrict.RegionDistrict.Name.{language}',
-              },
+              title: 'TV info',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'LocationInfo.TvInfo.Name.{language}' },
             },
             {
-              title: 'Tourismorganization',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
+              title: 'Region info',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'GPS Data',
+      slug: 'gps-data',
+      subcategories: [
+        {
+          name: 'GPS Data',
+          properties: [
             {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
+              title: '',
+              component: CellComponent.GpsPointsCell, //To be discussed.
+              class: 'w-48',
               fields: {
-                text: 'LocationDistrict.MunicipalityDistrict.Name.{language}',
+                type: 'GpsPoints.position.Gpstype',
+                latitude: 'GpsPoints.position.Latitude',
+                longitude: 'GpsPoints.position.Longitude',
+                altitude: 'GpsPoints.position.Altitude',
+                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
               },
             },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Sensor data',
+      slug: 'sensor-data',
+      subcategories: [
+        {
+          name: 'Sensor data',
+          properties: [
             {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationDistrict.DistrictDistrict.Name.{language}',
-              },
+              title: 'Snow height',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'SnowHeight' },
+            },
+            {
+              title: 'New snow height',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'newSnowHeight' },
+            },
+            {
+              title: 'Temperature',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Temperature' },
+            },
+            {
+              title: 'Last snow date',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'LastSnowDate' },
             },
           ],
         },
