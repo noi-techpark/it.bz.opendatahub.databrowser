@@ -11,136 +11,231 @@ export const weatherDistrictEditView: EditViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'District Name',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'DistrictName' },
+              title: 'Shortname',
+              component: CellComponent.StringCell,
+              fields: { text: 'Shortname' },
             },
           ],
         },
         {
-          name: 'Forecast',
+          name: 'IDs',
           properties: [
             {
-              title: 'Date',
-              component: CellComponent.DateCell, //Switch to datePicker when available
-              class: 'w-48',
+              title: 'ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'Id' },
+              class: 'break-all',
+            },
+          ],
+        },
+        {
+          name: 'Data states',
+          properties: [
+            {
+              title: 'Last Changes',
+              component: CellComponent.DateCell,
+              fields: { date: 'LastChange' },
               params: {
-                format: 'do MMMM yyyy',
-              },
-              fields: {
-                date: 'BezirksForecast.0.date',
+                format: 'd/M/yyyy HH:mm',
               },
             },
             {
-              title: 'Weather image URL',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-40',
-              fields: {
-                text: 'BezirksForecast.0.WeatherImgUrl',
+              title: 'Active on Source',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'Active' },
+            },
+            {
+              title: 'Active on ODH',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'OdhActive' },
+            },
+          ],
+        },
+        {
+          name: 'Source',
+          properties: [
+            {
+              title: 'Source',
+              component: CellComponent.StringCell,
+              fields: { text: 'Source' },
+            },
+          ],
+        },
+        {
+          name: 'Categories',
+          properties: [
+            {
+              title: 'Accommodation category',
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'AccoCategory.Id' },
+              params: {
+                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
+                labelSelector: 'TypeDesc.en',
+                keySelector: 'Id',
               },
             },
             {
-              title: 'Weather description',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
+              title: 'Accommodation type',
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'AccoType.Id' },
+              params: {
+                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
+                labelSelector: 'TypeDesc.en',
+                keySelector: 'Id',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Text information',
+      slug: 'text-information',
+      subcategories: [
+        {
+          name: 'General data',
+          properties: [
+            {
+              title: 'Shortname',
+              component: CellComponent.StringCell,
+              fields: { text: 'Shortname' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Contact',
+      slug: 'contact',
+      subcategories: [
+        {
+          name: 'Name and Company Data',
+          properties: [
+            {
+              title: 'Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Name' },
+            },
+            {
+              title: 'First Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Firstname' },
+            },
+            {
+              title: 'Surname',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Lastname' },
+            },
+          ],
+        },
+        {
+          name: 'Address',
+          properties: [
+            {
+              title: 'Street and House No',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Street' },
+            },
+            {
+              title: 'ZIP-Code',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Zip' },
+            },
+            {
+              title: 'City',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.City' },
+            },
+            {
+              title: 'Country Abbrevation',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.CountryCode' },
+            },
+          ],
+        },
+        {
+          name: 'Contact Details',
+          properties: [
+            {
+              title: 'E-Mail',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Email' },
+            },
+            {
+              title: 'Phone Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Phone' },
+            },
+            {
+              title: 'Web-URL',
+              component: CellComponent.StringCell,
+              fields: { text: 'AccoDetail.{language}.Website' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Images',
+      slug: 'images',
+      subcategories: [
+        {
+          name: 'Images',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.ImageGalleryCell,
               fields: {
-                text: 'BezirksForecast.0.WeatherDesc',
+                images: 'ImageGallery',
+              },
+              params: {
+                alt: 'ImageAltText.{language}',
+                src: 'ImageUrl',
+                name: 'ImageName',
+                width: 'Width',
+                height: 'Height',
+                title: 'ImageTitle.{language}',
+                description: 'ImageDesc.{language}',
+                license: 'License',
+                listPosition: 'ListPosition',
+                active: '',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Location',
+      slug: 'location',
+      subcategories: [
+        {
+          name: 'Location',
+          properties: [
+            {
+              title: 'Region / TVB',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'LocationDistrict.RegionDistrict.Name.{language}',
               },
             },
             {
-              title: 'Weather code',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
+              title: 'Tourismorganization',
+              component: CellComponent.StringCell,
+              fields: { text: 'TourismorganizationId' },
+            },
+            {
+              title: 'Municipality',
+              component: CellComponent.StringCell,
               fields: {
-                text: 'BezirksForecast.0.WeatherCode',
+                text: 'LocationDistrict.MunicipalityDistrict.Name.{language}',
               },
             },
             {
-              title: 'Weather code',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
+              title: 'District',
+              component: CellComponent.StringCell,
               fields: {
-                text: 'BezirksForecast.0.WeatherCode',
-              },
-            },
-            {
-              title: 'Max temp',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
-              fields: {
-                text: 'BezirksForecast.0.MaxTemp',
-              },
-            },
-            {
-              title: 'Min temp',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
-              fields: {
-                text: 'BezirksForecast.0.MinTemp',
-              },
-            },
-            {
-              title: 'Freeze',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
-              fields: {
-                text: 'BezirksForecast.0.Freeze',
-              },
-            },
-            {
-              title: 'Rain from',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
-              fields: {
-                text: 'BezirksForecast.0.RainFrom',
-              },
-            },
-            {
-              title: 'Rain to',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
-              fields: {
-                text: 'BezirksForecast.0.RainTo',
-              },
-            },
-            {
-              title: 'Part1',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
-              fields: {
-                text: 'BezirksForecast.0.Part1',
-              },
-            },
-            {
-              title: 'Part2',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
-              fields: {
-                text: 'BezirksForecast.0.Part2',
-              },
-            },
-            {
-              title: 'Part3',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
-              fields: {
-                text: 'BezirksForecast.0.Part3',
-              },
-            },
-            {
-              title: 'Part4',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
-              fields: {
-                text: 'BezirksForecast.0.Part4',
-              },
-            },
-            {
-              title: 'Thunderstorm',
-              component: CellComponent.InputSingleLineCell,
-              class: 'w-36',
-              fields: {
-                text: 'BezirksForecast.0.Thunderstorm',
+                text: 'LocationDistrict.DistrictDistrict.Name.{language}',
               },
             },
           ],
