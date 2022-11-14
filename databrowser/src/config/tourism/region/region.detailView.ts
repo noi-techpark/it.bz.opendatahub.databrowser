@@ -194,6 +194,97 @@ export const regionDetailView: DetailViewConfig = {
       ],
     },
     {
+      name: 'Contact',
+      slug: 'contact',
+      subcategories: [
+        {
+          name: 'Name and Company Data',
+          properties: [
+            {
+              title: 'Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CompanyName' },
+            },
+            {
+              title: 'First Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Givenname' },
+            },
+            {
+              title: 'Surname',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Surname' },
+            },
+            {
+              title: 'Name prefix',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.NamePrefix' },
+            },
+            {
+              title: 'Tax Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Tax' },
+            },
+            {
+              title: 'Vat-ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Vat' },
+            },
+          ],
+        },
+        {
+          name: 'Address',
+          properties: [
+            {
+              title: 'Street and House No',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Address' },
+            },
+            {
+              title: 'ZIP-Code',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.ZipCode' },
+            },
+            {
+              title: 'City',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.City' },
+            },
+            {
+              title: 'Country',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CountryName' },
+            },
+            {
+              title: 'Country Abbrevation',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CountryCode' },
+            },
+          ],
+        },
+        {
+          name: 'Contact Details',
+          properties: [
+            {
+              title: 'E-Mail',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Email' },
+            },
+            {
+              title: 'Phone Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Phonenumber' },
+            },
+            {
+              title: 'Web-URL',
+              component: CellComponent.UrlCell,
+              fields: { text: 'ContactInfos.{language}.Url' },
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'Images',
       slug: 'images',
       subcategories: [
