@@ -85,12 +85,12 @@ export const metaRegionDetailView: DetailViewConfig = {
               },
             },
             {
-              title: 'Active on Source',
+              title: 'Active on Smg',
               component: CellComponent.StringCell,
               fields: { text: 'SmgActive' },
             },
             {
-              title: 'Active on Source',
+              title: 'Active',
               component: CellComponent.StringCell,
               fields: { text: 'Active' },
             },
