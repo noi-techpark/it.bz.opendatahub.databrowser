@@ -12,8 +12,30 @@ export const municipalityEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Shortname' },
+            },
+            {
+              title: 'CAP',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Plz',
+              },
+            },
+            {
+              title: 'Inhabitants',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Inhabitants',
+              },
+            },
+            {
+              title: 'Image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ImageGallery.0.ImageUrl',
+              },
             },
           ],
         },
@@ -24,6 +46,42 @@ export const municipalityEditView: EditViewConfig = {
               title: 'ID',
               component: CellComponent.StringCell,
               fields: { text: 'Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'Custom Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'CustomId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Siag Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'SiagId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Tourismverein Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'TourismvereinId' },
+              class: 'break-all',
+            },
+            {
+              title: 'Istat Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'IstatNumber' },
+              class: 'break-all',
+            },
+            {
+              title: 'Region Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'RegionId' },
+              class: 'break-all',
+            },
+            {
+              title: 'HGV id',
+              component: CellComponent.StringCell,
+              fields: { text: 'Mapping.hgv.id' },
               class: 'break-all',
             },
           ],
@@ -40,14 +98,29 @@ export const municipalityEditView: EditViewConfig = {
               },
             },
             {
-              title: 'Active on Source',
+              title: 'Active on Smg',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'SmgActive' },
+            },
+            {
+              title: 'Active',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'Active' },
             },
             {
               title: 'Active on ODH',
+              component: CellComponent.StringCell,
+              fields: { text: 'OdhActive' },
+            },
+            {
+              title: 'Published on',
+              component: CellComponent.ArrayCell,
+              fields: { items: 'PublishedOn' },
+            },
+            {
+              title: 'visible in search',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'OdhActive' },
+              fields: { enabled: 'VisibleInSearch' },
             },
           ],
         },
@@ -61,31 +134,6 @@ export const municipalityEditView: EditViewConfig = {
             },
           ],
         },
-        {
-          name: 'Categories',
-          properties: [
-            {
-              title: 'Accommodation category',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoCategory.Id' },
-              params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
-                keySelector: 'Id',
-              },
-            },
-            {
-              title: 'Accommodation type',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoType.Id' },
-              params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
-                keySelector: 'Id',
-              },
-            },
-          ],
-        },
       ],
     },
     {
@@ -96,80 +144,67 @@ export const municipalityEditView: EditViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
-              component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Contact',
-      slug: 'contact',
-      subcategories: [
-        {
-          name: 'Name and Company Data',
-          properties: [
-            {
-              title: 'Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              title: 'Meta Title',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.MetaTitle',
+              },
             },
             {
-              title: 'First Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
+              title: 'Meta Description',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.MetaDesc',
+              },
             },
             {
-              title: 'Surname',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
-            },
-          ],
-        },
-        {
-          name: 'Address',
-          properties: [
-            {
-              title: 'Street and House No',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
+              title: 'Title',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.Title',
+              },
             },
             {
-              title: 'ZIP-Code',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
+              title: 'Header',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.Header',
+              },
             },
             {
-              title: 'City',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
+              title: 'SubHeader',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.SubHeader',
+              },
             },
             {
-              title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
-            },
-          ],
-        },
-        {
-          name: 'Contact Details',
-          properties: [
-            {
-              title: 'E-Mail',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
+              title: 'Intro Text',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.IntroText',
+              },
             },
             {
-              title: 'Phone Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
+              title: 'BaseText',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.BaseText',
+              },
             },
             {
-              title: 'Web-URL',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              title: 'AdditionalText',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.AdditionalText',
+              },
+            },
+            {
+              title: 'GetThereText',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'Detail.{language}.GetThereText',
+              },
             },
           ],
         },
@@ -184,7 +219,7 @@ export const municipalityEditView: EditViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.ImageGalleryCell,
+              component: CellComponent.EditImageGalleryCell,
               fields: {
                 images: 'ImageGallery',
               },
@@ -206,33 +241,57 @@ export const municipalityEditView: EditViewConfig = {
       ],
     },
     {
-      name: 'Location',
-      slug: 'location',
+      name: 'GPS Data',
+      slug: 'Gps',
       subcategories: [
         {
-          name: 'Location',
+          name: 'GPS Data',
           properties: [
             {
-              title: 'Region / TVB',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
-            },
-            {
-              title: 'Tourismorganization',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
-            },
-            {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
+              title: '',
+              component: CellComponent.GpsPointsCell,
+              class: 'w-48',
               fields: {
-                text: 'LocationInfo.MunicipalityInfo.Name.{language}',
+                type: 'GpsPoints.position.Gpstype',
+                latitude: 'GpsPoints.position.Latitude',
+                longitude: 'GpsPoints.position.Longitude',
+                altitude: 'GpsPoints.position.Altitude',
+                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'Tags',
+      subcategories: [
+        {
+          name: 'Tags',
+          properties: [
+            {
+              title: 'ODH Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
               },
             },
             {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
