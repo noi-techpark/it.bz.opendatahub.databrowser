@@ -27,8 +27,14 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
             },
             {
               title: 'Logo',
-              component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.LogoUrl' },
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ContactInfos.{language}.LogoUrl',
+              },
+              params: {
+                width: '15%',
+              },
             },
             {
               title: 'Type',
@@ -143,7 +149,7 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               fields: { text: 'IsPrepared' },
             },
             {
-              title: 'With Ligth',
+              title: 'With Light',
               component: CellComponent.StringCell,
               fields: { text: 'IsWithLigth' },
             },
@@ -345,17 +351,17 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
             {
               title: 'Activity',
               component: CellComponent.StringCell,
-              fields: { text: '' },
+              fields: { text: 'RelatedContent' },
             },
             {
               title: 'Gastronomy',
               component: CellComponent.StringCell,
-              fields: { text: '' },
+              fields: { text: 'RelatedContent' },
             },
             {
               title: 'Event',
               component: CellComponent.StringCell,
-              fields: { text: '' },
+              fields: { text: 'RelatedContent' },
             },
           ],
         },
@@ -511,28 +517,24 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
             },
             {
               title: 'Start Date and Time',
-              component: CellComponent.ArrayCellTags,
+              component: CellComponent.DateCell,
               class: 'w-40',
               fields: {
-                items: 'OperationSchedule',
+                date: 'OperationSchedule.0.Start',
               },
               params: {
-                fieldName: 'Start',
-                separator: ', ',
-                max: '3',
+                format: 'do MMMM yyyy HH:mm',
               },
             },
             {
               title: 'End Date and Time',
-              component: CellComponent.ArrayCellTags,
+              component: CellComponent.DateCell,
               class: 'w-40',
               fields: {
-                items: 'OperationSchedule',
+                date: 'OperationSchedule.0.Stop',
               },
               params: {
-                fieldName: 'Stop',
-                separator: ', ',
-                max: '3',
+                format: 'do MMMM yyyy HH:mm',
               },
             },
           ],
