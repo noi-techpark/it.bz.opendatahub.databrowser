@@ -96,6 +96,11 @@ export const districtDetailView: DetailViewConfig = {
               fields: { text: 'OdhActive' },
             },
             {
+              title: 'Published on',
+              component: CellComponent.ArrayCell,
+              fields: { items: 'PublishedOn' },
+            },
+            {
               title: 'Visible in Search',
               component: CellComponent.StringCell,
               fields: { text: 'VisibleInSearch' },
