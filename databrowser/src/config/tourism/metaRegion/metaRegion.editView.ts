@@ -206,7 +206,7 @@ export const metaRegionEditView: EditViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.ImageGalleryCell,
+              component: CellComponent.EditImageGalleryCell,
               fields: {
                 images: 'ImageGallery',
               },
