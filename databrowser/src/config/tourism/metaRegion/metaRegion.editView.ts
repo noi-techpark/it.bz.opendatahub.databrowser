@@ -85,12 +85,12 @@ export const metaRegionEditView: EditViewConfig = {
               },
             },
             {
-              title: 'Active on Source',
+              title: 'Active on Smg',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'SmgActive' },
             },
             {
-              title: 'Active on Source',
+              title: 'Active',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'Active' },
             },
