@@ -92,8 +92,9 @@ export const districtEditView: EditViewConfig = {
             },
             {
               title: 'Active on ODH',
-              component: CellComponent.StringCell,
-              fields: { text: 'OdhActive' },
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'OdhActive' },
+              params: { preventChange: 'true' },
             },
             {
               title: 'Published on',
