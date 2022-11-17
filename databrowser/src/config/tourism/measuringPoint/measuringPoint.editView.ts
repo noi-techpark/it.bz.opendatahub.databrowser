@@ -12,7 +12,7 @@ export const measuringPointEditView: EditViewConfig = {
           properties: [
             {
               title: 'ID',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Id' },
             },
             {
@@ -22,12 +22,12 @@ export const measuringPointEditView: EditViewConfig = {
             },
             {
               title: 'Owner ID',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'OwnerId' },
             },
             {
               title: 'Last update',
-              component: CellComponent.EditedDateCell, //date picker when ready
+              component: CellComponent.EditedDateCell,
               class: 'w-40',
               fields: {
                 date: '_Meta.LastUpdate',
@@ -79,15 +79,38 @@ export const measuringPointEditView: EditViewConfig = {
           name: 'GPS Data',
           properties: [
             {
-              title: '',
-              component: CellComponent.GpsPointsCell, //To be discussed.
-              class: 'w-48',
+              title: 'GPS type',
+              component: CellComponent.StringCell,
               fields: {
-                type: 'GpsPoints.position.Gpstype',
-                latitude: 'GpsPoints.position.Latitude',
-                longitude: 'GpsPoints.position.Longitude',
-                altitude: 'GpsPoints.position.Altitude',
-                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+                text: 'GpsPoints.position.Gpstype',
+              },
+            },
+            {
+              title: 'Latitude',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'GpsPoints.position.Latitude',
+              },
+            },
+            {
+              title: 'Longitude',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'GpsPoints.position.Longitude',
+              },
+            },
+            {
+              title: 'Altitude',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'GpsPoints.position.Altitude',
+              },
+            },
+            {
+              title: 'Altitude unit',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'GpsPoints.position.AltitudeUnitofMeasure',
               },
             },
           ],
