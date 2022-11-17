@@ -4,14 +4,6 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 export const municipalityListView: ListViewConfig = {
   elements: [
     {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      fields: {
-        src: 'Webcam.0.Webcamurl',
-      },
-    },
-    {
       title: 'Title',
       component: CellComponent.StringCell,
       class: 'w-48',

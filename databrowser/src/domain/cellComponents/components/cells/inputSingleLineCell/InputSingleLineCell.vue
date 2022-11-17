@@ -17,7 +17,7 @@ withDefaults(
     text?: string | boolean | number;
   }>(),
   {
-    text: 'undefined',
+    text: '',
   }
 );
 
