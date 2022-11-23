@@ -92,7 +92,7 @@ export const experienceAreaDetailView: DetailViewConfig = {
               fields: { text: 'SmgActive' },
             },
             {
-              title: 'Active on ODH',
+              title: 'Active on Open Data Hub',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
             },
@@ -263,7 +263,7 @@ export const experienceAreaDetailView: DetailViewConfig = {
               },
             },
             {
-              title: 'ODH Tags',
+              title: 'Open Data Hub Tags',
               component: CellComponent.ArrayCell,
               class: 'w-40',
               fields: {

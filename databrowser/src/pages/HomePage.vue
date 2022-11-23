@@ -1,9 +1,7 @@
 <template>
   <AppLayout>
     <HeroContainer>
-      <HeroTitle>
-        This is the Data Browser of the Open Data Hub of South-Tyrol.
-      </HeroTitle>
+      <HeroTitle> This is the Data Browser of the Open Data Hub. </HeroTitle>
       <HeroSubTitle>
         Explore and navigate through Open Data you need to build your next
         service.

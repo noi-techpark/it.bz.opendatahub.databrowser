@@ -72,7 +72,7 @@ export const gastronomyListView: ListViewConfig = {
       },
     },
     {
-      title: 'ODH state',
+      title: 'Open Data Hub state',
       component: CellComponent.StateCell,
       class: 'w-36',
       fields: {

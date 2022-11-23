@@ -84,7 +84,7 @@ export const eventDetailView: DetailViewConfig = {
               fields: { text: 'SmgActive' },
             },
             {
-              title: 'ODH Active',
+              title: 'Open Data Hub Active',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
             },
@@ -247,7 +247,7 @@ export const eventDetailView: DetailViewConfig = {
               fields: { text: 'SmgTags' },
             },
             {
-              title: 'ODH Tags',
+              title: 'Open Data Hub Tags',
               component: CellComponent.ArrayCell,
               fields: { text: 'ODHTags' },
             },
