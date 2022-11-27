@@ -91,7 +91,7 @@ export const districtEditView: EditViewConfig = {
               fields: { enabled: 'SmgActive' },
             },
             {
-              title: 'Active on ODH',
+              title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'OdhActive' },
               params: { preventChange: 'true' },
@@ -258,7 +258,7 @@ export const districtEditView: EditViewConfig = {
           name: 'Tags',
           properties: [
             {
-              title: 'ODH Tags',
+              title: 'Open Data Hub Tags',
               component: CellComponent.ArrayCellTags,
               class: 'w-40',
               fields: {

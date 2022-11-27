@@ -168,7 +168,7 @@ export const skiAreaDetailView: DetailViewConfig = {
               fields: { text: 'Active' },
             },
             {
-              title: 'Active on ODH',
+              title: 'Active on Open Data Hub',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
             },
@@ -453,7 +453,7 @@ export const skiAreaDetailView: DetailViewConfig = {
           name: 'Tags',
           properties: [
             {
-              title: 'ODH Tags',
+              title: 'Open Data Hub Tags',
               component: CellComponent.ArrayCellTags,
               class: 'w-40',
               fields: {

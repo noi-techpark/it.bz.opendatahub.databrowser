@@ -57,7 +57,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               fields: { text: 'Active' },
             },
             {
-              title: 'Active on ODH',
+              title: 'Active on Open Data Hub',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
             },
