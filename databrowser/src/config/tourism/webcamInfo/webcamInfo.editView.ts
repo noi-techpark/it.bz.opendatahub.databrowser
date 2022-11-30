@@ -51,7 +51,7 @@ export const webcamInfoEditView: EditViewConfig = {
               fields: { enabled: 'Active' },
             },
             {
-              title: 'Active on ODH',
+              title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'OdhActive' },
             },
@@ -79,45 +79,41 @@ export const webcamInfoEditView: EditViewConfig = {
       slug: 'GPS Data',
       subcategories: [
         {
-          name: '',
+          name: 'GPS Data',
           properties: [
             {
-              title: '',
-              component: CellComponent.GpsPointsCell,
-              class: 'w-48',
+              title: 'GPS type',
+              component: CellComponent.InputSingleLineCell,
               fields: {
-                type: 'GpsPoints.position.Gpstype',
-                latitude: 'GpsPoints.position.Latitude',
-                longitude: 'GpsPoints.position.Longitude',
-                altitude: 'GpsPoints.position.Altitude',
-                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Tags',
-      slug: 'tags',
-      subcategories: [
-        {
-          name: 'Tags',
-          properties: [
-            {
-              title: 'ODH Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'ODHTags',
+                text: 'GpsPoints.position.Gpstype',
               },
             },
             {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
+              title: 'Latitude',
+              component: CellComponent.InputSingleLineCell,
               fields: {
-                items: 'SmgTags',
+                text: 'GpsPoints.position.Latitude',
+              },
+            },
+            {
+              title: 'Longitude',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'GpsPoints.position.Longitude',
+              },
+            },
+            {
+              title: 'Altitude',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'GpsPoints.position.Altitude',
+              },
+            },
+            {
+              title: 'Altitude unit',
+              component: CellComponent.InputSingleLineCell,
+              fields: {
+                text: 'GpsPoints.position.AltitudeUnitofMeasure',
               },
             },
           ],
@@ -153,17 +149,17 @@ export const webcamInfoEditView: EditViewConfig = {
             },
             {
               title: 'Latitude',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'GpsPoints.position.Latitude' },
             },
             {
               title: 'Longitude',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'GpsPoints.position.Longitude' },
             },
             {
               title: 'Altitude',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'GpsPoints.position.Altitude' },
             },
           ],
