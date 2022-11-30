@@ -37,7 +37,7 @@ export const weatherRealTimeDetailView: DetailViewConfig = {
           name: 'GPS Data',
           properties: [
             {
-              title: 'GPS Data',
+              title: '',
               component: CellComponent.GpsPointsCell,
               class: 'w-48',
               fields: {

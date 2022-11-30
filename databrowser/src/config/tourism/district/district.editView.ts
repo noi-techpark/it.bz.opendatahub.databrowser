@@ -229,7 +229,7 @@ export const districtEditView: EditViewConfig = {
     },
     {
       name: 'GPS Data',
-      slug: 'GPS Data',
+      slug: 'gps-data',
       subcategories: [
         {
           name: 'GPS Data',

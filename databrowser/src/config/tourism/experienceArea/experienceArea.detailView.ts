@@ -223,7 +223,7 @@ export const experienceAreaDetailView: DetailViewConfig = {
     },
     {
       name: 'GPS Data',
-      slug: 'gps Data',
+      slug: 'gps-data',
       subcategories: [
         {
           name: 'GPS Data',

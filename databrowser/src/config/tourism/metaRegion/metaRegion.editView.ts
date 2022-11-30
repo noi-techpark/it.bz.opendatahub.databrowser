@@ -229,7 +229,7 @@ export const metaRegionEditView: EditViewConfig = {
     },
     {
       name: 'GPS Data',
-      slug: 'Gps',
+      slug: 'gps-data',
       subcategories: [
         {
           name: 'GPS Data',

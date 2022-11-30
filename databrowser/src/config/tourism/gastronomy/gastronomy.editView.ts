@@ -379,7 +379,7 @@ export const gastronomyEditView: EditViewConfig = {
     },
     {
       name: 'GPS Data',
-      slug: 'Gps',
+      slug: 'gps-data',
       subcategories: [
         {
           name: 'GPS Data',
