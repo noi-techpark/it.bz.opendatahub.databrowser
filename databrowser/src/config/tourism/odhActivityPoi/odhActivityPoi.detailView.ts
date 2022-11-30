@@ -252,7 +252,7 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
               fields: { text: 'Active' },
             },
             {
-              title: 'Active on ODH',
+              title: 'Active on Open Data Hub',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
             },
@@ -615,10 +615,10 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-          name: 'ODH Tags',
+          name: 'Open Data Hub Tags',
           properties: [
             {
-              title: 'ODH Tags',
+              title: 'Open Data Hub Tags',
               component: CellComponent.ArrayCellTags,
               class: 'w-40',
               fields: {

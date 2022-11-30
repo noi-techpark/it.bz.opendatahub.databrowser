@@ -22,7 +22,7 @@ export const datasetsForPages: Record<SupportedDomains, DatasetDescription[]> =
         id: 'articles',
         title: 'Articles',
         description:
-          'This dataset contains articles such as recipes, books, catalogues, guides about South Tyrol. It contains Historical data. Only recipes are still updated.',
+          'This dataset contains articles such as recipes, books, catalogues and guides. It contains Historical data. Only recipes are still updated.',
         output: 'JSON, mime-type application/json',
         apiVersion: 'v1',
         swaggerUrl:
@@ -67,7 +67,7 @@ export const datasetsForPages: Record<SupportedDomains, DatasetDescription[]> =
         id: 'locations',
         title: 'Locations',
         description:
-          'These datasets contain Location & Commons Data API of Tourism Regions of South Tyrol. ID Lists of Regions, Tourism Associations, Areas, Municipalities, Ski Areas. Data provided by IDM.',
+          'These datasets contain Location & Commons Data API of Tourism Regions. ID Lists of Regions, Tourism Associations, Areas, Municipalities, Ski Areas. Data provided by IDM.',
         output: 'JSON, mime-type application/json',
         apiVersion: 'v1',
         swaggerUrl:
@@ -82,7 +82,7 @@ export const datasetsForPages: Record<SupportedDomains, DatasetDescription[]> =
         id: 'snow-report',
         title: 'Snow Report',
         description:
-          'Snow Report Data dataset contains detailed report of all South Tyrolean Ski Areas. Lifts, Slopes, Ski tracks, Sledges (status and conditions) data provided by LTS (daily updated), Measuring points (snow height, last snow day) data provided by LTS (daily updated), Ski Areas basic data provided by IDM.',
+          'Snow Report Data dataset contains detailed report of Ski Areas. Lifts, Slopes, Ski tracks, Sledges (status and conditions) data provided by LTS (daily updated), Measuring points (snow height, last snow day) data provided by LTS (daily updated), Ski Areas basic data provided by IDM.',
         output: 'JSON, mime-type application/json',
         apiVersion: 'v1',
         swaggerUrl:
@@ -113,7 +113,7 @@ export const datasetsForPages: Record<SupportedDomains, DatasetDescription[]> =
         id: 'weather-forecast',
         title: 'Weather Forecast',
         description:
-          'South Tyrolean Weather Information general. Updated at 07:00 and 11:00. South Tyrolean Weather Details for today, tomorrow, Mountain weather today, tomorrow, Station weather today, tomorrow and 5 days evolution. All data is requested live through the Weather service of the province BZ. Data available in languages de, it, en.',
+          'General Weather Information. Updated at 07:00 and 11:00. Weather Details for today, tomorrow, Mountain weather today, tomorrow, Station weather today, tomorrow and 5 days evolution. All data is requested live through the Weather service of the province BZ. Data available in languages de, it, en.',
         output: 'JSON, mime-type application/json',
         apiVersion: 'v1',
         swaggerUrl:
@@ -128,7 +128,7 @@ export const datasetsForPages: Record<SupportedDomains, DatasetDescription[]> =
         id: 'accommodations',
         title: 'Accommodations',
         description:
-          'This dataset contains accommodations in South Tyrol. Accessible via REST or the AlpineBits HotelData open standard.',
+          'This dataset contains accommodations. Accessible via REST or the AlpineBits HotelData open standard.',
         output: 'JSON, mime-type application/json, XML AlpineBits',
         apiVersion: 'v1',
         swaggerUrl:
@@ -158,7 +158,7 @@ export const datasetsForPages: Record<SupportedDomains, DatasetDescription[]> =
         id: 'activities-pois-gastronomy',
         title: 'Activities, Pois & Gastronomy',
         description:
-          'This dataset contains a collection of activities and points of interest (PoI) and gastronomy locations (such as restaurants, bars, alpine huts, etc.) in the South Tyrol region. The available data have been extracted from different sources such as SIAG South Tyrolean museums, Südtirol Wein, Dolomiti Superski, LTS, IDM created content.',
+          'This dataset contains a collection of activities and points of interest (PoI) and gastronomy locations (such as restaurants, bars, alpine huts, etc.). The available data have been extracted from different sources such as SIAG South Tyrolean museums, Südtirol Wein, Dolomiti Superski, LTS, IDM created content.',
         output: 'JSON, mime-type application/json',
         apiVersion: 'v1',
         swaggerUrl:

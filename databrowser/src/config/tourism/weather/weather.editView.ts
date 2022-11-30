@@ -45,7 +45,7 @@ export const weatherEditView: EditViewConfig = {
               fields: { enabled: 'Active' },
             },
             {
-              title: 'Active on ODH',
+              title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'OdhActive' },
             },

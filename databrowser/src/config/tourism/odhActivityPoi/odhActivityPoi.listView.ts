@@ -149,7 +149,7 @@ export const odhActivityPoiListView: ListViewConfig = {
       },
     },
     {
-      title: 'ODH state',
+      title: 'Open Data Hub state',
       component: CellComponent.StateCell,
       class: 'w-40',
       fields: {
