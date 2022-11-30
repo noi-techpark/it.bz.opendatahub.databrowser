@@ -320,10 +320,10 @@ export const tourismAssociationListEditView: EditViewConfig = {
     },
     {
       name: 'GPS Data',
-      slug: 'Gps',
+      slug: 'gps-data',
       subcategories: [
         {
-          name: '',
+          name: 'GPS Data',
           properties: [
             {
               title: '',

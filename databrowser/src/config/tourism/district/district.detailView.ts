@@ -228,7 +228,7 @@ export const districtDetailView: DetailViewConfig = {
     },
     {
       name: 'GPS Data',
-      slug: 'GPS Data',
+      slug: 'gps-data',
       subcategories: [
         {
           name: 'GPS Data',

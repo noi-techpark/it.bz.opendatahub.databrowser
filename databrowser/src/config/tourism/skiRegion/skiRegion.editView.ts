@@ -303,7 +303,7 @@ export const skiRegionEditView: EditViewConfig = {
       slug: 'Gps',
       subcategories: [
         {
-          name: '',
+          name: 'GPS Data',
           properties: [
             {
               title: '',
