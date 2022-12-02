@@ -4,19 +4,19 @@
       <BackButton label="Back to overview" @navigate="navigateToTable" />
     </EditImageGalleryHeader>
     <EditImageGalleryTabHeaderButtons
-      class="flex justify-between mb-5 md:hidden"
+      class="mb-5 flex justify-between md:hidden"
       @delete-all-images="emit('deleteAllImages')"
     />
-    <div class="flex justify-between items-center text-sm bg-gray-50">
+    <div class="flex items-center justify-between bg-gray-50 text-sm">
       <div
         ref="tabWrapper"
-        class="flex overflow-auto flex-nowrap items-center w-full"
+        class="flex w-full flex-nowrap items-center overflow-auto"
       >
         <TabCustom
           v-for="(image, index) in images"
           :key="index"
           :active="currentIndex === index"
-          class="flex-none gap-2 w-36"
+          class="w-36 flex-none gap-2"
           :class="[{ 'active-tab': currentIndex === index }]"
           @click="emit('changeCurrentIndex', index)"
         >

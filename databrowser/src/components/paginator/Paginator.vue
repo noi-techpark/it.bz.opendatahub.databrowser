@@ -7,18 +7,18 @@
       :disabled="!hasPrevious"
       @click="paginateTo(previousIndex)"
     >
-      <IconStrokedArrowDown class="w-5 h-5 rotate-90 stroke-current" />
+      <IconStrokedArrowDown class="h-5 w-5 rotate-90 stroke-current" />
     </button>
 
-    <div class="flex items-center mr-2">
+    <div class="mr-2 flex items-center">
       <input
         v-model="inputPageValue"
-        class="px-2 w-12 h-6 rounded rounded-r-none border-y border-l focus:border-green-500 border-r-none"
+        class="border-r-none h-6 w-12 rounded rounded-r-none border-y border-l px-2 focus:border-green-500"
         @keyup.enter="paginateTo(inputPageValue)"
       />
       <ButtonCustom
         size="xs"
-        class="w-9 h-6 rounded-l-none"
+        class="h-6 w-9 rounded-l-none"
         @click="paginateTo(inputPageValue)"
       >
         {{ t('datasets.listView.go') }}
@@ -32,7 +32,7 @@
       :disabled="!hasNext"
       @click="paginateTo(nextIndex)"
     >
-      <IconStrokedArrowDown class="w-5 h-5 -rotate-90 stroke-current" />
+      <IconStrokedArrowDown class="h-5 w-5 -rotate-90 stroke-current" />
     </button>
   </div>
 </template>

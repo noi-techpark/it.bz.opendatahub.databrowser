@@ -1,5 +1,5 @@
 <template>
-  <div class="flex overflow-auto w-full">
+  <div class="flex w-full overflow-auto">
     <div class="flex gap-5">
       <div
         v-for="(gpsEntry, index) in resolvedGpsEntries"

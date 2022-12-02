@@ -2,7 +2,7 @@
   <ButtonCustom
     variant="ghost"
     size="sm"
-    class="flex relative items-center px-3 h-10 font-semibold focus:text-green-500 uppercase focus:bg-transparent border-none md:px-6"
+    class="relative flex h-10 items-center border-none px-3 font-semibold uppercase focus:bg-transparent focus:text-green-500 md:px-6"
     :class="{
       'border-b-2 border-b-green-500 ': active,
       'text-gray-500': !active,

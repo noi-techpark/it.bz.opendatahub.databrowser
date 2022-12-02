@@ -12,7 +12,7 @@ export const apiQueryHandlerKey = 'api-query-handler';
 const removeUndefinedValues = (parameters: ApiParameters): ApiParameters =>
   Object.entries(parameters)
     // Remove all entries where value === undefined
-    .filter(([_, value]) => value !== undefined)
+    .filter(([, value]) => value !== undefined)
     .reduce((previous, [key, value]) => ({ ...previous, [key]: value }), {});
 
 const removeDefaultValues = (

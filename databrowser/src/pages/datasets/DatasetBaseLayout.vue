@@ -22,8 +22,8 @@
 
     <ContentDivider />
 
-    <div class="flex overflow-y-auto h-full">
-      <div class="flex overflow-x-auto flex-col flex-1">
+    <div class="flex h-full overflow-y-auto">
+      <div class="flex flex-1 flex-col overflow-x-auto">
         <ContentAlignmentX>
           <DatasetHeader />
         </ContentAlignmentX>

@@ -3,7 +3,7 @@
     <ContentDivider />
     <DatasetNavigation />
     <ContentDivider />
-    <section class="flex overflow-y-auto flex-col">
+    <section class="flex flex-col overflow-y-auto">
       <slot></slot>
     </section>
   </DatasetBaseLayout>

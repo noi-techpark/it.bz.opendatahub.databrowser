@@ -1,11 +1,11 @@
 <template>
   <div
-    class="inline-flex gap-2 items-center py-1 px-3 rounded"
+    class="inline-flex items-center gap-2 rounded py-1 px-3"
     :class="[classNames.background, textSizeClass]"
   >
     <div
       v-if="hasDot"
-      class="w-1 h-1 rounded-full"
+      class="h-1 w-1 rounded-full"
       :class="classNames.dot"
     ></div>
     <span :class="classNames.text">{{ text }}</span>

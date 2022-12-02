@@ -1,5 +1,5 @@
 <template>
-  <h1 class="max-w-2xl text-2xl font-bold title">
+  <h1 class="title max-w-2xl text-2xl font-bold">
     <slot></slot>
   </h1>
 </template>

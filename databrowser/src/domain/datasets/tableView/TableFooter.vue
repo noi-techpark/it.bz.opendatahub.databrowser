@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-end items-center py-2 text-xs bg-gray-50">
-    <span class="block mr-3">{{ t('datasets.listView.linesPerPage') }}</span>
+  <div class="flex items-center justify-end bg-gray-50 py-2 text-xs">
+    <span class="mr-3 block">{{ t('datasets.listView.linesPerPage') }}</span>
     <SelectCustom
       class="mr-6 w-16"
       options-placement="top"

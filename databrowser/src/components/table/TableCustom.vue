@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-y-auto flex-1">
+  <div class="flex-1 overflow-y-auto">
     <table class="data-table">
       <slot />
     </table>

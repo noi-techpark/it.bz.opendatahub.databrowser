@@ -2,7 +2,7 @@
   <CardContainer>
     <CardTitle>Data access</CardTitle>
     <div class="flex flex-wrap gap-5 md:flex-nowrap md:gap-16">
-      <div class="flex flex-col w-full md:w-fit">
+      <div class="flex w-full flex-col md:w-fit">
         <CardText>View in Data Browser</CardText>
         <ButtonLink
           class="mt-2"
@@ -19,7 +19,7 @@
           Access to table view
         </ButtonLink>
       </div>
-      <div class="flex flex-col w-full md:w-fit">
+      <div class="flex w-full flex-col md:w-fit">
         <CardText>Access data</CardText>
         <ButtonRawLink
           class="mt-2"

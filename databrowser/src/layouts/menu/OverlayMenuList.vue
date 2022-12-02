@@ -19,7 +19,7 @@
       >
         <button
           v-if="isMenuCategory(category) && category.items.length"
-          class="inline-flex flex-1 justify-between items-center py-2 px-4 w-full text-left md:max-w-xs"
+          class="inline-flex w-full flex-1 items-center justify-between py-2 px-4 text-left md:max-w-xs"
           @click="setSelected(category, index)"
         >
           <span>{{ category.label }}</span>
@@ -28,7 +28,7 @@
         <router-link
           v-if="isMenuLink(category)"
           :to="category.url"
-          class="flex-1 py-2 px-4 w-full text-left"
+          class="w-full flex-1 py-2 px-4 text-left"
           @click="$emit('close-dialog')"
         >
           {{ category.label }}

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 v-if="category != null" class="hidden mb-5 text-xl font-bold md:block">
+    <h2 v-if="category != null" class="mb-5 hidden text-xl font-bold md:block">
       {{ category.name }}
     </h2>
     <div

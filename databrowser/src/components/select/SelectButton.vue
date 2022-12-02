@@ -1,14 +1,14 @@
 <template>
   <ListboxButton
     v-slot="{ open }"
-    class="relative pr-9 pl-3 w-full leading-tight text-left border border-gray-300"
+    class="relative w-full border border-gray-300 pr-9 pl-3 text-left leading-tight"
   >
     <span class="block">{{ selectedOption?.label }}</span>
     <span
-      class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none"
+      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
     >
-      <IconStrokedArrowDown v-if="!open" class="w-5 h-5 stroke-current" />
-      <IconStrokedArrowUp v-else class="w-5 h-5 stroke-current" />
+      <IconStrokedArrowDown v-if="!open" class="h-5 w-5 stroke-current" />
+      <IconStrokedArrowUp v-else class="h-5 w-5 stroke-current" />
     </span>
   </ListboxButton>
 </template>

@@ -21,7 +21,7 @@
           </CardText>
         </div>
         <img
-          class="order-first w-full lg:order-last lg:justify-self-end lg:w-fit"
+          class="order-first w-full lg:order-last lg:w-fit lg:justify-self-end"
           src="/home/data.jpg"
           alt="Image showing the text 'data' "
         />
@@ -39,9 +39,9 @@
           <ButtonLink
             :size="Size.md"
             :to="{ name: 'OverviewListPage' }"
-            class="flex gap-3 items-center pr-6 pl-2.5 w-full text-3xl md:w-fit"
+            class="flex w-full items-center gap-3 pr-6 pl-2.5 text-3xl md:w-fit"
           >
-            <div class="py-1 px-3 text-green-500 bg-white rounded">
+            <div class="rounded bg-white py-1 px-3 text-green-500">
               {{ datasetCount }}
             </div>
             Show datasets

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-3 pb-5 md:flex-row md:justify-between md:items-center"
+    class="flex flex-col gap-3 pb-5 md:flex-row md:items-center md:justify-between"
   >
     <component
       :is="tagName"

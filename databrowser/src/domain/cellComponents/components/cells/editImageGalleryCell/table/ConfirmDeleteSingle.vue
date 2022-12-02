@@ -1,16 +1,16 @@
 <template>
-  <div class="flex flex-col justify-center items-center">
+  <div class="flex flex-col items-center justify-center">
     <span class="text-black">
       Are you sure you want to delete this picture?
     </span>
-    <div class="flex gap-2 mt-3">
+    <div class="mt-3 flex gap-2">
       <ButtonCustom size="xs" class="py-1 px-2" @click="emit('confirm')">
         Yes, delete image
       </ButtonCustom>
       <ButtonCustom
         size="xs"
         variant="ghost"
-        class="py-1 px-2 text-black border-black"
+        class="border-black py-1 px-2 text-black"
         @click="emit('abort')"
       >
         No, don't delete it

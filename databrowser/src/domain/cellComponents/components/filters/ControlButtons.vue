@@ -1,5 +1,5 @@
 <template>
-  <div class="flex p-2 space-x-2">
+  <div class="flex space-x-2 p-2">
     <ButtonCustom variant="ghost" @click="emit('cancel')">{{
       t('components.cancel')
     }}</ButtonCustom>

@@ -5,13 +5,13 @@
   <Teleport to="#popper-root">
     <div
       ref="tooltip"
-      class="flex absolute z-20 p-1.5 bg-white rounded border border-gray-250 shadow-xl"
+      class="absolute z-20 flex rounded border border-gray-250 bg-white p-1.5 shadow-xl"
       :class="[{ hidden: !visible }, containerClasses]"
     >
       <!-- Tooltip arrow -->
       <div
         ref="arrow"
-        class="absolute w-4 h-4 bg-white rotate-45"
+        class="absolute h-4 w-4 rotate-45 bg-white"
         :class="arrowClasses"
       ></div>
 

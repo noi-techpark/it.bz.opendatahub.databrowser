@@ -8,7 +8,7 @@
     <ButtonCustom
       variant="ghost"
       size="xs"
-      class="flex justify-center items-center w-8 h-6 md:w-10"
+      class="flex h-6 w-8 items-center justify-center md:w-10"
       @click="navigateToTab(index)"
     >
       <IconEdit class="stroke-current" />

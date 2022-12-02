@@ -1,21 +1,21 @@
 <template>
   <ContentAlignmentX>
     <ContentDivider />
-    <footer class="flex items-center my-3 lg:justify-center">
+    <footer class="my-3 flex items-center lg:justify-center">
       <ul
-        class="flex flex-wrap justify-center text-sm leading-none divide-x divide-current lg:justify-start"
+        class="flex flex-wrap justify-center divide-x divide-current text-sm leading-none lg:justify-start"
       >
-        <li class="pr-4 my-1">@ Open Data Hub</li>
-        <li class="px-4 my-1">
+        <li class="my-1 pr-4">@ Open Data Hub</li>
+        <li class="my-1 px-4">
           <router-link to="/sitemap">{{ t('footer.sitemap') }}</router-link>
         </li>
-        <li class="px-4 my-1">
+        <li class="my-1 px-4">
           <router-link to="/legal">{{ t('footer.legal') }}</router-link>
         </li>
-        <li class="px-4 my-1">
+        <li class="my-1 px-4">
           <router-link to="/privacy">{{ t('footer.privacy') }}</router-link>
         </li>
-        <li class="pl-4 my-1">
+        <li class="my-1 pl-4">
           <router-link to="/imprint">{{ t('footer.imprint') }}</router-link>
         </li>
       </ul>

@@ -20,7 +20,7 @@
       <TableHeader>
         <TableHeaderCell
           v-if="hasImages"
-          class="w-0 bg-white border-none md:block md:w-full md:h-14"
+          class="w-0 border-none bg-white md:block md:h-14 md:w-full"
         ></TableHeaderCell>
         <TableHeaderCell v-if="hasImages">
           <div class="flex">
@@ -41,7 +41,7 @@
         <TableHeaderCell>Resolution</TableHeaderCell>
         <TableHeaderCell
           v-if="hasImages"
-          class="sticky right-0 font-semibold bg-gray-50"
+          class="sticky right-0 bg-gray-50 font-semibold"
         >
           Settings
         </TableHeaderCell>
@@ -53,8 +53,8 @@
         class="divide-y divide-gray-200"
       >
         <tr v-for="(image, index) in imagesInternal" :key="index">
-          <td v-if="hasImages" class="pt-4 pr-4 w-0 border-none">
-            <IconDragAndDrop class="hidden cursor-pointer md:block handle" />
+          <td v-if="hasImages" class="w-0 border-none pt-4 pr-4">
+            <IconDragAndDrop class="handle hidden cursor-pointer md:block" />
           </td>
           <TableCell v-if="hasImages" class="relative">
             <CheckboxCustom
@@ -65,10 +65,10 @@
           <TableCell>
             <UseFullscreen
               v-slot="{ toggle, isFullscreen }"
-              class="flex justify-center items-center md:items-stretch"
+              class="flex items-center justify-center md:items-stretch"
             >
               <div
-                class="group flex relative justify-center cursor-pointer"
+                class="group relative flex cursor-pointer justify-center"
                 :class="{ 'items-center': !isFullscreen }"
                 @click="toggle()"
               >
@@ -103,7 +103,7 @@
             />
             <ConfirmDeleteSingle
               v-else
-              class="absolute inset-x-0 top-0 p-4 ml-[-16em] h-full bg-gray-50 shadow-table-static-col"
+              class="absolute inset-x-0 top-0 ml-[-16em] h-full bg-gray-50 p-4 shadow-table-static-col"
               @abort="closeDeleteSingleImageConfirm"
               @confirm="deleteSingleConfirm(index)"
             />

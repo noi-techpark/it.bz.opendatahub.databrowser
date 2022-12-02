@@ -2,7 +2,7 @@
   <header class="flex flex-wrap items-center py-2 text-xs md:py-3">
     <!-- Dataset title -->
     <div
-      class="flex justify-between items-center mb-2 w-full md:mb-0 md:w-auto"
+      class="mb-2 flex w-full items-center justify-between md:mb-0 md:w-auto"
     >
       <span
         v-if="datasetConfigStore.hasConfig"
@@ -21,7 +21,7 @@
       v-if="datasetConfigStore.hasConfig"
       variant="ghost"
       size="xs"
-      class="flex items-center py-1 px-3 mr-1 h-6"
+      class="mr-1 flex h-6 items-center py-1 px-3"
     >
       <IconInfo class="mr-2 stroke-current" />
       <span class="line-height-1">{{ t('datasets.header.moreInfo') }}</span>
@@ -52,8 +52,8 @@
       has-dot
     />
 
-    <div class="flex ml-auto">
-      <AddRecordButton v-if="showAddRecord" class="hidden mr-3 md:block" />
+    <div class="ml-auto flex">
+      <AddRecordButton v-if="showAddRecord" class="mr-3 hidden md:block" />
 
       <!-- Language picker -->
       <LanguagePicker />

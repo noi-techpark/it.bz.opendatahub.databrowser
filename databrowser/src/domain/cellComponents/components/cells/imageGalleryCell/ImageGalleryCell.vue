@@ -1,5 +1,5 @@
 <template>
-  <div class="flex overflow-auto w-full">
+  <div class="flex w-full overflow-auto">
     <div class="flex gap-5">
       <div v-for="(image, index) in resolvedImages" :key="index" class="w-56">
         <SubCategoryItem>

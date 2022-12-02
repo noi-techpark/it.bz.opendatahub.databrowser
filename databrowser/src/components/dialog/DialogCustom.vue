@@ -13,9 +13,9 @@
         <div class="fixed inset-0 bg-black/25"></div>
       </TransitionChild>
 
-      <div class="overflow-y-auto fixed inset-0">
+      <div class="fixed inset-0 overflow-y-auto">
         <div
-          class="flex justify-center items-center p-4 min-h-full text-center"
+          class="flex min-h-full items-center justify-center p-4 text-center"
         >
           <TransitionChild
             as="template"
@@ -27,18 +27,18 @@
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="overflow-hidden p-6 w-full max-w-md text-left align-middle bg-white rounded shadow-xl transition-all"
+              class="w-full max-w-md overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl transition-all"
             >
               <DialogTitle
                 as="h3"
-                class="text-xl font-semibold leading-6 text-center text-dialog"
+                class="text-center text-xl font-semibold leading-6 text-dialog"
               >
                 <slot name="title"></slot>
               </DialogTitle>
               <DialogDescription class="mt-4 text-center text-dialog">
                 <slot name="description"></slot>
               </DialogDescription>
-              <div class="flex flex-col gap-2 mt-6">
+              <div class="mt-6 flex flex-col gap-2">
                 <slot name="body"></slot>
               </div>
             </DialogPanel>

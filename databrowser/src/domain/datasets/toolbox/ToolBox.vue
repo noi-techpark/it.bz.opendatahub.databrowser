@@ -2,15 +2,15 @@
   <!-- Mobile toolbox open button -->
   <ButtonCustom
     v-if="!isToolboxVisible"
-    class="flex absolute right-[20px] bottom-16 z-20 justify-center items-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
+    class="absolute right-[20px] bottom-16 z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
     @click="isToolboxVisible = !isToolboxVisible"
   >
-    <IconClose class="mr-2 w-5 h-5 rotate-45 just" /><span>Toolbox</span>
+    <IconClose class="just mr-2 h-5 w-5 rotate-45" /><span>Toolbox</span>
   </ButtonCustom>
 
   <!-- Toolbox content -->
   <div
-    class="flex overflow-x-auto absolute top-0 z-20 flex-col h-full bg-white transition-all md:relative"
+    class="absolute top-0 z-20 flex h-full flex-col overflow-x-auto bg-white transition-all md:relative"
     :class="{
       'w-full md:w-1/3': isToolboxVisible && isTableView,
       'w-full md:w-1/2': isToolboxVisible && !isTableView,
@@ -19,7 +19,7 @@
     }"
   >
     <div
-      class="flex overflow-y-auto flex-1 md:block"
+      class="flex flex-1 overflow-y-auto md:block"
       :class="{ block: isToolboxVisible, hidden: !isToolboxVisible }"
     >
       <Transition
@@ -34,20 +34,20 @@
             <div class="flex flex-col justify-between">
               <TabGroup>
                 <div
-                  class="flex sticky top-0 z-10 flex-col justify-end bg-white"
+                  class="sticky top-0 z-10 flex flex-col justify-end bg-white"
                 >
                   <!-- Close button at the top right -->
                   <ButtonCustom
                     variant="ghost"
                     size="xs"
-                    class="flex justify-center items-center self-end mt-6 mr-2 w-8 h-8 md:hidden"
+                    class="mt-6 mr-2 flex h-8 w-8 items-center justify-center self-end md:hidden"
                     @click="isToolboxVisible = false"
                   >
-                    <IconClose class="w-5 h-5" />
+                    <IconClose class="h-5 w-5" />
                   </ButtonCustom>
 
                   <!-- Tab navigation -->
-                  <TabList class="flex justify-around mt-2 mb-8 md:mt-0">
+                  <TabList class="mt-2 mb-8 flex justify-around md:mt-0">
                     <Tab
                       v-for="tabName in tabNames"
                       :key="tabName"
@@ -73,14 +73,14 @@
     </div>
 
     <!-- Table view open / close button -->
-    <div v-if="isTableView" class="hidden my-6 ml-4 md:block">
+    <div v-if="isTableView" class="my-6 ml-4 hidden md:block">
       <ButtonCustom
         size="xs"
-        class="hidden justify-center items-center w-8 h-8 md:flex"
+        class="hidden h-8 w-8 items-center justify-center md:flex"
         @click="isToolboxVisible = !isToolboxVisible"
       >
         <IconStrokedArrowDown
-          class="w-5 h-5 stroke-current"
+          class="h-5 w-5 stroke-current"
           :class="{
             '-rotate-90': isToolboxVisible,
             'rotate-90': !isToolboxVisible,

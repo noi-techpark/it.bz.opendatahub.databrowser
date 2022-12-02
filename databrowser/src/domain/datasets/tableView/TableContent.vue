@@ -12,7 +12,7 @@
         :text="col.title"
         :filter="col.filter"
       />
-      <TableHeaderCell class="sticky right-0 font-semibold bg-gray-50">
+      <TableHeaderCell class="sticky right-0 bg-gray-50 font-semibold">
         {{ t('datasets.listView.colDetail') }}
       </TableHeaderCell>
     </template>

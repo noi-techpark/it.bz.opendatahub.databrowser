@@ -13,10 +13,10 @@
       </ToolBoxCard>
     </TabPanel>
     <TabPanel
-      class="overflow-auto pl-2 bg-green-500 border-transparent"
+      class="overflow-auto border-transparent bg-green-500 pl-2"
       :class="{ 'bg-red-500': !editStore.isEqual }"
     >
-      <div class="w-[80rem] h-[30rem]">
+      <div class="h-[30rem] w-[80rem]">
         <VueDiff
           :mode="'split'"
           :theme="'dark'"

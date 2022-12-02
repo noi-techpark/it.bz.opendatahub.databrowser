@@ -13,7 +13,7 @@
         :key="index"
         :href="partner.url"
         :title="partner.linkTitle"
-        class="flex justify-center items-center p-3 rounded border hover:border-green-500"
+        class="flex items-center justify-center rounded border p-3 hover:border-green-500"
         target="_blank"
       >
         <img

@@ -8,7 +8,7 @@
           src="/logo-open-data-hub-black.svg"
         />
       </router-link>
-      <div class="inline-flex items-center ml-4">
+      <div class="ml-4 inline-flex items-center">
         <OverlayMenu :items="data" />
       </div>
     </div>
