@@ -92,8 +92,9 @@ export const regionEditView: EditViewConfig = {
             },
             {
               title: 'Active on Open Data Hub',
-              component: CellComponent.StringCell,
-              fields: { text: 'OdhActive' },
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'OdhActive' },
+              params: { preventChange: 'true' },
             },
             {
               title: 'Published on',
