@@ -8,6 +8,9 @@ export default defineConfig({
     __VUE_I18N_LEGACY_API__: false,
     __INTLIFY_PROD_DEVTOOLS__: false,
   },
+  server: {
+    port: 3000,
+  },
   plugins: [
     vue(),
     // TODO: Check if the setting below is necessary, it seems to work also without it,
