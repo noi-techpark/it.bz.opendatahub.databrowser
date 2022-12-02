@@ -3,8 +3,8 @@
     <AppHeader />
     <div class="flex overflow-y-auto flex-col flex-1">
       <slot></slot>
+      <AppFooter v-if="showAppFooter" />
     </div>
-    <AppFooter v-if="showAppFooter" />
   </div>
 </template>
 
