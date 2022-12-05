@@ -8,80 +8,48 @@ export const snowReportEditView: EditViewConfig = {
       slug: 'main-data',
       subcategories: [
         {
-          name: 'General data',
+          name: 'Shortname',
           properties: [
             {
-              title: 'Shortname',
-              component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              title: '',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Areaname' },
             },
-          ],
-        },
-        {
-          name: 'IDs',
-          properties: [
             {
               title: 'ID',
               component: CellComponent.StringCell,
               fields: { text: 'Id' },
-              class: 'break-all',
-            },
-          ],
-        },
-        {
-          name: 'Data states',
-          properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
-              params: {
-                format: 'd/M/yyyy HH:mm',
-              },
             },
             {
-              title: 'Active on Source',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'Active' },
-            },
-            {
-              title: 'Active on Open Data Hub',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'OdhActive' },
-            },
-          ],
-        },
-        {
-          name: 'Source',
-          properties: [
-            {
-              title: 'Source',
+              title: 'RID',
               component: CellComponent.StringCell,
-              fields: { text: 'Source' },
+              fields: { text: 'RID' },
             },
-          ],
-        },
-        {
-          name: 'Categories',
-          properties: [
             {
-              title: 'Accommodation category',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoCategory.Id' },
+              title: 'Ski Region',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Skiregion' },
+            },
+            {
+              title: 'Ski Map',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'SkiMapUrl',
+              },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
-                keySelector: 'Id',
+                width: '100%',
               },
             },
             {
-              title: 'Accommodation type',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoType.Id' },
+              title: 'Logo',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'contactlogo',
+              },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
-                keySelector: 'Id',
+                width: '15%',
               },
             },
           ],
@@ -89,16 +57,234 @@ export const snowReportEditView: EditViewConfig = {
       ],
     },
     {
-      name: 'Text information',
-      slug: 'text-information',
+      name: 'Measurements',
+      slug: 'measurements',
       subcategories: [
         {
-          name: 'General data',
+          name: 'Shortname',
           properties: [
             {
-              title: 'Shortname',
+              title: '',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Measuringpoints.0.Shortname' },
+            },
+            {
+              title: 'ID',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              fields: { text: 'Id' },
+            },
+            {
+              title: 'Last Update',
+              component: CellComponent.DateCell,
+              fields: { date: 'Measuringpoints.0.LastUpdate' },
+              params: {
+                format: 'd/M/yyyy HH:mm',
+              },
+            },
+            {
+              title: 'Snow Height',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Measuringpoints.0.SnowHeight' },
+            },
+            {
+              title: 'New Snow Height',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Measuringpoints.0.newSnowHeight' },
+            },
+            {
+              title: 'Temperature',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Measuringpoints.0.Temperature' },
+            },
+            {
+              title: 'Last Snow Date',
+              component: CellComponent.DateCell,
+              fields: { date: 'Measuringpoints.0.LastSnowDate' },
+              params: {
+                format: 'd/M/yyyy HH:mm',
+              },
+            },
+            {
+              title: 'Weather Observation',
+              component: CellComponent.ArrayCell,
+              fields: {
+                items: 'Measuringpoints.WeatherObservation',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Webcam',
+      slug: 'webcam',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Webcam-Url',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'WebcamUrl',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Skilift Details',
+      slug: 'skilift',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Total Skilift',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'totalskilift' },
+            },
+            {
+              title: 'Open Skilift',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'openskilift' },
+            },
+            {
+              title: 'Total Skilift km',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'totalskiliftkm' },
+            },
+            {
+              title: 'Open Skilift km',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'openskiliftkm' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Skislopes Details',
+      slug: 'skislopes',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Ski Area slope km',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'SkiAreaSlopeKm' },
+            },
+            {
+              title: 'Total Ski slopes',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'totalskislopes' },
+            },
+            {
+              title: 'Open Ski slopes',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'openskislopes' },
+            },
+            {
+              title: 'Total Ski slopes km',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'totalskislopeskm' },
+            },
+            {
+              title: 'Open Ski slopes km',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'openskislopeskm' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tracks Details',
+      slug: 'tracks',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Total tracks',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'totaltracks' },
+            },
+            {
+              title: 'Open tracks',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'opentracks' },
+            },
+            {
+              title: 'Total tracks km',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'totaltrackskm' },
+            },
+            {
+              title: 'Open tracks km',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'opentrackskm' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Slides Details',
+      slug: 'slides',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Total slides',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'totalslides' },
+            },
+            {
+              title: 'Open slides',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'opentslides' },
+            },
+            {
+              title: 'Total slides km',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'totalslideskm' },
+            },
+            {
+              title: 'Open slides km',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'openslidesskm' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Iceskating Details',
+      slug: 'iceSkating',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Total ice skating',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'totaliceskating' },
+            },
+            {
+              title: 'Open ice skating',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'openiceskating' },
             },
           ],
         },
@@ -112,19 +298,9 @@ export const snowReportEditView: EditViewConfig = {
           name: 'Name and Company Data',
           properties: [
             {
-              title: 'Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
-            },
-            {
-              title: 'First Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
-            },
-            {
-              title: 'Surname',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
+              title: 'Name/Company Name/AreaName',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Areaname' },
             },
           ],
         },
@@ -133,23 +309,28 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'contactadress' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'contactcap' },
             },
             {
               title: 'City',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'contactcity' },
             },
             {
-              title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
+              title: 'GPS North',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'contactgpsnorth' },
+            },
+            {
+              title: 'GPS East',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'contactgpseast' },
             },
           ],
         },
@@ -158,85 +339,18 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'contactmail' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'contacttel' },
             },
             {
               title: 'Web-URL',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Images',
-      slug: 'images',
-      subcategories: [
-        {
-          name: 'Images',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Location',
-      slug: 'location',
-      subcategories: [
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Region / TVB',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationDistrict.RegionDistrict.Name.{language}',
-              },
-            },
-            {
-              title: 'Tourismorganization',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
-            },
-            {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationDistrict.MunicipalityDistrict.Name.{language}',
-              },
-            },
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'LocationDistrict.DistrictDistrict.Name.{language}',
-              },
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'contactweburl' },
             },
           ],
         },

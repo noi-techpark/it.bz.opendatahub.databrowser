@@ -480,14 +480,8 @@ export const weatherInfoDetailView: DetailViewConfig = {
             },
             {
               title: 'Snow Limit',
-              component: CellComponent.ArrayCell,
-              class: 'w-40',
-              fields: {
-                items: 'Snowlimit',
-              },
-              params: {
-                separator: ', ',
-              },
+              component: CellComponent.StringCell,
+              fields: { text: 'Weather.{language}.Mountain.0.Snowlimit.0' },
             },
           ],
         },
