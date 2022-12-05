@@ -215,13 +215,25 @@ export const districtEditView: EditViewConfig = {
           properties: [
             {
               title: 'Region / TVB',
-              component: CellComponent.StringCell,
-              fields: { text: 'Region.Id' },
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'Region.Id' },
+              params: {
+                url: 'https://api.tourism.testingmachine.eu/v1/Location?language=en&type=null&showall=true',
+                labelSelector: 'name',
+                keySelector: 'id',
+              },
+              required: true,
             },
             {
               title: 'Municipality',
-              component: CellComponent.StringCell,
-              fields: { text: 'Municipality.Id' },
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'Municipality.Id' },
+              params: {
+                url: 'https://api.tourism.testingmachine.eu/v1/Municipality?removenullvalues=false',
+                labelSelector: 'Detail.en.Title',
+                keySelector: 'Id',
+              },
+              required: true,
             },
           ],
         },
