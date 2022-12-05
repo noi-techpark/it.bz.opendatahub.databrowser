@@ -68,7 +68,7 @@ const props = defineProps<ImageGalleryCellProps>();
 
 const { images, ...fieldsAsRef } = toRefs(props);
 
-const fields = Object.entries(fieldsAsRef).reduce(
+const fields = Object.entries(fieldsAsRef).reduce<Record<string, string>>(
   (previous: ImageGalleryEntry, [key, value]: [string, Ref<string>]) =>
     value?.value == null ? previous : { ...previous, [key]: value.value },
   {}

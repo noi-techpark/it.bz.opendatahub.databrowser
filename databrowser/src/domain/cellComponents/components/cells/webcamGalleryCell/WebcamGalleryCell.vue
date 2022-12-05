@@ -61,7 +61,7 @@ const props = defineProps<WebcamGalleryCellProps>();
 
 const { webcams, ...fieldsAsRef } = toRefs(props);
 
-const fields = Object.entries(fieldsAsRef).reduce(
+const fields = Object.entries(fieldsAsRef).reduce<Record<string, string>>(
   (previous: WebcamGalleryEntry, [key, value]: [string, Ref<string>]) =>
     value?.value == null ? previous : { ...previous, [key]: value.value },
   {}
