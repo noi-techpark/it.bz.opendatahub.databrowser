@@ -31,9 +31,15 @@ export const snowReportDetailView: DetailViewConfig = {
               fields: { text: 'Skiregion' },
             },
             {
-              title: 'Ski Map Url',
-              component: CellComponent.UrlCell,
-              fields: { text: 'SkiMapUrl' },
+              title: 'Ski Map',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'SkiMapUrl',
+              },
+              params: {
+                width: '100%',
+              },
             },
             {
               title: 'Logo',
@@ -59,16 +65,8 @@ export const snowReportDetailView: DetailViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'Measuringpoints',
-              },
-              params: {
-                fieldName: 'Shortname',
-                separator: ', ',
-                max: '3',
-              },
+              component: CellComponent.StringCell,
+              fields: { text: 'Measuringpoints.0.Shortname' },
             },
             {
               title: 'ID',
@@ -77,73 +75,38 @@ export const snowReportDetailView: DetailViewConfig = {
             },
             {
               title: 'Last Update',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'Measuringpoints',
-              },
+              component: CellComponent.DateCell,
+              fields: { date: 'Measuringpoints.0.LastUpdate' },
               params: {
-                fieldName: 'LastUpdate',
-                separator: ', ',
-                max: '3',
+                format: 'd/M/yyyy HH:mm',
               },
             },
             {
               title: 'Snow Height',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'Measuringpoints',
-              },
-              params: {
-                fieldName: 'SnowHeight',
-                separator: ', ',
-                max: '3',
-              },
+              component: CellComponent.StringCell,
+              fields: { text: 'Measuringpoints.0.SnowHeight' },
             },
             {
               title: 'New Snow Height',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'Measuringpoints',
-              },
-              params: {
-                fieldName: 'newSnowHeight',
-                separator: ', ',
-                max: '3',
-              },
+              component: CellComponent.StringCell,
+              fields: { text: 'Measuringpoints.0.newSnowHeight' },
             },
             {
               title: 'Temperature',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'Measuringpoints',
-              },
-              params: {
-                fieldName: 'Temperature',
-                separator: ', ',
-                max: '3',
-              },
+              component: CellComponent.StringCell,
+              fields: { text: 'Measuringpoints.0.Temperature' },
             },
             {
               title: 'Last Snow Date',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'Measuringpoints',
-              },
+              component: CellComponent.DateCell,
+              fields: { date: 'Measuringpoints.0.LastSnowDate' },
               params: {
-                fieldName: 'LastSnowDate',
-                separator: ', ',
-                max: '3',
+                format: 'd/M/yyyy HH:mm',
               },
             },
             {
               title: 'Weather Observation',
               component: CellComponent.ArrayCell,
-              class: 'w-40',
               fields: {
                 items: 'Measuringpoints.WeatherObservation',
               },
