@@ -11,6 +11,33 @@ export const articleEditView: EditViewConfig = {
           name: 'General data',
           properties: [
             {
+              title: 'Title',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Detail.{language}.Title' },
+            },
+            {
+              title: 'Shortname',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Shortname' },
+            },
+            {
+              title: 'Logo',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'LogoUrl',
+              },
+              params: {
+                width: '15%',
+              },
+            },
+
+            {
+              title: 'Highlight',
+              component: CellComponent.ToggleCell,
+              fields: { text: 'Highlight' },
+            },
+            {
               title: 'Type',
               component: CellComponent.InputReferenceCell,
               fields: { value: 'Type' },
@@ -22,9 +49,37 @@ export const articleEditView: EditViewConfig = {
               required: true,
             },
             {
-              title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'Shortname' },
+              title: 'Sub Type',
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'SubType' },
+              params: {
+                url: 'https://api.tourism.testingmachine.eu/v1/ArticleTypes',
+                labelSelector: 'Key',
+                keySelector: 'Key',
+              },
+              required: true,
+            },
+            {
+              title: 'Article Date',
+              component: CellComponent.DateCell,
+              class: 'w-40',
+              fields: {
+                date: 'ArticleDate',
+              },
+              params: {
+                format: 'do MMMM yyyy HH:mm',
+              },
+            },
+            {
+              title: 'Article Date To',
+              component: CellComponent.DateCell,
+              class: 'w-40',
+              fields: {
+                date: 'ArticleDateTo',
+              },
+              params: {
+                format: 'do MMMM yyyy HH:mm',
+              },
             },
           ],
         },
@@ -44,10 +99,13 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: 'Last Changes',
-              component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
+              component: CellComponent.EditedDateCell,
+              class: 'w-40',
+              fields: {
+                date: 'LastChange',
+              },
               params: {
-                format: 'd/M/yyyy HH:mm',
+                format: 'do MMMM yyyy HH:mm',
               },
             },
             {
@@ -59,6 +117,12 @@ export const articleEditView: EditViewConfig = {
               title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'OdhActive' },
+              params: { preventChange: 'true' },
+            },
+            {
+              title: 'Active on SMG',
+              component: CellComponent.ToggleCell,
+              fields: { text: 'SmgActive' },
             },
           ],
         },
@@ -69,6 +133,7 @@ export const articleEditView: EditViewConfig = {
               title: 'Source',
               component: CellComponent.StringCell,
               fields: { text: 'Source' },
+              class: 'break-all',
             },
           ],
         },
@@ -115,6 +180,11 @@ export const articleEditView: EditViewConfig = {
               title: 'Base text',
               component: CellComponent.InputSingleLineCell,
               fields: { html: 'Detail.{language}.BaseText' },
+            },
+            {
+              title: 'Additional text',
+              component: CellComponent.InputSingleLineCell,
+              fields: { html: 'Detail.{language}.AdditionalText' },
             },
           ],
         },
@@ -250,6 +320,41 @@ export const articleEditView: EditViewConfig = {
               title: 'District',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'tags',
+      subcategories: [
+        {
+          name: 'Open Data Hub Tags',
+          properties: [
+            {
+              title: 'Open Data Hub Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
