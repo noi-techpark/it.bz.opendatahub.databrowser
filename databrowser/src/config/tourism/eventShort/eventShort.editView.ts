@@ -154,19 +154,19 @@ export const eventShortEditView: EditViewConfig = {
           name: 'Room mananagement',
           properties: [
             {
-              title: 'Date Start',
+              title: 'Start date',
               component: CellComponent.DateCell,
               fields: { date: 'StartDate' },
               params: {
-                format: 'do/M/yyyy HH:mm',
+                format: 'do MMM yyyy HH:mm',
               },
             },
             {
-              title: 'Date End',
+              title: 'End date',
               component: CellComponent.DateCell,
               fields: { date: 'EndDate' },
               params: {
-                format: 'do/M/yyyy HH:mm',
+                format: 'do MMM yyyy HH:mm',
               },
             },
             {
