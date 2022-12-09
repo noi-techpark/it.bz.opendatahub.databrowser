@@ -98,7 +98,7 @@ export const eventShortDetailView: DetailViewConfig = {
               class: 'break-all',
             },
             {
-              title: 'Country Abbrevation',
+              title: 'Country Abbreviation',
               component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CountryCode' },
             },
