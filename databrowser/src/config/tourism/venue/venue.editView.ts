@@ -214,5 +214,62 @@ export const venueEditView: EditViewConfig = {
         },
       ],
     },
+    {
+      name: 'GPS Data',
+      slug: 'gps-data',
+      subcategories: [
+        {
+          name: 'GPS Data',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.GpsPointsCell,
+              fields: {
+                type: 'GpsPoints.position.Gpstype',
+                latitude: 'GpsPoints.position.Latitude',
+                longitude: 'GpsPoints.position.Longitude',
+                altitude: 'GpsPoints.position.Altitude',
+                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'tags',
+      subcategories: [
+        {
+          name: 'Open Data Hub Tags',
+          properties: [
+            {
+              title: 'Open Data Hub Tags',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
+              },
+              params: {
+                fieldName: 'Id',
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
