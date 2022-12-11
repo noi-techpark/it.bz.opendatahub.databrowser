@@ -213,5 +213,27 @@ export const venueDetailView: DetailViewConfig = {
         },
       ],
     },
+    {
+      name: 'GPS Data',
+      slug: 'gps-data',
+      subcategories: [
+        {
+          name: 'GPS Data',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.GpsPointsCell,
+              fields: {
+                type: 'GpsPoints.position.Gpstype',
+                latitude: 'GpsPoints.position.Latitude',
+                longitude: 'GpsPoints.position.Longitude',
+                altitude: 'GpsPoints.position.Altitude',
+                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+              },
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
