@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
+import { computed, ComputedRef, defineProps, toRefs } from 'vue';
 import { usePropertyMapping } from '../../../../api';
 import StringCell from '../stringCell/StringCell.vue';
 import ImageCell from '../imageCell/ImageCell.vue';
@@ -62,7 +62,7 @@ const props = defineProps<WebcamGalleryCellProps>();
 const { webcams, ...fieldsAsRef } = toRefs(props);
 
 const fields = Object.entries(fieldsAsRef).reduce<Record<string, string>>(
-  (previous: WebcamGalleryEntry, [key, value]: [string, Ref<string>]) =>
+  (previous: WebcamGalleryEntry, [key, value]) =>
     value?.value == null ? previous : { ...previous, [key]: value.value },
   {}
 );

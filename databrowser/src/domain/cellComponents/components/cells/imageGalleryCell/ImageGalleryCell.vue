@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
+import { computed, ComputedRef, defineProps, toRefs } from 'vue';
 import { usePropertyMapping } from '../../../../api';
 import ImageCell from '../imageCell/ImageCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
@@ -69,7 +69,7 @@ const props = defineProps<ImageGalleryCellProps>();
 const { images, ...fieldsAsRef } = toRefs(props);
 
 const fields = Object.entries(fieldsAsRef).reduce<Record<string, string>>(
-  (previous: ImageGalleryEntry, [key, value]: [string, Ref<string>]) =>
+  (previous: ImageGalleryEntry, [key, value]) =>
     value?.value == null ? previous : { ...previous, [key]: value.value },
   {}
 );
