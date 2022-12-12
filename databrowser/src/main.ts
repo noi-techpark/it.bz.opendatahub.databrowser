@@ -13,6 +13,9 @@ import './cookieconsent/cookieconsent.css';
 import { consentOptions } from './cookieconsent/consentOptions';
 import VueHotjar from 'vue-hotjar-next';
 
+import OpenLayersMap from 'vue3-openlayers';
+import 'vue3-openlayers/dist/vue3-openlayers.css';
+
 const app = createApp(App);
 
 // Add Vue router
@@ -33,6 +36,9 @@ app.use(createPinia());
 
 // Register Vue cell render components globally for dynamic rendering
 app.use(registerCellComponents);
+
+// Add OpenLayers Map
+app.use(OpenLayersMap);
 
 // Add i18n translation
 const locale = 'en';
