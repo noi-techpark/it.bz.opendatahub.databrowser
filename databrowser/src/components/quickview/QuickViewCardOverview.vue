@@ -1,6 +1,14 @@
 <template>
-  <QuickViewCardBase :title="title">
-    <div class="overview-content-card-ct">
+  <QuickViewCardBase
+    :title="title"
+    :cta-icon="ctaIcon"
+    @cta-click="$emit('ctaClick')"
+  >
+    <div
+      class="overview-content-card-ct"
+      :class="{ 'no-padding': contentHasNoPadding }"
+    >
+      <slot name="content" />
       <QuickViewCardOverviewContentContainer
         v-for="(s, i) in sections"
         :key="i"
@@ -15,7 +23,14 @@
           >
             <QuickViewCardOverviewContentTitle :value="c.title" />
             <QuickViewCardOverviewContentText v-if="c.text" :value="c.text" />
-
+            <TagCustom
+              v-if="c.tag"
+              :size="c.tag.size"
+              :type="c.tag.type"
+              :text="c.tag.text"
+              :has-dot="c.tag.hasDot"
+              class="mt-1"
+            />
             <!-- TODO: tag if .tag -->
           </div>
         </template>
@@ -24,19 +39,32 @@
   </QuickViewCardBase>
 </template>
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
 import QuickViewCardBase from './QuickViewCardBase.vue';
 import QuickViewCardOverviewContentContainer from './QuickViewCardOverviewContentContainer.vue';
 import QuickViewCardOverviewContentTitle from './QuickViewCardOverviewContentTitle.vue';
 import QuickViewCardOverviewContentText from './QuickViewCardOverviewContentText.vue';
 
-defineProps<{ title?: string; sections: Array }>();
+import TagCustom from '../tag/TagCustom.vue';
+
+defineProps<{
+  title?: string;
+  sections: Array;
+  contentHasNoPadding?: Boolean;
+  ctaIcon?: string;
+}>();
+
+defineEmits(['ctaClick']);
 </script>
 
 <style scoped>
 .overview-content-card-ct {
   @apply p-4;
+}
+
+.overview-content-card-ct.no-padding {
+  @apply p-0;
 }
 
 .overview-ct {

@@ -1,13 +1,25 @@
 <template>
   <div class="quickview-card-ct">
-    <div class="title-section">{{ title }}</div>
+    <div class="title-section">
+      {{ title }}
+      <IconParser
+        v-if="ctaIcon"
+        :name="ctaIcon"
+        class="icon-ct"
+        @click="$emit('ctaClick')"
+      />
+    </div>
     <slot></slot>
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
-defineProps<{ title?: string }>();
+import IconParser from '../utils/IconParser.vue';
+
+defineProps<{ title?: string; ctaIcon?: string }>();
+
+defineEmits(['ctaClick']);
 </script>
 
 <style scoped>
@@ -16,6 +28,11 @@ defineProps<{ title?: string }>();
 }
 
 .title-section {
-  @apply font-semibold text-dialog bg-gray-50 py-2 px-4;
+  @apply font-semibold text-dialog bg-gray-50 py-2 px-4
+  flex justify-between items-center;
+}
+
+.icon-ct {
+  @apply w-4 h-4 cursor-pointer;
 }
 </style>
