@@ -156,7 +156,13 @@ const contactSections = computed(() => {
 });
 
 const recordInformationSections = computed(() => {
-  const lastUpdateDate = new Date(data.value._Meta.LastUpdate).toISOString();
+  const lastUpdate = data?.value?._Meta?.LastUpdate;
+
+  if (!lastUpdate) {
+    return [];
+  }
+
+  const lastUpdateDate = new Date(lastUpdate).toISOString();
   const [year, month, day] = lastUpdateDate.split('T')[0].split('-');
 
   const isSourceActive = data.value.Active;
