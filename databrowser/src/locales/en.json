@@ -82,6 +82,9 @@
         }
       }
     },
+    "quickView": {
+      "standardImageWarning": "This is a standard image and not part of the dataset"
+    },
     "generated": {
       "categoryName": "All data"
     },
