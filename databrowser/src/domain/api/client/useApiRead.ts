@@ -21,7 +21,6 @@ const useAsQueryKey = (queryKey: Ref<string>) => {
 export const useApiReadForCurrentDataset = (options?: {
   resultMapper?: (data: any) => any;
   withQueryParameters?: boolean;
-  skipAuth?: boolean;
 }) => {
   const { resultMapper, withQueryParameters = true } = options ?? {};
   const datasetConfigStore = useDatasetConfigStore();
@@ -36,16 +35,13 @@ export const useApiReadForCurrentDataset = (options?: {
     return resultMapper != null ? resultMapper(data) : data;
   };
 
-  const apiResult = useApiRead(
-    { queryKey, queryFn, select },
-    options?.skipAuth || false
-  );
+  const apiResult = useApiRead({ queryKey, queryFn, select });
   return { ...apiResult, url: fetchUrl };
 };
 
-export const useApiRead = (queryOptions: UseQueryOptions, skipAuth = false) => {
-  const auth = skipAuth ? null : useAuth();
-  const isReady = skipAuth ? true : computed(() => auth?.ready);
+export const useApiRead = (queryOptions: UseQueryOptions) => {
+  const auth = useAuth();
+  const isReady = computed(() => auth.ready);
 
   const reactiveOptions: UseQueryOptions = reactive({
     enabled: isReady,

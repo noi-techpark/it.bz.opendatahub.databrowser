@@ -61,9 +61,7 @@ import TagCustom from '../../../components/tag/TagCustom.vue';
 import MapBase from '../../../components/map/MapBase.vue';
 import QuickViewCardOverview from '../../../components/quickview/QuickViewCardOverview.vue';
 
-const { isError, isSuccess, error, data } = useApiReadForCurrentDataset({
-  skipAuth: true,
-});
+const { isError, isSuccess, error, data } = useApiReadForCurrentDataset();
 
 const mapComponent = ref(null);
 
