@@ -16,14 +16,24 @@ export const accommodationEditView: EditViewConfig = {
               fields: { text: 'Shortname' },
             },
             {
-              title: 'Accommodation Type',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoTypeId' },
+              title: 'Accommodation type',
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'AccoType.Id' },
+              params: {
+                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
+                labelSelector: 'TypeDesc.en',
+                keySelector: 'Id',
+              },
             },
             {
-              title: 'Category',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoCategoryId' },
+              title: 'Accommodation category',
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'AccoCategory.Id' },
+              params: {
+                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
+                labelSelector: 'TypeDesc.en',
+                keySelector: 'Id',
+              },
             },
             {
               title: 'Boardings',
@@ -43,20 +53,20 @@ export const accommodationEditView: EditViewConfig = {
           properties: [
             {
               title: 'Room',
-              component: CellComponent.StringCell,
-              fields: { text: 'HasApartment' },
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'HasApartment' },
               class: 'break-all',
             },
             {
               title: 'Gastronomy',
-              component: CellComponent.StringCell,
-              fields: { text: 'IsGastronomy' },
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'IsGastronomy' },
               class: 'break-all',
             },
             {
               title: 'Is Bookable',
-              component: CellComponent.StringCell,
-              fields: { text: 'IsBookable' },
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'IsBookable' },
               class: 'break-all',
             },
             {
