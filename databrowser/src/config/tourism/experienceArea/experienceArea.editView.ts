@@ -1,8 +1,7 @@
-import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { withOdhBaseUrl } from '../../utils';
+import { EditViewConfig } from '../../../domain/datasetConfig/types';
 
-export const districtEditView: EditViewConfig = {
+export const experienceAreaEditView: EditViewConfig = {
   elements: [
     {
       name: 'Main data',
@@ -16,6 +15,17 @@ export const districtEditView: EditViewConfig = {
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'Shortname' },
             },
+            {
+              title: 'Main Image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ImageGallery.0.ImageUrl',
+              },
+              params: {
+                width: '15%',
+              },
+            },
           ],
         },
         {
@@ -28,40 +38,38 @@ export const districtEditView: EditViewConfig = {
               class: 'break-all',
             },
             {
-              title: 'Custom ID',
+              title: 'Custom Id',
               component: CellComponent.StringCell,
               fields: { text: 'CustomId' },
               class: 'break-all',
             },
             {
-              title: 'Siag ID',
+              title: 'Company Id',
               component: CellComponent.StringCell,
-              fields: { text: 'SiagId' },
+              fields: { text: 'CompanyId' },
               class: 'break-all',
             },
             {
-              title: 'Tourismverein ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismvereinId' },
-              class: 'break-all',
+              title: 'Tourismverein IDs',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'TourismvereinIds',
+              },
+              params: {
+                separator: ', ',
+              },
             },
             {
-              title: 'Region ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Region.Id' },
-              class: 'break-all',
-            },
-            {
-              title: 'Municipality ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Municipality.Id' },
-              class: 'break-all',
-            },
-            {
-              title: 'HGV ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'hgv.id' },
-              class: 'break-all',
+              title: 'District IDs',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'DistrictIds',
+              },
+              params: {
+                separator: ', ',
+              },
             },
           ],
         },
@@ -77,19 +85,14 @@ export const districtEditView: EditViewConfig = {
               },
             },
             {
-              title: 'Is comune',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'IsComune' },
-            },
-            {
-              title: 'Active',
+              title: 'Active on Source',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'Active' },
             },
             {
               title: 'Active on SMG',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'SmgActive' },
+              fields: { text: 'SmgActive' },
             },
             {
               title: 'Active on Open Data Hub',
@@ -98,14 +101,9 @@ export const districtEditView: EditViewConfig = {
               params: { preventChange: 'true' },
             },
             {
-              title: 'Published on',
-              component: CellComponent.ArrayCell,
-              fields: { items: 'PublishedOn' },
-            },
-            {
               title: 'Visible in Search',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'VisibleInSearch' },
+              fields: { text: 'VisibleInSearch' },
             },
           ],
         },
@@ -126,17 +124,17 @@ export const districtEditView: EditViewConfig = {
       slug: 'text-information',
       subcategories: [
         {
-          name: '',
+          name: 'General data',
           properties: [
             {
               title: 'Meta Title',
               component: CellComponent.InputSingleLineCell,
-              fields: { text: 'MetaTitle' },
+              fields: { text: 'Detail.{language}.MetaTitle' },
             },
             {
-              title: 'Meta Description',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'MetaDesc' },
+              title: 'Description',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.MetaDesc' },
             },
             {
               title: 'Title',
@@ -149,9 +147,9 @@ export const districtEditView: EditViewConfig = {
               fields: { text: 'Detail.{language}.Header' },
             },
             {
-              title: 'Sub Header',
+              title: 'Subheader',
               component: CellComponent.InputSingleLineCell,
-              fields: { text: 'Detail.{language}.SubHeader' },
+              fields: { text: 'Detail.{language}.Subheader' },
             },
             {
               title: 'Intro Text',
@@ -169,7 +167,7 @@ export const districtEditView: EditViewConfig = {
               fields: { text: 'Detail.{language}.AdditionalText' },
             },
             {
-              title: 'Get There Text',
+              title: 'There Text',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.GetThereText' },
             },
@@ -191,13 +189,14 @@ export const districtEditView: EditViewConfig = {
                 images: 'ImageGallery',
               },
               params: {
-                alt: 'ImageTitle.{language}',
+                alt: 'ImageAltText.{language}',
                 src: 'ImageUrl',
                 name: 'ImageName',
                 width: 'Width',
                 height: 'Height',
                 title: 'ImageTitle.{language}',
                 description: 'ImageDesc.{language}',
+                copyright: 'CopyRight',
                 license: 'License',
                 listPosition: 'ListPosition',
                 active: '',
@@ -212,31 +211,12 @@ export const districtEditView: EditViewConfig = {
       slug: 'location',
       subcategories: [
         {
-          name: 'Location',
+          name: 'Locations',
           properties: [
             {
-              title: 'Region / TVB',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'Region.Id' },
-              params: {
-                url: withOdhBaseUrl(
-                  '/v1/Location?language=en&type=null&showall=true'
-                ),
-                labelSelector: 'name',
-                keySelector: 'id',
-              },
-              required: true,
-            },
-            {
-              title: 'Municipality',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'Municipality.Id' },
-              params: {
-                url: withOdhBaseUrl('/v1/Municipality?removenullvalues=false'),
-                labelSelector: 'Detail.en.Title',
-                keySelector: 'Id',
-              },
-              required: true,
+              title: 'District',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Districts' },
             },
           ],
         },
@@ -273,19 +253,25 @@ export const districtEditView: EditViewConfig = {
           name: 'Tags',
           properties: [
             {
+              title: 'SMG Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
               title: 'Open Data Hub Tags',
-              component: CellComponent.ArrayCellTags,
+              component: CellComponent.ArrayCell,
               class: 'w-40',
               fields: {
                 items: 'ODHTags',
               },
-            },
-            {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'SmgTags',
+              params: {
+                separator: ', ',
               },
             },
           ],

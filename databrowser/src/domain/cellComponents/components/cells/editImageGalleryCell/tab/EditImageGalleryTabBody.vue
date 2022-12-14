@@ -6,37 +6,37 @@
     <div class="basis-full md:basis-1/3 md:order-1">
       <SubCategoryItem title="Name">
         <InputSingleLineCell
-          :value="image.name"
+          :text="image.name"
           @input="textChange('name', $event)"
         />
       </SubCategoryItem>
       <SubCategoryItem title="Title">
         <InputSingleLineCell
-          :value="image.title"
+          :text="image.title"
           @input="textChange('title', $event)"
         />
       </SubCategoryItem>
       <SubCategoryItem title="Description">
         <InputSingleLineCell
-          :value="image.description"
+          :text="image.description"
           @input="textChange('description', $event)"
         />
       </SubCategoryItem>
       <SubCategoryItem title="Copyright">
         <InputSingleLineCell
-          :value="image.copyright"
+          :text="image.copyright"
           @input="textChange('copyright', $event)"
         />
       </SubCategoryItem>
       <SubCategoryItem title="License">
         <InputSingleLineCell
-          :value="image.license"
+          :text="image.license"
           @input="textChange('license', $event)"
         />
       </SubCategoryItem>
       <SubCategoryItem title="Source">
         <InputSingleLineCell
-          :value="image.source"
+          :text="image.source"
           @input="textChange('source', $event)"
         />
       </SubCategoryItem>

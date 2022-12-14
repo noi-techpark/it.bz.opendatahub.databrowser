@@ -1,5 +1,6 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { withOdhBaseUrl } from '../../utils';
 
 export const accommodationEditView: EditViewConfig = {
   elements: [
@@ -223,7 +224,7 @@ export const accommodationEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'AccoType.Id' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
+                url: withOdhBaseUrl('/v1/AccommodationTypes'),
                 labelSelector: 'TypeDesc.en',
                 keySelector: 'Id',
               },
@@ -233,7 +234,7 @@ export const accommodationEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'AccoCategory.Id' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
+                url: withOdhBaseUrl('/v1/AccommodationTypes'),
                 labelSelector: 'TypeDesc.en',
                 keySelector: 'Id',
               },

@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
+import { withOdhBaseUrl } from '../../utils';
 
 export const articleEditView: EditViewConfig = {
   elements: [
@@ -42,7 +43,7 @@ export const articleEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'Type' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ArticleTypes',
+                url: withOdhBaseUrl('/v1/ArticleTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -53,7 +54,7 @@ export const articleEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'SubType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ArticleTypes',
+                url: withOdhBaseUrl('/v1/ArticleTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
