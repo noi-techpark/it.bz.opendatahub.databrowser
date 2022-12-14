@@ -29,9 +29,9 @@ import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 
 const props = defineProps<{
   type?: string;
-  latitude?: string;
-  longitude?: string;
-  altitude?: string;
+  latitude?: string | number;
+  longitude?: string | number;
+  altitude?: string | number;
   altitudeUnit?: string;
 }>();
 
