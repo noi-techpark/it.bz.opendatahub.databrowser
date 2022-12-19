@@ -12,59 +12,7 @@ export const eventShortListView: ListViewConfig = {
       },
     },
     {
-      title: 'Event location',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'EventLocation',
-      },
-    },
-    {
-      title: 'Description',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'EventDescription',
-      },
-    },
-    {
-      title: 'Contact',
-      component: CellComponent.TextHighlightCell,
-      class: 'w-40',
-      fields: {
-        title: 'ContactEmail',
-        subtitle: 'ContactPhone',
-      },
-    },
-    {
-      title: 'Sold out',
-      component: CellComponent.TypeBasedCell,
-      class: 'w-40',
-      fields: {
-        data: 'SoldOut',
-      },
-    },
-    {
-      title: 'Rooms',
-      component: CellComponent.TypeBasedCell,
-      class: 'w-40',
-      fields: {
-        data: 'RoomBooked',
-      },
-    },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
-    {
-      title: 'Start date',
+      title: 'Date Start',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
       fields: {
@@ -75,7 +23,7 @@ export const eventShortListView: ListViewConfig = {
       },
     },
     {
-      title: 'End date',
+      title: 'Date End',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
       fields: {
@@ -86,7 +34,30 @@ export const eventShortListView: ListViewConfig = {
       },
     },
     {
-      title: 'Edited',
+      title: 'Room Name',
+      component: CellComponent.StringCell,
+      class: 'w-40',
+      fields: { text: 'AnchorVenueRoomMapping' },
+    },
+    {
+      title: 'Location',
+      component: CellComponent.StringCell,
+      class: 'w-36',
+      fields: { text: 'EventLocation' },
+    },
+    {
+      title: 'Available Languages',
+      component: CellComponent.ArrayCell,
+      class: 'w-40',
+      fields: {
+        items: 'HasLanguage',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
+    {
+      title: 'Last time edited',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
       fields: {
@@ -94,14 +65,6 @@ export const eventShortListView: ListViewConfig = {
       },
       params: {
         format: 'do MMMM yyyy',
-      },
-    },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-36',
-      fields: {
-        text: 'Source',
       },
     },
     {
