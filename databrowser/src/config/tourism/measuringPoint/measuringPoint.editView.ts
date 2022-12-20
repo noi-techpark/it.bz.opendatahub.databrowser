@@ -80,7 +80,7 @@ export const measuringPointEditView: EditViewConfig = {
           properties: [
             {
               title: 'GPS type',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: {
                 text: 'GpsPoints.position.Gpstype',
               },
