@@ -1,11 +1,14 @@
 <template>
-  <div class="content-section">
-    <div v-if="icon" class="icon-ct">
-      <IconParser :name="icon" />
+  <div>
+    <div class="content-section">
+      <div v-if="icon" class="icon-ct">
+        <IconParser :name="icon" />
+      </div>
+      <div>
+        <slot name="content" />
+      </div>
     </div>
-    <div>
-      <slot name="content" />
-    </div>
+    <slot name="fullwidth-content" />
   </div>
 </template>
 

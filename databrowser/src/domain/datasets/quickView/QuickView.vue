@@ -2,47 +2,86 @@
   <LoadingError v-if="isError" :error="error" />
   <template v-if="isSuccess === true">
     <PageContent>
-      <div class="">
-        <h1 class="text-xl font-bold break-words">{{ title }}</h1>
-        <p class="text-dialog break-words">ID:{{ id }}</p>
-        <div class="relative mt-5">
-          <img :src="mainImage.url" :alt="mainImage.desc" class="w-full" />
-          <TagCustom
-            v-if="!hasImage"
-            size="md"
-            type="white"
-            :text="t('datasets.quickView.standardImageWarning')"
-            has-dot
-            class="absolute top-4 right-4"
+      <div
+        class="flex flex-col gap-3 md:flex-row md:justify-between md:items-center"
+      >
+        <div>
+          <h1 class="text-xl font-bold break-words">{{ title }}</h1>
+          <p class="text-dialog break-words">ID:{{ id }}</p>
+        </div>
+        <div
+          v-if="logoUrl"
+          class="w-16 h-10 bg-center bg-no-repeat bg-contain"
+          :style="{ backgroundImage: `url(${logoUrl})` }"
+        ></div>
+      </div>
+      <div v-if="imageGallery.length <= 1" class="relative mt-5">
+        {{ imageGallery }}
+        <img :src="mainImage.url" :alt="mainImage.desc" class="w-full" />
+        <TagCustom
+          v-if="!hasImage"
+          size="md"
+          type="white"
+          :text="t('datasets.quickView.standardImageWarning')"
+          has-dot
+          class="absolute top-4 right-4"
+        />
+      </div>
+    </PageContent>
+
+    <QuickViewFullscreenGallery
+      v-if="imageGallery.length"
+      :images="imageGallery"
+    />
+
+    <PageContent>
+      <div class="grid gap-8 mt-4 md:grid-cols-2">
+        <div class="md:col-span-2">
+          <QuickViewCardOverview
+            :title="t('datasets.quickView.textInformation')"
+            :sections="textInformationSections"
           />
         </div>
-        <div class="grid gap-8 mt-8 md:grid-cols-2">
-          <div>
-            <QuickViewCardOverview
-              :title="t('datasets.quickView.contact')"
-              :sections="contactSections"
-            />
-          </div>
-          <div class="flex flex-col gap-8">
-            <QuickViewCardOverview
-              :title="t('datasets.quickView.locationOnMap')"
-              cta-icon="IconExpand"
-              :content-has-no-padding="true"
-              @cta-click="openMapFullscreen()"
-            >
-              <template #content>
-                <MapBase
-                  ref="mapComponent"
-                  :center="map.center"
-                  :markers="map.markers"
-                />
-              </template>
-            </QuickViewCardOverview>
-            <QuickViewCardOverview
-              :title="t('datasets.quickView.recordInformation')"
-              :sections="recordInformationSections"
-            />
-          </div>
+        <div class="flex flex-col gap-8">
+          <QuickViewCardOverview
+            :title="t('datasets.quickView.contact')"
+            :sections="contactSections"
+          />
+          <QuickViewCardOverview
+            :title="t('datasets.quickView.webcamDetails')"
+            :content-has-no-padding="true"
+            @cta-click="openMapFullscreen()"
+          >
+            <template #content>
+              <QuickViewCardOverviewGallery :media-items="mediaItems" />
+            </template>
+          </QuickViewCardOverview>
+        </div>
+
+        <div class="flex flex-col gap-8">
+          <QuickViewCardOverview
+            :title="t('datasets.quickView.locationOnMap')"
+            cta-icon="IconExpand"
+            :content-has-no-padding="true"
+            @cta-click="openMapFullscreen()"
+          >
+            <template #content>
+              <MapBase
+                ref="mapComponent"
+                :center="map.center"
+                :markers="map.markers"
+              />
+            </template>
+          </QuickViewCardOverview>
+          <QuickViewCardOverview
+            v-if="operationScheduleSections.length"
+            :title="t('datasets.quickView.openingHours')"
+            :sections="operationScheduleSections"
+          />
+          <QuickViewCardOverview
+            :title="t('datasets.quickView.recordInformation')"
+            :sections="recordInformationSections"
+          />
         </div>
       </div>
     </PageContent>
@@ -60,6 +99,8 @@ import PageContent from '../../../components/content/PageContent.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import MapBase from '../../../components/map/MapBase.vue';
 import QuickViewCardOverview from '../../../components/quickview/QuickViewCardOverview.vue';
+import QuickViewCardOverviewGallery from '../../../components/quickview/QuickViewCardOverviewGallery.vue';
+import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewFullscreenGallery.vue';
 
 const { isError, isSuccess, error, data } = useApiReadForCurrentDataset();
 
@@ -89,9 +130,63 @@ const mainImage = computed(() => {
         desc: getValueOfLocale(firstImage.ImageDesc),
       }
     : {
-        url: 'https://via.placeholder.com/700x350', // FIXME
+        url: 'https://via.placeholder.com/700x350?text=Missing+image', // FIXME
         desc: 'Placeholder image',
       };
+});
+
+const imageGallery = computed(() => {
+  return data.value.ImageGallery || [];
+});
+
+const mediaItems = computed(() => {
+  // FIXME: check Webcam returning values
+  return data.value?.Webcam || getPlaceholderMediaItems();
+});
+
+const logoUrl = computed(() => {
+  return getValueOfLocale(data.value.ContactInfos)?.LogoUrl;
+});
+
+const getPlaceholderMediaItems = () => {
+  const items = [];
+
+  for (let index = 0; index < 5; index++) {
+    items.push({
+      type: 'IMAGE',
+      url: `https://picsum.photos/1280/720`,
+      name: `Immagine di test ${index}`,
+    });
+  }
+  items.push({
+    type: 'VIDEO',
+    url: `http://techslides.com/demos/sample-videos/small.mp4`,
+    name: `Video di test`,
+  });
+
+  return items;
+};
+
+const textInformationSections = computed(() => {
+  const details = getValueOfLocale(data.value.Detail);
+  return [
+    {
+      content: [
+        {
+          title: 'Header',
+          text: getTextValue(details?.Header),
+        },
+        {
+          title: 'Subheader',
+          text: getTextValue(details?.SubHeader),
+        },
+        {
+          title: 'Introtext',
+          text: getTextValue(details?.IntroText),
+        },
+      ],
+    },
+  ];
 });
 
 const contactSections = computed(() => {
@@ -167,6 +262,9 @@ const recordInformationSections = computed(() => {
 
   const isSourceActive = data.value.Active;
   const isODHActive = data.value.OdhActive;
+
+  // FIXME: change based on dataset
+  const isSuedtirolInfoActive = false;
   return [
     {
       icon: 'IconEditFilled',
@@ -190,6 +288,12 @@ const recordInformationSections = computed(() => {
           title: t('datasets.quickView.activeOnODH'),
           tag: getTagActiveInfoObject({
             active: isODHActive,
+          }),
+        },
+        {
+          title: t('datasets.quickView.suedtirolInfoActive'),
+          tag: getTagActiveInfoObject({
+            active: isSuedtirolInfoActive,
           }),
         },
       ],
@@ -222,6 +326,78 @@ const map = computed(() => {
   return mapObj;
 });
 
+const operationScheduleSections = computed(() => {
+  if (!operationSchedule.value) {
+    return [];
+  }
+
+  const sections = [];
+
+  for (const schedule of operationSchedule.value) {
+    sections.push({
+      icon: 'IconClock',
+      content: [
+        {
+          title: getTextValue(getValueOfLocale(schedule.OperationscheduleName)),
+          text: schedule.TimePeriodRange,
+        },
+      ],
+      fullwidthContent: [
+        { operationScheduleTime: schedule.OperationScheduleTime },
+      ],
+    });
+  }
+
+  return sections;
+});
+
+const operationSchedule = computed(() => {
+  let foundHours = false;
+
+  const timing = data?.value?.OperationSchedule
+    ? [...data.value.OperationSchedule]
+    : [];
+
+  const days = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
+
+  const parsedData = [];
+  for (const time of timing) {
+    const operationScheduleTime = [];
+
+    for (const schedule of time?.OperationScheduleTime || []) {
+      foundHours = true;
+      const daysHours = [];
+      for (const d of days) {
+        daysHours.push({
+          Start: schedule.Start,
+          End: schedule.End,
+          State: schedule.State,
+          Timecode: schedule.Timecode,
+          Day: d.slice(0, 3).toUpperCase(),
+          Open: schedule[d],
+        });
+      }
+      operationScheduleTime.push(daysHours);
+    }
+    time.OperationScheduleTime = operationScheduleTime;
+    parsedData.push({
+      ...time,
+      OperationScheduleTime: operationScheduleTime,
+      TimePeriodRange: getTimePeriodRange(time.Start, time.Stop),
+    });
+  }
+
+  return foundHours ? parsedData : null;
+});
+
 const getTextValue = (value) => {
   return value ?? '/';
 };
@@ -238,10 +414,30 @@ const openMapFullscreen = () => {
   fullscreenButton.click();
 };
 
+const getTimePeriodRange = (start, end) => {
+  const [yearStart, , dayStart] = start.split('T')[0].split('-');
+  const [yearEnd, , dayEnd] = end.split('T')[0].split('-');
+
+  const dateLocale = 'en-US';
+  const dateOptions = {
+    month: 'long',
+  };
+
+  const monthStart = new Date(start).toLocaleDateString(
+    dateLocale,
+    dateOptions
+  );
+  const monthEnd = new Date(end).toLocaleDateString(dateLocale, dateOptions);
+
+  return `${parseInt(dayStart)}. ${monthStart}${
+    yearStart !== yearEnd ? ' ' + yearStart : ''
+  } - ${parseInt(dayEnd)}. ${monthEnd} ${yearEnd}`;
+};
+
 const getTagActiveInfoObject = ({ active }) => {
   return {
     size: 'md',
-    type: active ? 'blue' : 'yellow',
+    type: active ? 'blue' : 'red',
     text: active
       ? t('datasets.quickView.active')
       : t('datasets.quickView.inactive'),

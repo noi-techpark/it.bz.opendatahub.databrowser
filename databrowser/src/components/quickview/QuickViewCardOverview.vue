@@ -31,7 +31,40 @@
               :has-dot="c.tag.hasDot"
               class="mt-1"
             />
-            <!-- TODO: tag if .tag -->
+          </div>
+        </template>
+        <template #fullwidth-content>
+          <div
+            v-for="(c, contentIndex) in s.fullwidthContent"
+            :key="`fwc_${contentIndex}`"
+            :class="{ 'pb-4': contentIndex < s.content.length - 1 }"
+          >
+            <div v-if="c.operationScheduleTime">
+              <div
+                v-for="(time, indexTime) in c.operationScheduleTime"
+                :key="indexTime"
+                class="opening-hour-card-ct"
+              >
+                <div v-for="d in time" :key="d.Day" class="opening-hour-card">
+                  <div
+                    class="day"
+                    :class="[
+                      d.Open
+                        ? 'bg-hint-calm-secondary text-hint-calm'
+                        : 'bg-hint-error-secondary text-hint-error',
+                    ]"
+                  >
+                    {{ d.Day }}
+                  </div>
+                  <div class="time">
+                    <span> {{ d.Open ? d.Start : '&nbsp;' }}</span>
+                    <span v-if="d.Open" class="divisor">-</span>
+                    <span v-else>{{ t('datasets.quickView.closed') }}</span>
+                    <span> {{ d.Open ? d.End : '&nbsp;' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </template>
       </QuickViewCardOverviewContentContainer>
@@ -40,6 +73,7 @@
 </template>
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import QuickViewCardBase from './QuickViewCardBase.vue';
 import QuickViewCardOverviewContentContainer from './QuickViewCardOverviewContentContainer.vue';
@@ -56,6 +90,8 @@ defineProps<{
 }>();
 
 defineEmits(['ctaClick']);
+
+const { t } = useI18n();
 </script>
 
 <style scoped>
@@ -81,5 +117,30 @@ defineEmits(['ctaClick']);
 
 .overview-ct:last-child {
   @apply pb-0;
+}
+
+.opening-hour-card-ct {
+  @apply grid grid-cols-3 md:grid-cols-7 gap-3 mt-4;
+}
+
+.opening-hour-card {
+  @apply border-2 border-gray-250 rounded;
+}
+
+.opening-hour-card .day {
+  @apply font-bold text-2xl text-center p-2;
+}
+
+.opening-hour-card .time {
+  @apply text-dialog text-center p-2
+  flex flex-col justify-center;
+}
+
+.opening-hour-card .time.closed {
+  @apply pt-5;
+}
+
+.opening-hour-card span {
+  @apply leading-tight;
 }
 </style>
