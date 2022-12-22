@@ -15,9 +15,13 @@
           :style="{ backgroundImage: `url(${logoUrl})` }"
         ></div>
       </div>
-      <div v-if="imageGallery.length <= 1" class="relative mt-5">
-        {{ imageGallery }}
-        <img :src="mainImage.url" :alt="mainImage.desc" class="w-full" />
+      <div v-if="imageGallery.length <= 1 && mainImage" class="relative mt-5">
+        <img
+          :src="mainImage.url"
+          :alt="mainImage.desc"
+          class="w-full"
+          @error="onMainImageError"
+        />
         <TagCustom
           v-if="!hasImage"
           size="md"
@@ -30,7 +34,7 @@
     </PageContent>
 
     <QuickViewFullscreenGallery
-      v-if="imageGallery.length"
+      v-if="imageGallery.length > 1"
       :images="imageGallery"
     />
 
@@ -68,6 +72,7 @@
             <template #content>
               <MapBase
                 ref="mapComponent"
+                :key="map.center.length"
                 :center="map.center"
                 :markers="map.markers"
               />
@@ -104,6 +109,8 @@ import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewF
 
 const { isError, isSuccess, error, data } = useApiReadForCurrentDataset();
 
+let forcePlaceholderImage = ref(false);
+
 const mapComponent = ref(null);
 
 const { t, locale } = useI18n();
@@ -122,15 +129,19 @@ const hasImage = computed(() => {
 });
 
 const mainImage = computed(() => {
+  if (!data.value.ImageGallery) {
+    return null;
+  }
+
   const firstImage = data.value.ImageGallery?.[0];
 
-  return firstImage?.ImageUrl
+  return firstImage?.ImageUrl && !forcePlaceholderImage.value
     ? {
         url: firstImage.ImageUrl,
         desc: getValueOfLocale(firstImage.ImageDesc),
       }
     : {
-        url: 'https://via.placeholder.com/700x350?text=Missing+image', // FIXME
+        url: 'https://via.placeholder.com/700x350?text=Missing+image',
         desc: 'Placeholder image',
       };
 });
@@ -443,5 +454,9 @@ const getTagActiveInfoObject = ({ active }) => {
       : t('datasets.quickView.inactive'),
     hasDot: true,
   };
+};
+
+const onMainImageError = () => {
+  forcePlaceholderImage.value = true;
 };
 </script>
