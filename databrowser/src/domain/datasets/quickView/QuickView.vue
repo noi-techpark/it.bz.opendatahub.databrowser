@@ -386,10 +386,12 @@ const operationSchedule = computed(() => {
     for (const schedule of time?.OperationScheduleTime || []) {
       foundHours = true;
       const daysHours = [];
+      const [startHour, startMinute] = schedule.Start.split(':');
+      const [endHour, endMinute] = schedule.End.split(':');
       for (const d of days) {
         daysHours.push({
-          Start: schedule.Start,
-          End: schedule.End,
+          Start: `${startHour}:${startMinute}`,
+          End: `${endHour}:${endMinute}`,
           State: schedule.State,
           Timecode: schedule.Timecode,
           Day: d.slice(0, 3).toUpperCase(),
