@@ -1,1 +1,1 @@
-export { resizeImageWidth } from './image';
+export { getResolutionAsText, resizeImageWidth } from './image';
