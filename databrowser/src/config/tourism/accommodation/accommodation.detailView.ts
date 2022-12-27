@@ -274,7 +274,7 @@ export const accommodationDetailView: DetailViewConfig = {
               fields: { text: 'AccoDetail.{language}.City' },
             },
             {
-              title: 'Country Abbrevation',
+              title: 'Country Abbreviation',
               component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.CountryCode' },
             },

@@ -1,5 +1,6 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const tourismAssociationListEditView: EditViewConfig = {
   elements: [
@@ -295,27 +296,7 @@ export const tourismAssociationListEditView: EditViewConfig = {
       subcategories: [
         {
           name: 'Images',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.EditImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },

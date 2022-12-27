@@ -1,11 +1,9 @@
 <template>
   <div class="flex flex-col items-center justify-center">
-    <span class="text-black">
-      Are you sure you want to delete this picture?
-    </span>
+    <span class="text-black">Are you sure you want to delete this item?</span>
     <div class="mt-3 flex gap-2">
       <ButtonCustom size="xs" class="py-1 px-2" @click="emit('confirm')">
-        Yes, delete image
+        Yes, delete it
       </ButtonCustom>
       <ButtonCustom
         size="xs"

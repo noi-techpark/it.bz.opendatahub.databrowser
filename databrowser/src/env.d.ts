@@ -14,6 +14,8 @@ interface ImportMetaEnv
   readonly VITE_APP_KEYCLOAK_CLIENT_ID: string;
   readonly VITE_APP_KEYCLOAK_REDIRECT_URI: string;
   readonly VITE_APP_IMAGE_UPLOAD_URL: string;
+  readonly VITE_APP_FILE_UPLOAD_URL: string;
+  readonly VITE_APP_ODH_LOOKUP_BASE_URL: string;
 }
 
 interface ImportMeta {

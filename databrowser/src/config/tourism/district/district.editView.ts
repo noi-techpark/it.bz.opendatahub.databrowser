@@ -1,5 +1,7 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { withOdhBaseUrl } from '../../utils';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const districtEditView: EditViewConfig = {
   elements: [
@@ -182,27 +184,7 @@ export const districtEditView: EditViewConfig = {
       subcategories: [
         {
           name: 'Images',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.EditImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageTitle.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },
@@ -218,7 +200,9 @@ export const districtEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'Region.Id' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/Location?language=en&type=null&showall=true',
+                url: withOdhBaseUrl(
+                  '/v1/Location?language=en&type=null&showall=true'
+                ),
                 labelSelector: 'name',
                 keySelector: 'id',
               },
@@ -229,7 +213,7 @@ export const districtEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'Municipality.Id' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/Municipality?removenullvalues=false',
+                url: withOdhBaseUrl('/v1/Municipality?removenullvalues=false'),
                 labelSelector: 'Detail.en.Title',
                 keySelector: 'Id',
               },

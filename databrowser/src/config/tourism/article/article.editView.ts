@@ -1,5 +1,7 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
+import { withOdhBaseUrl } from '../../utils';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const articleEditView: EditViewConfig = {
   elements: [
@@ -42,7 +44,7 @@ export const articleEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'Type' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ArticleTypes',
+                url: withOdhBaseUrl('/v1/ArticleTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -53,7 +55,7 @@ export const articleEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'SubType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ArticleTypes',
+                url: withOdhBaseUrl('/v1/ArticleTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -267,28 +269,7 @@ export const articleEditView: EditViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.EditImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                copyright: 'CopyRight',
-                license: 'License',
-                listPosition: 'ListPosition',
-                source: 'ImageSource',
-              },
-            },
-          ],
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },

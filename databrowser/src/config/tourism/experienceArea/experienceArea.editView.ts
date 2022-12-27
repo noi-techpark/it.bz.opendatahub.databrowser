@@ -1,8 +1,8 @@
-import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
-export const wineAwardEditView: EditViewConfig = {
+export const experienceAreaEditView: EditViewConfig = {
   elements: [
     {
       name: 'Main data',
@@ -50,6 +50,28 @@ export const wineAwardEditView: EditViewConfig = {
               fields: { text: 'CompanyId' },
               class: 'break-all',
             },
+            {
+              title: 'Tourismverein IDs',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'TourismvereinIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'District IDs',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'DistrictIds',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
           ],
         },
         {
@@ -60,7 +82,7 @@ export const wineAwardEditView: EditViewConfig = {
               component: CellComponent.DateCell,
               fields: { date: 'LastChange' },
               params: {
-                format: 'do/M/yyyy HH:mm',
+                format: 'd/M/yyyy HH:mm',
               },
             },
             {
@@ -69,15 +91,20 @@ export const wineAwardEditView: EditViewConfig = {
               fields: { enabled: 'Active' },
             },
             {
+              title: 'Active on SMG',
+              component: CellComponent.ToggleCell,
+              fields: { text: 'SmgActive' },
+            },
+            {
               title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'OdhActive' },
               params: { preventChange: 'true' },
             },
             {
-              title: 'Active on SMG',
+              title: 'Visible in Search',
               component: CellComponent.ToggleCell,
-              fields: { text: 'SmgActive' },
+              fields: { text: 'VisibleInSearch' },
             },
           ],
         },
@@ -101,6 +128,16 @@ export const wineAwardEditView: EditViewConfig = {
           name: 'General data',
           properties: [
             {
+              title: 'Meta Title',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Detail.{language}.MetaTitle' },
+            },
+            {
+              title: 'Description',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.MetaDesc' },
+            },
+            {
               title: 'Title',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.Title' },
@@ -121,7 +158,17 @@ export const wineAwardEditView: EditViewConfig = {
               fields: { text: 'Detail.{language}.IntroText' },
             },
             {
-              title: 'Get There Text',
+              title: 'Base Text',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Detail.{language}.BaseText' },
+            },
+            {
+              title: 'Additional Text',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Detail.{language}.AdditionalText' },
+            },
+            {
+              title: 'There Text',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.GetThereText' },
             },
@@ -134,34 +181,74 @@ export const wineAwardEditView: EditViewConfig = {
       slug: 'images',
       subcategories: [
         {
-          name: '',
+          name: 'Images',
           properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },
     {
-      name: 'Wine Award Details',
-      slug: 'Wine Award Details',
+      name: 'Location',
+      slug: 'location',
       subcategories: [
         {
-          name: 'Wine Award Details',
+          name: 'Locations',
           properties: [
             {
-              title: 'Vintage',
+              title: 'District',
               component: CellComponent.InputSingleLineCell,
-              fields: { text: 'Vintage' },
+              fields: { text: 'Districts' },
             },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'GPS Data',
+      slug: 'gps-data',
+      subcategories: [
+        {
+          name: 'GPS Data',
+          properties: [
             {
-              title: 'Awardyear',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'Awardyear' },
+              title: '',
+              component: CellComponent.GpsPointsCell,
+              class: 'w-48',
+              fields: {
+                type: 'GpsPoints.position.Gpstype',
+                latitude: 'GpsPoints.position.Latitude',
+                longitude: 'GpsPoints.position.Longitude',
+                altitude: 'GpsPoints.position.Altitude',
+                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+              },
             },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'tags',
+      subcategories: [
+        {
+          name: 'Tags',
+          properties: [
             {
-              title: 'Awards',
+              title: 'SMG Tags',
               component: CellComponent.ArrayCell,
               class: 'w-40',
               fields: {
-                items: 'Awards',
+                items: 'SmgTags',
+              },
+              params: {
+                separator: ', ',
+              },
+            },
+            {
+              title: 'Open Data Hub Tags',
+              component: CellComponent.ArrayCell,
+              class: 'w-40',
+              fields: {
+                items: 'ODHTags',
               },
               params: {
                 separator: ', ',

@@ -17,13 +17,13 @@ import { onKeyStroke } from '@vueuse/core';
 import DialogCustom from '../../../../../../components/dialog/DialogCustom.vue';
 import ButtonCustom from '../../../../../../components/button/ButtonCustom.vue';
 import { Variant } from '../../../../../../components/button/types';
-import { useDeleteImageDialogStore } from './deleteImageDialogStore';
+import { useDeleteDialogStore } from './editListDeleteDialogStore';
 
 const emit = defineEmits(['confirmDelete']);
 
 defineProps<{ title: string; description: string }>();
 
-const dialogsStore = useDeleteImageDialogStore();
+const dialogsStore = useDeleteDialogStore();
 
 const confirmDelete = () => {
   closeDialog();

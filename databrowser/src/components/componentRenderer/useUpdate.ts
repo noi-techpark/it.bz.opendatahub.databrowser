@@ -6,23 +6,31 @@ import {
   PropertyUpdate,
   PropertyValue,
 } from '../../domain/datasets/editView/store/types';
+import * as R from 'ramda';
+
+interface ListFields {
+  pathToParent: string;
+  fields: Record<string, string>;
+}
 
 export const useUpdate = (
   tagName: Ref<string>,
-  fields?: Ref<Record<string, string>>
+  fields: Ref<Record<string, string> | undefined>,
+  listFields: Ref<ListFields | undefined>
 ) => {
   const { replace } = useReplaceWithApiParameters();
   const editStore = useEditStore();
 
-  return useDebounceFn((update: PropertyUpdate) => {
-    const updates = Array.isArray(update) ? update : [update];
-
-    const updatesWithReplacedKeys = updates
+  const computeSingleFieldsUpdates = (
+    updates: PropertyValue[],
+    fieldsValue: Record<string, string>
+  ) => {
+    return updates
       .map(({ prop, value }) => {
-        const field = fields?.value[prop];
+        const field = fieldsValue[prop];
 
         if (field == null) {
-          const message = fieldUnknownMessage(prop, tagName, fields);
+          const message = fieldUnknownMessage(prop, tagName.value, fieldsValue);
           console.error(message);
           return;
         }
@@ -36,17 +44,71 @@ export const useUpdate = (
         return { prop: fieldName, value };
       })
       .filter((entry): entry is PropertyValue => entry != null);
+  };
 
-    editStore.updateProperties(updatesWithReplacedKeys);
+  const computeListFieldsUpdates = (
+    updates: PropertyValue[],
+    listFieldsValue: ListFields
+  ) => {
+    const getCurrentValue = (pathToParent: string, index: number) => {
+      const path = replace(pathToParent).split('.');
+      const lensePath = R.lensPath(path);
+      const parent = R.view(lensePath, editStore.current);
+      return parent?.at(index) ?? {};
+    };
+
+    const dataArray = updates[0].value as Record<string, unknown>[];
+
+    const mappedDataArray = dataArray.map((entry, index) => {
+      // Get current element value from store to be merged with incoming value.
+      // This is necessary to support e.g. translations that are stored inside an object (like in ODH tourism domain)
+      const currentValue = getCurrentValue(listFieldsValue.pathToParent, index);
+
+      return Object.entries(entry).reduce<Record<string, unknown>>(
+        (prev, [key, value]) => {
+          // Get property name, e.g. ImageTitle.{language}
+          const propertyName = listFieldsValue.fields[key];
+          // Replace dynamic parts, e.g. if language === 'en', then ImageTitle.{language} becomes ImageTitle.en
+          const propertyNameWithReplacements = replace(propertyName);
+          const path = propertyNameWithReplacements.split('.');
+          return R.assocPath(path, value, prev);
+        },
+        currentValue
+      );
+    });
+
+    return {
+      prop: listFieldsValue.pathToParent,
+      value: mappedDataArray,
+    };
+  };
+
+  return useDebounceFn((update: PropertyUpdate) => {
+    const updates = Array.isArray(update) ? update : [update];
+
+    if (fields.value != null) {
+      const singleFieldsUpdates = computeSingleFieldsUpdates(
+        updates,
+        fields.value
+      );
+      editStore.updateProperties(singleFieldsUpdates);
+    }
+
+    if (listFields.value != null) {
+      const listFieldsUpdates = computeListFieldsUpdates(
+        updates,
+        listFields.value
+      );
+      editStore.updateProperties(listFieldsUpdates);
+    }
   }, 200);
 };
 
 const fieldUnknownMessage = (
   prop: string,
-  tagName: Ref<string>,
-  fields?: Ref<Record<string, string>>
+  tagName: string,
+  fields: Record<string, string>
 ) => {
-  const knownFields =
-    fields?.value == null ? 'none' : JSON.stringify(fields.value);
-  return `Got update event from component ${tagName.value} for field ${prop} but no field with that name could be found (known fields: ${knownFields})`;
+  const knownFields = fields == null ? 'none' : JSON.stringify(fields);
+  return `Got update event from component ${tagName} for field ${prop} but no field with that name could be found (known fields: ${knownFields})`;
 };

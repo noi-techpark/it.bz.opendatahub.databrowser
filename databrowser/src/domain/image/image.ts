@@ -11,3 +11,16 @@ export const resizeImageWidth = (
 
   return isFullscreen === true ? src : resizedImageUrl;
 };
+
+interface Image {
+  width?: number | string;
+  height?: number | string;
+}
+
+export const getResolutionAsText = ({ width, height }: Image) => {
+  if (width == null && height == null) {
+    return '';
+  }
+
+  return `${width} x ${height} px`;
+};

@@ -33,6 +33,8 @@ jobs:
       VITE_APP_KEYCLOAK_CLIENT_ID: "it.bz.opendatahub.databrowser"
       VITE_APP_KEYCLOAK_REDIRECT_URI: "https://databrowser.opendatahub.testingmachine.eu/silent-check-sso.html"
       VITE_APP_IMAGE_UPLOAD_URL: "https://api.tourism.testingmachine.eu/v1/FileUpload/Image"
+      VITE_APP_FILE_UPLOAD_URL: "https://api.tourism.testingmachine.eu/v1/FileUpload/"
+      VITE_APP_ODH_LOOKUP_BASE_URL: "https://api.tourism.testingmachine.eu"
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
@@ -58,11 +60,13 @@ jobs:
     concurrency: deploy-prod
     env:
       AWS_S3_BUCKET_NAME : "it.bz.opendatahub.databrowser-prod"
-      VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.bz.it/auth"
+      VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.com/auth"
       VITE_APP_KEYCLOAK_REALM: "noi"
       VITE_APP_KEYCLOAK_CLIENT_ID: "it.bz.opendatahub.databrowser"
       VITE_APP_KEYCLOAK_REDIRECT_URI: "https://databrowser.opendatahub.bz.it/silent-check-sso.html"
       VITE_APP_IMAGE_UPLOAD_URL: "https://tourism.opendatahub.bz.it/v1/FileUpload/Image"
+      VITE_APP_FILE_UPLOAD_URL: "https://tourism.opendatahub.bz.it/v1/FileUpload"
+      VITE_APP_ODH_LOOKUP_BASE_URL: "https://tourism.opendatahub.bz.it"
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2

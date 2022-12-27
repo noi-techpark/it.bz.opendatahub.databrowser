@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const eventEditView: EditViewConfig = {
   elements: [
@@ -15,16 +16,53 @@ export const eventEditView: EditViewConfig = {
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'Shortname' },
             },
+            {
+              title: 'Logo',
+              component: CellComponent.ImageCell,
+              fields: {
+                src: 'ContactInfos.{language}.LogoUrl',
+              },
+            },
+            {
+              title: 'Main Image',
+              component: CellComponent.ImageCell,
+              class: 'w-40',
+              fields: {
+                src: 'ImageGallery.0.ImageUrl',
+              },
+              params: {
+                width: '15%',
+              },
+            },
           ],
         },
         {
           name: 'IDs',
           properties: [
             {
-              title: 'ID',
+              title: 'Tv Info',
               component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-              class: 'break-all',
+              fields: { text: 'LocationInfo.TvInfo.Id' },
+            },
+            {
+              title: 'Region Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.RegionInfo.Id' },
+            },
+            {
+              title: 'Area Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.AreaInfo.Id' },
+            },
+            {
+              title: 'Municipality Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.MunicipalityInfo.Id' },
+            },
+            {
+              title: 'District Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'DistrictId' },
             },
           ],
         },
@@ -45,9 +83,15 @@ export const eventEditView: EditViewConfig = {
               fields: { enabled: 'Active' },
             },
             {
+              title: 'Active on SMG',
+              component: CellComponent.ToggleCell,
+              fields: { text: 'SmgActive' },
+            },
+            {
               title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'OdhActive' },
+              params: { preventChange: 'true' },
             },
           ],
         },
@@ -57,7 +101,7 @@ export const eventEditView: EditViewConfig = {
             {
               title: 'Source',
               component: CellComponent.StringCell,
-              fields: { text: 'Source' },
+              fields: { text: '_Meta.Source' },
             },
           ],
         },
@@ -71,110 +115,49 @@ export const eventEditView: EditViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Shortname',
-              component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              title: 'Meta Title',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Detail.{language}.MetaTitle' },
             },
-          ],
-        },
-        {
-          name: 'Detail',
-          properties: [
+            {
+              title: 'Meta Description',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Detail.{language}.MetaDesc' },
+            },
             {
               title: 'Title',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.Title' },
             },
             {
               title: 'Header',
-              component: CellComponent.StringCell,
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.Header' },
             },
             {
-              title: 'Subheader',
-              component: CellComponent.StringCell,
+              title: 'Sub Header',
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.SubHeader' },
             },
             {
-              title: 'Intro text',
-              component: CellComponent.StringCell,
+              title: 'Intro Text',
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'Detail.{language}.IntroText' },
             },
             {
-              title: 'Base text',
-              component: CellComponent.HtmlCell,
-              fields: { html: 'Detail.{language}.BaseText' },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Contact',
-      slug: 'contact',
-      subcategories: [
-        {
-          name: 'Name and Company Data',
-          properties: [
-            {
-              title: 'Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              title: 'Base Text',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Detail.{language}.BaseText' },
             },
             {
-              title: 'First Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
+              title: 'Additional Text',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Detail.{language}.AdditionalText' },
             },
             {
-              title: 'Surname',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
-            },
-          ],
-        },
-        {
-          name: 'Address',
-          properties: [
-            {
-              title: 'Street and House No',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
-            },
-            {
-              title: 'ZIP-Code',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
-            },
-            {
-              title: 'City',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
-            },
-            {
-              title: 'Country Abbrevation',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
-            },
-          ],
-        },
-        {
-          name: 'Contact Details',
-          properties: [
-            {
-              title: 'E-Mail',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
-            },
-            {
-              title: 'Phone Number',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
-            },
-            {
-              title: 'Web-URL',
-              component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              title: 'GetThereText',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Detail.{language}.GetThereText' },
             },
           ],
         },
@@ -185,13 +168,47 @@ export const eventEditView: EditViewConfig = {
       slug: 'images',
       subcategories: [
         {
-          name: 'Images',
+          name: '',
+          properties: [IMAGE_GALLERY_CONFIG],
+        },
+      ],
+    },
+    {
+      name: 'GPS Data',
+      slug: 'gps-data',
+      subcategories: [
+        {
+          name: 'GPS Data',
           properties: [
             {
               title: '',
-              component: CellComponent.ImageGalleryCell,
+              component: CellComponent.GpsPointsCell,
+              class: 'w-48',
               fields: {
-                images: 'ImageGallery',
+                type: 'GpsPoints.position.Gpstype',
+                latitude: 'GpsPoints.position.Latitude',
+                longitude: 'GpsPoints.position.Longitude',
+                altitude: 'GpsPoints.position.Altitude',
+                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Files',
+      slug: 'files',
+      subcategories: [
+        {
+          name: 'General data',
+          properties: [
+            {
+              title: 'PDF',
+              // TODO: use PDF upload
+              component: CellComponent.EditImageGalleryCell,
+              fields: {
+                images: 'Pdf',
               },
               params: {
                 alt: 'ImageAltText.{language}',
@@ -201,6 +218,7 @@ export const eventEditView: EditViewConfig = {
                 height: 'Height',
                 title: 'ImageTitle.{language}',
                 description: 'ImageDesc.{language}',
+                copyright: 'CopyRight',
                 license: 'License',
                 listPosition: 'ListPosition',
                 active: '',
@@ -211,33 +229,215 @@ export const eventEditView: EditViewConfig = {
       ],
     },
     {
-      name: 'Location',
-      slug: 'location',
+      name: 'Tags',
+      slug: 'tags',
       subcategories: [
+        {
+          name: 'General data',
+          properties: [
+            {
+              title: 'SMG Tags',
+              component: CellComponent.StringCell,
+              fields: { text: 'SmgTags' },
+            },
+            {
+              title: 'Open Data Hub Tags',
+              component: CellComponent.ArrayCell,
+              fields: { text: 'ODHTags' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Event details',
+      slug: 'Event-details',
+      subcategories: [
+        {
+          name: 'Time and date',
+          properties: [
+            {
+              title: 'Date Begin',
+              component: CellComponent.DateCell,
+              fields: { date: 'DateBegin' },
+              params: {
+                format: 'do MMMM yyyy HH:mm',
+              },
+            },
+            {
+              title: 'Date End',
+              component: CellComponent.DateCell,
+              fields: { date: 'EventDatesEnd' },
+              params: {
+                format: 'do MMMM yyyy HH:mm',
+              },
+            },
+            {
+              title: 'Entrance',
+              component: CellComponent.StringCell,
+              fields: { text: 'Entrance' },
+            },
+            {
+              title: 'Start',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventDate.Begin' },
+            },
+            {
+              title: 'End',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventDate.End' },
+            },
+          ],
+        },
+        {
+          name: 'Organizer Info',
+          properties: [
+            {
+              title: 'CompanyName',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.CompanyName' },
+            },
+            {
+              title: 'Tax Number',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Tax' },
+            },
+            {
+              title: 'Vat',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Vat' },
+            },
+          ],
+        },
+        {
+          name: 'Address',
+          properties: [
+            {
+              title: 'Address',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Address' },
+            },
+            {
+              title: 'Zip Code',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.ZipCode' },
+            },
+            {
+              title: 'Country Name',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.CountryName' },
+            },
+            {
+              title: 'Country Code',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.CountryCode' },
+            },
+          ],
+        },
+        {
+          name: 'Contact details',
+          properties: [
+            {
+              title: 'Email',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Email' },
+            },
+            {
+              title: 'Phonenumber',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Phonenumber' },
+            },
+            {
+              title: 'Url',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.Url' },
+            },
+          ],
+        },
         {
           name: 'Location',
           properties: [
             {
-              title: 'Region / TVB',
-              component: CellComponent.StringCell,
+              title: 'Location',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'LocationInfo.TvInfo.Name.{language}' },
+            },
+            {
+              title: 'Region Name',
+              component: CellComponent.InputSingleLineCell,
               fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
+          ],
+        },
+        {
+          name: 'Characteristics',
+          properties: [
             {
-              title: 'Tourismorganization',
+              title: 'Single Days',
               component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
+              fields: { text: 'EventDate.SingleDays' },
             },
             {
-              title: 'Municipality',
+              title: 'Ticket',
               component: CellComponent.StringCell,
+              fields: { text: 'Ticket' },
+            },
+          ],
+        },
+        {
+          name: 'Price',
+          properties: [
+            {
+              title: 'Event Price',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventPrice.0' },
+            },
+            {
+              title: 'Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'Type' },
+            },
+          ],
+        },
+        {
+          name: 'Additional Information',
+          properties: [
+            {
+              title: 'MinPersons',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventDate.MinPersons' },
+            },
+            {
+              title: 'MaxPersons',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventDate.MaxPersons' },
+            },
+            {
+              title: 'Ranc',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventDate.Ranc' },
+            },
+            {
+              title: 'SignOn',
+              component: CellComponent.StringCell,
+              fields: { text: 'SignOn' },
+            },
+            {
+              title: 'PayMet',
+              component: CellComponent.StringCell,
+              fields: { text: 'PayMet' },
+            },
+            {
+              title: 'Topics',
+              component: CellComponent.ArrayCellTags,
               fields: {
-                text: 'LocationInfo.MunicipalityInfo.Name.{language}',
+                items: 'Topics',
               },
-            },
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+              params: {
+                fieldName: 'TopicInfo',
+                separator: ', ',
+                max: '3',
+              },
             },
           ],
         },

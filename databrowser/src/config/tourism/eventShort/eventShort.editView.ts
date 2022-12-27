@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const eventShortEditView: EditViewConfig = {
   elements: [
@@ -15,6 +16,22 @@ export const eventShortEditView: EditViewConfig = {
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'Shortname' },
               tooltip: 'This is the shortname for your event',
+            },
+            {
+              title: 'Start date',
+              component: CellComponent.DateCell,
+              fields: { date: 'StartDate' },
+              params: {
+                format: 'do MMM yyyy HH:mm',
+              },
+            },
+            {
+              title: 'End date',
+              component: CellComponent.DateCell,
+              fields: { date: 'EndDate' },
+              params: {
+                format: 'do MMM yyyy HH:mm',
+              },
             },
             {
               title: 'Event location',
@@ -35,12 +52,184 @@ export const eventShortEditView: EditViewConfig = {
           ],
         },
         {
+          name: 'Organizer Info',
+          properties: [
+            {
+              title: 'Company Name',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'CompanyName' },
+              class: 'break-all',
+            },
+            {
+              title: 'Organizer Name',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactFirstName' },
+            },
+            {
+              title: 'Organizer Surname',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactLastName' },
+            },
+            {
+              title: 'External Organizer',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ExternalOrganizer' },
+              class: 'break-all',
+            },
+          ],
+        },
+        {
+          name: 'Address',
+          properties: [
+            {
+              title: 'Event Location',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'EventLocation' },
+            },
+            {
+              title: 'Address',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'CompanyAddressLine1' },
+            },
+
+            {
+              title: 'City',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'CompanyCity' },
+              class: 'break-all',
+            },
+            {
+              title: 'Country',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactCountry' },
+              class: 'break-all',
+            },
+            {
+              title: 'ZIP Code',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'CompanyPostalCode' },
+              class: 'break-all',
+            },
+            {
+              title: 'Country Abbreviation',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'ContactInfos.{language}.CountryCode' },
+            },
+          ],
+        },
+        {
+          name: 'Characteristics',
+          properties: [
+            {
+              title: 'Sold out',
+              component: CellComponent.StringCell,
+              fields: { text: 'SoldOut' },
+              class: 'break-all',
+            },
+          ],
+        },
+        {
+          name: 'Additional information',
+          properties: [
+            {
+              title: 'Web-URL',
+              component: CellComponent.UrlCell,
+              fields: { text: 'WebAddress' },
+              class: 'break-all',
+            },
+            {
+              title: 'Video-URL',
+              component: CellComponent.UrlCell,
+              fields: { text: 'VideoUrl' },
+              class: 'break-all',
+            },
+            {
+              title: 'TechnologyFields',
+              component: CellComponent.StringCell,
+              fields: { text: 'TechnologyFields' },
+              class: 'break-all',
+            },
+          ],
+        },
+        {
+          name: 'Room mananagement',
+          properties: [
+            {
+              title: 'Start date',
+              component: CellComponent.DateCell,
+              fields: { date: 'StartDate' },
+              params: {
+                format: 'do MMM yyyy HH:mm',
+              },
+            },
+            {
+              title: 'End date',
+              component: CellComponent.DateCell,
+              fields: { date: 'EndDate' },
+              params: {
+                format: 'do MMM yyyy HH:mm',
+              },
+            },
+            {
+              title: 'TechnologyFields',
+              component: CellComponent.StringCell,
+              fields: { text: 'TechnologyFields' },
+              class: 'break-all',
+            },
+            {
+              title: 'Anchor venue room',
+              component: CellComponent.StringCell,
+              fields: { text: 'AnchorVenueRoomMapping' },
+            },
+            {
+              title: 'Space',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'RoomBooked',
+              },
+              params: {
+                fieldName: 'Space',
+                separator: ', ',
+                max: '3',
+              },
+            },
+            {
+              title: 'Rooms',
+              component: CellComponent.TypeBasedCell,
+              class: 'w-40',
+              fields: {
+                data: 'RoomBooked',
+              },
+            },
+            {
+              title: 'Subtitle',
+              component: CellComponent.ArrayCellTags,
+              class: 'w-40',
+              fields: {
+                items: 'RoomBooked',
+              },
+              params: {
+                fieldName: 'Subtitle',
+                separator: ', ',
+                max: '3',
+              },
+            },
+          ],
+        },
+        {
           name: 'IDs',
           properties: [
             {
               title: 'ID',
               component: CellComponent.StringCell,
               fields: { text: 'Id' },
+              class: 'break-all',
+            },
+            {
+              title: 'Event ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'EventId' },
               class: 'break-all',
             },
           ],
@@ -53,20 +242,36 @@ export const eventShortEditView: EditViewConfig = {
               component: CellComponent.DateCell,
               fields: { date: 'LastChange' },
               params: {
-                format: 'd/M/yyyy HH:mm',
+                format: 'do/M/yyyy HH:mm',
               },
             },
             {
               title: 'Start date',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'StartDate' },
-              required: true,
+              component: CellComponent.DateCell,
+              fields: { date: 'StartDate' },
+              params: {
+                format: 'do MMM yyyy HH:mm',
+              },
             },
             {
               title: 'End date',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'EndDate' },
-              required: true,
+              component: CellComponent.DateCell,
+              fields: { date: 'EndDate' },
+              params: {
+                format: 'do MMM yyyy HH:mm',
+              },
+            },
+            {
+              title: 'Active on Web',
+              component: CellComponent.ToggleCell,
+              fields: { text: 'ActiveWeb' },
+              class: 'break-all',
+            },
+            {
+              title: 'Active on Community App',
+              component: CellComponent.ToggleCell,
+              fields: { text: 'ActiveCommunityApp' },
+              class: 'break-all',
             },
           ],
         },
@@ -89,6 +294,38 @@ export const eventShortEditView: EditViewConfig = {
       ],
     },
     {
+      name: 'Event details',
+      slug: 'event-details',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.EditRoomBookedCell,
+              listFields: {
+                pathToParent: 'RoomBooked',
+                fields: {
+                  space: 'Space',
+                  spaceDesc: 'SpaceDesc',
+                  spaceAbbrev: 'SpaceAbbrev',
+                  spaceType: 'SpaceType',
+                  subtitle: 'Subtitle',
+                  comment: 'Comment',
+                  startDate: 'StartDate',
+                  endDate: 'EndDate',
+                  startDateUTC: 'StartDateUTC',
+                  endDateUTC: 'EndDateUTC',
+                  spaceDescRoomMapping: 'SpaceDescRoomMapping',
+                },
+                attributeName: 'roomBooked',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'Text information',
       slug: 'text-information',
       subcategories: [
@@ -100,16 +337,28 @@ export const eventShortEditView: EditViewConfig = {
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'Shortname' },
             },
-          ],
-        },
-        {
-          name: 'Description',
-          properties: [
             {
               title: 'Event description',
               component: CellComponent.InputSingleLineCell,
               fields: { text: 'EventDescription' },
               tooltip: 'Default event description',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'NOI-specific Data',
+      slug: 'noi-specific-data',
+      subcategories: [
+        {
+          name: 'Title & Description',
+          properties: [
+            {
+              title: 'Shortname',
+              component: CellComponent.InputSingleLineCell,
+              fields: { text: 'Shortname' },
+              class: 'break-all',
             },
             {
               title: 'Event description DE',
@@ -134,7 +383,7 @@ export const eventShortEditView: EditViewConfig = {
       ],
     },
     {
-      name: 'Company',
+      name: 'Contact',
       slug: 'company',
       subcategories: [
         {
@@ -147,7 +396,7 @@ export const eventShortEditView: EditViewConfig = {
             },
             {
               title: 'Company ID',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyId' },
             },
           ],
@@ -200,63 +449,12 @@ export const eventShortEditView: EditViewConfig = {
       ],
     },
     {
-      name: 'Contact',
-      slug: 'contact',
+      name: 'Images',
+      slug: 'images',
       subcategories: [
         {
-          name: 'Name',
-          properties: [
-            {
-              title: 'Name',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'ContactFirstName' },
-            },
-            {
-              title: 'Surname',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'ContactLastName' },
-            },
-          ],
-        },
-        {
-          name: 'Address',
-          properties: [
-            {
-              title: 'Street and House No',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'ContactAddressLine1' },
-            },
-            {
-              title: 'ZIP-Code',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'ContactPostalCode' },
-            },
-            {
-              title: 'City',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'ContactCity' },
-            },
-            {
-              title: 'Country',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'ContactCountry' },
-            },
-          ],
-        },
-        {
-          name: 'Contact Details',
-          properties: [
-            {
-              title: 'E-Mail',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'ContactEmail' },
-            },
-            {
-              title: 'Phone Number',
-              component: CellComponent.InputSingleLineCell,
-              fields: { text: 'ContactPhone' },
-            },
-          ],
+          name: '',
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },
@@ -286,6 +484,28 @@ export const eventShortEditView: EditViewConfig = {
               title: 'Rooms booked',
               component: CellComponent.TypeBasedCell,
               fields: { data: 'RoomBooked' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'GPS Data',
+      slug: 'gps-data',
+      subcategories: [
+        {
+          name: 'GPS Data',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.GpsPointsCell,
+              fields: {
+                type: 'GpsPoints.position.Gpstype',
+                latitude: 'GpsPoints.position.Latitude',
+                longitude: 'GpsPoints.position.Longitude',
+                altitude: 'GpsPoints.position.Altitude',
+                altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+              },
             },
           ],
         },

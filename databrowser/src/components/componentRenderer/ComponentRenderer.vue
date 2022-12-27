@@ -18,15 +18,20 @@ const props = withDefaults(
     tagName: string;
     attributes: Record<string, unknown>;
     fields?: Record<string, string>;
+    listFields?: {
+      pathToParent: string;
+      fields: Record<string, string>;
+    };
   }>(),
   {
     tagName: '',
     attributes: () => ({}),
-    fields: () => ({}),
+    fields: undefined,
+    listFields: undefined,
   }
 );
 
-const { tagName, attributes, fields } = toRefs(props);
+const { tagName, attributes, fields, listFields } = toRefs(props);
 
 watch(
   () => tagName.value,
@@ -38,5 +43,5 @@ watch(
   { immediate: true }
 );
 
-const update = useUpdate(tagName, fields);
+const update = useUpdate(tagName, fields, listFields);
 </script>
