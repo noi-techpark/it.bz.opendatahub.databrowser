@@ -294,6 +294,38 @@ export const eventShortEditView: EditViewConfig = {
       ],
     },
     {
+      name: 'Event details',
+      slug: 'event-details',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.EditRoomBookedCell,
+              listFields: {
+                pathToParent: 'RoomBooked',
+                fields: {
+                  space: 'Space',
+                  spaceDesc: 'SpaceDesc',
+                  spaceAbbrev: 'SpaceAbbrev',
+                  spaceType: 'SpaceType',
+                  subtitle: 'Subtitle',
+                  comment: 'Comment',
+                  startDate: 'StartDate',
+                  endDate: 'EndDate',
+                  startDateUTC: 'StartDateUTC',
+                  endDateUTC: 'EndDateUTC',
+                  spaceDescRoomMapping: 'SpaceDescRoomMapping',
+                },
+                attributeName: 'roomBooked',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'Text information',
       slug: 'text-information',
       subcategories: [
