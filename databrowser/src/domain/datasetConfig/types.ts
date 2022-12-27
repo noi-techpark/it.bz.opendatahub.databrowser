@@ -1,15 +1,31 @@
 import { SourceType } from './source/types';
 import { SupportedDomains } from '../openApi/types';
 
-export interface PropertyConfig {
+interface BasePropertyConfig {
   title: string;
   component: string;
-  fields: Record<string, string>;
   params?: Record<string, string>;
   class?: string;
   tooltip?: string;
   required?: boolean;
 }
+
+export interface ObjectPropertyConfig {
+  fields: Record<string, string>;
+  listFields?: never;
+}
+
+export interface ArrayPropertyConfig {
+  fields?: never;
+  listFields: {
+    pathToParent: string;
+    fields: Record<string, string>;
+    attributeName: string;
+  };
+}
+
+export type PropertyConfig = (ObjectPropertyConfig | ArrayPropertyConfig) &
+  BasePropertyConfig;
 
 export interface FilterConfig {
   name: string;
@@ -17,9 +33,9 @@ export interface FilterConfig {
   params?: Record<string, unknown>;
 }
 
-export interface ListElements extends PropertyConfig {
+export type ListElements = PropertyConfig & {
   filter?: FilterConfig;
-}
+};
 
 export interface DetailElements {
   name: string;
@@ -35,20 +51,13 @@ export interface EditElements {
   slug: string;
   subcategories: {
     name: string;
-    properties: {
-      title: string;
-      component: string;
-      fields: Record<string, string>;
-      params?: Record<string, string>;
-      class?: string;
-      required?: boolean;
-      tooltip?: string;
+    properties: (PropertyConfig & {
       reference?: {
         url: string;
         labelSelector: string;
         keySelector: string;
       };
-    }[];
+    })[];
   }[];
 }
 

@@ -1,9 +1,23 @@
+import { computed, inject, readonly, Ref, ref } from 'vue';
+import { createEventHook } from '@vueuse/core';
 import { AxiosError, AxiosInstance } from 'axios';
-import { inject, readonly, ref } from 'vue';
 
 const imageUploadUrl = import.meta.env.VITE_APP_IMAGE_UPLOAD_URL;
+const fileUploadUrl = import.meta.env.VITE_APP_FILE_UPLOAD_URL;
 
-export const useImageUpload = () => {
+export const useImageUpload = () => useUpload(ref(imageUploadUrl));
+
+export const useFileUpload = () => useUpload(ref(fileUploadUrl));
+
+export const useUploadForType = (type: Ref<'image' | 'file'>) => {
+  const url = computed(() =>
+    type.value === 'image' ? imageUploadUrl : fileUploadUrl
+  );
+
+  return useUpload(url);
+};
+
+export const useUpload = (url: Ref<string>) => {
   const axios = inject<AxiosInstance>('axios')!;
 
   const uploading = ref(false);
@@ -14,7 +28,11 @@ export const useImageUpload = () => {
   const isUploadSuccess = ref(false);
   const uploadResponse = ref<string[]>([]);
 
-  const uploadFile = async (filesToUpload: File[]) => {
+  // Callbacks for error and success
+  const uploadSuccessEventHook = createEventHook<string[]>();
+  const uploadErrorEventHook = createEventHook<string>();
+
+  const uploadFiles = async (filesToUpload: File[]) => {
     const formData = new FormData();
     filesToUpload.forEach((file) => formData.append(file.name, file));
 
@@ -33,7 +51,7 @@ export const useImageUpload = () => {
 
     try {
       const response = await axios.post<string | string[]>(
-        imageUploadUrl,
+        url.value,
         formData,
         {
           headers: {
@@ -51,10 +69,12 @@ export const useImageUpload = () => {
 
       isUploadSuccess.value = true;
       uploadResponse.value = fileUrls;
+      uploadSuccessEventHook.trigger(uploadResponse.value);
     } catch (error) {
       isUploadError.value = true;
       const errorMessage = extractErrorMessage(error);
       uploadError.value = errorMessage;
+      uploadErrorEventHook.trigger(uploadError.value);
     } finally {
       uploading.value = false;
     }
@@ -68,7 +88,9 @@ export const useImageUpload = () => {
     uploadError: readonly(uploadError),
     uploadProgress: readonly(uploadProgress),
     uploadResponse: readonly(uploadResponse),
-    uploadFile,
+    uploadFiles,
+    onUploadSuccess: uploadSuccessEventHook.on,
+    onUploadError: uploadErrorEventHook.on,
   };
 };
 

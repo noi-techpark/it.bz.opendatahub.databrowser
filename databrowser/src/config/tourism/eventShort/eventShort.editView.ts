@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const eventShortEditView: EditViewConfig = {
   elements: [
@@ -421,28 +422,7 @@ export const eventShortEditView: EditViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.EditImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                copyright: 'CopyRight',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },

@@ -1,6 +1,7 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { withOdhBaseUrl } from '../../utils';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const districtEditView: EditViewConfig = {
   elements: [
@@ -183,27 +184,7 @@ export const districtEditView: EditViewConfig = {
       subcategories: [
         {
           name: 'Images',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.EditImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageTitle.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },

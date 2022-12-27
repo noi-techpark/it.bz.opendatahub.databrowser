@@ -23,6 +23,7 @@
             :tag-name="property.component"
             :attributes="property.value"
             :fields="property.fields"
+            :list-fields="property.listFields"
             :class="property.class"
           />
         </SubCategoryItem>
@@ -68,10 +69,21 @@ const computeAndFilterProperties = (
   showAll?: boolean
 ): PropertyConfigWithValue[] => {
   // Compute property values
-  const propertiesWithValue = properties.map((property) => ({
-    ...property,
-    value: mapWithIndex(data, property.fields, property.params),
-  }));
+  const propertiesWithValue = properties.map((property) => {
+    if (property.fields != null) {
+      return {
+        ...property,
+        value: mapWithIndex(data, property.fields, property.params),
+      };
+    }
+    if (property.listFields != null) {
+      return {
+        ...property,
+        value: mapListWithIndex(data, property.listFields, property.params),
+      };
+    }
+    return property as PropertyConfigWithValue;
+  });
 
   // If all properties should be shown, return all properties.
   // Otherwise, return only properties with non-empty values.
@@ -83,5 +95,5 @@ const computeAndFilterProperties = (
 const hasNonEmptyValue = (o: Record<string, unknown>) =>
   Object.values(o).find((v) => v != null) != null;
 
-const { mapWithIndex } = usePropertyMapping();
+const { mapWithIndex, mapListWithIndex } = usePropertyMapping();
 </script>

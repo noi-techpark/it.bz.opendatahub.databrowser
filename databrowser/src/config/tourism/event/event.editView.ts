@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const eventEditView: EditViewConfig = {
   elements: [
@@ -168,28 +169,7 @@ export const eventEditView: EditViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.EditImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                copyright: 'CopyRight',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },
@@ -225,6 +205,7 @@ export const eventEditView: EditViewConfig = {
           properties: [
             {
               title: 'PDF',
+              // TODO: use PDF upload
               component: CellComponent.EditImageGalleryCell,
               fields: {
                 images: 'Pdf',
