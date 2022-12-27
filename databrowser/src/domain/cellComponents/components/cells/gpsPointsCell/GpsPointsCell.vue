@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isAnyPropertySet" class="flex overflow-auto w-full">
+  <div v-if="isAnyPropertySet" class="flex w-full overflow-auto">
     <div class="flex gap-5">
       <div class="w-36">
         <SubCategoryItem v-if="type != null" title="GPS Type">

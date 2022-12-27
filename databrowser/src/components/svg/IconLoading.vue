@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="w-5 h-5"
+    class="h-5 w-5"
     viewBox="0 0 16 16"
     fill="none"
     stroke="currentColor"

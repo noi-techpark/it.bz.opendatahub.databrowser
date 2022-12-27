@@ -2,7 +2,7 @@
   <ButtonLink
     :to="{ name: DatasetPage.NEW }"
     size="xs"
-    class="flex items-center py-1 px-3 h-6"
+    class="flex h-6 items-center py-1 px-3"
   >
     {{ t('datasets.header.addRecord') }}
   </ButtonLink>

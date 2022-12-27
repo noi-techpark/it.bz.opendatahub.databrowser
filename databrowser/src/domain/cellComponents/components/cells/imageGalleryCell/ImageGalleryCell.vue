@@ -1,5 +1,5 @@
 <template>
-  <div class="flex overflow-auto w-full">
+  <div class="flex w-full overflow-auto">
     <div class="flex gap-5">
       <div v-for="(image, index) in resolvedImages" :key="index" class="w-56">
         <SubCategoryItem>
@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef, defineProps, Ref, toRefs } from 'vue';
+import { computed, ComputedRef, defineProps, toRefs } from 'vue';
 import { usePropertyMapping } from '../../../../api';
 import ImageCell from '../imageCell/ImageCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
@@ -68,8 +68,8 @@ const props = defineProps<ImageGalleryCellProps>();
 
 const { images, ...fieldsAsRef } = toRefs(props);
 
-const fields = Object.entries(fieldsAsRef).reduce(
-  (previous: ImageGalleryEntry, [key, value]: [string, Ref<string>]) =>
+const fields = Object.entries(fieldsAsRef).reduce<Record<string, string>>(
+  (previous: ImageGalleryEntry, [key, value]) =>
     value?.value == null ? previous : { ...previous, [key]: value.value },
   {}
 );

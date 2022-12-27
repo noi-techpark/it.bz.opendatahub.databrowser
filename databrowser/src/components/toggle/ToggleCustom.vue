@@ -1,7 +1,7 @@
 <template>
   <Switch
     v-model="enabled"
-    class="inline-flex relative items-center w-10 h-5 bg-white rounded-full border"
+    class="relative inline-flex h-5 w-10 items-center rounded-full border bg-white"
     :class="disabled ? 'border-gray-400' : 'border-green-400'"
     :disabled="disabled"
     @update:model-value="emit('update:modelValue', $event)"
@@ -11,7 +11,7 @@
         enabled ? 'translate-x-5' : 'translate-x-1',
         disabled ? 'bg-gray-400' : 'bg-green-400',
       ]"
-      class="inline-block w-3 h-3 rounded-full transition duration-200 ease-in-out"
+      class="inline-block h-3 w-3 rounded-full transition duration-200 ease-in-out"
     />
   </Switch>
 </template>

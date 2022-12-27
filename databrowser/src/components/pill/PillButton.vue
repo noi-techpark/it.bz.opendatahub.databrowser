@@ -11,7 +11,7 @@
       classNames,
     ]"
     :disabled="disabled"
-    class="py-1 px-5 font-semibold text-center text-gray-700"
+    class="py-1 px-5 text-center font-semibold text-gray-700"
   >
     <slot></slot>
   </button>

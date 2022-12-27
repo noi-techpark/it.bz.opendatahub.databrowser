@@ -6,7 +6,7 @@
       :variant="'ghost'"
       :to="link.to"
       size="xs"
-      class="hidden mx-1 w-9 h-6 text-center uppercase md:flex md:justify-center md:items-center"
+      class="mx-1 hidden h-6 w-9 text-center uppercase md:flex md:items-center md:justify-center"
       :class="[
         link.selected
           ? 'bg-green-500 bg-opacity-10 border-green-500 focus:text-white'
@@ -16,7 +16,7 @@
     >
 
     <SelectCustom
-      class="w-16 h-6 md:hidden"
+      class="h-6 w-16 md:hidden"
       :options="links"
       :show-search-when-at-least-count-options="Infinity"
       @change="selected = $event"

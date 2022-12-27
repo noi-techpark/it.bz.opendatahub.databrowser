@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data != null" class="overflow-auto max-h-32">
+  <div v-if="data != null" class="max-h-32 overflow-auto">
     <span v-if="dataInfo.type == 'string' || dataInfo.type == 'number'">{{
       dataInfo.data
     }}</span>

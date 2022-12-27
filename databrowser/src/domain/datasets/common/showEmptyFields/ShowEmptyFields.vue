@@ -1,5 +1,5 @@
 <template>
-  <ContentAlignmentX class="hidden items-center mt-3 md:flex">
+  <ContentAlignmentX class="mt-3 hidden items-center md:flex">
     <div class="mr-4 text-sm">
       {{ t('datasets.detailView.showEmptyFields') }}
     </div>

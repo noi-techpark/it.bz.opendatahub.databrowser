@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between w-full bg-green-500">
+  <div class="flex w-full justify-between bg-green-500">
     <EditFooterButton
       :class="[{ 'opacity-50': isSaving }]"
       :disabled="isSaving"

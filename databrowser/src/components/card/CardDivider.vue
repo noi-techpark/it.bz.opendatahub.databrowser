@@ -1,1 +1,1 @@
-<template><hr class="mt-4 mb-3 h-px bg-gray-300 border-none" /></template>
+<template><hr class="mt-4 mb-3 h-px border-none bg-gray-300" /></template>

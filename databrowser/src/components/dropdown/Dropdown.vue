@@ -4,7 +4,7 @@
     <div class="relative w-full">
       <!-- Dropdown toggle button -->
       <button
-        class="flex justify-between items-center w-full"
+        class="flex w-full items-center justify-between"
         :class="buttonClass"
         @click="toggle"
       >
@@ -16,7 +16,7 @@
       <!-- Dropdown menu -->
       <div
         v-show="show"
-        class="absolute z-10 min-w-full bg-white border shadow-xl"
+        class="absolute z-10 min-w-full border bg-white shadow-xl"
       >
         <slot :events="{ close }"></slot>
       </div>

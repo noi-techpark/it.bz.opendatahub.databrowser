@@ -1,6 +1,6 @@
 <template>
   <ListboxOptions
-    class="overflow-auto max-h-60 text-base bg-white focus-visible:outline-none"
+    class="max-h-60 overflow-auto bg-white text-base focus-visible:outline-none"
   >
     <ListboxOption
       v-for="option in searchResults"

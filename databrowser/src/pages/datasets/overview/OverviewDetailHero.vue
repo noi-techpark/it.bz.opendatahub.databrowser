@@ -3,7 +3,7 @@
     <HeroTitle>{{ dataset.title }}</HeroTitle>
     <HeroSubTitle class="lg:mt-3">Details</HeroSubTitle>
     <div
-      class="grid grid-cols-2 gap-4 p-5 mt-4 w-full bg-white rounded md:grid-cols-4 md:gap-16"
+      class="mt-4 grid w-full grid-cols-2 gap-4 rounded bg-white p-5 md:grid-cols-4 md:gap-16"
     >
       <CardIconGrid>
         <IconSource class="mt-0.5" />

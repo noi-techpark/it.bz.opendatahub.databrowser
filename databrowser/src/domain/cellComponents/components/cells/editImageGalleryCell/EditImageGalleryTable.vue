@@ -23,10 +23,10 @@
       <TableCell>
         <UseFullscreen
           v-slot="{ toggle, isFullscreen }"
-          class="flex justify-center items-center md:items-stretch"
+          class="flex items-center justify-center md:items-stretch"
         >
           <div
-            class="group flex relative justify-center cursor-pointer"
+            class="group relative flex cursor-pointer justify-center"
             :class="{ 'items-center': !isFullscreen }"
             @click="toggle()"
           >

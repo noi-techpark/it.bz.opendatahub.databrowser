@@ -10,7 +10,7 @@
 
     <template #body="{ item, index }">
       <div class="flex flex-wrap gap-8 md:flex-nowrap">
-        <div class="basis-full md:basis-1/3 md:order-1">
+        <div class="basis-full md:order-1 md:basis-1/3">
           <SubCategoryItem title="Date Start">
             <InputSingleLineCell
               :text="item.startDate"
@@ -54,15 +54,15 @@
             />
           </SubCategoryItem>
         </div>
-        <div class="basis-full md:basis-1/3 md:order-3">
+        <div class="basis-full md:order-3 md:basis-1/3">
           <div class="rounded border">
-            <div class="flex justify-between items-center py-3 px-4 bg-gray-50">
+            <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
               <span class="font-semibold">Info &amp; action</span>
             </div>
-            <div class="p-4 divide-y">
+            <div class="divide-y p-4">
               <div>
                 <button
-                  class="flex gap-3 items-center m-3"
+                  class="m-3 flex items-center gap-3"
                   @click="duplicateItem(index)"
                 >
                   <IconCopy class="text-green-500" />
@@ -71,7 +71,7 @@
               </div>
               <div>
                 <button
-                  class="flex gap-3 items-center mx-3 mt-3"
+                  class="mx-3 mt-3 flex items-center gap-3"
                   @click="deleteItems([index])"
                 >
                   <IconDelete class="text-delete" />
@@ -81,7 +81,7 @@
             </div>
           </div>
         </div>
-        <div class="basis-full md:basis-1/3 md:order-2"></div>
+        <div class="basis-full md:order-2 md:basis-1/3"></div>
       </div>
     </template>
   </EditListTab>

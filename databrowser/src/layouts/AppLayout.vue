@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col justify-between h-screen">
+  <div class="flex h-screen flex-col justify-between">
     <AppHeader />
-    <div class="flex overflow-y-auto flex-col flex-1">
+    <div class="flex flex-1 flex-col overflow-y-auto">
       <slot></slot>
       <AppFooter v-if="showAppFooter" />
     </div>

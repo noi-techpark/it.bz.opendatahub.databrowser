@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex gap-5 justify-between mt-2 mb-5 md:justify-end"
+    class="mt-2 mb-5 flex justify-between gap-5 md:justify-end"
     :class="anyItemSelected ? 'text-default' : 'text-disabled'"
   >
     <EditListDeleteDialog

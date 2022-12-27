@@ -3,7 +3,7 @@
     <CardTitle tag-name="h2" class="text-green-400">
       <routerLink
         :to="{ name: 'OverviewDetailPage', params: { id: dataset.id } }"
-        class="flex gap-3 items-center"
+        class="flex items-center gap-3"
       >
         {{ dataset.title }} <ArrowLine />
       </routerLink>

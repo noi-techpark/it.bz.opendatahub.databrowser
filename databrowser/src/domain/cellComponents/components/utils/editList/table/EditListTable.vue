@@ -24,7 +24,7 @@
       <TableHeader>
         <template v-if="hasItems">
           <!-- Column for Drag/Drop -->
-          <TableHeaderCell class="w-0 bg-white border-none md:w-full">
+          <TableHeaderCell class="w-0 border-none bg-white md:w-full">
             &nbsp;
           </TableHeaderCell>
           <!-- Column for checkbox selection -->
@@ -46,7 +46,7 @@
         <!-- Column for settings -->
         <TableHeaderCell
           v-if="hasItems"
-          class="sticky right-0 font-semibold bg-gray-50"
+          class="sticky right-0 bg-gray-50 font-semibold"
         >
           Settings
         </TableHeaderCell>
@@ -59,8 +59,8 @@
       >
         <tr v-for="(item, index) in (itemsInternal as any)" :key="index">
           <template v-if="hasItems">
-            <td class="px-4 pt-4 border-none">
-              <IconDragAndDrop class="hidden cursor-pointer md:block handle" />
+            <td class="border-none px-4 pt-4">
+              <IconDragAndDrop class="handle hidden cursor-pointer md:block" />
             </td>
             <TableCell class="relative">
               <CheckboxCustom
@@ -86,7 +86,7 @@
             />
             <ConfirmDeleteSingle
               v-else
-              class="inset-x-0 top-0 p-4 ml-[-16em] h-full bg-gray-50 shadow-table-static-col"
+              class="inset-x-0 top-0 ml-[-16em] h-full bg-gray-50 p-4 shadow-table-static-col"
               @abort="closeDeleteSingleItemConfirm"
               @confirm="deleteSingleConfirm(index)"
             />

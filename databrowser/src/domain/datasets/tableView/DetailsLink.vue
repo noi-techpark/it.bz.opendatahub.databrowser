@@ -3,7 +3,7 @@
     :to="to"
     variant="ghost"
     size="xs"
-    class="flex justify-center items-center w-8 h-8 md:w-10"
+    class="flex h-8 w-8 items-center justify-center md:w-10"
     ><slot></slot
   ></ButtonLink>
 </template>

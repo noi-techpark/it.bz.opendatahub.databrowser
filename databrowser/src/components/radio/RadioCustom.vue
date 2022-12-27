@@ -3,7 +3,7 @@
     ><input
       v-model="internalValue"
       type="radio"
-      class="inline-block mr-4 text-green-500 checked:bg-none focus:ring-green-500"
+      class="mr-4 inline-block text-green-500 checked:bg-none focus:ring-green-500"
       :value="value"
     />{{ label }}</label
   >

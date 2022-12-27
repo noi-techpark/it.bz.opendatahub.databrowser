@@ -19,16 +19,16 @@
 
   <Dialog
     :open="dialogOpen"
-    class="fixed top-0 z-20 p-0 w-screen"
+    class="fixed top-0 z-20 w-screen p-0"
     @close="closeDialog"
   >
     <DialogOverlay
-      class="hidden fixed inset-0 bg-black opacity-30 md:block"
+      class="fixed inset-0 hidden bg-black opacity-30 md:block"
       @click="closeDialog"
     />
     <!-- Desktop Menu -->
     <div
-      class="hidden overflow-x-auto absolute top-0 left-0 flex-col h-screen bg-white md:flex"
+      class="absolute top-0 left-0 hidden h-screen flex-col overflow-x-auto bg-white md:flex"
     >
       <button class="block p-4" @click="closeDialog">
         <IconClose />
@@ -46,7 +46,7 @@
 
     <!-- Mobile Menu -->
     <div
-      class="absolute inset-x-0 top-16 px-4 h-screen bg-white border-t md:hidden"
+      class="absolute inset-x-0 top-16 h-screen border-t bg-white px-4 md:hidden"
     >
       <OverlayMenuList
         :item="lastElement"

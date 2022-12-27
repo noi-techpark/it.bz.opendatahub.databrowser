@@ -1,7 +1,7 @@
 <template>
   <CardContainer no-padding>
     <div
-      class="flex justify-between items-center py-2 text-xl uppercase bg-gray-50"
+      class="flex items-center justify-between bg-gray-50 py-2 text-xl uppercase"
     >
       <TabCustom :active="true">More information</TabCustom>
     </div>

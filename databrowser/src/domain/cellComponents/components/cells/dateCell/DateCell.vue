@@ -20,10 +20,10 @@ const props = withDefaults(
 const { date, format } = toRefs(props);
 
 const formattedDate = computed(() => {
-  if (format == null) {
+  if (format.value == null) {
     return date;
   }
-  if (date != null) {
+  if (date.value != null) {
     return formatFn(Date.parse(date.value), format.value);
   }
   return '';

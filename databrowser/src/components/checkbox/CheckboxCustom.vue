@@ -4,7 +4,7 @@
       <input
         v-model="checked"
         type="checkbox"
-        class="w-5 h-5 text-green-700 rounded border-gray-400"
+        class="h-5 w-5 rounded border-gray-400 text-green-700"
       />
       <span v-if="label != null" class="ml-3 font-semibold">{{ label }}</span>
     </label>

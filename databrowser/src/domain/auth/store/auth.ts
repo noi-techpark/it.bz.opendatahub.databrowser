@@ -23,10 +23,10 @@ export const useAuth = defineStore('auth', {
         return null;
       }
     },
-    hasRole(state) {
+    hasRole() {
       return (role: string) => this.user?.roles?.includes(role) ?? false;
     },
-    hasAnyRole(state) {
+    hasAnyRole() {
       return (roles: string[]) =>
         roles.find((role) => this.hasRole(role) === true) != null;
     },

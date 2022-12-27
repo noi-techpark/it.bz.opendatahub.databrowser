@@ -1,7 +1,7 @@
 <template>
   <tr v-for="rindex in rows" :key="rindex" class="w-full">
     <TableCell v-for="cindex in cells" :key="cindex">
-      <div class="w-2/3 h-5 bg-gray-200 rounded animate-pulse"></div>
+      <div class="h-5 w-2/3 animate-pulse rounded bg-gray-200"></div>
     </TableCell>
   </tr>
 </template>

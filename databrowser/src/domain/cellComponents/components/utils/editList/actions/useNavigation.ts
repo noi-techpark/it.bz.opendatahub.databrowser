@@ -1,4 +1,4 @@
-import { computed, inject, provide, readonly, ref, Ref } from 'vue';
+import { computed, inject, provide, ref, Ref } from 'vue';
 
 type EditListNavigable = 'table' | 'tab' | 'add';
 

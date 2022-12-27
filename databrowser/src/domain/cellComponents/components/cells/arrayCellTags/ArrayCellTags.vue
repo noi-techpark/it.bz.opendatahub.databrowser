@@ -36,13 +36,21 @@ const itemsInternal = computed(() => items.value ?? []);
 const more = ref(false);
 
 const newItems = computed(() => {
+  if (fieldName.value == null || max.value == null) {
+    return [];
+  }
+  const itemIndex = fieldName.value;
   return [
     ...itemsInternal.value
-      .map((item) => item[fieldName.value])
+      .map((item) => item[itemIndex])
       .slice(0, parseInt(max.value, 10)),
   ];
 });
 const newItemsAll = computed(() => {
-  return [...itemsInternal.value.map((item) => item[fieldName.value])];
+  if (fieldName.value == null) {
+    return [];
+  }
+  const itemIndex = fieldName.value;
+  return [...itemsInternal.value.map((item) => item[itemIndex])];
 });
 </script>

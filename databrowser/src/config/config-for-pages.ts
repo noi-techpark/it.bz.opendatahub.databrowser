@@ -1,4 +1,3 @@
-import { domains } from '../domain/openApi';
 import { SupportedDomains } from '../domain/openApi/types';
 
 export interface DatasetDescription {

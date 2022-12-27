@@ -11,7 +11,7 @@
       classNames,
     ]"
     :disabled="disabled"
-    class="block font-semibold border focus:outline-none"
+    class="block border font-semibold focus:outline-none"
   >
     <slot></slot>
   </router-link>

@@ -3,7 +3,7 @@
     <PopoverCustomPanel v-slot="{ close }">
       <PopoverContent
         with-hover
-        class="flex gap-2 items-center"
+        class="flex items-center gap-2"
         @click="emitEvent('duplicate', close)"
       >
         <IconCopy class="text-green-500" />
@@ -12,7 +12,7 @@
       <PopoverContentDivider />
       <PopoverContent
         disabled
-        class="flex gap-2 items-center"
+        class="flex items-center gap-2"
         @click="emitEvent('push', close)"
       >
         <IconPush />
@@ -21,7 +21,7 @@
       <PopoverContentDivider />
       <PopoverContent
         with-hover
-        class="flex gap-2 items-center"
+        class="flex items-center gap-2"
         @click="emitEvent('delete', close)"
       >
         <IconDelete class="text-delete" />

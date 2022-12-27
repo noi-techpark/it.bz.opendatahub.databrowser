@@ -11,12 +11,12 @@
         <MainCategories
           :categories="categories"
           :slug="slug"
-          class="overflow-y-auto sticky top-0 z-20 py-3 bg-white md:w-1/6 md:h-full"
+          class="sticky top-0 z-20 overflow-y-auto bg-white py-3 md:h-full md:w-1/6"
         />
 
         <SubCategories
           v-if="slug !== ''"
-          class="overflow-y-auto flex-1 pb-6 md:py-3 md:px-20 md:h-full"
+          class="flex-1 overflow-y-auto pb-6 md:h-full md:py-3 md:px-20"
           :data="data"
           :category="currentCategory"
           :sub-categories="subcategories"

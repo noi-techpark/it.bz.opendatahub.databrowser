@@ -14,7 +14,7 @@ keycloak
   })
   .then(() => {
     setInterval(() => {
-      keycloak.updateToken(70).catch((reason) => {
+      keycloak.updateToken(70).catch(() => {
         if (keycloak.token) {
           // Application has still an invalid token. Let's clear it.
           keycloak.clearToken();

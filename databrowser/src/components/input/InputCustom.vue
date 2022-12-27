@@ -1,11 +1,11 @@
 <template>
-  <div class="flex gap-3 items-center">
+  <div class="flex items-center gap-3">
     <label v-if="hasLabel" :for="id">{{ label }}</label>
     <input
       :id="id"
       ref="inputRef"
       v-model="text"
-      class="p-2 text-black rounded border border-gray-400 focus:border-green-500"
+      class="rounded border border-gray-400 p-2 text-black focus:border-green-500"
       :class="inputClasses"
       :placeholder="placeholder"
     />

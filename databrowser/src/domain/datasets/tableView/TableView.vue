@@ -1,5 +1,5 @@
 <template>
-  <section class="flex overflow-y-auto flex-col flex-1 justify-start">
+  <section class="flex flex-1 flex-col justify-start overflow-y-auto">
     <template v-if="isError">
       <ShowApiError :error="error" />
     </template>

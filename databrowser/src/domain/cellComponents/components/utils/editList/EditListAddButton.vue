@@ -1,5 +1,5 @@
 <template>
-  <ButtonCustom size="xs" class="flex items-center py-1 px-3 h-6">
+  <ButtonCustom size="xs" class="flex h-6 items-center py-1 px-3">
     {{ text }}
   </ButtonCustom>
 </template>

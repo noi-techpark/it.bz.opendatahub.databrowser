@@ -1,6 +1,6 @@
 <template>
   <div class="divide-y">
-    <div class="px-3 divide-y">
+    <div class="divide-y px-3">
       <div v-for="option in filterOptions" :key="option.value" class="py-3">
         <CheckboxCustom
           :label="option.label"

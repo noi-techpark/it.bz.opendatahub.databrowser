@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky top-0 z-10 p-3 bg-gray-100" :disabled="true">
+  <div class="sticky top-0 z-10 bg-gray-100 p-3" :disabled="true">
     <InputCustom
       :model-value="modelValue"
       input-classes="w-full"

@@ -3,17 +3,17 @@
     <EditListHeader>
       <EditListBackButton label="Back to overview" @click="navigateToTable" />
     </EditListHeader>
-    <EditListTabHeaderButtons class="flex justify-between mb-5 md:hidden" />
-    <div class="flex justify-between items-center text-sm bg-gray-50">
+    <EditListTabHeaderButtons class="mb-5 flex justify-between md:hidden" />
+    <div class="flex items-center justify-between bg-gray-50 text-sm">
       <div
         ref="tabWrapper"
-        class="flex overflow-auto flex-nowrap items-center w-full"
+        class="flex w-full flex-nowrap items-center overflow-auto"
       >
         <TabCustom
           v-for="(item, index) in items"
           :key="index"
           :active="activeTab === index"
-          class="flex-none gap-2 w-36"
+          class="w-36 flex-none gap-2"
           :class="[{ 'active-tab': activeTab === index }]"
           @click="navigateToTab(index)"
         >

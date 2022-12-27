@@ -5,7 +5,7 @@
     :class="classNames.background"
   >
     <div
-      class="flex shrink-0 justify-center items-center w-20 h-14 text-white"
+      class="flex h-14 w-20 shrink-0 items-center justify-center text-white"
       :class="classNames.icon"
     >
       <slot><IconCheck v-if="type === 'info'" /><IconWarning v-else /></slot>

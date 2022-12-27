@@ -8,7 +8,7 @@
     </div>
     <div
       ref="dropZoneRef"
-      class="flex justify-center items-center my-5 w-full h-24 rounded border-2 border-dashed"
+      class="my-5 flex h-24 w-full items-center justify-center rounded border-2 border-dashed"
       :class="{ 'border-green-400': isOverDropZone, hidden: uploading }"
     >
       Drop your images / files here or &nbsp;
@@ -18,9 +18,9 @@
     </div>
     <div
       v-if="uploading"
-      class="flex flex-col justify-between p-3 w-full h-24 rounded border-2"
+      class="flex h-24 w-full flex-col justify-between rounded border-2 p-3"
     >
-      <div class="flex justify-between items-center w-full">
+      <div class="flex w-full items-center justify-between">
         <span class="font-semibold">{{ files?.length }} Files Uploading</span>
         <button @click="uploadAbortController.abort()">
           <IconDelete class="text-delete" />
