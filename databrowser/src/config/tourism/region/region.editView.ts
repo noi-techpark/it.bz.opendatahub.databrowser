@@ -13,7 +13,7 @@ export const regionEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
             {
@@ -130,63 +130,63 @@ export const regionEditView: EditViewConfig = {
           properties: [
             {
               title: 'Meta Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.MetaTitle',
               },
             },
             {
               title: 'Meta Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.MetaDesc',
               },
             },
             {
               title: 'Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.Title',
               },
             },
             {
               title: 'Header',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.Header',
               },
             },
             {
               title: 'SubHeader',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.SubHeader',
               },
             },
             {
               title: 'Intro Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.IntroText',
               },
             },
             {
               title: 'BaseText',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.BaseText',
               },
             },
             {
               title: 'AdditionalText',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.AdditionalText',
               },
             },
             {
               title: 'GetThereText',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.GetThereText',
               },
@@ -204,32 +204,32 @@ export const regionEditView: EditViewConfig = {
           properties: [
             {
               title: 'Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CompanyName' },
             },
             {
               title: 'First Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Givenname' },
             },
             {
               title: 'Surname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Surname' },
             },
             {
               title: 'Name prefix',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.NamePrefix' },
             },
             {
               title: 'Tax Number',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Tax' },
             },
             {
               title: 'Vat-ID',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Vat' },
             },
           ],
@@ -239,27 +239,27 @@ export const regionEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Address' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.ZipCode' },
             },
             {
               title: 'City',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.City' },
             },
             {
               title: 'Country',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CountryName' },
             },
             {
               title: 'Country Abbrevation',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
@@ -269,17 +269,17 @@ export const regionEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Email' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Phonenumber' },
             },
             {
               title: 'Web-URL',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Url' },
             },
           ],

@@ -13,7 +13,7 @@ export const wineAwardEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
             {
@@ -102,27 +102,27 @@ export const wineAwardEditView: EditViewConfig = {
           properties: [
             {
               title: 'Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Title' },
             },
             {
               title: 'Header',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Header' },
             },
             {
               title: 'Subheader',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Subheader' },
             },
             {
               title: 'Intro Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.IntroText' },
             },
             {
               title: 'Get There Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.GetThereText' },
             },
           ],
@@ -148,12 +148,12 @@ export const wineAwardEditView: EditViewConfig = {
           properties: [
             {
               title: 'Vintage',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Vintage' },
             },
             {
               title: 'Awardyear',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Awardyear' },
             },
             {

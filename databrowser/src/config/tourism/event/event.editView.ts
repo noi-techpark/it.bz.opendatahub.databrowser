@@ -13,7 +13,7 @@ export const eventEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
             {
@@ -116,47 +116,47 @@ export const eventEditView: EditViewConfig = {
           properties: [
             {
               title: 'Meta Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.MetaTitle' },
             },
             {
               title: 'Meta Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.MetaDesc' },
             },
             {
               title: 'Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Title' },
             },
             {
               title: 'Header',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Header' },
             },
             {
               title: 'Sub Header',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.SubHeader' },
             },
             {
               title: 'Intro Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.IntroText' },
             },
             {
               title: 'Base Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.BaseText' },
             },
             {
               title: 'Additional Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.AdditionalText' },
             },
             {
               title: 'GetThereText',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.GetThereText' },
             },
           ],
@@ -294,17 +294,17 @@ export const eventEditView: EditViewConfig = {
           properties: [
             {
               title: 'CompanyName',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CompanyName' },
             },
             {
               title: 'Tax Number',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Tax' },
             },
             {
               title: 'Vat',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Vat' },
             },
           ],
@@ -314,22 +314,22 @@ export const eventEditView: EditViewConfig = {
           properties: [
             {
               title: 'Address',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Address' },
             },
             {
               title: 'Zip Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.ZipCode' },
             },
             {
               title: 'Country Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CountryName' },
             },
             {
               title: 'Country Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
@@ -339,17 +339,17 @@ export const eventEditView: EditViewConfig = {
           properties: [
             {
               title: 'Email',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Email' },
             },
             {
               title: 'Phonenumber',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Phonenumber' },
             },
             {
               title: 'Url',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Url' },
             },
           ],
@@ -359,12 +359,12 @@ export const eventEditView: EditViewConfig = {
           properties: [
             {
               title: 'Location',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.TvInfo.Name.{language}' },
             },
             {
               title: 'Region Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
           ],

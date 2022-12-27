@@ -12,7 +12,7 @@ export const venueEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
           ],
@@ -73,7 +73,7 @@ export const venueEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
           ],
@@ -89,17 +89,17 @@ export const venueEditView: EditViewConfig = {
           properties: [
             {
               title: 'Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Name' },
             },
             {
               title: 'First Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Firstname' },
             },
             {
               title: 'Surname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Lastname' },
             },
           ],
@@ -109,22 +109,22 @@ export const venueEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Street' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Zip' },
             },
             {
               title: 'City',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.City' },
             },
             {
               title: 'Country Abbrevation',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.CountryCode' },
             },
           ],
@@ -134,17 +134,17 @@ export const venueEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Email' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Phone' },
             },
             {
               title: 'Web-URL',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AccoDetail.{language}.Website' },
             },
           ],
@@ -190,24 +190,24 @@ export const venueEditView: EditViewConfig = {
           properties: [
             {
               title: 'Region / TVB',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
             {
               title: 'Tourismorganization',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'TourismorganizationId' },
             },
             {
               title: 'Municipality',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'LocationInfo.MunicipalityInfo.Name.{language}',
               },
             },
             {
               title: 'District',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
             },
           ],

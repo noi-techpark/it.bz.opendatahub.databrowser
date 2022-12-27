@@ -23,7 +23,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Evolution Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-48',
               fields: {
                 text: 'evolutiontitle',
@@ -31,7 +31,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Evolution',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-48',
               fields: {
                 text: 'evolution',
@@ -72,7 +72,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-48',
               fields: {
                 text: 'Conditions.0.Title',
@@ -80,7 +80,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Weather Condition',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Conditions.0.WeatherCondition',
@@ -88,7 +88,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Weather Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Conditions.0.Weatherdesc',
@@ -96,7 +96,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Temperatures',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Conditions.0.Temperatures',
@@ -104,7 +104,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Temperature Max',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Conditions.0.TempMaxmax',
@@ -112,7 +112,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Temperature MaxMin',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Conditions.0.TempMaxmin',
@@ -120,7 +120,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Temperature MinMax',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Conditions.0.TempMinmax',
@@ -128,7 +128,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Temperature Min',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Conditions.0.TempMinmin',
@@ -136,7 +136,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Reliability in %',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Conditions.0.Reliability',
@@ -144,7 +144,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Bulletin Status',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Conditions.0.bulletinStatus',
@@ -185,7 +185,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Weather Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Forecast.0.Weatherdesc',
@@ -193,7 +193,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Weather Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Forecast.0.Weathercode',
@@ -201,7 +201,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Temperature Max',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Forecast.0.TempMaxmax',
@@ -209,7 +209,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Temperature MaxMin',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Forecast.0.TempMaxmin',
@@ -217,7 +217,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Temperature MinMax',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Forecast.0.TempMinmin',
@@ -225,7 +225,7 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Reliability in %',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               class: 'w-40',
               fields: {
                 text: 'Forecast.0.Reliability',
@@ -267,27 +267,27 @@ export const weatherEditView: EditViewConfig = {
 
             {
               title: 'Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Title' },
             },
             {
               title: 'Conditions',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Conditions' },
             },
             {
               title: 'Weather Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Weatherdesc' },
             },
             {
               title: 'Zerolimit',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Zerolimit' },
             },
             {
               title: 'Reliability in %',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Reliability' },
             },
           ],
@@ -319,12 +319,12 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'North Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Northcode' },
             },
             {
               title: 'North Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Northdesc' },
             },
           ],
@@ -356,12 +356,12 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'South Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Southcode' },
             },
             {
               title: 'South Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Southdesc' },
             },
           ],
@@ -382,22 +382,22 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Sunrise',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Sunrise' },
             },
             {
               title: 'Sunset',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Sunset' },
             },
             {
               title: 'Moonrise',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Moonrise' },
             },
             {
               title: 'Moonset',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Moonset' },
             },
           ],
@@ -418,22 +418,22 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Temp1000',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Temp1000' },
             },
             {
               title: 'Temp2000',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Temp2000' },
             },
             {
               title: 'Temp3000',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Temp3000' },
             },
             {
               title: 'Temp4000',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Temp4000' },
             },
           ],
@@ -465,17 +465,17 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'Wind Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Windcode' },
             },
             {
               title: 'Wind Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Winddesc' },
             },
             {
               title: 'Snow Limit',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Mountain.0.Snowlimit.0' },
             },
           ],
@@ -513,35 +513,35 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'City Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.2.CityName',
               },
             },
             {
               title: 'Weather Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.2.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.2.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.2.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.2.MinTemp',
               },
@@ -581,35 +581,35 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'City Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.1.CityName',
               },
             },
             {
               title: 'Weather Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.1.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.1.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.1.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.1.MinTemp',
               },
@@ -649,35 +649,35 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'City Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.4.CityName',
               },
             },
             {
               title: 'Weather Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.4.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.4.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.4.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.4.MinTemp',
               },
@@ -717,35 +717,35 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'City Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.5.CityName',
               },
             },
             {
               title: 'Weather Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.5.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.5.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.5.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.5.MinTemp',
               },
@@ -785,35 +785,35 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'City Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.3.CityName',
               },
             },
             {
               title: 'Weather Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.3.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.3.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.3.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.3.MinTemp',
               },
@@ -853,35 +853,35 @@ export const weatherEditView: EditViewConfig = {
             },
             {
               title: 'City Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.0.CityName',
               },
             },
             {
               title: 'Weather Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.0.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.0.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.0.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Stationdata.0.MinTemp',
               },

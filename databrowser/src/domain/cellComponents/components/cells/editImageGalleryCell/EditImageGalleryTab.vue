@@ -20,42 +20,42 @@
         </div>
         <div class="basis-full md:order-1 md:basis-1/3">
           <SubCategoryItem title="Name">
-            <InputSingleLineCell
+            <StringCell
               :text="item.name"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { name: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Title">
-            <InputSingleLineCell
+            <StringCell
               :text="item.title"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { title: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Description">
-            <InputSingleLineCell
+            <StringCell
               :text="item.description"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { description: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Copyright">
-            <InputSingleLineCell
+            <StringCell
               :text="item.copyright"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { copyright: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="License">
-            <InputSingleLineCell
+            <StringCell
               :text="item.license"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { license: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Source">
-            <InputSingleLineCell
+            <StringCell
               :text="item.source"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { source: $event.target.value })"
@@ -154,11 +154,11 @@ import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import IconCopy from '../../../../../components/svg/IconCopy.vue';
 import IconDownload from '../../../../../components/svg/IconDownload.vue';
 import IconUpload from '../../../../../components/svg/IconUpload.vue';
-import InputSingleLineCell from '../inputSingleLineCell/InputSingleLineCell.vue';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
+import StringCell from '../stringCell/StringCell.vue';
 
 // Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
 // Should be fixed in Vue 3.3

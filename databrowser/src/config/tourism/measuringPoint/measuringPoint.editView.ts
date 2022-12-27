@@ -17,7 +17,7 @@ export const measuringPointEditView: EditViewConfig = {
             },
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
             {
@@ -59,12 +59,12 @@ export const measuringPointEditView: EditViewConfig = {
           properties: [
             {
               title: 'TV info',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.TvInfo.Name.{language}' },
             },
             {
               title: 'Region info',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
           ],
@@ -80,35 +80,35 @@ export const measuringPointEditView: EditViewConfig = {
           properties: [
             {
               title: 'GPS type',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'GpsPoints.position.Gpstype',
               },
             },
             {
               title: 'Latitude',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'GpsPoints.position.Latitude',
               },
             },
             {
               title: 'Longitude',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'GpsPoints.position.Longitude',
               },
             },
             {
               title: 'Altitude',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'GpsPoints.position.Altitude',
               },
             },
             {
               title: 'Altitude unit',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'GpsPoints.position.AltitudeUnitofMeasure',
               },
@@ -126,22 +126,22 @@ export const measuringPointEditView: EditViewConfig = {
           properties: [
             {
               title: 'Snow height',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'SnowHeight' },
             },
             {
               title: 'New snow height',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'newSnowHeight' },
             },
             {
               title: 'Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Temperature' },
             },
             {
               title: 'Last snow date',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LastSnowDate' },
             },
           ],

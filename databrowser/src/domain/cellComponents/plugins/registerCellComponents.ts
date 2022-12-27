@@ -9,7 +9,6 @@ import EditRoomBookedCell from '../components/cells/editRoomBookedCell/EditRoomB
 import GpsPointsCell from '../components/cells/gpsPointsCell/GpsPointsCell.vue';
 import HtmlCell from '../components/cells/htmlCell/HtmlCell.vue';
 import InputReferenceCell from '../components/cells/inputReferenceCell/InputReferenceCell.vue';
-import InputSingleLineCell from '../components/cells/inputSingleLineCell/InputSingleLineCell.vue';
 import ImageCell from '../components/cells/imageCell/ImageCell.vue';
 import ImageGalleryCell from '../components/cells/imageGalleryCell/ImageGalleryCell.vue';
 import JsonCell from '../components/cells/jsonCell/JsonCell.vue';
@@ -37,7 +36,6 @@ export default {
     app.component(CellComponent.GpsPointsCell, GpsPointsCell);
     app.component(CellComponent.HtmlCell, HtmlCell);
     app.component(CellComponent.InputReferenceCell, InputReferenceCell);
-    app.component(CellComponent.InputSingleLineCell, InputSingleLineCell);
     app.component(CellComponent.ImageCell, ImageCell);
     app.component(CellComponent.ImageGalleryCell, ImageGalleryCell);
     app.component(CellComponent.JsonCell, JsonCell);

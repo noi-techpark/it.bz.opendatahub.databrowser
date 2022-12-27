@@ -12,7 +12,7 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Areaname' },
             },
             {
@@ -27,7 +27,7 @@ export const snowReportEditView: EditViewConfig = {
             },
             {
               title: 'Ski Region',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Skiregion' },
             },
             {
@@ -65,7 +65,7 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Measuringpoints.0.Shortname' },
             },
             {
@@ -83,17 +83,17 @@ export const snowReportEditView: EditViewConfig = {
             },
             {
               title: 'Snow Height',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Measuringpoints.0.SnowHeight' },
             },
             {
               title: 'New Snow Height',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Measuringpoints.0.newSnowHeight' },
             },
             {
               title: 'Temperature',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Measuringpoints.0.Temperature' },
             },
             {
@@ -149,22 +149,22 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: 'Total Skilift',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'totalskilift' },
             },
             {
               title: 'Open Skilift',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'openskilift' },
             },
             {
               title: 'Total Skilift km',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'totalskiliftkm' },
             },
             {
               title: 'Open Skilift km',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'openskiliftkm' },
             },
           ],
@@ -180,27 +180,27 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: 'Ski Area slope km',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'SkiAreaSlopeKm' },
             },
             {
               title: 'Total Ski slopes',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'totalskislopes' },
             },
             {
               title: 'Open Ski slopes',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'openskislopes' },
             },
             {
               title: 'Total Ski slopes km',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'totalskislopeskm' },
             },
             {
               title: 'Open Ski slopes km',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'openskislopeskm' },
             },
           ],
@@ -216,22 +216,22 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: 'Total tracks',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'totaltracks' },
             },
             {
               title: 'Open tracks',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'opentracks' },
             },
             {
               title: 'Total tracks km',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'totaltrackskm' },
             },
             {
               title: 'Open tracks km',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'opentrackskm' },
             },
           ],
@@ -247,22 +247,22 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: 'Total slides',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'totalslides' },
             },
             {
               title: 'Open slides',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'opentslides' },
             },
             {
               title: 'Total slides km',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'totalslideskm' },
             },
             {
               title: 'Open slides km',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'openslidesskm' },
             },
           ],
@@ -278,12 +278,12 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: 'Total ice skating',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'totaliceskating' },
             },
             {
               title: 'Open ice skating',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'openiceskating' },
             },
           ],
@@ -299,7 +299,7 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: 'Name/Company Name/AreaName',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Areaname' },
             },
           ],
@@ -309,27 +309,27 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'contactadress' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'contactcap' },
             },
             {
               title: 'City',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'contactcity' },
             },
             {
               title: 'GPS North',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'contactgpsnorth' },
             },
             {
               title: 'GPS East',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'contactgpseast' },
             },
           ],
@@ -339,17 +339,17 @@ export const snowReportEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'contactmail' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'contacttel' },
             },
             {
               title: 'Web-URL',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'contactweburl' },
             },
           ],

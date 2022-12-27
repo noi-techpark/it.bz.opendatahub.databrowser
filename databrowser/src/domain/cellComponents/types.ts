@@ -8,7 +8,6 @@ export enum CellComponent {
   GpsPointsCell = 'GpsPointsCell',
   HtmlCell = 'HtmlCell',
   InputReferenceCell = 'InputReferenceCell',
-  InputSingleLineCell = 'InputSingleLineCell',
   ImageCell = 'ImageCell',
   ImageGalleryCell = 'ImageGalleryCell',
   JsonCell = 'JsonCell',

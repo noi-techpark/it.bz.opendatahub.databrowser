@@ -14,14 +14,14 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: 'Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.Title',
               },
             },
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
             {
@@ -183,29 +183,29 @@ export const odhActivityPoiEditView: EditViewConfig = {
             },
             {
               title: 'Author Tip',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.AuthorTip',
               },
             },
             {
               title: 'Parking Info',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ParkingInfo' },
             },
             {
               title: 'Public Transportation Info',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'PublicTransportationInfo' },
             },
             {
               title: 'Safety Info',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'SafetyInfo' },
             },
             {
               title: 'Equipment Info',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'EquipmentInfo' },
             },
           ],
@@ -215,12 +215,12 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: 'Age from',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AgeFrom' },
             },
             {
               title: 'Age to',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AgeTo' },
             },
           ],
@@ -235,7 +235,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
             },
             {
               title: 'District',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'DistrictInfo.Name.de' },
             },
           ],
@@ -303,47 +303,47 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: 'Meta title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.MetaTitle' },
             },
             {
               title: 'Meta description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.MetaDesc' },
             },
             {
               title: 'Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Title' },
             },
             {
               title: 'Header',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Header' },
             },
             {
               title: 'Subheader',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.SubHeader' },
             },
             {
               title: 'Introtext',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.IntroText' },
             },
             {
               title: 'Base Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { html: 'Detail.{language}.BaseText' },
             },
             {
               title: 'Additional Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { html: 'Detail.{language}.AdditionalText' },
             },
             {
               title: 'Get There Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { html: 'Detail.{language}.GetThereText' },
             },
           ],
@@ -385,32 +385,32 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: 'Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CompanyName' },
             },
             {
               title: 'First Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Givenname' },
             },
             {
               title: 'Surname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Surname' },
             },
             {
               title: 'Name prefix',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.NamePrefix' },
             },
             {
               title: 'Tax Number',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Tax' },
             },
             {
               title: 'Vat-ID',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Vat' },
             },
           ],
@@ -420,32 +420,32 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Address' },
             },
             {
               title: 'Complement',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: '' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.ZipCode' },
             },
             {
               title: 'City',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.City' },
             },
             {
               title: 'Country',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CountryName' },
             },
             {
               title: 'Country Abbreviation',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
@@ -455,27 +455,27 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Email' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Phonenumber' },
             },
             {
               title: 'Mobile Phone',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: '' },
             },
             {
               title: 'Web-URL',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Url' },
             },
             {
               title: 'Additional URL (Independent URL)',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: '' },
             },
           ],
@@ -539,24 +539,24 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: 'Region / TVB',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
             {
               title: 'Tourismorganization',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'TourismorganizationId' },
             },
             {
               title: 'Municipality',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'LocationInfo.MunicipalityInfo.Name.{language}',
               },
             },
             {
               title: 'District',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
             },
           ],
@@ -643,27 +643,27 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: 'Stamina',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Ratings.Stamina' },
             },
             {
               title: 'Experience',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Ratings.Experience' },
             },
             {
               title: 'Landscape',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Ratings.Landscape' },
             },
             {
               title: 'Difficulty',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Ratings.Difficulty' },
             },
             {
               title: 'Technique',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Ratings.Technique' },
             },
           ],
@@ -679,37 +679,37 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: 'Difficulty',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Ratings.Difficulty' },
             },
             {
               title: 'Altitude difference (m)',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AltitudeDifference' },
             },
             {
               title: 'Altitude Highest Point (m)',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AltitudeHighestPoint' },
             },
             {
               title: 'Altitude Lowest Point (m)',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AltitudeLowestPoint' },
             },
             {
               title: 'Altitude Sum Up (m)',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AltitudeSumUp' },
             },
             {
               title: 'Length (m)',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'DistanceLength' },
             },
             {
               title: 'Duration (hh:mm)',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'DistanceDuration' },
             },
             {
@@ -774,12 +774,12 @@ export const odhActivityPoiEditView: EditViewConfig = {
           properties: [
             {
               title: 'Age from',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AgeFrom' },
             },
             {
               title: 'Age to',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AgeTo' },
             },
           ],

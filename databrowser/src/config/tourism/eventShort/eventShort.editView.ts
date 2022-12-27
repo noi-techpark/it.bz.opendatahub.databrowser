@@ -13,7 +13,7 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
               tooltip: 'This is the shortname for your event',
             },
@@ -56,23 +56,23 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Company Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyName' },
               class: 'break-all',
             },
             {
               title: 'Organizer Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactFirstName' },
             },
             {
               title: 'Organizer Surname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactLastName' },
             },
             {
               title: 'External Organizer',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ExternalOrganizer' },
               class: 'break-all',
             },
@@ -83,36 +83,36 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Event Location',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'EventLocation' },
             },
             {
               title: 'Address',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyAddressLine1' },
             },
 
             {
               title: 'City',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyCity' },
               class: 'break-all',
             },
             {
               title: 'Country',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactCountry' },
               class: 'break-all',
             },
             {
               title: 'ZIP Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyPostalCode' },
               class: 'break-all',
             },
             {
               title: 'Country Abbreviation',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
@@ -312,12 +312,12 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
             {
               title: 'Event description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'EventDescription' },
               tooltip: 'Default event description',
             },
@@ -334,25 +334,25 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
               class: 'break-all',
             },
             {
               title: 'Event description DE',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'EventDescriptionDE' },
               tooltip: 'Event description in German',
             },
             {
               title: 'Event description IT',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'EventDescriptionIT' },
               tooltip: 'Event description in Italian',
             },
             {
               title: 'Event description EN',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'EventDescriptionEN' },
               tooltip: 'Event description in English',
             },
@@ -369,7 +369,7 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Name',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyName' },
             },
             {
@@ -384,22 +384,22 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Street and House No',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyAddressLine1' },
             },
             {
               title: 'ZIP-Code',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyPostalCode' },
             },
             {
               title: 'City',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyCity' },
             },
             {
               title: 'Country',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyCountry' },
             },
           ],
@@ -409,17 +409,17 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'E-Mail',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyMail' },
             },
             {
               title: 'Phone Number',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyPhone' },
             },
             {
               title: 'Web-URL',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'CompanyUrl' },
             },
           ],
@@ -445,7 +445,7 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Eventlocation',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'EventLocation' },
             },
           ],
@@ -455,7 +455,7 @@ export const eventShortEditView: EditViewConfig = {
           properties: [
             {
               title: 'Anchor venue room',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'AnchorVenueRoomMapping' },
             },
             {

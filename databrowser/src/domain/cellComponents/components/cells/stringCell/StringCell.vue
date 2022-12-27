@@ -1,16 +1,33 @@
 <template>
-  <span v-if="text != null">{{ text }}</span>
+  <InputCustom
+    v-if="isEditMode"
+    input-classes="w-full"
+    :model-value="text"
+    @update:model-value="update($event)"
+  />
+  <span v-else>{{ text }}</span>
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
+import { defineEmits, defineProps } from 'vue';
+import InputCustom from '../../../../../components/input/InputCustom.vue';
 
-withDefaults(
-  defineProps<{
-    text?: string | boolean | number;
-  }>(),
-  {
-    text: undefined,
-  }
-);
+const emit = defineEmits(['update']);
+
+defineProps<{
+  text?: string | boolean | number;
+  isEditMode?: boolean;
+}>();
+
+const update = (value: unknown) =>
+  emit('update', {
+    prop: 'text',
+    value,
+  });
 </script>
+
+<style scoped>
+.has-error input {
+  @apply border-error text-error;
+}
+</style>

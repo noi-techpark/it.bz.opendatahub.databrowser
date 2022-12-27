@@ -12,49 +12,49 @@
       <div class="flex flex-wrap gap-8 md:flex-nowrap">
         <div class="basis-full md:order-1 md:basis-1/3">
           <SubCategoryItem title="Date Start">
-            <InputSingleLineCell
+            <StringCell
               :text="item.startDate"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { startDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Start Time">
-            <InputSingleLineCell
+            <StringCell
               :text="item.startDate"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { startDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Date End">
-            <InputSingleLineCell
+            <StringCell
               :text="item.endDate"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { endDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="End Time">
-            <InputSingleLineCell
+            <StringCell
               :text="item.endDate"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { endDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Room Name">
-            <InputSingleLineCell
+            <StringCell
               :text="item.spaceDesc"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { spaceDesc: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Subtitle">
-            <InputSingleLineCell
+            <StringCell
               :text="item.subtitle"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { subtitle: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Location">
-            <InputSingleLineCell
+            <StringCell
               :text="item.spaceType"
               :is-edit-mode="isEditMode"
               @input="updateItem(index, { spaceType: $event.target.value })"
@@ -98,12 +98,12 @@
 import { defineProps } from 'vue';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
-import InputSingleLineCell from '../inputSingleLineCell/InputSingleLineCell.vue';
 import IconCopy from '../../../../../components/svg/IconCopy.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
+import StringCell from '../stringCell/StringCell.vue';
 
 // Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
 // Should be fixed in Vue 3.3

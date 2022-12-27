@@ -13,19 +13,19 @@ export const municipalityEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
             {
               title: 'CAP',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Plz',
               },
             },
             {
               title: 'Inhabitants',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Inhabitants',
               },
@@ -147,63 +147,63 @@ export const municipalityEditView: EditViewConfig = {
           properties: [
             {
               title: 'Meta Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.MetaTitle',
               },
             },
             {
               title: 'Meta Description',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.MetaDesc',
               },
             },
             {
               title: 'Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.Title',
               },
             },
             {
               title: 'Header',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.Header',
               },
             },
             {
               title: 'SubHeader',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.SubHeader',
               },
             },
             {
               title: 'Intro Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.IntroText',
               },
             },
             {
               title: 'BaseText',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.BaseText',
               },
             },
             {
               title: 'AdditionalText',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.AdditionalText',
               },
             },
             {
               title: 'GetThereText',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: {
                 text: 'Detail.{language}.GetThereText',
               },

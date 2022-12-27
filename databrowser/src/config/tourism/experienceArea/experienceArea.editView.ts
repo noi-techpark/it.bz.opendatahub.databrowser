@@ -13,7 +13,7 @@ export const experienceAreaEditView: EditViewConfig = {
           properties: [
             {
               title: 'Shortname',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
             },
             {
@@ -129,7 +129,7 @@ export const experienceAreaEditView: EditViewConfig = {
           properties: [
             {
               title: 'Meta Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.MetaTitle' },
             },
             {
@@ -139,37 +139,37 @@ export const experienceAreaEditView: EditViewConfig = {
             },
             {
               title: 'Title',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Title' },
             },
             {
               title: 'Header',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Header' },
             },
             {
               title: 'Subheader',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.Subheader' },
             },
             {
               title: 'Intro Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.IntroText' },
             },
             {
               title: 'Base Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.BaseText' },
             },
             {
               title: 'Additional Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.AdditionalText' },
             },
             {
               title: 'There Text',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Detail.{language}.GetThereText' },
             },
           ],
@@ -195,7 +195,7 @@ export const experienceAreaEditView: EditViewConfig = {
           properties: [
             {
               title: 'District',
-              component: CellComponent.InputSingleLineCell,
+              component: CellComponent.StringCell,
               fields: { text: 'Districts' },
             },
           ],
