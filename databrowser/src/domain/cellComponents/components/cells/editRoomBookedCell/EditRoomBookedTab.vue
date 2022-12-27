@@ -14,48 +14,55 @@
           <SubCategoryItem title="Date Start">
             <InputSingleLineCell
               :text="item.startDate"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { startDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Start Time">
             <InputSingleLineCell
               :text="item.startDate"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { startDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Date End">
             <InputSingleLineCell
               :text="item.endDate"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { endDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="End Time">
             <InputSingleLineCell
               :text="item.endDate"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { endDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Room Name">
             <InputSingleLineCell
               :text="item.spaceDesc"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { spaceDesc: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Subtitle">
             <InputSingleLineCell
               :text="item.subtitle"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { subtitle: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Location">
             <InputSingleLineCell
               :text="item.spaceType"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { spaceType: $event.target.value })"
             />
           </SubCategoryItem>
         </div>
         <div class="basis-full md:order-3 md:basis-1/3">
-          <div class="rounded border">
+          <div v-if="isEditMode" class="rounded border">
             <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
               <span class="font-semibold">Info &amp; action</span>
             </div>
@@ -96,6 +103,7 @@ import IconCopy from '../../../../../components/svg/IconCopy.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
+import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 
 // Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
 // Should be fixed in Vue 3.3
@@ -117,4 +125,6 @@ defineProps<{ items: RoomBookedEntry[] }>();
 
 const { addEmptyItem, deleteItems, duplicateItem, updateItem } =
   useInjectActionTriggers();
+
+const { isEditMode } = useInjectEditMode();
 </script>

@@ -3,7 +3,10 @@
     <EditListHeader>
       <EditListBackButton label="Back to overview" @click="navigateToTable" />
     </EditListHeader>
-    <EditListTabHeaderButtons class="mb-5 flex justify-between md:hidden" />
+    <EditListTabHeaderButtons
+      v-if="isEditMode"
+      class="mb-5 flex justify-between md:hidden"
+    />
     <div class="flex items-center justify-between bg-gray-50 text-sm">
       <div
         ref="tabWrapper"
@@ -21,7 +24,7 @@
         </TabCustom>
       </div>
 
-      <EditListTabHeaderButtons class="hidden md:flex">
+      <EditListTabHeaderButtons v-if="isEditMode" class="hidden md:flex">
         <template #addItems>
           <slot name="addItems"></slot>
         </template>
@@ -37,6 +40,7 @@ import EditListTabHeaderButtons from './EditListTabHeaderButtons.vue';
 import EditListBackButton from '../EditListBackButton.vue';
 import EditListHeader from '../EditListHeader.vue';
 import { useInjectNavigation } from '../actions/useNavigation';
+import { useInjectEditMode } from '../actions/useEditMode';
 
 defineProps<{
   items: unknown[];
@@ -44,6 +48,8 @@ defineProps<{
 }>();
 
 const { navigateToTab, navigateToTable } = useInjectNavigation();
+
+const { isEditMode } = useInjectEditMode();
 
 // Scroll active tab into view in case there are many to many tabs to show
 const tabWrapper = ref();

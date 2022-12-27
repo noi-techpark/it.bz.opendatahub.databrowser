@@ -55,6 +55,7 @@
                 :category="currentCategory"
                 :sub-categories="enhancedSubcategories"
                 :show-all="true"
+                :is-edit-mode="true"
               />
             </ContentAlignmentX>
             <EditToolBox />

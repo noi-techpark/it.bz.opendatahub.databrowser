@@ -21,3 +21,25 @@ export const IMAGE_GALLERY_CONFIG = {
     },
   },
 } as const;
+
+export const ROOM_BOOKED_CONFIG = {
+  title: '',
+  component: CellComponent.EditRoomBookedCell,
+  listFields: {
+    pathToParent: 'RoomBooked',
+    fields: {
+      space: 'Space',
+      spaceDesc: 'SpaceDesc',
+      spaceAbbrev: 'SpaceAbbrev',
+      spaceType: 'SpaceType',
+      subtitle: 'Subtitle',
+      comment: 'Comment',
+      startDate: 'StartDate',
+      endDate: 'EndDate',
+      startDateUTC: 'StartDateUTC',
+      endDateUTC: 'EndDateUTC',
+      spaceDescRoomMapping: 'SpaceDescRoomMapping',
+    },
+    attributeName: 'roomBooked',
+  },
+} as const;

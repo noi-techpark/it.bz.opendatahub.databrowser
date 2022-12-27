@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
+import { ROOM_BOOKED_CONFIG } from '../configBuilder';
 
 export const eventShortDetailView: DetailViewConfig = {
   elements: [
@@ -271,6 +272,16 @@ export const eventShortDetailView: DetailViewConfig = {
               fields: { text: 'Source' },
             },
           ],
+        },
+      ],
+    },
+    {
+      name: 'Event details',
+      slug: 'event-details',
+      subcategories: [
+        {
+          name: '',
+          properties: [ROOM_BOOKED_CONFIG],
         },
       ],
     },

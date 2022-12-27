@@ -1,6 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
-import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
+import { IMAGE_GALLERY_CONFIG, ROOM_BOOKED_CONFIG } from '../configBuilder';
 
 export const eventShortEditView: EditViewConfig = {
   elements: [
@@ -299,29 +299,7 @@ export const eventShortEditView: EditViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.EditRoomBookedCell,
-              listFields: {
-                pathToParent: 'RoomBooked',
-                fields: {
-                  space: 'Space',
-                  spaceDesc: 'SpaceDesc',
-                  spaceAbbrev: 'SpaceAbbrev',
-                  spaceType: 'SpaceType',
-                  subtitle: 'Subtitle',
-                  comment: 'Comment',
-                  startDate: 'StartDate',
-                  endDate: 'EndDate',
-                  startDateUTC: 'StartDateUTC',
-                  endDateUTC: 'EndDateUTC',
-                  spaceDescRoomMapping: 'SpaceDescRoomMapping',
-                },
-                attributeName: 'roomBooked',
-              },
-            },
-          ],
+          properties: [ROOM_BOOKED_CONFIG],
         },
       ],
     },

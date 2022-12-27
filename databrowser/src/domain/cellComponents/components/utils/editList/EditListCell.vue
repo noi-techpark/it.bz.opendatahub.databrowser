@@ -15,10 +15,14 @@
 import { computed, defineEmits, defineProps } from 'vue';
 import { useProvideActions } from './actions/useActions';
 import { useProvideNavigation } from './actions/useNavigation';
+import { useProvideEditMode } from './actions/useEditMode';
 
 const emit = defineEmits(['update']);
 
-const props = defineProps<{ items?: Record<string, unknown>[] }>();
+const props = defineProps<{
+  items?: Record<string, unknown>[];
+  isEditMode?: boolean;
+}>();
 
 // Use internal copy of items for quicker operations (e.g. sorting)
 // The internal copy is also updated in case the items prop updates
@@ -45,6 +49,9 @@ const {
 
   updateItems,
 } = useProvideActions();
+
+const isEditMode = computed(() => props.isEditMode === true);
+useProvideEditMode(isEditMode);
 
 onAddItems((items: unknown[]) => {
   const newItems = [...itemsInternal.value, ...(items ?? [])];

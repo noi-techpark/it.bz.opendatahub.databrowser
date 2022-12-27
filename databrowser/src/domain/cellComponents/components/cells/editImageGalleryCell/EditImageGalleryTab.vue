@@ -22,36 +22,42 @@
           <SubCategoryItem title="Name">
             <InputSingleLineCell
               :text="item.name"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { name: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Title">
             <InputSingleLineCell
               :text="item.title"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { title: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Description">
             <InputSingleLineCell
               :text="item.description"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { description: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Copyright">
             <InputSingleLineCell
               :text="item.copyright"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { copyright: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="License">
             <InputSingleLineCell
               :text="item.license"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { license: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Source">
             <InputSingleLineCell
               :text="item.source"
+              :is-edit-mode="isEditMode"
               @input="updateItem(index, { source: $event.target.value })"
             />
           </SubCategoryItem>
@@ -68,7 +74,7 @@
                   {{ getResolutionAsText(item) }} (W/H)
                 </div>
               </div>
-              <div>
+              <div v-if="isEditMode">
                 <button
                   class="m-3 flex items-center gap-3"
                   @click="changeImage"
@@ -86,7 +92,7 @@
                   <span>Download image</span>
                 </button>
               </div>
-              <div>
+              <div v-if="isEditMode">
                 <button
                   class="m-3 flex items-center gap-3"
                   @click="duplicateItem(index)"
@@ -95,7 +101,7 @@
                   <span>Duplicate</span>
                 </button>
               </div>
-              <div>
+              <div v-if="isEditMode">
                 <button
                   class="mx-3 mt-3 flex items-center gap-3"
                   @click="deleteItems([index])"
@@ -152,6 +158,7 @@ import InputSingleLineCell from '../inputSingleLineCell/InputSingleLineCell.vue'
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
+import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 
 // Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
 // Should be fixed in Vue 3.3
@@ -177,6 +184,8 @@ const { activeTab, navigateToAdd } = useInjectNavigation();
 
 const { deleteItems, duplicateItem, updateItem, updateItems } =
   useInjectActionTriggers();
+
+const { isEditMode } = useInjectEditMode();
 
 const target = ref();
 const { toggle, isFullscreen } = useFullscreen(target);
