@@ -1,8 +1,8 @@
 <template>
   <div>
-    <EditImageGalleryHeader>
-      <BackButton label="Back" @navigate="navigateToPrevious" />
-    </EditImageGalleryHeader>
+    <EditListHeader>
+      <EditListBackButton label="Back" @click="navigateToPrevious" />
+    </EditListHeader>
     <div v-if="isUploadError" class="bg-red-200">
       {{ uploadError }}
     </div>
@@ -11,7 +11,7 @@
       class="flex justify-center items-center my-5 w-full h-24 rounded border-2 border-dashed"
       :class="{ 'border-green-400': isOverDropZone, hidden: uploading }"
     >
-      Drop your logos / files here or &nbsp;
+      Drop your images / files here or &nbsp;
       <button type="button" class="text-green-500" @click="open()">
         browse
       </button>
@@ -21,7 +21,7 @@
       class="flex flex-col justify-between p-3 w-full h-24 rounded border-2"
     >
       <div class="flex justify-between items-center w-full">
-        <span class="font-semibold">X Images Uploading</span>
+        <span class="font-semibold">{{ files?.length }} Files Uploading</span>
         <button @click="uploadAbortController.abort()">
           <IconDelete class="text-delete" />
         </button>
@@ -36,17 +36,16 @@
 
 <script setup lang="ts">
 import { useDropZone, useFileDialog } from '@vueuse/core';
-import { defineEmits, ref, watch } from 'vue';
+import { computed, defineProps, ref, watch } from 'vue';
 import IconDelete from '../../../../../../components/svg/IconDelete.vue';
 import ProgressBar from '../../../../../../components/progress/ProgressBar.vue';
-import EditImageGalleryHeader from '../EditImageGalleryHeader.vue';
-import BackButton from '../BackButton.vue';
-import { useEditImageGalleryNavigation } from '../store/useEditImageGalleryNavigation';
-import { useImageUpload } from '../useImageUpload';
+import EditListBackButton from '../EditListBackButton.vue';
+import EditListHeader from '../EditListHeader.vue';
+import { useUploadForType } from './useUpload';
+import { useInjectNavigation } from '../actions/useNavigation';
+import { useInjectActionTriggers } from '../actions/useActions';
 
-const emit = defineEmits(['uploadSuccess']);
-
-const { navigateToPrevious } = useEditImageGalleryNavigation();
+const props = defineProps<{ type: 'image' | 'file' }>();
 
 const dropZoneRef = ref<HTMLDivElement>();
 
@@ -54,25 +53,26 @@ const onDrop = (filesFromDropZone: File[] | null) => {
   if (filesFromDropZone == null) {
     return;
   }
-  uploadFile(filesFromDropZone);
+  uploadFiles(filesFromDropZone);
 };
 
 const { isOverDropZone } = useDropZone(dropZoneRef, onDrop);
 
 const { files, open } = useFileDialog();
 
+const uploadType = computed(() => props.type);
+
 const {
   isUploadError,
-  isUploadSuccess,
   uploading,
   uploadAbortController,
   uploadError,
   uploadProgress,
-  uploadResponse,
-  uploadFile,
-} = useImageUpload();
+  uploadFiles,
+  onUploadSuccess,
+} = useUploadForType(uploadType);
 
-watch(files, async (filesFromFileDialog) => {
+watch(files, (filesFromFileDialog) => {
   if (filesFromFileDialog == null) {
     return;
   }
@@ -80,12 +80,16 @@ watch(files, async (filesFromFileDialog) => {
   const filesToUpload = Array.from(filesFromFileDialog);
 
   // Trigger file upload
-  await uploadFile(filesToUpload);
+  uploadFiles(filesToUpload);
 });
 
-watch([isUploadSuccess, uploadResponse], ([isSuccess, fileUrls]) => {
-  if (isSuccess) {
-    emit('uploadSuccess', fileUrls);
-  }
+const { navigateToPrevious } = useInjectNavigation();
+
+const { addItems } = useInjectActionTriggers();
+
+onUploadSuccess((urls: string[]) => {
+  const items = urls.map((url) => ({ src: url }));
+  addItems(items);
+  navigateToPrevious();
 });
 </script>

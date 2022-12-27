@@ -1,0 +1,120 @@
+<template>
+  <EditListTab :items="items">
+    <template #tabLabel="{ index }">
+      <div class="w-full">Room {{ index + 1 }}</div>
+    </template>
+
+    <template #addItems>
+      <EditListAddButton :text="'Add new room'" @click="addEmptyItem" />
+    </template>
+
+    <template #body="{ item, index }">
+      <div class="flex flex-wrap gap-8 md:flex-nowrap">
+        <div class="basis-full md:basis-1/3 md:order-1">
+          <SubCategoryItem title="Date Start">
+            <InputSingleLineCell
+              :text="item.startDate"
+              @input="updateItem(index, { startDate: $event.target.value })"
+            />
+          </SubCategoryItem>
+          <SubCategoryItem title="Start Time">
+            <InputSingleLineCell
+              :text="item.startDate"
+              @input="updateItem(index, { startDate: $event.target.value })"
+            />
+          </SubCategoryItem>
+          <SubCategoryItem title="Date End">
+            <InputSingleLineCell
+              :text="item.endDate"
+              @input="updateItem(index, { endDate: $event.target.value })"
+            />
+          </SubCategoryItem>
+          <SubCategoryItem title="End Time">
+            <InputSingleLineCell
+              :text="item.endDate"
+              @input="updateItem(index, { endDate: $event.target.value })"
+            />
+          </SubCategoryItem>
+          <SubCategoryItem title="Room Name">
+            <InputSingleLineCell
+              :text="item.spaceDesc"
+              @input="updateItem(index, { spaceDesc: $event.target.value })"
+            />
+          </SubCategoryItem>
+          <SubCategoryItem title="Subtitle">
+            <InputSingleLineCell
+              :text="item.subtitle"
+              @input="updateItem(index, { subtitle: $event.target.value })"
+            />
+          </SubCategoryItem>
+          <SubCategoryItem title="Location">
+            <InputSingleLineCell
+              :text="item.spaceType"
+              @input="updateItem(index, { spaceType: $event.target.value })"
+            />
+          </SubCategoryItem>
+        </div>
+        <div class="basis-full md:basis-1/3 md:order-3">
+          <div class="rounded border">
+            <div class="flex justify-between items-center py-3 px-4 bg-gray-50">
+              <span class="font-semibold">Info &amp; action</span>
+            </div>
+            <div class="p-4 divide-y">
+              <div>
+                <button
+                  class="flex gap-3 items-center m-3"
+                  @click="duplicateItem(index)"
+                >
+                  <IconCopy class="text-green-500" />
+                  <span>Duplicate</span>
+                </button>
+              </div>
+              <div>
+                <button
+                  class="flex gap-3 items-center mx-3 mt-3"
+                  @click="deleteItems([index])"
+                >
+                  <IconDelete class="text-delete" />
+                  <span>Delete</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="basis-full md:basis-1/3 md:order-2"></div>
+      </div>
+    </template>
+  </EditListTab>
+</template>
+
+<script setup lang="ts">
+import { defineProps } from 'vue';
+import EditListTab from '../../utils/editList/tab/EditListTab.vue';
+import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
+import InputSingleLineCell from '../inputSingleLineCell/InputSingleLineCell.vue';
+import IconCopy from '../../../../../components/svg/IconCopy.vue';
+import IconDelete from '../../../../../components/svg/IconDelete.vue';
+import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
+import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
+
+// Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
+// Should be fixed in Vue 3.3
+interface RoomBookedEntry {
+  space?: string;
+  spaceDesc?: string;
+  spaceAbbrev?: string;
+  spaceType?: string;
+  subtitle?: string;
+  comment?: string;
+  startDate?: string;
+  endDate?: string;
+  startDateUTC?: number;
+  endDateUTC?: number;
+  spaceDescRoomMapping?: string;
+}
+
+defineProps<{ items: RoomBookedEntry[] }>();
+
+const { addEmptyItem, deleteItems, duplicateItem, updateItem } =
+  useInjectActionTriggers();
+</script>

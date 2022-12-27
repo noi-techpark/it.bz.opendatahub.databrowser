@@ -76,9 +76,11 @@ export const useApplyError = (
       const catWithErrors = categories.value.map((cat) => {
         const hasError = cat.subCategories.some((sub) =>
           sub.properties.some((prop) =>
-            Object.values(prop.fields).some(
-              (value) => err.errors?.[value] != null
-            )
+            prop.fields == null
+              ? false
+              : Object.values(prop.fields).some(
+                  (value) => err.errors?.[value] != null
+                )
           )
         );
 
@@ -102,6 +104,10 @@ export const useApplyError = (
 
       const subWithErrors = subcategories.value.map((sub) => {
         const properties = sub.properties.map((prop) => {
+          if (prop.fields == null) {
+            return { ...prop };
+          }
+
           const entryKey = Object.values(prop.fields).find(
             (value) => err.errors?.[value] != null
           );

@@ -4,6 +4,7 @@ import { useApiQuery } from './apiQueryHandler';
 import { stringifyParameter } from './query';
 import { ParameterValue } from './types';
 import * as R from 'ramda';
+import { ArrayPropertyConfig } from '../../datasetConfig/types';
 
 export interface UseAsOptions {
   twoWayBinding?: boolean;
@@ -123,15 +124,46 @@ export const usePropertyMapping = () => {
 
   const mapWithIndex = (
     item: unknown,
-    propertyMapping: Record<string, string>,
+    propertyMapping?: Record<string, string>,
     params?: Record<string, unknown>
   ) => {
+    if (propertyMapping == null) {
+      return { ...params };
+    }
+
     const extractedFields = mapValuesWithIndex(
       item,
       propertyMapping,
       replacements.value
     );
     return { ...extractedFields, ...params };
+  };
+
+  const mapListWithIndex = (
+    data: unknown,
+    propertyMapping: ArrayPropertyConfig['listFields'],
+    params?: Record<string, unknown>
+  ) => {
+    const { pathToParent, fields, attributeName } = propertyMapping;
+
+    // Return object has a property whose name is the value of the "attributeName" variable
+    // e.g. value of "attributeName" is "abcdefg", then the result object will have a property "abcdefg"
+    const defaultResult = { [attributeName]: [], ...params };
+
+    // Get array from input data
+    const path = pathToParent.split('.');
+    const lensePath = R.lensPath(path);
+    const dataArray = R.view(lensePath, data);
+
+    if (dataArray == null || !Array.isArray(dataArray)) {
+      return defaultResult;
+    }
+
+    const listOfExtractedFields = dataArray.map((item) => {
+      return mapValuesWithIndex(item, fields, replacements.value);
+    });
+
+    return { ...defaultResult, [attributeName]: listOfExtractedFields };
   };
 
   const mapWithReverseIndex = (
@@ -148,7 +180,11 @@ export const usePropertyMapping = () => {
     return { ...extractedFields };
   };
 
-  return { mapWithIndex, mapWithReverseIndex };
+  return {
+    mapWithIndex,
+    mapListWithIndex,
+    mapWithReverseIndex,
+  };
 };
 
 export const replacePlaceholders = (
