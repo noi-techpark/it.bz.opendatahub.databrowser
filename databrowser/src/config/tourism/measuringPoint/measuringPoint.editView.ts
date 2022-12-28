@@ -1,5 +1,6 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ID_READONLY_CONFIG } from '../configBuilder';
 
 export const measuringPointEditView: EditViewConfig = {
   elements: [
@@ -10,11 +11,7 @@ export const measuringPointEditView: EditViewConfig = {
         {
           name: 'General data',
           properties: [
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-            },
+            ID_READONLY_CONFIG,
             {
               title: 'Shortname',
               component: CellComponent.StringCell,

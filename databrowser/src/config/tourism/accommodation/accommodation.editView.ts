@@ -1,7 +1,7 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { withOdhBaseUrl } from '../../utils';
-import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
+import { ID_READONLY_CONFIG, IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const accommodationEditView: EditViewConfig = {
   elements: [
@@ -111,12 +111,7 @@ export const accommodationEditView: EditViewConfig = {
         {
           name: 'IDs',
           properties: [
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-              class: 'break-all',
-            },
+            ID_READONLY_CONFIG,
             {
               title: 'Region ID',
               component: CellComponent.ArrayCell,

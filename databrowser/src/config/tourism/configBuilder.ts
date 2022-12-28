@@ -1,5 +1,12 @@
 import { CellComponent } from '../../domain/cellComponents/types';
 
+export const ID_READONLY_CONFIG = {
+  title: 'ID',
+  component: CellComponent.StringCell,
+  fields: { text: 'Id' },
+  params: { readonly: 'true' },
+} as const;
+
 export const IMAGE_GALLERY_CONFIG = {
   title: '',
   component: CellComponent.EditImageGalleryCell,

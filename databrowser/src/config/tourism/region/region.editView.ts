@@ -1,6 +1,6 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
+import { ID_READONLY_CONFIG, IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const regionEditView: EditViewConfig = {
   elements: [
@@ -40,12 +40,7 @@ export const regionEditView: EditViewConfig = {
         {
           name: 'IDs',
           properties: [
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-              class: 'break-all',
-            },
+            ID_READONLY_CONFIG,
             {
               title: 'CustomId',
               component: CellComponent.StringCell,

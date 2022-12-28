@@ -7,110 +7,53 @@ export const eventShortListView: ListViewConfig = {
       title: 'Title',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
-        text: 'Shortname',
-      },
+      fields: { text: 'EventTitle.{language}' },
     },
     {
-      title: 'Event location',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'EventLocation',
-      },
-    },
-    {
-      title: 'Description',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'EventDescription',
-      },
-    },
-    {
-      title: 'Contact',
-      component: CellComponent.TextHighlightCell,
+      title: 'Date start',
+      component: CellComponent.EditedDateCell,
       class: 'w-40',
-      fields: {
-        title: 'ContactEmail',
-        subtitle: 'ContactPhone',
-      },
+      fields: { date: 'StartDate' },
+      params: { format: 'do MMMM yyyy' },
     },
     {
-      title: 'Sold out',
-      component: CellComponent.TypeBasedCell,
+      title: 'Date end',
+      component: CellComponent.EditedDateCell,
       class: 'w-40',
-      fields: {
-        data: 'SoldOut',
-      },
+      fields: { date: 'EndDate' },
+      params: { format: 'do MMMM yyyy' },
     },
     {
       title: 'Rooms',
       component: CellComponent.TypeBasedCell,
       class: 'w-40',
-      fields: {
-        data: 'RoomBooked',
-      },
+      fields: { data: 'RoomBooked' },
+    },
+    {
+      title: 'Location',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: { text: 'EventLocation' },
     },
     {
       title: 'Languages',
       component: CellComponent.ArrayCell,
       class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
-    {
-      title: 'Start date',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'StartDate',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
-    },
-    {
-      title: 'End date',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'EndDate',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
+      fields: { items: 'HasLanguage' },
+      params: { separator: ', ' },
     },
     {
       title: 'Edited',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
-    },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-36',
-      fields: {
-        text: 'Source',
-      },
+      fields: { date: 'LastChange' },
+      params: { format: 'do MMMM yyyy' },
     },
     {
       title: 'Open Data Hub state',
       component: CellComponent.StateCell,
       class: 'w-36',
-      fields: {
-        state: 'OdhActive',
-      },
+      fields: { state: 'OdhActive' },
     },
   ],
 };

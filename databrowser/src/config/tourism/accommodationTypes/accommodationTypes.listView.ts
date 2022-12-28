@@ -1,16 +1,10 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ID_READONLY_CONFIG } from '../configBuilder';
 
 export const accommodationTypesListView: ListViewConfig = {
   elements: [
-    {
-      title: 'Id',
-      component: CellComponent.StringCell,
-      class: 'w-40',
-      fields: {
-        text: 'Id',
-      },
-    },
+    ID_READONLY_CONFIG,
     {
       title: 'Key',
       component: CellComponent.StringCell,
