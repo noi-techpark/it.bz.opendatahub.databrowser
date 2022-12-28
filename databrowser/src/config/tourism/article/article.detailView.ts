@@ -1,6 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
-import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
+import { ID_READONLY_CONFIG, IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const articleDetailView: DetailViewConfig = {
   elements: [
@@ -20,14 +20,7 @@ export const articleDetailView: DetailViewConfig = {
         },
         {
           name: 'IDs',
-          properties: [
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-              class: 'break-all',
-            },
-          ],
+          properties: [ID_READONLY_CONFIG],
         },
         {
           name: 'Data states',

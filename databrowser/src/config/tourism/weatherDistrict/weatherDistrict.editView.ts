@@ -1,6 +1,7 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { withOdhBaseUrl } from '../../utils';
+import { ID_READONLY_CONFIG } from '../configBuilder';
 
 export const weatherDistrictEditView: EditViewConfig = {
   elements: [
@@ -20,14 +21,7 @@ export const weatherDistrictEditView: EditViewConfig = {
         },
         {
           name: 'IDs',
-          properties: [
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-              class: 'break-all',
-            },
-          ],
+          properties: [ID_READONLY_CONFIG],
         },
         {
           name: 'Data states',

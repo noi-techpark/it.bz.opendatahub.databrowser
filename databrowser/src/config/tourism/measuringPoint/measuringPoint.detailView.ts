@@ -1,5 +1,6 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ID_READONLY_CONFIG } from '../configBuilder';
 
 export const measuringPointDetailView: DetailViewConfig = {
   elements: [
@@ -10,11 +11,7 @@ export const measuringPointDetailView: DetailViewConfig = {
         {
           name: 'General data',
           properties: [
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-            },
+            ID_READONLY_CONFIG,
             {
               title: 'Shortname',
               component: CellComponent.StringCell,

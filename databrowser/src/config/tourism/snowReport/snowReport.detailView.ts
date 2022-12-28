@@ -1,5 +1,6 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ID_READONLY_CONFIG } from '../configBuilder';
 
 export const snowReportDetailView: DetailViewConfig = {
   elements: [
@@ -15,11 +16,7 @@ export const snowReportDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Areaname' },
             },
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-            },
+            ID_READONLY_CONFIG,
             {
               title: 'RID',
               component: CellComponent.StringCell,
@@ -67,11 +64,6 @@ export const snowReportDetailView: DetailViewConfig = {
               title: '',
               component: CellComponent.StringCell,
               fields: { text: 'Measuringpoints.0.Shortname' },
-            },
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
             },
             {
               title: 'Last Update',

@@ -1,5 +1,6 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ID_READONLY_CONFIG } from '../configBuilder';
 
 export const weatherRealTimeEditView: EditViewConfig = {
   elements: [
@@ -20,11 +21,7 @@ export const weatherRealTimeEditView: EditViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'categoryId' },
             },
-            {
-              title: 'Id',
-              component: CellComponent.StringCell,
-              fields: { text: 'id' },
-            },
+            ID_READONLY_CONFIG,
           ],
         },
       ],

@@ -1,5 +1,6 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ID_READONLY_CONFIG } from '../configBuilder';
 
 export const accommodationDetailView: DetailViewConfig = {
   elements: [
@@ -99,12 +100,7 @@ export const accommodationDetailView: DetailViewConfig = {
         {
           name: 'IDs',
           properties: [
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-              class: 'break-all',
-            },
+            ID_READONLY_CONFIG,
             {
               title: 'Region ID',
               component: CellComponent.ArrayCell,

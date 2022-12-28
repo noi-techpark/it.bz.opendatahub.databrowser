@@ -1,5 +1,6 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ID_READONLY_CONFIG } from '../configBuilder';
 
 export const weatherRealTimeDetailView: DetailViewConfig = {
   elements: [
@@ -20,11 +21,7 @@ export const weatherRealTimeDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'categoryId' },
             },
-            {
-              title: 'Id',
-              component: CellComponent.StringCell,
-              fields: { text: 'id' },
-            },
+            ID_READONLY_CONFIG,
           ],
         },
       ],

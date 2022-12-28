@@ -1,6 +1,7 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { WebComponent } from '../../../domain/webComponents/webComponentRegistry';
+import { ID_READONLY_CONFIG } from '../configBuilder';
 
 export const odhActivityPoiDetailView: DetailViewConfig = {
   elements: [
@@ -69,12 +70,7 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
         {
           name: 'IDs',
           properties: [
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-              class: 'break-all',
-            },
+            ID_READONLY_CONFIG,
             {
               title: 'Custom ID',
               component: CellComponent.StringCell,

@@ -1,5 +1,6 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ID_READONLY_CONFIG } from '../configBuilder';
 
 export const snowReportEditView: EditViewConfig = {
   elements: [
@@ -15,11 +16,7 @@ export const snowReportEditView: EditViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'Areaname' },
             },
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
-            },
+            ID_READONLY_CONFIG,
             {
               title: 'RID',
               component: CellComponent.StringCell,
@@ -67,11 +64,6 @@ export const snowReportEditView: EditViewConfig = {
               title: '',
               component: CellComponent.StringCell,
               fields: { text: 'Measuringpoints.0.Shortname' },
-            },
-            {
-              title: 'ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'Id' },
             },
             {
               title: 'Last Update',
