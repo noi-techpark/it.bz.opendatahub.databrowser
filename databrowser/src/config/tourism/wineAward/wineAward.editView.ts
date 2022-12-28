@@ -67,7 +67,7 @@ export const wineAwardEditView: EditViewConfig = {
               title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'OdhActive' },
-              params: { preventChange: 'true' },
+              params: { readonly: 'true' },
             },
             {
               title: 'Active on SMG',

@@ -2,34 +2,34 @@
   <div>
     <ToggleCustom
       v-model="enabledInternal"
-      :disabled="disabled"
+      :disabled="!isWriteable"
       @update:model-value="emit('update', { prop: 'enabled', value: $event })"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, ref, withDefaults } from 'vue';
+import { defineEmits, defineProps, ref, toRefs, withDefaults } from 'vue';
 import ToggleCustom from '../../../../../components/toggle/ToggleCustom.vue';
+import { useWriteable } from '../../utils/writeable/useWriteable';
 
 const emit = defineEmits(['update']);
 
 const props = withDefaults(
   defineProps<{
     enabled?: boolean;
-    preventChange?: string;
+    editable?: boolean;
+    readonly?: string | boolean;
   }>(),
   {
     enabled: false,
-    preventChange: 'false',
+    editable: true,
+    readonly: false,
   }
 );
 
+const { editable, readonly } = toRefs(props);
+const isWriteable = useWriteable({ editable, readonly });
+
 const enabledInternal = ref(props.enabled);
-const disabled = computed(() => {
-  if (typeof props.preventChange !== 'string') {
-    return false;
-  }
-  return props.preventChange.trim().toLowerCase() === 'true';
-});
 </script>

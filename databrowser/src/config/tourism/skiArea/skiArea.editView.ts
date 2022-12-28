@@ -167,7 +167,7 @@ export const skiAreaEditView: EditViewConfig = {
               title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'OdhActive' },
-              params: { preventChange: 'true' },
+              params: { readonly: 'true' },
             },
             {
               title: 'Published on',
