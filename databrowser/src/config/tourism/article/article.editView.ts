@@ -13,75 +13,9 @@ export const articleEditView: EditViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Title',
-              component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.Title' },
-            },
-            {
               title: 'Shortname',
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
-            },
-            {
-              title: 'Logo',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
-              fields: {
-                src: 'LogoUrl',
-              },
-              params: {
-                width: '15%',
-              },
-            },
-
-            {
-              title: 'Highlight',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'Highlight' },
-            },
-            {
-              title: 'Type',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'Type' },
-              params: {
-                url: withOdhBaseUrl('/v1/ArticleTypes'),
-                labelSelector: 'Key',
-                keySelector: 'Key',
-              },
-              required: true,
-            },
-            {
-              title: 'Sub Type',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'SubType' },
-              params: {
-                url: withOdhBaseUrl('/v1/ArticleTypes'),
-                labelSelector: 'Key',
-                keySelector: 'Key',
-              },
-              required: true,
-            },
-            {
-              title: 'Article Date',
-              component: CellComponent.DateCell,
-              class: 'w-40',
-              fields: {
-                date: 'ArticleDate',
-              },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
-            },
-            {
-              title: 'Article Date To',
-              component: CellComponent.DateCell,
-              class: 'w-40',
-              fields: {
-                date: 'ArticleDateTo',
-              },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
             },
           ],
         },
@@ -92,7 +26,6 @@ export const articleEditView: EditViewConfig = {
               title: 'ID',
               component: CellComponent.StringCell,
               fields: { text: 'Id' },
-              class: 'break-all',
             },
           ],
         },
@@ -121,11 +54,6 @@ export const articleEditView: EditViewConfig = {
               fields: { enabled: 'OdhActive' },
               params: { preventChange: 'true' },
             },
-            {
-              title: 'Active on SMG',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'SmgActive' },
-            },
           ],
         },
         {
@@ -146,18 +74,18 @@ export const articleEditView: EditViewConfig = {
       slug: 'text-information',
       subcategories: [
         {
-          name: 'General data',
+          name: '',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Meta Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              fields: { text: 'MetaTitle' },
             },
-          ],
-        },
-        {
-          name: 'Detail',
-          properties: [
+            {
+              title: 'Meta Description',
+              component: CellComponent.StringCell,
+              fields: { text: 'MetaDesc' },
+            },
             {
               title: 'Title',
               component: CellComponent.StringCell,
@@ -181,12 +109,17 @@ export const articleEditView: EditViewConfig = {
             {
               title: 'Base text',
               component: CellComponent.StringCell,
-              fields: { html: 'Detail.{language}.BaseText' },
+              fields: { text: 'Detail.{language}.BaseText' },
             },
             {
               title: 'Additional text',
               component: CellComponent.StringCell,
-              fields: { html: 'Detail.{language}.AdditionalText' },
+              fields: { text: 'Detail.{language}.AdditionalText' },
+            },
+            {
+              title: 'Get there text',
+              component: CellComponent.StringCell,
+              fields: { text: 'Detail.{language}.GetThereText' },
             },
           ],
         },
@@ -202,17 +135,32 @@ export const articleEditView: EditViewConfig = {
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Name' },
+              fields: { text: 'ContactInfos.{language}.CompanyName' },
             },
             {
               title: 'First Name',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Firstname' },
+              fields: { text: 'ContactInfos.{language}.Givenname' },
             },
             {
               title: 'Surname',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Lastname' },
+              fields: { text: 'ContactInfos.{language}.Surname' },
+            },
+            {
+              title: 'Name prefix',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.NamePrefix' },
+            },
+            {
+              title: 'Tax Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Tax' },
+            },
+            {
+              title: 'Vat-ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Vat' },
             },
           ],
         },
@@ -222,22 +170,33 @@ export const articleEditView: EditViewConfig = {
             {
               title: 'Street and House No',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Street' },
+              fields: { text: 'ContactInfos.{language}.Address' },
+            },
+            // TODO: check which field to use
+            {
+              title: 'Complement',
+              component: CellComponent.StringCell,
+              fields: { text: 'Complement' },
             },
             {
               title: 'ZIP-Code',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Zip' },
+              fields: { text: 'ContactInfos.{language}.ZipCode' },
             },
             {
               title: 'City',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.City' },
+              fields: { text: 'ContactInfos.{language}.City' },
+            },
+            {
+              title: 'Country',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CountryName' },
             },
             {
               title: 'Country Abbrevation',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.CountryCode' },
+              fields: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
         },
@@ -247,17 +206,28 @@ export const articleEditView: EditViewConfig = {
             {
               title: 'E-Mail',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Email' },
+              fields: { text: 'ContactInfos.{language}.Email' },
             },
             {
               title: 'Phone Number',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Phone' },
+              fields: { text: 'ContactInfos.{language}.Phonenumber' },
+            },
+            {
+              title: 'Mobile Phone',
+              component: CellComponent.StringCell,
+              fields: { text: '' },
             },
             {
               title: 'Web-URL',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Website' },
+              fields: { text: 'ContactInfos.{language}.Url' },
+            },
+            // TODO: check which field to use
+            {
+              title: 'Additional URL (Independent URL)',
+              component: CellComponent.StringCell,
+              fields: { text: 'AdditionalUrl' },
             },
           ],
         },
@@ -274,33 +244,49 @@ export const articleEditView: EditViewConfig = {
       ],
     },
     {
-      name: 'Location',
-      slug: 'location',
+      name: 'Additional Information',
+      slug: 'additional-information',
       subcategories: [
         {
-          name: 'Location',
+          name: '',
+          properties: [
+            // TODO: check which field to use
+            {
+              title: 'Category',
+              component: CellComponent.StringCell,
+              fields: { text: 'Category' },
+            },
+            // TODO: check which field to use
+            {
+              title: 'Description',
+              component: CellComponent.StringCell,
+              fields: { text: 'Description' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      // TODO: implement link table
+      name: 'Links',
+      slug: 'links',
+      subcategories: [
+        {
+          name: '',
           properties: [
             {
-              title: 'Region / TVB',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
-            },
-            {
-              title: 'Tourismorganization',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
-            },
-            {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
+              title: 'Link name',
+              component: CellComponent.JsonCell,
               fields: {
-                text: 'LocationInfo.MunicipalityInfo.Name.{language}',
+                data: 'ArticleLinkInfo.{language}.Elements',
               },
             },
             {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+              title: 'Link URL',
+              component: CellComponent.JsonCell,
+              fields: {
+                data: 'ArticleLinkInfo.{language}.Elements',
+              },
             },
           ],
         },
@@ -311,7 +297,7 @@ export const articleEditView: EditViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-          name: 'Open Data Hub Tags',
+          name: '',
           properties: [
             {
               title: 'Open Data Hub Tags',
@@ -326,16 +312,41 @@ export const articleEditView: EditViewConfig = {
                 max: '3',
               },
             },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Article Details',
+      slug: 'article-details',
+      subcategories: [
+        {
+          name: '',
+          properties: [
             {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCell,
-              class: 'w-40',
-              fields: {
-                items: 'SmgTags',
-              },
-              params: {
-                separator: ', ',
-              },
+              title: 'Highlight',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'Highlight' },
+            },
+            {
+              title: 'Main Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'Type' },
+            },
+            {
+              title: 'Sub Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'SubType' },
+            },
+            {
+              title: 'Article Date',
+              component: CellComponent.StringCell,
+              fields: { text: 'ArticleDate' },
+            },
+            {
+              title: 'Article Date To',
+              component: CellComponent.StringCell,
+              fields: { text: 'ArticleDateTo' },
             },
           ],
         },

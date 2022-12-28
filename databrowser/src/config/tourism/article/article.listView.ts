@@ -10,6 +10,9 @@ export const articleListView: ListViewConfig = {
       fields: {
         src: 'ImageGallery.0.ImageUrl',
       },
+      params: {
+        width: '200',
+      },
     },
     {
       title: 'Title',
@@ -17,31 +20,6 @@ export const articleListView: ListViewConfig = {
       class: 'w-48',
       fields: {
         text: 'Detail.{language}.Title',
-      },
-    },
-    {
-      title: 'Shortname',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'Shortname',
-      },
-    },
-    {
-      title: 'Intro text',
-      component: CellComponent.HtmlCell,
-      class: 'w-48',
-      fields: { html: 'Detail.{language}.IntroText' },
-    },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
       },
     },
     {
@@ -74,6 +52,17 @@ export const articleListView: ListViewConfig = {
       },
     },
     {
+      title: 'Languages',
+      component: CellComponent.ArrayCell,
+      class: 'w-40',
+      fields: {
+        items: 'HasLanguage',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
+    {
       title: 'Edited',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
@@ -85,17 +74,11 @@ export const articleListView: ListViewConfig = {
       },
     },
     {
-      title: 'Published On',
-      component: CellComponent.UrlCell,
-      class: 'w-40',
-      fields: { text: 'PublishedOn.0' },
-    },
-    {
-      title: 'Open Data Hub state',
-      component: CellComponent.StateCell,
+      title: 'Source',
+      component: CellComponent.StringCell,
       class: 'w-36',
       fields: {
-        state: 'OdhActive',
+        text: 'Source',
       },
     },
   ],

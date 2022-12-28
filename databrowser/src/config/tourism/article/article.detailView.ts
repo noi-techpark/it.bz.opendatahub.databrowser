@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
 
 export const articleDetailView: DetailViewConfig = {
   elements: [
@@ -11,57 +12,9 @@ export const articleDetailView: DetailViewConfig = {
           name: 'General data',
           properties: [
             {
-              title: 'Title',
-              component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.Title' },
-            },
-            {
               title: 'Shortname',
               component: CellComponent.StringCell,
               fields: { text: 'Shortname' },
-            },
-            {
-              title: 'Logo',
-              component: CellComponent.StringCell,
-              fields: { text: 'LogoUrl' },
-            },
-
-            {
-              title: 'Highlight',
-              component: CellComponent.StringCell,
-              fields: { text: 'Highlight' },
-            },
-            {
-              title: 'Type',
-              component: CellComponent.StringCell,
-              fields: { text: 'Type' },
-            },
-            {
-              title: 'Sub Type',
-              component: CellComponent.StringCell,
-              fields: { text: 'SubType' },
-            },
-            {
-              title: 'Article Date',
-              component: CellComponent.DateCell,
-              class: 'w-40',
-              fields: {
-                date: 'ArticleDate',
-              },
-              params: {
-                format: 'do MMMM yyyy',
-              },
-            },
-            {
-              title: 'Article Date To',
-              component: CellComponent.DateCell,
-              class: 'w-40',
-              fields: {
-                date: 'ArticleDateTo',
-              },
-              params: {
-                format: 'do MMMM yyyy',
-              },
             },
           ],
         },
@@ -96,35 +49,9 @@ export const articleDetailView: DetailViewConfig = {
               fields: { text: 'Active' },
             },
             {
-              title: 'Active on SMG',
-              component: CellComponent.StringCell,
-              fields: { text: 'SmgActive' },
-            },
-            {
               title: 'Active on Open Data Hub',
               component: CellComponent.StringCell,
               fields: { text: 'OdhActive' },
-            },
-            {
-              title: 'Active on',
-              component: CellComponent.ArrayCell,
-              class: 'w-40',
-              fields: {
-                items: 'PublishedOn',
-              },
-              params: {
-                separator: ', ',
-              },
-            },
-          ],
-        },
-        {
-          name: 'Source',
-          properties: [
-            {
-              title: 'Source',
-              component: CellComponent.StringCell,
-              fields: { text: 'Source' },
             },
           ],
         },
@@ -135,18 +62,18 @@ export const articleDetailView: DetailViewConfig = {
       slug: 'text-information',
       subcategories: [
         {
-          name: 'General data',
+          name: '',
           properties: [
             {
-              title: 'Shortname',
+              title: 'Meta Title',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              fields: { text: 'MetaTitle' },
             },
-          ],
-        },
-        {
-          name: 'Detail',
-          properties: [
+            {
+              title: 'Meta Description',
+              component: CellComponent.StringCell,
+              fields: { text: 'MetaDesc' },
+            },
             {
               title: 'Title',
               component: CellComponent.StringCell,
@@ -174,77 +101,180 @@ export const articleDetailView: DetailViewConfig = {
             },
             {
               title: 'Additional text',
-              component: CellComponent.StringCell,
+              component: CellComponent.HtmlCell,
               fields: { html: 'Detail.{language}.AdditionalText' },
             },
             {
               title: 'Get there text',
               component: CellComponent.StringCell,
-              fields: { html: 'Detail.{language}.GetThereText' },
+              fields: { text: 'Detail.{language}.GetThereText' },
             },
           ],
         },
       ],
     },
-
+    {
+      name: 'Contact',
+      slug: 'contact',
+      subcategories: [
+        {
+          name: 'Name and Company Data',
+          properties: [
+            {
+              title: 'Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CompanyName' },
+            },
+            {
+              title: 'First Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Givenname' },
+            },
+            {
+              title: 'Surname',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Surname' },
+            },
+            {
+              title: 'Name prefix',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.NamePrefix' },
+            },
+            {
+              title: 'Tax Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Tax' },
+            },
+            {
+              title: 'Vat-ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Vat' },
+            },
+          ],
+        },
+        {
+          name: 'Address',
+          properties: [
+            {
+              title: 'Street and House No',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Address' },
+            },
+            // TODO: check which field to use
+            {
+              title: 'Complement',
+              component: CellComponent.StringCell,
+              fields: { text: 'Complement' },
+            },
+            {
+              title: 'ZIP-Code',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.ZipCode' },
+            },
+            {
+              title: 'City',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.City' },
+            },
+            {
+              title: 'Country',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CountryName' },
+            },
+            {
+              title: 'Country Abbrevation',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.CountryCode' },
+            },
+          ],
+        },
+        {
+          name: 'Contact Details',
+          properties: [
+            {
+              title: 'E-Mail',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Email' },
+            },
+            {
+              title: 'Phone Number',
+              component: CellComponent.StringCell,
+              fields: { text: 'ContactInfos.{language}.Phonenumber' },
+            },
+            {
+              title: 'Mobile Phone',
+              component: CellComponent.StringCell,
+              fields: { text: '' },
+            },
+            {
+              title: 'Web-URL',
+              component: CellComponent.UrlCell,
+              fields: { text: 'ContactInfos.{language}.Url' },
+            },
+            // TODO: check which field to use
+            {
+              title: 'Additional URL (Independent URL)',
+              component: CellComponent.UrlCell,
+              fields: { text: 'AdditionalUrl' },
+            },
+          ],
+        },
+      ],
+    },
     {
       name: 'Images',
       slug: 'images',
       subcategories: [
         {
-          name: 'Images',
+          name: '',
+          properties: [IMAGE_GALLERY_CONFIG],
+        },
+      ],
+    },
+    {
+      name: 'Additional Information',
+      slug: 'additional-information',
+      subcategories: [
+        {
+          name: '',
           properties: [
+            // TODO: check which field to use
             {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
+              title: 'Category',
+              component: CellComponent.StringCell,
+              fields: { text: 'Category' },
+            },
+            // TODO: check which field to use
+            {
+              title: 'Description',
+              component: CellComponent.StringCell,
+              fields: { text: 'Description' },
             },
           ],
         },
       ],
     },
     {
-      name: 'Location',
-      slug: 'location',
+      // TODO: implement link table
+      name: 'Links',
+      slug: 'links',
       subcategories: [
         {
-          name: 'Location',
+          name: '',
           properties: [
             {
-              title: 'Region / TVB',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
-            },
-            {
-              title: 'Tourismorganization',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
-            },
-            {
-              title: 'Municipality',
+              title: 'Link name',
               component: CellComponent.StringCell,
               fields: {
-                text: 'LocationInfo.MunicipalityInfo.Name.{language}',
+                text: 'ArticleLinkInfo.{language}.Elements',
               },
             },
             {
-              title: 'District',
+              title: 'Link URL',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+              fields: {
+                text: 'ArticleLinkInfo.{language}.Elements',
+              },
             },
           ],
         },
@@ -255,7 +285,7 @@ export const articleDetailView: DetailViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-          name: 'Open Data Hub Tags',
+          name: '',
           properties: [
             {
               title: 'Open Data Hub Tags',
@@ -270,15 +300,51 @@ export const articleDetailView: DetailViewConfig = {
                 max: '3',
               },
             },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Article Details',
+      slug: 'article-details',
+      subcategories: [
+        {
+          name: '',
+          properties: [
             {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCell,
-              class: 'w-40',
+              title: 'Highlight',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'Highlight' },
+              params: { preventChange: 'true' },
+            },
+            {
+              title: 'Main Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'Type' },
+            },
+            {
+              title: 'Sub Type',
+              component: CellComponent.StringCell,
+              fields: { text: 'SubType' },
+            },
+            {
+              title: 'Article Date',
+              component: CellComponent.DateCell,
               fields: {
-                items: 'SmgTags',
+                date: 'ArticleDate',
               },
               params: {
-                separator: ', ',
+                format: 'do MMMM yyyy',
+              },
+            },
+            {
+              title: 'Article Date To',
+              component: CellComponent.DateCell,
+              fields: {
+                date: 'ArticleDateTo',
+              },
+              params: {
+                format: 'do MMMM yyyy',
               },
             },
           ],
