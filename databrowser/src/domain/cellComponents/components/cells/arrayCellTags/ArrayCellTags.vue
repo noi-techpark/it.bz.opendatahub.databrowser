@@ -3,7 +3,7 @@
     <div v-if="itemsInternal.length > 3">
       <h1 v-if="more">{{ newItemsAll?.join(separator) }}</h1>
       <h1 v-else>{{ newItems?.join(separator) }}</h1>
-      <button @click="more = !more">+more</button>
+      <button @click="more = !more">{{ more ? '-more' : '+more' }}</button>
     </div>
     <div v-else>
       <span v-if="newItems != null">{{ newItems?.join(separator) }}</span>
