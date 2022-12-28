@@ -308,7 +308,6 @@ export const articleDetailView: DetailViewConfig = {
               title: 'Highlight',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'Highlight' },
-              params: { preventChange: 'true' },
             },
             {
               title: 'Main Type',
