@@ -1,7 +1,7 @@
 <template>
   <div>
     <EditListTableHeader
-      v-if="isEditMode"
+      v-if="editable"
       :any-item-selected="anyItemSelected"
       @delete-selected-items="deleteSelectedItems"
     >
@@ -11,7 +11,7 @@
     </EditListTableHeader>
     <TableCustom class="mb-5">
       <colgroup>
-        <template v-if="isEditMode && hasItems">
+        <template v-if="editable && hasItems">
           <col v-if="hasItems" class="w-0 md:w-10" />
           <col v-if="hasItems" class="w-10 md:w-20" />
         </template>
@@ -23,7 +23,7 @@
       </colgroup>
 
       <TableHeader>
-        <template v-if="isEditMode && hasItems">
+        <template v-if="editable && hasItems">
           <!-- Column for Drag/Drop -->
           <TableHeaderCell class="w-0 border-none bg-white md:w-full">
             &nbsp;
@@ -59,7 +59,7 @@
         class="divide-y divide-gray-200"
       >
         <tr v-for="(item, index) in (itemsInternal as any)" :key="index">
-          <template v-if="isEditMode && hasItems">
+          <template v-if="editable && hasItems">
             <td class="border-none px-4 pt-4">
               <IconDragAndDrop class="handle hidden cursor-pointer md:block" />
             </td>
@@ -98,7 +98,7 @@
     <div v-if="!hasItems">
       <slot name="noItems"></slot>
     </div>
-    <slot v-if="isEditMode" name="addItems"></slot>
+    <slot v-if="editable" name="addItems"></slot>
   </div>
 </template>
 
@@ -124,7 +124,7 @@ const props = defineProps<{ items: unknown[] }>();
 // Inject navigation from an ancestor component
 const { navigateToTab } = useInjectNavigation();
 
-const { isEditMode } = useInjectEditMode();
+const { editable } = useInjectEditMode();
 
 const itemsInternal = computed({
   get: () => props.items,

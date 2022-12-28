@@ -4,7 +4,7 @@
       <EditListBackButton label="Back to overview" @click="navigateToTable" />
     </EditListHeader>
     <EditListTabHeaderButtons
-      v-if="isEditMode"
+      v-if="editable"
       class="mb-5 flex justify-between md:hidden"
     />
     <div class="flex items-center justify-between bg-gray-50 text-sm">
@@ -24,7 +24,7 @@
         </TabCustom>
       </div>
 
-      <EditListTabHeaderButtons v-if="isEditMode" class="hidden md:flex">
+      <EditListTabHeaderButtons v-if="editable" class="hidden md:flex">
         <template #addItems>
           <slot name="addItems"></slot>
         </template>
@@ -49,7 +49,7 @@ defineProps<{
 
 const { navigateToTab, navigateToTable } = useInjectNavigation();
 
-const { isEditMode } = useInjectEditMode();
+const { editable } = useInjectEditMode();
 
 // Scroll active tab into view in case there are many to many tabs to show
 const tabWrapper = ref();

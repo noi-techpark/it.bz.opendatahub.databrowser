@@ -3,7 +3,7 @@
     :is="tagName"
     v-bind="attributes"
     .data="attributes"
-    :is-edit-mode="isEditMode"
+    :editable="editable"
     @update="update"
   ></component>
 </template>
@@ -23,14 +23,14 @@ const props = withDefaults(
       pathToParent: string;
       fields: Record<string, string>;
     };
-    isEditMode?: boolean;
+    editable?: boolean;
   }>(),
   {
     tagName: '',
     attributes: () => ({}),
     fields: undefined,
     listFields: undefined,
-    isEditMode: false,
+    editable: false,
   }
 );
 

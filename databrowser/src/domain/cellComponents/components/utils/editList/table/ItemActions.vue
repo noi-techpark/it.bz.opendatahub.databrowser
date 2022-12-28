@@ -1,7 +1,7 @@
 <template>
   <div class="flex gap-2">
     <EditPopup
-      v-if="isEditMode"
+      v-if="editable"
       @duplicate="emit('duplicate')"
       @push="emit('push')"
       @delete="emit('delete')"
@@ -12,7 +12,7 @@
       class="flex h-6 w-8 items-center justify-center md:w-10"
       @click="emit('navigateToTab')"
     >
-      <IconEdit v-if="isEditMode" class="stroke-current" />
+      <IconEdit v-if="editable" class="stroke-current" />
       <IconEye v-else class="stroke-current" />
     </ButtonCustom>
   </div>
@@ -28,5 +28,5 @@ import IconEye from '../../../../../../components/svg/IconEye.vue';
 
 const emit = defineEmits(['delete', 'duplicate', 'push', 'navigateToTab']);
 
-const { isEditMode } = useInjectEditMode();
+const { editable } = useInjectEditMode();
 </script>

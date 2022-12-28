@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div v-if="isWriteable">
     <SelectCustom :options="options" :size="SelectSize.md" @change="change" />
     <div v-if="unknownValue" class="text-red-400">
       Attention: current value "{{ value }}" is unknown
     </div>
   </div>
+  <span v-else>{{ value }}</span>
 </template>
 
 <script setup lang="ts">
@@ -19,19 +20,25 @@ import {
 import { useMapper } from './mapper';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import { SelectSize } from '../../../../../components/select/types';
+import { useWriteable } from '../../utils/writeable/useWriteable';
 
 const emit = defineEmits(['update']);
 
 const props = withDefaults(
   defineProps<{
     value?: string | boolean | number;
+    editable?: boolean;
+    readonly?: string | boolean;
   }>(),
   {
     value: undefined,
+    editable: true,
+    readonly: false,
   }
 );
 
-const { value } = toRefs(props);
+const { value, editable, readonly } = toRefs(props);
+const isWriteable = useWriteable({ editable, readonly });
 
 const attrs = useAttrs();
 

@@ -1,6 +1,6 @@
 <template>
   <InputCustom
-    v-if="isEditMode && !isReadonly"
+    v-if="isWriteable"
     input-classes="w-full"
     :model-value="text"
     @update:model-value="update($event)"
@@ -9,23 +9,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps } from 'vue';
+import { defineEmits, defineProps, toRefs } from 'vue';
 import InputCustom from '../../../../../components/input/InputCustom.vue';
+import { useWriteable } from '../../utils/writeable/useWriteable';
 
 const emit = defineEmits(['update']);
 
 const props = defineProps<{
   text?: string | boolean | number;
-  isEditMode?: boolean;
+  editable?: boolean;
   readonly?: string | boolean;
 }>();
 
-const isReadonly = computed(() => {
-  if (typeof props.readonly === 'string') {
-    return props.readonly.toLowerCase() === 'true';
-  }
-  return props.readonly;
-});
+const { editable, readonly } = toRefs(props);
+const isWriteable = useWriteable({ editable, readonly });
 
 const update = (value: unknown) =>
   emit('update', {

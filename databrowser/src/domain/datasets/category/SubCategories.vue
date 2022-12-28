@@ -25,7 +25,7 @@
             :fields="property.fields"
             :list-fields="property.listFields"
             :class="property.class"
-            :is-edit-mode="isEditMode"
+            :editable="editable"
           />
         </SubCategoryItem>
       </div>
@@ -51,7 +51,7 @@ const props = defineProps<{
   subCategories: SubCategory[];
   category?: Category;
   showAll?: boolean;
-  isEditMode?: boolean;
+  editable?: boolean;
 }>();
 
 const subCategoriesWithValues = computed(() =>

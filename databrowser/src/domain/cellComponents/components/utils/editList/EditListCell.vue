@@ -21,7 +21,7 @@ const emit = defineEmits(['update']);
 
 const props = defineProps<{
   items?: Record<string, unknown>[];
-  isEditMode?: boolean;
+  editable?: boolean;
 }>();
 
 // Use internal copy of items for quicker operations (e.g. sorting)
@@ -50,8 +50,8 @@ const {
   updateItems,
 } = useProvideActions();
 
-const isEditMode = computed(() => props.isEditMode === true);
-useProvideEditMode(isEditMode);
+const editable = computed(() => props.editable === true);
+useProvideEditMode(editable);
 
 onAddItems((items: unknown[]) => {
   const newItems = [...itemsInternal.value, ...(items ?? [])];

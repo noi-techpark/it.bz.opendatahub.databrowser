@@ -14,55 +14,55 @@
           <SubCategoryItem title="Date Start">
             <StringCell
               :text="item.startDate"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { startDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Start Time">
             <StringCell
               :text="item.startDate"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { startDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Date End">
             <StringCell
               :text="item.endDate"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { endDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="End Time">
             <StringCell
               :text="item.endDate"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { endDate: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Room Name">
             <StringCell
               :text="item.spaceDesc"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { spaceDesc: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Subtitle">
             <StringCell
               :text="item.subtitle"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { subtitle: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Location">
             <StringCell
               :text="item.spaceType"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { spaceType: $event.target.value })"
             />
           </SubCategoryItem>
         </div>
         <div class="basis-full md:order-3 md:basis-1/3">
-          <div v-if="isEditMode" class="rounded border">
+          <div v-if="editable" class="rounded border">
             <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
               <span class="font-semibold">Info &amp; action</span>
             </div>
@@ -126,5 +126,5 @@ defineProps<{ items: RoomBookedEntry[] }>();
 const { addEmptyItem, deleteItems, duplicateItem, updateItem } =
   useInjectActionTriggers();
 
-const { isEditMode } = useInjectEditMode();
+const { editable } = useInjectEditMode();
 </script>

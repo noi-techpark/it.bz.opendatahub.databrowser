@@ -22,42 +22,46 @@
           <SubCategoryItem title="Name">
             <StringCell
               :text="item.name"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { name: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Title">
             <StringCell
               :text="item.title"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { title: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Description">
             <StringCell
               :text="item.description"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { description: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Copyright">
             <StringCell
               :text="item.copyright"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { copyright: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="License">
-            <StringCell
-              :text="item.license"
-              :is-edit-mode="isEditMode"
-              @input="updateItem(index, { license: $event.target.value })"
+            <SelectWithOptionsCell
+              :value="item.license"
+              :editable="editable"
+              value_001="CC0"
+              label_001="CC0"
+              value_002="Proprietary"
+              label_002="Proprietary"
+              @update="updateItem(index, { license: $event.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Source">
             <StringCell
               :text="item.source"
-              :is-edit-mode="isEditMode"
+              :editable="editable"
               @input="updateItem(index, { source: $event.target.value })"
             />
           </SubCategoryItem>
@@ -74,7 +78,7 @@
                   {{ getResolutionAsText(item) }} (W/H)
                 </div>
               </div>
-              <div v-if="isEditMode">
+              <div v-if="editable">
                 <button
                   class="m-3 flex items-center gap-3"
                   @click="changeImage"
@@ -92,7 +96,7 @@
                   <span>Download image</span>
                 </button>
               </div>
-              <div v-if="isEditMode">
+              <div v-if="editable">
                 <button
                   class="m-3 flex items-center gap-3"
                   @click="duplicateItem(index)"
@@ -101,7 +105,7 @@
                   <span>Duplicate</span>
                 </button>
               </div>
-              <div v-if="isEditMode">
+              <div v-if="editable">
                 <button
                   class="mx-3 mt-3 flex items-center gap-3"
                   @click="deleteItems([index])"
@@ -159,6 +163,7 @@ import { useInjectActionTriggers } from '../../utils/editList/actions/useActions
 import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 import StringCell from '../stringCell/StringCell.vue';
+import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 
 // Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
 // Should be fixed in Vue 3.3
@@ -185,7 +190,7 @@ const { activeTab, navigateToAdd } = useInjectNavigation();
 const { deleteItems, duplicateItem, updateItem, updateItems } =
   useInjectActionTriggers();
 
-const { isEditMode } = useInjectEditMode();
+const { editable } = useInjectEditMode();
 
 const target = ref();
 const { toggle, isFullscreen } = useFullscreen(target);
