@@ -1,11 +1,12 @@
 <template>
-  <img v-if="src != null" :src="src" :alt="alt" :style="{ width: width }" />
+  <img v-if="src != null" :src="imgSrc" :alt="alt" :style="style" />
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
+import { defineProps, ref, watch, withDefaults } from 'vue';
+import { resizeImageWidth } from '../../../../image';
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     width?: string;
     alt?: string;
@@ -16,5 +17,36 @@ withDefaults(
     alt: undefined,
     src: undefined,
   }
+);
+
+const imgSrc = ref<string>();
+const style = ref<Record<string, string>>();
+
+watch(
+  props,
+  ({ src, width }) => {
+    // Apply default settings
+    imgSrc.value = src;
+    style.value = undefined;
+
+    // If no width is given, default settings are correct
+    if (width == null) {
+      return;
+    }
+
+    const isPercentageWidth = width.trim().endsWith('%');
+
+    if (isPercentageWidth) {
+      style.value = { width };
+    } else {
+      const widthAsNumber = Number(width);
+
+      // If width is a number, than adapt URL
+      if (!isNaN(widthAsNumber)) {
+        imgSrc.value = resizeImageWidth(widthAsNumber, src);
+      }
+    }
+  },
+  { immediate: true }
 );
 </script>
