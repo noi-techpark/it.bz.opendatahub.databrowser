@@ -65,6 +65,13 @@
               @input="updateItem(index, { source: $event.target.value })"
             />
           </SubCategoryItem>
+          <SubCategoryItem title="Is in gallery">
+            <ToggleCell
+              :enabled="item.isInGallery"
+              :editable="editable"
+              @input="updateItem(index, { source: $event.value })"
+            />
+          </SubCategoryItem>
         </div>
         <div class="basis-full md:order-3 md:basis-1/3">
           <div class="rounded border">
@@ -164,6 +171,7 @@ import { useInjectNavigation } from '../../utils/editList/actions/useNavigation'
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 import StringCell from '../stringCell/StringCell.vue';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
+import ToggleCell from '../toggleCell/ToggleCell.vue';
 
 // Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
 // Should be fixed in Vue 3.3
@@ -179,6 +187,7 @@ interface ImageGalleryEntry {
   license?: string;
   listPosition?: string;
   source?: string;
+  isInGallery?: string;
 }
 
 const props = defineProps<{ items: ImageGalleryEntry[] }>();

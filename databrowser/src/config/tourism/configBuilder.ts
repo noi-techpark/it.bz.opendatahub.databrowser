@@ -25,6 +25,7 @@ export const IMAGE_GALLERY_CONFIG = {
       license: 'License',
       listPosition: 'ListPosition',
       source: 'ImageSource',
+      isInGallery: 'IsInGallery',
     },
   },
 } as const;
