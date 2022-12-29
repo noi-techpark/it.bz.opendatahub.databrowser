@@ -18,10 +18,9 @@ export const eventEditView: EditViewConfig = {
             },
             {
               title: 'Logo',
-              component: CellComponent.ImageCell,
-              fields: {
-                src: 'ContactInfos.{language}.LogoUrl',
-              },
+              component: CellComponent.ImageEditCell,
+              fields: { src: 'ContactInfos.{language}.LogoUrl' },
+              params: { width: '200' },
             },
             {
               title: 'Main Image',

@@ -47,11 +47,9 @@ export const gastronomyEditView: EditViewConfig = {
             },
             {
               title: 'Logo',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
-              fields: {
-                src: 'ContactInfos.{language}.LogoUrl',
-              },
+              component: CellComponent.ImageEditCell,
+              fields: { src: 'ContactInfos.{language}.LogoUrl' },
+              params: { width: '200' },
             },
             {
               title: 'Image',

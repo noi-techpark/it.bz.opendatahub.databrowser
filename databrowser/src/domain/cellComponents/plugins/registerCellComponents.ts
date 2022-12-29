@@ -10,6 +10,7 @@ import GpsPointsCell from '../components/cells/gpsPointsCell/GpsPointsCell.vue';
 import HtmlCell from '../components/cells/htmlCell/HtmlCell.vue';
 import InputReferenceCell from '../components/cells/inputReferenceCell/InputReferenceCell.vue';
 import ImageCell from '../components/cells/imageCell/ImageCell.vue';
+import ImageEditCell from '../components/cells/imageCell/ImageEditCell.vue';
 import ImageGalleryCell from '../components/cells/imageGalleryCell/ImageGalleryCell.vue';
 import JsonCell from '../components/cells/jsonCell/JsonCell.vue';
 import SelectWithOptionsCell from '../components/cells/selectWithOptionsCell/SelectWithOptionsCell.vue';
@@ -37,6 +38,7 @@ export default {
     app.component(CellComponent.HtmlCell, HtmlCell);
     app.component(CellComponent.InputReferenceCell, InputReferenceCell);
     app.component(CellComponent.ImageCell, ImageCell);
+    app.component(CellComponent.ImageEditCell, ImageEditCell);
     app.component(CellComponent.ImageGalleryCell, ImageGalleryCell);
     app.component(CellComponent.JsonCell, JsonCell);
     app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);

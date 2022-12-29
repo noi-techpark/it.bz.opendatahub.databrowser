@@ -40,14 +40,9 @@ export const snowReportEditView: EditViewConfig = {
             },
             {
               title: 'Logo',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
-              fields: {
-                src: 'contactlogo',
-              },
-              params: {
-                width: '15%',
-              },
+              component: CellComponent.ImageEditCell,
+              fields: { src: 'contactlogo' },
+              params: { width: '200' },
             },
           ],
         },
