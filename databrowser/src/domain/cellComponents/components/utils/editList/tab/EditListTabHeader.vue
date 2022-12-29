@@ -12,7 +12,7 @@
         ref="tabWrapper"
         class="flex w-full flex-nowrap items-center overflow-auto"
       >
-        <TabCustom
+        <TabButton
           v-for="(item, index) in items"
           :key="index"
           :active="activeTab === index"
@@ -21,7 +21,7 @@
           @click="navigateToTab(index)"
         >
           <slot name="tabLabel" :item="item" :index="index"></slot>
-        </TabCustom>
+        </TabButton>
       </div>
 
       <EditListTabHeaderButtons v-if="editable" class="hidden md:flex">
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { defineProps, ref } from 'vue';
-import TabCustom from '../../../../../../components/tab/TabCustom.vue';
+import TabButton from '../../../../../../components/tab/TabButton.vue';
 import EditListTabHeaderButtons from './EditListTabHeaderButtons.vue';
 import EditListBackButton from '../EditListBackButton.vue';
 import EditListHeader from '../EditListHeader.vue';

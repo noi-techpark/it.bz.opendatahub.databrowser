@@ -3,7 +3,7 @@
     <div
       class="flex items-center justify-between bg-gray-50 py-2 text-xl uppercase"
     >
-      <TabCustom :active="true">More information</TabCustom>
+      <TabButton :active="true">More information</TabButton>
     </div>
     <TableCustom>
       <colgroup>
@@ -65,7 +65,7 @@
 import { defineProps } from 'vue';
 import { DatasetDescription } from '../../../config/config-for-pages';
 import CardContainer from '../../../components/card/CardContainer.vue';
-import TabCustom from '../../../components/tab/TabCustom.vue';
+import TabButton from '../../../components/tab/TabButton.vue';
 import TableCustom from '../../../components/table/TableCustom.vue';
 import TableBody from '../../../components/table/TableBody.vue';
 import TableCell from '../../../components/table/TableCell.vue';

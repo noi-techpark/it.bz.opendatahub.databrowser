@@ -1,10 +1,21 @@
 <template>
-  <TabCustom :active="active">{{ label }}</TabCustom>
+  <ButtonCustom variant="ghost" size="sm" :class="classes">
+    <slot></slot>
+  </ButtonCustom>
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue';
-import TabCustom from './TabCustom.vue';
+import { defineProps, toRefs } from 'vue';
+import ButtonCustom from '../button/ButtonCustom.vue';
+import { useTabClasses } from './useTabClasses';
 
-defineProps<{ label: string; active?: boolean }>();
+const props = defineProps<{ active?: boolean }>();
+
+const { active } = toRefs(props);
+
+const classes = useTabClasses(active);
 </script>
+
+<style scoped>
+@import './styles.css';
+</style>

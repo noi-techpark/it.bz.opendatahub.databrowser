@@ -1,0 +1,12 @@
+a:focus-visible {
+  @apply bg-green-500 text-white outline-offset-[-1px];
+}
+.link-underlined::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  width: 70%;
+  left: 15%;
+  @apply bg-green-500;
+}
