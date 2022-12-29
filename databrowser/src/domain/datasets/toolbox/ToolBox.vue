@@ -52,12 +52,11 @@
                       v-for="tabName in tabNames"
                       :key="tabName"
                       v-slot="{ selected }"
+                      as="template"
                     >
-                      <TabButton
-                        :label="tabName"
-                        :active="selected"
-                        class="uppercase"
-                      />
+                      <TabButton :active="selected" class="uppercase">
+                        {{ tabName }}
+                      </TabButton>
                     </Tab>
                   </TabList>
                 </div>
