@@ -158,7 +158,7 @@ import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import { getResolutionAsText, resizeImageWidth } from '../../../../image';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useFileDialog, useFullscreen } from '@vueuse/core';
-import { useImageUpload } from '../../utils/editList/upload/useUpload';
+import { useImageUpload } from '../../utils/upload/useUpload';
 import { downloadFile } from '../../utils/editList/download/fileDownload';
 import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
