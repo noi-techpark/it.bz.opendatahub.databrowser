@@ -48,15 +48,19 @@
                 :slug="slug"
                 class="sticky top-0 z-20 overflow-y-auto bg-white py-3 md:h-full md:w-1/6"
               />
-              <SubCategories
+              <div
                 v-if="slug !== ''"
                 class="flex-1 overflow-y-auto pb-6 md:h-full md:py-3 md:px-20"
-                :data="editStore.current"
-                :category="currentCategory"
-                :sub-categories="enhancedSubcategories"
-                :show-all="true"
-                :editable="true"
-              />
+              >
+                <EditHint class="mb-8" />
+                <SubCategories
+                  :data="editStore.current"
+                  :category="currentCategory"
+                  :sub-categories="enhancedSubcategories"
+                  :show-all="true"
+                  :editable="true"
+                />
+              </div>
             </ContentAlignmentX>
             <EditToolBox />
           </div>
@@ -97,6 +101,7 @@ import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
 import { useDialogsStore } from './dialogs/dialogsStore';
 import { useEventListener } from '@vueuse/core';
 import AlertError from '../../../components/alert/AlertError.vue';
+import EditHint from './EditHint.vue';
 
 const { t } = useI18n();
 
