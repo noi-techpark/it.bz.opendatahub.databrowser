@@ -259,32 +259,18 @@ export const eventEditView: EditViewConfig = {
               title: 'Date Begin',
               component: CellComponent.DateCell,
               fields: { date: 'DateBegin' },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
+              params: { type: 'datetime' },
             },
             {
               title: 'Date End',
               component: CellComponent.DateCell,
               fields: { date: 'EventDatesEnd' },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
+              params: { type: 'datetime' },
             },
             {
               title: 'Entrance',
               component: CellComponent.StringCell,
               fields: { text: 'Entrance' },
-            },
-            {
-              title: 'Start',
-              component: CellComponent.StringCell,
-              fields: { text: 'EventDate.Begin' },
-            },
-            {
-              title: 'End',
-              component: CellComponent.StringCell,
-              fields: { text: 'EventDate.End' },
             },
           ],
         },

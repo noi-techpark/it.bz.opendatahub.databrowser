@@ -66,7 +66,7 @@ export const districtEditView: EditViewConfig = {
           properties: [
             {
               title: 'Last Changes',
-              component: CellComponent.DateCell,
+              component: CellComponent.EditedDateCell,
               fields: { date: 'LastChange' },
               params: {
                 format: 'd/M/yyyy HH:mm',

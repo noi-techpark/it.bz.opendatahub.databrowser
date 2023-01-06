@@ -138,8 +138,8 @@ export const measuringPointEditView: EditViewConfig = {
             },
             {
               title: 'Last snow date',
-              component: CellComponent.StringCell,
-              fields: { text: 'LastSnowDate' },
+              component: CellComponent.DateCell,
+              fields: { date: 'LastSnowDate' },
             },
           ],
         },

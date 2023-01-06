@@ -266,32 +266,18 @@ export const eventDetailView: DetailViewConfig = {
               title: 'Date Begin',
               component: CellComponent.DateCell,
               fields: { date: 'DateBegin' },
-              params: {
-                format: 'do MMMM yyyy',
-              },
+              params: { format: 'do MMMM yyyy HH:mm' },
             },
             {
               title: 'Date End',
               component: CellComponent.DateCell,
               fields: { date: 'EventDatesEnd' },
-              params: {
-                format: 'do MMMM yyyy',
-              },
+              params: { format: 'do MMMM yyyy HH:mm' },
             },
             {
               title: 'Entrance',
               component: CellComponent.StringCell,
               fields: { text: 'Entrance' },
-            },
-            {
-              title: 'Start',
-              component: CellComponent.StringCell,
-              fields: { text: 'EventDate.Begin' },
-            },
-            {
-              title: 'End',
-              component: CellComponent.StringCell,
-              fields: { text: 'EventDate.End' },
             },
           ],
         },

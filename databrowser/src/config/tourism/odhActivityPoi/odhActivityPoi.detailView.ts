@@ -514,24 +514,14 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
             {
               title: 'Start Date and Time',
               component: CellComponent.DateCell,
-              class: 'w-40',
-              fields: {
-                date: 'OperationSchedule.0.Start',
-              },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
+              fields: { date: 'OperationSchedule.0.Start' },
+              params: { format: 'do MMMM yyyy HH:mm' },
             },
             {
               title: 'End Date and Time',
               component: CellComponent.DateCell,
-              class: 'w-40',
-              fields: {
-                date: 'OperationSchedule.0.Stop',
-              },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
+              fields: { date: 'OperationSchedule.0.Stop' },
+              params: { format: 'do MMMM yyyy HH:mm' },
             },
           ],
         },

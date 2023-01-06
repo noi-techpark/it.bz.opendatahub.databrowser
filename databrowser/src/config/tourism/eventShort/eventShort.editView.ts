@@ -90,23 +90,15 @@ export const eventShortEditView: EditViewConfig = {
             },
             {
               title: 'Date start',
-              component: CellComponent.StringCell,
-              fields: { text: 'StartDate' },
-            },
-            {
-              title: 'Start time',
-              component: CellComponent.StringCell,
-              fields: { text: 'StartDate' },
+              component: CellComponent.DateCell,
+              fields: { date: 'StartDate' },
+              params: { type: 'datetime' },
             },
             {
               title: 'Date end',
-              component: CellComponent.StringCell,
-              fields: { text: 'EndDate' },
-            },
-            {
-              title: 'End time',
-              component: CellComponent.StringCell,
-              fields: { text: 'EndDate' },
+              component: CellComponent.DateCell,
+              fields: { date: 'EndDate' },
+              params: { type: 'datetime' },
             },
             {
               title: 'Rooms',

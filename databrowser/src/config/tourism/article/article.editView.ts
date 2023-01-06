@@ -333,13 +333,13 @@ export const articleEditView: EditViewConfig = {
             },
             {
               title: 'Article Date',
-              component: CellComponent.StringCell,
-              fields: { text: 'ArticleDate' },
+              component: CellComponent.DateCell,
+              fields: { date: 'ArticleDate' },
             },
             {
               title: 'Article Date To',
-              component: CellComponent.StringCell,
-              fields: { text: 'ArticleDateTo' },
+              component: CellComponent.DateCell,
+              fields: { date: 'ArticleDateTo' },
             },
           ],
         },

@@ -64,9 +64,7 @@ export const snowReportEditView: EditViewConfig = {
               title: 'Last Update',
               component: CellComponent.DateCell,
               fields: { date: 'Measuringpoints.0.LastUpdate' },
-              params: {
-                format: 'd/M/yyyy HH:mm',
-              },
+              params: { type: 'datetime' },
             },
             {
               title: 'Snow Height',
