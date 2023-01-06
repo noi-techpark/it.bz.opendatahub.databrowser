@@ -3,13 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
-import { Tone } from './types';
-import { computed } from 'vue';
-
-const toneClass: Record<Tone, string> = {
-  [Tone.primary]: 'text-green-500',
-};
+import { defineProps, toRefs, withDefaults } from 'vue';
+import { useClassNames } from './useClassNames';
 
 const props = withDefaults(
   defineProps<{
@@ -21,12 +16,7 @@ const props = withDefaults(
   }
 );
 
-const className = computed(() => {
-  const tone = props.tone as Tone;
-  const customClass = tone ? toneClass[tone] : '';
+const { tone } = toRefs(props);
 
-  return (
-    'flex items-center space-x-2 font-semibold hover:underline ' + customClass
-  );
-});
+const className = useClassNames(tone);
 </script>
