@@ -22,8 +22,9 @@ export const eventShortEditView: EditViewConfig = {
             },
             {
               title: 'Description',
-              component: CellComponent.StringCell,
+              component: CellComponent.TextAreaCell,
               fields: { text: 'EventText.{language}' },
+              params: { rows: '4' },
             },
             {
               title: 'Organizer',

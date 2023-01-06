@@ -22,7 +22,7 @@ export const eventShortDetailView: DetailViewConfig = {
             },
             {
               title: 'Description',
-              component: CellComponent.StringCell,
+              component: CellComponent.TextAreaCell,
               fields: { text: 'EventText.{language}' },
             },
             {
