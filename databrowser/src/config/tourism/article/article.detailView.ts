@@ -73,13 +73,13 @@ export const articleDetailView: DetailViewConfig = {
             },
             {
               title: 'Subheader',
-              component: CellComponent.StringCell,
+              component: CellComponent.TextAreaCell,
               fields: { text: 'Detail.{language}.SubHeader' },
             },
             {
               title: 'Intro text',
-              component: CellComponent.HtmlCell,
-              fields: { html: 'Detail.{language}.IntroText' },
+              component: CellComponent.TextAreaCell,
+              fields: { text: 'Detail.{language}.IntroText' },
             },
             {
               title: 'Base text',
@@ -88,12 +88,12 @@ export const articleDetailView: DetailViewConfig = {
             },
             {
               title: 'Additional text',
-              component: CellComponent.HtmlCell,
-              fields: { html: 'Detail.{language}.AdditionalText' },
+              component: CellComponent.TextAreaCell,
+              fields: { text: 'Detail.{language}.AdditionalText' },
             },
             {
               title: 'Get there text',
-              component: CellComponent.StringCell,
+              component: CellComponent.TextAreaCell,
               fields: { text: 'Detail.{language}.GetThereText' },
             },
           ],

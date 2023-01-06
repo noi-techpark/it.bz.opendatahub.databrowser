@@ -18,6 +18,7 @@ import StateCell from '../components/cells/stateCell/StateCell.vue';
 import StringCell from '../components/cells/stringCell/StringCell.vue';
 import UrlCell from '../components/cells/UrlCell/UrlCell.vue';
 import StringTemplateCell from '../components/cells/stringTemplateCell/StringTemplateCell.vue';
+import TextAreaCell from '../components/cells/textAreaCell/TextAreaCell.vue';
 import TextHighlightCell from '../components/cells/textHighlightCell/TextHighlightCell.vue';
 import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
@@ -46,6 +47,7 @@ export default {
     app.component(CellComponent.StringCell, StringCell);
     app.component(CellComponent.UrlCell, UrlCell);
     app.component(CellComponent.StringTemplateCell, StringTemplateCell);
+    app.component(CellComponent.TextAreaCell, TextAreaCell);
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
     app.component(CellComponent.ToggleCell, ToggleCell);
     app.component(CellComponent.TypeBasedCell, TypeBasedCell);

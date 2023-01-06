@@ -85,13 +85,14 @@ export const articleEditView: EditViewConfig = {
             },
             {
               title: 'Subheader',
-              component: CellComponent.StringCell,
+              component: CellComponent.TextAreaCell,
               fields: { text: 'Detail.{language}.SubHeader' },
             },
             {
               title: 'Intro text',
-              component: CellComponent.StringCell,
+              component: CellComponent.TextAreaCell,
               fields: { text: 'Detail.{language}.IntroText' },
+              params: { rows: '4' },
             },
             {
               title: 'Base text',
@@ -100,13 +101,15 @@ export const articleEditView: EditViewConfig = {
             },
             {
               title: 'Additional text',
-              component: CellComponent.StringCell,
+              component: CellComponent.TextAreaCell,
               fields: { text: 'Detail.{language}.AdditionalText' },
+              params: { rows: '4' },
             },
             {
               title: 'Get there text',
-              component: CellComponent.StringCell,
+              component: CellComponent.TextAreaCell,
               fields: { text: 'Detail.{language}.GetThereText' },
+              params: { rows: '4' },
             },
           ],
         },
