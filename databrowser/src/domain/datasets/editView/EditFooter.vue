@@ -5,7 +5,7 @@
       :disabled="isSaving"
       @click="cancel"
     >
-      <IconClose class="mr-2 h-4" />
+      <IconClose class="mr-2" />
       <span class="inline md:hidden">
         {{ t('datasets.editView.footer.cancelMobile') }}
       </span>
@@ -18,7 +18,7 @@
       {{ t('datasets.editView.footer.saving') }}
     </EditFooterButton>
     <EditFooterButton v-else @click="save">
-      <IconCheck class="mr-2 h-4" />
+      <IconCheck class="mr-2" />
       <span class="inline md:hidden">
         {{ t('datasets.editView.footer.saveMobile') }}
       </span>

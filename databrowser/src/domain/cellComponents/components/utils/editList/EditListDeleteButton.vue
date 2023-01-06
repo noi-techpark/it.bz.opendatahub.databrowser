@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="flex gap-2" :disabled="disabled">
+  <button type="button" class="flex items-center gap-2" :disabled="disabled">
     <IconDelete :class="[{ 'text-delete': !disabled }]" />
     <span>{{ text }}</span>
   </button>
