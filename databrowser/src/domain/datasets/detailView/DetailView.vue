@@ -11,7 +11,7 @@
         <MainCategories
           :categories="categories"
           :slug="slug"
-          class="sticky top-0 z-20 overflow-y-auto bg-white py-3 md:h-full md:w-1/6"
+          class="sticky top-0 z-20 bg-white py-3 md:h-full md:w-1/6 md:overflow-y-auto"
         />
 
         <SubCategories

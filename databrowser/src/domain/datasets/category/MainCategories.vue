@@ -4,6 +4,7 @@
       class="md:hidden"
       :options="selectOptions"
       :size="SelectSize.md"
+      :show-search-when-at-least-count-options="Number.POSITIVE_INFINITY"
       @change="setSelectedCategory"
     />
 
