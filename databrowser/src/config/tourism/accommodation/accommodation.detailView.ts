@@ -1,6 +1,6 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ID_READONLY_CONFIG } from '../configBuilder';
+import { ID_READONLY_CONFIG, LAST_CHANGES_CONFIG } from '../configBuilder';
 
 export const accommodationDetailView: DetailViewConfig = {
   elements: [
@@ -151,17 +151,7 @@ export const accommodationDetailView: DetailViewConfig = {
         {
           name: 'Data states',
           properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.EditedDateCell,
-              class: 'w-40',
-              fields: {
-                date: 'LastChange',
-              },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
-            },
+            LAST_CHANGES_CONFIG,
             {
               title: 'Active on SMG',
               component: CellComponent.StringCell,

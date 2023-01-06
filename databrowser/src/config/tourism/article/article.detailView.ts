@@ -1,6 +1,10 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
-import { ID_READONLY_CONFIG, IMAGE_GALLERY_CONFIG } from '../configBuilder';
+import {
+  ID_READONLY_CONFIG,
+  IMAGE_GALLERY_CONFIG,
+  LAST_CHANGES_CONFIG,
+} from '../configBuilder';
 
 export const articleDetailView: DetailViewConfig = {
   elements: [
@@ -25,17 +29,7 @@ export const articleDetailView: DetailViewConfig = {
         {
           name: 'Data states',
           properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.EditedDateCell,
-              class: 'w-40',
-              fields: {
-                date: 'LastChange',
-              },
-              params: {
-                format: 'do MMMM yyyy',
-              },
-            },
+            LAST_CHANGES_CONFIG,
             {
               title: 'Active on Source',
               component: CellComponent.StringCell,

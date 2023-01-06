@@ -1,6 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
-import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
+import { IMAGE_GALLERY_CONFIG, LAST_CHANGES_CONFIG } from '../configBuilder';
 
 export const eventEditView: EditViewConfig = {
   elements: [
@@ -68,14 +68,7 @@ export const eventEditView: EditViewConfig = {
         {
           name: 'Data states',
           properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
-              params: {
-                format: 'd/M/yyyy HH:mm',
-              },
-            },
+            LAST_CHANGES_CONFIG,
             {
               title: 'Active on Source',
               component: CellComponent.ToggleCell,
