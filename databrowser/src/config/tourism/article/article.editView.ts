@@ -1,6 +1,10 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
-import { ID_READONLY_CONFIG, IMAGE_GALLERY_CONFIG } from '../configBuilder';
+import {
+  ID_READONLY_CONFIG,
+  IMAGE_GALLERY_CONFIG,
+  LAST_CHANGES_CONFIG,
+} from '../configBuilder';
 
 export const articleEditView: EditViewConfig = {
   elements: [
@@ -25,17 +29,7 @@ export const articleEditView: EditViewConfig = {
         {
           name: 'Data states',
           properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.EditedDateCell,
-              class: 'w-40',
-              fields: {
-                date: 'LastChange',
-              },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
-            },
+            LAST_CHANGES_CONFIG,
             {
               title: 'Active on Source',
               component: CellComponent.ToggleCell,
@@ -333,13 +327,13 @@ export const articleEditView: EditViewConfig = {
             },
             {
               title: 'Article Date',
-              component: CellComponent.StringCell,
-              fields: { text: 'ArticleDate' },
+              component: CellComponent.DateCell,
+              fields: { date: 'ArticleDate' },
             },
             {
               title: 'Article Date To',
-              component: CellComponent.StringCell,
-              fields: { text: 'ArticleDateTo' },
+              component: CellComponent.DateCell,
+              fields: { date: 'ArticleDateTo' },
             },
           ],
         },

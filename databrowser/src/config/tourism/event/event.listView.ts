@@ -23,26 +23,18 @@ export const eventListView: ListViewConfig = {
       },
     },
     {
-      title: 'Begin Date',
-      component: CellComponent.DateCell,
-      class: 'w-32',
-      params: {
-        format: 'd. MMMM yyyy',
-      },
-      fields: {
-        date: 'DateBegin',
-      },
+      title: 'Date start',
+      component: CellComponent.EditedDateCell,
+      class: 'w-48',
+      params: { format: 'do MMM yyyy HH:mm' },
+      fields: { date: 'DateBegin' },
     },
     {
-      title: 'End Date',
-      component: CellComponent.DateCell,
-      class: 'w-32',
-      params: {
-        format: 'd. MMMM yyyy',
-      },
-      fields: {
-        date: 'DateEnd',
-      },
+      title: 'Date end',
+      component: CellComponent.EditedDateCell,
+      class: 'w-48',
+      params: { format: 'do MMM yyyy HH:mm' },
+      fields: { date: 'DateEnd' },
     },
     {
       title: 'Price',

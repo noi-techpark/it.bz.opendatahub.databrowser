@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
+import { LAST_CHANGES_CONFIG } from '../configBuilder';
 
 export const eventDetailView: DetailViewConfig = {
   elements: [
@@ -65,14 +66,7 @@ export const eventDetailView: DetailViewConfig = {
         {
           name: 'Data States',
           properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.DateCell,
-              fields: { date: '_Meta.LastUpdate' },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
-            },
+            LAST_CHANGES_CONFIG,
             {
               title: 'Active',
               component: CellComponent.StringCell,
@@ -266,32 +260,18 @@ export const eventDetailView: DetailViewConfig = {
               title: 'Date Begin',
               component: CellComponent.DateCell,
               fields: { date: 'DateBegin' },
-              params: {
-                format: 'do MMMM yyyy',
-              },
+              params: { format: 'do MMMM yyyy HH:mm' },
             },
             {
               title: 'Date End',
               component: CellComponent.DateCell,
               fields: { date: 'EventDatesEnd' },
-              params: {
-                format: 'do MMMM yyyy',
-              },
+              params: { format: 'do MMMM yyyy HH:mm' },
             },
             {
               title: 'Entrance',
               component: CellComponent.StringCell,
               fields: { text: 'Entrance' },
-            },
-            {
-              title: 'Start',
-              component: CellComponent.StringCell,
-              fields: { text: 'EventDate.Begin' },
-            },
-            {
-              title: 'End',
-              component: CellComponent.StringCell,
-              fields: { text: 'EventDate.End' },
             },
           ],
         },

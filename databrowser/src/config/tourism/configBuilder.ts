@@ -30,6 +30,13 @@ export const IMAGE_GALLERY_CONFIG = {
   },
 } as const;
 
+export const LAST_CHANGES_CONFIG = {
+  title: 'Last Changes',
+  component: CellComponent.EditedDateCell,
+  fields: { date: 'LastChange' },
+  params: { format: 'do MMMM yyyy HH:mm' },
+} as const;
+
 export const ROOM_BOOKED_CONFIG = {
   title: '',
   component: CellComponent.EditRoomBookedCell,

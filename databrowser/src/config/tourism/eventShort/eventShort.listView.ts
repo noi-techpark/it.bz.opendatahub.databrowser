@@ -12,16 +12,16 @@ export const eventShortListView: ListViewConfig = {
     {
       title: 'Date start',
       component: CellComponent.EditedDateCell,
-      class: 'w-40',
+      class: 'w-48',
       fields: { date: 'StartDate' },
-      params: { format: 'do MMMM yyyy' },
+      params: { format: 'do MMM yyyy HH:mm' },
     },
     {
       title: 'Date end',
       component: CellComponent.EditedDateCell,
-      class: 'w-40',
+      class: 'w-48',
       fields: { date: 'EndDate' },
-      params: { format: 'do MMMM yyyy' },
+      params: { format: 'do MMM yyyy HH:mm' },
     },
     {
       title: 'Rooms',

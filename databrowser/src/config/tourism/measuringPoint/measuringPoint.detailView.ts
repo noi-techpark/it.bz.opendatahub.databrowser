@@ -1,6 +1,6 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ID_READONLY_CONFIG } from '../configBuilder';
+import { ID_READONLY_CONFIG, LAST_CHANGES_CONFIG } from '../configBuilder';
 
 export const measuringPointDetailView: DetailViewConfig = {
   elements: [
@@ -22,17 +22,7 @@ export const measuringPointDetailView: DetailViewConfig = {
               component: CellComponent.StringCell,
               fields: { text: 'OwnerId' },
             },
-            {
-              title: 'Last update',
-              component: CellComponent.EditedDateCell,
-              class: 'w-40',
-              fields: {
-                date: '_Meta.LastUpdate',
-              },
-              params: {
-                format: 'do MMMM yyyy',
-              },
-            },
+            LAST_CHANGES_CONFIG,
             {
               title: 'Active',
               component: CellComponent.StringCell,
@@ -115,8 +105,9 @@ export const measuringPointDetailView: DetailViewConfig = {
             },
             {
               title: 'Last snow date',
-              component: CellComponent.StringCell,
-              fields: { text: 'LastSnowDate' },
+              component: CellComponent.DateCell,
+              fields: { date: 'LastSnowDate' },
+              params: { format: 'do MMMM yyyy' },
             },
           ],
         },

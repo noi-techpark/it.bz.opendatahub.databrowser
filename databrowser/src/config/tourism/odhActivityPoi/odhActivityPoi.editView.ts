@@ -1,7 +1,11 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { WebComponent } from '../../../domain/webComponents/webComponentRegistry';
-import { ID_READONLY_CONFIG, IMAGE_GALLERY_CONFIG } from '../configBuilder';
+import {
+  ID_READONLY_CONFIG,
+  IMAGE_GALLERY_CONFIG,
+  LAST_CHANGES_CONFIG,
+} from '../configBuilder';
 
 export const odhActivityPoiEditView: EditViewConfig = {
   elements: [
@@ -233,14 +237,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
         {
           name: 'Data states',
           properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
-              params: {
-                format: 'd/M/yyyy HH:mm',
-              },
-            },
+            LAST_CHANGES_CONFIG,
             {
               title: 'Active on Source',
               component: CellComponent.ToggleCell,
@@ -497,24 +494,14 @@ export const odhActivityPoiEditView: EditViewConfig = {
             {
               title: 'Start Date and Time',
               component: CellComponent.DateCell,
-              class: 'w-40',
-              fields: {
-                date: 'OperationSchedule.0.Start',
-              },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
+              fields: { date: 'OperationSchedule.0.Start' },
+              params: { type: 'datetime' },
             },
             {
               title: 'End Date and Time',
               component: CellComponent.DateCell,
-              class: 'w-40',
-              fields: {
-                date: 'OperationSchedule.0.Stop',
-              },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
+              fields: { date: 'OperationSchedule.0.Stop' },
+              params: { type: 'datetime' },
             },
           ],
         },

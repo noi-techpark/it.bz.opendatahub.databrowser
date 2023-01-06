@@ -92,25 +92,13 @@ export const eventShortDetailView: DetailViewConfig = {
               title: 'Date start',
               component: CellComponent.EditedDateCell,
               fields: { date: 'StartDate' },
-              params: { format: 'do MMMM yyyy' },
-            },
-            {
-              title: 'Start time',
-              component: CellComponent.EditedDateCell,
-              fields: { date: 'StartDate' },
-              params: { format: 'HH:mm' },
+              params: { format: 'do MMMM yyyy HH:mm' },
             },
             {
               title: 'Date end',
               component: CellComponent.EditedDateCell,
               fields: { date: 'EndDate' },
-              params: { format: 'do MMMM yyyy' },
-            },
-            {
-              title: 'End time',
-              component: CellComponent.EditedDateCell,
-              fields: { date: 'EndDate' },
-              params: { format: 'HH:mm' },
+              params: { format: 'do MMMM yyyy HH:mm' },
             },
             {
               title: 'Rooms',

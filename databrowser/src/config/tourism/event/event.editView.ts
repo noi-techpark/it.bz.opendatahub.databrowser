@@ -1,6 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
-import { IMAGE_GALLERY_CONFIG } from '../configBuilder';
+import { IMAGE_GALLERY_CONFIG, LAST_CHANGES_CONFIG } from '../configBuilder';
 
 export const eventEditView: EditViewConfig = {
   elements: [
@@ -68,14 +68,7 @@ export const eventEditView: EditViewConfig = {
         {
           name: 'Data states',
           properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
-              params: {
-                format: 'd/M/yyyy HH:mm',
-              },
-            },
+            LAST_CHANGES_CONFIG,
             {
               title: 'Active on Source',
               component: CellComponent.ToggleCell,
@@ -259,32 +252,18 @@ export const eventEditView: EditViewConfig = {
               title: 'Date Begin',
               component: CellComponent.DateCell,
               fields: { date: 'DateBegin' },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
+              params: { type: 'datetime' },
             },
             {
               title: 'Date End',
               component: CellComponent.DateCell,
               fields: { date: 'EventDatesEnd' },
-              params: {
-                format: 'do MMMM yyyy HH:mm',
-              },
+              params: { type: 'datetime' },
             },
             {
               title: 'Entrance',
               component: CellComponent.StringCell,
               fields: { text: 'Entrance' },
-            },
-            {
-              title: 'Start',
-              component: CellComponent.StringCell,
-              fields: { text: 'EventDate.Begin' },
-            },
-            {
-              title: 'End',
-              component: CellComponent.StringCell,
-              fields: { text: 'EventDate.End' },
             },
           ],
         },

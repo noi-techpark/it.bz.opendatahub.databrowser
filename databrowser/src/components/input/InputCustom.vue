@@ -8,6 +8,7 @@
       class="rounded border border-gray-400 p-2 text-black focus:border-green-500"
       :class="inputClasses"
       :placeholder="placeholder"
+      :type="type"
     />
     <span v-if="label != null" class="ml-3 font-semibold"></span>
   </div>
@@ -27,6 +28,7 @@ const props = defineProps<{
   placeholder?: string;
   inputClasses?: string;
   focus?: boolean;
+  type?: 'text' | 'date' | 'datetime-local';
 }>();
 
 const inputRef = ref();

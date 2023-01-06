@@ -45,7 +45,6 @@ input:focus-visible {
 [type='radio']:focus [multiple]:focus,
 textarea:focus,
 select:focus {
-  @apply outline outline-green-500 outline-1;
   box-shadow: none;
   border-color: transparent;
 }

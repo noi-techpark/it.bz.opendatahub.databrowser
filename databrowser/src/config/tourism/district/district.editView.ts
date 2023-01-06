@@ -1,7 +1,11 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { withOdhBaseUrl } from '../../utils';
-import { ID_READONLY_CONFIG, IMAGE_GALLERY_CONFIG } from '../configBuilder';
+import {
+  ID_READONLY_CONFIG,
+  IMAGE_GALLERY_CONFIG,
+  LAST_CHANGES_CONFIG,
+} from '../configBuilder';
 
 export const districtEditView: EditViewConfig = {
   elements: [
@@ -64,14 +68,7 @@ export const districtEditView: EditViewConfig = {
         {
           name: 'Data states',
           properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
-              params: {
-                format: 'd/M/yyyy HH:mm',
-              },
-            },
+            LAST_CHANGES_CONFIG,
             {
               title: 'Is comune',
               component: CellComponent.ToggleCell,

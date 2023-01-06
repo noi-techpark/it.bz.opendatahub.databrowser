@@ -1,6 +1,6 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ID_READONLY_CONFIG } from '../configBuilder';
+import { ID_READONLY_CONFIG, LAST_CHANGES_CONFIG } from '../configBuilder';
 
 export const districtDetailView: DetailViewConfig = {
   elements: [
@@ -63,14 +63,7 @@ export const districtDetailView: DetailViewConfig = {
         {
           name: 'Data states',
           properties: [
-            {
-              title: 'Last Changes',
-              component: CellComponent.DateCell,
-              fields: { date: 'LastChange' },
-              params: {
-                format: 'd/M/yyyy HH:mm',
-              },
-            },
+            LAST_CHANGES_CONFIG,
             {
               title: 'Is comune',
               component: CellComponent.StringCell,
