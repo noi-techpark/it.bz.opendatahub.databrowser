@@ -17,6 +17,7 @@ export enum CellComponent {
   StringCell = 'StringCell',
   UrlCell = 'UrlCell',
   StringTemplateCell = 'StringTemplateCell',
+  TextAreaCell = 'TextAreaCell',
   TextHighlightCell = 'TextHighlightCell',
   ToggleCell = 'ToggleCell',
   TypeBasedCell = 'TypeBasedCell',
