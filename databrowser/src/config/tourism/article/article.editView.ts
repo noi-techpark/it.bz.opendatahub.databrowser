@@ -257,7 +257,6 @@ export const articleEditView: EditViewConfig = {
       ],
     },
     {
-      // TODO: implement link table
       name: 'Links',
       slug: 'links',
       subcategories: [
@@ -265,17 +264,10 @@ export const articleEditView: EditViewConfig = {
           name: '',
           properties: [
             {
-              title: 'Link name',
-              component: CellComponent.JsonCell,
+              title: '',
+              component: CellComponent.ArticleLinkInfo,
               fields: {
-                data: 'ArticleLinkInfo.{language}.Elements',
-              },
-            },
-            {
-              title: 'Link URL',
-              component: CellComponent.JsonCell,
-              fields: {
-                data: 'ArticleLinkInfo.{language}.Elements',
+                links: 'ArticleLinkInfo.{language}.Elements',
               },
             },
           ],

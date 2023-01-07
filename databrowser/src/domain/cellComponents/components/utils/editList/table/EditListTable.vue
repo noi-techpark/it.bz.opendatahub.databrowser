@@ -19,7 +19,7 @@
         <!-- Slot for colgroup -->
         <slot name="colGroup"></slot>
 
-        <col class="w-20 md:w-28" />
+        <col v-if="showSettingsCol" class="w-20 md:w-28" />
       </colgroup>
 
       <TableHeader>
@@ -46,7 +46,7 @@
 
         <!-- Column for settings -->
         <TableHeaderCell
-          v-if="hasItems"
+          v-if="showSettingsCol"
           class="sticky right-0 bg-gray-50 font-semibold"
         >
           Settings
@@ -72,14 +72,15 @@
           </template>
 
           <!-- Slot for table cols -->
-          <slot name="tableCols" :item="item"></slot>
+          <slot name="tableCols" :item="item" :index="index"></slot>
 
           <TableCell
-            v-if="hasItems"
+            v-if="showSettingsCol"
             class="sticky right-0 bg-white shadow-table-static-col"
           >
             <ItemActions
               v-if="deleteConfirmIndex !== index"
+              :hide-tab-link="hideTabLink"
               @delete="openDeleteSingleItemConfirm(index)"
               @duplicate="duplicateItem(index)"
               @push="pushItem(index)"
@@ -119,7 +120,7 @@ import { useInjectNavigation } from '../actions/useNavigation';
 import { useInjectActionTriggers } from '../actions/useActions';
 import { useInjectEditMode } from '../actions/useEditMode';
 
-const props = defineProps<{ items: unknown[] }>();
+const props = defineProps<{ items: unknown[]; hideTabLink?: boolean }>();
 
 // Inject navigation from an ancestor component
 const { navigateToTab } = useInjectNavigation();
@@ -132,6 +133,14 @@ const itemsInternal = computed({
 });
 
 const hasItems = computed(() => itemsInternal.value.length > 0);
+
+const showSettingsCol = computed(() => {
+  if (!hasItems.value) {
+    return false;
+  }
+
+  return editable.value || !props.hideTabLink;
+});
 
 const {
   allItemsSelected,

@@ -2,6 +2,7 @@ import { App } from 'vue';
 
 import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
 import ArrayCellTags from '../components/cells/arrayCellTags/ArrayCellTags.vue';
+import ArticleLinkInfo from '../components/cells/articleLinkInfoCell/ArticleLinkInfoCell.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditImageGalleryCell.vue';
@@ -42,6 +43,7 @@ export default {
     app.component(CellComponent.ImageEditCell, ImageEditCell);
     app.component(CellComponent.ImageGalleryCell, ImageGalleryCell);
     app.component(CellComponent.JsonCell, JsonCell);
+    app.component(CellComponent.ArticleLinkInfo, ArticleLinkInfo);
     app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);
     app.component(CellComponent.StateCell, StateCell);
     app.component(CellComponent.StringCell, StringCell);

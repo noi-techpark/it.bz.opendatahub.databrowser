@@ -242,7 +242,6 @@ export const articleDetailView: DetailViewConfig = {
       ],
     },
     {
-      // TODO: implement link table
       name: 'Links',
       slug: 'links',
       subcategories: [
@@ -250,17 +249,10 @@ export const articleDetailView: DetailViewConfig = {
           name: '',
           properties: [
             {
-              title: 'Link name',
-              component: CellComponent.StringCell,
+              title: '',
+              component: CellComponent.ArticleLinkInfo,
               fields: {
-                text: 'ArticleLinkInfo.{language}.Elements',
-              },
-            },
-            {
-              title: 'Link URL',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'ArticleLinkInfo.{language}.Elements',
+                links: 'ArticleLinkInfo.{language}.Elements',
               },
             },
           ],
