@@ -27,22 +27,24 @@ const emit = defineEmits(['update']);
 const props = withDefaults(
   defineProps<{
     value?: string | boolean | number;
+    sortByLabel?: boolean;
     editable?: boolean;
     readonly?: string | boolean;
   }>(),
   {
     value: undefined,
+    sortByLabel: true,
     editable: true,
     readonly: false,
   }
 );
 
-const { value, editable, readonly } = toRefs(props);
+const { value, sortByLabel, editable, readonly } = toRefs(props);
 const isWriteable = useWriteable({ editable, readonly });
 
 const attrs = useAttrs();
 
-const { options, unknownValue } = useMapper(ref(attrs), value);
+const { options, unknownValue } = useMapper(ref(attrs), value, sortByLabel);
 
 const change = (value: string) => emit('update', { prop: 'value', value });
 </script>

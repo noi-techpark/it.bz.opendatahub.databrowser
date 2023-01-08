@@ -51,10 +51,15 @@ const mapToOptionsWithKeysAndValues = (
 // Build usable SelectOptions
 const buildOptions = (
   optionsWithKeysAndValues: Record<string, SelectOption>,
-  initialValue: string | boolean | number | unknown
+  initialValue: string | boolean | number | unknown,
+  sortByLabel: boolean
 ) => {
-  const sortedKeys = Object.keys(optionsWithKeysAndValues).sort();
-  const options = sortedKeys.reduce<SelectOption[]>((previous, key) => {
+  const keys = Object.keys(optionsWithKeysAndValues);
+  if (sortByLabel) {
+    keys.sort();
+  }
+
+  const options = keys.reduce<SelectOption[]>((previous, key) => {
     const value = optionsWithKeysAndValues[key].value;
     const label = optionsWithKeysAndValues[key].label;
     const option: SelectOption = { value, label };
@@ -79,7 +84,8 @@ const buildOptions = (
 // {value: "EC", label: "Eurac"}
 export const useMapper = (
   attrs: Ref<Record<string, unknown>>,
-  initialValue: Ref<string | boolean | number | unknown>
+  initialValue: Ref<string | boolean | number | unknown>,
+  sortByLabel: Ref<boolean>
 ) => {
   const options = ref<SelectOption[]>([]);
 
@@ -91,9 +97,11 @@ export const useMapper = (
         attrs.value,
         optionsWithKeys
       );
+
       options.value = buildOptions(
         optionsWithKeysAndValues,
-        initialValue.value
+        initialValue.value,
+        sortByLabel.value
       );
     },
     { immediate: true }
