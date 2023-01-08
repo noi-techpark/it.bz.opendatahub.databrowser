@@ -1,8 +1,8 @@
 <template>
-  <EditListTable :items="items" :hide-tab-link="true">
+  <EditListTable :items="items" :hide-tab-link="true" :hide-sortable="true">
     <template #colGroup>
       <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
+      <col class="w-32 md:w-60" />
     </template>
 
     <template #tableHeader>

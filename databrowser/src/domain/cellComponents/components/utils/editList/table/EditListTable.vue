@@ -12,20 +12,23 @@
     <TableCustom class="mb-5">
       <colgroup>
         <template v-if="editable && hasItems">
-          <col v-if="hasItems" class="w-0 md:w-10" />
-          <col v-if="hasItems" class="w-10 md:w-20" />
+          <col v-if="showSortableColumn" class="w-0 md:w-10" />
+          <col class="w-10 md:w-20" />
         </template>
 
         <!-- Slot for colgroup -->
         <slot name="colGroup"></slot>
 
-        <col v-if="showSettingsCol" class="w-20 md:w-28" />
+        <col v-if="showSettingsColumn" class="w-20 md:w-28" />
       </colgroup>
 
       <TableHeader>
         <template v-if="editable && hasItems">
           <!-- Column for Drag/Drop -->
-          <TableHeaderCell class="w-0 border-none bg-white md:w-full">
+          <TableHeaderCell
+            v-if="showSortableColumn"
+            class="w-0 border-none bg-white md:w-full"
+          >
             &nbsp;
           </TableHeaderCell>
           <!-- Column for checkbox selection -->
@@ -46,7 +49,7 @@
 
         <!-- Column for settings -->
         <TableHeaderCell
-          v-if="showSettingsCol"
+          v-if="showSettingsColumn"
           class="sticky right-0 bg-gray-50 font-semibold"
         >
           Settings
@@ -60,7 +63,7 @@
       >
         <tr v-for="(item, index) in (itemsInternal as any)" :key="index">
           <template v-if="editable && hasItems">
-            <td class="border-none px-4 pt-4">
+            <td v-if="showSortableColumn" class="border-none px-4 pt-4">
               <IconDragAndDrop class="handle hidden cursor-pointer md:block" />
             </td>
             <TableCell class="relative">
@@ -75,7 +78,7 @@
           <slot name="tableCols" :item="item" :index="index"></slot>
 
           <TableCell
-            v-if="showSettingsCol"
+            v-if="showSettingsColumn"
             class="sticky right-0 bg-white shadow-table-static-col"
           >
             <ItemActions
@@ -120,7 +123,11 @@ import { useInjectNavigation } from '../actions/useNavigation';
 import { useInjectActionTriggers } from '../actions/useActions';
 import { useInjectEditMode } from '../actions/useEditMode';
 
-const props = defineProps<{ items: unknown[]; hideTabLink?: boolean }>();
+const props = defineProps<{
+  items: unknown[];
+  hideTabLink?: boolean;
+  hideSortable?: boolean;
+}>();
 
 // Inject navigation from an ancestor component
 const { navigateToTab } = useInjectNavigation();
@@ -134,7 +141,9 @@ const itemsInternal = computed({
 
 const hasItems = computed(() => itemsInternal.value.length > 0);
 
-const showSettingsCol = computed(() => {
+const showSortableColumn = computed(() => !props.hideSortable);
+
+const showSettingsColumn = computed(() => {
   if (!hasItems.value) {
     return false;
   }
