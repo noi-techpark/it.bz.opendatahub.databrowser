@@ -5,6 +5,7 @@ import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
+  WEBCAM_CONFIG,
 } from '../configBuilder';
 
 export const odhActivityPoiEditView: EditViewConfig = {
@@ -814,23 +815,8 @@ export const odhActivityPoiEditView: EditViewConfig = {
       slug: 'webcam-details',
       subcategories: [
         {
-          name: 'Webcam',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.WebcamGalleryCell,
-              fields: { webcams: 'Webcam' },
-              params: {
-                name: 'Webcamname.{language}',
-                image: 'Webcamurl',
-                imageUrl: 'Webcamurl',
-                latitude: 'GpsInfo.Latitude',
-                longitude: 'GpsInfo.Longitude',
-                altitude: 'GpsInfo.Altitude',
-                listPosition: 'ListPosition',
-              },
-            },
-          ],
+          name: '',
+          properties: [WEBCAM_CONFIG],
         },
       ],
     },

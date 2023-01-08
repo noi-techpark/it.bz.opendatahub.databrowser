@@ -23,7 +23,7 @@ import TextAreaCell from '../components/cells/textAreaCell/TextAreaCell.vue';
 import TextHighlightCell from '../components/cells/textHighlightCell/TextHighlightCell.vue';
 import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
-import WebcamGalleryCell from '../components/cells/webcamGalleryCell/WebcamGalleryCell.vue';
+import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
 import FixedValue from '../components/filters/fixedValue/FixedValue.vue';
 
 import { CellComponent, FilterComponent } from '../types';
@@ -53,7 +53,7 @@ export default {
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
     app.component(CellComponent.ToggleCell, ToggleCell);
     app.component(CellComponent.TypeBasedCell, TypeBasedCell);
-    app.component(CellComponent.WebcamGalleryCell, WebcamGalleryCell);
+    app.component(CellComponent.WebcamCell, WebcamCell);
 
     app.component(FilterComponent.FixedValue, FixedValue);
   },

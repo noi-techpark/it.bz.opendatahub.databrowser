@@ -58,3 +58,20 @@ export const ROOM_BOOKED_CONFIG = {
     attributeName: 'roomBooked',
   },
 } as const;
+
+export const WEBCAM_CONFIG = {
+  title: '',
+  component: CellComponent.WebcamCell,
+  listFields: {
+    attributeName: 'webcams',
+    pathToParent: 'Webcam',
+    fields: {
+      name: 'Webcamname.{language}',
+      imageUrl: 'Webcamurl',
+      latitude: 'GpsInfo.Latitude',
+      longitude: 'GpsInfo.Longitude',
+      altitude: 'GpsInfo.Altitude',
+      listPosition: 'ListPosition',
+    },
+  },
+};

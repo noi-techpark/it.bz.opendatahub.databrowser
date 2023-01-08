@@ -22,7 +22,7 @@ export enum CellComponent {
   TextHighlightCell = 'TextHighlightCell',
   ToggleCell = 'ToggleCell',
   TypeBasedCell = 'TypeBasedCell',
-  WebcamGalleryCell = 'WebcamGalleryCell',
+  WebcamCell = 'WebcamCell',
 }
 
 export enum FilterComponent {

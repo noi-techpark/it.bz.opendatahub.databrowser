@@ -1,7 +1,11 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { WebComponent } from '../../../domain/webComponents/webComponentRegistry';
-import { ID_READONLY_CONFIG, LAST_CHANGES_CONFIG } from '../configBuilder';
+import {
+  ID_READONLY_CONFIG,
+  LAST_CHANGES_CONFIG,
+  WEBCAM_CONFIG,
+} from '../configBuilder';
 
 export const odhActivityPoiDetailView: DetailViewConfig = {
   elements: [
@@ -809,23 +813,8 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
       slug: 'webcam-details',
       subcategories: [
         {
-          name: 'Webcam',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.WebcamGalleryCell,
-              fields: { webcams: 'Webcam' },
-              params: {
-                name: 'Webcamname.{language}',
-                image: 'Webcamurl',
-                imageUrl: 'Webcamurl',
-                latitude: 'GpsInfo.Latitude',
-                longitude: 'GpsInfo.Longitude',
-                altitude: 'GpsInfo.Altitude',
-                listPosition: 'ListPosition',
-              },
-            },
-          ],
+          name: '',
+          properties: [WEBCAM_CONFIG],
         },
       ],
     },
