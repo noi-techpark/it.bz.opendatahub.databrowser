@@ -2,27 +2,32 @@
   <EditListTable :items="items" :hide-tab-link="true" :hide-sortable="true">
     <template #colGroup>
       <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-60" />
+      <col class="w-32 md:w-64" />
     </template>
 
     <template #tableHeader>
-      <TableHeaderCell>Link title</TableHeaderCell>
-      <TableHeaderCell>Link URL</TableHeaderCell>
+      <TableHeaderCell>Header</TableHeaderCell>
+      <TableHeaderCell>Content</TableHeaderCell>
     </template>
 
-    <template #tableCols="{ item, index }">
+    <template
+      #tableCols="{ item, index }: { item: Required<InfoEntry>, index: number }"
+    >
       <TableCell>
-        <StringCell
-          :text="item.title"
+        <SelectWithOptionsCell
+          :value="item.header"
+          :sort-by-label="false"
           :editable="editable"
-          @update="updateEntry(index, $event.value, item.url)"
+          v-bind="headerOptions"
+          @update="updateEntry(index, $event.value, item.content)"
         />
       </TableCell>
       <TableCell>
-        <StringCell
-          :text="item.url"
+        <TextAreaCell
+          :text="item.content"
+          :rows="5"
           :editable="editable"
-          @update="updateEntry(index, item.title, $event.value)"
+          @update="updateEntry(index, item.header, $event.value)"
         />
       </TableCell>
     </template>
@@ -40,25 +45,27 @@ import TableCell from '../../../../../components/table/TableCell.vue';
 import EditListTable from '../../utils/editList/table/EditListTable.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionHooks } from '../../utils/editList/actions/useActions';
-import StringCell from '../stringCell/StringCell.vue';
+import TextAreaCell from '../textAreaCell/TextAreaCell.vue';
+import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
+import { headerOptions } from './headerOptions';
 
-interface LinkEntry {
-  title?: string;
-  url?: string;
+interface InfoEntry {
+  header?: string;
+  content?: string;
 }
 
 const emit = defineEmits(['update']);
 
-const props = defineProps<{ items: LinkEntry[]; editable?: boolean }>();
+const props = defineProps<{ items: InfoEntry[]; editable?: boolean }>();
 
 const addEntry = () => {
-  const links = [...props.items, { title: '', url: '' }];
+  const links = [...props.items, { header: '', content: '' }];
   emit('update', links);
 };
 
-const updateEntry = (index: number, title: string, url: string) => {
+const updateEntry = (index: number, header: string, content: string) => {
   const links = [...props.items];
-  links[index] = { title, url };
+  links[index] = { header, content };
   emit('update', links);
 };
 
@@ -80,7 +87,7 @@ onDuplicateItem((index: number) => {
     ...props.items.slice(0, index + 1),
     {
       ...duplicatedEntry,
-      title: duplicatedEntry.title + '-' + new Date().getTime(),
+      header: duplicatedEntry.header + '-' + new Date().getTime(),
     },
     ...props.items.slice(index + 1),
   ];

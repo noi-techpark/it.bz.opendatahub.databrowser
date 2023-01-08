@@ -240,17 +240,12 @@ export const articleEditView: EditViewConfig = {
         {
           name: '',
           properties: [
-            // TODO: check which field to use
             {
-              title: 'Category',
-              component: CellComponent.StringCell,
-              fields: { text: 'Category' },
-            },
-            // TODO: check which field to use
-            {
-              title: 'Description',
-              component: CellComponent.StringCell,
-              fields: { text: 'Description' },
+              title: '',
+              component: CellComponent.ArticleAdditionalInfoCell,
+              fields: {
+                infos: 'AdditionalArticleInfos.{language}.Elements',
+              },
             },
           ],
         },
@@ -265,7 +260,7 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.ArticleLinkInfo,
+              component: CellComponent.ArticleLinkInfoCell,
               fields: {
                 links: 'ArticleLinkInfo.{language}.Elements',
               },
