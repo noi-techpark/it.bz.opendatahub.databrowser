@@ -29,6 +29,10 @@ input:focus-visible {
   @apply outline-0;
 }
 
+[type='checkbox']:focus {
+  @apply outline-green-500;
+}
+
 [type='text']:focus,
 [type='email']:focus,
 [type='url']:focus,
@@ -41,7 +45,6 @@ input:focus-visible {
 [type='tel']:focus,
 [type='time']:focus,
 [type='week']:focus,
-[type='checkbox']:focus,
 [type='radio']:focus [multiple]:focus,
 textarea:focus,
 select:focus {
