@@ -26,8 +26,8 @@ const emit = defineEmits(['update:modelValue']);
 const props = defineProps<{
   modelValue?: string;
   label?: string;
-  rows?: string;
-  cols?: string;
+  rows?: string | number;
+  cols?: string | number;
   placeholder?: string;
   inputClasses?: string;
   focus?: boolean;

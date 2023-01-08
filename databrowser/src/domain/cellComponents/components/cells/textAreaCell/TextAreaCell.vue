@@ -19,8 +19,8 @@ const emit = defineEmits(['update']);
 
 const props = defineProps<{
   text?: string;
-  rows?: string;
-  cols?: string;
+  rows?: string | number;
+  cols?: string | number;
   editable?: boolean;
   readonly?: string | boolean;
 }>();
