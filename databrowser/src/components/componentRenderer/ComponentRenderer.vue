@@ -10,6 +10,7 @@
 
 <script setup lang="ts">
 import { defineProps, toRefs, watch, withDefaults } from 'vue';
+import { BaseListFields } from '../../domain/datasetConfig/types';
 import { loadWebComponent } from '../../domain/webComponents/lazyLoadedWebComponent';
 import { isRegisteredWebComponent } from '../../domain/webComponents/webComponentRegistry';
 import { useUpdate } from './useUpdate';
@@ -19,10 +20,7 @@ const props = withDefaults(
     tagName: string;
     attributes: Record<string, unknown>;
     fields?: Record<string, string>;
-    listFields?: {
-      pathToParent: string;
-      fields: Record<string, string>;
-    };
+    listFields?: BaseListFields;
     editable?: boolean;
   }>(),
   {

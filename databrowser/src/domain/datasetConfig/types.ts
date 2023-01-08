@@ -15,13 +15,17 @@ export interface ObjectPropertyConfig {
   listFields?: never;
 }
 
+export interface BaseListFields {
+  pathToParent: string;
+  // If fields is undefined or empty, then the object defined by parentPath
+  // is passed to the component as it is. This is useful e.g. for an array
+  // of simple types (strings, number or booleans)
+  fields?: Record<string, string>;
+}
+
 export interface ArrayPropertyConfig {
   fields?: never;
-  listFields: {
-    pathToParent: string;
-    fields: Record<string, string>;
-    attributeName: string;
-  };
+  listFields: BaseListFields & { attributeName: string };
 }
 
 export type PropertyConfig = (ObjectPropertyConfig | ArrayPropertyConfig) &

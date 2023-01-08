@@ -159,6 +159,13 @@ export const usePropertyMapping = () => {
       return defaultResult;
     }
 
+    // If fields is undefined or empty, then the object defined by parentPath
+    // is returned as it is. This is useful e.g. for an array of simple types
+    // (strings, numbers or booleans)
+    if (isFieldsEmpty(fields)) {
+      return { ...defaultResult, [attributeName]: dataArray };
+    }
+
     const listOfExtractedFields = dataArray.map((item) => {
       return mapValuesWithIndex(item, fields, replacements.value);
     });
@@ -186,6 +193,10 @@ export const usePropertyMapping = () => {
     mapWithReverseIndex,
   };
 };
+
+export const isFieldsEmpty = (
+  fields?: Record<string, string>
+): fields is undefined => fields == null || Object.keys(fields).length === 0;
 
 export const replacePlaceholders = (
   s: string,
