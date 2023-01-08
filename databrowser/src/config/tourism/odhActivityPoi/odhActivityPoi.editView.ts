@@ -1,6 +1,7 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { WebComponent } from '../../../domain/webComponents/webComponentRegistry';
+import { withOdhBaseUrl } from '../../utils';
 import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
@@ -40,7 +41,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'Type' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -50,7 +51,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'SubType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -60,7 +61,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'PoiType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -776,7 +777,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'AdditionalPoiInfos.{language}.MainType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -786,7 +787,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'AdditionalPoiInfos.{language}.SubType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -796,7 +797,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'AdditionalPoiInfos.{language}.PoiType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },

@@ -26,7 +26,7 @@ export const accommodationEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'AccoType.Id' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
+                url: withOdhBaseUrl('/v1/AccommodationTypes'),
                 labelSelector: 'TypeDesc.en',
                 keySelector: 'Id',
               },
@@ -36,7 +36,7 @@ export const accommodationEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'AccoCategory.Id' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
+                url: withOdhBaseUrl('/v1/AccommodationTypes'),
                 labelSelector: 'TypeDesc.en',
                 keySelector: 'Id',
               },
