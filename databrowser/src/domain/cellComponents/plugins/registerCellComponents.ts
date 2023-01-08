@@ -2,7 +2,7 @@ import { App } from 'vue';
 
 import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
 import ArrayCellTags from '../components/cells/arrayCellTags/ArrayCellTags.vue';
-import ArticleLinkInfo from '../components/cells/articleLinkInfoCell/ArticleLinkInfoCell.vue';
+import ArticleLinkInfoCell from '../components/cells/articleLinkInfoCell/ArticleLinkInfoCell.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditImageGalleryCell.vue';
@@ -32,6 +32,7 @@ export default {
   install: (app: App) => {
     app.component(CellComponent.ArrayCell, ArrayCell);
     app.component(CellComponent.ArrayCellTags, ArrayCellTags);
+    app.component(CellComponent.ArticleLinkInfoCell, ArticleLinkInfoCell);
     app.component(CellComponent.DateCell, DateCell);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
     app.component(CellComponent.EditImageGalleryCell, EditImageGalleryCell);
@@ -43,7 +44,6 @@ export default {
     app.component(CellComponent.ImageEditCell, ImageEditCell);
     app.component(CellComponent.ImageGalleryCell, ImageGalleryCell);
     app.component(CellComponent.JsonCell, JsonCell);
-    app.component(CellComponent.ArticleLinkInfo, ArticleLinkInfo);
     app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);
     app.component(CellComponent.StateCell, StateCell);
     app.component(CellComponent.StringCell, StringCell);

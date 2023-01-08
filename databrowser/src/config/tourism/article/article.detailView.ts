@@ -250,7 +250,7 @@ export const articleDetailView: DetailViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.ArticleLinkInfo,
+              component: CellComponent.ArticleLinkInfoCell,
               fields: {
                 links: 'ArticleLinkInfo.{language}.Elements',
               },

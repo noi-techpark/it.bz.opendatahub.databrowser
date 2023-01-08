@@ -265,7 +265,7 @@ export const articleEditView: EditViewConfig = {
           properties: [
             {
               title: '',
-              component: CellComponent.ArticleLinkInfo,
+              component: CellComponent.ArticleLinkInfoCell,
               fields: {
                 links: 'ArticleLinkInfo.{language}.Elements',
               },
