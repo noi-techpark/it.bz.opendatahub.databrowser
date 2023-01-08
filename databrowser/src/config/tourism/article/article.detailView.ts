@@ -225,17 +225,12 @@ export const articleDetailView: DetailViewConfig = {
         {
           name: '',
           properties: [
-            // TODO: check which field to use
             {
-              title: 'Category',
-              component: CellComponent.StringCell,
-              fields: { text: 'Category' },
-            },
-            // TODO: check which field to use
-            {
-              title: 'Description',
-              component: CellComponent.StringCell,
-              fields: { text: 'Description' },
+              title: '',
+              component: CellComponent.ArticleAdditionalInfoCell,
+              fields: {
+                links: 'AdditionalArticleInfos.{language}.Elements',
+              },
             },
           ],
         },

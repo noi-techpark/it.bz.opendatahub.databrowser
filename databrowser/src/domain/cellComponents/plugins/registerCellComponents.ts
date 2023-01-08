@@ -2,6 +2,7 @@ import { App } from 'vue';
 
 import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
 import ArrayCellTags from '../components/cells/arrayCellTags/ArrayCellTags.vue';
+import ArticleAdditionalInfoCell from '../components/cells/articleAdditionalInfoCell/ArticleAdditionalInfoCell.vue';
 import ArticleLinkInfoCell from '../components/cells/articleLinkInfoCell/ArticleLinkInfoCell.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
@@ -32,6 +33,10 @@ export default {
   install: (app: App) => {
     app.component(CellComponent.ArrayCell, ArrayCell);
     app.component(CellComponent.ArrayCellTags, ArrayCellTags);
+    app.component(
+      CellComponent.ArticleAdditionalInfoCell,
+      ArticleAdditionalInfoCell
+    );
     app.component(CellComponent.ArticleLinkInfoCell, ArticleLinkInfoCell);
     app.component(CellComponent.DateCell, DateCell);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
