@@ -24,20 +24,20 @@ export const accommodationEditView: EditViewConfig = {
             {
               title: 'Accommodation type',
               component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoType.Id' },
+              fields: { value: 'AccoTypeId' },
               params: {
                 url: withOdhBaseUrl('/v1/AccommodationTypes'),
-                labelSelector: 'TypeDesc.en',
+                labelSelector: 'TypeDesc.{language}',
                 keySelector: 'Id',
               },
             },
             {
               title: 'Accommodation category',
               component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoCategory.Id' },
+              fields: { value: 'AccoCategoryId' },
               params: {
                 url: withOdhBaseUrl('/v1/AccommodationTypes'),
-                labelSelector: 'TypeDesc.en',
+                labelSelector: 'TypeDesc.{language}',
                 keySelector: 'Id',
               },
             },
@@ -215,9 +215,10 @@ export const accommodationEditView: EditViewConfig = {
               fields: { value: 'AccoType.Id' },
               params: {
                 url: withOdhBaseUrl('/v1/AccommodationTypes'),
-                labelSelector: 'TypeDesc.en',
+                labelSelector: 'TypeDesc.{language}',
                 keySelector: 'Id',
               },
+              required: true,
             },
             {
               title: 'Accommodation category',
@@ -225,9 +226,10 @@ export const accommodationEditView: EditViewConfig = {
               fields: { value: 'AccoCategory.Id' },
               params: {
                 url: withOdhBaseUrl('/v1/AccommodationTypes'),
-                labelSelector: 'TypeDesc.en',
+                labelSelector: 'TypeDesc.{language}',
                 keySelector: 'Id',
               },
+              required: true,
             },
             {
               title: 'Long description',
