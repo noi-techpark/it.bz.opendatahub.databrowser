@@ -1,5 +1,5 @@
 <template>
-  <TableCustom>
+  <TableCustom class="overflow-y-auto">
     <colgroup v-if="isColgroupColsSlotDefined">
       <slot name="colgroup-cols"></slot>
     </colgroup>

@@ -1,6 +1,10 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ID_READONLY_CONFIG, LAST_CHANGES_CONFIG } from '../configBuilder';
+import {
+  ID_READONLY_CONFIG,
+  LAST_CHANGES_CONFIG,
+  ODH_TAG_CONFIG,
+} from '../configBuilder';
 
 export const metaRegionDetailView: DetailViewConfig = {
   elements: [
@@ -244,32 +248,8 @@ export const metaRegionDetailView: DetailViewConfig = {
       slug: 'Tags',
       subcategories: [
         {
-          name: 'Tags',
-          properties: [
-            {
-              title: 'Open Data Hub Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'ODHTags',
-              },
-              params: {
-                fieldName: 'Id',
-                separator: ', ',
-                max: '3',
-              },
-            },
-            {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCell,
-              fields: {
-                items: 'SmgTags',
-              },
-              params: {
-                separator: ', ',
-              },
-            },
-          ],
+          name: '',
+          properties: [ODH_TAG_CONFIG],
         },
       ],
     },

@@ -5,6 +5,7 @@ import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
+  ODH_TAG_CONFIG,
 } from '../configBuilder';
 
 export const districtEditView: EditViewConfig = {
@@ -243,25 +244,8 @@ export const districtEditView: EditViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-          name: 'Tags',
-          properties: [
-            {
-              title: 'Open Data Hub Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'ODHTags',
-              },
-            },
-            {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'SmgTags',
-              },
-            },
-          ],
+          name: '',
+          properties: [ODH_TAG_CONFIG],
         },
       ],
     },

@@ -7,16 +7,13 @@ import {
   PropertyValue,
 } from '../../domain/datasets/editView/store/types';
 import * as R from 'ramda';
-
-interface ListFields {
-  pathToParent: string;
-  fields: Record<string, string>;
-}
+import { BaseListFields } from '../../domain/datasetConfig/types';
+import { isFieldsEmpty } from '../../domain/api';
 
 export const useUpdate = (
   tagName: Ref<string>,
   fields: Ref<Record<string, string> | undefined>,
-  listFields: Ref<ListFields | undefined>
+  listFields: Ref<BaseListFields | undefined>
 ) => {
   const { replace } = useReplaceWithApiParameters();
   const editStore = useEditStore();
@@ -48,7 +45,7 @@ export const useUpdate = (
 
   const computeListFieldsUpdates = (
     updates: PropertyValue[],
-    listFieldsValue: ListFields
+    listFieldsValue: BaseListFields
   ) => {
     const getCurrentValue = (pathToParent: string, index: number) => {
       const path = replace(pathToParent).split('.');
@@ -57,9 +54,22 @@ export const useUpdate = (
       return parent?.at(index) ?? {};
     };
 
-    const dataArray = updates[0].value as Record<string, unknown>[];
+    const dataArray = updates[0].value as unknown[];
 
-    const mappedDataArray = dataArray.map((entry, index) => {
+    // If fields is undefined or empty, then the data consist of an
+    // array of simple types (strings, number or booleans). We can
+    // return it as it is
+    if (isFieldsEmpty(listFieldsValue.fields)) {
+      return {
+        prop: listFieldsValue.pathToParent,
+        value: dataArray,
+      };
+    }
+
+    const complexDataArray = dataArray as Record<string, unknown>[];
+
+    // Handle array of objects
+    const mappedDataArray = complexDataArray.map((entry, index) => {
       // Get current element value from store to be merged with incoming value.
       // This is necessary to support e.g. translations that are stored inside an object (like in ODH tourism domain)
       const currentValue = getCurrentValue(listFieldsValue.pathToParent, index);
@@ -67,7 +77,9 @@ export const useUpdate = (
       return Object.entries(entry).reduce<Record<string, unknown>>(
         (prev, [key, value]) => {
           // Get property name, e.g. ImageTitle.{language}
-          const propertyName = listFieldsValue.fields[key];
+          // listFieldsValue.fields can not be undefined,
+          // because we checked it at the top of computeListFieldsUpdates
+          const propertyName = listFieldsValue.fields![key];
           // Replace dynamic parts, e.g. if language === 'en', then ImageTitle.{language} becomes ImageTitle.en
           const propertyNameWithReplacements = replace(propertyName);
           const path = propertyNameWithReplacements.split('.');

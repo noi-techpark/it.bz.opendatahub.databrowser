@@ -1,11 +1,11 @@
+import { withOdhBaseUrl } from '../../config/utils';
 import { SupportedDomains } from './types';
 
 export const domains = {
   tourism: {
     description: 'Open Data Hub Tourism API',
-    documentUrl:
-      'https://api.tourism.testingmachine.eu/swagger/v1/swagger.json',
-    baseUrl: 'https://api.tourism.testingmachine.eu',
+    documentUrl: withOdhBaseUrl('/swagger/v1/swagger.json'),
+    baseUrl: withOdhBaseUrl(''),
   },
   mobility: {
     description: 'Open Data Hub Mobility API',

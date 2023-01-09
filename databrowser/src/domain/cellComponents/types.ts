@@ -14,6 +14,7 @@ export enum CellComponent {
   ImageEditCell = 'ImageEditCell',
   ImageGalleryCell = 'ImageGalleryCell',
   JsonCell = 'JsonCell',
+  OdhTagCell = 'OdhTagCell',
   SelectWithOptionsCell = 'SelectWithOptionsCell',
   StateCell = 'StateCell',
   StringCell = 'StringCell',

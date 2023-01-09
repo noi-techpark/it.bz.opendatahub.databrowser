@@ -1,6 +1,10 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
-import { IMAGE_GALLERY_CONFIG, LAST_CHANGES_CONFIG } from '../configBuilder';
+import {
+  IMAGE_GALLERY_CONFIG,
+  LAST_CHANGES_CONFIG,
+  odhTagConfigWithMainEntity,
+} from '../configBuilder';
 
 export const eventEditView: EditViewConfig = {
   elements: [
@@ -225,19 +229,8 @@ export const eventEditView: EditViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-          name: 'General data',
-          properties: [
-            {
-              title: 'SMG Tags',
-              component: CellComponent.StringCell,
-              fields: { text: 'SmgTags' },
-            },
-            {
-              title: 'Open Data Hub Tags',
-              component: CellComponent.ArrayCell,
-              fields: { text: 'ODHTags' },
-            },
-          ],
+          name: '',
+          properties: [odhTagConfigWithMainEntity('event')],
         },
       ],
     },

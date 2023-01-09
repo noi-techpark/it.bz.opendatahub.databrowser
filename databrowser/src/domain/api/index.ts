@@ -16,6 +16,7 @@ export { createApiQueryHandler, useApiQuery } from './service/apiQueryHandler';
 export { stringifyParameter } from './service/query';
 export { createUrlQueryHandler, useUrlQuery } from './service/urlQueryHandler';
 export {
+  isFieldsEmpty,
   replacePlaceholders,
   useApiParameterReplacements,
   useAsList,

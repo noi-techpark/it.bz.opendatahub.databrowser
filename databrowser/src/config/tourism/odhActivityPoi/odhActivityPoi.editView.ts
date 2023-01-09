@@ -1,10 +1,12 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { WebComponent } from '../../../domain/webComponents/webComponentRegistry';
+import { withOdhBaseUrl } from '../../utils';
 import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
+  odhTagConfigWithMainEntity,
   WEBCAM_CONFIG,
 } from '../configBuilder';
 
@@ -40,7 +42,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'Type' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -50,7 +52,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'SubType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -60,7 +62,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'PoiType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -582,33 +584,8 @@ export const odhActivityPoiEditView: EditViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-          name: 'Open Data Hub Tags',
-          properties: [
-            {
-              title: 'Open Data Hub Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'ODHTags',
-              },
-              params: {
-                fieldName: 'Id',
-                separator: ', ',
-                max: '3',
-              },
-            },
-            {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCell,
-              class: 'w-40',
-              fields: {
-                items: 'SmgTags',
-              },
-              params: {
-                separator: ', ',
-              },
-            },
-          ],
+          name: '',
+          properties: [odhTagConfigWithMainEntity('odhactivitypoi')],
         },
       ],
     },
@@ -776,7 +753,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'AdditionalPoiInfos.{language}.MainType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -786,7 +763,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'AdditionalPoiInfos.{language}.SubType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },
@@ -796,7 +773,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
               component: CellComponent.InputReferenceCell,
               fields: { value: 'AdditionalPoiInfos.{language}.PoiType' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/ODHActivityPoiTypes',
+                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'Key',
                 keySelector: 'Key',
               },

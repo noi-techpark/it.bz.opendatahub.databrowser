@@ -1,4 +1,5 @@
 import { CellComponent } from '../../domain/cellComponents/types';
+import { withOdhBaseUrl } from '../utils';
 
 export const ID_READONLY_CONFIG = {
   title: 'ID',
@@ -58,6 +59,21 @@ export const ROOM_BOOKED_CONFIG = {
     attributeName: 'roomBooked',
   },
 } as const;
+
+export const ODH_TAG_CONFIG = {
+  title: 'Open Data Hub Tags',
+  component: CellComponent.OdhTagCell,
+  listFields: {
+    attributeName: 'odhTags',
+    pathToParent: 'SmgTags',
+  },
+  params: { url: withOdhBaseUrl('/v1/ODHTag') },
+};
+
+export const odhTagConfigWithMainEntity = (mainentity: string) => ({
+  ...ODH_TAG_CONFIG,
+  params: { url: `${ODH_TAG_CONFIG.params.url}?mainentity=${mainentity}` },
+});
 
 export const WEBCAM_CONFIG = {
   title: '',

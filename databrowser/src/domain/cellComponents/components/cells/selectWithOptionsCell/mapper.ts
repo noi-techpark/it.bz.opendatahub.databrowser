@@ -72,7 +72,7 @@ const buildOptions = (
 
     return [...previous, option];
   }, []);
-  return [{ label: '--- Please select ---', value: '' }, ...options];
+  return [{ label: '--- No value ---', value: '' }, ...options];
 };
 
 // The select options are provided as attributes of form

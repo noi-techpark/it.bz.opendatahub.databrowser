@@ -5,6 +5,7 @@ import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
+  odhTagConfigWithMainEntity,
 } from '../configBuilder';
 
 export const accommodationEditView: EditViewConfig = {
@@ -24,20 +25,20 @@ export const accommodationEditView: EditViewConfig = {
             {
               title: 'Accommodation type',
               component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoType.Id' },
+              fields: { value: 'AccoTypeId' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
+                url: withOdhBaseUrl('/v1/AccommodationTypes'),
+                labelSelector: 'TypeDesc.{language}',
                 keySelector: 'Id',
               },
             },
             {
               title: 'Accommodation category',
               component: CellComponent.InputReferenceCell,
-              fields: { value: 'AccoCategory.Id' },
+              fields: { value: 'AccoCategoryId' },
               params: {
-                url: 'https://api.tourism.testingmachine.eu/v1/AccommodationTypes',
-                labelSelector: 'TypeDesc.en',
+                url: withOdhBaseUrl('/v1/AccommodationTypes'),
+                labelSelector: 'TypeDesc.{language}',
                 keySelector: 'Id',
               },
             },
@@ -215,9 +216,10 @@ export const accommodationEditView: EditViewConfig = {
               fields: { value: 'AccoType.Id' },
               params: {
                 url: withOdhBaseUrl('/v1/AccommodationTypes'),
-                labelSelector: 'TypeDesc.en',
+                labelSelector: 'TypeDesc.{language}',
                 keySelector: 'Id',
               },
+              required: true,
             },
             {
               title: 'Accommodation category',
@@ -225,9 +227,10 @@ export const accommodationEditView: EditViewConfig = {
               fields: { value: 'AccoCategory.Id' },
               params: {
                 url: withOdhBaseUrl('/v1/AccommodationTypes'),
-                labelSelector: 'TypeDesc.en',
+                labelSelector: 'TypeDesc.{language}',
                 keySelector: 'Id',
               },
+              required: true,
             },
             {
               title: 'Long description',
@@ -384,33 +387,8 @@ export const accommodationEditView: EditViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-          name: 'Open Data Hub Tags',
-          properties: [
-            {
-              title: 'Open Data Hub Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'ODHTags',
-              },
-              params: {
-                fieldName: 'Id',
-                separator: ', ',
-                max: '3',
-              },
-            },
-            {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCell,
-              class: 'w-40',
-              fields: {
-                items: 'SmgTags',
-              },
-              params: {
-                separator: ', ',
-              },
-            },
-          ],
+          name: '',
+          properties: [odhTagConfigWithMainEntity('accommodation')],
         },
       ],
     },
