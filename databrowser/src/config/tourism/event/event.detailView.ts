@@ -1,6 +1,9 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
-import { LAST_CHANGES_CONFIG } from '../configBuilder';
+import {
+  LAST_CHANGES_CONFIG,
+  odhTagConfigWithMainEntity,
+} from '../configBuilder';
 
 export const eventDetailView: DetailViewConfig = {
   elements: [
@@ -233,19 +236,8 @@ export const eventDetailView: DetailViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-          name: 'General data',
-          properties: [
-            {
-              title: 'SMG Tags',
-              component: CellComponent.StringCell,
-              fields: { text: 'SmgTags' },
-            },
-            {
-              title: 'Open Data Hub Tags',
-              component: CellComponent.ArrayCell,
-              fields: { text: 'ODHTags' },
-            },
-          ],
+          name: '',
+          properties: [odhTagConfigWithMainEntity('event')],
         },
       ],
     },

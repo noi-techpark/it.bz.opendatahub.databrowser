@@ -6,6 +6,7 @@ import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
+  odhTagConfigWithMainEntity,
   WEBCAM_CONFIG,
 } from '../configBuilder';
 
@@ -583,33 +584,8 @@ export const odhActivityPoiEditView: EditViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-          name: 'Open Data Hub Tags',
-          properties: [
-            {
-              title: 'Open Data Hub Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'ODHTags',
-              },
-              params: {
-                fieldName: 'Id',
-                separator: ', ',
-                max: '3',
-              },
-            },
-            {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCell,
-              class: 'w-40',
-              fields: {
-                items: 'SmgTags',
-              },
-              params: {
-                separator: ', ',
-              },
-            },
-          ],
+          name: '',
+          properties: [odhTagConfigWithMainEntity('odhactivitypoi')],
         },
       ],
     },

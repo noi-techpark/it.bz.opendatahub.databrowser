@@ -4,6 +4,7 @@ import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
+  odhTagConfigWithMainEntity,
 } from '../configBuilder';
 
 export const articleEditView: EditViewConfig = {
@@ -275,21 +276,7 @@ export const articleEditView: EditViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [
-            {
-              title: 'Open Data Hub Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'ODHTags',
-              },
-              params: {
-                fieldName: 'Id',
-                separator: ', ',
-                max: '3',
-              },
-            },
-          ],
+          properties: [odhTagConfigWithMainEntity('article')],
         },
       ],
     },

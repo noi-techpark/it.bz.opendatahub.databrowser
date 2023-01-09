@@ -1,6 +1,10 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ID_READONLY_CONFIG, LAST_CHANGES_CONFIG } from '../configBuilder';
+import {
+  ID_READONLY_CONFIG,
+  LAST_CHANGES_CONFIG,
+  odhTagConfigWithMainEntity,
+} from '../configBuilder';
 
 export const venueDetailView: DetailViewConfig = {
   elements: [
@@ -219,6 +223,16 @@ export const venueDetailView: DetailViewConfig = {
               },
             },
           ],
+        },
+      ],
+    },
+    {
+      name: 'Tags',
+      slug: 'tags',
+      subcategories: [
+        {
+          name: '',
+          properties: [odhTagConfigWithMainEntity('venue')],
         },
       ],
     },

@@ -1,6 +1,10 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ID_READONLY_CONFIG, LAST_CHANGES_CONFIG } from '../configBuilder';
+import {
+  ID_READONLY_CONFIG,
+  LAST_CHANGES_CONFIG,
+  odhTagConfigWithMainEntity,
+} from '../configBuilder';
 
 export const venueEditView: EditViewConfig = {
   elements: [
@@ -228,33 +232,8 @@ export const venueEditView: EditViewConfig = {
       slug: 'tags',
       subcategories: [
         {
-          name: 'Open Data Hub Tags',
-          properties: [
-            {
-              title: 'Open Data Hub Tags',
-              component: CellComponent.ArrayCellTags,
-              class: 'w-40',
-              fields: {
-                items: 'ODHTags',
-              },
-              params: {
-                fieldName: 'Id',
-                separator: ', ',
-                max: '3',
-              },
-            },
-            {
-              title: 'SMG Tags',
-              component: CellComponent.ArrayCell,
-              class: 'w-40',
-              fields: {
-                items: 'SmgTags',
-              },
-              params: {
-                separator: ', ',
-              },
-            },
-          ],
+          name: '',
+          properties: [odhTagConfigWithMainEntity('venue')],
         },
       ],
     },
