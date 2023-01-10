@@ -97,8 +97,8 @@ export const articleEditView: EditViewConfig = {
             },
             {
               title: 'Base text',
-              component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.BaseText' },
+              component: CellComponent.HtmlCell,
+              fields: { html: 'Detail.{language}.BaseText' },
             },
             {
               title: 'Additional text',
