@@ -11,6 +11,7 @@ import { createApiQueryHandler, createUrlQueryHandler } from './domain/api';
 import CookieConsent from 'vue-cookieconsent';
 import './cookieconsent/cookieconsent.css';
 import { consentOptions } from './cookieconsent/consentOptions';
+import VueHotjar from 'vue-hotjar-next';
 
 const app = createApp(App);
 
@@ -46,3 +47,6 @@ loadLocaleMessages(i18n, locale).then(() => {
 
 // Add cookie-banner
 app.use(CookieConsent, consentOptions);
+
+// Add hotjar
+app.use(VueHotjar, { id: import.meta.env.VITE_APP_HOTJAR_ID });

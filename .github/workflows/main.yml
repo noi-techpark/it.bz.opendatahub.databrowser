@@ -35,6 +35,7 @@ jobs:
       VITE_APP_IMAGE_UPLOAD_URL: "https://api.tourism.testingmachine.eu/v1/FileUpload/Image"
       VITE_APP_FILE_UPLOAD_URL: "https://api.tourism.testingmachine.eu/v1/FileUpload/"
       VITE_APP_ODH_LOOKUP_BASE_URL: "https://api.tourism.testingmachine.eu"
+      VITE_APP_HOTJAR_ID: "3316333"
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
@@ -67,6 +68,7 @@ jobs:
       VITE_APP_IMAGE_UPLOAD_URL: "https://tourism.opendatahub.bz.it/v1/FileUpload/Image"
       VITE_APP_FILE_UPLOAD_URL: "https://tourism.opendatahub.bz.it/v1/FileUpload"
       VITE_APP_ODH_LOOKUP_BASE_URL: "https://tourism.opendatahub.bz.it"
+      VITE_APP_HOTJAR_ID: "3316285"
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
