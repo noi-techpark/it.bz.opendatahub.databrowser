@@ -230,7 +230,7 @@ export const articleDetailView: DetailViewConfig = {
               title: '',
               component: CellComponent.ArticleAdditionalInfoCell,
               fields: {
-                links: 'AdditionalArticleInfos.{language}.Elements',
+                infos: 'AdditionalArticleInfos.{language}.Elements',
               },
             },
           ],
