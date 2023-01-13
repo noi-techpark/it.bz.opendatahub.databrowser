@@ -9,7 +9,7 @@
         <slot name="addItems"></slot>
       </template>
     </EditListTableHeader>
-    <TableCustom class="mb-5">
+    <TableCustom class="mb-5 overflow-y-auto">
       <colgroup>
         <template v-if="editable && hasItems">
           <col v-if="showSortableColumn" class="w-0 md:w-10" />
