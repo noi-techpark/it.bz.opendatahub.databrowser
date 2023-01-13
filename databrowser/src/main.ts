@@ -49,4 +49,8 @@ loadLocaleMessages(i18n, locale).then(() => {
 app.use(CookieConsent, consentOptions);
 
 // Add hotjar
-app.use(VueHotjar, { id: import.meta.env.VITE_APP_HOTJAR_ID });
+const isProduction = process.env.NODE_ENV !== 'development';
+app.use(VueHotjar, {
+  id: parseInt(import.meta.env.VITE_APP_HOTJAR_ID, 10),
+  isProduction,
+});
