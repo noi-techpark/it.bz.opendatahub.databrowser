@@ -5,7 +5,7 @@ export enum SelectSize {
 
 export interface SelectOption {
   label: string;
-  value: string;
+  value: string | undefined;
   disabled?: boolean;
   selected?: boolean;
 }

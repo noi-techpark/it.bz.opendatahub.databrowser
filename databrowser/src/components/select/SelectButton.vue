@@ -1,9 +1,9 @@
 <template>
   <ListboxButton
     v-slot="{ open }"
-    class="relative w-full border border-gray-300 pr-9 pl-3 text-left leading-tight"
+    class="relative w-full border border-gray-300 pr-9 pl-2 text-left leading-tight"
   >
-    <span class="block">{{ selectedOption?.label }}</span>
+    <span class="block">{{ label }}</span>
     <span
       class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
     >
@@ -18,7 +18,6 @@ import { defineProps } from 'vue';
 import { ListboxButton } from '@headlessui/vue';
 import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
 import IconStrokedArrowUp from '../svg/IconStrokedArrowUp.vue';
-import { SelectOption } from './types';
 
-defineProps<{ selectedOption: SelectOption }>();
+defineProps<{ label: string }>();
 </script>

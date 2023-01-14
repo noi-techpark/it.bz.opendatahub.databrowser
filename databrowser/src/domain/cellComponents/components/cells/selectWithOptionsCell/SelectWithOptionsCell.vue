@@ -1,6 +1,11 @@
 <template>
   <div v-if="isWriteable">
-    <SelectCustom :options="options" :size="SelectSize.md" @change="change" />
+    <SelectCustom
+      :options="options"
+      :size="SelectSize.md"
+      :show-no-value="showNoValue"
+      @change="change"
+    />
     <div v-if="unknownValue" class="text-red-400">
       Attention: current value "{{ value }}" is unknown
     </div>
@@ -28,18 +33,20 @@ const props = withDefaults(
   defineProps<{
     value?: string | boolean | number;
     sortByLabel?: boolean;
+    showNoValue?: boolean;
     editable?: boolean;
     readonly?: string | boolean;
   }>(),
   {
     value: undefined,
     sortByLabel: true,
+    showNoValue: false,
     editable: true,
     readonly: false,
   }
 );
 
-const { value, sortByLabel, editable, readonly } = toRefs(props);
+const { value, sortByLabel, showNoValue, editable, readonly } = toRefs(props);
 const isWriteable = useWriteable({ editable, readonly });
 
 const attrs = useAttrs();

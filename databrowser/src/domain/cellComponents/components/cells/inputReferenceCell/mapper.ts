@@ -46,13 +46,6 @@ export const useMapper = (
       if (sortByLabel) {
         options.value.sort((a, b) => a.label.localeCompare(b.label));
       }
-
-      if (emptyAllowed.value) {
-        options.value = [
-          { label: '--- No value ---', value: '' },
-          ...options.value,
-        ];
-      }
     },
     { immediate: true }
   );

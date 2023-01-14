@@ -5,7 +5,12 @@
       <pre>{{ JSON.stringify(error, null, 2) }}</pre>
     </div>
     <div v-if="isSuccess">
-      <SelectCustom :options="options" :size="SelectSize.md" @change="change" />
+      <SelectCustom
+        :options="options"
+        :size="SelectSize.md"
+        :show-no-value="emptyAllowed"
+        @change="change"
+      />
       <div v-if="showUnknownError" class="text-red-400">
         Attention: current value "{{ value }}" is unknown
       </div>
