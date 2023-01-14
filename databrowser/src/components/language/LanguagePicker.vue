@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center">
+  <div class="relative z-30 flex items-center">
     <ButtonLink
       v-for="link in links"
       :key="link.label"
