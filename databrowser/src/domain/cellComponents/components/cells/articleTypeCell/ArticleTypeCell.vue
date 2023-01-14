@@ -31,7 +31,6 @@ import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import { SelectSize } from '../../../../../components/select/types';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';
-import StringCell from '../stringCell/StringCell.vue';
 import { useArticleTypeSelection } from './useArticleTypeSelection';
 import { useFetchArticleTypes } from './useFetchArticleTypes';
 

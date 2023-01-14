@@ -72,8 +72,7 @@ const { options, unknownValue } = useMapper(
   value,
   keySelector,
   labelSelector,
-  sortByLabel,
-  emptyAllowed
+  sortByLabel
 );
 
 const isLoading = computed(() => response.isLoading.value);

@@ -33,6 +33,11 @@ const types: Record<TagType, Color> = {
     text: 'text-hint-calm',
     dot: 'bg-hint-calm',
   },
+  calm: {
+    background: 'bg-dialog',
+    text: 'text-white',
+    dot: 'bg-white',
+  },
   green: {
     background: 'bg-hint-info-secondary',
     text: 'text-hint-info',
