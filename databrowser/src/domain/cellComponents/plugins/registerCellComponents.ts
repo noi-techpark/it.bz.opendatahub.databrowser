@@ -4,6 +4,7 @@ import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
 import ArrayCellTags from '../components/cells/arrayCellTags/ArrayCellTags.vue';
 import ArticleAdditionalInfoCell from '../components/cells/articleAdditionalInfoCell/ArticleAdditionalInfoCell.vue';
 import ArticleLinkInfoCell from '../components/cells/articleLinkInfoCell/ArticleLinkInfoCell.vue';
+import ArticleTypeCell from '../components/cells/articleTypeCell/ArticleTypeCell.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditImageGalleryCell.vue';
@@ -39,6 +40,7 @@ export default {
       ArticleAdditionalInfoCell
     );
     app.component(CellComponent.ArticleLinkInfoCell, ArticleLinkInfoCell);
+    app.component(CellComponent.ArticleTypeCell, ArticleTypeCell);
     app.component(CellComponent.DateCell, DateCell);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
     app.component(CellComponent.EditImageGalleryCell, EditImageGalleryCell);
