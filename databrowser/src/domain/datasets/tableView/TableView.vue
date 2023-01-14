@@ -21,7 +21,7 @@
           "
           :show-quick="datasetConfigStore.hasQuickView"
         />
-        <ExportDatasetToolBox :url="url" :is-table-view="true" />
+        <SearchAndFilterToolbox :url="url" />
       </div>
       <TableFooter
         :pagination-options="paginationOptions"
@@ -52,9 +52,9 @@ import {
 import TableFooter from './TableFooter.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ShowApiError from '../../api/components/ShowApiError.vue';
-import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
 import { useI18n } from 'vue-i18n';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import SearchAndFilterToolbox from './SearchAndFilterToolbox.vue';
 
 const { t } = useI18n();
 
