@@ -48,6 +48,11 @@ const types: Record<TagType, Color> = {
     text: 'text-hint-warning',
     dot: 'bg-hint-warning',
   },
+  info: {
+    background: 'bg-yellow-400',
+    text: 'text-black',
+    dot: 'bg-black',
+  },
 };
 
 const props = withDefaults(

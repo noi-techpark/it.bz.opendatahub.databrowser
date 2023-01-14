@@ -11,6 +11,7 @@
       <div class="ml-4 inline-flex items-center">
         <OverlayMenu :items="data" />
       </div>
+      <TagCustom class="ml-4 py-1.5 text-sm" type="info" text="BETA" />
     </div>
     <MenuUserSection />
   </ContentAlignmentX>
@@ -22,6 +23,7 @@ import OverlayMenu from './menu/OverlayMenu.vue';
 import { MenuColumn } from './menu/OverlayMenuList.vue';
 import MenuUserSection from '../domain/auth/MenuUserSection.vue';
 import { useI18n } from 'vue-i18n';
+import TagCustom from '../components/tag/TagCustom.vue';
 
 const { t } = useI18n();
 
