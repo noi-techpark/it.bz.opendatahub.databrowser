@@ -3,6 +3,7 @@ export enum CellComponent {
   ArrayCellTags = 'ArrayCellTags',
   ArticleAdditionalInfoCell = 'ArticleAdditionalInfoCell',
   ArticleLinkInfoCell = 'ArticleLinkInfoCell',
+  ArticleTypeCell = 'ArticleTypeCell',
   DateCell = 'DateCell',
   EditedDateCell = 'EditedDateCell',
   EditImageGalleryCell = 'EditImageGalleryCell',

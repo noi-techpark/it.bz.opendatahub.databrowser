@@ -59,7 +59,7 @@ const buildOptions = (
     keys.sort();
   }
 
-  const options = keys.reduce<SelectOption[]>((previous, key) => {
+  return keys.reduce<SelectOption[]>((previous, key) => {
     const value = optionsWithKeysAndValues[key].value;
     const label = optionsWithKeysAndValues[key].label;
     const option: SelectOption = { value, label };
@@ -72,7 +72,6 @@ const buildOptions = (
 
     return [...previous, option];
   }, []);
-  return [{ label: '--- No value ---', value: '' }, ...options];
 };
 
 // The select options are provided as attributes of form

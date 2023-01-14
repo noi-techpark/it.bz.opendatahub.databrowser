@@ -56,19 +56,23 @@ const results = computed(() => {
   return datasetsForPages.tourism;
 });
 
-const accessTypeOptions: SelectOption[] = [
+const currentAccessType = ref('all');
+
+const accessTypeOptions = computed<SelectOption[]>(() => [
   {
     label: 'All access types',
     value: 'all',
+    selected: currentAccessType.value === 'all',
   },
   {
     label: 'Full access',
     value: 'opendata',
+    selected: currentAccessType.value === 'opendata',
   },
   {
     label: 'Limited access',
     value: 'limited',
+    selected: currentAccessType.value === 'limited',
   },
-];
-const currentAccessType = ref('all');
+]);
 </script>

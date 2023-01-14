@@ -20,12 +20,13 @@ import SelectCustom from '../../../components/select/SelectCustom.vue';
 import Paginator from '../../../components/paginator/Paginator.vue';
 import { Pagination } from '../../api';
 import { useI18n } from 'vue-i18n';
+import { SelectOption } from '../../../components/select/types';
 
 const { t } = useI18n();
 
 defineProps<{
   pagination: Pagination;
-  paginationOptions: { value: string; label: string; selected?: boolean }[];
+  paginationOptions: SelectOption[];
 }>();
 
 defineEmits(['pageSizeChanges', 'paginateTo']);

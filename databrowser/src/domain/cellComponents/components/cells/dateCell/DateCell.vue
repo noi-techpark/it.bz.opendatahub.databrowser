@@ -34,8 +34,6 @@ const props = withDefaults(
   }
 );
 
-console.log('date', props.date);
-
 const { editable, readonly } = toRefs(props);
 
 const formattedDate = computed(() => {

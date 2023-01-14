@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
+import { withOdhBaseUrl } from '../../utils';
 import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
@@ -278,14 +279,13 @@ export const articleDetailView: DetailViewConfig = {
               fields: { enabled: 'Highlight' },
             },
             {
-              title: 'Main Type',
-              component: CellComponent.StringCell,
-              fields: { text: 'Type' },
-            },
-            {
-              title: 'Sub Type',
-              component: CellComponent.StringCell,
-              fields: { text: 'SubType' },
+              title: '',
+              component: CellComponent.ArticleTypeCell,
+              fields: {
+                type: 'Type',
+                subType: 'SubType',
+              },
+              params: { lookupUrl: withOdhBaseUrl('/v1/ArticleTypes') },
             },
             {
               title: 'Article Date',
