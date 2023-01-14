@@ -12,8 +12,7 @@ export const useMapper = (
   initialValue: Ref<string | boolean | number | unknown>,
   keySelector: Ref<string>,
   labelSelector: Ref<string>,
-  sortByLabel: Ref<boolean>,
-  emptyAllowed: Ref<boolean>
+  sortByLabel: Ref<boolean>
 ) => {
   const options = ref<SelectOption[]>([]);
 
