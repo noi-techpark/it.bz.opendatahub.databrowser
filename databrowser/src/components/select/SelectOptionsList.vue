@@ -1,5 +1,6 @@
 <template>
   <ListboxOptions
+    :unmount="false"
     class="max-h-60 overflow-auto bg-white text-base focus-visible:outline-none"
   >
     <ListboxOption
