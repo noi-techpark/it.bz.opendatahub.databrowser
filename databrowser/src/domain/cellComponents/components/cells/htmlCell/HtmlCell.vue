@@ -3,7 +3,7 @@
     <QuillEditor
       v-if="isWriteable"
       ref="quill"
-      :content="html"
+      :content="html ?? ''"
       content-type="html"
       theme="snow"
       :toolbar="toolbar"
