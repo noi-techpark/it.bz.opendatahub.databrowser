@@ -86,7 +86,7 @@ export const snowReportEditView: EditViewConfig = {
               component: CellComponent.DateCell,
               fields: { date: 'Measuringpoints.0.LastSnowDate' },
               params: {
-                format: 'd/M/yyyy HH:mm',
+                format: 'do MMMM yyyy HH:mm',
               },
             },
             {

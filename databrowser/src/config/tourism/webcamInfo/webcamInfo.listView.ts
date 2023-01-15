@@ -47,7 +47,7 @@ export const webcamInfoListView: ListViewConfig = {
         date: 'LastChange',
       },
       params: {
-        format: 'dd. MMMM yyyy',
+        format: 'do MMMM yyyy',
       },
     },
     {
