@@ -97,7 +97,7 @@ export type DetailViewConfig = DetailViewElements;
 export type QuickViewConfig = QuickViewElements;
 export type EditViewConfig = EditViewElements;
 export type RawViewConfig = unknown;
-export type NewViewConfig = unknown;
+export type NewViewConfig = EditViewElements;
 
 export interface Operation {
   rolesAllowed: string[];

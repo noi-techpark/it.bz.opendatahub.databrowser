@@ -63,7 +63,9 @@ export const useCategories = () => {
       }
 
       const views = config?.views;
-      const elements = datasetConfigStore.isDetailView
+      const elements = datasetConfigStore.isNewView
+        ? views?.new?.elements
+        : datasetConfigStore.isDetailView
         ? views?.detail?.elements
         : views?.edit?.elements;
 

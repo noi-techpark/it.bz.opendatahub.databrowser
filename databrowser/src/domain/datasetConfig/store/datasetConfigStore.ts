@@ -21,6 +21,7 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', {
         ? url
         : url + '/' + this.datasetRoute.id;
     },
+    newView: (state) => state.config?.views?.new,
     detailView: (state) => state.config?.views?.detail,
     editView: (state) => state.config?.views?.edit,
     quickView: (state) => state.config?.views?.quick,
