@@ -31,14 +31,14 @@ import { computed, defineProps } from 'vue';
 import IconInfo from '../../../components/svg/IconInfo.vue';
 
 const props = defineProps<{
-  title: string;
+  title?: string;
   tooltip?: string;
   required?: boolean;
   errors?: string[];
 }>();
 
 const hasTitleOrTooltip = computed(
-  () => props.title.length > 0 || props.tooltip != null
+  () => (props.title != null && props.title.length > 0) || props.tooltip != null
 );
 
 const hasError = computed(
