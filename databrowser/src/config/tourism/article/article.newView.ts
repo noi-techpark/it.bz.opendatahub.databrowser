@@ -22,7 +22,7 @@ export const articleNewView: EditViewConfig = {
               required: true,
             },
             {
-              title: 'Article Type',
+              title: '',
               component: CellComponent.ArticleTypeCell,
               fields: {
                 type: 'Type',
