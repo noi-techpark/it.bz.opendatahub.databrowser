@@ -28,7 +28,7 @@
         <router-link
           v-if="isMenuLink(category)"
           :to="category.url"
-          class="w-full flex-1 py-2 px-4 text-left"
+          class="w-full flex-1 py-2 px-4 text-left no-underline"
           @click="$emit('close-dialog')"
         >
           {{ category.label }}

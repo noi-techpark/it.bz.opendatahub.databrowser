@@ -28,7 +28,7 @@ const className = computed(() => {
   const tone = props.tone as Tone;
   const size = props.size as Size;
   return (
-    'inline-flex items-center ' +
+    'inline-flex items-center no-underline ' +
     variantClass[variant][tone] +
     ' ' +
     sizeClass[size]

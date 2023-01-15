@@ -91,10 +91,6 @@ const toolbar = [
   @apply text-green-500;
 }
 
-.ql-editor a:hover {
-  @apply underline;
-}
-
 .ql-editor blockquote {
   @apply p-2 border-l-8 border-gray-500;
 }
@@ -106,10 +102,6 @@ const toolbar = [
 
 .html-content a {
   @apply text-green-500;
-}
-
-.html-content a:hover {
-  @apply underline;
 }
 
 .html-content blockquote {

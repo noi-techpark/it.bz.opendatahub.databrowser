@@ -7,7 +7,7 @@ const toneClass: Record<Tone, string> = {
 
 export const useClassNames = (tone: Ref<string | Tone>) =>
   computed(() => {
-    const classNames = ['underline'];
+    const classNames = [];
 
     const toneClasses = toneClass[tone.value as Tone];
     if (toneClasses != null) {

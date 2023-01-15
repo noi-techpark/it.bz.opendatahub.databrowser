@@ -15,6 +15,10 @@ body {
   height: 100vh;
 }
 
+a {
+  @apply underline;
+}
+
 a:focus-visible {
   @apply focus:border-green-500;
 }
