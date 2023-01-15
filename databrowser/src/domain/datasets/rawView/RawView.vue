@@ -5,7 +5,7 @@
   <template v-if="isSuccess === true">
     <div class="overflow-y-auto md:flex">
       <ContentAlignmentX class="overflow-y-auto py-6 md:flex">
-        <vue-json-pretty
+        <VueJsonPretty
           :data="(data as any)"
           :deep="3"
           show-length
@@ -18,11 +18,16 @@
 </template>
 
 <script setup lang="ts">
-import VueJsonPretty from 'vue-json-pretty';
+import { defineAsyncComponent } from 'vue';
 import { useApiReadForCurrentDataset } from '../../api';
 import ShowApiError from '../../api/components/ShowApiError.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
+import 'vue-json-pretty/lib/styles.css';
+
+const VueJsonPretty = defineAsyncComponent(() =>
+  import('vue-json-pretty').then((exports) => exports.default)
+);
 
 const { isError, isSuccess, data, error, url } = useApiReadForCurrentDataset({
   withQueryParameters: false,
@@ -30,50 +35,29 @@ const { isError, isSuccess, data, error, url } = useApiReadForCurrentDataset({
 </script>
 
 <style>
-.vjs-tree__brackets {
-  @apply cursor-pointer;
-}
-
-.vjs-tree__brackets:hover {
+.vjs-tree-brackets:hover {
   @apply text-blue-500;
 }
 
-.vjs-tree__node {
-  @apply flex relative;
-}
-
-.vjs-tree__node.is-highlight,
-.vjs-tree__node:hover {
+.vjs-tree-node.is-highlight,
+.vjs-tree-node:hover {
   @apply bg-gray-100;
 }
 
-.vjs-tree__node .vjs-tree__indent {
-  @apply flex-grow-0 flex-shrink-0;
-  flex-basis: 1em;
-}
-
-.vjs-tree__node .vjs-tree__indent.has-line {
-  @apply border-l border-dashed border-gray-300;
-}
-
-.vjs-comment {
-  @apply text-gray-500 opacity-75;
-}
-
 .vjs-key {
-  @apply pr-1.5 text-gray-900;
+  @apply pr-1.5;
 }
 
-.vjs-value__null {
+.vjs-value-null {
   @apply text-red-500;
 }
 
-.vjs-value__boolean,
-.vjs-value__number {
+.vjs-value-boolean,
+.vjs-value-number {
   @apply text-blue-500;
 }
 
-.vjs-value__string {
+.vjs-value-string {
   @apply text-green-600;
 }
 
