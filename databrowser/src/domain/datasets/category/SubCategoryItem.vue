@@ -1,13 +1,13 @@
 <template>
-  <div class="pb-2" :class="{ 'has-error': hasError }">
+  <div class="relative pb-2" :class="{ 'has-error': hasError }">
     <div
-      v-if="title != null || tooltip != null"
+      v-if="required"
+      class="dot absolute mr-1 mt-3.5 -ml-2 inline-block h-1 w-1 rounded-full bg-red-600"
+    ></div>
+    <div
+      v-if="hasTitleOrTooltip"
       class="relative flex items-center justify-between py-1"
     >
-      <div
-        v-if="required"
-        class="dot absolute mr-1 -ml-2 inline-block h-1 w-1 rounded-full bg-red-600"
-      ></div>
       <div class="font-semibold">{{ title }}</div>
       <div
         v-if="tooltip != null"
@@ -31,11 +31,15 @@ import { computed, defineProps } from 'vue';
 import IconInfo from '../../../components/svg/IconInfo.vue';
 
 const props = defineProps<{
-  title?: string;
+  title: string;
   tooltip?: string;
   required?: boolean;
   errors?: string[];
 }>();
+
+const hasTitleOrTooltip = computed(
+  () => props.title.length > 0 || props.tooltip != null
+);
 
 const hasError = computed(
   () => props.errors != null && props.errors.length > 0
