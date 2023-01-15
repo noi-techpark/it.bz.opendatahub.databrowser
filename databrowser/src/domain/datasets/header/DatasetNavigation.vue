@@ -58,7 +58,7 @@ import ButtonLink from '../../../components/button/ButtonLink.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import TabLink from '../../../components/tab/TabLink.vue';
 import { useI18n } from 'vue-i18n';
-import { DatasetPage } from '../../../routes';
+import { usePaths } from './usePaths';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { computed } from 'vue';
 
@@ -66,12 +66,14 @@ const { t } = useI18n();
 
 const datasetConfigStore = useDatasetConfigStore();
 
-const detailViewPath = { name: DatasetPage.DETAIL };
-const quickViewPath = { name: DatasetPage.QUICK };
-const rawViewPath = { name: DatasetPage.RAW };
-const editViewPath = { name: DatasetPage.EDIT };
-const tableViewPath = { name: DatasetPage.TABLE };
-const newViewPath = { name: DatasetPage.NEW };
+const {
+  detailViewPath,
+  quickViewPath,
+  rawViewPath,
+  editViewPath,
+  tableViewPath,
+  newViewPath,
+} = usePaths();
 
 const isNewView = computed(() => datasetConfigStore.isNewView);
 
