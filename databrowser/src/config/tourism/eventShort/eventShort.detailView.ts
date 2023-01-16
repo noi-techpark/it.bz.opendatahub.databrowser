@@ -101,9 +101,9 @@ export const eventShortDetailView: DetailViewConfig = {
               params: { format: 'do MMMM yyyy HH:mm' },
             },
             {
-              title: 'Rooms',
-              component: CellComponent.TypeBasedCell,
-              fields: { data: 'RoomBooked' },
+              title: 'Room name',
+              component: CellComponent.StringCell,
+              fields: { text: 'AnchorVenue' },
             },
             {
               title: 'Location',
