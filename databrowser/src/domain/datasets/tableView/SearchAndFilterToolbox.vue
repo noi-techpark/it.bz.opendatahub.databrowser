@@ -2,6 +2,7 @@
   <ToolBox
     :is-table-view="true"
     :tab-names="['Search and filter', 'Export datasets']"
+    :default-index="1"
   >
     <TabPanel>
       <ToolBoxCard label="Basic Search" :break-all="true" :is-filter="true">
