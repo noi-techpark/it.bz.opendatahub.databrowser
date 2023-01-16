@@ -41,6 +41,7 @@ import SubCategoryItem from './SubCategoryItem.vue';
 import { Category, PropertyConfigWithErrors, SubCategory } from './types';
 import ContentDivider from '../../../components/content/ContentDivider.vue';
 import { PropertyConfig } from '../../datasetConfig/types';
+import { CellComponent } from '../../cellComponents/types';
 
 type PropertyConfigWithValue = PropertyConfigWithErrors & {
   value: Record<string, unknown>;
@@ -91,11 +92,18 @@ const computeAndFilterProperties = (
   // Otherwise, return only properties with non-empty values.
   return showAll
     ? propertiesWithValue
-    : propertiesWithValue.filter((p) => hasNonEmptyValue(p.value));
+    : propertiesWithValue.filter((p) => hasNonEmptyValue(p.component, p.value));
 };
 
-const hasNonEmptyValue = (o: Record<string, unknown>) =>
-  Object.values(o).find((v) => v != null) != null;
+const hasNonEmptyValue = (component: string, o: Record<string, unknown>) => {
+  if (component === CellComponent.StringCell && o.text === '') {
+    return false;
+  }
+  if (component === CellComponent.ToggleCell) {
+    return true;
+  }
+  return Object.values(o).find((v) => v != null) != null;
+};
 
 const { mapWithIndex, mapListWithIndex } = usePropertyMapping();
 </script>
