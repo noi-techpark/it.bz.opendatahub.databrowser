@@ -15,6 +15,7 @@
         class="py-1 px-4"
         :to="category.to"
         :active="slug === category.slug"
+        @click="emit('change', category.slug)"
       >
         <span :class="{ 'text-error': category.isAnyFieldError === true }">
           {{ computeLabel(category.name, category.isAnyFieldRequired) }}
@@ -31,6 +32,8 @@ import PillLink from '../../../components/pill/PillLink.vue';
 import { Category } from './types';
 import SelectCustom from '../../../components/select/SelectCustom.vue';
 import { SelectOption, SelectSize } from '../../../components/select/types';
+
+const emit = defineEmits(['change']);
 
 const props = defineProps<{
   categories: Category[];
