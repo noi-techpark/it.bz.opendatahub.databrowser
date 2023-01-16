@@ -32,7 +32,7 @@
         >
           <ContentAlignmentX class="h-full">
             <div class="flex flex-col justify-between">
-              <TabGroup>
+              <TabGroup :default-index="defaultIndex">
                 <div
                   class="sticky top-0 z-10 flex flex-col justify-end bg-white"
                 >
@@ -103,6 +103,7 @@ import TabButton from '../../../components/tab/TabButton.vue';
 const props = defineProps<{
   isTableView: boolean;
   tabNames: string[];
+  defaultIndex?: number;
 }>();
 
 const isToolboxVisible = ref(false);
