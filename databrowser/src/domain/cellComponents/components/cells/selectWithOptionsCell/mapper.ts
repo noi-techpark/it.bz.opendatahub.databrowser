@@ -82,22 +82,28 @@ const buildOptions = (
 // value "Eurac" are merged into the following SelectOption:
 // {value: "EC", label: "Eurac"}
 export const useMapper = (
+  options: Ref<SelectOption[] | undefined>,
   attrs: Ref<Record<string, unknown>>,
   initialValue: Ref<string | boolean | number | unknown>,
   sortByLabel: Ref<boolean>
 ) => {
-  const options = ref<SelectOption[]>([]);
+  const optionsInternal = ref<SelectOption[]>([]);
 
   watch(
-    () => [attrs.value, initialValue.value],
+    () => [attrs.value, initialValue.value, options.value],
     () => {
+      if (options.value != null) {
+        optionsInternal.value = options.value;
+        return;
+      }
+
       const optionsWithKeys = mapToOptionsWithKeys(attrs.value);
       const optionsWithKeysAndValues = mapToOptionsWithKeysAndValues(
         attrs.value,
         optionsWithKeys
       );
 
-      options.value = buildOptions(
+      optionsInternal.value = buildOptions(
         optionsWithKeysAndValues,
         initialValue.value,
         sortByLabel.value
@@ -109,8 +115,8 @@ export const useMapper = (
   const unknownValue = computed(
     () =>
       initialValue.value != null &&
-      options.value.find((o) => o.selected === true) == null
+      optionsInternal.value.find((o) => o.selected === true) == null
   );
 
-  return { options, unknownValue };
+  return { optionsInternal, unknownValue };
 };
