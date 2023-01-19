@@ -1,14 +1,16 @@
 <template>
-  <DialogCustom :is-open="dialogsStore.dialogVisible">
-    <template #title>{{ title }}</template>
-    <template #description>{{ description }}</template>
-    <template #body>
-      <ButtonCustom @click="confirmDelete">Yes (y)</ButtonCustom>
-      <ButtonCustom :variant="Variant.ghost" @click="closeDialog">
-        No (n)
-      </ButtonCustom>
-    </template>
-  </DialogCustom>
+  <div>
+    <DialogCustom :is-open="showDialog">
+      <template #title>{{ title }}</template>
+      <template #description>{{ description }}</template>
+      <template #body>
+        <ButtonCustom @click="confirmDelete">Yes (y)</ButtonCustom>
+        <ButtonCustom :variant="Variant.ghost" @click="closeDialog">
+          No (n)
+        </ButtonCustom>
+      </template>
+    </DialogCustom>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -17,24 +19,22 @@ import { onKeyStroke } from '@vueuse/core';
 import DialogCustom from '../../../../../../components/dialog/DialogCustom.vue';
 import ButtonCustom from '../../../../../../components/button/ButtonCustom.vue';
 import { Variant } from '../../../../../../components/button/types';
-import { useDeleteDialogStore } from './editListDeleteDialogStore';
 
-const emit = defineEmits(['confirmDelete']);
+const emit = defineEmits(['close', 'confirmDelete']);
 
-defineProps<{ title: string; description: string }>();
+const props = defineProps<{
+  showDialog: boolean;
+  title: string;
+  description: string;
+}>();
 
-const dialogsStore = useDeleteDialogStore();
+const confirmDelete = () => emit('confirmDelete');
 
-const confirmDelete = () => {
-  closeDialog();
-  emit('confirmDelete');
-};
-
-const closeDialog = () => (dialogsStore.dialogVisible = false);
+const closeDialog = () => emit('close');
 
 onKeyStroke('y', () => {
   // Don't handle key stroke if dialog is not visible
-  if (!dialogsStore.dialogVisible) {
+  if (!props.showDialog) {
     return;
   }
   confirmDelete();
@@ -42,7 +42,7 @@ onKeyStroke('y', () => {
 
 onKeyStroke('n', () => {
   // Don't handle key stroke if dialog is not visible
-  if (!dialogsStore.dialogVisible) {
+  if (!props.showDialog) {
     return;
   }
   closeDialog();

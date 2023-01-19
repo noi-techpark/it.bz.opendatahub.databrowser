@@ -6,7 +6,9 @@
     <EditListDeleteDialog
       title="Confirm deletion"
       description="Are you sure you want to delete all selected items?"
-      @confirm-delete="emit('deleteSelectedItems')"
+      :show-dialog="showDialog"
+      @close="showDialog = false"
+      @confirm-delete="emitItemsSelected"
     />
 
     <slot name="addItems"></slot>
@@ -14,20 +16,24 @@
     <EditListDeleteButton
       :disabled="!anyItemSelected"
       text="Delete"
-      @click="dialogsStore.dialogVisible = true"
+      @click="showDialog = true"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue';
+import { defineEmits, defineProps, ref } from 'vue';
 import EditListDeleteButton from '../EditListDeleteButton.vue';
 import EditListDeleteDialog from '../dialogs/EditListDeleteDialog.vue';
-import { useDeleteDialogStore } from '../dialogs/editListDeleteDialogStore';
 
 const emit = defineEmits(['deleteSelectedItems']);
 
+const showDialog = ref(false);
+
 defineProps<{ anyItemSelected: boolean }>();
 
-const dialogsStore = useDeleteDialogStore();
+const emitItemsSelected = () => {
+  showDialog.value = false;
+  emit('deleteSelectedItems');
+};
 </script>

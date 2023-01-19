@@ -3,12 +3,14 @@
     <EditListDeleteDialog
       title="Confirm deletion"
       description="Are you sure you want to delete all items?"
+      :show-dialog="showDialog"
+      @close="showDialog = false"
       @confirm-delete="deleteAllItems"
     />
     <EditListDeleteButton
       :disabled="false"
       text="Delete all items"
-      @click="dialogsStore.dialogVisible = true"
+      @click="showDialog = true"
     />
 
     <slot name="addItems"></slot>
@@ -16,12 +18,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import EditListDeleteButton from '../EditListDeleteButton.vue';
 import EditListDeleteDialog from '../dialogs/EditListDeleteDialog.vue';
-import { useDeleteDialogStore } from '../dialogs/editListDeleteDialogStore';
 import { useInjectActionTriggers } from '../actions/useActions';
 
-const dialogsStore = useDeleteDialogStore();
+const showDialog = ref(false);
 
 const { deleteAllItems } = useInjectActionTriggers();
 </script>
