@@ -112,13 +112,13 @@ export const eventShortDetailView: DetailViewConfig = {
             },
             {
               title: 'Technology Fields',
-              component: CellComponent.ArrayCell,
-              fields: { text: 'TechnologyFields' },
+              component: CellComponent.TagCell,
+              fields: { items: 'TechnologyFields' },
             },
             {
               title: 'Tagging Fields',
-              component: CellComponent.ArrayCell,
-              fields: { text: 'CustomTagging' },
+              component: CellComponent.TagCell,
+              fields: { items: 'CustomTagging' },
             },
             { ...ROOM_BOOKED_CONFIG, title: 'Room management' },
           ],

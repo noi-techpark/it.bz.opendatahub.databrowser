@@ -19,6 +19,7 @@ export enum CellComponent {
   SelectWithOptionsCell = 'SelectWithOptionsCell',
   StateCell = 'StateCell',
   StringCell = 'StringCell',
+  TagCell = 'TagCell',
   UrlCell = 'UrlCell',
   StringTemplateCell = 'StringTemplateCell',
   TextAreaCell = 'TextAreaCell',
