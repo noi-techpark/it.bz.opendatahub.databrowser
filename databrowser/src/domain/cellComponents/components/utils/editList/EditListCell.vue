@@ -70,9 +70,12 @@ onAddItems((items: unknown[]) => {
 onDeleteItems((indexes: number[]) => {
   const indexSet = new Set(indexes);
   const remainingItems = itemsInternal.value.filter(
-    (img, index) => !indexSet.has(index)
+    (item, index) => !indexSet.has(index)
   );
   updateItems(remainingItems);
+  if (remainingItems.length === 0) {
+    navigateToTable();
+  }
 });
 
 onDeleteAllItems(() => {
