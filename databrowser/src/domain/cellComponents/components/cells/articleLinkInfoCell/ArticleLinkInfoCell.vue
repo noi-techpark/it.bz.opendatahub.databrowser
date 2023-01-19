@@ -18,7 +18,7 @@ import ArticleLinkInfoTable from './ArticleLinkInfoTable.vue';
 const emit = defineEmits(['update']);
 
 const props = defineProps<{
-  links?: Record<string, string>;
+  links?: Record<string, string> | null;
   editable?: boolean;
 }>();
 

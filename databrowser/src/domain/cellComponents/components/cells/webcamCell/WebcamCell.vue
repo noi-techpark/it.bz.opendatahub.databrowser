@@ -15,5 +15,5 @@ import EditListCell from '../../utils/editList/EditListCell.vue';
 import WebcamTable from './WebcamTable.vue';
 import WebcamTab from './WebcamTab.vue';
 
-defineProps<{ webcams?: Record<string, unknown>[] }>();
+defineProps<{ webcams?: Record<string, unknown>[] | null }>();
 </script>

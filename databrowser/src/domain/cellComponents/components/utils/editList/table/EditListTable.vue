@@ -127,7 +127,7 @@ import { useInjectActionTriggers } from '../actions/useActions';
 import { useInjectEditMode } from '../actions/useEditMode';
 
 const props = defineProps<{
-  items: unknown[];
+  items: unknown[] | null;
   hideTabLink?: boolean;
   hideSortable?: boolean;
 }>();
@@ -138,7 +138,7 @@ const { navigateToTab } = useInjectNavigation();
 const { editable } = useInjectEditMode();
 
 const itemsInternal = computed({
-  get: () => props.items,
+  get: () => (props.items != null ? props.items : []),
   set: (value) => updateItems(value),
 });
 

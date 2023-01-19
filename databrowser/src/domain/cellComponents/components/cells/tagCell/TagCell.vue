@@ -1,8 +1,8 @@
 <template>
   <EditListCell :items="tags">
-    <template #table>
+    <template #table="{ items }">
       <TagTable
-        :tags="tags"
+        :tags="items"
         :options="options"
         :unique="unique"
         v-bind="attrs"
@@ -19,7 +19,7 @@ import TagTable from './TagTable.vue';
 
 const props = withDefaults(
   defineProps<{
-    tags?: string[];
+    tags?: string[] | null;
     sortByLabel?: boolean;
     unique?: boolean;
   }>(),

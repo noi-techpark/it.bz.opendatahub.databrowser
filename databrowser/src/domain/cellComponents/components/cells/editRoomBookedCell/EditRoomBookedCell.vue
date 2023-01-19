@@ -15,5 +15,5 @@ import EditListCell from '../../utils/editList/EditListCell.vue';
 import EditRoomBookedTab from './EditRoomBookedTab.vue';
 import EditRoomBookedTable from './EditRoomBookedTable.vue';
 
-defineProps<{ roomBooked?: Record<string, unknown>[] }>();
+defineProps<{ roomBooked?: Record<string, unknown>[] | null }>();
 </script>

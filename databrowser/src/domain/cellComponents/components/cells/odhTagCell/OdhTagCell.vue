@@ -27,7 +27,7 @@ import OdhTagTable from './OdhTagTable.vue';
 const emit = defineEmits(['update']);
 
 const props = defineProps<{
-  odhTags?: string[];
+  odhTags?: string[] | null;
   url?: string;
   editable?: boolean;
 }>();

@@ -28,13 +28,13 @@ import { useProvideEditMode } from './actions/useEditMode';
 const emit = defineEmits(['update']);
 
 const props = defineProps<{
-  items?: unknown[];
+  items?: unknown[] | null;
   editable?: boolean;
 }>();
 
 // Use internal copy of items for quicker operations (e.g. sorting)
 // The internal copy is also updated in case the items prop updates
-const itemsInternal = computed(() => props.items ?? []);
+const itemsInternal = computed(() => (props.items != null ? props.items : []));
 
 // Provide navigation to this component and the component's descendants
 const {
