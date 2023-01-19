@@ -1,6 +1,7 @@
 import { computed, inject, readonly, Ref, ref } from 'vue';
 import { createEventHook } from '@vueuse/core';
 import { AxiosError, AxiosInstance } from 'axios';
+import { FileType } from './types';
 
 const imageUploadUrl = import.meta.env.VITE_APP_IMAGE_UPLOAD_URL;
 const fileUploadUrl = import.meta.env.VITE_APP_FILE_UPLOAD_URL;
@@ -9,7 +10,7 @@ export const useImageUpload = () => useUpload(ref(imageUploadUrl));
 
 export const useFileUpload = () => useUpload(ref(fileUploadUrl));
 
-export const useUploadForType = (type: Ref<'image' | 'file'>) => {
+export const useUploadForType = (type: Ref<FileType>) => {
   const url = computed(() =>
     type.value === 'image' ? imageUploadUrl : fileUploadUrl
   );

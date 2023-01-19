@@ -158,7 +158,7 @@ import { defineProps, ref, toRefs, watch } from 'vue';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import { getResolutionAsText, resizeImageWidth } from '../../../../image';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
-import { useFileDialog, useFullscreen } from '@vueuse/core';
+import { useFullscreen } from '@vueuse/core';
 import { useImageUpload } from '../../utils/upload/useUpload';
 import { downloadFile } from '../../utils/editList/download/fileDownload';
 import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
@@ -173,6 +173,7 @@ import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 import StringCell from '../stringCell/StringCell.vue';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import ToggleCell from '../toggleCell/ToggleCell.vue';
+import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
 
 // Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
 // Should be fixed in Vue 3.3
@@ -205,7 +206,10 @@ const { editable } = useInjectEditMode();
 const target = ref();
 const { toggle, isFullscreen } = useFullscreen(target);
 
-const { files, open } = useFileDialog({ multiple: false });
+const { files, open } = useFileDialogForType({
+  multiple: false,
+  type: 'image',
+});
 
 const {
   isUploadError,

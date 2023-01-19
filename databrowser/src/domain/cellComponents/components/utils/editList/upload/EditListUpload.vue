@@ -14,8 +14,9 @@ import EditListHeader from '../header/EditListHeader.vue';
 import { useInjectNavigation } from '../actions/useNavigation';
 import { useInjectActionTriggers } from '../actions/useActions';
 import FileUpload from '../../upload/FileUpload.vue';
+import { FileType } from '../../upload/types';
 
-defineProps<{ type: 'image' | 'file' }>();
+defineProps<{ type: FileType }>();
 
 const { navigateToPrevious } = useInjectNavigation();
 

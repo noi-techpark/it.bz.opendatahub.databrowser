@@ -3,6 +3,11 @@
     <div v-if="isUploadError" class="bg-red-200">
       {{ uploadError }}
     </div>
+    <AlertError
+      v-if="fileTypesNotAccepted != null"
+      :title="fileTypesNotAccepted.title"
+      :content="fileTypesNotAccepted.content"
+    />
     <div
       ref="dropZoneRef"
       class="flex h-24 w-full items-center justify-center rounded border-2 border-dashed"
@@ -33,15 +38,21 @@
 
 <script setup lang="ts">
 import { computed, defineEmits, defineProps, ref, watch } from 'vue';
-import { toRefs, useDropZone, useFileDialog } from '@vueuse/core';
+import { toRefs, useDropZone } from '@vueuse/core';
 import { useUploadForType } from './useUpload';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import ProgressBar from '../../../../../components/progress/ProgressBar.vue';
+import { FileType } from './types';
+import {
+  isFileTypeAccepted,
+  useFileDialogForType,
+} from './useFileDialogForType';
+import AlertError from '../../../../../components/alert/AlertError.vue';
 
 const emit = defineEmits(['uploadSuccess', 'uploadError']);
 
 const props = defineProps<{
-  type: 'image' | 'file';
+  type: FileType;
   text?: string;
   multiple?: boolean;
 }>();
@@ -61,17 +72,36 @@ const uploadText = computed(() => {
 });
 
 const dropZoneRef = ref<HTMLDivElement>();
+const fileTypesNotAccepted = ref<{ title: string; content: string }>();
 
 const onDrop = (filesFromDropZone: File[] | null) => {
   if (filesFromDropZone == null) {
     return;
   }
+
+  // Check if all files have the correct file type. This check is done here
+  // because the drag & drop file selection does not support file type filters
+  const notAccepted = filesFromDropZone.filter(
+    (file) => !isFileTypeAccepted(props.type, file.type)
+  );
+  if (notAccepted.length > 0) {
+    fileTypesNotAccepted.value = {
+      title: `Some file have file types that are not accepted (accepted: ${props.type})`,
+      content: notAccepted.map((f) => f.name).join(', '),
+    };
+    return;
+  }
+
+  fileTypesNotAccepted.value = undefined;
   uploadFiles(filesFromDropZone);
 };
 
 const { isOverDropZone } = useDropZone(dropZoneRef, onDrop);
 
-const { files, open } = useFileDialog({ multiple: props.multiple });
+const { files, open } = useFileDialogForType({
+  multiple: props.multiple,
+  type: props.type,
+});
 
 const {
   isUploadError,
