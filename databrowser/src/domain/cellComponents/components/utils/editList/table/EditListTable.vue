@@ -1,14 +1,17 @@
 <template>
   <div>
-    <EditListTableHeader
+    <EditListActionHeader
       v-if="editable"
+      class="mt-2 mb-5 flex justify-between gap-5 md:justify-end"
+      :class="anyItemSelected ? 'text-default' : 'text-disabled'"
+      delete-label="Delete"
       :any-item-selected="anyItemSelected"
-      @delete-selected-items="deleteSelectedItems"
+      @confirm-delete="deleteSelectedItems"
     >
       <template #addItems>
         <slot name="addItems"></slot>
       </template>
-    </EditListTableHeader>
+    </EditListActionHeader>
     <TableCustom class="mb-5 overflow-y-auto">
       <colgroup>
         <template v-if="editable && hasItems">
@@ -118,7 +121,7 @@ import TableHeader from '../../../../../../components/table/TableHeader.vue';
 import { useItemSelection } from './useItemSelection';
 import ConfirmDeleteSingle from './ConfirmDeleteSingle.vue';
 import ItemActions from './ItemActions.vue';
-import EditListTableHeader from './EditListTableHeader.vue';
+import EditListActionHeader from '../header/EditListActionHeader.vue';
 import { useInjectNavigation } from '../actions/useNavigation';
 import { useInjectActionTriggers } from '../actions/useActions';
 import { useInjectEditMode } from '../actions/useEditMode';

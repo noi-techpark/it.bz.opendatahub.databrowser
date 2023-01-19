@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import EditListBackButton from '../EditListBackButton.vue';
-import EditListHeader from '../EditListHeader.vue';
+import EditListHeader from '../header/EditListHeader.vue';
 import { useInjectNavigation } from '../actions/useNavigation';
 import { useInjectActionTriggers } from '../actions/useActions';
 import FileUpload from '../../upload/FileUpload.vue';

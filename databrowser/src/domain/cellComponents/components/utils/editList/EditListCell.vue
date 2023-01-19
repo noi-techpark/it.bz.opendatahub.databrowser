@@ -1,10 +1,18 @@
 <template>
   <section>
     <!-- Slot for table visualization -->
-    <slot v-if="isCurrentTable" name="table" :items="itemsInternal"></slot>
+    <slot
+      v-if="isCurrentTable"
+      name="table"
+      :items="(itemsInternal as any[])"
+    ></slot>
 
     <!-- Slot for tab visualization -->
-    <slot v-if="isCurrentTab" name="tab" :items="itemsInternal"></slot>
+    <slot
+      v-if="isCurrentTab"
+      name="tab"
+      :items="(itemsInternal as any[])"
+    ></slot>
 
     <!-- Slot for add visualization (e.g. upload) -->
     <slot v-if="isCurrentAdd" name="add"></slot>
@@ -20,7 +28,7 @@ import { useProvideEditMode } from './actions/useEditMode';
 const emit = defineEmits(['update']);
 
 const props = defineProps<{
-  items?: Record<string, unknown>[];
+  items?: unknown[];
   editable?: boolean;
 }>();
 
@@ -62,9 +70,12 @@ onAddItems((items: unknown[]) => {
 onDeleteItems((indexes: number[]) => {
   const indexSet = new Set(indexes);
   const remainingItems = itemsInternal.value.filter(
-    (img, index) => !indexSet.has(index)
+    (item, index) => !indexSet.has(index)
   );
   updateItems(remainingItems);
+  if (remainingItems.length === 0) {
+    navigateToTable();
+  }
 });
 
 onDeleteAllItems(() => {
@@ -73,7 +84,11 @@ onDeleteAllItems(() => {
 });
 
 onDuplicateItem((index: number) => {
-  const duplicatedEntry = { ...itemsInternal.value[index] };
+  const duplicatedEntry = isObject(itemsInternal.value[index])
+    ? // If item to duplicate is an object, create a new object with the same properties
+      { ...(itemsInternal.value[index] as object) }
+    : // Otherwise return the original value
+      itemsInternal.value[index];
 
   const newItems = [
     ...itemsInternal.value.slice(0, index + 1),
@@ -90,11 +105,14 @@ onDuplicateItem((index: number) => {
 
 onUpdateItem(({ index, item }) => {
   const items = [...itemsInternal.value];
-  items[index] = { ...items[index], ...item };
+  items[index] = item;
   updateItems(items);
 });
 
 onUpdateItems((items: unknown[]) => {
   emit('update', { prop: 'items', value: items });
 });
+
+const isObject = (o: unknown): o is object =>
+  typeof o === 'object' && o !== null;
 </script>

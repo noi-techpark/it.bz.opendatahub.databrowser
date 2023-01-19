@@ -51,7 +51,6 @@ const mapToOptionsWithKeysAndValues = (
 // Build usable SelectOptions
 const buildOptions = (
   optionsWithKeysAndValues: Record<string, SelectOption>,
-  initialValue: string | boolean | number | unknown,
   sortByLabel: boolean
 ) => {
   const keys = Object.keys(optionsWithKeysAndValues);
@@ -63,12 +62,6 @@ const buildOptions = (
     const value = optionsWithKeysAndValues[key].value;
     const label = optionsWithKeysAndValues[key].label;
     const option: SelectOption = { value, label };
-
-    // Compare option value with initial value with implicit type conversion,
-    // because the input value may be a string, a number or a boolean
-    if (option.value == initialValue) {
-      option.selected = true;
-    }
 
     return [...previous, option];
   }, []);
@@ -82,41 +75,24 @@ const buildOptions = (
 // value "Eurac" are merged into the following SelectOption:
 // {value: "EC", label: "Eurac"}
 export const useMapper = (
-  options: Ref<SelectOption[] | undefined>,
   attrs: Ref<Record<string, unknown>>,
-  initialValue: Ref<string | boolean | number | unknown>,
   sortByLabel: Ref<boolean>
 ) => {
-  const optionsInternal = ref<SelectOption[]>([]);
+  const options = ref<SelectOption[]>([]);
 
   watch(
-    () => [attrs.value, initialValue.value, options.value],
+    () => [attrs.value],
     () => {
-      if (options.value != null) {
-        optionsInternal.value = options.value;
-        return;
-      }
-
       const optionsWithKeys = mapToOptionsWithKeys(attrs.value);
       const optionsWithKeysAndValues = mapToOptionsWithKeysAndValues(
         attrs.value,
         optionsWithKeys
       );
 
-      optionsInternal.value = buildOptions(
-        optionsWithKeysAndValues,
-        initialValue.value,
-        sortByLabel.value
-      );
+      options.value = buildOptions(optionsWithKeysAndValues, sortByLabel.value);
     },
     { immediate: true }
   );
 
-  const unknownValue = computed(
-    () =>
-      initialValue.value != null &&
-      optionsInternal.value.find((o) => o.selected === true) == null
-  );
-
-  return { optionsInternal, unknownValue };
+  return { options };
 };

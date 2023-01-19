@@ -6,16 +6,6 @@ export const useItemSelection = (items: Ref<unknown[]>) => {
 
   const itemsSelected = ref<boolean[]>([]);
 
-  watch(
-    () => items.value,
-    (itemsValue) => {
-      itemsSelected.value = [...Array(itemsValue.length)].map(() => false);
-      allItemsSelected.value = false;
-      anyItemSelected.value = false;
-    },
-    { immediate: true }
-  );
-
   const toggleAllItemsSelected = (selected: boolean) => {
     itemsSelected.value = [...Array(items.value.length)].map(() => selected);
     allItemsSelected.value = selected;
@@ -42,6 +32,12 @@ export const useItemSelection = (items: Ref<unknown[]>) => {
       (selected) => selected === true
     );
   };
+
+  watch(
+    () => items.value,
+    () => toggleAllItemsSelected(false),
+    { immediate: true }
+  );
 
   return {
     allItemsSelected,

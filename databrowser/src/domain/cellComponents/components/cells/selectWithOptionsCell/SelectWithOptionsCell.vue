@@ -1,7 +1,7 @@
 <template>
   <div v-if="isWriteable">
     <SelectCustom
-      :options="options"
+      :options="optionsInternal"
       :size="SelectSize.md"
       :show-no-value="showNoValue"
       @change="change"
@@ -24,13 +24,18 @@ import {
 } from 'vue';
 import { useMapper } from './mapper';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
-import { SelectSize } from '../../../../../components/select/types';
+import {
+  SelectOption,
+  SelectSize,
+} from '../../../../../components/select/types';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 
 const emit = defineEmits(['update']);
 
 const props = withDefaults(
   defineProps<{
+    // If options is set, they will be used, otherwise the options from the attributes will be used
+    options?: SelectOption[];
     value?: string | boolean | number;
     sortByLabel?: boolean;
     showNoValue?: boolean;
@@ -38,6 +43,7 @@ const props = withDefaults(
     readonly?: string | boolean;
   }>(),
   {
+    options: undefined,
     value: undefined,
     sortByLabel: true,
     showNoValue: false,
@@ -46,12 +52,18 @@ const props = withDefaults(
   }
 );
 
-const { value, sortByLabel, showNoValue, editable, readonly } = toRefs(props);
+const { options, value, sortByLabel, showNoValue, editable, readonly } =
+  toRefs(props);
 const isWriteable = useWriteable({ editable, readonly });
 
 const attrs = useAttrs();
 
-const { options, unknownValue } = useMapper(ref(attrs), value, sortByLabel);
+const { optionsInternal, unknownValue } = useMapper(
+  options,
+  ref(attrs),
+  value,
+  sortByLabel
+);
 
 const change = (value: string) => emit('update', { prop: 'value', value });
 </script>

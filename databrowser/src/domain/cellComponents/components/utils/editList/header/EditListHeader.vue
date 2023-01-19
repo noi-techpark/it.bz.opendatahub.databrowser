@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { useInjectEditMode } from './actions/useEditMode';
+import { useInjectEditMode } from '../actions/useEditMode';
 
 const { editable } = useInjectEditMode();
 </script>
