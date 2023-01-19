@@ -10,7 +10,7 @@
 
   <!-- Toolbox content -->
   <div
-    class="absolute top-0 z-20 flex h-full flex-col overflow-x-auto bg-white transition-all md:relative"
+    class="absolute top-0 z-30 flex h-full flex-col overflow-x-auto bg-white transition-all md:relative"
     :class="{
       'w-full md:w-1/3': isToolboxVisible && isTableView,
       'w-full md:w-1/2': isToolboxVisible && !isTableView,
