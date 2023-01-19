@@ -1,11 +1,7 @@
 <template>
-  <EditListCell :items="infosAsList" :editable="editable">
+  <EditListCell :items="infosAsList" @update="update">
     <template #table="{ items }">
-      <ArticleLinkInfoTable
-        :items="items"
-        :editable="editable"
-        @update="update"
-      />
+      <ArticleLinkInfoTable :infos="items" />
     </template>
   </EditListCell>
 </template>
@@ -19,7 +15,6 @@ const emit = defineEmits(['update']);
 
 const props = defineProps<{
   infos?: Record<string, string> | null;
-  editable?: boolean;
 }>();
 
 const infosAsList = computed<Record<string, unknown>[]>(() =>
@@ -29,9 +24,12 @@ const infosAsList = computed<Record<string, unknown>[]>(() =>
   }))
 );
 
-const update = (infos: { header: string; content: string }[]) => {
-  // Compute single object as necessary for type ODH ArticleLinkInfo
-  const value = infos.reduce(
+const update = (event: {
+  prop: string;
+  value: { header: string; content: string }[];
+}) => {
+  console.log('update2', event);
+  const value = event.value.reduce(
     (prev, curr) => ({ ...prev, [curr.header]: curr.content }),
     {}
   );
