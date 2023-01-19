@@ -43,22 +43,7 @@ import TableCell from '../../../../../components/table/TableCell.vue';
 import EditListTable from '../../utils/editList/table/EditListTable.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
-
-// Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
-// Should be fixed in Vue 3.3
-interface RoomBookedEntry {
-  space?: string;
-  spaceDesc?: string;
-  spaceAbbrev?: string;
-  spaceType?: string;
-  subtitle?: string;
-  comment?: string;
-  startDate?: string;
-  endDate?: string;
-  startDateUTC?: number;
-  endDateUTC?: number;
-  spaceDescRoomMapping?: string;
-}
+import { RoomBookedEntry } from './types';
 
 defineProps<{ items: RoomBookedEntry[] }>();
 

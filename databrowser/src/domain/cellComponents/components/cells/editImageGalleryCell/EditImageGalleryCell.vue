@@ -18,6 +18,7 @@ import EditImageGalleryTab from './EditImageGalleryTab.vue';
 import EditImageGalleryTable from './EditImageGalleryTable.vue';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import EditListUpload from '../../utils/editList/upload/EditListUpload.vue';
+import { ImageGalleryEntry } from './types';
 
-defineProps<{ images?: Record<string, unknown>[] | null }>();
+defineProps<{ images?: ImageGalleryEntry[] | null }>();
 </script>

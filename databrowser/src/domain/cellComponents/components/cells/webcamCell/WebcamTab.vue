@@ -132,17 +132,7 @@ import { useFullscreen } from '@vueuse/core';
 import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
 import { downloadFile } from '../../utils/editList/download/fileDownload';
 import IconDownload from '../../../../../components/svg/IconDownload.vue';
-
-// Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
-// Should be fixed in Vue 3.3
-export interface WebcamEntry {
-  name?: string;
-  imageUrl?: string;
-  latitude?: string;
-  longitude?: string;
-  altitude?: string;
-  listPosition?: string;
-}
+import { WebcamEntry } from './types';
 
 defineProps<{ items: WebcamEntry[] }>();
 
