@@ -1,4 +1,4 @@
-import { computed, ref, Ref, watch } from 'vue';
+import { ref, Ref, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
 
 // This method maps input attributes of form "value_XXX" (where XXX is

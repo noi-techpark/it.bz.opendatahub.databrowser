@@ -1,6 +1,7 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import {
+  EVENT_DOCUMENT_CONFIG,
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   ROOM_BOOKED_CONFIG,
@@ -194,7 +195,7 @@ export const eventShortEditView: EditViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [],
+          properties: [EVENT_DOCUMENT_CONFIG],
         },
       ],
     },

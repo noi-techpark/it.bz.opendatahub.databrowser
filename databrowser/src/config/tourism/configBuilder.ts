@@ -1,6 +1,19 @@
 import { CellComponent } from '../../domain/cellComponents/types';
 import { withOdhBaseUrl } from '../utils';
 
+export const EVENT_DOCUMENT_CONFIG = {
+  title: 'PDFs',
+  component: CellComponent.EventDocumentCell,
+  listFields: {
+    attributeName: 'files',
+    pathToParent: 'EventDocument',
+    fields: {
+      src: 'DocumentURL',
+      language: 'Language',
+    },
+  },
+} as const;
+
 export const ID_READONLY_CONFIG = {
   title: 'ID',
   component: CellComponent.StringCell,

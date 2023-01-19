@@ -4,6 +4,9 @@
       :options="optionsInternal"
       :size="SelectSize.md"
       :show-no-value="showNoValue"
+      :show-search-when-at-least-count-options="
+        showSearchWhenAtLeastCountOptions
+      "
       @change="change"
     />
     <div v-if="unknownValue" class="text-red-400">
@@ -39,6 +42,7 @@ const props = withDefaults(
     value?: string | boolean | number;
     sortByLabel?: boolean;
     showNoValue?: boolean;
+    showSearchWhenAtLeastCountOptions?: number;
     editable?: boolean;
     readonly?: string | boolean;
   }>(),
@@ -47,6 +51,7 @@ const props = withDefaults(
     value: undefined,
     sortByLabel: true,
     showNoValue: false,
+    showSearchWhenAtLeastCountOptions: 7,
     editable: true,
     readonly: false,
   }
