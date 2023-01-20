@@ -1,5 +1,11 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import {
+  EDITED_TABLE_CONFIG,
+  GPS_DATA_TABLE_CONFIG,
+  ODH_ACTIVE_TABLE_CONFIG,
+  SOURCE_TABLE_CONFIG,
+} from '../configBuilder';
 
 export const webcamInfoListView: ListViewConfig = {
   elements: [
@@ -27,44 +33,9 @@ export const webcamInfoListView: ListViewConfig = {
         text: 'Webcamurl',
       },
     },
-    {
-      title: 'GPS Data',
-      component: CellComponent.GpsPointsCell,
-      class: 'w-48',
-      fields: {
-        type: 'GpsPoints.position.Gpstype',
-        latitude: 'GpsPoints.position.Latitude',
-        longitude: 'GpsPoints.position.Longitude',
-        altitude: 'GpsPoints.position.Altitude',
-        altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
-      },
-    },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
-    },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-36',
-      fields: {
-        text: '_Meta.Source',
-      },
-    },
-    {
-      title: 'Open Data Hub state',
-      component: CellComponent.StateCell,
-      class: 'w-36',
-      fields: {
-        state: 'OdhActive',
-      },
-    },
+    { ...GPS_DATA_TABLE_CONFIG },
+    { ...EDITED_TABLE_CONFIG },
+    { ...SOURCE_TABLE_CONFIG },
+    { ...ODH_ACTIVE_TABLE_CONFIG },
   ],
 };

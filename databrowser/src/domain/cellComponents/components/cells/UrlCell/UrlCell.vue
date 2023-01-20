@@ -1,5 +1,5 @@
 <template>
-  <span v-if="text != null">
+  <span v-if="text != null" class="break-all">
     <a :href="text" target="_blank">
       {{ text }}
     </a>

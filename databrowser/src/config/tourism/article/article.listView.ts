@@ -1,27 +1,17 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import {
+  EDITED_TABLE_CONFIG,
+  IMAGE_TABLE_CONFIG,
+  LANGUAGE_TABLE_CONFIG,
+  SOURCE_TABLE_CONFIG,
+  TITLE_TABLE_CONFIG,
+} from '../configBuilder';
 
 export const articleListView: ListViewConfig = {
   elements: [
-    {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      fields: {
-        src: 'ImageGallery.0.ImageUrl',
-      },
-      params: {
-        width: '200',
-      },
-    },
-    {
-      title: 'Title',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'Detail.{language}.Title',
-      },
-    },
+    { ...IMAGE_TABLE_CONFIG },
+    { ...TITLE_TABLE_CONFIG },
     {
       title: 'Type',
       component: CellComponent.StringCell,
@@ -51,35 +41,8 @@ export const articleListView: ListViewConfig = {
         max: '3',
       },
     },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
-    },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-36',
-      fields: {
-        text: 'Source',
-      },
-    },
+    { ...LANGUAGE_TABLE_CONFIG },
+    { ...EDITED_TABLE_CONFIG },
+    { ...SOURCE_TABLE_CONFIG },
   ],
 };

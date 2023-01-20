@@ -1,44 +1,21 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import {
+  EDITED_TABLE_CONFIG,
+  IMAGE_TABLE_CONFIG,
+  LANGUAGE_TABLE_CONFIG,
+  LOCATION_TABLE_CONFIG,
+  ODH_ACTIVE_TABLE_CONFIG,
+  SOURCE_TABLE_CONFIG,
+  TITLE_TABLE_CONFIG,
+} from '../configBuilder';
 
 export const gastronomyListView: ListViewConfig = {
   elements: [
-    {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      fields: {
-        src: 'ImageGallery.0.ImageUrl',
-      },
-    },
-    {
-      title: 'Title',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      fields: {
-        text: 'Detail.{language}.Title',
-      },
-    },
-    {
-      title: 'Location',
-      component: CellComponent.TextHighlightCell,
-      class: 'w-40',
-      fields: {
-        title: 'LocationInfo.RegionInfo.Name.{language}',
-        subtitle: 'LocationInfo.MunicipalityInfo.Name.{language}',
-      },
-    },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
+    { ...IMAGE_TABLE_CONFIG },
+    { ...TITLE_TABLE_CONFIG },
+    { ...LOCATION_TABLE_CONFIG },
+    { ...LANGUAGE_TABLE_CONFIG },
     {
       title: 'Tags',
       component: CellComponent.ArrayCellTags,
@@ -52,32 +29,8 @@ export const gastronomyListView: ListViewConfig = {
         max: '3',
       },
     },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
-    },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-36',
-      fields: {
-        text: 'Source',
-      },
-    },
-    {
-      title: 'Open Data Hub state',
-      component: CellComponent.StateCell,
-      class: 'w-36',
-      fields: {
-        state: 'OdhActive',
-      },
-    },
+    { ...EDITED_TABLE_CONFIG },
+    { ...SOURCE_TABLE_CONFIG },
+    { ...ODH_ACTIVE_TABLE_CONFIG },
   ],
 };

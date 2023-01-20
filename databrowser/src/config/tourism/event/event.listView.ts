@@ -3,25 +3,19 @@ import {
   FilterComponent,
 } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import {
+  EDITED_TABLE_CONFIG,
+  IMAGE_TABLE_CONFIG,
+  LANGUAGE_TABLE_CONFIG,
+  ODH_ACTIVE_TABLE_CONFIG,
+  SOURCE_TABLE_CONFIG,
+  TITLE_TABLE_CONFIG,
+} from '../configBuilder';
 
 export const eventListView: ListViewConfig = {
   elements: [
-    {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-36',
-      fields: {
-        src: 'ImageGallery.0.ImageUrl',
-      },
-    },
-    {
-      title: 'Title',
-      component: CellComponent.StringCell,
-      class: 'w-40',
-      fields: {
-        text: 'Detail.{language}.Title',
-      },
-    },
+    { ...IMAGE_TABLE_CONFIG },
+    { ...TITLE_TABLE_CONFIG },
     {
       title: 'Date start',
       component: CellComponent.EditedDateCell,
@@ -60,36 +54,9 @@ export const eventListView: ListViewConfig = {
         text: 'LocationInfo.DistrictInfo.Name.en',
       },
     },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-32',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'd. MMMM yyyy',
-      },
-    },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-28',
-      fields: {
-        text: 'Source',
-      },
-    },
+    { ...LANGUAGE_TABLE_CONFIG },
+    { ...EDITED_TABLE_CONFIG },
+    { ...SOURCE_TABLE_CONFIG },
     {
       title: 'Source state',
       component: CellComponent.StateCell,
@@ -114,29 +81,6 @@ export const eventListView: ListViewConfig = {
         },
       },
     },
-    {
-      title: 'Open Data Hub state',
-      component: CellComponent.StateCell,
-      class: 'w-40',
-      fields: {
-        state: 'OdhActive',
-      },
-      filter: {
-        name: 'odhactive',
-        component: FilterComponent.FixedValue,
-        params: {
-          filterOptions: [
-            {
-              label: 'Active',
-              value: 'true',
-            },
-            {
-              label: 'Not active',
-              value: 'false',
-            },
-          ],
-        },
-      },
-    },
+    { ...ODH_ACTIVE_TABLE_CONFIG },
   ],
 };
