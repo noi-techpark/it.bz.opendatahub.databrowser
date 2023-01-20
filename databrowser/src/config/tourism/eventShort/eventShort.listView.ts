@@ -1,6 +1,10 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
-import { EDITED_TABLE_CONFIG, LANGUAGE_TABLE_CONFIG } from '../configBuilder';
+import {
+  EDITED_TABLE_CONFIG,
+  LANGUAGE_TABLE_CONFIG,
+  ODH_ACTIVE_TABLE_CONFIG,
+} from '../configBuilder';
 
 export const eventShortListView: ListViewConfig = {
   elements: [
@@ -38,11 +42,6 @@ export const eventShortListView: ListViewConfig = {
     },
     { ...LANGUAGE_TABLE_CONFIG },
     { ...EDITED_TABLE_CONFIG },
-    {
-      title: 'Open Data Hub state',
-      component: CellComponent.StateCell,
-      class: 'w-36',
-      fields: { state: 'OdhActive' },
-    },
+    { ...ODH_ACTIVE_TABLE_CONFIG },
   ],
 };

@@ -116,6 +116,15 @@ export const ROOM_BOOKED_CONFIG = {
   },
 } as const;
 
+export const ODH_ACTIVE_TABLE_CONFIG = {
+  title: 'Open Data Hub state',
+  component: CellComponent.StateCell,
+  class: 'w-36',
+  fields: {
+    state: 'OdhActive',
+  },
+} as const;
+
 export const ODH_TAG_CONFIG = {
   title: 'Open Data Hub Tags',
   component: CellComponent.OdhTagCell,

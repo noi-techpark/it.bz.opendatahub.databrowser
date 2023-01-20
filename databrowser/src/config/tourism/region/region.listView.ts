@@ -4,6 +4,7 @@ import {
   EDITED_TABLE_CONFIG,
   IMAGE_TABLE_CONFIG,
   LANGUAGE_TABLE_CONFIG,
+  ODH_ACTIVE_TABLE_CONFIG,
   SOURCE_TABLE_CONFIG,
 } from '../configBuilder';
 
@@ -29,13 +30,6 @@ export const regionListView: ListViewConfig = {
     { ...LANGUAGE_TABLE_CONFIG },
     { ...EDITED_TABLE_CONFIG },
     { ...SOURCE_TABLE_CONFIG },
-    {
-      title: 'Open Data Hub state',
-      component: CellComponent.StateCell,
-      class: 'w-36',
-      fields: {
-        state: 'OdhActive',
-      },
-    },
+    { ...ODH_ACTIVE_TABLE_CONFIG },
   ],
 };
