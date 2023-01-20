@@ -1,6 +1,10 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { EDITED_TABLE_CONFIG, LANGUAGE_TABLE_CONFIG } from '../configBuilder';
+import {
+  EDITED_TABLE_CONFIG,
+  LANGUAGE_TABLE_CONFIG,
+  SOURCE_TABLE_CONFIG,
+} from '../configBuilder';
 
 export const municipalityListView: ListViewConfig = {
   elements: [
@@ -34,14 +38,7 @@ export const municipalityListView: ListViewConfig = {
     },
     { ...LANGUAGE_TABLE_CONFIG },
     { ...EDITED_TABLE_CONFIG },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-36',
-      fields: {
-        text: 'Source',
-      },
-    },
+    { ...SOURCE_TABLE_CONFIG },
     {
       title: 'Open Data Hub state',
       component: CellComponent.StateCell,

@@ -8,6 +8,7 @@ import {
   IMAGE_TABLE_CONFIG,
   LANGUAGE_TABLE_CONFIG,
   LOCATION_TABLE_CONFIG,
+  SOURCE_TABLE_CONFIG,
 } from '../configBuilder';
 
 export const odhActivityPoiListView: ListViewConfig = {
@@ -49,14 +50,7 @@ export const odhActivityPoiListView: ListViewConfig = {
     },
     { ...LANGUAGE_TABLE_CONFIG },
     { ...EDITED_TABLE_CONFIG },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-36',
-      fields: {
-        text: 'Source',
-      },
-    },
+    { ...SOURCE_TABLE_CONFIG },
     {
       title: 'Source state',
       component: CellComponent.StateCell,

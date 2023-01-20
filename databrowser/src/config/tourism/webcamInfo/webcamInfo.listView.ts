@@ -1,6 +1,6 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { EDITED_TABLE_CONFIG } from '../configBuilder';
+import { EDITED_TABLE_CONFIG, SOURCE_TABLE_CONFIG } from '../configBuilder';
 
 export const webcamInfoListView: ListViewConfig = {
   elements: [
@@ -41,14 +41,7 @@ export const webcamInfoListView: ListViewConfig = {
       },
     },
     { ...EDITED_TABLE_CONFIG },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-36',
-      fields: {
-        text: '_Meta.Source',
-      },
-    },
+    { ...SOURCE_TABLE_CONFIG },
     {
       title: 'Open Data Hub state',
       component: CellComponent.StateCell,

@@ -7,6 +7,7 @@ import {
   EDITED_TABLE_CONFIG,
   IMAGE_TABLE_CONFIG,
   LANGUAGE_TABLE_CONFIG,
+  SOURCE_TABLE_CONFIG,
 } from '../configBuilder';
 
 export const eventListView: ListViewConfig = {
@@ -60,14 +61,7 @@ export const eventListView: ListViewConfig = {
     },
     { ...LANGUAGE_TABLE_CONFIG },
     { ...EDITED_TABLE_CONFIG },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-28',
-      fields: {
-        text: 'Source',
-      },
-    },
+    { ...SOURCE_TABLE_CONFIG },
     {
       title: 'Source state',
       component: CellComponent.StateCell,

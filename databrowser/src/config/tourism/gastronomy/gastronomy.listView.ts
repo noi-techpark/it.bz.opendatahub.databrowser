@@ -5,6 +5,7 @@ import {
   IMAGE_TABLE_CONFIG,
   LANGUAGE_TABLE_CONFIG,
   LOCATION_TABLE_CONFIG,
+  SOURCE_TABLE_CONFIG,
 } from '../configBuilder';
 
 export const gastronomyListView: ListViewConfig = {
@@ -34,14 +35,7 @@ export const gastronomyListView: ListViewConfig = {
       },
     },
     { ...EDITED_TABLE_CONFIG },
-    {
-      title: 'Source',
-      component: CellComponent.StringCell,
-      class: 'w-36',
-      fields: {
-        text: 'Source',
-      },
-    },
+    { ...SOURCE_TABLE_CONFIG },
     {
       title: 'Open Data Hub state',
       component: CellComponent.StateCell,

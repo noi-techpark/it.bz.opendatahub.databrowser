@@ -126,6 +126,15 @@ export const ODH_TAG_CONFIG = {
   params: { url: withOdhBaseUrl('/v1/ODHTag') },
 };
 
+export const SOURCE_TABLE_CONFIG = {
+  title: 'Source',
+  component: CellComponent.StringCell,
+  class: 'w-36',
+  fields: {
+    text: 'Source',
+  },
+} as const;
+
 export const odhTagConfigWithMainEntity = (mainentity: string) => ({
   ...ODH_TAG_CONFIG,
   params: { url: `${ODH_TAG_CONFIG.params.url}?mainentity=${mainentity}` },
