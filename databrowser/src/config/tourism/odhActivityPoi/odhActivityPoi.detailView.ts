@@ -1,12 +1,13 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { WebComponent } from '../../../domain/webComponents/webComponentRegistry';
+import { WEBCAM_TABLE_CONFIG } from '../configBuilderListView';
+import { odhTagConfigWithMainEntity } from '../configBuilderSingleView';
 import {
+  IMAGE_GALLERY_CONFIG,
   ID_READONLY_CONFIG,
   LAST_CHANGES_CONFIG,
-  odhTagConfigWithMainEntity,
-  WEBCAM_CONFIG,
-} from '../configBuilder';
+} from '../configBuilderCommonView';
 
 export const odhActivityPoiDetailView: DetailViewConfig = {
   elements: [
@@ -469,28 +470,8 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
       slug: 'images',
       subcategories: [
         {
-          name: 'Images',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
+          name: '',
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },
@@ -790,7 +771,7 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [WEBCAM_CONFIG],
+          properties: [WEBCAM_TABLE_CONFIG],
         },
       ],
     },

@@ -6,7 +6,7 @@ import {
   LANGUAGE_TABLE_CONFIG,
   ODH_ACTIVE_TABLE_CONFIG,
   SOURCE_TABLE_CONFIG,
-} from '../configBuilder';
+} from '../configBuilderListView';
 
 export const wineAwardListView: ListViewConfig = {
   elements: [

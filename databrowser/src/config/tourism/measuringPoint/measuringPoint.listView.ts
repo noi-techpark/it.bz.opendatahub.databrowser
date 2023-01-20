@@ -5,7 +5,7 @@ import {
   GPS_DATA_TABLE_CONFIG,
   ODH_ACTIVE_TABLE_CONFIG,
   SOURCE_TABLE_CONFIG,
-} from '../configBuilder';
+} from '../configBuilderListView';
 
 export const measuringPointListView: ListViewConfig = {
   elements: [

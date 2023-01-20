@@ -1,12 +1,12 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { withOdhBaseUrl } from '../../utils';
+import { odhTagConfigWithMainEntity } from '../configBuilderSingleView';
 import {
-  ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
+  ID_READONLY_CONFIG,
   LAST_CHANGES_CONFIG,
-  odhTagConfigWithMainEntity,
-} from '../configBuilder';
+} from '../configBuilderCommonView';
 
 export const articleDetailView: DetailViewConfig = {
   elements: [

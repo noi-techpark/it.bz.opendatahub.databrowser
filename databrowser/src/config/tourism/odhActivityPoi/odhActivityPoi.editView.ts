@@ -2,13 +2,13 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { WebComponent } from '../../../domain/webComponents/webComponentRegistry';
 import { withOdhBaseUrl } from '../../utils';
+import { WEBCAM_TABLE_CONFIG } from '../configBuilderListView';
+import { odhTagConfigWithMainEntity } from '../configBuilderSingleView';
 import {
-  ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
+  ID_READONLY_CONFIG,
   LAST_CHANGES_CONFIG,
-  odhTagConfigWithMainEntity,
-  WEBCAM_CONFIG,
-} from '../configBuilder';
+} from '../configBuilderCommonView';
 
 export const odhActivityPoiEditView: EditViewConfig = {
   elements: [
@@ -793,7 +793,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [WEBCAM_CONFIG],
+          properties: [WEBCAM_TABLE_CONFIG],
         },
       ],
     },

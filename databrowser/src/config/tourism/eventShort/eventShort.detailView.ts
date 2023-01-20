@@ -1,11 +1,11 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
+import { ROOM_BOOKED_TABLE_CONFIG } from '../configBuilderListView';
+import { EVENT_DOCUMENT_SINGLE_VIEW_CONFIG } from '../configBuilderSingleView';
 import {
-  EVENT_DOCUMENT_CONFIG,
-  ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
-  ROOM_BOOKED_CONFIG,
-} from '../configBuilder';
+  ID_READONLY_CONFIG,
+} from '../configBuilderCommonView';
 
 export const eventShortDetailView: DetailViewConfig = {
   elements: [
@@ -121,7 +121,7 @@ export const eventShortDetailView: DetailViewConfig = {
               component: CellComponent.TagCell,
               fields: { items: 'CustomTagging' },
             },
-            { ...ROOM_BOOKED_CONFIG, title: 'Room management' },
+            { ...ROOM_BOOKED_TABLE_CONFIG, title: 'Room management' },
           ],
         },
       ],
@@ -142,7 +142,7 @@ export const eventShortDetailView: DetailViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [EVENT_DOCUMENT_CONFIG],
+          properties: [EVENT_DOCUMENT_SINGLE_VIEW_CONFIG],
         },
       ],
     },

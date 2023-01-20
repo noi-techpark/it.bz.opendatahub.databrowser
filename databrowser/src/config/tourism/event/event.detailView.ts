@@ -1,9 +1,10 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
+import { odhTagConfigWithMainEntity } from '../configBuilderSingleView';
 import {
+  IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
-  odhTagConfigWithMainEntity,
-} from '../configBuilder';
+} from '../configBuilderCommonView';
 
 export const eventDetailView: DetailViewConfig = {
   elements: [
@@ -160,27 +161,9 @@ export const eventDetailView: DetailViewConfig = {
       slug: 'images',
       subcategories: [
         {
-          name: 'Images',
+          name: '',
           properties: [
-            {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
+            IMAGE_GALLERY_CONFIG,
             {
               title: 'License',
               component: CellComponent.StringCell,

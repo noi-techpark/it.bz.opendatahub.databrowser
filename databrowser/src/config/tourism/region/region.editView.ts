@@ -1,11 +1,11 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { LAST_CHANGES_CONFIG } from '../configBuilderCommonView';
+import { ODH_TAG_SINGLE_VIEW_CONFIG } from '../configBuilderSingleView';
 import {
-  ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
-  LAST_CHANGES_CONFIG,
-  ODH_TAG_CONFIG,
-} from '../configBuilder';
+  ID_READONLY_CONFIG,
+} from '../configBuilderCommonView';
 
 export const regionEditView: EditViewConfig = {
   elements: [
@@ -313,7 +313,7 @@ export const regionEditView: EditViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [ODH_TAG_CONFIG],
+          properties: [ODH_TAG_SINGLE_VIEW_CONFIG],
         },
       ],
     },

@@ -1,5 +1,4 @@
 import { CellComponent } from '../../domain/cellComponents/types';
-import { withOdhBaseUrl } from '../utils';
 
 export const EDITED_TABLE_CONFIG = {
   title: 'Edited',
@@ -11,26 +10,6 @@ export const EDITED_TABLE_CONFIG = {
   params: {
     format: 'do MMMM yyyy',
   },
-} as const;
-
-export const EVENT_DOCUMENT_CONFIG = {
-  title: 'PDFs',
-  component: CellComponent.EventDocumentCell,
-  listFields: {
-    attributeName: 'files',
-    pathToParent: 'EventDocument',
-    fields: {
-      src: 'DocumentURL',
-      language: 'Language',
-    },
-  },
-} as const;
-
-export const ID_READONLY_CONFIG = {
-  title: 'ID',
-  component: CellComponent.StringCell,
-  fields: { text: 'Id' },
-  params: { readonly: 'true' },
 } as const;
 
 export const GPS_DATA_TABLE_CONFIG = {
@@ -45,30 +24,6 @@ export const GPS_DATA_TABLE_CONFIG = {
     altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
   },
 } as const;
-
-export const IMAGE_GALLERY_CONFIG = {
-  title: '',
-  component: CellComponent.EditImageGalleryCell,
-  listFields: {
-    attributeName: 'images',
-    pathToParent: 'ImageGallery',
-    fields: {
-      alt: 'ImageAltText.{language}',
-      src: 'ImageUrl',
-      name: 'ImageName',
-      width: 'Width',
-      height: 'Height',
-      title: 'ImageTitle.{language}',
-      description: 'ImageDesc.{language}',
-      copyright: 'CopyRight',
-      license: 'License',
-      listPosition: 'ListPosition',
-      source: 'ImageSource',
-      isInGallery: 'IsInGallery',
-    },
-  },
-} as const;
-
 export const IMAGE_TABLE_CONFIG = {
   title: 'Image',
   component: CellComponent.ImageCell,
@@ -90,13 +45,6 @@ export const LANGUAGE_TABLE_CONFIG = {
   },
 } as const;
 
-export const LAST_CHANGES_CONFIG = {
-  title: 'Last Changes',
-  component: CellComponent.EditedDateCell,
-  fields: { date: 'LastChange' },
-  params: { format: 'do MMMM yyyy HH:mm' },
-} as const;
-
 export const LOGO_TABLE_CONFIG = {
   title: 'Logo',
   component: CellComponent.ImageCell,
@@ -116,7 +64,7 @@ export const LOCATION_TABLE_CONFIG = {
   },
 } as const;
 
-export const ROOM_BOOKED_CONFIG = {
+export const ROOM_BOOKED_TABLE_CONFIG = {
   title: '',
   component: CellComponent.EditRoomBookedCell,
   listFields: {
@@ -147,16 +95,6 @@ export const ODH_ACTIVE_TABLE_CONFIG = {
   },
 } as const;
 
-export const ODH_TAG_CONFIG = {
-  title: 'Open Data Hub Tags',
-  component: CellComponent.OdhTagCell,
-  listFields: {
-    attributeName: 'odhTags',
-    pathToParent: 'SmgTags',
-  },
-  params: { url: withOdhBaseUrl('/v1/ODHTag') },
-} as const;
-
 export const SOURCE_TABLE_CONFIG = {
   title: 'Source',
   component: CellComponent.StringCell,
@@ -175,12 +113,7 @@ export const TITLE_TABLE_CONFIG = {
   },
 } as const;
 
-export const odhTagConfigWithMainEntity = (mainentity: string) => ({
-  ...ODH_TAG_CONFIG,
-  params: { url: `${ODH_TAG_CONFIG.params.url}?mainentity=${mainentity}` },
-});
-
-export const WEBCAM_CONFIG = {
+export const WEBCAM_TABLE_CONFIG = {
   title: '',
   component: CellComponent.WebcamCell,
   listFields: {

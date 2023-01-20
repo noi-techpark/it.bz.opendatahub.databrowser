@@ -8,7 +8,7 @@ import {
   ODH_ACTIVE_TABLE_CONFIG,
   SOURCE_TABLE_CONFIG,
   TITLE_TABLE_CONFIG,
-} from '../configBuilder';
+} from '../configBuilderListView';
 
 export const gastronomyListView: ListViewConfig = {
   elements: [

@@ -1,11 +1,11 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
+import { ROOM_BOOKED_TABLE_CONFIG } from '../configBuilderListView';
+import { EVENT_DOCUMENT_SINGLE_VIEW_CONFIG } from '../configBuilderSingleView';
 import {
-  EVENT_DOCUMENT_CONFIG,
-  ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
-  ROOM_BOOKED_CONFIG,
-} from '../configBuilder';
+  ID_READONLY_CONFIG,
+} from '../configBuilderCommonView';
 
 export const eventShortEditView: EditViewConfig = {
   elements: [
@@ -174,7 +174,7 @@ export const eventShortEditView: EditViewConfig = {
                 label_009: 'Balboa x NOI Into Action',
               },
             },
-            { ...ROOM_BOOKED_CONFIG, title: 'Room management' },
+            { ...ROOM_BOOKED_TABLE_CONFIG, title: 'Room management' },
           ],
         },
       ],
@@ -195,7 +195,7 @@ export const eventShortEditView: EditViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [EVENT_DOCUMENT_CONFIG],
+          properties: [EVENT_DOCUMENT_SINGLE_VIEW_CONFIG],
         },
       ],
     },

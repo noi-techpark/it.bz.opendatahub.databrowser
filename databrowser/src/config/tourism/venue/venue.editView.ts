@@ -1,10 +1,11 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { odhTagConfigWithMainEntity } from '../configBuilderSingleView';
 import {
+  IMAGE_GALLERY_CONFIG,
   ID_READONLY_CONFIG,
   LAST_CHANGES_CONFIG,
-  odhTagConfigWithMainEntity,
-} from '../configBuilder';
+} from '../configBuilderCommonView';
 
 export const venueEditView: EditViewConfig = {
   elements: [
@@ -147,28 +148,8 @@ export const venueEditView: EditViewConfig = {
       slug: 'images',
       subcategories: [
         {
-          name: 'Images',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
+          name: '',
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },

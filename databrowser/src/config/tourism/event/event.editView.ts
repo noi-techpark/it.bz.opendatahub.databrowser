@@ -1,10 +1,10 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
+import { odhTagConfigWithMainEntity } from '../configBuilderSingleView';
 import {
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
-  odhTagConfigWithMainEntity,
-} from '../configBuilder';
+} from '../configBuilderCommonView';
 
 export const eventEditView: EditViewConfig = {
   elements: [
