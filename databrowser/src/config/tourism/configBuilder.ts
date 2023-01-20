@@ -175,14 +175,7 @@ export const TITLE_TABLE_CONFIG = {
   },
 } as const;
 
-export const odhTagConfigWithMainEntity = (mainentity: string) => ({
-  ...ODH_TAG_SINGLE_VIEW_CONFIG,
-  params: {
-    url: `${ODH_TAG_SINGLE_VIEW_CONFIG.params.url}?mainentity=${mainentity}`,
-  },
-});
-
-export const WEBCAM_CONFIG = {
+export const WEBCAM_TABLE_CONFIG = {
   title: '',
   component: CellComponent.WebcamCell,
   listFields: {
@@ -198,3 +191,10 @@ export const WEBCAM_CONFIG = {
     },
   },
 } as const;
+
+export const odhTagConfigWithMainEntity = (mainentity: string) => ({
+  ...ODH_TAG_SINGLE_VIEW_CONFIG,
+  params: {
+    url: `${ODH_TAG_SINGLE_VIEW_CONFIG.params.url}?mainentity=${mainentity}`,
+  },
+});

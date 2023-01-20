@@ -7,7 +7,7 @@ import {
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
   odhTagConfigWithMainEntity,
-  WEBCAM_CONFIG,
+  WEBCAM_TABLE_CONFIG,
 } from '../configBuilder';
 
 export const odhActivityPoiEditView: EditViewConfig = {
@@ -793,7 +793,7 @@ export const odhActivityPoiEditView: EditViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [WEBCAM_CONFIG],
+          properties: [WEBCAM_TABLE_CONFIG],
         },
       ],
     },
