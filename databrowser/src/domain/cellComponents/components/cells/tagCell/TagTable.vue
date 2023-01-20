@@ -38,12 +38,6 @@ import { SelectOption } from '../../../../../components/select/types';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 
-// Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
-// Should be fixed in Vue 3.3
-export interface TagEntry {
-  tag: string;
-}
-
 const props = defineProps<{
   tags: string[];
   options: SelectOption[];

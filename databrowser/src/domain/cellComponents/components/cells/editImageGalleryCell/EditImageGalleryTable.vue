@@ -67,22 +67,7 @@ import EditListTable from '../../utils/editList/table/EditListTable.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { getResolutionAsText } from '../../../../image';
 import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
-
-// Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
-// Should be fixed in Vue 3.3
-interface ImageGalleryEntry {
-  alt?: string;
-  src?: string;
-  name?: string;
-  width?: string;
-  height?: string;
-  title?: string;
-  description?: string;
-  copyright?: string;
-  license?: string;
-  listPosition?: string;
-  active?: string;
-}
+import { ImageGalleryEntry } from './types';
 
 defineProps<{ items: ImageGalleryEntry[] }>();
 

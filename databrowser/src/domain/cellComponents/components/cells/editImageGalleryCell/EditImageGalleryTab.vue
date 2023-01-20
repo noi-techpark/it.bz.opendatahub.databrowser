@@ -174,23 +174,7 @@ import StringCell from '../stringCell/StringCell.vue';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import ToggleCell from '../toggleCell/ToggleCell.vue';
 import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
-
-// Need to define interface in component because of Vue 3.2 bug (https://github.com/vuejs/core/issues/4294)
-// Should be fixed in Vue 3.3
-interface ImageGalleryEntry {
-  alt?: string;
-  src?: string;
-  name?: string;
-  width?: string;
-  height?: string;
-  title?: string;
-  description?: string;
-  copyright?: string;
-  license?: string;
-  listPosition?: string;
-  source?: string;
-  isInGallery?: string;
-}
+import { ImageGalleryEntry } from './types';
 
 const props = defineProps<{ items: ImageGalleryEntry[] }>();
 
