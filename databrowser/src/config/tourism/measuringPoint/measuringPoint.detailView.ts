@@ -3,7 +3,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   ID_READONLY_CONFIG,
   LAST_CHANGES_CONFIG,
-} from '../configBuilderListView';
+} from '../configBuilderCommonView';
 
 export const measuringPointDetailView: DetailViewConfig = {
   elements: [

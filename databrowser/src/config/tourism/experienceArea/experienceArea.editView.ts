@@ -1,11 +1,11 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
-import {
-  ID_READONLY_CONFIG,
-  IMAGE_GALLERY_CONFIG,
-  LAST_CHANGES_CONFIG,
-} from '../configBuilderListView';
+import { LAST_CHANGES_CONFIG } from '../configBuilderCommonView';
 import { ODH_TAG_SINGLE_VIEW_CONFIG } from '../configBuilderSingleView';
+import {
+  IMAGE_GALLERY_CONFIG,
+  ID_READONLY_CONFIG,
+} from '../configBuilderCommonView';
 
 export const experienceAreaEditView: EditViewConfig = {
   elements: [

@@ -1,11 +1,11 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { odhTagConfigWithMainEntity } from '../configBuilderListView';
 import {
-  ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
+  ID_READONLY_CONFIG,
   LAST_CHANGES_CONFIG,
-  odhTagConfigWithMainEntity,
-} from '../configBuilderListView';
+} from '../configBuilderCommonView';
 
 export const venueDetailView: DetailViewConfig = {
   elements: [

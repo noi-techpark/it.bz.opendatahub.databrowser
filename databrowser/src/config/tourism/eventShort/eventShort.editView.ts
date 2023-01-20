@@ -1,11 +1,11 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
-import {
-  ID_READONLY_CONFIG,
-  IMAGE_GALLERY_CONFIG,
-  ROOM_BOOKED_TABLE_CONFIG,
-} from '../configBuilderListView';
+import { ROOM_BOOKED_TABLE_CONFIG } from '../configBuilderListView';
 import { EVENT_DOCUMENT_SINGLE_VIEW_CONFIG } from '../configBuilderSingleView';
+import {
+  IMAGE_GALLERY_CONFIG,
+  ID_READONLY_CONFIG,
+} from '../configBuilderCommonView';
 
 export const eventShortEditView: EditViewConfig = {
   elements: [

@@ -2,12 +2,14 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { WebComponent } from '../../../domain/webComponents/webComponentRegistry';
 import {
-  ID_READONLY_CONFIG,
-  IMAGE_GALLERY_CONFIG,
-  LAST_CHANGES_CONFIG,
   odhTagConfigWithMainEntity,
   WEBCAM_TABLE_CONFIG,
 } from '../configBuilderListView';
+import {
+  IMAGE_GALLERY_CONFIG,
+  ID_READONLY_CONFIG,
+  LAST_CHANGES_CONFIG,
+} from '../configBuilderCommonView';
 
 export const odhActivityPoiDetailView: DetailViewConfig = {
   elements: [

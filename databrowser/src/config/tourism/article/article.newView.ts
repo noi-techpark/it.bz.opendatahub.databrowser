@@ -1,10 +1,8 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { withOdhBaseUrl } from '../../utils';
-import {
-  IMAGE_GALLERY_CONFIG,
-  odhTagConfigWithMainEntity,
-} from '../configBuilderListView';
+import { odhTagConfigWithMainEntity } from '../configBuilderListView';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilderCommonView';
 
 export const articleNewView: EditViewConfig = {
   elements: [

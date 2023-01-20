@@ -1,10 +1,8 @@
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import {
-  ID_READONLY_CONFIG,
-  IMAGE_GALLERY_CONFIG,
-  LAST_CHANGES_CONFIG,
-} from '../configBuilderListView';
+import { LAST_CHANGES_CONFIG } from '../configBuilderCommonView';
+import { ID_READONLY_CONFIG } from '../configBuilderCommonView';
+import { IMAGE_GALLERY_CONFIG } from '../configBuilderCommonView';
 
 export const wineAwardDetailView: DetailViewConfig = {
   elements: [
