@@ -23,3 +23,10 @@ export const ODH_TAG_SINGLE_VIEW_CONFIG = {
   },
   params: { url: withOdhBaseUrl('/v1/ODHTag') },
 } as const;
+
+export const odhTagConfigWithMainEntity = (mainentity: string) => ({
+  ...ODH_TAG_SINGLE_VIEW_CONFIG,
+  params: {
+    url: `${ODH_TAG_SINGLE_VIEW_CONFIG.params.url}?mainentity=${mainentity}`,
+  },
+});

@@ -1,6 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
-import { odhTagConfigWithMainEntity } from '../configBuilderListView';
+import { odhTagConfigWithMainEntity } from '../configBuilderSingleView';
 import {
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,

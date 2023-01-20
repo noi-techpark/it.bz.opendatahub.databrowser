@@ -2,10 +2,8 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { WebComponent } from '../../../domain/webComponents/webComponentRegistry';
 import { withOdhBaseUrl } from '../../utils';
-import {
-  odhTagConfigWithMainEntity,
-  WEBCAM_TABLE_CONFIG,
-} from '../configBuilderListView';
+import { WEBCAM_TABLE_CONFIG } from '../configBuilderListView';
+import { odhTagConfigWithMainEntity } from '../configBuilderSingleView';
 import {
   IMAGE_GALLERY_CONFIG,
   ID_READONLY_CONFIG,
