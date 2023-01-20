@@ -2,6 +2,7 @@ import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   ID_READONLY_CONFIG,
+  IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
   ODH_TAG_CONFIG,
 } from '../configBuilder';
@@ -173,28 +174,8 @@ export const districtDetailView: DetailViewConfig = {
       slug: 'images',
       subcategories: [
         {
-          name: 'Images',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageTitle.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
+          name: '',
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },

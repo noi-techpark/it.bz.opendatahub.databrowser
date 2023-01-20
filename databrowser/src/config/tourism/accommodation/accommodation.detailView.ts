@@ -2,6 +2,7 @@ import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   ID_READONLY_CONFIG,
+  IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
   odhTagConfigWithMainEntity,
 } from '../configBuilder';
@@ -297,28 +298,8 @@ export const accommodationDetailView: DetailViewConfig = {
       slug: 'images',
       subcategories: [
         {
-          name: 'Images',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
+          name: '',
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },

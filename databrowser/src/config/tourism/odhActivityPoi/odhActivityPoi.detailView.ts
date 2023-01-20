@@ -3,6 +3,7 @@ import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import { WebComponent } from '../../../domain/webComponents/webComponentRegistry';
 import {
   ID_READONLY_CONFIG,
+  IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
   odhTagConfigWithMainEntity,
   WEBCAM_CONFIG,
@@ -469,28 +470,8 @@ export const odhActivityPoiDetailView: DetailViewConfig = {
       slug: 'images',
       subcategories: [
         {
-          name: 'Images',
-          properties: [
-            {
-              title: '',
-              component: CellComponent.ImageGalleryCell,
-              fields: {
-                images: 'ImageGallery',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
+          name: '',
+          properties: [IMAGE_GALLERY_CONFIG],
         },
       ],
     },
