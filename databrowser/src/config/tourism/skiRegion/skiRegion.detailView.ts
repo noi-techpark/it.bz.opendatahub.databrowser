@@ -4,7 +4,7 @@ import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
-  ODH_TAG_CONFIG,
+  ODH_TAG_SINGLE_VIEW_CONFIG,
 } from '../configBuilder';
 
 export const skiRegionDetailView: DetailViewConfig = {
@@ -301,7 +301,7 @@ export const skiRegionDetailView: DetailViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [ODH_TAG_CONFIG],
+          properties: [ODH_TAG_SINGLE_VIEW_CONFIG],
         },
       ],
     },

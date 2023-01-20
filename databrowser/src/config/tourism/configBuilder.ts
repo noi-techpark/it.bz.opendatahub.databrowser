@@ -147,7 +147,7 @@ export const ODH_ACTIVE_TABLE_CONFIG = {
   },
 } as const;
 
-export const ODH_TAG_CONFIG = {
+export const ODH_TAG_SINGLE_VIEW_CONFIG = {
   title: 'Open Data Hub Tags',
   component: CellComponent.OdhTagCell,
   listFields: {
@@ -176,8 +176,10 @@ export const TITLE_TABLE_CONFIG = {
 } as const;
 
 export const odhTagConfigWithMainEntity = (mainentity: string) => ({
-  ...ODH_TAG_CONFIG,
-  params: { url: `${ODH_TAG_CONFIG.params.url}?mainentity=${mainentity}` },
+  ...ODH_TAG_SINGLE_VIEW_CONFIG,
+  params: {
+    url: `${ODH_TAG_SINGLE_VIEW_CONFIG.params.url}?mainentity=${mainentity}`,
+  },
 });
 
 export const WEBCAM_CONFIG = {
