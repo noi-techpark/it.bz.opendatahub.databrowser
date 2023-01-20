@@ -155,7 +155,7 @@ export const ODH_TAG_CONFIG = {
     pathToParent: 'SmgTags',
   },
   params: { url: withOdhBaseUrl('/v1/ODHTag') },
-};
+} as const;
 
 export const SOURCE_TABLE_CONFIG = {
   title: 'Source',
@@ -195,4 +195,4 @@ export const WEBCAM_CONFIG = {
       listPosition: 'ListPosition',
     },
   },
-};
+} as const;
