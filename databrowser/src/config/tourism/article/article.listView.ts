@@ -5,19 +5,13 @@ import {
   IMAGE_TABLE_CONFIG,
   LANGUAGE_TABLE_CONFIG,
   SOURCE_TABLE_CONFIG,
+  TITLE_TABLE_CONFIG,
 } from '../configBuilder';
 
 export const articleListView: ListViewConfig = {
   elements: [
     { ...IMAGE_TABLE_CONFIG },
-    {
-      title: 'Title',
-      component: CellComponent.StringCell,
-      class: 'w-60',
-      fields: {
-        text: 'Detail.{language}.Title',
-      },
-    },
+    { ...TITLE_TABLE_CONFIG },
     {
       title: 'Type',
       component: CellComponent.StringCell,

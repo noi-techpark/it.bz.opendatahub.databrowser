@@ -10,6 +10,7 @@ import {
   LOCATION_TABLE_CONFIG,
   ODH_ACTIVE_TABLE_CONFIG,
   SOURCE_TABLE_CONFIG,
+  TITLE_TABLE_CONFIG,
 } from '../configBuilder';
 
 export const odhActivityPoiListView: ListViewConfig = {
@@ -23,14 +24,7 @@ export const odhActivityPoiListView: ListViewConfig = {
         src: 'ContactInfos.{language}.LogoUrl',
       },
     },
-    {
-      title: 'Title',
-      component: CellComponent.StringCell,
-      class: 'w-60',
-      fields: {
-        text: 'Detail.{language}.Title',
-      },
-    },
+    { ...TITLE_TABLE_CONFIG },
     {
       title: 'Categories',
       component: CellComponent.ArrayCell,

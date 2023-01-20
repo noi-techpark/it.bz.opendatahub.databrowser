@@ -144,6 +144,15 @@ export const SOURCE_TABLE_CONFIG = {
   },
 } as const;
 
+export const TITLE_TABLE_CONFIG = {
+  title: 'Title',
+  component: CellComponent.StringCell,
+  class: 'w-60',
+  fields: {
+    text: 'Detail.{language}.Title',
+  },
+} as const;
+
 export const odhTagConfigWithMainEntity = (mainentity: string) => ({
   ...ODH_TAG_CONFIG,
   params: { url: `${ODH_TAG_CONFIG.params.url}?mainentity=${mainentity}` },
