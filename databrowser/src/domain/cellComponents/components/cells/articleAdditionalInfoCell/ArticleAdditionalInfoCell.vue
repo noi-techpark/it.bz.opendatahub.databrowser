@@ -1,7 +1,7 @@
 <template>
   <EditListCell :items="recordAsItems" @update="update">
     <template #table="{ items }">
-      <ArticleLinkInfoTable :infos="items" />
+      <ArticleAdditionalInfoTable :infos="items" />
     </template>
   </EditListCell>
 </template>
@@ -10,7 +10,7 @@
 import { defineEmits, defineProps, toRefs } from 'vue';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import { useRecordSupportForCell } from '../../utils/editList/support/useRecordSupport';
-import ArticleLinkInfoTable from './ArticleAdditionalInfoTable.vue';
+import ArticleAdditionalInfoTable from './ArticleAdditionalInfoTable.vue';
 import { InfoEntry } from './types';
 
 const emit = defineEmits(['update']);
