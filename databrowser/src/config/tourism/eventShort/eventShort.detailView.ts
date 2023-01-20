@@ -4,7 +4,7 @@ import {
   EVENT_DOCUMENT_SINGLE_VIEW_CONFIG,
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
-  ROOM_BOOKED_CONFIG,
+  ROOM_BOOKED_TABLE_CONFIG,
 } from '../configBuilder';
 
 export const eventShortDetailView: DetailViewConfig = {
@@ -121,7 +121,7 @@ export const eventShortDetailView: DetailViewConfig = {
               component: CellComponent.TagCell,
               fields: { items: 'CustomTagging' },
             },
-            { ...ROOM_BOOKED_CONFIG, title: 'Room management' },
+            { ...ROOM_BOOKED_TABLE_CONFIG, title: 'Room management' },
           ],
         },
       ],

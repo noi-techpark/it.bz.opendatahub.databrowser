@@ -4,7 +4,7 @@ import {
   EVENT_DOCUMENT_SINGLE_VIEW_CONFIG,
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
-  ROOM_BOOKED_CONFIG,
+  ROOM_BOOKED_TABLE_CONFIG,
 } from '../configBuilder';
 
 export const eventShortEditView: EditViewConfig = {
@@ -174,7 +174,7 @@ export const eventShortEditView: EditViewConfig = {
                 label_009: 'Balboa x NOI Into Action',
               },
             },
-            { ...ROOM_BOOKED_CONFIG, title: 'Room management' },
+            { ...ROOM_BOOKED_TABLE_CONFIG, title: 'Room management' },
           ],
         },
       ],

@@ -116,7 +116,7 @@ export const LOCATION_TABLE_CONFIG = {
   },
 } as const;
 
-export const ROOM_BOOKED_CONFIG = {
+export const ROOM_BOOKED_TABLE_CONFIG = {
   title: '',
   component: CellComponent.EditRoomBookedCell,
   listFields: {
