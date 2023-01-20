@@ -1,11 +1,11 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import {
-  EVENT_DOCUMENT_SINGLE_VIEW_CONFIG,
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   ROOM_BOOKED_TABLE_CONFIG,
 } from '../configBuilderListView';
+import { EVENT_DOCUMENT_SINGLE_VIEW_CONFIG } from '../configBuilderSingleView';
 
 export const eventShortDetailView: DetailViewConfig = {
   elements: [

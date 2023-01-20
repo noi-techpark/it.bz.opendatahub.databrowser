@@ -1,5 +1,4 @@
 import { CellComponent } from '../../domain/cellComponents/types';
-import { withOdhBaseUrl } from '../utils';
 
 export const EDITED_TABLE_CONFIG = {
   title: 'Edited',
@@ -10,19 +9,6 @@ export const EDITED_TABLE_CONFIG = {
   },
   params: {
     format: 'do MMMM yyyy',
-  },
-} as const;
-
-export const EVENT_DOCUMENT_SINGLE_VIEW_CONFIG = {
-  title: 'PDFs',
-  component: CellComponent.EventDocumentCell,
-  listFields: {
-    attributeName: 'files',
-    pathToParent: 'EventDocument',
-    fields: {
-      src: 'DocumentURL',
-      language: 'Language',
-    },
   },
 } as const;
 
@@ -145,16 +131,6 @@ export const ODH_ACTIVE_TABLE_CONFIG = {
   fields: {
     state: 'OdhActive',
   },
-} as const;
-
-export const ODH_TAG_SINGLE_VIEW_CONFIG = {
-  title: 'Open Data Hub Tags',
-  component: CellComponent.OdhTagCell,
-  listFields: {
-    attributeName: 'odhTags',
-    pathToParent: 'SmgTags',
-  },
-  params: { url: withOdhBaseUrl('/v1/ODHTag') },
 } as const;
 
 export const SOURCE_TABLE_CONFIG = {

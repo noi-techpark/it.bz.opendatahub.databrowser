@@ -3,8 +3,8 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   ID_READONLY_CONFIG,
   LAST_CHANGES_CONFIG,
-  ODH_TAG_SINGLE_VIEW_CONFIG,
 } from '../configBuilderListView';
+import { ODH_TAG_SINGLE_VIEW_CONFIG } from '../configBuilderSingleView';
 
 export const webcamInfoDetailView: DetailViewConfig = {
   elements: [
