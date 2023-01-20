@@ -4,7 +4,7 @@ import {
   EDITED_TABLE_CONFIG,
   LANGUAGE_TABLE_CONFIG,
   ODH_ACTIVE_TABLE_CONFIG,
-} from '../configBuilder';
+} from '../configBuilderListView';
 
 export const eventShortListView: ListViewConfig = {
   elements: [

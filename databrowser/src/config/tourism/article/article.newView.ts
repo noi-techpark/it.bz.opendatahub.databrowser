@@ -4,7 +4,7 @@ import { withOdhBaseUrl } from '../../utils';
 import {
   IMAGE_GALLERY_CONFIG,
   odhTagConfigWithMainEntity,
-} from '../configBuilder';
+} from '../configBuilderListView';
 
 export const articleNewView: EditViewConfig = {
   elements: [

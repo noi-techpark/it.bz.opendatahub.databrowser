@@ -8,7 +8,7 @@ import {
   LAST_CHANGES_CONFIG,
   odhTagConfigWithMainEntity,
   WEBCAM_TABLE_CONFIG,
-} from '../configBuilder';
+} from '../configBuilderListView';
 
 export const odhActivityPoiEditView: EditViewConfig = {
   elements: [

@@ -5,7 +5,7 @@ import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   ROOM_BOOKED_TABLE_CONFIG,
-} from '../configBuilder';
+} from '../configBuilderListView';
 
 export const eventShortEditView: EditViewConfig = {
   elements: [

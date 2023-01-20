@@ -1,6 +1,6 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { LANGUAGE_TABLE_CONFIG } from '../configBuilder';
+import { LANGUAGE_TABLE_CONFIG } from '../configBuilderListView';
 
 export const weatherInfoListView: ListViewConfig = {
   elements: [

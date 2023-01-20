@@ -6,7 +6,7 @@ import {
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
   odhTagConfigWithMainEntity,
-} from '../configBuilder';
+} from '../configBuilderListView';
 
 export const articleDetailView: DetailViewConfig = {
   elements: [

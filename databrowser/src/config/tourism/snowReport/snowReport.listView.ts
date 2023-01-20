@@ -1,6 +1,6 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ODH_ACTIVE_TABLE_CONFIG } from '../configBuilder';
+import { ODH_ACTIVE_TABLE_CONFIG } from '../configBuilderListView';
 
 export const snowReportListView: ListViewConfig = {
   //edit source odh

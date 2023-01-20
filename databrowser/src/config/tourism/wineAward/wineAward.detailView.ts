@@ -4,7 +4,7 @@ import {
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
-} from '../configBuilder';
+} from '../configBuilderListView';
 
 export const wineAwardDetailView: DetailViewConfig = {
   elements: [

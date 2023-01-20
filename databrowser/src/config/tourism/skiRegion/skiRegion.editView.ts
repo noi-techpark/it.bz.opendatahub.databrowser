@@ -5,7 +5,7 @@ import {
   IMAGE_GALLERY_CONFIG,
   LAST_CHANGES_CONFIG,
   ODH_TAG_SINGLE_VIEW_CONFIG,
-} from '../configBuilder';
+} from '../configBuilderListView';
 
 export const skiRegionEditView: EditViewConfig = {
   elements: [

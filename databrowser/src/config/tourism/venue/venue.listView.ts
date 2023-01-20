@@ -1,6 +1,9 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { IMAGE_TABLE_CONFIG, SOURCE_TABLE_CONFIG } from '../configBuilder';
+import {
+  IMAGE_TABLE_CONFIG,
+  SOURCE_TABLE_CONFIG,
+} from '../configBuilderListView';
 
 export const venueListView: ListViewConfig = {
   elements: [

@@ -1,6 +1,6 @@
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ID_READONLY_CONFIG } from '../configBuilder';
+import { ID_READONLY_CONFIG } from '../configBuilderListView';
 
 export const weatherRealTimeEditView: EditViewConfig = {
   elements: [
