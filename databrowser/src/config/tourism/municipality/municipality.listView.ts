@@ -1,5 +1,6 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { EDITED_TABLE_CONFIG, LANGUAGE_TABLE_CONFIG } from '../configBuilder';
 
 export const municipalityListView: ListViewConfig = {
   elements: [
@@ -31,28 +32,8 @@ export const municipalityListView: ListViewConfig = {
         altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
       },
     },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
-    },
+    { ...LANGUAGE_TABLE_CONFIG },
+    { ...EDITED_TABLE_CONFIG },
     {
       title: 'Source',
       component: CellComponent.StringCell,

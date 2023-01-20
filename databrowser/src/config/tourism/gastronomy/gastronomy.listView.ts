@@ -1,16 +1,15 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import {
+  EDITED_TABLE_CONFIG,
+  IMAGE_TABLE_CONFIG,
+  LANGUAGE_TABLE_CONFIG,
+  LOCATION_TABLE_CONFIG,
+} from '../configBuilder';
 
 export const gastronomyListView: ListViewConfig = {
   elements: [
-    {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      fields: {
-        src: 'ImageGallery.0.ImageUrl',
-      },
-    },
+    { ...IMAGE_TABLE_CONFIG },
     {
       title: 'Title',
       component: CellComponent.StringCell,
@@ -19,26 +18,8 @@ export const gastronomyListView: ListViewConfig = {
         text: 'Detail.{language}.Title',
       },
     },
-    {
-      title: 'Location',
-      component: CellComponent.TextHighlightCell,
-      class: 'w-40',
-      fields: {
-        title: 'LocationInfo.RegionInfo.Name.{language}',
-        subtitle: 'LocationInfo.MunicipalityInfo.Name.{language}',
-      },
-    },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
+    { ...LOCATION_TABLE_CONFIG },
+    { ...LANGUAGE_TABLE_CONFIG },
     {
       title: 'Tags',
       component: CellComponent.ArrayCellTags,
@@ -52,17 +33,7 @@ export const gastronomyListView: ListViewConfig = {
         max: '3',
       },
     },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
-    },
+    { ...EDITED_TABLE_CONFIG },
     {
       title: 'Source',
       component: CellComponent.StringCell,

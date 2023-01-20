@@ -1,5 +1,6 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { EDITED_TABLE_CONFIG } from '../configBuilder';
 
 export const webcamInfoListView: ListViewConfig = {
   elements: [
@@ -39,17 +40,7 @@ export const webcamInfoListView: ListViewConfig = {
         altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
       },
     },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
-    },
+    { ...EDITED_TABLE_CONFIG },
     {
       title: 'Source',
       component: CellComponent.StringCell,

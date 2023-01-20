@@ -3,17 +3,15 @@ import {
   CellComponent,
   FilterComponent,
 } from '../../../domain/cellComponents/types';
+import {
+  EDITED_TABLE_CONFIG,
+  IMAGE_TABLE_CONFIG,
+  LANGUAGE_TABLE_CONFIG,
+} from '../configBuilder';
 
 export const wineAwardListView: ListViewConfig = {
   elements: [
-    {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      fields: {
-        src: 'ImageGallery.0.ImageUrl',
-      },
-    },
+    { ...IMAGE_TABLE_CONFIG },
     {
       title: 'Name/Title',
       component: CellComponent.StringCell,
@@ -57,65 +55,8 @@ export const wineAwardListView: ListViewConfig = {
         separator: ', ',
       },
     },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-      filter: {
-        name: 'langfilter',
-        component: FilterComponent.FixedValue,
-        params: {
-          multiselect: true,
-          filterOptions: [
-            {
-              label: 'German',
-              value: 'de',
-            },
-            {
-              label: 'Italian',
-              value: 'it',
-            },
-            {
-              label: 'English',
-              value: 'en',
-            },
-            {
-              label: 'Dutch',
-              value: 'nl',
-            },
-            {
-              label: 'Polish',
-              value: 'pl',
-            },
-            {
-              label: 'French',
-              value: 'fr',
-            },
-            {
-              label: 'Russian',
-              value: 'ru',
-            },
-          ],
-        },
-      },
-    },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
-    },
+    { ...LANGUAGE_TABLE_CONFIG },
+    { ...EDITED_TABLE_CONFIG },
     {
       title: 'Source',
       component: CellComponent.StringCell,

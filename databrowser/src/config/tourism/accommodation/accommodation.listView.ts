@@ -1,16 +1,15 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import {
+  EDITED_TABLE_CONFIG,
+  IMAGE_TABLE_CONFIG,
+  LANGUAGE_TABLE_CONFIG,
+  LOCATION_TABLE_CONFIG,
+} from '../configBuilder';
 
 export const accommodationListView: ListViewConfig = {
   elements: [
-    {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      fields: {
-        src: 'ImageGallery.0.ImageUrl',
-      },
-    },
+    { ...IMAGE_TABLE_CONFIG },
     {
       title: 'Title',
       component: CellComponent.StringCell,
@@ -35,37 +34,9 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoCategoryId',
       },
     },
-    {
-      title: 'Location',
-      component: CellComponent.TextHighlightCell,
-      class: 'w-40',
-      fields: {
-        title: 'LocationInfo.RegionInfo.Name.{language}',
-        subtitle: 'LocationInfo.MunicipalityInfo.Name.{language}',
-      },
-    },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'do MMMM yyyy',
-      },
-    },
+    { ...LOCATION_TABLE_CONFIG },
+    { ...LANGUAGE_TABLE_CONFIG },
+    { ...EDITED_TABLE_CONFIG },
     {
       title: 'Source',
       component: CellComponent.StringCell,

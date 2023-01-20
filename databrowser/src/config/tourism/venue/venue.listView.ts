@@ -1,16 +1,10 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { IMAGE_TABLE_CONFIG } from '../configBuilder';
 
 export const venueListView: ListViewConfig = {
   elements: [
-    {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-36',
-      fields: {
-        src: 'ImageGallery.0.ImageUrl',
-      },
-    },
+    { ...IMAGE_TABLE_CONFIG },
     {
       title: 'Name',
       component: CellComponent.StringCell,

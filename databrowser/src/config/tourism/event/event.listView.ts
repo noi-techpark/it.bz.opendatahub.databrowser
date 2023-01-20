@@ -3,17 +3,15 @@ import {
   FilterComponent,
 } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import {
+  EDITED_TABLE_CONFIG,
+  IMAGE_TABLE_CONFIG,
+  LANGUAGE_TABLE_CONFIG,
+} from '../configBuilder';
 
 export const eventListView: ListViewConfig = {
   elements: [
-    {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-36',
-      fields: {
-        src: 'ImageGallery.0.ImageUrl',
-      },
-    },
+    { ...IMAGE_TABLE_CONFIG },
     {
       title: 'Title',
       component: CellComponent.StringCell,
@@ -60,28 +58,8 @@ export const eventListView: ListViewConfig = {
         text: 'LocationInfo.DistrictInfo.Name.en',
       },
     },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-32',
-      fields: {
-        items: 'HasLanguage',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: {
-        date: 'LastChange',
-      },
-      params: {
-        format: 'd. MMMM yyyy',
-      },
-    },
+    { ...LANGUAGE_TABLE_CONFIG },
+    { ...EDITED_TABLE_CONFIG },
     {
       title: 'Source',
       component: CellComponent.StringCell,

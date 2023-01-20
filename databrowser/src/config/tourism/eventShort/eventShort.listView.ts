@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { EDITED_TABLE_CONFIG, LANGUAGE_TABLE_CONFIG } from '../configBuilder';
 
 export const eventShortListView: ListViewConfig = {
   elements: [
@@ -35,20 +36,8 @@ export const eventShortListView: ListViewConfig = {
       class: 'w-48',
       fields: { text: 'EventLocation' },
     },
-    {
-      title: 'Languages',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      fields: { items: 'HasLanguage' },
-      params: { separator: ', ' },
-    },
-    {
-      title: 'Edited',
-      component: CellComponent.EditedDateCell,
-      class: 'w-40',
-      fields: { date: 'LastChange' },
-      params: { format: 'do MMMM yyyy' },
-    },
+    { ...LANGUAGE_TABLE_CONFIG },
+    { ...EDITED_TABLE_CONFIG },
     {
       title: 'Open Data Hub state',
       component: CellComponent.StateCell,

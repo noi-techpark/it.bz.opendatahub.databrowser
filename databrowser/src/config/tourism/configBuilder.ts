@@ -1,6 +1,18 @@
 import { CellComponent } from '../../domain/cellComponents/types';
 import { withOdhBaseUrl } from '../utils';
 
+export const EDITED_TABLE_CONFIG = {
+  title: 'Edited',
+  component: CellComponent.EditedDateCell,
+  class: 'w-48',
+  fields: {
+    date: 'LastChange',
+  },
+  params: {
+    format: 'do MMMM yyyy',
+  },
+} as const;
+
 export const EVENT_DOCUMENT_CONFIG = {
   title: 'PDFs',
   component: CellComponent.EventDocumentCell,
@@ -44,11 +56,42 @@ export const IMAGE_GALLERY_CONFIG = {
   },
 } as const;
 
+export const IMAGE_TABLE_CONFIG = {
+  title: 'Image',
+  component: CellComponent.ImageCell,
+  class: 'w-40',
+  fields: {
+    src: 'ImageGallery.0.ImageUrl',
+  },
+} as const;
+
+export const LANGUAGE_TABLE_CONFIG = {
+  title: 'Languages',
+  component: CellComponent.ArrayCell,
+  class: 'w-40',
+  fields: {
+    items: 'HasLanguage',
+  },
+  params: {
+    separator: ', ',
+  },
+} as const;
+
 export const LAST_CHANGES_CONFIG = {
   title: 'Last Changes',
   component: CellComponent.EditedDateCell,
   fields: { date: 'LastChange' },
   params: { format: 'do MMMM yyyy HH:mm' },
+} as const;
+
+export const LOCATION_TABLE_CONFIG = {
+  title: 'Location',
+  component: CellComponent.TextHighlightCell,
+  class: 'w-52',
+  fields: {
+    title: 'LocationInfo.RegionInfo.Name.{language}',
+    subtitle: 'LocationInfo.MunicipalityInfo.Name.{language}',
+  },
 } as const;
 
 export const ROOM_BOOKED_CONFIG = {
