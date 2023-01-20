@@ -2,6 +2,7 @@ import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   EDITED_TABLE_CONFIG,
+  GPS_DATA_TABLE_CONFIG,
   ODH_ACTIVE_TABLE_CONFIG,
   SOURCE_TABLE_CONFIG,
 } from '../configBuilder';
@@ -48,18 +49,7 @@ export const measuringPointListView: ListViewConfig = {
         text: 'Temperature',
       },
     },
-    {
-      title: 'GPS Data',
-      component: CellComponent.GpsPointsCell,
-      class: 'w-48',
-      fields: {
-        type: 'GpsPoints.position.Gpstype',
-        latitude: 'GpsPoints.position.Latitude',
-        longitude: 'GpsPoints.position.Longitude',
-        altitude: 'GpsPoints.position.Altitude',
-        altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
-      },
-    },
+    { ...GPS_DATA_TABLE_CONFIG },
     { ...EDITED_TABLE_CONFIG },
     { ...SOURCE_TABLE_CONFIG },
     { ...ODH_ACTIVE_TABLE_CONFIG },

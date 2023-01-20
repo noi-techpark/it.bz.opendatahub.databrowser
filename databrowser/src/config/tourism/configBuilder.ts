@@ -33,6 +33,19 @@ export const ID_READONLY_CONFIG = {
   params: { readonly: 'true' },
 } as const;
 
+export const GPS_DATA_TABLE_CONFIG = {
+  title: 'GPS Data',
+  component: CellComponent.GpsPointsCell,
+  class: 'w-48',
+  fields: {
+    type: 'GpsPoints.position.Gpstype',
+    latitude: 'GpsPoints.position.Latitude',
+    longitude: 'GpsPoints.position.Longitude',
+    altitude: 'GpsPoints.position.Altitude',
+    altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+  },
+} as const;
+
 export const IMAGE_GALLERY_CONFIG = {
   title: '',
   component: CellComponent.EditImageGalleryCell,
