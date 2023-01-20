@@ -13,7 +13,7 @@ export const EDITED_TABLE_CONFIG = {
   },
 } as const;
 
-export const EVENT_DOCUMENT_CONFIG = {
+export const EVENT_DOCUMENT_SINGLE_VIEW_CONFIG = {
   title: 'PDFs',
   component: CellComponent.EventDocumentCell,
   listFields: {

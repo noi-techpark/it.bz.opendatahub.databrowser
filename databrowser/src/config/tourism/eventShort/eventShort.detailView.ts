@@ -1,7 +1,7 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailViewConfig } from '../../../domain/datasetConfig/types';
 import {
-  EVENT_DOCUMENT_CONFIG,
+  EVENT_DOCUMENT_SINGLE_VIEW_CONFIG,
   ID_READONLY_CONFIG,
   IMAGE_GALLERY_CONFIG,
   ROOM_BOOKED_CONFIG,
@@ -142,7 +142,7 @@ export const eventShortDetailView: DetailViewConfig = {
       subcategories: [
         {
           name: '',
-          properties: [EVENT_DOCUMENT_CONFIG],
+          properties: [EVENT_DOCUMENT_SINGLE_VIEW_CONFIG],
         },
       ],
     },
