@@ -8,6 +8,7 @@ import {
   IMAGE_TABLE_CONFIG,
   LANGUAGE_TABLE_CONFIG,
   LOCATION_TABLE_CONFIG,
+  LOGO_TABLE_CONFIG,
   ODH_ACTIVE_TABLE_CONFIG,
   SOURCE_TABLE_CONFIG,
   TITLE_TABLE_CONFIG,
@@ -16,14 +17,7 @@ import {
 export const odhActivityPoiListView: ListViewConfig = {
   elements: [
     { ...IMAGE_TABLE_CONFIG },
-    {
-      title: 'Logo',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      fields: {
-        src: 'ContactInfos.{language}.LogoUrl',
-      },
-    },
+    { ...LOGO_TABLE_CONFIG },
     { ...TITLE_TABLE_CONFIG },
     {
       title: 'Categories',

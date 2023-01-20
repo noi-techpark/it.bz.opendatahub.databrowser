@@ -84,6 +84,15 @@ export const LAST_CHANGES_CONFIG = {
   params: { format: 'do MMMM yyyy HH:mm' },
 } as const;
 
+export const LOGO_TABLE_CONFIG = {
+  title: 'Logo',
+  component: CellComponent.ImageCell,
+  class: 'w-40',
+  fields: {
+    src: 'ContactInfos.{language}.LogoUrl',
+  },
+} as const;
+
 export const LOCATION_TABLE_CONFIG = {
   title: 'Location',
   component: CellComponent.TextHighlightCell,
