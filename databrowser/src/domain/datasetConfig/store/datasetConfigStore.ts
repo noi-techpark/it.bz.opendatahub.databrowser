@@ -1,10 +1,10 @@
 import { View, ViewKey, DatasetRoute, DatasetConfig } from '../types';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { initialState } from './initialState';
-import { markRaw } from 'vue';
 import { useAuth } from '../../auth/store/auth';
 import { resolveDatasetConfig } from '../resolver';
 import { SourceType } from '../source/types';
+import { embeddedDatasetConfigs } from '../../../config/config';
 
 export const useDatasetConfigStore = defineStore('datasetConfigStore', {
   state: () => initialState,
@@ -85,7 +85,7 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', {
       config: DatasetConfig
     ) {
       this.viewKey = viewKey;
-      this.config = markRaw(config);
+      this.config = config;
       this.source = config.source;
       this.datasetRoute = datasetRoute;
       this.resolution = {
@@ -133,4 +133,21 @@ if (import.meta.hot) {
   import.meta.hot.accept(
     acceptHMRUpdate(useDatasetConfigStore, import.meta.hot)
   );
+}
+
+// Add support for datasetConfig config hot-module-reload
+if (import.meta.hot) {
+  // Need to reference module whose changes should trigger config calculations
+  embeddedDatasetConfigs;
+
+  // Watch for changes in the config file
+  import.meta.hot.accept('../../../config/config', (config) => {
+    if (config != null) {
+      const store = useDatasetConfigStore();
+      if (store.viewKey != null && store.datasetRoute != null) {
+        // Need some time for data to settle
+        setTimeout(() => store.resolve(store.viewKey!, store.datasetRoute!));
+      }
+    }
+  });
 }
