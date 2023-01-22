@@ -18,7 +18,7 @@ export const gastronomyListView: ListViewConfig = {
     languageTableCell(),
     {
       title: 'Tags',
-      component: CellComponent.ArrayCellTags,
+      component: CellComponent.ArrayTagsCell,
       class: 'w-40',
       fields: {
         items: 'CategoryCodes',

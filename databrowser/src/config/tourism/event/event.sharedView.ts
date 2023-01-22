@@ -250,7 +250,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Topics',
-              component: CellComponent.ArrayCellTags,
+              component: CellComponent.ArrayTagsCell,
               fields: {
                 items: 'Topics',
               },

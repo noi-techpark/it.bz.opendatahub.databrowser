@@ -30,7 +30,7 @@ export const articleListView: ListViewConfig = {
     },
     {
       title: 'Tags',
-      component: CellComponent.ArrayCellTags,
+      component: CellComponent.ArrayTagsCell,
       class: 'w-40',
       fields: {
         items: 'ODHTags',

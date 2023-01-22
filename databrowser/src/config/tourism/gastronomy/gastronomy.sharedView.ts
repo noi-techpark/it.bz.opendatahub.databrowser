@@ -35,7 +35,7 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
             },
             {
               title: 'Category',
-              component: CellComponent.ArrayCellTags,
+              component: CellComponent.ArrayTagsCell,
               fields: {
                 items: 'CategoryCodes',
               },
@@ -47,7 +47,7 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
             },
             {
               title: 'Facilities',
-              component: CellComponent.ArrayCellTags,
+              component: CellComponent.ArrayTagsCell,
               fields: {
                 items: 'Facilities',
               },
