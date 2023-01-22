@@ -126,6 +126,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
                 value_004: 'OUT',
                 label_004: 'Other',
               },
+              class: 'mb-8',
             },
             {
               title: 'Technology Fields',
@@ -146,6 +147,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
                 value_005: 'Green',
                 label_005: 'Green',
               },
+              class: 'mb-8',
             },
             {
               title: 'Tagging Fields',
@@ -174,6 +176,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
                 value_009: 'Balboa x NOI Into Action',
                 label_009: 'Balboa x NOI Into Action',
               },
+              class: 'mb-8',
             },
             {
               title: 'Room Management',
