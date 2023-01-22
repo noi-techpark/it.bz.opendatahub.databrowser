@@ -1,6 +1,6 @@
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ODH_ACTIVE_TABLE_CONFIG } from '../configBuilderListView';
+import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { odhActiveTableCell } from '../../builder/tourism';
 
 export const snowReportListView: ListViewConfig = {
   //edit source odh
@@ -88,6 +88,6 @@ export const snowReportListView: ListViewConfig = {
         text: 'Measuringpoints.0.Source',
       },
     },
-    { ...ODH_ACTIVE_TABLE_CONFIG },
+    odhActiveTableCell(),
   ],
 };

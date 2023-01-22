@@ -4,21 +4,21 @@ import {
 } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import {
-  EDITED_TABLE_CONFIG,
-  IMAGE_TABLE_CONFIG,
-  LANGUAGE_TABLE_CONFIG,
-  LOCATION_TABLE_CONFIG,
-  LOGO_TABLE_CONFIG,
-  ODH_ACTIVE_TABLE_CONFIG,
-  SOURCE_TABLE_CONFIG,
-  TITLE_TABLE_CONFIG,
-} from '../configBuilderListView';
+  imageTableCell,
+  languageTableCell,
+  lastChangesTableCell,
+  locationTableCell,
+  logoTableCell,
+  odhActiveTableCell,
+  sourceTableCell,
+  titleTableCell,
+} from '../../builder/tourism';
 
 export const odhActivityPoiListView: ListViewConfig = {
   elements: [
-    { ...IMAGE_TABLE_CONFIG },
-    { ...LOGO_TABLE_CONFIG },
-    { ...TITLE_TABLE_CONFIG },
+    imageTableCell(),
+    logoTableCell(),
+    titleTableCell(),
     {
       title: 'Categories',
       component: CellComponent.ArrayCell,
@@ -30,16 +30,16 @@ export const odhActivityPoiListView: ListViewConfig = {
         separator: ', ',
       },
     },
-    { ...LOCATION_TABLE_CONFIG },
+    locationTableCell(),
     {
       title: 'Web-URL',
       component: CellComponent.UrlCell,
       class: 'w-52',
       fields: { text: 'ContactInfos.{language}.Url' },
     },
-    { ...LANGUAGE_TABLE_CONFIG },
-    { ...EDITED_TABLE_CONFIG },
-    { ...SOURCE_TABLE_CONFIG },
+    languageTableCell(),
+    lastChangesTableCell(),
+    sourceTableCell(),
     {
       title: 'Source state',
       component: CellComponent.StateCell,
@@ -64,6 +64,6 @@ export const odhActivityPoiListView: ListViewConfig = {
         },
       },
     },
-    { ...ODH_ACTIVE_TABLE_CONFIG },
+    odhActiveTableCell(),
   ],
 };

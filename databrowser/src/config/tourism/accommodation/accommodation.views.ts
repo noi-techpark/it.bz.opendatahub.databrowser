@@ -1,9 +1,8 @@
-import { accommodationDetailView } from './accommodation.detailView';
-import { accommodationEditView } from './accommodation.editView';
 import { accommodationListView } from './accommodation.listView';
+import { accommodationSharedView } from './accommodation.sharedView';
 
 export const accommodationViews = {
   table: accommodationListView,
-  detail: accommodationDetailView,
-  edit: accommodationEditView,
+  detail: accommodationSharedView(),
+  edit: accommodationSharedView(),
 };

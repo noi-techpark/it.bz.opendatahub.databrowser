@@ -1,9 +1,8 @@
-import { weatherDistrictDetailView } from './weatherDistrict.detailView';
-import { weatherDistrictEditView } from './weatherDistrict.editView';
 import { weatherDistrictListView } from './weatherDistrict.listView';
+import { weatherDistrictSharedView } from './weatherDistrict.sharedView';
 
 export const weatherDistrictViews = {
   table: weatherDistrictListView,
-  detail: weatherDistrictDetailView,
-  edit: weatherDistrictEditView,
+  detail: weatherDistrictSharedView(),
+  edit: weatherDistrictSharedView(),
 };

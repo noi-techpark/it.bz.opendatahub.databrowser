@@ -1,9 +1,8 @@
-import { weatherRealTimeDetailView } from './weatherRealTime.detailView';
-import { weatherRealTimeEditView } from './weatherRealTime.editView';
 import { weatherRealTimeListView } from './weatherRealTime.listView';
+import { weatherRealTimeSharedView } from './weatherRealTime.sharedView';
 
 export const weatherRealTimeViews = {
   table: weatherRealTimeListView,
-  detail: weatherRealTimeDetailView,
-  edit: weatherRealTimeEditView,
+  detail: weatherRealTimeSharedView(),
+  edit: weatherRealTimeSharedView(),
 };

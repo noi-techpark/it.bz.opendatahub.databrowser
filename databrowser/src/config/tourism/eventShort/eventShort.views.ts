@@ -1,9 +1,8 @@
-import { eventShortDetailView } from './eventShort.detailView';
-import { eventShortEditView } from './eventShort.editView';
 import { eventShortListView } from './eventShort.listView';
+import { eventShortSharedView } from './eventShort.sharedView';
 
 export const eventShortViews = {
   table: eventShortListView,
-  detail: eventShortDetailView,
-  edit: eventShortEditView,
+  detail: eventShortSharedView(),
+  edit: eventShortSharedView(),
 };

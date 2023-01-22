@@ -1,9 +1,8 @@
-import { venueDetailView } from './venue.detailView';
-import { venueEditView } from './venue.editView';
 import { venueListView } from './venue.listView';
+import { venueSharedView } from './venue.sharedView';
 
 export const venueViews = {
   table: venueListView,
-  detail: venueDetailView,
-  edit: venueEditView,
+  detail: venueSharedView(),
+  edit: venueSharedView(),
 };

@@ -1,9 +1,8 @@
-import { gastronomyDetailView } from './gastronomy.detailView';
-import { gastronomyEditView } from './gastronomy.editView';
 import { gastronomyListView } from './gastronomy.listView';
+import { gastronomySharedView } from './gastronomy.sharedView';
 
 export const gastronomyViews = {
   table: gastronomyListView,
-  detail: gastronomyDetailView,
-  edit: gastronomyEditView,
+  detail: gastronomySharedView(),
+  edit: gastronomySharedView(),
 };

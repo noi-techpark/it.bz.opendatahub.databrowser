@@ -1,9 +1,8 @@
-import { regionDetailView } from './region.detailView';
-import { regionEditView } from './region.editView';
 import { regionListView } from './region.listView';
+import { regionSharedView } from './region.sharedView';
 
 export const regionViews = {
   table: regionListView,
-  detail: regionDetailView,
-  edit: regionEditView,
+  detail: regionSharedView(),
+  edit: regionSharedView(),
 };

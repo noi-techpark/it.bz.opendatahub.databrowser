@@ -1,9 +1,8 @@
 import { experienceAreaListView } from './experienceArea.listView';
-import { experienceAreaDetailView } from './experienceArea.detailView';
-import { experienceAreaEditView } from './experienceArea.editView';
+import { experienceAreaSharedView } from './experienceArea.sharedView';
 
 export const experienceAreaViews = {
   table: experienceAreaListView,
-  detail: experienceAreaDetailView,
-  edit: experienceAreaEditView,
+  detail: experienceAreaSharedView(),
+  edit: experienceAreaSharedView(),
 };

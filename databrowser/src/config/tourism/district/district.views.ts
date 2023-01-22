@@ -1,9 +1,8 @@
-import { districtDetailView } from './district.detailView';
-import { districtEditView } from './district.editView';
 import { districtListView } from './district.listView';
+import { districtSharedView } from './district.sharedView';
 
 export const districtViews = {
   table: districtListView,
-  detail: districtDetailView,
-  edit: districtEditView,
+  detail: districtSharedView(),
+  edit: districtSharedView(),
 };

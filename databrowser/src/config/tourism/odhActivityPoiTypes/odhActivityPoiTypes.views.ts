@@ -1,9 +1,8 @@
-import { odhActivityPoiTypesDetailView } from './odhActivityPoiTypes.detailView';
-import { odhActivityPoiTypesEditView } from './odhActivityPoiTypes.editView';
 import { odhActivityPoiTypesListView } from './odhActivityPoiTypes.listView';
+import { odhActivityPoiTypesSharedView } from './odhActivityPoiTypes.sharedView';
 
 export const odhActivityPoiTypesViews = {
   table: odhActivityPoiTypesListView,
-  detail: odhActivityPoiTypesDetailView,
-  edit: odhActivityPoiTypesEditView,
+  detail: odhActivityPoiTypesSharedView(),
+  edit: odhActivityPoiTypesSharedView(),
 };

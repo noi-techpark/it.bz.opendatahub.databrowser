@@ -1,17 +1,17 @@
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import {
-  EDITED_TABLE_CONFIG,
-  GPS_DATA_TABLE_CONFIG,
-  LANGUAGE_TABLE_CONFIG,
-  ODH_ACTIVE_TABLE_CONFIG,
-  SOURCE_TABLE_CONFIG,
-  TITLE_TABLE_CONFIG,
-} from '../configBuilderListView';
+  gpsDataTableCell,
+  languageTableCell,
+  lastChangesTableCell,
+  odhActiveTableCell,
+  sourceTableCell,
+  titleTableCell,
+} from '../../builder/tourism';
 
 export const municipalityListView: ListViewConfig = {
   elements: [
-    { ...TITLE_TABLE_CONFIG },
+    titleTableCell(),
     {
       title: 'CAP',
       component: CellComponent.StringCell,
@@ -20,10 +20,10 @@ export const municipalityListView: ListViewConfig = {
         text: 'Plz',
       },
     },
-    { ...GPS_DATA_TABLE_CONFIG },
-    { ...LANGUAGE_TABLE_CONFIG },
-    { ...EDITED_TABLE_CONFIG },
-    { ...SOURCE_TABLE_CONFIG },
-    { ...ODH_ACTIVE_TABLE_CONFIG },
+    gpsDataTableCell(),
+    languageTableCell(),
+    lastChangesTableCell(),
+    sourceTableCell(),
+    odhActiveTableCell(),
   ],
 };

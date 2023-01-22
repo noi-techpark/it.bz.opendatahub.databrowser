@@ -1,9 +1,8 @@
-import { eventTopicsDetailView } from './eventTopics.detailView';
-import { eventTopicsEditView } from './eventTopics.editView';
 import { eventTopicsListView } from './eventTopics.listView';
+import { eventTopicsSharedView } from './eventTopics.sharedView';
 
 export const eventTopicsViews = {
   table: eventTopicsListView,
-  detail: eventTopicsDetailView,
-  edit: eventTopicsEditView,
+  detail: eventTopicsSharedView(),
+  edit: eventTopicsSharedView(),
 };

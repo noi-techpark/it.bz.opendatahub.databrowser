@@ -1,21 +1,21 @@
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import {
-  EDITED_TABLE_CONFIG,
-  IMAGE_TABLE_CONFIG,
-  LANGUAGE_TABLE_CONFIG,
-  LOCATION_TABLE_CONFIG,
-  ODH_ACTIVE_TABLE_CONFIG,
-  SOURCE_TABLE_CONFIG,
-  TITLE_TABLE_CONFIG,
-} from '../configBuilderListView';
+  imageTableCell,
+  languageTableCell,
+  lastChangesTableCell,
+  locationTableCell,
+  odhActiveTableCell,
+  sourceTableCell,
+  titleTableCell,
+} from '../../builder/tourism';
 
 export const gastronomyListView: ListViewConfig = {
   elements: [
-    { ...IMAGE_TABLE_CONFIG },
-    { ...TITLE_TABLE_CONFIG },
-    { ...LOCATION_TABLE_CONFIG },
-    { ...LANGUAGE_TABLE_CONFIG },
+    imageTableCell(),
+    titleTableCell(),
+    locationTableCell(),
+    languageTableCell(),
     {
       title: 'Tags',
       component: CellComponent.ArrayCellTags,
@@ -29,8 +29,8 @@ export const gastronomyListView: ListViewConfig = {
         max: '3',
       },
     },
-    { ...EDITED_TABLE_CONFIG },
-    { ...SOURCE_TABLE_CONFIG },
-    { ...ODH_ACTIVE_TABLE_CONFIG },
+    lastChangesTableCell(),
+    sourceTableCell(),
+    odhActiveTableCell(),
   ],
 };

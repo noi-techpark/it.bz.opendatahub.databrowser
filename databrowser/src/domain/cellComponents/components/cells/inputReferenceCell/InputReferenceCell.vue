@@ -65,7 +65,7 @@ const isWriteable = useWriteable({ editable, readonly });
 
 const queryKey = url;
 const queryFn = useAxiosFetcher();
-const response = useQuery({ queryKey, queryFn });
+const response = useQuery({ queryKey, queryFn, enabled: isWriteable.value });
 
 const { options, unknownValue } = useMapper(
   response.data,
