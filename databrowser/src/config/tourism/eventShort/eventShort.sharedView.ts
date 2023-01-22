@@ -229,7 +229,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'License Holder',
-              component: CellComponent.StringCell,
+              component: CellComponent.UrlCell,
               fields: { text: 'LicenseInfo.LicenseHolder' },
             },
             {
