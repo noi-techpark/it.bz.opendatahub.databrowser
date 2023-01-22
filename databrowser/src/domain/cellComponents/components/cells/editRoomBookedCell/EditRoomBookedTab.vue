@@ -11,30 +11,16 @@
     <template #body="{ item, index }">
       <div class="flex flex-wrap gap-8 md:flex-nowrap">
         <div class="basis-full md:order-1 md:basis-1/3">
-          <SubCategoryItem title="Date Start">
-            <StringCell
-              :text="item.startDate"
+          <SubCategoryItem title="Date start">
+            <DateCell
+              :date="item.startDate"
               :editable="editable"
               @input="updateItem(index, { startDate: $event.target.value })"
             />
           </SubCategoryItem>
-          <SubCategoryItem title="Start Time">
-            <StringCell
-              :text="item.startDate"
-              :editable="editable"
-              @input="updateItem(index, { startDate: $event.target.value })"
-            />
-          </SubCategoryItem>
-          <SubCategoryItem title="Date End">
-            <StringCell
-              :text="item.endDate"
-              :editable="editable"
-              @input="updateItem(index, { endDate: $event.target.value })"
-            />
-          </SubCategoryItem>
-          <SubCategoryItem title="End Time">
-            <StringCell
-              :text="item.endDate"
+          <SubCategoryItem title="Date end">
+            <DateCell
+              :date="item.endDate"
               :editable="editable"
               @input="updateItem(index, { endDate: $event.target.value })"
             />
@@ -105,6 +91,7 @@ import { useInjectActionTriggers } from '../../utils/editList/actions/useActions
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 import StringCell from '../stringCell/StringCell.vue';
 import { RoomBookedEntry } from './types';
+import DateCell from '../dateCell/DateCell.vue';
 
 defineProps<{ items: RoomBookedEntry[] }>();
 
