@@ -67,7 +67,7 @@ export const weatherDistrictListView: ListViewConfig = {
     },
     {
       title: 'Source',
-      component: CellComponent.StringCell,
+      component: CellComponent.UrlCell,
       class: 'w-36',
       fields: {
         text: 'LicenseInfo.LicenseHolder',
