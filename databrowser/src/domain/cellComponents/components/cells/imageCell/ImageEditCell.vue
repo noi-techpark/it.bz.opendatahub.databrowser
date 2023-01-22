@@ -1,25 +1,29 @@
 <template>
-  <div v-if="imgSrc != null" class="flex">
-    <div class="flex items-start gap-3 rounded border-2 p-2">
-      <img :src="imgSrc" :alt="alt" :style="style" />
-      <button type="button" title="Delete image" @click="deleteImage">
-        <IconDelete class="text-delete" />
-      </button>
+  <div v-if="isWriteable">
+    <div v-if="src != null" class="flex">
+      <div class="flex items-start gap-3 rounded border-2 p-2">
+        <ImageCell :src="src" :width="width" :alt="alt" />
+        <button type="button" title="Delete image" @click="deleteImage">
+          <IconDelete class="text-delete" />
+        </button>
+      </div>
     </div>
+    <FileUpload
+      v-else
+      type="image"
+      text="Drop your image here"
+      @upload-success="uploadSuccess"
+    />
   </div>
-  <FileUpload
-    v-else
-    type="image"
-    text="Drop your image here"
-    @upload-success="uploadSuccess"
-  />
+  <ImageCell v-else :src="src" :width="width" :alt="alt" />
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, ref, watch, withDefaults } from 'vue';
+import { defineEmits, defineProps, toRefs, withDefaults } from 'vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
-import { resizeImageWidth } from '../../../../image';
 import FileUpload from '../../utils/upload/FileUpload.vue';
+import { useWriteable } from '../../utils/writeable/useWriteable';
+import ImageCell from './ImageCell.vue';
 
 const emit = defineEmits(['update']);
 
@@ -40,36 +44,8 @@ const props = withDefaults(
   }
 );
 
-const imgSrc = ref<string>();
-const style = ref<Record<string, string>>();
-
-watch(
-  props,
-  ({ src, width }) => {
-    // Apply default settings
-    imgSrc.value = src;
-    style.value = undefined;
-
-    // If no width is given, default settings are correct
-    if (width == null) {
-      return;
-    }
-
-    const isPercentageWidth = width.trim().endsWith('%');
-
-    if (isPercentageWidth) {
-      style.value = { width };
-    } else {
-      const widthAsNumber = Number(width);
-
-      // If width is a number, than adapt URL
-      if (!isNaN(widthAsNumber)) {
-        imgSrc.value = resizeImageWidth(widthAsNumber, src);
-      }
-    }
-  },
-  { immediate: true }
-);
+const { src, editable, readonly } = toRefs(props);
+const isWriteable = useWriteable({ editable, readonly });
 
 const deleteImage = () => update();
 
