@@ -41,13 +41,15 @@ export type ListElements = PropertyConfig & {
   filter?: FilterConfig;
 };
 
+export interface SubCategoryElement {
+  name: string;
+  properties: PropertyConfig[];
+}
+
 export interface DetailElements {
   name: string;
   slug: string;
-  subcategories: {
-    name: string;
-    properties: PropertyConfig[];
-  }[];
+  subcategories: SubCategoryElement[];
 }
 
 export interface EditElements {

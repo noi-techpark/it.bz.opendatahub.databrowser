@@ -1,9 +1,8 @@
-import { tourismAssociationListDetailView } from './tourismAssociationList.detailView';
-import { tourismAssociationListEditView } from './tourismAssociationList.editView';
 import { tourismAssociationListListView } from './tourismAssociationList.listView';
+import { tourismAssociationListSharedView } from './tourismAssociationList.sharedView';
 
 export const tourismAssociationListViews = {
   table: tourismAssociationListListView,
-  detail: tourismAssociationListDetailView,
-  edit: tourismAssociationListEditView,
+  detail: tourismAssociationListSharedView(),
+  edit: tourismAssociationListSharedView(),
 };

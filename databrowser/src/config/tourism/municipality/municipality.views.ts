@@ -1,9 +1,8 @@
-import { municipalityDetailView } from './municipality.detailView';
-import { municipalityEditView } from './municipality.editView';
 import { municipalityListView } from './municipality.listView';
+import { municipalitySharedView } from './municipality.sharedView';
 
 export const municipalityViews = {
   table: municipalityListView,
-  detail: municipalityDetailView,
-  edit: municipalityEditView,
+  detail: municipalitySharedView(),
+  edit: municipalitySharedView(),
 };

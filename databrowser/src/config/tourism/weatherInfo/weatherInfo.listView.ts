@@ -1,6 +1,6 @@
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { LANGUAGE_TABLE_CONFIG } from '../configBuilderListView';
+import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { languageTableCell } from '../../builder/tourism';
 
 export const weatherInfoListView: ListViewConfig = {
   elements: [
@@ -52,7 +52,7 @@ export const weatherInfoListView: ListViewConfig = {
         text: 'Weather.{language}.Conditions.0.Temperatures',
       },
     },
-    { ...LANGUAGE_TABLE_CONFIG },
+    languageTableCell(),
     {
       title: 'Edited',
       component: CellComponent.EditedDateCell,

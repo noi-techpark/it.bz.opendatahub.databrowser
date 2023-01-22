@@ -1,13 +1,10 @@
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import {
-  IMAGE_TABLE_CONFIG,
-  SOURCE_TABLE_CONFIG,
-} from '../configBuilderListView';
+import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { imageTableCell, sourceTableCell } from '../../builder/tourism';
 
 export const venueListView: ListViewConfig = {
   elements: [
-    { ...IMAGE_TABLE_CONFIG },
+    imageTableCell(),
     {
       title: 'Name',
       component: CellComponent.StringCell,
@@ -48,7 +45,7 @@ export const venueListView: ListViewConfig = {
         text: 'meta.lastUpdate',
       },
     },
-    { ...SOURCE_TABLE_CONFIG },
+    sourceTableCell(),
     {
       title: 'Status',
       component: CellComponent.StringCell,

@@ -1,10 +1,10 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import {
-  EDITED_TABLE_CONFIG,
-  LANGUAGE_TABLE_CONFIG,
-  ODH_ACTIVE_TABLE_CONFIG,
-} from '../configBuilderListView';
+  languageTableCell,
+  lastChangesTableCell,
+  odhActiveTableCell,
+} from '../../builder/tourism';
 
 export const eventShortListView: ListViewConfig = {
   elements: [
@@ -40,8 +40,8 @@ export const eventShortListView: ListViewConfig = {
       class: 'w-48',
       fields: { text: 'EventLocation' },
     },
-    { ...LANGUAGE_TABLE_CONFIG },
-    { ...EDITED_TABLE_CONFIG },
-    { ...ODH_ACTIVE_TABLE_CONFIG },
+    languageTableCell(),
+    lastChangesTableCell(),
+    odhActiveTableCell(),
   ],
 };

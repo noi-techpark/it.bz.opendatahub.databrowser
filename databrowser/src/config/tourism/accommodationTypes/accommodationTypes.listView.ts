@@ -1,10 +1,10 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ID_READONLY_CONFIG } from '../configBuilderCommonView';
+import { idReadOnlyCell } from '../../builder/tourism';
 
 export const accommodationTypesListView: ListViewConfig = {
   elements: [
-    ID_READONLY_CONFIG,
+    idReadOnlyCell(),
     {
       title: 'Key',
       component: CellComponent.StringCell,

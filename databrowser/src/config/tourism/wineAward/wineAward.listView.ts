@@ -1,16 +1,16 @@
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import {
-  EDITED_TABLE_CONFIG,
-  IMAGE_TABLE_CONFIG,
-  LANGUAGE_TABLE_CONFIG,
-  ODH_ACTIVE_TABLE_CONFIG,
-  SOURCE_TABLE_CONFIG,
-} from '../configBuilderListView';
+  imageTableCell,
+  languageTableCell,
+  lastChangesTableCell,
+  odhActiveTableCell,
+  sourceTableCell,
+} from '../../builder/tourism';
 
 export const wineAwardListView: ListViewConfig = {
   elements: [
-    { ...IMAGE_TABLE_CONFIG },
+    imageTableCell(),
     {
       title: 'Name/Title',
       component: CellComponent.StringCell,
@@ -54,9 +54,9 @@ export const wineAwardListView: ListViewConfig = {
         separator: ', ',
       },
     },
-    { ...LANGUAGE_TABLE_CONFIG },
-    { ...EDITED_TABLE_CONFIG },
-    { ...SOURCE_TABLE_CONFIG },
-    { ...ODH_ACTIVE_TABLE_CONFIG },
+    languageTableCell(),
+    lastChangesTableCell(),
+    sourceTableCell(),
+    odhActiveTableCell(),
   ],
 };

@@ -1,9 +1,8 @@
-import { measuringPointDetailView } from './measuringPoint.detailView';
-import { measuringPointEditView } from './measuringPoint.editView';
 import { measuringPointListView } from './measuringPoint.listView';
+import { measuringPointSharedView } from './measuringPoint.sharedView';
 
 export const measuringPointViews = {
   table: measuringPointListView,
-  detail: measuringPointDetailView,
-  edit: measuringPointEditView,
+  detail: measuringPointSharedView(),
+  edit: measuringPointSharedView(),
 };

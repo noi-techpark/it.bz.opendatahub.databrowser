@@ -1,9 +1,8 @@
-import { weatherDetailView } from './weather.detailView';
-import { weatherEditView } from './weather.editView';
 import { weatherListView } from './weather.listView';
+import { weatherSharedView } from './weather.sharedView';
 
 export const weatherViews = {
   table: weatherListView,
-  detail: weatherDetailView,
-  edit: weatherEditView,
+  detail: weatherSharedView(),
+  edit: weatherSharedView(),
 };

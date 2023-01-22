@@ -1,9 +1,8 @@
-import { snowReportDetailView } from './snowReport.detailView';
-import { snowReportEditView } from './snowReport.editView';
 import { snowReportListView } from './snowReport.listView';
+import { snowReportSharedView } from './snowReport.sharedView';
 
 export const snowReportViews = {
   table: snowReportListView,
-  detail: snowReportDetailView,
-  edit: snowReportEditView,
+  detail: snowReportSharedView(),
+  edit: snowReportSharedView(),
 };

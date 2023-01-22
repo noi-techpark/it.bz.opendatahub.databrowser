@@ -1,7 +1,8 @@
 import { webcamInfoListView } from './webcamInfo.listView';
-import { webcamInfoDetailView } from './webcamInfo.detailView';
+import { webcamInfoSharedView } from './webcamInfo.sharedView';
 
 export const webcamInfoViews = {
   table: webcamInfoListView,
-  detail: webcamInfoDetailView,
+  detail: webcamInfoSharedView(),
+  edit: webcamInfoSharedView(),
 };

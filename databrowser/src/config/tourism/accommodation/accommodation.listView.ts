@@ -1,17 +1,17 @@
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import {
-  EDITED_TABLE_CONFIG,
-  IMAGE_TABLE_CONFIG,
-  LANGUAGE_TABLE_CONFIG,
-  LOCATION_TABLE_CONFIG,
-  ODH_ACTIVE_TABLE_CONFIG,
-  SOURCE_TABLE_CONFIG,
-} from '../configBuilderListView';
+  imageTableCell,
+  languageTableCell,
+  lastChangesTableCell,
+  locationTableCell,
+  odhActiveTableCell,
+  sourceTableCell,
+} from '../../builder/tourism';
 
 export const accommodationListView: ListViewConfig = {
   elements: [
-    { ...IMAGE_TABLE_CONFIG },
+    imageTableCell(),
     {
       title: 'Title',
       component: CellComponent.StringCell,
@@ -36,10 +36,10 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoCategoryId',
       },
     },
-    { ...LOCATION_TABLE_CONFIG },
-    { ...LANGUAGE_TABLE_CONFIG },
-    { ...EDITED_TABLE_CONFIG },
-    { ...SOURCE_TABLE_CONFIG },
-    { ...ODH_ACTIVE_TABLE_CONFIG },
+    locationTableCell(),
+    languageTableCell(),
+    lastChangesTableCell(),
+    sourceTableCell(),
+    odhActiveTableCell(),
   ],
 };

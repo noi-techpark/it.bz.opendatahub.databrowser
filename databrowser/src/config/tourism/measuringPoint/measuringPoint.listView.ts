@@ -1,11 +1,11 @@
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import {
-  EDITED_TABLE_CONFIG,
-  GPS_DATA_TABLE_CONFIG,
-  ODH_ACTIVE_TABLE_CONFIG,
-  SOURCE_TABLE_CONFIG,
-} from '../configBuilderListView';
+  gpsDataTableCell,
+  lastChangesTableCell,
+  odhActiveTableCell,
+  sourceTableCell,
+} from '../../builder/tourism';
 
 export const measuringPointListView: ListViewConfig = {
   elements: [
@@ -49,9 +49,9 @@ export const measuringPointListView: ListViewConfig = {
         text: 'Temperature',
       },
     },
-    { ...GPS_DATA_TABLE_CONFIG },
-    { ...EDITED_TABLE_CONFIG },
-    { ...SOURCE_TABLE_CONFIG },
-    { ...ODH_ACTIVE_TABLE_CONFIG },
+    gpsDataTableCell(),
+    lastChangesTableCell(),
+    sourceTableCell(),
+    odhActiveTableCell(),
   ],
 };
