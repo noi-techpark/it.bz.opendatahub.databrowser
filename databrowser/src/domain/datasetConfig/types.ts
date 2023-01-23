@@ -52,6 +52,19 @@ export interface DetailElements {
   subcategories: SubCategoryElement[];
 }
 
+export interface QuickViewElements {
+  sectionType: QuickViewSectionType;
+}
+
+export enum QuickViewSectionType {
+  INFO,
+  CONTACTS,
+  WEBCAMS,
+  MAP,
+  OPENING_HORUS,
+  RECORD_INFO,
+}
+
 export interface EditElements {
   name: string;
   slug: string;
@@ -87,8 +100,9 @@ export interface TableViewElements {
 export interface DetailViewElements {
   elements: DetailElements[];
 }
-export interface QuickViewElements {
-  elements: Record<string, unknown>[];
+export interface QuickViewPageConfig {
+  showTopGallery: Boolean;
+  elements: QuickViewElements[];
 }
 export interface EditViewElements {
   elements: EditElements[];
@@ -96,7 +110,7 @@ export interface EditViewElements {
 
 export type ListViewConfig = TableViewElements;
 export type DetailViewConfig = DetailViewElements;
-export type QuickViewConfig = QuickViewElements;
+export type QuickViewConfig = QuickViewPageConfig;
 export type EditViewConfig = EditViewElements;
 export type RawViewConfig = unknown;
 export type NewViewConfig = EditViewElements;

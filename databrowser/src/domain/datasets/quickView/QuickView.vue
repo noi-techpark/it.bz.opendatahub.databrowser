@@ -7,7 +7,7 @@
       >
         <div>
           <h1 class="text-xl font-bold break-words">{{ title }}</h1>
-          <p class="text-dialog break-words">ID:{{ id }}</p>
+          <p class="text-dialog break-words">ID: {{ id }}</p>
         </div>
         <div
           v-if="logoUrl"
@@ -15,7 +15,14 @@
           :style="{ backgroundImage: `url(${logoUrl})` }"
         ></div>
       </div>
-      <div v-if="imageGallery.length <= 1 && mainImage" class="relative mt-5">
+      <div
+        v-if="
+          odhActivityPoiConfig.views?.quick?.showTopGallery &&
+          imageGallery.length <= 1 &&
+          mainImage
+        "
+        class="relative mt-5"
+      >
         <img
           :src="mainImage.url"
           :alt="mainImage.desc"
@@ -34,24 +41,34 @@
     </PageContent>
 
     <QuickViewFullscreenGallery
-      v-if="imageGallery.length > 1"
+      v-if="
+        odhActivityPoiConfig.views?.quick?.showTopGallery &&
+        imageGallery.length > 1
+      "
       :images="imageGallery"
     />
 
     <PageContent>
       <div class="grid gap-8 mt-4 md:grid-cols-2">
-        <div class="md:col-span-2">
+        <div
+          v-for="(element, index) in odhActivityPoiConfig.views?.quick
+            ?.elements"
+          :key="index"
+          class="element-ct"
+        >
           <QuickViewCardOverview
+            v-if="element.sectionType === QuickViewSectionType.INFO"
             :title="t('datasets.quickView.textInformation')"
             :sections="textInformationSections"
           />
-        </div>
-        <div class="flex flex-col gap-8">
           <QuickViewCardOverview
+            v-else-if="element.sectionType === QuickViewSectionType.CONTACTS"
             :title="t('datasets.quickView.contact')"
             :sections="contactSections"
           />
+
           <QuickViewCardOverview
+            v-else-if="element.sectionType === QuickViewSectionType.WEBCAMS"
             :title="t('datasets.quickView.webcamDetails')"
             :content-has-no-padding="true"
             @cta-click="openMapFullscreen()"
@@ -60,10 +77,8 @@
               <QuickViewCardOverviewGallery :media-items="mediaItems" />
             </template>
           </QuickViewCardOverview>
-        </div>
-
-        <div class="flex flex-col gap-8">
           <QuickViewCardOverview
+            v-else-if="element.sectionType === QuickViewSectionType.MAP"
             :title="t('datasets.quickView.locationOnMap')"
             cta-icon="IconExpand"
             :content-has-no-padding="true"
@@ -79,11 +94,15 @@
             </template>
           </QuickViewCardOverview>
           <QuickViewCardOverview
-            v-if="operationScheduleSections.length"
+            v-else-if="
+              element.sectionType === QuickViewSectionType.OPENING_HORUS &&
+              operationScheduleSections.length
+            "
             :title="t('datasets.quickView.openingHours')"
             :sections="operationScheduleSections"
           />
           <QuickViewCardOverview
+            v-else-if="element.sectionType === QuickViewSectionType.RECORD_INFO"
             :title="t('datasets.quickView.recordInformation')"
             :sections="recordInformationSections"
           />
@@ -99,6 +118,9 @@ import LoadingError from '../../../components/loading/LoadingError.vue';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useApiReadForCurrentDataset } from '../../api';
+
+import { odhActivityPoiConfig } from '../../../config/tourism/odhActivityPoi/odhActivityPoi.config'; // TODO: check if it's the right way to import the file
+import { QuickViewSectionType } from '../../../domain/datasetConfig/types';
 
 import PageContent from '../../../components/content/PageContent.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
