@@ -1,7 +1,7 @@
 <template>
   <div>
     <Listbox v-slot="{ open }" v-model="selectedOption">
-      <div class="relative text-black">
+      <div ref="trigger" class="text-black">
         <SelectButton
           :id="id"
           :class="[
@@ -10,13 +10,25 @@
           ]"
           :label="selectedLabel"
         />
-        <SelectOptionsBox
-          v-model="searchTerm"
-          :show-search="showSearch"
-          :search-results="searchResults"
-          :class="[{ hidden: !open }, optionsClassNames]"
-          class="absolute z-20 w-full"
-        />
+        <Teleport to="#popper-root">
+          <div ref="container" class="absolute" :class="{ hidden: !open }">
+            <transition
+              enter-active-class="transition duration-100 ease-out"
+              enter-from-class="transform scale-95 opacity-0"
+              enter-to-class="transform scale-100 opacity-100"
+              leave-active-class="transition duration-75 ease-out"
+              leave-from-class="transform scale-100 opacity-100"
+              leave-to-class="transform scale-95 opacity-0"
+            >
+              <SelectOptionsBox
+                v-model="searchTerm"
+                :show-search="showSearch"
+                :search-results="searchResults"
+                :class="[{ hidden: !open }, optionsClassNames]"
+              />
+            </transition>
+          </div>
+        </Teleport>
       </div>
     </Listbox>
   </div>
@@ -31,6 +43,7 @@ import { selectButtonSizeStyles, selectOptionsSizeStyles } from './styles';
 import SelectButton from './SelectButton.vue';
 import SelectOptionsBox from './SelectOptionsBox.vue';
 import { randomId } from '../utils/random';
+import { useFloatingUi } from '../utils/useFloatingUi';
 
 const NO_VALUE_OPTION = {
   label: '--- NO VALUE ---',
@@ -49,7 +62,6 @@ const props = withDefaults(
     // Set this number to zero to always show the search
     // Set this number to Infinity to always hide the search
     showSearchWhenAtLeastCountOptions?: number;
-    optionsPlacement?: SelectOptionsPlacement;
     showNoValue?: boolean;
     unknownValue?: string;
   }>(),
@@ -58,18 +70,12 @@ const props = withDefaults(
     size: SelectSize.sm,
     id: randomId(),
     showSearchWhenAtLeastCountOptions: 7,
-    optionsPlacement: 'bottom',
     showNoValue: false,
     unknownValue: undefined,
   }
 );
-const {
-  options,
-  size,
-  showSearchWhenAtLeastCountOptions,
-  optionsPlacement,
-  unknownValue,
-} = toRefs(props);
+const { options, size, showSearchWhenAtLeastCountOptions, unknownValue } =
+  toRefs(props);
 
 // Compute selected option and emit if selection changes
 const selectedOption = computed({
@@ -98,13 +104,27 @@ const selectedLabel = computed(() => {
 });
 
 // Handle options placement
-const isBottomPlacement = computed(() => optionsPlacement.value === 'bottom');
+const isBottomPlacement = computed(
+  () =>
+    placement.value === 'bottom-start' ||
+    placement.value === 'bottom-end' ||
+    placement.value === 'bottom'
+);
+const optionsPlacement = computed<SelectOptionsPlacement>(() =>
+  isBottomPlacement.value ? 'bottom' : 'top'
+);
 
 // Compute CSS classes based on size and option placement
 const buttonClassNames = computed(() => selectButtonSizeStyles[size.value]);
 const optionsClassNames = computed(
   () => selectOptionsSizeStyles[size.value][optionsPlacement.value]
 );
+
+// Position options container dynamically
+const [trigger, container, placement] = useFloatingUi({
+  placement: 'bottom-start',
+  matchReferenceWidth: true,
+});
 
 // Handle search
 const showSearch = computed(
