@@ -1,6 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { PropertyConfig } from '../../../domain/datasetConfig/types';
-import { DEFAULT_DATE_FORMAT, DEFAULT_DATE_TIME_FORMAT } from '../../utils';
+import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 interface LastChangesCellOptions {
   class?: string;
