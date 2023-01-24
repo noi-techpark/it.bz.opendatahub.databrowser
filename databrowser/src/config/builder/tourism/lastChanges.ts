@@ -1,15 +1,15 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { PropertyConfig } from '../../../domain/datasetConfig/types';
-import { DEFAULT_DATE_FORMAT } from '../../utils';
+import { DEFAULT_DATE_FORMAT, DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 interface LastChangesCellOptions {
   class?: string;
 }
 
-export const lastChangesCell = (options?: {
-  class?: string;
-}): PropertyConfig => {
-  const params: LastChangesCellOptions = {};
+export const lastChangesCell = (
+  options?: LastChangesCellOptions
+): PropertyConfig => {
+  const params: Record<string, string> = { format: DEFAULT_DATE_TIME_FORMAT };
   if (options?.class != null) {
     params.class = options.class;
   }
@@ -17,7 +17,7 @@ export const lastChangesCell = (options?: {
     title: 'Last Changes',
     component: CellComponent.EditedDateCell,
     fields: { date: 'LastChange' },
-    params: params as Record<string, string>,
+    params,
   };
 };
 
@@ -26,5 +26,5 @@ export const lastChangesTableCell = (): PropertyConfig => ({
   component: CellComponent.EditedDateCell,
   class: 'w-48',
   fields: { date: 'LastChange' },
-  params: { format: DEFAULT_DATE_FORMAT },
+  params: { format: DEFAULT_DATE_TIME_FORMAT },
 });
