@@ -105,6 +105,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.DateCell,
               fields: { date: 'EndDate' },
               params: { format: 'do MMMM yyyy HH:mm', type: 'datetime' },
+              required: true,
             },
             {
               title: 'Room name',
@@ -146,6 +147,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
                 label_004: 'Food',
                 value_005: 'Green',
                 label_005: 'Green',
+                unique: 'true',
               },
               class: 'mb-8',
             },
@@ -175,6 +177,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
                 label_008: 'NOI Community',
                 value_009: 'Balboa x NOI Into Action',
                 label_009: 'Balboa x NOI Into Action',
+                unique: 'true',
               },
               class: 'mb-8',
             },
