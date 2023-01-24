@@ -5,8 +5,6 @@
         v-if="isWriteable"
         :options="typeSelectOptions"
         :size="SelectSize.md"
-        :show-no-value="true"
-        :unknown-value="currentTypeValue"
         @change="changeType"
       />
       <span v-else>{{ currentTypeValue }}</span>
