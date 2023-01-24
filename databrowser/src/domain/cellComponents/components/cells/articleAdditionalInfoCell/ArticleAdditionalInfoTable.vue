@@ -12,11 +12,9 @@
 
     <template #tableCols="{ item, index }: { item: InfoEntry, index: number }">
       <TableCell>
-        <SelectWithOptionsCell
-          :value="item.header"
-          :sort-by-label="false"
+        <StringCell
+          :text="item.header"
           :editable="editable"
-          v-bind="headerOptions"
           @update="
             updateItem(index, { header: $event.value, content: item.content })
           "
@@ -50,12 +48,11 @@ import EditListTable from '../../utils/editList/table/EditListTable.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import TextAreaCell from '../textAreaCell/TextAreaCell.vue';
-import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
-import { headerOptions } from './headerOptions';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 import { InfoEntry } from './types';
 import { toRefs } from 'vue';
 import { useRecordSupportForTable } from '../../utils/editList/support/useRecordSupport';
+import StringCell from '../stringCell/StringCell.vue';
 
 const props = defineProps<{ infos: InfoEntry[] }>();
 
