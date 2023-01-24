@@ -2,21 +2,15 @@
   <ToolBox
     :is-table-view="true"
     :tab-names="['Search and filter', 'Export datasets']"
-    :default-index="1"
   >
     <TabPanel>
       <ToolBoxCard label="Basic Search" :break-all="true" :is-filter="true">
         <template #icon>
-          <TagCustom
-            class="-mr-4 rounded-r-none font-normal"
-            text="Feature coming soon!"
-            type="calm"
-          />
+          <TagCustom text="BETA" type="info" class="font-normal" />
         </template>
         <template #default>
           <InputSearch
-            class="opacity-50"
-            :disabled="true"
+            :model-value="searchFilterAsString"
             :focus="true"
             @search="search"
           />
@@ -32,15 +26,25 @@
 
 <script setup lang="ts">
 import { TabPanel } from '@headlessui/vue';
+import { computed } from 'vue';
 import InputSearch from '../../../components/input/InputSearch.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
+import { useApiQuery } from '../../api';
 import ExportDataset from '../toolbox/ExportDataset.vue';
 import ToolBox from '../toolbox/ToolBox.vue';
 import ToolBoxCard from '../toolbox/ToolBoxCard.vue';
 
 defineProps<{ url: string }>();
 
+const { updateApiParameterValue, useApiParameter } = useApiQuery();
+
+const searchFilter = useApiParameter('searchfilter');
+const searchFilterAsString = computed(
+  () => searchFilter.value?.toString() ?? ''
+);
+
 const search = (term: string) => {
-  console.log('search', term);
+  const value = term === '' ? undefined : term;
+  updateApiParameterValue('searchfilter', value);
 };
 </script>
