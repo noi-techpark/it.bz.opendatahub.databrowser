@@ -25,11 +25,6 @@ export const dataStatesSubCategory = (
       {
         title: 'Active on Open Data Hub',
         component: CellComponent.ToggleCell,
-        fields: { enabled: 'OdhActive' },
-      },
-      {
-        title: 'Active on SMG',
-        component: CellComponent.ToggleCell,
         fields: { enabled: 'SmgActive' },
       },
     ],
