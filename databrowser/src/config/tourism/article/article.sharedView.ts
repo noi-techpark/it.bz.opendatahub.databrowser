@@ -93,6 +93,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
                 subType: 'SubType',
               },
               params: { lookupUrl: withOdhBaseUrl('/v1/ArticleTypes') },
+              required: true,
             },
             {
               title: 'Article Date',
