@@ -1,5 +1,6 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { DEFAULT_DATE_FORMAT } from '../../utils';
 
 export const weatherRealTimeListView: ListViewConfig = {
   elements: [
@@ -36,7 +37,7 @@ export const weatherRealTimeListView: ListViewConfig = {
         date: 'lastUpdated',
       },
       params: {
-        format: 'do MMMM yyyy',
+        format: DEFAULT_DATE_FORMAT,
       },
     },
   ],

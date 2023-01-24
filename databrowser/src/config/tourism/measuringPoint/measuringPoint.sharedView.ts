@@ -9,6 +9,7 @@ import {
   lastChangesCell,
   shortnameCell,
 } from '../../builder/tourism';
+import { DEFAULT_DATE_FORMAT } from '../../utils';
 
 export const measuringPointSharedView = ():
   | DetailViewConfig
@@ -91,7 +92,7 @@ export const measuringPointSharedView = ():
               title: 'Last snow date',
               component: CellComponent.DateCell,
               fields: { date: 'LastSnowDate' },
-              params: { format: 'do MMMM yyyy' },
+              params: { format: DEFAULT_DATE_FORMAT },
             },
           ],
         },

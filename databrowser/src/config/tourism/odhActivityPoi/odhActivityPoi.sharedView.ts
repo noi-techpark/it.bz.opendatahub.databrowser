@@ -19,7 +19,7 @@ import {
   textInfoCategory,
   webcamTableCell,
 } from '../../builder/tourism';
-import { withOdhBaseUrl } from '../../utils';
+import { DEFAULT_DATE_TIME_FORMAT, withOdhBaseUrl } from '../../utils';
 
 export const odhActivityPoiSharedView = ():
   | DetailViewConfig
@@ -290,13 +290,13 @@ export const odhActivityPoiSharedView = ():
               title: 'Start Date and Time',
               component: CellComponent.DateCell,
               fields: { date: 'OperationSchedule.0.Start' },
-              params: { type: 'datetime', format: 'do MMMM yyyy HH:mm' },
+              params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
             {
               title: 'End Date and Time',
               component: CellComponent.DateCell,
               fields: { date: 'OperationSchedule.0.Stop' },
-              params: { type: 'datetime', format: 'do MMMM yyyy HH:mm' },
+              params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
           ],
         },

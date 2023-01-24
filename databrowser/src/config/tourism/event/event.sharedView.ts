@@ -14,6 +14,7 @@ import {
   sourceSubCategory,
   textInfoCategory,
 } from '../../builder/tourism';
+import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -95,13 +96,13 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Date Begin',
               component: CellComponent.DateCell,
               fields: { date: 'DateBegin' },
-              params: { type: 'datetime', format: 'do MMMM yyyy HH:mm' },
+              params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
             {
               title: 'Date End',
               component: CellComponent.DateCell,
               fields: { date: 'EventDatesEnd' },
-              params: { type: 'datetime', format: 'do MMMM yyyy HH:mm' },
+              params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
             {
               title: 'Entrance',

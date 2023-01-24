@@ -1,6 +1,7 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { odhActiveTableCell } from '../../builder/tourism';
+import { DEFAULT_DATE_FORMAT } from '../../utils';
 
 export const snowReportListView: ListViewConfig = {
   //edit source odh
@@ -77,7 +78,7 @@ export const snowReportListView: ListViewConfig = {
         date: 'Measuringpoints.0.LastUpdate',
       },
       params: {
-        format: 'do MMMM yyyy',
+        format: DEFAULT_DATE_FORMAT,
       },
     },
     {

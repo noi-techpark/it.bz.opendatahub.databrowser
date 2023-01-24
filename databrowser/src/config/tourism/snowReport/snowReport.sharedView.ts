@@ -4,6 +4,7 @@ import {
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
 import { idReadOnlyCell } from '../../builder/tourism';
+import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -69,7 +70,7 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
               fields: { date: 'Measuringpoints.0.LastUpdate' },
               params: {
                 type: 'datetime',
-                format: 'do MMMM yyyy HH:mm',
+                format: DEFAULT_DATE_TIME_FORMAT,
                 readonly: 'true',
               },
             },
@@ -93,7 +94,7 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.DateCell,
               fields: { date: 'Measuringpoints.0.LastSnowDate' },
               params: {
-                format: 'do MMMM yyyy HH:mm',
+                format: DEFAULT_DATE_TIME_FORMAT,
               },
             },
             {

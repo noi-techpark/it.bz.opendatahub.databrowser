@@ -8,6 +8,7 @@ import {
   idReadOnlyCell,
   imageGalleryCategory,
 } from '../../builder/tourism';
+import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -97,14 +98,14 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Date start',
               component: CellComponent.DateCell,
               fields: { date: 'StartDate' },
-              params: { format: 'do MMMM yyyy HH:mm', type: 'datetime' },
+              params: { format: DEFAULT_DATE_TIME_FORMAT, type: 'datetime' },
               required: true,
             },
             {
               title: 'Date end',
               component: CellComponent.DateCell,
               fields: { date: 'EndDate' },
-              params: { format: 'do MMMM yyyy HH:mm', type: 'datetime' },
+              params: { format: DEFAULT_DATE_TIME_FORMAT, type: 'datetime' },
               required: true,
             },
             {

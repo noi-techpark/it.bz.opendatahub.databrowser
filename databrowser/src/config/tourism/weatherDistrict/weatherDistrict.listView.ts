@@ -1,5 +1,6 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { DEFAULT_DATE_FORMAT } from '../../utils';
 
 export const weatherDistrictListView: ListViewConfig = {
   elements: [
@@ -16,7 +17,7 @@ export const weatherDistrictListView: ListViewConfig = {
       component: CellComponent.DateCell,
       class: 'w-48',
       params: {
-        format: 'do MMMM yyyy',
+        format: DEFAULT_DATE_FORMAT,
       },
       fields: {
         date: 'BezirksForecast.0.date',
@@ -62,7 +63,7 @@ export const weatherDistrictListView: ListViewConfig = {
         date: 'date',
       },
       params: {
-        format: 'do MMMM yyyy',
+        format: DEFAULT_DATE_FORMAT,
       },
     },
     {

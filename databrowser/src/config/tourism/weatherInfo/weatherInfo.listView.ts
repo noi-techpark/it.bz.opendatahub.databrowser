@@ -1,6 +1,7 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { languageTableCell } from '../../builder/tourism';
+import { DEFAULT_DATE_FORMAT } from '../../utils';
 
 export const weatherInfoListView: ListViewConfig = {
   elements: [
@@ -61,7 +62,7 @@ export const weatherInfoListView: ListViewConfig = {
         date: 'Weather.{language}.Conditions.0.date',
       },
       params: {
-        format: 'do MMMM yyyy',
+        format: DEFAULT_DATE_FORMAT,
       },
     },
     {

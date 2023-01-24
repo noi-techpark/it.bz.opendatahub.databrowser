@@ -16,6 +16,7 @@
 <script setup lang="ts">
 import { format, isValid, parseISO } from 'date-fns';
 import { computed, defineProps, withDefaults } from 'vue';
+import { DEFAULT_DATE_TIME_FORMAT } from '../../../../../config/utils';
 
 const props = withDefaults(
   defineProps<{
@@ -33,7 +34,7 @@ const dataInfo = computed<{ type: string; data: any }>(() => {
     const isValidDate = isValid(parsedDate);
 
     return isValidDate
-      ? { type: 'date', data: format(parsedDate, 'yyyy-MM-dd - HH:mm') }
+      ? { type: 'date', data: format(parsedDate, DEFAULT_DATE_TIME_FORMAT) }
       : { type: 'string', data: props.data };
   }
   if (typeof props.data === 'number') {

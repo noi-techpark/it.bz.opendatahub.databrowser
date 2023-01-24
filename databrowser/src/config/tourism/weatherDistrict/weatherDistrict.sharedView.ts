@@ -3,6 +3,7 @@ import {
   DetailViewConfig,
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
+import { DEFAULT_DATE_FORMAT } from '../../utils';
 
 export const weatherDistrictSharedView = ():
   | DetailViewConfig
@@ -28,7 +29,7 @@ export const weatherDistrictSharedView = ():
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              params: { format: 'do MMMM yyyy' },
+              params: { format: DEFAULT_DATE_FORMAT },
               fields: { date: 'BezirksForecast.0.date' },
             },
             {

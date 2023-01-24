@@ -4,6 +4,7 @@ import {
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
 import { shortnameCell } from '../../builder/tourism';
+import { DEFAULT_DATE_FORMAT } from '../../utils';
 
 export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -22,7 +23,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             shortnameCell(),
@@ -61,7 +62,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Conditions.0.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -174,7 +175,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Forecast.0.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -255,7 +256,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Mountain.0.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -308,7 +309,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Mountain.0.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -345,7 +346,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Mountain.0.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -382,7 +383,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Mountain.0.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -418,7 +419,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Mountain.0.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -454,7 +455,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Mountain.0.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -502,7 +503,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Stationdata.3.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -570,7 +571,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Stationdata.1.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -638,7 +639,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Stationdata.4.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -706,7 +707,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Stationdata.5.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -774,7 +775,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Stationdata.3.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {
@@ -842,7 +843,7 @@ export const weatherInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
                 date: 'Weather.{language}.Stationdata.0.date',
               },
               params: {
-                format: 'do MMMM yyyy',
+                format: DEFAULT_DATE_FORMAT,
               },
             },
             {

@@ -13,7 +13,7 @@ import {
   sourceSubCategory,
   textInfoCategory,
 } from '../../builder/tourism';
-import { withOdhBaseUrl } from '../../utils';
+import { DEFAULT_DATE_FORMAT, withOdhBaseUrl } from '../../utils';
 
 export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -99,13 +99,13 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Article Date',
               component: CellComponent.DateCell,
               fields: { date: 'ArticleDate' },
-              params: { format: 'do MMMM yyyy' },
+              params: { format: DEFAULT_DATE_FORMAT },
             },
             {
               title: 'Article Date To',
               component: CellComponent.DateCell,
               fields: { date: 'ArticleDateTo' },
-              params: { format: 'do MMMM yyyy' },
+              params: { format: DEFAULT_DATE_FORMAT },
             },
           ],
         },

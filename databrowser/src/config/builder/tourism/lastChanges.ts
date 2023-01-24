@@ -1,5 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { PropertyConfig } from '../../../domain/datasetConfig/types';
+import { DEFAULT_DATE_FORMAT } from '../../utils';
 
 interface LastChangesCellOptions {
   class?: string;
@@ -25,5 +26,5 @@ export const lastChangesTableCell = (): PropertyConfig => ({
   component: CellComponent.EditedDateCell,
   class: 'w-48',
   fields: { date: 'LastChange' },
-  params: { format: 'do MMMM yyyy' },
+  params: { format: DEFAULT_DATE_FORMAT },
 });

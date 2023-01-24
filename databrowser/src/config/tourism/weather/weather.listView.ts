@@ -1,5 +1,6 @@
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
+import { DEFAULT_DATE_FORMAT } from '../../utils';
 
 export const weatherListView: ListViewConfig = {
   elements: [
@@ -67,7 +68,7 @@ export const weatherListView: ListViewConfig = {
         date: 'Conditions.0.date',
       },
       params: {
-        format: 'do MMMM yyyy',
+        format: DEFAULT_DATE_FORMAT,
       },
     },
     {

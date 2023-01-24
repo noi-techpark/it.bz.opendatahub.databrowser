@@ -20,10 +20,18 @@
 
     <template #tableCols="{ item }">
       <TableCell>
-        <DateCell :editable="false" :date="item.startDate" :format="format" />
+        <DateCell
+          :editable="false"
+          :date="item.startDate"
+          :format="DEFAULT_DATE_TIME_FORMAT"
+        />
       </TableCell>
       <TableCell>
-        <DateCell :editable="false" :date="item.endDate" :format="format" />
+        <DateCell
+          :editable="false"
+          :date="item.endDate"
+          :format="DEFAULT_DATE_TIME_FORMAT"
+        />
       </TableCell>
       <TableCell>{{ item.spaceDesc }} </TableCell>
       <TableCell>{{ item.subtitle }} </TableCell>
@@ -46,8 +54,7 @@ import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { RoomBookedEntry } from './types';
 import DateCell from '../dateCell/DateCell.vue';
-
-const format = 'dd.MM.yyyy HH:mm';
+import { DEFAULT_DATE_TIME_FORMAT } from '../../../../../config/utils';
 
 defineProps<{ items: RoomBookedEntry[] }>();
 

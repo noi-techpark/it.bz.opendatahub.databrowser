@@ -11,6 +11,7 @@ import {
   sourceTableCell,
   titleTableCell,
 } from '../../builder/tourism';
+import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const eventListView: ListViewConfig = {
   elements: [
@@ -20,14 +21,14 @@ export const eventListView: ListViewConfig = {
       title: 'Date start',
       component: CellComponent.EditedDateCell,
       class: 'w-48',
-      params: { format: 'do MMM yyyy HH:mm' },
+      params: { format: DEFAULT_DATE_TIME_FORMAT },
       fields: { date: 'DateBegin' },
     },
     {
       title: 'Date end',
       component: CellComponent.EditedDateCell,
       class: 'w-48',
-      params: { format: 'do MMM yyyy HH:mm' },
+      params: { format: DEFAULT_DATE_TIME_FORMAT },
       fields: { date: 'DateEnd' },
     },
     {
