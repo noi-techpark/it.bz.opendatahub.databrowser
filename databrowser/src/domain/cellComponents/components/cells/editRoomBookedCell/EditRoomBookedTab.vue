@@ -11,25 +11,34 @@
     <template #body="{ item, index }">
       <div class="flex flex-wrap gap-8 md:flex-nowrap">
         <div class="basis-full md:order-1 md:basis-1/3">
-          <SubCategoryItem title="Date start">
+          <SubCategoryItem title="Date start" :required="true">
             <DateCell
+              type="datetime"
               :date="item.startDate"
               :editable="editable"
               @input="updateItem(index, { startDate: $event.target.value })"
             />
           </SubCategoryItem>
-          <SubCategoryItem title="Date end">
+          <SubCategoryItem title="Date end" :required="true">
             <DateCell
+              type="datetime"
               :date="item.endDate"
               :editable="editable"
               @input="updateItem(index, { endDate: $event.target.value })"
             />
           </SubCategoryItem>
-          <SubCategoryItem title="Room Name">
+          <SubCategoryItem title="Room Name" :required="true">
             <StringCell
               :text="item.spaceDesc"
               :editable="editable"
               @input="updateItem(index, { spaceDesc: $event.target.value })"
+            />
+          </SubCategoryItem>
+          <SubCategoryItem title="Comment" :required="true">
+            <StringCell
+              :text="item.comment"
+              :editable="editable"
+              @input="updateItem(index, { comment: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Subtitle">

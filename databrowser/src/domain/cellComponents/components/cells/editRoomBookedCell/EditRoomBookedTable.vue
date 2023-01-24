@@ -6,8 +6,7 @@
       <col class="w-32 md:w-40" />
       <col class="w-32 md:w-40" />
       <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
+      <col class="w-24" />
     </template>
 
     <template #tableHeader>
@@ -16,6 +15,7 @@
       <TableHeaderCell>Room name</TableHeaderCell>
       <TableHeaderCell>Subtitle</TableHeaderCell>
       <TableHeaderCell>Location</TableHeaderCell>
+      <TableHeaderCell>Comment</TableHeaderCell>
     </template>
 
     <template #tableCols="{ item }">
@@ -28,6 +28,7 @@
       <TableCell>{{ item.spaceDesc }} </TableCell>
       <TableCell>{{ item.subtitle }} </TableCell>
       <TableCell>{{ item.spaceType }} </TableCell>
+      <TableCell>{{ item.comment }} </TableCell>
     </template>
 
     <template #addItems>
