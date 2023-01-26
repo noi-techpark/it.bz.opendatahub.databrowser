@@ -12,23 +12,25 @@
     </template>
     <template v-else-if="isSuccess">
       <div class="flex h-full overflow-y-auto">
-        <TableContent
-          :render-elements="elements"
-          :rows="rows"
-          :show-edit="
-            datasetConfigStore.hasUpdatePermission &&
-            !datasetConfigStore.isSourceGenerated
-          "
-          :show-quick="datasetConfigStore.hasQuickView"
-        />
+        <div class="flex flex-1 flex-col overflow-y-auto">
+          <TableContent
+            :render-elements="elements"
+            :rows="rows"
+            :show-edit="
+              datasetConfigStore.hasUpdatePermission &&
+              !datasetConfigStore.isSourceGenerated
+            "
+            :show-quick="datasetConfigStore.hasQuickView"
+          />
+          <TableFooter
+            :pagination-options="paginationOptions"
+            :pagination="pagination"
+            @page-size-changes="pageSizeChanges"
+            @paginate-to="paginateTo"
+          />
+        </div>
         <SearchAndFilterToolbox :url="url" />
       </div>
-      <TableFooter
-        :pagination-options="paginationOptions"
-        :pagination="pagination"
-        @page-size-changes="pageSizeChanges"
-        @paginate-to="paginateTo"
-      />
     </template>
   </section>
 </template>
