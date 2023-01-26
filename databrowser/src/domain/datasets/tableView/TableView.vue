@@ -11,7 +11,7 @@
       </ContentAlignmentX>
     </template>
     <template v-else-if="isSuccess">
-      <div class="flex overflow-y-auto">
+      <div class="flex h-full overflow-y-auto">
         <TableContent
           :render-elements="elements"
           :rows="rows"
