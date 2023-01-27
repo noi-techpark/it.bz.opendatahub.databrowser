@@ -2,22 +2,19 @@
   <Switch
     v-model="enabled"
     class="relative inline-flex h-5 w-10 items-center rounded-full border bg-white"
-    :class="disabled ? 'border-gray-400' : 'border-green-400'"
+    :class="switchColorClass"
     :disabled="disabled"
     @update:model-value="emit('update:modelValue', $event)"
   >
     <span
-      :class="[
-        enabled ? 'translate-x-5' : 'translate-x-1',
-        disabled ? 'bg-gray-400' : 'bg-green-400',
-      ]"
+      :class="[enabled ? 'translate-x-5' : 'translate-x-1', spanColorClass]"
       class="inline-block h-3 w-3 rounded-full transition duration-200 ease-in-out"
     />
   </Switch>
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, ref, withDefaults } from 'vue';
+import { computed, defineEmits, defineProps, ref, withDefaults } from 'vue';
 import { Switch } from '@headlessui/vue';
 
 const emit = defineEmits(['update:modelValue']);
@@ -30,4 +27,20 @@ const props = withDefaults(
 );
 
 const enabled = ref(props.modelValue);
+
+const switchColorClass = computed(() => {
+  if (props.disabled === true) {
+    return 'border-gray-400';
+  }
+
+  return props.modelValue === true ? 'border-green-400' : 'border-red-400';
+});
+
+const spanColorClass = computed(() => {
+  if (props.disabled === true) {
+    return 'bg-gray-400';
+  }
+
+  return props.modelValue === true ? 'bg-green-400' : 'bg-red-400';
+});
 </script>
