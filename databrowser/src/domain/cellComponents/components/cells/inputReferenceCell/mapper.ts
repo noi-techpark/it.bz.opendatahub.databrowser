@@ -43,7 +43,7 @@ export const useMapper = (
       });
 
       if (sortByLabel) {
-        options.value.sort((a, b) => a.label.localeCompare(b.label));
+        options.value.sort((a, b) => a.label?.localeCompare(b.label));
       }
     },
     { immediate: true }
