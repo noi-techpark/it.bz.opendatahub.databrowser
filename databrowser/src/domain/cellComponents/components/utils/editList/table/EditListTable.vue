@@ -1,7 +1,7 @@
 <template>
   <div>
     <EditListActionHeader
-      v-if="editable"
+      v-if="editable && hasItems"
       class="mt-2 mb-5 flex justify-between gap-5 md:justify-end"
       :class="anyItemSelected ? 'text-default' : 'text-disabled'"
       delete-label="Delete"
@@ -12,7 +12,7 @@
         <slot name="addItems"></slot>
       </template>
     </EditListActionHeader>
-    <TableCustom class="mb-5 overflow-y-auto">
+    <TableCustom v-if="hasItems" class="mb-5 overflow-y-auto">
       <colgroup>
         <template v-if="editable && hasItems">
           <col v-if="showSortableColumn" class="w-0 md:w-10" />
@@ -102,7 +102,7 @@
         </tr>
       </VueDraggableNext>
     </TableCustom>
-    <div v-if="!hasItems">
+    <div v-if="!hasItems" class="mb-5">
       <slot name="noItems"></slot>
     </div>
     <slot v-if="editable" name="addItems"></slot>

@@ -46,7 +46,7 @@
       <TableCell>{{ item.altitude }}</TableCell>
       <TableCell>{{ item.listPosition }}</TableCell>
     </template>
-
+    <template #noItems>No webcams have been defined yet</template>
     <template #addItems>
       <EditListAddButton :text="'Add new Webcam'" @click="addEmptyItem" />
     </template>

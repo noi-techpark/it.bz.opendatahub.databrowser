@@ -26,7 +26,7 @@
         />
       </TableCell>
     </template>
-
+    <template #noItems>No links have been defined yet</template>
     <template #addItems>
       <EditListAddButton
         :text="'Add new link'"

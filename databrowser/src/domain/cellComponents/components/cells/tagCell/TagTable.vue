@@ -20,7 +20,7 @@
         />
       </TableCell>
     </template>
-
+    <template #noItems>No tags have been defined yet</template>
     <template #addItems>
       <EditListAddButton :text="'Add new Tag'" @click="addItems([undefined])" />
     </template>

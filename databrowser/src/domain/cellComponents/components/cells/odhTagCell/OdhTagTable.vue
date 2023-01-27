@@ -21,7 +21,7 @@
         />
       </TableCell>
     </template>
-
+    <template #noItems>No tags have been defined yet</template>
     <template #addItems>
       <EditListAddButton :text="'Add new tag'" @click="addItems([undefined])" />
     </template>

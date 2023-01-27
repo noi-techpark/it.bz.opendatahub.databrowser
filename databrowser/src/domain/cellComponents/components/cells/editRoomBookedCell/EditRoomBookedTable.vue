@@ -38,7 +38,7 @@
       <TableCell>{{ item.spaceType }} </TableCell>
       <TableCell>{{ item.comment }} </TableCell>
     </template>
-
+    <template #noItems>No rooms have been defined yet</template>
     <template #addItems>
       <EditListAddButton :text="'Add new room'" @click="addEmptyItem" />
     </template>
