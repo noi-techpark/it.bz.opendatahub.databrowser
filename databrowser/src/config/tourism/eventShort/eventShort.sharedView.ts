@@ -23,7 +23,6 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Title',
               component: CellComponent.StringCell,
               fields: { text: 'EventTitle.{language}' },
-              required: true,
             },
             {
               title: 'Description',
@@ -112,7 +111,6 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Room name',
               component: CellComponent.StringCell,
               fields: { text: 'AnchorVenue' },
-              required: true,
             },
             {
               title: 'Location',
@@ -129,6 +127,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
                 label_004: 'Other',
               },
               class: 'mb-8',
+              required: true,
             },
             {
               title: 'Technology Fields',
