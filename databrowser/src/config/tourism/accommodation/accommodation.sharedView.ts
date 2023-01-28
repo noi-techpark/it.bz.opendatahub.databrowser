@@ -16,6 +16,7 @@ import {
   shortnameCell,
   sourceSubCategory,
 } from '../../builder/tourism';
+import { withOdhBaseUrl } from '../../utils';
 
 export const accommodationSharedView = ():
   | DetailViewConfig
@@ -77,24 +78,28 @@ export const accommodationSharedView = ():
             },
             {
               title: 'Special Features',
-              component: CellComponent.ArrayCell,
-              class: 'w-40',
-              fields: {
-                items: 'SpecialFeaturesIds',
+              component: CellComponent.TagReferenceCell,
+              listFields: {
+                attributeName: 'tags',
+                pathToParent: 'SpecialFeaturesIds',
               },
               params: {
-                separator: ', ',
+                keySelector: 'Key',
+                labelSelector: 'TypeDesc.{language}',
+                url: withOdhBaseUrl('/v1/AccommodationTypes'),
               },
             },
             {
               title: 'Badges',
-              component: CellComponent.ArrayCell,
-              class: 'w-40',
-              fields: {
-                items: 'AccoBadges',
+              component: CellComponent.TagReferenceCell,
+              listFields: {
+                attributeName: 'tags',
+                pathToParent: 'BadgeIds',
               },
               params: {
-                separator: ', ',
+                keySelector: 'Key',
+                labelSelector: 'TypeDesc.{language}',
+                url: withOdhBaseUrl('/v1/AccommodationTypes'),
               },
             },
           ],
