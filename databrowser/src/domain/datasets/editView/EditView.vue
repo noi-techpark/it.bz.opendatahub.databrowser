@@ -40,30 +40,17 @@
             class="flex grow overflow-y-auto"
             :class="[{ 'opacity-50 pointer-events-none': isMutateLoading }]"
           >
-            <ContentAlignmentX
-              class="md:flex md:overflow-y-auto md:border-r md:px-0"
-            >
-              <MainCategories
-                :categories="enhancedMainCategories"
-                :slug="slug"
-                class="sticky top-0 z-20 bg-white py-3 md:h-full md:w-1/6 md:overflow-y-auto"
-                @change="scrollSubCategoriesToTop"
-              />
-              <div
-                v-if="slug !== ''"
-                ref="container"
-                class="flex-1 overflow-y-auto pb-6 md:h-full md:py-3 md:px-20"
-              >
-                <EditHint class="mb-8" />
-                <SubCategories
-                  :data="editStore.current"
-                  :category="currentCategory"
-                  :sub-categories="enhancedSubcategories"
-                  :show-all="true"
-                  :editable="true"
-                />
-              </div>
-            </ContentAlignmentX>
+            <MainAndSubCategories
+              class="md:border-r"
+              :data="editStore.current"
+              :categories="enhancedMainCategories"
+              :sub-categories="enhancedSubcategories"
+              :current-category="currentCategory"
+              :slug="slug"
+              :show-all="true"
+              :show-edit-hint="true"
+              :editable="true"
+            />
             <EditToolBox />
           </div>
           <EditFooter
@@ -87,9 +74,6 @@ import { useAuth } from '../../auth/store/auth';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import EditFooter from './EditFooter.vue';
 import { useCategories } from '../category/useCategories';
-import MainCategories from '../category/MainCategories.vue';
-import SubCategories from '../category/SubCategories.vue';
-import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import EditToolBox from './EditToolBox.vue';
 import { useEditStore } from './store/editStore';
 import { useEditStoreSync } from './useEditStoreSync';
@@ -103,8 +87,7 @@ import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
 import { useDialogsStore } from './dialogs/dialogsStore';
 import { useEventListener } from '@vueuse/core';
 import AlertError from '../../../components/alert/AlertError.vue';
-import EditHint from './EditHint.vue';
-import { scrollToTop } from '../common/scrollToPosition';
+import MainAndSubCategories from '../common/MainAndSubCategories.vue';
 
 const { t } = useI18n();
 
@@ -193,10 +176,6 @@ watch(
   },
   { immediate: true }
 );
-
-// Scroll sub categories to top if main category changes
-const container = ref<HTMLElement | null>(null);
-const scrollSubCategoriesToTop = () => scrollToTop(container);
 
 // Listen for window close / reload event and let the user know
 // if there are unsaved changes
