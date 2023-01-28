@@ -1,20 +1,13 @@
 <template>
   <div v-if="isWriteable">
-    <div v-if="isLoading" class="animate-pulse">Loading...</div>
-    <div v-if="isError" class="text-red-500">
-      <AlertError
-        title="Error while loading data"
-        :content="toErrorString(error)"
-      />
-    </div>
-    <div v-if="isSuccess">
-      <SelectCustom
-        :options="options"
-        :value="value"
-        :show-empty-value="showEmptyValue"
-        @change="change"
-      />
-    </div>
+    <LoadingState :is-loading="isLoading" :is-error="isError" :error="error" />
+    <SelectCustom
+      v-if="isSuccess"
+      :options="options"
+      :value="value"
+      :show-empty-value="showEmptyValue"
+      @change="change"
+    />
   </div>
   <span v-else>{{ value }}</span>
 </template>
@@ -27,8 +20,7 @@ import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import { SelectValue } from '../../../../../components/select/types';
 import { useMapper } from './mapper';
 import { useWriteable } from '../../utils/writeable/useWriteable';
-import AlertError from '../../../../../components/alert/AlertError.vue';
-import { toErrorString } from '../../../../api/service/utils';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
 
 const emit = defineEmits(['update']);
 

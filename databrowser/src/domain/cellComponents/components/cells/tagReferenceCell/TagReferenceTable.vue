@@ -11,12 +11,15 @@
     <template #tableCols="{ item, index }: { item: string, index: number }">
       <TableCell>
         <SelectWithOptionsCell
+          v-if="editable"
           :options="getOptionsForTag(item, tagSet)"
           :value="item"
           :show-empty-value="item == null"
           :editable="editable"
           @update="updateItem(index, $event.value)"
         />
+        <!-- Show translated label if not in edit mode -->
+        <span v-else>{{ getLabelForTag(item) }}</span>
       </TableCell>
     </template>
     <template #noItems>No tags have been defined yet</template>
@@ -69,4 +72,7 @@ const getOptionsForTag = (tag: string, tagSet: Set<string>) => {
   // If the unique option is not set, we can just return all options
   return allOptions;
 };
+
+const getLabelForTag = (tag: string) =>
+  props.options.find((option) => option.value === tag)?.label ?? tag;
 </script>

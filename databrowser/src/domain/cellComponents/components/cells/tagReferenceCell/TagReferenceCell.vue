@@ -17,8 +17,13 @@
         content="This seems to be a configuration problem. Please contact support@opendatahub.com"
       />
 
+      <LoadingState
+        :is-loading="isLoading"
+        :is-error="isError"
+        :error="error"
+      />
       <TagReferenceTable
-        v-else
+        v-if="isSuccess || !editable"
         :tags="items"
         :options="options"
         :unique="uniqueValue"
@@ -40,9 +45,9 @@ import {
   useAxiosFetcher,
 } from '../../../../api';
 import EditListCell from '../../utils/editList/EditListCell.vue';
-import { useWriteable } from '../../utils/writeable/useWriteable';
 import TagReferenceTable from './TagReferenceTable.vue';
 import * as R from 'ramda';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -53,7 +58,6 @@ const props = withDefaults(
     unique?: boolean | string;
     sortByLabel?: boolean | string;
     editable?: boolean;
-    readonly?: string | boolean;
   }>(),
   {
     tags: () => [],
@@ -63,20 +67,11 @@ const props = withDefaults(
     unique: true,
     sortByLabel: true,
     editable: true,
-    readonly: false,
   }
 );
 
-const {
-  tags,
-  url,
-  keySelector,
-  labelSelector,
-  unique,
-  sortByLabel,
-  editable,
-  readonly,
-} = toRefs(props);
+const { tags, url, keySelector, labelSelector, unique, sortByLabel, editable } =
+  toRefs(props);
 
 const uniqueValue = computed(() =>
   booleanOrStringToBoolean(unique.value, true)
@@ -85,8 +80,6 @@ const uniqueValue = computed(() =>
 const sortByLabelValue = computed(() =>
   booleanOrStringToBoolean(sortByLabel.value, true)
 );
-
-const isWriteable = useWriteable({ editable, readonly });
 
 const keySelectorWithReplacements = ref(keySelector.value ?? '');
 const labelSelectorWithReplacements = ref(labelSelector.value ?? '');
@@ -101,7 +94,10 @@ watchEffect(() => {
 
 const queryKey = url.value ?? randomId();
 const queryFn = useAxiosFetcher();
-const { data } = useQuery({ queryKey, queryFn, enabled: isWriteable.value });
+const { data, isLoading, isSuccess, isError, error } = useQuery({
+  queryKey,
+  queryFn,
+});
 
 const options = computed<SelectOption[]>(() => {
   if (data.value == null || data.value.data == null) {

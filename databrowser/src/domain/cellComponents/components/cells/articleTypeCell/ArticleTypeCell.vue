@@ -1,33 +1,43 @@
 <template>
   <div>
     <SubCategoryItem title="Main Type">
-      <SelectCustom
-        v-if="isWriteable"
+      <LoadingState
+        :is-loading="isLoading"
+        :is-error="isError"
+        :error="error"
+      />
+      <SelectWithOptionsCell
+        v-if="isSuccess || !editable"
         :options="typeSelectOptions"
         :value="currentTypeValue"
         :show-empty-value="showEmptyValueForType"
-        @change="changeType"
+        :editable="editable"
+        :readonly="readonly"
+        @update="changeType($event.value)"
       />
-      <span v-else>{{ currentTypeValue }}</span>
     </SubCategoryItem>
-    <SubCategoryItem title="Sub Type">
-      <SelectCustom
-        v-if="isWriteable"
+    <SubCategoryItem
+      v-if="!isLoading && !isError && (currentSubTypeValue != null || editable)"
+      title="Sub Type"
+    >
+      <SelectWithOptionsCell
         :options="subTypeSelectOptions"
         :value="currentSubTypeValue"
         :show-empty-value="true"
-        @change="changeSubType"
+        :editable="editable"
+        :readonly="readonly"
+        @update="changeSubType($event.value)"
       />
-      <span v-else>{{ currentSubTypeValue }}</span>
     </SubCategoryItem>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, toRefs } from 'vue';
-import SelectCustom from '../../../../../components/select/SelectCustom.vue';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';
+import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import { useArticleTypeSelection } from './useArticleTypeSelection';
 import { useFetchArticleTypes } from './useFetchArticleTypes';
 
@@ -58,7 +68,10 @@ const showEmptyValueForType = computed(
   () => type.value == null && subType.value == null
 );
 
-const { articleTypesHierarchy } = useFetchArticleTypes(lookupUrl);
+const isWritable = useWriteable({ editable, readonly });
+
+const { articleTypesHierarchy, isLoading, isSuccess, isError, error } =
+  useFetchArticleTypes(lookupUrl, isWritable);
 
 const {
   typeSelectOptions,
@@ -96,6 +109,4 @@ const changeTypeAndSubType = (
     ]);
   }
 };
-
-const isWriteable = useWriteable({ editable, readonly });
 </script>
