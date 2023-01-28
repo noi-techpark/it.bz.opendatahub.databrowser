@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { computed, ref, Ref, watch } from 'vue';
+import { ref, Ref, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
 import * as R from 'ramda';
 import {
@@ -9,7 +9,6 @@ import {
 
 export const useMapper = (
   data: Ref<undefined> | Ref<AxiosResponse<unknown[], any>>,
-  initialValue: Ref<string | boolean | number | unknown>,
   keySelector: Ref<string>,
   labelSelector: Ref<string>,
   sortByLabel: Ref<boolean>
@@ -19,7 +18,7 @@ export const useMapper = (
   const replacements = useApiParameterReplacements();
 
   watch(
-    () => [data.value, initialValue.value, replacements.value],
+    () => [data.value, replacements.value],
     () => {
       if (data.value == null) {
         return;
@@ -32,13 +31,11 @@ export const useMapper = (
       const labelSelectorWithReplacements = replace(labelSelector.value);
 
       options.value = data.value.data.map((item) => {
-        const v = getPropertyValue(item, keySelectorWithReplacements);
-        const l = getPropertyValue(item, labelSelectorWithReplacements);
-        const selected = initialValue?.value === v;
+        const value = getPropertyValue(item, keySelectorWithReplacements);
+        const label = getPropertyValue(item, labelSelectorWithReplacements);
         return {
-          value: v,
-          label: l ?? v,
-          selected,
+          value,
+          label: label ?? value,
         };
       });
 
@@ -49,13 +46,7 @@ export const useMapper = (
     { immediate: true }
   );
 
-  const unknownValue = computed(
-    () =>
-      initialValue.value != null &&
-      options.value.find((o) => o.selected === true) == null
-  );
-
-  return { options, unknownValue };
+  return { options };
 };
 
 const getPropertyValue = (item: unknown, jsonPath: string) => {

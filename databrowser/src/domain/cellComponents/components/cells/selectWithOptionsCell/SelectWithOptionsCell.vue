@@ -1,17 +1,15 @@
 <template>
   <div v-if="isWriteable">
     <SelectCustom
+      v-if="isWriteable"
       :options="optionsInternal"
-      :size="SelectSize.md"
-      :show-no-value="showNoValue"
+      :value="value"
+      :show-empty-value="showEmptyValue"
       :show-search-when-at-least-count-options="
         showSearchWhenAtLeastCountOptions
       "
       @change="change"
     />
-    <div v-if="unknownValue" class="text-red-400">
-      Attention: current value "{{ value }}" is unknown
-    </div>
   </div>
   <span v-else>{{ value }}</span>
 </template>
@@ -29,7 +27,7 @@ import { useMapper } from './mapper';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import {
   SelectOption,
-  SelectSize,
+  SelectValue,
 } from '../../../../../components/select/types';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 
@@ -39,9 +37,8 @@ const props = withDefaults(
   defineProps<{
     // If options is set, they will be used, otherwise the options from the attributes will be used
     options?: SelectOption[];
-    value?: string | boolean | number;
-    sortByLabel?: boolean;
-    showNoValue?: boolean;
+    value?: SelectValue;
+    showEmptyValue?: boolean;
     showSearchWhenAtLeastCountOptions?: number;
     editable?: boolean;
     readonly?: string | boolean;
@@ -49,26 +46,20 @@ const props = withDefaults(
   {
     options: undefined,
     value: undefined,
-    sortByLabel: true,
-    showNoValue: false,
+    showEmptyValue: false,
     showSearchWhenAtLeastCountOptions: 7,
     editable: true,
     readonly: false,
   }
 );
 
-const { options, value, sortByLabel, showNoValue, editable, readonly } =
-  toRefs(props);
+const { options, value, showEmptyValue, editable, readonly } = toRefs(props);
+
 const isWriteable = useWriteable({ editable, readonly });
 
 const attrs = useAttrs();
 
-const { optionsInternal, unknownValue } = useMapper(
-  options,
-  ref(attrs),
-  value,
-  sortByLabel
-);
+const { optionsInternal } = useMapper(options, ref(attrs));
 
 const change = (value: string) => emit('update', { prop: 'value', value });
 </script>

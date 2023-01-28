@@ -2,19 +2,10 @@ import { createEventHook } from '@vueuse/core';
 import { ref, Ref, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
 
-const buildSelectOption = (
-  label?: string,
-  value?: string,
-  selected?: boolean
-): SelectOption => ({ label: label ?? '', value: value ?? '', selected });
-
-const buildSelectOptions = (options: string[], value?: string) =>
+const buildSelectOptions = (options: string[]) =>
   options
-    .map((option) => buildSelectOption(option, option, option === value))
+    .map<SelectOption>((option) => ({ label: option, value: option }))
     .sort((a, b) => a.label.localeCompare(b.label));
-
-const getSelectedValue = (options: SelectOption[]) =>
-  options.find((option) => option.selected)?.value;
 
 export const useArticleTypeSelection = (
   type: Ref<string | undefined>,
@@ -24,10 +15,6 @@ export const useArticleTypeSelection = (
   const initialType = type.value;
   const initialSubType = subType.value;
 
-  const hasType = ref(false);
-  const hasSubType = ref(false);
-  const isTypeInHierarchy = ref(false);
-  const isSubTypeInTypeHierarchy = ref(false);
   const typeSelectOptions = ref<SelectOption[]>([]);
   const subTypeSelectOptions = ref<SelectOption[]>([]);
   const currentTypeValue = ref<string>();
@@ -44,50 +31,29 @@ export const useArticleTypeSelection = (
   // the sub type that was used the last time for this type
   const getLastSubTypeForType = (type?: string) =>
     type == null ? undefined : lastSelectedSubTypeForType[type];
-  // type == null ? currentSubTypeValue.value : lastSelectedSubTypeForType[type];
 
   watch(
     () => [type.value, subType.value, hierarchy.value],
     () => {
-      hasType.value = type.value != null;
-      hasSubType.value = subType.value != null;
+      const hasType = type.value != null;
+      const hasSubType = subType.value != null;
 
-      isTypeInHierarchy.value =
-        hasType.value && hierarchy.value[type.value!] != null;
-
-      isSubTypeInTypeHierarchy.value =
-        (hasType.value &&
-          hasSubType.value &&
+      const isSubTypeInTypeHierarchy =
+        (hasType &&
+          hasSubType &&
           hierarchy.value[type.value!]?.includes(subType.value!)) ??
         false;
 
-      // Handle type computation
+      // Handle select option computation for type
 
       typeSelectOptions.value = buildSelectOptions(
-        Object.keys(hierarchy.value),
-        type.value
+        Object.keys(hierarchy.value)
       );
-      const selectedType = getSelectedValue(typeSelectOptions.value);
 
-      // Handle sub type computation
+      // Handle select option computation for sub type
 
       const subTypesForCurrentType = hierarchy.value[type.value!] ?? [];
-
-      // Find best matching sub type
-      // - if sub type is in current type hierarchy then use it
-      // - otherwise use previous selected sub type for type (may be undefined)
-      const bestMatchingSubType =
-        subType.value == null
-          ? subType.value
-          : isSubTypeInTypeHierarchy.value
-          ? subType.value
-          : lastSelectedSubTypeForType[type.value!];
-
-      subTypeSelectOptions.value = buildSelectOptions(
-        subTypesForCurrentType,
-        bestMatchingSubType
-      );
-      const selectedSubType = getSelectedValue(subTypeSelectOptions.value);
+      subTypeSelectOptions.value = buildSelectOptions(subTypesForCurrentType);
 
       // Store old type and sub type values
 
@@ -96,14 +62,13 @@ export const useArticleTypeSelection = (
 
       // Compute current type and sub type values
 
-      currentTypeValue.value = selectedType ?? type.value;
+      currentTypeValue.value = type.value;
 
       currentSubTypeValue.value =
-        subType.value == null
-          ? subType.value
-          : // Use sub type selection if not undefined
-            selectedSubType ??
-            // Use previously set sub type if not undefined
+        subType.value == null || isSubTypeInTypeHierarchy
+          ? // If sub type is null / undefined or it is defined for current type, use sub type value
+            subType.value
+          : // Use previously set sub type if not undefined
             lastSelectedSubTypeForType[type.value!] ??
             // If initial values are the same as current values, then just
             // use the provided sub type. This covers an edge case where
@@ -126,7 +91,7 @@ export const useArticleTypeSelection = (
         });
       }
 
-      if (hasType.value) {
+      if (hasType) {
         // Store sub type for current type for later reuse
         lastSelectedSubTypeForType[type.value!] = currentSubTypeValue.value;
       }
@@ -135,10 +100,6 @@ export const useArticleTypeSelection = (
   );
 
   return {
-    hasType,
-    hasSubType,
-    isTypeInHierarchy,
-    isSubTypeInTypeHierarchy,
     typeSelectOptions,
     subTypeSelectOptions,
     currentTypeValue,

@@ -1,4 +1,4 @@
-import { computed, ref, Ref, watch } from 'vue';
+import { ref, Ref, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
 
 // This method maps input attributes of form "value_XXX" (where XXX is
@@ -50,27 +50,14 @@ const mapToOptionsWithKeysAndValues = (
 
 // Build usable SelectOptions
 const buildOptions = (
-  optionsWithKeysAndValues: Record<string, SelectOption>,
-  initialValue: string | boolean | number | unknown,
-  sortByLabel: boolean
+  optionsWithKeysAndValues: Record<string, SelectOption>
 ) => {
   const keys = Object.keys(optionsWithKeysAndValues);
-  if (sortByLabel) {
-    keys.sort();
-  }
 
   return keys.reduce<SelectOption[]>((previous, key) => {
     const value = optionsWithKeysAndValues[key].value;
     const label = optionsWithKeysAndValues[key].label;
-    const option: SelectOption = { value, label };
-
-    // Compare option value with initial value with implicit type conversion,
-    // because the input value may be a string, a number or a boolean
-    if (option.value == initialValue) {
-      option.selected = true;
-    }
-
-    return [...previous, option];
+    return [...previous, { value, label }];
   }, []);
 };
 
@@ -83,14 +70,12 @@ const buildOptions = (
 // {value: "EC", label: "Eurac"}
 export const useMapper = (
   options: Ref<SelectOption[] | undefined>,
-  attrs: Ref<Record<string, unknown>>,
-  initialValue: Ref<string | boolean | number | unknown>,
-  sortByLabel: Ref<boolean>
+  attrs: Ref<Record<string, unknown>>
 ) => {
   const optionsInternal = ref<SelectOption[]>([]);
 
   watch(
-    () => [attrs.value, initialValue.value, options.value],
+    () => [options.value, attrs.value],
     () => {
       if (options.value != null) {
         optionsInternal.value = options.value;
@@ -103,20 +88,10 @@ export const useMapper = (
         optionsWithKeys
       );
 
-      optionsInternal.value = buildOptions(
-        optionsWithKeysAndValues,
-        initialValue.value,
-        sortByLabel.value
-      );
+      optionsInternal.value = buildOptions(optionsWithKeysAndValues);
     },
     { immediate: true }
   );
 
-  const unknownValue = computed(
-    () =>
-      initialValue.value != null &&
-      optionsInternal.value.find((o) => o.selected === true) == null
-  );
-
-  return { optionsInternal, unknownValue };
+  return { optionsInternal };
 };

@@ -13,7 +13,7 @@
         class="md:w-1/6"
         label="Access of data"
         :options="accessTypeOptions"
-        :size="SelectSize.md"
+        :value="currentAccessType"
         @change="currentAccessType = $event"
       />
       <OverviewCardItem
@@ -36,7 +36,7 @@ import HeroTitle from '../../../components/hero/HeroTitle.vue';
 import HeroSubTitle from '../../../components/hero/HeroSubTitle.vue';
 import { computed, ref } from 'vue';
 import { datasetsForPages } from '../../../config/config-for-pages';
-import { SelectOption, SelectSize } from '../../../components/select/types';
+import { SelectOption } from '../../../components/select/types';
 import SelectWithLabel from '../../../components/select/SelectWithLabel.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import PartnersAndContributors from '../../../components/partners/PartnersAndContributors.vue';
@@ -62,17 +62,14 @@ const accessTypeOptions = computed<SelectOption[]>(() => [
   {
     label: 'All access types',
     value: 'all',
-    selected: currentAccessType.value === 'all',
   },
   {
     label: 'Full access',
     value: 'opendata',
-    selected: currentAccessType.value === 'opendata',
   },
   {
     label: 'Limited access',
     value: 'limited',
-    selected: currentAccessType.value === 'limited',
   },
 ]);
 </script>

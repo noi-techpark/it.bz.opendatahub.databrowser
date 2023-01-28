@@ -3,7 +3,9 @@
     <span class="mr-3 block">{{ t('datasets.listView.linesPerPage') }}</span>
     <SelectCustom
       class="mr-6 w-16"
-      :options="paginationOptions"
+      :options="pageSizeOptions"
+      :value="pageSize"
+      :size="SelectSize.sm"
       @change="$emit('pageSizeChanges', $event)"
     />
     <Paginator
@@ -19,13 +21,14 @@ import SelectCustom from '../../../components/select/SelectCustom.vue';
 import Paginator from '../../../components/paginator/Paginator.vue';
 import { Pagination } from '../../api';
 import { useI18n } from 'vue-i18n';
-import { SelectOption } from '../../../components/select/types';
+import { pageSizeOptions } from './defaultValues';
+import { SelectSize } from '../../../components/select/types';
 
 const { t } = useI18n();
 
 defineProps<{
   pagination: Pagination;
-  paginationOptions: SelectOption[];
+  pageSize: string;
 }>();
 
 defineEmits(['pageSizeChanges', 'paginateTo']);

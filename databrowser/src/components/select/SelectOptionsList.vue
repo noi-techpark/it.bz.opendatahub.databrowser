@@ -7,7 +7,7 @@
       v-for="option in searchResults"
       v-slot="{ active, selected }"
       :key="option.label"
-      :value="option"
+      :value="option.value"
       as="template"
     >
       <li

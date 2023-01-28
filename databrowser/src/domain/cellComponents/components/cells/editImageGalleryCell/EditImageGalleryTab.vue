@@ -51,7 +51,7 @@
             <SelectWithOptionsCell
               :value="item.license"
               :editable="editable"
-              :show-no-value="true"
+              :show-empty-value="true"
               value_001="CC0"
               label_001="CC0"
               value_002="Proprietary"

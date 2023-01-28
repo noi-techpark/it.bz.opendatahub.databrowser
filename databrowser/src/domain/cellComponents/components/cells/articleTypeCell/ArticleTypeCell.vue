@@ -4,7 +4,8 @@
       <SelectCustom
         v-if="isWriteable"
         :options="typeSelectOptions"
-        :size="SelectSize.md"
+        :value="currentTypeValue"
+        :show-empty-value="showEmptyValueForType"
         @change="changeType"
       />
       <span v-else>{{ currentTypeValue }}</span>
@@ -13,9 +14,8 @@
       <SelectCustom
         v-if="isWriteable"
         :options="subTypeSelectOptions"
-        :size="SelectSize.md"
-        :show-no-value="true"
-        :unknown-value="currentSubTypeValue"
+        :value="currentSubTypeValue"
+        :show-empty-value="true"
         @change="changeSubType"
       />
       <span v-else>{{ currentSubTypeValue }}</span>
@@ -24,9 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
-import { SelectSize } from '../../../../../components/select/types';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import { useArticleTypeSelection } from './useArticleTypeSelection';
@@ -52,6 +51,12 @@ const props = withDefaults(
 );
 
 const { type, subType, lookupUrl, editable, readonly } = toRefs(props);
+
+// Show empty value options for type select if type and sub type
+// are undefined / null, which is the case for new articles.
+const showEmptyValueForType = computed(
+  () => type.value == null && subType.value == null
+);
 
 const { articleTypesHierarchy } = useFetchArticleTypes(lookupUrl);
 

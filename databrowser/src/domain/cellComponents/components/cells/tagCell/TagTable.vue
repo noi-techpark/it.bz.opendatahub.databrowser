@@ -13,7 +13,6 @@
         <SelectWithOptionsCell
           :options="getOptionsForTag(item, tagSet)"
           :value="item"
-          :sort-by-label="false"
           :editable="editable"
           v-bind="attrs"
           @update="updateItem(index, $event.value)"

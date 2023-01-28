@@ -8,7 +8,7 @@
       size="xs"
       class="mx-1 hidden h-6 w-9 text-center uppercase md:flex md:items-center md:justify-center"
       :class="[
-        link.selected
+        link.value === selected
           ? 'bg-green-500 bg-opacity-10 border-green-500 focus:text-white'
           : '',
       ]"
@@ -18,9 +18,11 @@
     <SelectCustom
       class="h-6 w-16 md:hidden"
       :options="links"
+      :value="selected"
+      :size="SelectSize.sm"
       :show-search-when-at-least-count-options="Infinity"
       @change="selected = $event"
-    ></SelectCustom>
+    />
   </div>
 </template>
 
@@ -34,6 +36,7 @@ import { RouteLocationRaw, useRouter } from 'vue-router';
 import { stringifyParameter, useApiQuery, useUrlQuery } from '../../domain/api';
 import ButtonLink from '../button/ButtonLink.vue';
 import SelectCustom from '../select/SelectCustom.vue';
+import { SelectSize } from '../select/types';
 
 const props = withDefaults(
   defineProps<{
@@ -44,39 +47,37 @@ const props = withDefaults(
 
 const supportedLanguages: Array<string> = Object.values(FilterLanguage);
 
-const apiQuery = useApiQuery();
-apiQuery.updateApiParameterValidator('language', (value) =>
+const { useApiParameter, updateApiParameterValidator } = useApiQuery();
+
+updateApiParameterValidator('language', (value) =>
   supportedLanguages.includes(stringifyParameter(value))
 );
-const currentLanguage = apiQuery.useApiParameter('language', {
+const currentLanguage = useApiParameter('language', {
   defaultValue: props.defaultLanguage,
 });
 
-const urlQuery = useUrlQuery();
+const { cleanQueryParametersExtendedWith } = useUrlQuery();
 const router = useRouter();
 
 const links = computed(() => {
   return supportedLanguages.map((language) => {
-    const query = urlQuery.cleanQueryParametersExtendedWith({ language });
+    const query = cleanQueryParametersExtendedWith({ language });
 
     const location: RouteLocationRaw = {
       query,
       hash: router.currentRoute.value.hash,
     };
 
-    const selected = currentLanguage.value === language;
-
     return {
       label: language.toUpperCase(),
       value: language,
       to: location,
-      selected,
     };
   });
 });
 
 const selected = computed({
-  get: () => links.value.find((link) => link.selected)?.label,
+  get: () => stringifyParameter(currentLanguage.value ?? ''),
   set: (value) => {
     const to = links.value.find((link) => link.value === value)?.to;
     if (to != null) {
