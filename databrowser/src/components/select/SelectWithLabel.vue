@@ -4,7 +4,8 @@
     <SelectCustom
       :id="id"
       :options="options"
-      :size="SelectSize.md"
+      :value="value"
+      :size="size"
       :show-search-when-at-least-count-options="
         showSearchWhenAtLeastCountOptions
       "
@@ -16,12 +17,13 @@
 <script setup lang="ts">
 import { defineEmits, defineProps } from 'vue';
 import { randomId } from '../utils/random';
-import { SelectOption, SelectSize } from './types';
+import { SelectOption, SelectSize, SelectValue } from './types';
 import SelectCustom from './SelectCustom.vue';
 
 defineProps<{
   label: string;
   options: SelectOption[];
+  value?: SelectValue;
   size?: SelectSize;
   showSearchWhenAtLeastCountOptions?: number;
 }>();

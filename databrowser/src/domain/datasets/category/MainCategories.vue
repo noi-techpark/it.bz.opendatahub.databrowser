@@ -3,8 +3,8 @@
     <SelectCustom
       class="md:hidden"
       :options="selectOptions"
-      :size="SelectSize.md"
-      :show-search-when-at-least-count-options="Number.POSITIVE_INFINITY"
+      :value="slug"
+      :show-search-when-at-least-count-options="Infinity"
       @change="setSelectedCategory"
     />
 
@@ -31,7 +31,7 @@ import { useRouter } from 'vue-router';
 import PillLink from '../../../components/pill/PillLink.vue';
 import { Category } from './types';
 import SelectCustom from '../../../components/select/SelectCustom.vue';
-import { SelectOption, SelectSize } from '../../../components/select/types';
+import { SelectOption } from '../../../components/select/types';
 
 const emit = defineEmits(['change']);
 
@@ -49,7 +49,6 @@ const selectOptions = computed<SelectOption[]>(() =>
   categories.value.map((category) => ({
     label: computeLabel(category.name, category.isAnyFieldRequired),
     value: category.slug,
-    selected: slug?.value === category.slug,
   }))
 );
 

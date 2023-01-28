@@ -50,14 +50,20 @@ const mapToOptionsWithKeysAndValues = (
 
 // Build usable SelectOptions
 const buildOptions = (
-  optionsWithKeysAndValues: Record<string, SelectOption>
+  optionsWithKeysAndValues: Record<string, SelectOption>,
+  sortByLabel: boolean
 ) => {
   const keys = Object.keys(optionsWithKeysAndValues);
+  if (sortByLabel) {
+    keys.sort();
+  }
 
   return keys.reduce<SelectOption[]>((previous, key) => {
     const value = optionsWithKeysAndValues[key].value;
     const label = optionsWithKeysAndValues[key].label;
-    return [...previous, { value, label }];
+    const option: SelectOption = { value, label };
+
+    return [...previous, option];
   }, []);
 };
 
@@ -69,29 +75,24 @@ const buildOptions = (
 // value "Eurac" are merged into the following SelectOption:
 // {value: "EC", label: "Eurac"}
 export const useMapper = (
-  options: Ref<SelectOption[] | undefined>,
-  attrs: Ref<Record<string, unknown>>
+  attrs: Ref<Record<string, unknown>>,
+  sortByLabel: Ref<boolean>
 ) => {
-  const optionsInternal = ref<SelectOption[]>([]);
+  const options = ref<SelectOption[]>([]);
 
   watch(
-    () => [options.value, attrs.value],
+    () => [attrs.value],
     () => {
-      if (options.value != null) {
-        optionsInternal.value = options.value;
-        return;
-      }
-
       const optionsWithKeys = mapToOptionsWithKeys(attrs.value);
       const optionsWithKeysAndValues = mapToOptionsWithKeysAndValues(
         attrs.value,
         optionsWithKeys
       );
 
-      optionsInternal.value = buildOptions(optionsWithKeysAndValues);
+      options.value = buildOptions(optionsWithKeysAndValues, sortByLabel.value);
     },
     { immediate: true }
   );
 
-  return { optionsInternal };
+  return { options };
 };

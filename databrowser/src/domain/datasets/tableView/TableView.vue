@@ -1,8 +1,6 @@
 <template>
   <section class="flex flex-1 flex-col justify-start overflow-y-auto">
-    <template v-if="isError">
-      <ShowApiError :error="error" />
-    </template>
+    <LoadingError v-if="isError" :error="error" />
     <template v-else-if="isLoading">
       <ContentAlignmentX>
         <div class="animate-pulse">
@@ -23,9 +21,9 @@
             :show-quick="datasetConfigStore.hasQuickView"
           />
           <TableFooter
-            :pagination-options="paginationOptions"
+            :page-size="stringifyParameter(pageSize ?? '')"
             :pagination="pagination"
-            @page-size-changes="pageSizeChanges"
+            @page-size-changes="pageSize = $event"
             @paginate-to="paginateTo"
           />
         </div>
@@ -37,11 +35,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import {
-  defaultQueryParameters,
-  pageSizeOptions,
-  validPageSizes,
-} from './defaultValues';
+import { defaultQueryParameters, validPageSizes } from './defaultValues';
 import TableContent from './TableContent.vue';
 import { AxiosResponse } from 'axios';
 import {
@@ -53,32 +47,37 @@ import {
 } from '../../api';
 import TableFooter from './TableFooter.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
-import ShowApiError from '../../api/components/ShowApiError.vue';
 import { useI18n } from 'vue-i18n';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import SearchAndFilterToolbox from './SearchAndFilterToolbox.vue';
+import LoadingError from '../../../components/loading/LoadingError.vue';
 
 const { t } = useI18n();
 
 // API query is used in several places
-const apiQuery = useApiQuery();
-apiQuery.setDefaultApiParameters(defaultQueryParameters);
-apiQuery.updateApiParameterValidator('pagesize', (value) =>
+const {
+  currentApiParameters,
+  defaultApiParameters,
+  setDefaultApiParameters,
+  updateApiParameterValidator,
+  updateApiParameterValue,
+  useApiParameter,
+} = useApiQuery();
+
+setDefaultApiParameters(defaultQueryParameters);
+updateApiParameterValidator('pagesize', (value) =>
   validPageSizes.includes(stringifyParameter(value))
 );
-apiQuery.updateApiParameterValidator(
+updateApiParameterValidator(
   'pagenumber',
   (value) => parseInt(stringifyParameter(value), 10) > 0
 );
 
 // Define result mapping function
 const resultMapper = (data: AxiosResponse): PaginationData => {
-  const defaultApiParameters = apiQuery.defaultApiParameters.value;
-  const currentApiParameters = apiQuery.currentApiParameters.value;
-  return unifyPagination(data, {
-    defaultParameters: defaultApiParameters,
-    parameters: currentApiParameters,
-  });
+  const defaultParameters = defaultApiParameters.value;
+  const parameters = currentApiParameters.value;
+  return unifyPagination(data, { defaultParameters, parameters });
 };
 
 const datasetConfigStore = useDatasetConfigStore();
@@ -90,22 +89,12 @@ const { isError, isSuccess, isLoading, data, error, url } =
 
 // Define method to change page
 const paginateTo = (page: string) =>
-  apiQuery.updateApiParameterValue('pagenumber', page);
+  updateApiParameterValue('pagenumber', page);
 
 // Handle page size
-const pageSize = apiQuery.useApiParameter('pagesize');
-
-const pageSizeChanges = (value: string | undefined) => (pageSize.value = value);
+const pageSize = useApiParameter('pagesize');
 
 const rows = computed(() => (data.value as PaginationData).items ?? []);
 
 const pagination = computed(() => (data.value as PaginationData).pagination);
-
-const paginationOptions = computed(
-  () =>
-    pageSizeOptions.map((pso) => ({
-      ...pso,
-      selected: pso.value === pageSize.value,
-    })) ?? []
-);
 </script>

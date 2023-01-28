@@ -1,34 +1,43 @@
 <template>
   <div>
     <SubCategoryItem title="Main Type">
-      <SelectCustom
-        v-if="isWriteable"
+      <LoadingState
+        :is-loading="isLoading"
+        :is-error="isError"
+        :error="error"
+      />
+      <SelectWithOptionsCell
+        v-if="isSuccess || !editable"
         :options="typeSelectOptions"
-        :size="SelectSize.md"
-        @change="changeType"
+        :value="currentTypeValue"
+        :show-empty-value="showEmptyValueForType"
+        :editable="editable"
+        :readonly="readonly"
+        @update="changeType($event.value)"
       />
-      <span v-else>{{ currentTypeValue }}</span>
     </SubCategoryItem>
-    <SubCategoryItem title="Sub Type">
-      <SelectCustom
-        v-if="isWriteable"
+    <SubCategoryItem
+      v-if="!isLoading && !isError && (currentSubTypeValue != null || editable)"
+      title="Sub Type"
+    >
+      <SelectWithOptionsCell
         :options="subTypeSelectOptions"
-        :size="SelectSize.md"
-        :show-no-value="true"
-        :unknown-value="currentSubTypeValue"
-        @change="changeSubType"
+        :value="currentSubTypeValue"
+        :show-empty-value="true"
+        :editable="editable"
+        :readonly="readonly"
+        @update="changeSubType($event.value)"
       />
-      <span v-else>{{ currentSubTypeValue }}</span>
     </SubCategoryItem>
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue';
-import SelectCustom from '../../../../../components/select/SelectCustom.vue';
-import { SelectSize } from '../../../../../components/select/types';
+import { computed, toRefs } from 'vue';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';
+import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import { useArticleTypeSelection } from './useArticleTypeSelection';
 import { useFetchArticleTypes } from './useFetchArticleTypes';
 
@@ -53,7 +62,16 @@ const props = withDefaults(
 
 const { type, subType, lookupUrl, editable, readonly } = toRefs(props);
 
-const { articleTypesHierarchy } = useFetchArticleTypes(lookupUrl);
+// Show empty value options for type select if type and sub type
+// are undefined / null, which is the case for new articles.
+const showEmptyValueForType = computed(
+  () => type.value == null && subType.value == null
+);
+
+const isWritable = useWriteable({ editable, readonly });
+
+const { articleTypesHierarchy, isLoading, isSuccess, isError, error } =
+  useFetchArticleTypes(lookupUrl, isWritable);
 
 const {
   typeSelectOptions,
@@ -91,6 +109,4 @@ const changeTypeAndSubType = (
     ]);
   }
 };
-
-const isWriteable = useWriteable({ editable, readonly });
 </script>

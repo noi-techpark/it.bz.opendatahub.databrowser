@@ -20,19 +20,26 @@ interface ArticleTypeResponse {
   TypeDesc: Record<string, unknown>;
 }
 
-export const useFetchArticleTypes = (lookupUrl: Ref<string | undefined>) => {
+export const useFetchArticleTypes = (
+  lookupUrl: Ref<string | undefined>,
+  isWritable: Ref<boolean>
+) => {
   const queryKey = lookupUrl;
   const queryFn = useAxiosFetcher();
-  const response = useQuery({ queryKey, queryFn });
+  const { data, isSuccess, isLoading, isError, error } = useQuery({
+    queryKey,
+    queryFn,
+    enabled: isWritable.value,
+  });
 
   const articleTypesHierarchy = computed(() => {
-    if (!response.isSuccess.value) {
+    if (!isSuccess.value) {
       return {};
     }
 
-    const data = (response.data?.value?.data as ArticleTypeResponse[]) ?? [];
+    const dataValue = (data?.value?.data as ArticleTypeResponse[]) ?? [];
 
-    return data.reduce<ArticleTypes>((knownTypes, curr) => {
+    return dataValue.reduce<ArticleTypes>((knownTypes, curr) => {
       // Skip entries of type ArticleType completely, all information
       // can be extracted from entries of type ArticleSubType
       if (curr.Type === 'ArticleType') {
@@ -48,5 +55,5 @@ export const useFetchArticleTypes = (lookupUrl: Ref<string | undefined>) => {
     }, {});
   });
 
-  return { articleTypesHierarchy };
+  return { articleTypesHierarchy, isLoading, isSuccess, isError, error };
 };

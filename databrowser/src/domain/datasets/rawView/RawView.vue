@@ -1,7 +1,5 @@
 <template>
-  <template v-if="isError">
-    <ShowApiError :error="error" />
-  </template>
+  <LoadingError v-if="isError" :error="error" />
   <template v-if="isSuccess === true">
     <div class="overflow-y-auto md:flex">
       <ContentAlignmentX class="overflow-y-auto py-6 md:flex">
@@ -20,9 +18,9 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue';
 import { useApiReadForCurrentDataset } from '../../api';
-import ShowApiError from '../../api/components/ShowApiError.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
+import LoadingError from '../../../components/loading/LoadingError.vue';
 import 'vue-json-pretty/lib/styles.css';
 
 const VueJsonPretty = defineAsyncComponent(() =>

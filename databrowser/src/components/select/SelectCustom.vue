@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Listbox v-slot="{ open }" v-model="selectedOption">
+    <Listbox v-slot="{ open }" v-model="valueInternal">
       <div ref="trigger" class="text-black">
         <SelectButton
           :id="id"
@@ -35,72 +35,88 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, toRefs, withDefaults } from 'vue';
+import {
+  computed,
+  defineEmits,
+  defineProps,
+  ref,
+  toRefs,
+  watch,
+  withDefaults,
+} from 'vue';
 import { Listbox } from '@headlessui/vue';
-import { SelectOption, SelectOptionsPlacement, SelectSize } from './types';
+import {
+  SelectOption,
+  SelectOptionsPlacement,
+  SelectSize,
+  SelectValue,
+} from './types';
 import { useSearch } from './useSearch';
 import { selectButtonSizeStyles, selectOptionsSizeStyles } from './styles';
 import SelectButton from './SelectButton.vue';
 import SelectOptionsBox from './SelectOptionsBox.vue';
 import { randomId } from '../utils/random';
 import { useFloatingUi } from '../utils/useFloatingUi';
-
-const NO_VALUE_OPTION = {
-  label: '--- NO VALUE ---',
-  value: undefined,
-} as const;
+import { emptyValueOption, unknownValueLabel } from './utils';
 
 const emit = defineEmits(['change']);
 
 // Handle input props
 const props = withDefaults(
   defineProps<{
-    options: SelectOption[];
+    options?: SelectOption[];
+    value?: SelectValue;
     size?: SelectSize;
     id?: string;
     // Show the search box if there are at least this amount of options (default 7)
-    // Set this number to zero to always show the search
-    // Set this number to Infinity to always hide the search
+    // - set this number to zero to always show the search
+    // - set this number to Infinity to always hide the search
     showSearchWhenAtLeastCountOptions?: number;
-    showNoValue?: boolean;
-    unknownValue?: string;
+    showEmptyValue?: boolean;
   }>(),
   {
     options: () => [],
-    size: SelectSize.sm,
+    value: undefined,
+    size: SelectSize.md,
     id: randomId(),
     showSearchWhenAtLeastCountOptions: 7,
-    showNoValue: false,
-    unknownValue: undefined,
+    showEmptyValue: false,
   }
 );
-const { options, size, showSearchWhenAtLeastCountOptions, unknownValue } =
-  toRefs(props);
+const {
+  options,
+  value,
+  size,
+  showEmptyValue,
+  showSearchWhenAtLeastCountOptions,
+} = toRefs(props);
 
-// Compute selected option and emit if selection changes
-const selectedOption = computed({
-  get: () => optionsInternal.value.find((option) => option.selected),
-  set: (option) => emit('change', option?.value),
-});
+const valueInternal = ref(value.value);
 
-// Compute internal options array. If showNoValue is set, then a "no value"
-// option is added to the front of the list
+watch(value, (v) => (valueInternal.value = v));
+watch(valueInternal, (v) => emit('change', v));
+
+// Compute internal options array. If showEmptyValue is set,
+// then a "no value" option is added to the front of the list
 const optionsInternal = computed<SelectOption[]>(() =>
-  props.showNoValue ? [NO_VALUE_OPTION, ...options.value] : options.value
+  showEmptyValue.value ? [emptyValueOption(), ...options.value] : options.value
 );
 
 // Compute selected label:
 // - show selected option if such an option exists
-// - show "no value" if the prop unknownValue is null / undefined
-// - show "unknown value" + unknownValue if the prop unknownValue is set
+// - show "unknown value" if no option corresponds to the current value
 const selectedLabel = computed(() => {
-  if (selectedOption.value != null) {
-    return selectedOption.value.label;
+  const selectedOption = optionsInternal.value.find(
+    (option) =>
+      option.value === valueInternal.value ||
+      (option.value == null && valueInternal.value == null)
+  );
+
+  if (selectedOption != null) {
+    return selectedOption.label;
   }
 
-  return props.unknownValue == null
-    ? NO_VALUE_OPTION.label
-    : `--- Unknown value (${unknownValue.value}) ---`;
+  return unknownValueLabel(valueInternal.value);
 });
 
 // Handle options placement

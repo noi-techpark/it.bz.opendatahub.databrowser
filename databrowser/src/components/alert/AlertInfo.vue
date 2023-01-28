@@ -1,10 +1,10 @@
 <template>
-  <BaseError :title="title" :content="content" type="info" />
+  <BaseAlert :title="title" :content="content" type="info" />
 </template>
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import BaseError from './BaseError.vue';
+import BaseAlert from './BaseAlert.vue';
 
 defineProps<{
   title?: string;
