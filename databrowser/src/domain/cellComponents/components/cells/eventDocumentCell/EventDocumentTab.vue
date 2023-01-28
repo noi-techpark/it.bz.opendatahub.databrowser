@@ -22,9 +22,7 @@
               :value="item.language"
               :editable="editable"
               :options="getLanguageOptionsForFile(item.language)"
-              :show-search-when-at-least-count-options="
-                Number.POSITIVE_INFINITY
-              "
+              :show-search-when-at-least-count-options="Infinity"
               @update="updateItem(index, { language: $event.value })"
             />
           </SubCategoryItem>
