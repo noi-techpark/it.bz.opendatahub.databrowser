@@ -19,12 +19,12 @@ export const odhTagCell = (mainentity?: string): PropertyConfig => {
 
   return {
     title: 'Open Data Hub Tags',
-    component: CellComponent.OdhTagCell,
+    component: CellComponent.TagReferenceCell,
     listFields: {
-      attributeName: 'odhTags',
+      attributeName: 'items',
       pathToParent: 'SmgTags',
     },
-    params: { url },
+    params: { url, keySelector: 'Id', labelSelector: 'TagName.{language}' },
   };
 };
 
