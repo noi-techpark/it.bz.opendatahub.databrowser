@@ -1,18 +1,20 @@
 <template>
   <div
     v-if="title != null || content != null"
-    class="flex items-center py-2 px-4"
+    class="flex gap-8 py-2 px-4"
     :class="classNames.background"
   >
     <div
-      class="flex h-14 w-20 shrink-0 items-center justify-center text-white"
+      class="my-1 flex h-14 w-20 shrink-0 items-center justify-center text-white"
       :class="classNames.icon"
     >
       <slot><IconCheck v-if="type === 'info'" /><IconWarning v-else /></slot>
     </div>
-    <div class="ml-8" :class="classNames.text">
+    <div :class="classNames.text" class="min-w-0 break-words">
       <div v-if="title != null" class="font-semibold">{{ title }}</div>
-      <div v-if="content != null" class="text-sm">{{ content }}</div>
+      <div v-if="content != null" class="text-sm">
+        {{ content }}
+      </div>
     </div>
   </div>
 </template>
