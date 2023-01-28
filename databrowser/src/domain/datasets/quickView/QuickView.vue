@@ -1,15 +1,13 @@
 <template>
-  <template v-if="isError">
-    <ShowApiError :error="error" />
-  </template>
+  <LoadingError v-if="isError" :error="error" />
   <template v-if="isSuccess === true">
     <div>To be done</div>
   </template>
 </template>
 
 <script lang="ts" setup>
+import LoadingError from '../../../components/loading/LoadingError.vue';
 import { useApiReadForCurrentDataset } from '../../api';
-import ShowApiError from '../../api/components/ShowApiError.vue';
 
 const { isError, isSuccess, error } = useApiReadForCurrentDataset();
 </script>

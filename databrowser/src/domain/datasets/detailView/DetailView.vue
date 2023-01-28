@@ -1,7 +1,5 @@
 <template>
-  <template v-if="isError">
-    <ShowApiError :error="error" />
-  </template>
+  <LoadingError v-if="isError" :error="error" />
   <template v-if="isSuccess === true">
     <div>
       <ShowEmptyFields v-model="showAll" />
@@ -26,10 +24,10 @@
 import { ref } from 'vue';
 import { useApiReadForCurrentDataset } from '../../api';
 import { useCategories } from '../category/useCategories';
-import ShowApiError from '../../api/components/ShowApiError.vue';
 import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
 import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
 import MainAndSubCategories from '../common/MainAndSubCategories.vue';
+import LoadingError from '../../../components/loading/LoadingError.vue';
 
 const showAll = ref(false);
 

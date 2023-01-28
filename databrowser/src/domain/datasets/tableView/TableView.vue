@@ -1,8 +1,6 @@
 <template>
   <section class="flex flex-1 flex-col justify-start overflow-y-auto">
-    <template v-if="isError">
-      <ShowApiError :error="error" />
-    </template>
+    <LoadingError v-if="isError" :error="error" />
     <template v-else-if="isLoading">
       <ContentAlignmentX>
         <div class="animate-pulse">
@@ -49,10 +47,10 @@ import {
 } from '../../api';
 import TableFooter from './TableFooter.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
-import ShowApiError from '../../api/components/ShowApiError.vue';
 import { useI18n } from 'vue-i18n';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import SearchAndFilterToolbox from './SearchAndFilterToolbox.vue';
+import LoadingError from '../../../components/loading/LoadingError.vue';
 
 const { t } = useI18n();
 

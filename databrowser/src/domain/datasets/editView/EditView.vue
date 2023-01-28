@@ -22,12 +22,12 @@
       />
     </template>
     <template v-else>
-      <template v-if="isError">
-        <ShowApiError :error="error" class="h-24 overflow-auto" />
-      </template>
-      <template v-if="isMutateError">
-        <ShowApiError :error="mutateError" class="h-24 overflow-auto" />
-      </template>
+      <LoadingError v-if="isError" :error="error" class="h-28 overflow-auto" />
+      <LoadingError
+        v-if="isMutateError"
+        :error="mutateError"
+        class="h-28 overflow-auto"
+      />
       <template v-if="isSuccess">
         <DiscardChangesDialog @discard="resetAndCleanup" />
         <LeaveSectionDialog
@@ -68,7 +68,6 @@
 
 <script lang="ts" setup>
 import { useApiMutate, useApiReadForCurrentDataset } from '../../api';
-import ShowApiError from '../../api/components/ShowApiError.vue';
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
@@ -88,6 +87,7 @@ import { useDialogsStore } from './dialogs/dialogsStore';
 import { useEventListener } from '@vueuse/core';
 import AlertError from '../../../components/alert/AlertError.vue';
 import MainAndSubCategories from '../common/MainAndSubCategories.vue';
+import LoadingError from '../../../components/loading/LoadingError.vue';
 
 const { t } = useI18n();
 
