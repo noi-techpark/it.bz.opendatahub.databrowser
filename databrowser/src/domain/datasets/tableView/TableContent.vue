@@ -18,8 +18,10 @@
     </template>
 
     <template #body-rows>
-      <tr v-if="renderElements.length === 0">
-        <TableCell>{{ t('datasets.listView.noData') }}</TableCell>
+      <tr v-if="rows.length === 0">
+        <TableCell :colspan="renderElements.length + 1">
+          {{ t('datasets.listView.noData') }}
+        </TableCell>
       </tr>
       <!-- eslint-disable-next-line vue/require-v-for-key -->
       <tr v-for="row in rows">
