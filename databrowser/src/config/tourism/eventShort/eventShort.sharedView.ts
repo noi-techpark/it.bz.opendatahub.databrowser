@@ -54,11 +54,10 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: 'Data states',
           properties: [
-            // TODO: check which field to use
             {
               title: 'Active',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'Active' },
+              fields: { enabled: 'ActiveToday' },
             },
             {
               title: 'noi.bz.it Active',
