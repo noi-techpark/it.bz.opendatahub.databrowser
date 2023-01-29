@@ -7,12 +7,16 @@ import {
 } from './types';
 
 export const tourismPaginatedMapper = (
-  data: WithTourismPagination
+  data: WithTourismPagination,
+  context: {
+    defaultParameters: Record<string, string>;
+    parameters: Record<string, string>;
+  }
 ): PaginationData => {
   const total = data.TotalResults;
-
-  const sizeHasDivider = total % data.TotalPages !== 0;
-  const size = Math.floor(total / data.TotalPages) + (sizeHasDivider ? 1 : 0);
+  const sizeAsString =
+    context.parameters.pagesize ?? context.defaultParameters.pagesize;
+  const size = parseInt(sizeAsString, 10);
   const page = data.CurrentPage;
 
   return {
@@ -67,16 +71,11 @@ export const unifyPagination = (
   }
 ): PaginationData => {
   if (isWithTourismPagination(data)) {
-    return tourismPaginatedMapper(data);
+    return tourismPaginatedMapper(data, context);
   }
 
   if (isWithArrayPagination(data)) {
-    const { parameters, defaultParameters } = context;
-
-    return arrayPaginatedMapper(data, {
-      defaultParameters,
-      parameters,
-    });
+    return arrayPaginatedMapper(data, context);
   }
 
   return {
