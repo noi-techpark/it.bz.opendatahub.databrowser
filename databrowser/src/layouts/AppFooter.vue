@@ -7,16 +7,14 @@
       >
         <li class="my-1 pr-4">@ Open Data Hub</li>
         <li class="my-1 px-4">
-          <router-link to="/sitemap">{{ t('footer.sitemap') }}</router-link>
-        </li>
-        <li class="my-1 px-4">
-          <router-link to="/legal">{{ t('footer.legal') }}</router-link>
-        </li>
-        <li class="my-1 px-4">
-          <router-link to="/privacy">{{ t('footer.privacy') }}</router-link>
+          <a href="https://noi.bz.it/en/privacy-cookie-policy" target="_blank">
+            {{ t('footer.privacy') }}
+          </a>
         </li>
         <li class="my-1 pl-4">
-          <router-link to="/imprint">{{ t('footer.imprint') }}</router-link>
+          <a href="https://noi.bz.it/en/impressum" target="_blank">
+            {{ t('footer.imprint') }}
+          </a>
         </li>
       </ul>
     </footer>
