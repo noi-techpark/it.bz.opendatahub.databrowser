@@ -2,7 +2,6 @@
   <AppLayout>
     <HeroContainer>
       <HeroTitle>List of all datasets</HeroTitle>
-      <HeroSubTitle>{{ `${results.length} datasets found` }}</HeroSubTitle>
       <router-link to="/links" class="text-green-500">
         Show all available Endpoints
       </router-link>
@@ -33,7 +32,6 @@
 import AppLayout from '../../../layouts/AppLayout.vue';
 import HeroContainer from '../../../components/hero/HeroContainer.vue';
 import HeroTitle from '../../../components/hero/HeroTitle.vue';
-import HeroSubTitle from '../../../components/hero/HeroSubTitle.vue';
 import { computed, ref } from 'vue';
 import { datasetsForPages } from '../../../config/config-for-pages';
 import { SelectOption } from '../../../components/select/types';

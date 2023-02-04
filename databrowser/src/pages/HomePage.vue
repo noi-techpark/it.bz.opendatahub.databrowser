@@ -39,11 +39,8 @@
           <ButtonLink
             :size="Size.md"
             :to="{ name: 'OverviewListPage' }"
-            class="flex w-full items-center gap-3 pr-6 pl-2.5 text-3xl md:w-fit"
+            class="flex w-full items-center gap-3 py-6 text-3xl md:w-fit"
           >
-            <div class="rounded bg-white py-1 px-3 text-green-500">
-              {{ datasetCount }}
-            </div>
             Show datasets
           </ButtonLink>
         </CardActions>
@@ -160,15 +157,7 @@ import ButtonRawLink from '../components/button/ButtonRawLink.vue';
 import { Size, Variant } from '../components/button/types';
 import IconMail from '../components/svg/IconMail.vue';
 import IconExternal from '../components/svg/IconExternal.vue';
-import { datasetsForPages } from '../config/config-for-pages';
-import { computed } from 'vue';
 import PartnersAndContributors from '../components/partners/PartnersAndContributors.vue';
 import CardDivider from '../components/card/CardDivider.vue';
 import PageGridContent from '../components/content/PageGridContent.vue';
-
-const datasetCount = computed(() =>
-  Object.values(datasetsForPages).reduce((prev, domain) => {
-    return prev + domain.length;
-  }, 0)
-);
 </script>
