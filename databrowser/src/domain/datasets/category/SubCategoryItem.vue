@@ -8,7 +8,12 @@
       v-if="hasTitleOrTooltip"
       class="relative flex items-center justify-between py-1"
     >
-      <div class="font-semibold">{{ title }}</div>
+      <div
+        class="font-semibold"
+        :class="[{ 'text-hint-error': hasEmptyValue }]"
+      >
+        {{ title }}
+      </div>
       <div
         v-if="tooltip != null"
         class="h-4 w-4 text-green-400"
@@ -17,7 +22,8 @@
         <IconInfo />
       </div>
     </div>
-    <slot></slot>
+    <span v-if="hasEmptyValue" class="text-hint-error">/</span>
+    <slot v-else></slot>
     <ul v-if="hasError" class="mt-1 text-error">
       <li v-for="(err, index) in errors" :key="index">
         {{ err }}
@@ -35,6 +41,7 @@ const props = defineProps<{
   tooltip?: string;
   required?: boolean;
   errors?: string[];
+  hasEmptyValue?: boolean;
 }>();
 
 const hasTitleOrTooltip = computed(

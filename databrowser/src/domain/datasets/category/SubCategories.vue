@@ -18,6 +18,7 @@
           :tooltip="property.tooltip"
           :required="property.required"
           :errors="property.errors"
+          :has-empty-value="property.empty"
         >
           <ComponentRenderer
             :tag-name="property.component"
@@ -36,16 +37,10 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue';
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
-import { usePropertyMapping } from '../../api';
 import SubCategoryItem from './SubCategoryItem.vue';
-import { Category, PropertyConfigWithErrors, SubCategory } from './types';
+import { Category, SubCategory } from './types';
 import ContentDivider from '../../../components/content/ContentDivider.vue';
-import { PropertyConfig } from '../../datasetConfig/types';
-import { CellComponent } from '../../cellComponents/types';
-
-type PropertyConfigWithValue = PropertyConfigWithErrors & {
-  value: Record<string, unknown>;
-};
+import { usePropertyComputation } from './usePropertyComputation';
 
 const props = defineProps<{
   data: unknown;
@@ -55,55 +50,17 @@ const props = defineProps<{
   editable?: boolean;
 }>();
 
+const { computeProperties } = usePropertyComputation();
+
 const subCategoriesWithValues = computed(() =>
-  props.subCategories.map((sc) => ({
-    name: sc.name,
-    properties: computeAndFilterProperties(
+  props.subCategories.map((subCategory) => ({
+    name: subCategory.name,
+    properties: computeProperties(
       props.data,
-      sc.properties,
-      props.showAll
+      subCategory.properties,
+      props.showAll ?? false,
+      props.editable ?? false
     ),
   }))
 );
-
-const computeAndFilterProperties = (
-  data: any,
-  properties: PropertyConfig[],
-  showAll?: boolean
-): PropertyConfigWithValue[] => {
-  // Compute property values
-  const propertiesWithValue = properties.map((property) => {
-    if (property.fields != null) {
-      return {
-        ...property,
-        value: mapWithIndex(data, property.fields, property.params),
-      };
-    }
-    if (property.listFields != null) {
-      return {
-        ...property,
-        value: mapListWithIndex(data, property.listFields, property.params),
-      };
-    }
-    return property as PropertyConfigWithValue;
-  });
-
-  // If all properties should be shown, return all properties.
-  // Otherwise, return only properties with non-empty values.
-  return showAll
-    ? propertiesWithValue
-    : propertiesWithValue.filter((p) => hasNonEmptyValue(p.component, p.value));
-};
-
-const hasNonEmptyValue = (component: string, o: Record<string, unknown>) => {
-  if (component === CellComponent.StringCell && o.text === '') {
-    return false;
-  }
-  if (component === CellComponent.ToggleCell) {
-    return true;
-  }
-  return Object.values(o).find((v) => v != null) != null;
-};
-
-const { mapWithIndex, mapListWithIndex } = usePropertyMapping();
 </script>
