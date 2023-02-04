@@ -1,29 +1,64 @@
 import {
   QuickViewConfig,
-  QuickViewSectionType,
+  QuickViewSectionComponent,
 } from '../../../domain/datasetConfig/types';
 
 export const odhActivityPoiQuickView: QuickViewConfig = {
-  showTopGallery: true,
+  topGallery: {
+    isVisible: true,
+    fields: {
+      gallery: 'ImageGallery',
+    },
+  },
   elements: [
     {
-      sectionType: QuickViewSectionType.INFO,
+      component: QuickViewSectionComponent.INFO,
+      fields: {
+        header: 'Detail.{language}.Header',
+        subHeader: 'Detail.{language}.SubHeader',
+        introText: 'Detail.{language}.IntroText',
+      },
     },
     {
-      sectionType: QuickViewSectionType.CONTACTS,
+      component: QuickViewSectionComponent.CONTACTS,
+      fields: {
+        companyName: 'ContactInfos.{language}.CompanyName',
+        givenName: 'ContactInfos.{language}.Givenname',
+        surname: 'ContactInfos.{language}.Surname',
+        address: 'ContactInfos.{language}.Address',
+        city: 'ContactInfos.{language}.City',
+        zipCode: 'ContactInfos.{language}.ZipCode',
+        countryName: 'ContactInfos.{language}.CountryName',
+        email: 'ContactInfos.{language}.Email',
+        phoneNumber: 'ContactInfos.{language}.Phonenumber',
+        url: 'ContactInfos.{language}.Url',
+      },
     },
     {
-      sectionType: QuickViewSectionType.WEBCAMS,
+      component: QuickViewSectionComponent.WEBCAMS,
+      fields: {
+        webcamsMediaItems: 'Webcam',
+      },
     },
     {
-      sectionType: QuickViewSectionType.MAP,
-      // NOTE: here can be added eg. custom default zoom etc.
+      component: QuickViewSectionComponent.MAP,
+      fields: {
+        gpsInfo: 'GpsInfo',
+      },
     },
     {
-      sectionType: QuickViewSectionType.OPENING_HORUS,
+      component: QuickViewSectionComponent.OPENING_HORUS,
+      fields: {
+        scheduleData: 'OperationSchedule',
+      },
     },
     {
-      sectionType: QuickViewSectionType.RECORD_INFO,
+      component: QuickViewSectionComponent.RECORD_INFO,
+      fields: {
+        lastUpdate: '_Meta.LastUpdate',
+        active: 'Active',
+        odhActive: 'OdhActive',
+      },
     },
   ],
 };

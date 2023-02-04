@@ -84,7 +84,7 @@ import TagCustom from '../tag/TagCustom.vue';
 
 defineProps<{
   title?: string;
-  sections: Array;
+  sections: Array<any>;
   contentHasNoPadding?: Boolean;
   ctaIcon?: string;
 }>();

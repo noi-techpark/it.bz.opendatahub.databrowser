@@ -53,16 +53,17 @@ export interface DetailElements {
 }
 
 export interface QuickViewElements {
-  sectionType: QuickViewSectionType;
+  component: QuickViewSectionComponent;
+  fields: Record<string, string>;
 }
 
-export enum QuickViewSectionType {
-  INFO,
-  CONTACTS,
-  WEBCAMS,
-  MAP,
-  OPENING_HORUS,
-  RECORD_INFO,
+export enum QuickViewSectionComponent {
+  INFO = 'QuickViewTextInfoCard',
+  CONTACTS = 'QuickViewContactsCard',
+  WEBCAMS = 'QuickViewWebcamsView',
+  MAP = 'QuickViewMapView',
+  OPENING_HORUS = 'QuickViewOpeningHoursView',
+  RECORD_INFO = 'QuickViewRecordInfoView',
 }
 
 export interface EditElements {
@@ -101,8 +102,13 @@ export interface DetailViewElements {
   elements: DetailElements[];
 }
 export interface QuickViewPageConfig {
-  showTopGallery: Boolean;
+  topGallery: QuickViewTopGallery;
   elements: QuickViewElements[];
+}
+
+export interface QuickViewTopGallery {
+  isVisible: boolean;
+  fields: Record<string, string>;
 }
 export interface EditViewElements {
   elements: EditElements[];

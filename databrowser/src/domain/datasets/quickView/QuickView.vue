@@ -17,7 +17,7 @@
       </div>
       <div
         v-if="
-          odhActivityPoiConfig.views?.quick?.showTopGallery &&
+          odhActivityPoiConfig.views?.quick?.topGallery.isVisible &&
           imageGallery.length <= 1 &&
           mainImage
         "
@@ -42,72 +42,88 @@
 
     <QuickViewFullscreenGallery
       v-if="
-        odhActivityPoiConfig.views?.quick?.showTopGallery &&
+        odhActivityPoiConfig.views?.quick?.topGallery.isVisible &&
         imageGallery.length > 1
       "
       :images="imageGallery"
     />
 
     <PageContent>
-      <div class="grid gap-8 mt-4 md:grid-cols-2">
+      <div class="grid-ct">
+        <!--<div
+          v-for="(element, index) in odhActivityPoiConfig.views?.quick
+            ?.elements"
+          :key="index"
+        >
+          <ComponentRenderer
+            :tag-name="element.component"
+            :fields="element.fields"
+          />
+        </div>-->
         <div
           v-for="(element, index) in odhActivityPoiConfig.views?.quick
             ?.elements"
           :key="index"
           class="element-ct"
         >
-          <QuickViewCardOverview
-            v-if="element.sectionType === QuickViewSectionType.INFO"
-            :title="t('datasets.quickView.textInformation')"
-            :sections="textInformationSections"
+          <QuickViewTextInfoCard
+            v-if="element.component === QuickViewSectionComponent.INFO"
+            :header="getValueOfLocale(currentLocale, data.Detail).Header"
+            :sub-header="getValueOfLocale(currentLocale, data.Detail).SubHeader"
+            :intro-text="getValueOfLocale(currentLocale, data.Detail).IntroText"
           />
-          <QuickViewCardOverview
-            v-else-if="element.sectionType === QuickViewSectionType.CONTACTS"
-            :title="t('datasets.quickView.contact')"
-            :sections="contactSections"
-          />
-
-          <QuickViewCardOverview
-            v-else-if="element.sectionType === QuickViewSectionType.WEBCAMS"
-            :title="t('datasets.quickView.webcamDetails')"
-            :content-has-no-padding="true"
-            @cta-click="openMapFullscreen()"
-          >
-            <template #content>
-              <QuickViewCardOverviewGallery :media-items="mediaItems" />
-            </template>
-          </QuickViewCardOverview>
-          <QuickViewCardOverview
-            v-else-if="element.sectionType === QuickViewSectionType.MAP"
-            :title="t('datasets.quickView.locationOnMap')"
-            cta-icon="IconExpand"
-            :content-has-no-padding="true"
-            @cta-click="openMapFullscreen()"
-          >
-            <template #content>
-              <MapBase
-                ref="mapComponent"
-                :key="map.center.length"
-                :center="map.center"
-                :markers="map.markers"
-              />
-            </template>
-          </QuickViewCardOverview>
-          <QuickViewCardOverview
-            v-else-if="
-              element.sectionType === QuickViewSectionType.OPENING_HORUS &&
-              operationScheduleSections.length
+          <QuickViewContactsCard
+            v-else-if="element.component === QuickViewSectionComponent.CONTACTS"
+            :company-name="
+              getValueOfLocale(currentLocale, data.ContactInfos).CompanyName
             "
-            :title="t('datasets.quickView.openingHours')"
-            :sections="operationScheduleSections"
+            :given-name="
+              getValueOfLocale(currentLocale, data.ContactInfos).Givenname
+            "
+            :surname="
+              getValueOfLocale(currentLocale, data.ContactInfos).Surname
+            "
+            :address="
+              getValueOfLocale(currentLocale, data.ContactInfos).Address
+            "
+            :city="getValueOfLocale(currentLocale, data.ContactInfos).City"
+            :zip-code="
+              getValueOfLocale(currentLocale, data.ContactInfos).ZipCode
+            "
+            :country-name="
+              getValueOfLocale(currentLocale, data.ContactInfos).CountryName
+            "
+            :email="getValueOfLocale(currentLocale, data.ContactInfos).Email"
+            :phone-number="
+              getValueOfLocale(currentLocale, data.ContactInfos).Phonenumber
+            "
+            :url="getValueOfLocale(currentLocale, data.ContactInfos).Url"
           />
-          <QuickViewCardOverview
-            v-else-if="element.sectionType === QuickViewSectionType.RECORD_INFO"
-            :title="t('datasets.quickView.recordInformation')"
-            :sections="recordInformationSections"
+          <QuickViewWebcamsView
+            v-else-if="element.component === QuickViewSectionComponent.WEBCAMS"
+            :webcams-media-items="data.Webcam"
+          />
+          <QuickViewMapView
+            v-else-if="element.component === QuickViewSectionComponent.MAP"
+            :gps-info="data.GpsInfo"
+          />
+          <QuickViewOpeningHoursView
+            v-else-if="
+              element.component === QuickViewSectionComponent.OPENING_HORUS
+            "
+            :schedule-data="data.OperationSchedule"
+          />
+          <QuickViewRecordInfoView
+            v-else-if="
+              element.component === QuickViewSectionComponent.RECORD_INFO
+            "
+            :last-update="data._Meta?.LastUpdate"
+            :active="data.Active"
+            :odh-active="data.OdhActive"
           />
         </div>
       </div>
+      <div class="clear" />
     </PageContent>
   </template>
 </template>
@@ -120,26 +136,32 @@ import { useI18n } from 'vue-i18n';
 import { useApiReadForCurrentDataset } from '../../api';
 
 import { odhActivityPoiConfig } from '../../../config/tourism/odhActivityPoi/odhActivityPoi.config'; // TODO: check if it's the right way to import the file
-import { QuickViewSectionType } from '../../../domain/datasetConfig/types';
+import { QuickViewSectionComponent } from '../../../domain/datasetConfig/types';
 
 import PageContent from '../../../components/content/PageContent.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
-import MapBase from '../../../components/map/MapBase.vue';
-import QuickViewCardOverview from '../../../components/quickview/QuickViewCardOverview.vue';
-import QuickViewCardOverviewGallery from '../../../components/quickview/QuickViewCardOverviewGallery.vue';
 import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewFullscreenGallery.vue';
+
+import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
+
+import QuickViewTextInfoCard from '../../../components/quickview/QuickViewTextInfoCard.vue';
+import QuickViewContactsCard from '../../../components/quickview/QuickViewContactsCard.vue';
+import QuickViewWebcamsView from '../../../components/quickview/QuickViewWebcamsView.vue';
+import QuickViewMapView from '../../../components/quickview/QuickViewMapView.vue';
+import QuickViewOpeningHoursView from '../../../components/quickview/QuickViewOpeningHoursView.vue';
+import QuickViewRecordInfoView from '../../../components/quickview/QuickViewRecordInfoView.vue';
+
+// import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
 
 const { isError, isSuccess, error, data } = useApiReadForCurrentDataset();
 
 let forcePlaceholderImage = ref(false);
 
-const mapComponent = ref(null);
-
 const { t, locale } = useI18n();
 const currentLocale = locale.value;
 
 const title = computed(() => {
-  return getValueOfLocale(data.value.Detail)?.Title || '/';
+  return getValueOfLocale(currentLocale, data.value.Detail)?.Title || '/';
 });
 
 const id = computed(() => {
@@ -147,20 +169,20 @@ const id = computed(() => {
 });
 
 const hasImage = computed(() => {
-  return data.value.ImageGallery?.[0]?.ImageUrl?.length > 0;
+  return imageGallery.value?.ImageUrl?.length > 0;
 });
 
 const mainImage = computed(() => {
-  if (!data.value.ImageGallery) {
+  if (!imageGallery.value) {
     return null;
   }
 
-  const firstImage = data.value.ImageGallery?.[0];
+  const firstImage = imageGallery.value?.[0];
 
   return firstImage?.ImageUrl && !forcePlaceholderImage.value
     ? {
         url: firstImage.ImageUrl,
-        desc: getValueOfLocale(firstImage.ImageDesc),
+        desc: getValueOfLocale(currentLocale, firstImage.ImageDesc),
       }
     : {
         url: 'https://via.placeholder.com/700x350?text=Missing+image',
@@ -169,318 +191,51 @@ const mainImage = computed(() => {
 });
 
 const imageGallery = computed(() => {
-  return data.value.ImageGallery || [];
-});
-
-const mediaItems = computed(() => {
-  // FIXME: check Webcam returning values
-  return data.value?.Webcam || getPlaceholderMediaItems();
+  return (
+    data.value[odhActivityPoiConfig.views?.quick?.topGallery?.fields.gallery] ||
+    []
+  );
 });
 
 const logoUrl = computed(() => {
-  return getValueOfLocale(data.value.ContactInfos)?.LogoUrl;
+  return getValueOfLocale(currentLocale, data.value.ContactInfos)?.LogoUrl;
 });
-
-const getPlaceholderMediaItems = () => {
-  const items = [];
-
-  for (let index = 0; index < 5; index++) {
-    items.push({
-      type: 'IMAGE',
-      url: `https://picsum.photos/1280/720`,
-      name: `Immagine di test ${index}`,
-    });
-  }
-  items.push({
-    type: 'VIDEO',
-    url: `http://techslides.com/demos/sample-videos/small.mp4`,
-    name: `Video di test`,
-  });
-
-  return items;
-};
-
-const textInformationSections = computed(() => {
-  const details = getValueOfLocale(data.value.Detail);
-  return [
-    {
-      content: [
-        {
-          title: 'Header',
-          text: getTextValue(details?.Header),
-        },
-        {
-          title: 'Subheader',
-          text: getTextValue(details?.SubHeader),
-        },
-        {
-          title: 'Introtext',
-          text: getTextValue(details?.IntroText),
-        },
-      ],
-    },
-  ];
-});
-
-const contactSections = computed(() => {
-  const details = getValueOfLocale(data.value.ContactInfos);
-  return [
-    {
-      icon: 'IconDocument',
-      content: [
-        {
-          title: t('datasets.quickView.nameCompanyName'),
-          text: getTextValue(details?.CompanyName),
-        },
-        {
-          title: t('datasets.quickView.firstName'),
-          text: getTextValue(details?.Givenname),
-        },
-        {
-          title: t('datasets.quickView.surname'),
-          text: getTextValue(details?.Surname),
-        },
-      ],
-    },
-    {
-      icon: 'IconBuilding',
-      content: [
-        {
-          title: t('datasets.quickView.streetAndNumber'),
-          text: getTextValue(details?.Address),
-        },
-        {
-          title: t('datasets.quickView.city'),
-          text: getTextValue(details?.City),
-        },
-        {
-          title: t('datasets.quickView.zip'),
-          text: getTextValue(details?.ZipCode),
-        },
-        {
-          title: t('datasets.quickView.country'),
-          text: getTextValue(details?.CountryName),
-        },
-      ],
-    },
-    {
-      icon: 'IconPhonebook',
-      content: [
-        {
-          title: t('datasets.quickView.email'),
-          text: getTextValue(details?.Email),
-        },
-        {
-          title: t('datasets.quickView.phoneNumber'),
-          text: getTextValue(details?.Phonenumber),
-        },
-        {
-          title: t('datasets.quickView.webUrl'),
-          text: getTextValue(details?.Url),
-        },
-      ],
-    },
-  ];
-});
-
-const recordInformationSections = computed(() => {
-  const lastUpdate = data?.value?._Meta?.LastUpdate;
-
-  if (!lastUpdate) {
-    return [];
-  }
-
-  const lastUpdateDate = new Date(lastUpdate).toISOString();
-  const [year, month, day] = lastUpdateDate.split('T')[0].split('-');
-
-  const isSourceActive = data.value.Active;
-  const isODHActive = data.value.OdhActive;
-
-  // FIXME: change based on dataset
-  const isSuedtirolInfoActive = false;
-  return [
-    {
-      icon: 'IconEditFilled',
-      content: [
-        {
-          title: t('datasets.quickView.lastChanged'),
-          text: `${day}.${month}.${year}`,
-        },
-      ],
-    },
-    {
-      icon: 'IconServer',
-      content: [
-        {
-          title: t('datasets.quickView.activeOnSource'),
-          tag: getTagActiveInfoObject({
-            active: isSourceActive,
-          }),
-        },
-        {
-          title: t('datasets.quickView.activeOnODH'),
-          tag: getTagActiveInfoObject({
-            active: isODHActive,
-          }),
-        },
-        {
-          title: t('datasets.quickView.suedtirolInfoActive'),
-          tag: getTagActiveInfoObject({
-            active: isSuedtirolInfoActive,
-          }),
-        },
-      ],
-    },
-  ];
-});
-
-const map = computed(() => {
-  if (!data.value.GpsInfo) {
-    return {
-      center: [],
-      markers: [],
-    };
-  }
-
-  const { Longitude, Latitude } = data.value.GpsInfo[0];
-
-  const mapObj = {
-    center: [Longitude, Latitude],
-    markers: [
-      {
-        position: {
-          lat: Latitude,
-          lng: Longitude,
-        },
-      },
-    ],
-  };
-
-  return mapObj;
-});
-
-const operationScheduleSections = computed(() => {
-  if (!operationSchedule.value) {
-    return [];
-  }
-
-  const sections = [];
-
-  for (const schedule of operationSchedule.value) {
-    sections.push({
-      icon: 'IconClock',
-      content: [
-        {
-          title: getTextValue(getValueOfLocale(schedule.OperationscheduleName)),
-          text: schedule.TimePeriodRange,
-        },
-      ],
-      fullwidthContent: [
-        { operationScheduleTime: schedule.OperationScheduleTime },
-      ],
-    });
-  }
-
-  return sections;
-});
-
-const operationSchedule = computed(() => {
-  let foundHours = false;
-
-  const timing = data?.value?.OperationSchedule
-    ? [...data.value.OperationSchedule]
-    : [];
-
-  const days = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ];
-
-  const parsedData = [];
-  for (const time of timing) {
-    const operationScheduleTime = [];
-
-    for (const schedule of time?.OperationScheduleTime || []) {
-      foundHours = true;
-      const daysHours = [];
-      const [startHour, startMinute] = schedule.Start.split(':');
-      const [endHour, endMinute] = schedule.End.split(':');
-      for (const d of days) {
-        daysHours.push({
-          Start: `${startHour}:${startMinute}`,
-          End: `${endHour}:${endMinute}`,
-          State: schedule.State,
-          Timecode: schedule.Timecode,
-          Day: d.slice(0, 3).toUpperCase(),
-          Open: schedule[d],
-        });
-      }
-      operationScheduleTime.push(daysHours);
-    }
-    time.OperationScheduleTime = operationScheduleTime;
-    parsedData.push({
-      ...time,
-      OperationScheduleTime: operationScheduleTime,
-      TimePeriodRange: getTimePeriodRange(time.Start, time.Stop),
-    });
-  }
-
-  return foundHours ? parsedData : null;
-});
-
-const getTextValue = (value) => {
-  return value ?? '/';
-};
-
-const getValueOfLocale = (obj) => {
-  const fallbackLocale = 'en';
-
-  return obj?.[currentLocale] || obj?.[fallbackLocale];
-};
-
-const openMapFullscreen = () => {
-  const fullscreenButton = document.querySelector('.ol-full-screen > button');
-
-  fullscreenButton.click();
-};
-
-const getTimePeriodRange = (start, end) => {
-  const [yearStart, , dayStart] = start.split('T')[0].split('-');
-  const [yearEnd, , dayEnd] = end.split('T')[0].split('-');
-
-  const dateLocale = 'en-US';
-  const dateOptions = {
-    month: 'long',
-  };
-
-  const monthStart = new Date(start).toLocaleDateString(
-    dateLocale,
-    dateOptions
-  );
-  const monthEnd = new Date(end).toLocaleDateString(dateLocale, dateOptions);
-
-  return `${parseInt(dayStart)}. ${monthStart}${
-    yearStart !== yearEnd ? ' ' + yearStart : ''
-  } - ${parseInt(dayEnd)}. ${monthEnd} ${yearEnd}`;
-};
-
-const getTagActiveInfoObject = ({ active }) => {
-  return {
-    size: 'md',
-    type: active ? 'blue' : 'red',
-    text: active
-      ? t('datasets.quickView.active')
-      : t('datasets.quickView.inactive'),
-    hasDot: true,
-  };
-};
 
 const onMainImageError = () => {
   forcePlaceholderImage.value = true;
 };
 </script>
+
+<style scoped>
+.clear {
+  @apply mb-4 clear-both;
+}
+
+.grid-ct .element-ct {
+  @apply mt-6;
+
+  width: calc(50% - 15px);
+}
+
+.grid-ct .element-ct:nth-child(odd) {
+  @apply float-left;
+}
+
+.grid-ct .element-ct:nth-child(even) {
+  @apply float-right;
+
+  margin-left: 30px;
+}
+
+@media screen and (max-width: 980px) {
+  .grid-ct .element-ct {
+    @apply w-auto;
+
+    float: none !important;
+  }
+
+  .grid-ct .element-ct:nth-child(even) {
+    @apply ml-0;
+  }
+}
+</style>
