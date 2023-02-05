@@ -2,13 +2,18 @@
   <AppLayout>
     <HeroContainer>
       <HeroTitle>List of all datasets</HeroTitle>
-      <router-link to="/links" class="text-green-500">
+      <router-link
+        to="/links"
+        class="text-green-500"
+        data-test="all-endpoints-link"
+      >
         Show all available Endpoints
       </router-link>
     </HeroContainer>
 
     <PageGridContent>
       <SelectWithLabel
+        id="access-of-data"
         class="md:w-1/6"
         label="Access of data"
         :options="accessTypeOptions"
@@ -19,6 +24,7 @@
         v-for="dataset in results"
         :key="dataset.title"
         :dataset="dataset"
+        :data-test="`dataset-card-${dataset.id}`"
       />
 
       <CardDivider />
