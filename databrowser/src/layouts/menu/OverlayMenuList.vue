@@ -1,6 +1,10 @@
 <template>
   <div class="w-full">
-    <button class="inline-flex items-center" @click="$emit('arrow-back')">
+    <button
+      class="inline-flex items-center"
+      data-test="mobile-main-menu-go-back"
+      @click="$emit('arrow-back')"
+    >
       <ArrowLeft
         v-if="showArrow"
         :title="t('header.menu.goBackAction')"
@@ -20,6 +24,7 @@
         <button
           v-if="isMenuCategory(category) && category.items.length"
           class="inline-flex w-full flex-1 items-center justify-between py-2 px-4 text-left md:max-w-xs"
+          :data-test="`main-menu-category-${labelToDataTest(category.label)}`"
           @click="setSelected(category, index)"
         >
           <span>{{ category.label }}</span>
@@ -29,6 +34,7 @@
           v-if="isMenuLink(category)"
           :to="category.url"
           class="w-full flex-1 py-2 px-4 text-left no-underline"
+          :data-test="`main-menu-link-${labelToDataTest(category.label)}`"
           @click="$emit('close-dialog')"
         >
           {{ category.label }}
@@ -64,11 +70,8 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (event: 'selectCategory', menu: MenuColumn): void;
-  // eslint-disable-next-line no-unused-vars
   (event: 'arrow-back'): void;
-  // eslint-disable-next-line no-unused-vars
   (event: 'close-dialog'): void;
 }>();
 
@@ -89,8 +92,12 @@ const isMenuLink = (data: MenuColumn | MenuLink): data is MenuLink => {
   return !!(data as MenuLink).url;
 };
 
-function setSelected(menu: MenuColumn, index: number) {
+const setSelected = (menu: MenuColumn, index: number) => {
   emit('selectCategory', menu);
   selected.value = index;
-}
+};
+
+const labelToDataTest = (label: string) => {
+  return label.toLowerCase().replaceAll(' ', '-');
+};
 </script>

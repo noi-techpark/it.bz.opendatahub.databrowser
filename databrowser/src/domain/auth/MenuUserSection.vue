@@ -1,14 +1,22 @@
 <template>
   <div v-if="auth.isAuthenticated" class="flex items-center space-x-4">
     <MenuCustom>
-      <MenuCustomButton class="rounded">
+      <MenuCustomButton class="rounded" data-test="user-profile-button">
         <ProfileButton :username="auth.user?.name" />
       </MenuCustomButton>
       <MenuCustomItems>
-        <MenuCustomItem type="link" :href="profileUrl">
+        <MenuCustomItem
+          type="link"
+          :href="profileUrl"
+          data-test="user-profile-link"
+        >
           {{ t('auth.profile') }}
         </MenuCustomItem>
-        <MenuCustomItem type="button" @click="onLogout">
+        <MenuCustomItem
+          type="button"
+          data-test="user-profile-logout"
+          @click="onLogout"
+        >
           {{ t('auth.logout') }}
         </MenuCustomItem>
       </MenuCustomItems>
