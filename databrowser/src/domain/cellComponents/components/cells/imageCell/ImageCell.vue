@@ -1,9 +1,17 @@
 <template>
-  <img v-if="src != null" :src="imgSrc" :alt="alt" :style="style" />
+  <img
+    v-if="src != null && !hasLoadingError"
+    :src="imgSrc"
+    :alt="alt"
+    :style="style"
+    @error="hasLoadingError = true"
+  />
+  <IconImage v-else class="text-dialog" />
 </template>
 
 <script setup lang="ts">
 import { defineProps, ref, watch, withDefaults } from 'vue';
+import IconImage from '../../../../../components/svg/IconImage.vue';
 import { resizeImageWidth } from '../../../../image';
 
 const props = withDefaults(
@@ -18,6 +26,8 @@ const props = withDefaults(
     src: undefined,
   }
 );
+
+const hasLoadingError = ref(false);
 
 const imgSrc = ref<string>();
 const style = ref<Record<string, string>>();
