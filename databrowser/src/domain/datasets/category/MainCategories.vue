@@ -1,6 +1,7 @@
 <template>
   <div>
     <SelectCustom
+      id="mobile-main-category"
       class="md:hidden"
       :options="selectOptions"
       :value="slug"
@@ -15,6 +16,7 @@
         class="py-1 px-4"
         :to="category.to"
         :active="slug === category.slug"
+        :data-test="`desktop-main-category-${category.slug}`"
         @click="emit('change', category.slug)"
       >
         <span :class="{ 'text-error': category.isAnyFieldError === true }">

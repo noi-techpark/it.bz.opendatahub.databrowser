@@ -12,10 +12,12 @@
           ? 'bg-green-500 bg-opacity-10 border-green-500 focus:text-white'
           : '',
       ]"
+      :data-test="`desktop-language-picker-${link.value}`"
       >{{ link.label }}</ButtonLink
     >
 
     <SelectCustom
+      id="mobile-language-picker"
       class="h-6 w-16 md:hidden"
       :options="links"
       :value="selected"

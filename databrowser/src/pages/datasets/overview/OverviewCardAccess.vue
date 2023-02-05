@@ -14,6 +14,7 @@
               pathParams: ['v1', ...dataset.tableViewPathParam],
             },
           }"
+          :data-test="`dataset-table-link-${dataset.id}`"
         >
           <IconTable />
           Access to table view
@@ -27,6 +28,7 @@
           :href="dataset.externalLink"
           :size="Size.xm2col"
           :variant="Variant.ghost"
+          :data-test="`dataset-api-link-${dataset.id}`"
         >
           <IconLink />
           <span class="uppercase">Show dataset API</span>

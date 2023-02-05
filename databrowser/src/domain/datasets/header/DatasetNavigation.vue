@@ -7,6 +7,7 @@
           size="xs"
           class="mr-2 flex h-6 items-center bg-white py-1 px-3 md:mr-9"
           :to="tableViewPath"
+          data-test="table-view-link"
         >
           <IconStrokedArrowDown
             class="mr-1 -ml-1 h-5 w-5 rotate-90 stroke-current"
@@ -21,6 +22,7 @@
           :label="t('datasets.navigation.newView')"
           :to="newViewPath"
           :active="true"
+          data-test="new-view-link"
         ></TabLink>
 
         <TabLink
@@ -28,24 +30,28 @@
           :label="t('datasets.navigation.quickView')"
           :to="quickViewPath"
           :active="datasetConfigStore.isQuickView"
+          data-test="quick-view-link"
         />
         <TabLink
           v-if="!isNewView"
           :label="t('datasets.navigation.detailView')"
           :to="detailViewPath"
           :active="datasetConfigStore.isDetailView"
+          data-test="detail-view-link"
         />
         <TabLink
           v-if="showEditTab"
           :label="t('datasets.navigation.editView')"
           :to="editViewPath"
           :active="datasetConfigStore.isEditView"
+          data-test="edit-view-link"
         />
         <TabLink
           v-if="!isNewView"
           :label="t('datasets.navigation.rawView')"
           :to="rawViewPath"
           :active="datasetConfigStore.isRawView"
+          data-test="raw-view-link"
         />
       </ContentAlignmentX>
     </div>

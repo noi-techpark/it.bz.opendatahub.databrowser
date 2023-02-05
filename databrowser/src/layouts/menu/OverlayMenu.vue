@@ -3,6 +3,7 @@
     v-if="dialogOpen"
     :title="t('header.menu.closeAction')"
     class="md:hidden"
+    data-test="mobile-close-main-menu"
     @click="closeDialog"
   >
     <IconClose />
@@ -11,6 +12,7 @@
     v-else
     :title="t('header.menu.openAction')"
     class="inline-flex space-x-4 rounded"
+    data-test="open-main-menu"
     @click="dialogOpen = true"
   >
     <IconMenu />
@@ -30,7 +32,11 @@
     <div
       class="absolute top-0 left-0 hidden h-screen flex-col overflow-x-auto bg-white md:flex"
     >
-      <button class="block p-4" @click="closeDialog">
+      <button
+        class="block p-4"
+        data-test="desktop-close-main-menu"
+        @click="closeDialog"
+      >
         <IconClose />
       </button>
       <div class="inline-flex flex-1 divide-x-2">

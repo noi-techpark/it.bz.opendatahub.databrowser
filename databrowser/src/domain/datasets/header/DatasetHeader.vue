@@ -13,7 +13,11 @@
       <span v-else class="mr-3 text-base">
         No view config found, try to change the view using the provided button
       </span>
-      <AddRecordButton v-if="showAddRecord" class="md:hidden" />
+      <AddRecordButton
+        v-if="showAddRecord"
+        class="md:hidden"
+        data-test="mobile-add-record-link"
+      />
     </div>
 
     <!-- More info -->
@@ -22,6 +26,7 @@
       variant="ghost"
       size="xs"
       class="mr-1 flex h-6 items-center py-1 px-3"
+      data-test="more-info-button"
     >
       <IconInfo class="mr-2 stroke-current" />
       <span class="line-height-1">{{ t('datasets.header.moreInfo') }}</span>
@@ -53,7 +58,11 @@
     />
 
     <div class="ml-auto flex">
-      <AddRecordButton v-if="showAddRecord" class="mr-3 hidden md:block" />
+      <AddRecordButton
+        v-if="showAddRecord"
+        class="mr-3 hidden md:block"
+        data-test="desktop-add-record-link"
+      />
 
       <!-- Language picker -->
       <LanguagePicker />

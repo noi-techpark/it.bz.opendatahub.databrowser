@@ -1,7 +1,7 @@
 <template>
   <ContentAlignmentX class="flex flex-row justify-between py-4">
     <div class="flex items-center">
-      <router-link to="/" class="rounded">
+      <router-link to="/" class="rounded" data-test="link-to-home-page">
         <img
           :alt="t('header.logo')"
           class="h-8"

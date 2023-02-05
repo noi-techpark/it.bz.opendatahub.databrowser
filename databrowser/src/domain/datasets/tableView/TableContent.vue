@@ -1,5 +1,5 @@
 <template>
-  <TableWithStickyHeader>
+  <TableWithStickyHeader id="dataset-table">
     <template #colgroup-cols>
       <col v-for="col in renderElements" :key="col.title" :class="col.class" />
       <col class="w-32 md:w-40" />
@@ -19,12 +19,14 @@
 
     <template #body-rows>
       <tr v-if="rows.length === 0">
-        <TableCell :colspan="renderElements.length + 1">
+        <TableCell
+          :colspan="renderElements.length + 1"
+          data-test="dataset-table-no-results"
+        >
           {{ t('datasets.listView.noData') }}
         </TableCell>
       </tr>
-      <!-- eslint-disable-next-line vue/require-v-for-key -->
-      <tr v-for="row in rows">
+      <tr v-for="(row, index) in rows" :key="index">
         <TableCell v-for="col in renderElements" :key="col.title">
           <ComponentRenderer
             :tag-name="col.component"
@@ -47,6 +49,7 @@
                 query: { language: language },
               }"
               :title="t('datasets.listView.linkQuick')"
+              data-test="dataset-quick-link"
             >
               <IconLayer class="stroke-current" />
             </DetailsLink>
@@ -59,6 +62,7 @@
                 query: { language: language },
               }"
               :title="t('datasets.listView.linkDetails')"
+              data-test="dataset-detail-link"
             >
               <IconEye class="stroke-current" />
             </DetailsLink>
@@ -72,6 +76,7 @@
                 query: { language: language },
               }"
               :title="t('datasets.listView.linkEdit')"
+              data-test="dataset-edit-link"
             >
               <IconEdit class="stroke-current" />
             </DetailsLink>
@@ -84,6 +89,7 @@
                 query: { language: language },
               }"
               :title="t('datasets.listView.linkRaw')"
+              data-test="dataset-raw-link"
             >
               <IconCode class="stroke-current" />
             </DetailsLink>

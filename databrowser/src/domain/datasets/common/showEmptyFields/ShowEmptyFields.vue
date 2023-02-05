@@ -3,7 +3,11 @@
     <div class="mr-4 text-sm">
       {{ t('datasets.detailView.showEmptyFields') }}
     </div>
-    <ToggleCustom v-model="showAll" :disabled="disabled" />
+    <ToggleCustom
+      v-model="showAll"
+      :disabled="disabled"
+      data-test="show-empty-fields"
+    />
   </ContentAlignmentX>
 </template>
 

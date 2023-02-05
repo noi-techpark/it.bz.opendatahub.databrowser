@@ -3,7 +3,9 @@
     <button v-if="props.type === 'button'" :class="classes(active, disabled)">
       <slot></slot>
     </button>
-    <a v-else :class="classes(active, disabled)"><slot></slot></a>
+    <a v-else class="no-underline" :class="classes(active, disabled)">
+      <slot></slot>
+    </a>
   </MenuItem>
 </template>
 

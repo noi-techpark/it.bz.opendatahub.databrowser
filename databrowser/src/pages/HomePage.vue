@@ -39,7 +39,8 @@
           <ButtonLink
             :size="Size.md"
             :to="{ name: 'OverviewListPage' }"
-            class="flex w-full items-center gap-3 py-6 text-3xl md:w-fit"
+            class="flex w-full items-center justify-center py-6 text-3xl md:w-fit"
+            data-test="show-all-datasets"
           >
             Show datasets
           </ButtonLink>
