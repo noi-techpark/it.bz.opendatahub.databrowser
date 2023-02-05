@@ -9,7 +9,7 @@ export const accommodationCategoryCell = (): PropertyConfig => ({
   params: {
     url: withOdhBaseUrl('/v1/AccommodationTypes'),
     labelSelector: 'TypeDesc.{language}',
-    keySelector: 'Id',
+    keySelector: 'Key',
   },
   required: true,
 });
@@ -21,7 +21,7 @@ export const accommodationTypeCell = (): PropertyConfig => ({
   params: {
     url: withOdhBaseUrl('/v1/AccommodationTypes'),
     labelSelector: 'TypeDesc.{language}',
-    keySelector: 'Id',
+    keySelector: 'Key',
   },
   required: true,
 });
