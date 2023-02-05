@@ -2,6 +2,7 @@
   <div class="flex items-center justify-end bg-gray-50 py-2 text-xs">
     <span class="mr-3 block">{{ t('datasets.listView.linesPerPage') }}</span>
     <SelectCustom
+      id="dataset-table-page-size"
       class="mr-6 w-16"
       :options="pageSizeOptions"
       :value="pageSize"
@@ -9,6 +10,7 @@
       @change="$emit('pageSizeChanges', $event)"
     />
     <Paginator
+      id="dataset-table-paginator"
       :pagination="pagination"
       @paginate-to="$emit('paginateTo', $event)"
     />

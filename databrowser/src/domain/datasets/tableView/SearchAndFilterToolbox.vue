@@ -10,6 +10,7 @@
         </template>
         <template #default>
           <InputSearch
+            id="search-dataset"
             :model-value="searchFilterAsString"
             :focus="true"
             @search="search"

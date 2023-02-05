@@ -1,5 +1,5 @@
 <template>
-  <TableCustom class="overflow-y-auto">
+  <TableCustom :id="id" class="overflow-y-auto">
     <colgroup v-if="isColgroupColsSlotDefined">
       <slot name="colgroup-cols"></slot>
     </colgroup>
@@ -17,6 +17,9 @@ import { useSlots } from 'vue';
 import TableBody from './TableBody.vue';
 import TableHeader from './TableHeader.vue';
 import TableCustom from './TableCustom.vue';
+import { randomId } from '../utils/random';
+
+withDefaults(defineProps<{ id?: string }>(), { id: randomId() });
 
 const slots = useSlots();
 

@@ -19,6 +19,7 @@
           :required="property.required"
           :errors="property.errors"
           :has-empty-value="property.empty"
+          :data-test="`subcategory-item-${titleToDataTest(property.title)}`"
         >
           <ComponentRenderer
             :tag-name="property.component"
@@ -63,4 +64,8 @@ const subCategoriesWithValues = computed(() =>
     ),
   }))
 );
+
+const titleToDataTest = (title: string) => {
+  return title.toLowerCase().replaceAll(' ', '-');
+};
 </script>

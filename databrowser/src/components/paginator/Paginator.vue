@@ -2,9 +2,11 @@
 <template>
   <div class="flex items-center">
     <button
+      :id="`${id}-previous-page`"
       class="mr-4 rounded"
       :class="[hasPrevious ? 'text-green-500' : 'text-gray-400']"
       :disabled="!hasPrevious"
+      :data-test="`${id}-previous-page`"
       @click="paginateTo(previousIndex)"
     >
       <IconStrokedArrowDown class="h-5 w-5 rotate-90 stroke-current" />
@@ -12,13 +14,17 @@
 
     <div class="mr-2 flex items-center">
       <input
+        :id="`${id}-page-input`"
         v-model="inputPageValue"
         class="border-r-none h-6 w-12 rounded rounded-r-none border-y border-l px-2 focus:border-green-500"
+        :data-test="`${id}-page-input`"
         @keyup.enter="paginateTo(inputPageValue)"
       />
       <ButtonCustom
+        :id="`${id}-paginate-to`"
         size="xs"
         class="h-6 w-9 rounded-l-none"
+        :data-test="`${id}-paginate-to`"
         @click="paginateTo(inputPageValue)"
       >
         {{ t('datasets.listView.go') }}
@@ -27,9 +33,11 @@
     <span class="mr-4">{{ t('datasets.listView.of') }} {{ pageCount }}</span>
 
     <button
+      :id="`${id}-next-page`"
       class="rounded"
       :class="[hasNext ? 'text-green-500' : 'text-gray-400']"
       :disabled="!hasNext"
+      :data-test="`${id}-next-page`"
       @click="paginateTo(nextIndex)"
     >
       <IconStrokedArrowDown class="h-5 w-5 -rotate-90 stroke-current" />
@@ -44,10 +52,14 @@ import { watch } from 'vue';
 import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
 import { useI18n } from 'vue-i18n';
+import { randomId } from '../utils/random';
 
 const { t } = useI18n();
 
-const props = defineProps<{ pagination: Pagination }>();
+const props = withDefaults(
+  defineProps<{ pagination: Pagination; id?: string }>(),
+  { id: randomId() }
+);
 
 const emits = defineEmits(['paginateTo']);
 

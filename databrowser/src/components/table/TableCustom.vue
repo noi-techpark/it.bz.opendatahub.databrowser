@@ -1,10 +1,16 @@
 <template>
   <div class="flex-1">
-    <table class="data-table">
-      <slot />
+    <table :id="id" class="data-table" :data-test="id">
+      <slot></slot>
     </table>
   </div>
 </template>
+
+<script setup lang="ts">
+import { randomId } from '../utils/random';
+
+withDefaults(defineProps<{ id?: string }>(), { id: randomId() });
+</script>
 
 <style scoped>
 .data-table {

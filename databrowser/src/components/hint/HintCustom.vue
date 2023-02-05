@@ -2,7 +2,7 @@
   <div :class="[classNames.background, classNames.text]" class="px-4 py-2">
     <div class="flex items-center justify-between gap-3">
       <div class="grow font-semibold">{{ title }}</div>
-      <button @click="emit('close')">
+      <button data-test="close-hint" @click="emit('close')">
         <IconClose class="h-4 w-4 rounded-full border" />
       </button>
     </div>

@@ -3,6 +3,7 @@
   <ButtonCustom
     v-if="!isToolboxVisible"
     class="absolute right-[20px] bottom-16 z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
+    data-test="mobile-open-toolbox"
     @click="isToolboxVisible = !isToolboxVisible"
   >
     <IconClose class="just mr-2 h-5 w-5 rotate-45" /><span>Toolbox</span>
@@ -41,6 +42,7 @@
                     variant="ghost"
                     size="xs"
                     class="mt-6 mr-2 flex h-8 w-8 items-center justify-center self-end md:hidden"
+                    data-test="mobile-close-toolbox"
                     @click="isToolboxVisible = false"
                   >
                     <IconClose class="h-5 w-5" />
@@ -49,12 +51,16 @@
                   <!-- Tab navigation -->
                   <TabList class="mt-2 mb-8 flex justify-around md:mt-0">
                     <Tab
-                      v-for="tabName in tabNames"
+                      v-for="(tabName, index) in tabNames"
                       :key="tabName"
                       v-slot="{ selected }"
                       as="template"
                     >
-                      <TabButton :active="selected" class="uppercase">
+                      <TabButton
+                        :active="selected"
+                        class="uppercase"
+                        :data-test="`toolbox-tab-${index}`"
+                      >
                         {{ tabName }}
                       </TabButton>
                     </Tab>
@@ -76,6 +82,9 @@
       <ButtonCustom
         size="xs"
         class="hidden h-8 w-8 items-center justify-center md:flex"
+        :data-test="
+          isToolboxVisible ? 'desktop-close-toolbox' : 'desktop-open-toolbox'
+        "
         @click="isToolboxVisible = !isToolboxVisible"
       >
         <IconStrokedArrowDown
