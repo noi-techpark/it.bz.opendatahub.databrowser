@@ -9,6 +9,7 @@
             buttonClassNames,
           ]"
           :label="selectedLabel"
+          :data-test="`${id}-select-button`"
         />
         <Teleport to="#popper-root">
           <div ref="container" class="absolute" :class="{ hidden: !open }">
@@ -25,6 +26,7 @@
                 :show-search="showSearch"
                 :search-results="searchResults"
                 :class="[{ hidden: !open }, optionsClassNames]"
+                :data-test="`${id}-select-options-box`"
               />
             </transition>
           </div>

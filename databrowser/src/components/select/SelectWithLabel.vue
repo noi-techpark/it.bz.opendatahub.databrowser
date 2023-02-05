@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import { defineEmits, defineProps } from 'vue';
-import { randomId } from '../utils/random';
 import { SelectOption, SelectSize, SelectValue } from './types';
 import SelectCustom from './SelectCustom.vue';
 
@@ -26,9 +25,8 @@ defineProps<{
   value?: SelectValue;
   size?: SelectSize;
   showSearchWhenAtLeastCountOptions?: number;
+  id?: string;
 }>();
 
 defineEmits(['change']);
-
-const id = randomId();
 </script>
