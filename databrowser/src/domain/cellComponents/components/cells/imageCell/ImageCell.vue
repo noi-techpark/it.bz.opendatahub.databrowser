@@ -1,17 +1,17 @@
 <template>
   <img
     v-if="src != null && !hasLoadingError"
-    :src="imgSrc"
+    :src="'as' + imgSrc"
     :alt="alt"
     :style="style"
     @error="hasLoadingError = true"
   />
-  <IconImage v-else class="text-dialog" />
+  <PlaceholderImage v-else class="py-8" />
 </template>
 
 <script setup lang="ts">
 import { defineProps, ref, watch, withDefaults } from 'vue';
-import IconImage from '../../../../../components/svg/IconImage.vue';
+import PlaceholderImage from '../../../../../components/image/PlaceholderImage.vue';
 import { resizeImageWidth } from '../../../../image';
 
 const props = withDefaults(
