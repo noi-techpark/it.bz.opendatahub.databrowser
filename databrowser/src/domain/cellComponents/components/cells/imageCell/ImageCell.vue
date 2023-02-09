@@ -1,7 +1,7 @@
 <template>
   <img
     v-if="src != null && !hasLoadingError"
-    :src="'as' + imgSrc"
+    :src="imgSrc"
     :alt="alt"
     :style="style"
     @error="hasLoadingError = true"
