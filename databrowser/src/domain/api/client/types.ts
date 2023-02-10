@@ -11,16 +11,16 @@ export interface Pagination {
   size: number;
 }
 
-export interface PaginationData {
-  items: any[];
+export interface PaginationData<T = any> {
+  items: T[];
   pagination: Pagination;
 }
 
-export interface WithTourismPagination {
+export interface WithTourismPagination<T = any> {
   CurrentPage: number;
   TotalResults: number;
   TotalPages: number;
-  Items: any[];
+  Items: T[];
 }
 
 export const isWithTourismPagination = (

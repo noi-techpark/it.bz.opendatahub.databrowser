@@ -63,13 +63,13 @@ export const arrayPaginatedMapper = (
   };
 };
 
-export const unifyPagination = (
-  data: unknown,
+export const unifyPagination = <T = unknown>(
+  data: T,
   context: {
     defaultParameters: any;
     parameters: any;
   }
-): PaginationData => {
+): PaginationData<T> => {
   if (isWithTourismPagination(data)) {
     return tourismPaginatedMapper(data, context);
   }
