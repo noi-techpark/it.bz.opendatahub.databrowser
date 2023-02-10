@@ -33,6 +33,14 @@ import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
 import FixedValue from '../components/filters/fixedValue/FixedValue.vue';
 
+// NOTE: this components do not belong to table components; it's advised to refactor this table in the future.
+import QuickViewTextInfoCard from '../../../components/quickview/QuickViewTextInfoCard.vue';
+import QuickViewContactsCard from '../../../components/quickview/QuickViewContactsCard.vue';
+import QuickViewWebcamsView from '../../../components/quickview/QuickViewWebcamsView.vue';
+import QuickViewMapView from '../../../components/quickview/QuickViewMapView.vue';
+import QuickViewOpeningHoursView from '../../../components/quickview/QuickViewOpeningHoursView.vue';
+import QuickViewRecordInfoView from '../../../components/quickview/QuickViewRecordInfoView.vue';
+
 import { CellComponent, FilterComponent } from '../types';
 
 export default {
@@ -71,6 +79,19 @@ export default {
     app.component(CellComponent.ToggleCell, ToggleCell);
     app.component(CellComponent.TypeBasedCell, TypeBasedCell);
     app.component(CellComponent.WebcamCell, WebcamCell);
+
+    app.component(CellComponent.QuickViewTextInfoCard, QuickViewTextInfoCard);
+    app.component(CellComponent.QuickViewContactsCard, QuickViewContactsCard);
+    app.component(CellComponent.QuickViewWebcamsView, QuickViewWebcamsView);
+    app.component(CellComponent.QuickViewMapView, QuickViewMapView);
+    app.component(
+      CellComponent.QuickViewOpeningHoursView,
+      QuickViewOpeningHoursView
+    );
+    app.component(
+      CellComponent.QuickViewRecordInfoView,
+      QuickViewRecordInfoView
+    );
 
     app.component(FilterComponent.FixedValue, FixedValue);
   },

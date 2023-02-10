@@ -1,7 +1,5 @@
-import {
-  QuickViewConfig,
-  QuickViewSectionComponent,
-} from '../../../domain/datasetConfig/types';
+import { QuickViewConfig } from '../../../domain/datasetConfig/types';
+import { CellComponent } from '../../../domain/cellComponents/types';
 
 export const odhActivityPoiQuickView: QuickViewConfig = {
   topGallery: {
@@ -12,7 +10,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
   },
   elements: [
     {
-      component: QuickViewSectionComponent.INFO,
+      component: CellComponent.QuickViewTextInfoCard,
       fields: {
         header: 'Detail.{language}.Header',
         subHeader: 'Detail.{language}.SubHeader',
@@ -20,7 +18,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
       },
     },
     {
-      component: QuickViewSectionComponent.CONTACTS,
+      component: CellComponent.QuickViewContactsCard,
       fields: {
         companyName: 'ContactInfos.{language}.CompanyName',
         givenName: 'ContactInfos.{language}.Givenname',
@@ -35,25 +33,25 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
       },
     },
     {
-      component: QuickViewSectionComponent.WEBCAMS,
+      component: CellComponent.QuickViewWebcamsView,
       fields: {
         webcamsMediaItems: 'Webcam',
       },
     },
     {
-      component: QuickViewSectionComponent.MAP,
+      component: CellComponent.QuickViewMapView,
       fields: {
         gpsInfo: 'GpsInfo',
       },
     },
     {
-      component: QuickViewSectionComponent.OPENING_HORUS,
+      component: CellComponent.QuickViewOpeningHoursView,
       fields: {
         scheduleData: 'OperationSchedule',
       },
     },
     {
-      component: QuickViewSectionComponent.RECORD_INFO,
+      component: CellComponent.QuickViewRecordInfoView,
       fields: {
         lastUpdate: '_Meta.LastUpdate',
         active: 'Active',

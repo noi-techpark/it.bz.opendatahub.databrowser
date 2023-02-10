@@ -45,7 +45,7 @@ const openMapFullscreen = () => {
 };
 
 const map = computed(() => {
-  if (!props.gpsInfo) {
+  if (!props.gpsInfo.length) {
     return {
       center: [],
       markers: [],

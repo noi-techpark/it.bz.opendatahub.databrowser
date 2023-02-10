@@ -30,6 +30,13 @@ export enum CellComponent {
   ToggleCell = 'ToggleCell',
   TypeBasedCell = 'TypeBasedCell',
   WebcamCell = 'WebcamCell',
+  WebcamGalleryCell = 'WebcamGalleryCell',
+  QuickViewTextInfoCard = 'QuickViewTextInfoCard',
+  QuickViewContactsCard = 'WebcamGalleryCell',
+  QuickViewWebcamsView = 'QuickViewWebcamsView',
+  QuickViewMapView = 'QuickViewMapView',
+  QuickViewOpeningHoursView = 'QuickViewOpeningHoursView',
+  QuickViewRecordInfoView = 'QuickViewRecordInfoView',
 }
 
 export enum FilterComponent {

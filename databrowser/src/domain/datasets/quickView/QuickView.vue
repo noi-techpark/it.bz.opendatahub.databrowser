@@ -50,76 +50,16 @@
 
     <PageContent>
       <div class="grid-ct">
-        <!--<div
-          v-for="(element, index) in odhActivityPoiConfig.views?.quick
-            ?.elements"
-          :key="index"
-        >
-          <ComponentRenderer
-            :tag-name="element.component"
-            :fields="element.fields"
-          />
-        </div>-->
         <div
           v-for="(element, index) in odhActivityPoiConfig.views?.quick
             ?.elements"
           :key="index"
           class="element-ct"
         >
-          <QuickViewTextInfoCard
-            v-if="element.component === QuickViewSectionComponent.INFO"
-            :header="getValueOfLocale(currentLocale, data.Detail).Header"
-            :sub-header="getValueOfLocale(currentLocale, data.Detail).SubHeader"
-            :intro-text="getValueOfLocale(currentLocale, data.Detail).IntroText"
-          />
-          <QuickViewContactsCard
-            v-else-if="element.component === QuickViewSectionComponent.CONTACTS"
-            :company-name="
-              getValueOfLocale(currentLocale, data.ContactInfos).CompanyName
-            "
-            :given-name="
-              getValueOfLocale(currentLocale, data.ContactInfos).Givenname
-            "
-            :surname="
-              getValueOfLocale(currentLocale, data.ContactInfos).Surname
-            "
-            :address="
-              getValueOfLocale(currentLocale, data.ContactInfos).Address
-            "
-            :city="getValueOfLocale(currentLocale, data.ContactInfos).City"
-            :zip-code="
-              getValueOfLocale(currentLocale, data.ContactInfos).ZipCode
-            "
-            :country-name="
-              getValueOfLocale(currentLocale, data.ContactInfos).CountryName
-            "
-            :email="getValueOfLocale(currentLocale, data.ContactInfos).Email"
-            :phone-number="
-              getValueOfLocale(currentLocale, data.ContactInfos).Phonenumber
-            "
-            :url="getValueOfLocale(currentLocale, data.ContactInfos).Url"
-          />
-          <QuickViewWebcamsView
-            v-else-if="element.component === QuickViewSectionComponent.WEBCAMS"
-            :webcams-media-items="data.Webcam"
-          />
-          <QuickViewMapView
-            v-else-if="element.component === QuickViewSectionComponent.MAP"
-            :gps-info="data.GpsInfo"
-          />
-          <QuickViewOpeningHoursView
-            v-else-if="
-              element.component === QuickViewSectionComponent.OPENING_HORUS
-            "
-            :schedule-data="data.OperationSchedule"
-          />
-          <QuickViewRecordInfoView
-            v-else-if="
-              element.component === QuickViewSectionComponent.RECORD_INFO
-            "
-            :last-update="data._Meta?.LastUpdate"
-            :active="data.Active"
-            :odh-active="data.OdhActive"
+          <ComponentRenderer
+            :tag-name="element.component"
+            :attributes="mapWithIndex(data, element.fields, element.params)"
+            :fields="element.fields"
           />
         </div>
       </div>
@@ -135,8 +75,7 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useApiReadForCurrentDataset } from '../../api';
 
-import { odhActivityPoiConfig } from '../../../config/tourism/odhActivityPoi/odhActivityPoi.config'; // TODO: check if it's the right way to import the file
-import { QuickViewSectionComponent } from '../../../domain/datasetConfig/types';
+import { odhActivityPoiConfig } from '../../../config/tourism/odhActivityPoi/odhActivityPoi.config';
 
 import PageContent from '../../../components/content/PageContent.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
@@ -144,14 +83,8 @@ import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewF
 
 import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
 
-import QuickViewTextInfoCard from '../../../components/quickview/QuickViewTextInfoCard.vue';
-import QuickViewContactsCard from '../../../components/quickview/QuickViewContactsCard.vue';
-import QuickViewWebcamsView from '../../../components/quickview/QuickViewWebcamsView.vue';
-import QuickViewMapView from '../../../components/quickview/QuickViewMapView.vue';
-import QuickViewOpeningHoursView from '../../../components/quickview/QuickViewOpeningHoursView.vue';
-import QuickViewRecordInfoView from '../../../components/quickview/QuickViewRecordInfoView.vue';
-
-// import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
+import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
+import { usePropertyMapping } from '../../api';
 
 const { isError, isSuccess, error, data } = useApiReadForCurrentDataset();
 
@@ -159,6 +92,8 @@ let forcePlaceholderImage = ref(false);
 
 const { t, locale } = useI18n();
 const currentLocale = locale.value;
+
+const { mapWithIndex } = usePropertyMapping();
 
 const title = computed(() => {
   return getValueOfLocale(currentLocale, data.value.Detail)?.Title || '/';
@@ -185,7 +120,7 @@ const mainImage = computed(() => {
         desc: getValueOfLocale(currentLocale, firstImage.ImageDesc),
       }
     : {
-        url: 'https://via.placeholder.com/700x350?text=Missing+image',
+        url: 'https://via.placeholder.com/700x350?text=Missing+image', // NOTE: this is a demo image to preview the gallery functionality on datasets without a gallery. It should be removed for the final release.
         desc: 'Placeholder image',
       };
 });

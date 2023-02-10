@@ -53,17 +53,9 @@ export interface DetailElements {
 }
 
 export interface QuickViewElements {
-  component: QuickViewSectionComponent;
+  component: string;
   fields: Record<string, string>;
-}
-
-export enum QuickViewSectionComponent {
-  INFO = 'QuickViewTextInfoCard',
-  CONTACTS = 'QuickViewContactsCard',
-  WEBCAMS = 'QuickViewWebcamsView',
-  MAP = 'QuickViewMapView',
-  OPENING_HORUS = 'QuickViewOpeningHoursView',
-  RECORD_INFO = 'QuickViewRecordInfoView',
+  params?: Record<string, string>;
 }
 
 export interface EditElements {
