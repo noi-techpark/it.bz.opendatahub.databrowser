@@ -40,7 +40,6 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { DatasetDescription } from '../../../config/config-for-pages';
 import CardContainer from '../../../components/card/CardContainer.vue';
 import CardTitle from '../../../components/card/CardTitle.vue';
 import CardText from '../../../components/card/CardText.vue';
@@ -50,6 +49,7 @@ import { Size, Variant } from '../../../components/button/types';
 import IconLink from '../../../components/svg/IconLink.vue';
 import ButtonRawLink from '../../../components/button/ButtonRawLink.vue';
 import IconTable from '../../../components/svg/IconTable.vue';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 
-defineProps<{ dataset: DatasetDescription }>();
+defineProps<{ dataset: TourismMetaData }>();
 </script>

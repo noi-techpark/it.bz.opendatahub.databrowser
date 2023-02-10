@@ -2,11 +2,16 @@
   <CardContainer>
     <CardTitle tag-name="h2" class="text-green-400">
       <routerLink
-        :to="{ name: 'OverviewDetailPage', params: { id: dataset.id } }"
+        :to="{
+          name: 'OverviewDetailPage',
+          params: { id: dataset.id },
+        }"
         class="flex items-center gap-3 no-underline"
         :data-test="`dataset-link-${dataset.id}`"
       >
-        {{ dataset.title }} <ArrowLine />
+        <span>{{ dataset.title }}</span>
+        <span v-if="dataset.deprecated"> (Deprecated)</span>
+        <ArrowLine />
       </routerLink>
       <template #right>
         <div class="flex gap-3 md:justify-self-end">
@@ -65,6 +70,7 @@
             domain: 'tourism',
             pathParams: ['v1', ...dataset.tableViewPathParam],
           },
+          query: dataset.apiFilter,
         }"
         :data-test="`dataset-table-link-${dataset.id}`"
       >
@@ -87,7 +93,6 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { DatasetDescription } from '../../../config/config-for-pages';
 import CardContainer from '../../../components/card/CardContainer.vue';
 import CardTitle from '../../../components/card/CardTitle.vue';
 import CardText from '../../../components/card/CardText.vue';
@@ -104,6 +109,7 @@ import CardDivider from '../../../components/card/CardDivider.vue';
 import CardActions from '../../../components/card/CardActions.vue';
 import IconTable from '../../../components/svg/IconTable.vue';
 import ArrowLine from '../../../components/svg/ArrowLine.vue';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 
-defineProps<{ dataset: DatasetDescription }>();
+defineProps<{ dataset: TourismMetaData }>();
 </script>

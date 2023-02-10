@@ -21,8 +21,8 @@
         @change="currentAccessType = $event"
       />
       <OverviewCardItem
-        v-for="dataset in results"
-        :key="dataset.title"
+        v-for="(dataset, index) in results"
+        :key="index"
         :dataset="dataset"
         :data-test="`dataset-card-${dataset.id}`"
       />
@@ -39,25 +39,26 @@ import AppLayout from '../../../layouts/AppLayout.vue';
 import HeroContainer from '../../../components/hero/HeroContainer.vue';
 import HeroTitle from '../../../components/hero/HeroTitle.vue';
 import { computed, ref } from 'vue';
-import { datasetsForPages } from '../../../config/config-for-pages';
 import { SelectOption } from '../../../components/select/types';
 import SelectWithLabel from '../../../components/select/SelectWithLabel.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import PartnersAndContributors from '../../../components/partners/PartnersAndContributors.vue';
 import CardDivider from '../../../components/card/CardDivider.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
+import { useMetaData } from '../../../domain/metaDataConfig/tourism/useMetaData';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 
-const results = computed(() => {
+const metaData = useMetaData();
+const results = computed<TourismMetaData[]>(() => {
+  const datasets = metaData.data?.value ?? [];
   if (currentAccessType.value === 'opendata') {
-    return datasetsForPages.tourism.filter(
-      (dataset) => dataset.access === 'opendata'
-    );
+    return datasets.filter((dataset) => dataset.access === 'opendata');
   } else if (currentAccessType.value === 'limited') {
-    return datasetsForPages.tourism.filter(
+    return datasets.filter(
       (dataset) => dataset.access === 'limited' || dataset.access === 'closed'
     );
   }
-  return datasetsForPages.tourism;
+  return datasets;
 });
 
 const currentAccessType = ref('all');

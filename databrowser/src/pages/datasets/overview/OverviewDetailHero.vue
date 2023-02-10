@@ -43,7 +43,17 @@
         <IconNumberOfRecords class="mt-0.5" />
         <div class="flex flex-col gap-2 leading-tight text-gray-600">
           <span class="font-semibold">Available records</span>
-          12304
+          <ul v-if="dataset.recordCount">
+            <li v-if="dataset.recordCount.open">
+              open: {{ dataset.recordCount.open }}
+            </li>
+            <li v-if="dataset.recordCount.reduced">
+              reduced: {{ dataset.recordCount.reduced }}
+            </li>
+            <li v-if="dataset.recordCount.closed">
+              closed: {{ dataset.recordCount.closed }}
+            </li>
+          </ul>
         </div>
       </CardIconGrid>
     </div>
@@ -52,7 +62,6 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { DatasetDescription } from '../../../config/config-for-pages';
 import HeroContainer from '../../../components/hero/HeroContainer.vue';
 import HeroTitle from '../../../components/hero/HeroTitle.vue';
 import HeroSubTitle from '../../../components/hero/HeroSubTitle.vue';
@@ -63,6 +72,7 @@ import ListWithMore from '../../../components/list/ListWithMore.vue';
 import IconAvailibilityOfData from '../../../components/svg/IconAvailibilityOfData.vue';
 import IconTermsOfUse from '../../../components/svg/IconTermsOfUse.vue';
 import IconNumberOfRecords from '../../../components/svg/IconNumberOfRecords.vue';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 
-defineProps<{ dataset: DatasetDescription }>();
+defineProps<{ dataset: TourismMetaData }>();
 </script>

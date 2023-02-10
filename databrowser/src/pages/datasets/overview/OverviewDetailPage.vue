@@ -21,10 +21,6 @@
 import AppLayout from '../../../layouts/AppLayout.vue';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import {
-  DatasetDescription,
-  datasetsForPages,
-} from '../../../config/config-for-pages';
 import OverviewCardTabs from './OverviewCardTabs.vue';
 import OverviewCardDescription from './OverviewCardDescription.vue';
 import OverviewCardAccess from './OverviewCardAccess.vue';
@@ -34,14 +30,19 @@ import PartnersAndContributors from '../../../components/partners/PartnersAndCon
 import CardDivider from '../../../components/card/CardDivider.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
 import OverviewCardSuggestion from './OverviewCardSuggestion.vue';
+import { useMetaData } from '../../../domain/metaDataConfig/tourism/useMetaData';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 
 const route = useRoute();
 
-const dataset = computed(() =>
-  datasetsForPages.tourism.find((dataset) => dataset.id === route.params.id)
-);
+const metaData = useMetaData();
+const dataset = computed<TourismMetaData | undefined>(() => {
+  return (metaData.data?.value ?? []).find(
+    (dataset) => dataset.id === route.params.id
+  );
+});
 
-const randomDatasets = ref<DatasetDescription[]>([]);
+const randomDatasets = ref<TourismMetaData[]>([]);
 
 watch(
   () => dataset.value,
@@ -50,7 +51,7 @@ watch(
     // Note that the current dataset will never be in
     // in the result list, because it is filtered out
     randomDatasets.value = getRandomElementsFromArray(
-      datasetsForPages.tourism.filter(
+      (metaData.data?.value ?? []).filter(
         (dataset) => dataset.id !== route.params.id
       ),
       3

@@ -5,8 +5,8 @@
     </span>
     <div class="mt-2 grid grid-cols-1 gap-4 lg:mt-4 lg:gap-8">
       <OverviewCardItem
-        v-for="dataset in datasets"
-        :key="dataset.title"
+        v-for="(dataset, index) in datasets"
+        :key="index"
         :dataset="dataset"
       />
     </div>
@@ -15,8 +15,8 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { DatasetDescription } from '../../../config/config-for-pages';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import OverviewCardItem from './OverviewCardItem.vue';
 
-defineProps<{ datasets: DatasetDescription[] }>();
+defineProps<{ datasets: TourismMetaData[] }>();
 </script>
