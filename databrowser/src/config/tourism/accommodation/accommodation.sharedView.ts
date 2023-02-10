@@ -66,7 +66,6 @@ export const accommodationSharedView = ():
             {
               title: 'Features',
               component: CellComponent.ArrayTagsCell,
-              class: 'w-40',
               fields: {
                 items: 'Features',
               },
