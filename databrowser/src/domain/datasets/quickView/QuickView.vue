@@ -7,7 +7,7 @@
       >
         <div>
           <h1 class="text-xl font-bold break-words">{{ title }}</h1>
-          <p class="text-dialog break-words">ID: {{ id }}</p>
+          <p class="break-words text-dialog">ID: {{ id }}</p>
         </div>
         <div
           v-if="logoUrl"
