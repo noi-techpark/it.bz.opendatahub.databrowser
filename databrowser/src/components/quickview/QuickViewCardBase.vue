@@ -12,12 +12,22 @@
     <slot></slot>
   </div>
 </template>
+
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, withDefaults } from 'vue';
 
 import IconParser from '../utils/IconParser.vue';
 
-defineProps<{ title?: string; ctaIcon?: string }>();
+withDefaults(
+  defineProps<{
+    title?: string;
+    ctaIcon?: string;
+  }>(),
+  {
+    title: '',
+    ctaIcon: '',
+  }
+);
 
 defineEmits(['ctaClick']);
 </script>

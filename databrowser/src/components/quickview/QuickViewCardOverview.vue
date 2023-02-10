@@ -71,8 +71,9 @@
     </div>
   </QuickViewCardBase>
 </template>
+
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, withDefaults, defineEmits } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import QuickViewCardBase from './QuickViewCardBase.vue';
@@ -82,12 +83,19 @@ import QuickViewCardOverviewContentText from './QuickViewCardOverviewContentText
 
 import TagCustom from '../tag/TagCustom.vue';
 
-defineProps<{
-  title?: string;
-  sections: Array<any>;
-  contentHasNoPadding?: Boolean;
-  ctaIcon?: string;
-}>();
+withDefaults(
+  defineProps<{
+    title?: string;
+    sections: Array<any>;
+    contentHasNoPadding?: boolean;
+    ctaIcon?: string;
+  }>(),
+  {
+    title: '',
+    contentHasNoPadding: false,
+    ctaIcon: '',
+  }
+);
 
 defineEmits(['ctaClick']);
 

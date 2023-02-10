@@ -59,18 +59,20 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from 'vue';
+import { defineProps, withDefaults, ref } from 'vue';
 
 import QuickViewCardOverviewContentTitle from './QuickViewCardOverviewContentTitle.vue';
 import QuickViewCardOverviewContentText from './QuickViewCardOverviewContentText.vue';
 import ChevronRight from '../svg/ChevronRight.vue';
 
-defineProps({
-  mediaItems: {
-    type: Array,
-    default: () => [],
-  },
-});
+withDefaults(
+  defineProps<{
+    mediaItems: Array<any>;
+  }>(),
+  {
+    mediaItems: () => [],
+  }
+);
 
 let currentMediaIndex = ref(0);
 </script>

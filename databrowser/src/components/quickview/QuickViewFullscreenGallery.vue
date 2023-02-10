@@ -25,71 +25,51 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+<script setup lang="ts">
+import { defineProps, withDefaults, ref, toRefs, computed } from 'vue';
 
 import ChevronRight from '../svg/ChevronRight.vue';
 
-export default defineComponent({
-  name: 'QuickViewFullScreenGallery',
+const props = withDefaults(
+  defineProps<{
+    images: Array<any>;
+  }>(),
+  {
+    images: () => [],
+  }
+);
 
-  components: {
-    ChevronRight,
-  },
+const { images } = toRefs(props);
+const imageWidth = 400;
+let currentMediaIndex = ref(0);
+let showNextIcon = ref(true);
 
-  props: {
-    images: {
-      type: Array,
-      default: () => [],
-    },
-  },
-
-  setup() {
-    const imageWidth = 400;
-
-    let currentMediaIndex = ref(0);
-    let showNextIcon = ref(true);
-
-    const currentMarginLeft = computed(() => {
-      const currentImageWidth =
-        imageWidth > window.innerWidth ? window.innerWidth : imageWidth;
-      return `-${currentMediaIndex.value * currentImageWidth}px`;
-    });
-
-    return {
-      imageWidth,
-      showNextIcon,
-      currentMediaIndex,
-      currentMarginLeft,
-    };
-  },
-
-  methods: {
-    nextImage() {
-      this.currentMediaIndex++;
-      this.checkShowNextIcon(false);
-    },
-
-    prevImage() {
-      this.currentMediaIndex--;
-      this.checkShowNextIcon(true);
-    },
-
-    checkShowNextIcon(isPrev: Boolean) {
-      const lastImage = document.getElementById(
-        `image-in-gallery-${this.images.length - 1}`
-      );
-
-      if (lastImage) {
-        const { right } = lastImage.getBoundingClientRect();
-
-        this.showNextIcon = isPrev
-          ? right + this.imageWidth > window.innerWidth
-          : right - this.imageWidth > window.innerWidth;
-      }
-    },
-  },
+const currentMarginLeft = computed(() => {
+  const currentImageWidth =
+    imageWidth > window.innerWidth ? window.innerWidth : imageWidth;
+  return `-${currentMediaIndex.value * currentImageWidth}px`;
 });
+
+const nextImage = () => {
+  currentMediaIndex.value++;
+  checkShowNextIcon(false);
+};
+
+const prevImage = () => {
+  currentMediaIndex.value--;
+  checkShowNextIcon(true);
+};
+
+const checkShowNextIcon = (isPrev: boolean) => {
+  const lastImage = document.getElementById(
+    `image-in-gallery-${images.value.length - 1}`
+  );
+
+  const { right } = lastImage!.getBoundingClientRect();
+  showNextIcon.value = isPrev
+    ? right + imageWidth > window.innerWidth
+    : right - imageWidth > window.innerWidth;
+};
 </script>
 
 <style scoped>

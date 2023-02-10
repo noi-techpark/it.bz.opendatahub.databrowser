@@ -13,16 +13,18 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, withDefaults } from 'vue';
 
 import IconParser from '../utils/IconParser.vue';
 
-defineProps({
-  icon: {
-    type: String,
-    default: null,
-  },
-});
+withDefaults(
+  defineProps<{
+    icon?: string;
+  }>(),
+  {
+    icon: undefined,
+  }
+);
 </script>
 
 <style scoped>
