@@ -76,7 +76,7 @@ const propertyWithParams = (property: PropertyConfigWithValue) => ({
 
 const hasNonEmptyValue = (component: string, obj: Record<string, unknown>) => {
   // Special handling for some components
-  if (component === CellComponent.StringCell && obj.text === '') {
+  if (hasSpecialHandling(component, obj)) {
     return false;
   }
   // Some components are always shown, even if they are empty
@@ -85,6 +85,19 @@ const hasNonEmptyValue = (component: string, obj: Record<string, unknown>) => {
   }
   // Default handling
   return Object.values(obj).find((v) => v != null) != null;
+};
+
+const hasSpecialHandling = (
+  component: string,
+  obj: Record<string, unknown>
+) => {
+  console.log(component, obj);
+
+  return (
+    (component === CellComponent.StringCell ||
+      component === CellComponent.UrlCell) &&
+    obj.text === ''
+  );
 };
 
 const isShowAlwaysComponent = (component: string) => {
