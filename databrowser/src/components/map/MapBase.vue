@@ -35,33 +35,24 @@ import markerIcon from '../../assets/map-marker.svg';
 
 import { defineProps } from 'vue';
 
-defineProps({
-  center: {
-    type: Array,
-    default: () => [40, 40],
-  },
-  markers: {
-    type: Array,
-    default: () => [],
-  },
-  projection: {
-    type: String,
-    default: 'EPSG:4326',
-  },
-  zoom: {
-    type: Number,
-    default: 19,
-  },
-  rotation: {
-    type: Number,
-    default: 0,
-  },
-
-  height: {
-    type: String,
-    default: '400px',
-  },
-});
+withDefaults(
+  defineProps<{
+    center?: Array<number>;
+    markers: Array<number>;
+    projection?: string;
+    zoom?: number;
+    rotation?: number;
+    height?: string;
+  }>(),
+  {
+    center: () => [40, 40],
+    markers: () => [],
+    projection: 'EPSG:4326',
+    zoom: 19,
+    rotation: 0,
+    height: '400px',
+  }
+);
 </script>
 
 <style>

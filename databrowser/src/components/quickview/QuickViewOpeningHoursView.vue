@@ -20,9 +20,22 @@ import QuickViewCardOverview from './QuickViewCardOverview.vue';
 const { t, locale } = useI18n();
 const currentLocale = locale.value;
 
+interface ScheduleTime {
+  Start: string;
+  End: string;
+  Timecode: string;
+  State: string;
+}
+
+interface ScheduleData {
+  OperationScheduleTime: Array<ScheduleTime>;
+  Start: string;
+  Stop: string;
+}
+
 const props = withDefaults(
   defineProps<{
-    scheduleData?: Array<any>;
+    scheduleData?: Array<ScheduleData>;
   }>(),
   {
     scheduleData: () => [],

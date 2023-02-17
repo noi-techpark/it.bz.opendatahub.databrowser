@@ -3,15 +3,15 @@
   <template v-if="isSuccess === true">
     <PageContent>
       <div
-        class="flex flex-col gap-3 md:flex-row md:justify-between md:items-center"
+        class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
       >
         <div>
-          <h1 class="text-xl font-bold break-words">{{ title }}</h1>
+          <h1 class="break-words text-xl font-bold">{{ title }}</h1>
           <p class="break-words text-dialog">ID: {{ id }}</p>
         </div>
         <div
           v-if="logoUrl"
-          class="w-16 h-10 bg-center bg-no-repeat bg-contain"
+          class="h-10 w-16 bg-contain bg-center bg-no-repeat"
           :style="{ backgroundImage: `url(${logoUrl})` }"
         ></div>
       </div>
@@ -88,7 +88,7 @@ import { usePropertyMapping } from '../../api';
 
 const { isError, isSuccess, error, data } = useApiReadForCurrentDataset();
 
-let forcePlaceholderImage = ref(false);
+const forcePlaceholderImage = ref(false);
 
 const { t, locale } = useI18n();
 const currentLocale = locale.value;

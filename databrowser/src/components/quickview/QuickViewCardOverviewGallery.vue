@@ -2,7 +2,7 @@
   <div class="quick-view-card-gallery-ct">
     <div class="media-ct">
       <img
-        v-if="mediaItems[currentMediaIndex].type === 'IMAGE'"
+        v-if="mediaItems[currentMediaIndex].type === MediaItemType.IMAGE"
         :src="mediaItems[currentMediaIndex].url"
         class="media"
       />
@@ -64,17 +64,18 @@ import { defineProps, withDefaults, ref } from 'vue';
 import QuickViewCardOverviewContentTitle from './QuickViewCardOverviewContentTitle.vue';
 import QuickViewCardOverviewContentText from './QuickViewCardOverviewContentText.vue';
 import ChevronRight from '../svg/ChevronRight.vue';
+import { MediaItem, MediaItemType } from './QuickViewCommonTypes';
 
 withDefaults(
   defineProps<{
-    mediaItems: Array<any>;
+    mediaItems: Array<MediaItem>;
   }>(),
   {
     mediaItems: () => [],
   }
 );
 
-let currentMediaIndex = ref(0);
+const currentMediaIndex = ref(0);
 </script>
 
 <style scoped>

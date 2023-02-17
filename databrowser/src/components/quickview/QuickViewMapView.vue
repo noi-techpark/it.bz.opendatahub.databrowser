@@ -25,11 +25,16 @@ import QuickViewCardOverview from './QuickViewCardOverview.vue';
 import MapBase from '../../components/map/MapBase.vue';
 
 const { t } = useI18n();
-const mapComponent = ref(null);
+const mapComponent = ref();
+
+interface GpsInfo {
+  Latitude: number;
+  Longitude: number;
+}
 
 const props = withDefaults(
   defineProps<{
-    gpsInfo: Array<any>;
+    gpsInfo: Array<GpsInfo>;
   }>(),
   {
     gpsInfo: () => [],
@@ -37,7 +42,7 @@ const props = withDefaults(
 );
 
 const openMapFullscreen = () => {
-  const fullscreenButton = document.querySelector(
+  const fullscreenButton = mapComponent.value.querySelector(
     '.ol-full-screen > button'
   ) as HTMLElement;
 

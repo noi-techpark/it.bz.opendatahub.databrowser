@@ -9,21 +9,23 @@
     </template>
   </QuickViewCardOverview>
 </template>
+
 <script setup lang="ts">
 import { computed, defineProps, withDefaults } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import QuickViewCardOverview from './QuickViewCardOverview.vue';
 import QuickViewCardOverviewGallery from './QuickViewCardOverviewGallery.vue';
+import { MediaItem } from './QuickViewCommonTypes';
 
 const { t } = useI18n();
 
 const props = withDefaults(
   defineProps<{
-    webcamsMediaItems: any;
+    webcamsMediaItems: Array<MediaItem>;
   }>(),
   {
-    webcamsMediaItems: () => {},
+    webcamsMediaItems: () => [],
   }
 );
 

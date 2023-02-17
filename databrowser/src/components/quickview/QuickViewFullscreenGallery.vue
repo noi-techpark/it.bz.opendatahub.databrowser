@@ -4,10 +4,10 @@
       v-for="(image, i) in images"
       :id="`image-in-gallery-${i}`"
       :key="i"
-      class="shrink-0 w-full bg-center bg-cover"
+      class="w-full shrink-0 bg-cover bg-center"
       :style="{
         maxWidth: `${imageWidth}px`,
-        height: `250px`,
+        height: height + 'px',
         backgroundImage: `url(${image.ImageUrl})`,
         marginLeft: i === 0 ? currentMarginLeft : ``,
       }"
@@ -30,19 +30,25 @@ import { defineProps, withDefaults, ref, toRefs, computed } from 'vue';
 
 import ChevronRight from '../svg/ChevronRight.vue';
 
+interface Image {
+  ImageUrl: string;
+}
+
 const props = withDefaults(
   defineProps<{
-    images: Array<any>;
+    images: Array<Image>;
+    height?: number;
   }>(),
   {
     images: () => [],
+    height: 250,
   }
 );
 
 const { images } = toRefs(props);
 const imageWidth = 400;
-let currentMediaIndex = ref(0);
-let showNextIcon = ref(true);
+const currentMediaIndex = ref(0);
+const showNextIcon = ref(true);
 
 const currentMarginLeft = computed(() => {
   const currentImageWidth =

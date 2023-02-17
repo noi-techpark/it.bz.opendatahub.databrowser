@@ -83,10 +83,16 @@ import QuickViewCardOverviewContentText from './QuickViewCardOverviewContentText
 
 import TagCustom from '../tag/TagCustom.vue';
 
+interface Section {
+  icon: string;
+  content: Array<any>;
+  fullwidthContent: Array<any>;
+}
+
 withDefaults(
   defineProps<{
     title?: string;
-    sections: Array<any>;
+    sections: Array<Section>;
     contentHasNoPadding?: boolean;
     ctaIcon?: string;
   }>(),
