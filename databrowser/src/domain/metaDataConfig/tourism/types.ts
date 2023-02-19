@@ -6,7 +6,7 @@ export interface TourismMetaData {
   apiVersion: string;
   swaggerUrl: string;
   access: 'opendata' | 'limited' | 'closed' | 'unknown';
-  tableViewPathParam: string[];
+  pathParam: string[];
   externalLink: string;
   sources: string[];
   lastUpdated?: Date;

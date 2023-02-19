@@ -3,6 +3,7 @@ import { useQuery } from 'vue-query';
 import { withOdhBaseUrl } from '../../../config/utils';
 import { unifyPagination, useAxiosFetcher } from '../../api';
 import { TourismMetaData } from './types';
+import { parseFilterQuery } from './utils';
 
 interface OdhTourismMetaData {
   ApiIdentifier: string;
@@ -50,7 +51,7 @@ export const useMetaData = () => {
           apiVersion: dataset.ApiVersion,
           swaggerUrl: dataset.SwaggerUrl,
           access: parseAccess(dataset.ApiAccess),
-          tableViewPathParam: dataset.PathParam,
+          pathParam: dataset.PathParam,
           externalLink: dataset.ApiUrl,
           sources: dataset.Sources,
           lastUpdated: parse(
@@ -82,10 +83,4 @@ const parseAccess = (
     return 'opendata';
   }
   return 'unknown';
-};
-
-const parseFilterQuery = (filterQuery?: string) => {
-  const cleanFilterQuery = filterQuery?.replace('?', '') ?? '';
-  const filterQueryParams = new URLSearchParams(cleanFilterQuery);
-  return Object.fromEntries(filterQueryParams);
 };
