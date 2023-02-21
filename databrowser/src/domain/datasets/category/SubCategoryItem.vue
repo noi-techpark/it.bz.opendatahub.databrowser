@@ -1,10 +1,6 @@
 <template>
   <div class="relative pb-2" :class="{ 'has-error': hasError }">
     <div
-      v-if="required"
-      class="dot absolute mr-1 mt-3.5 -ml-2 inline-block h-1 w-1 rounded-full bg-red-600"
-    ></div>
-    <div
       v-if="hasTitleOrTooltip"
       class="relative flex items-center justify-between py-1"
     >
@@ -13,6 +9,7 @@
         :class="[{ 'text-hint-error': hasEmptyValue }]"
       >
         {{ title }}
+        <span v-if="required">*</span>
       </div>
       <div
         v-if="tooltip != null"
