@@ -3,7 +3,7 @@
     <MainCategories
       :categories="categories"
       :slug="slug"
-      class="sticky top-0 bg-white py-3 md:h-full md:w-1/6 md:overflow-y-auto"
+      class="sticky top-0 z-10 bg-white py-3 md:h-full md:w-1/6 md:overflow-y-auto"
       @change="scrollSubCategoriesToTop"
     />
 

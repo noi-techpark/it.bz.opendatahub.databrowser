@@ -37,7 +37,7 @@
         <div class="flex h-screen flex-col justify-between overflow-auto">
           <ShowEmptyFields v-model="showAll" :disabled="true" />
           <div
-            class="flex grow overflow-y-auto"
+            class="flex grow md:overflow-y-auto"
             :class="[{ 'opacity-50 pointer-events-none': isMutateLoading }]"
           >
             <MainAndSubCategories

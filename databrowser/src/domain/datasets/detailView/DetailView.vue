@@ -4,7 +4,7 @@
     <div>
       <ShowEmptyFields v-model="showAll" />
     </div>
-    <div class="flex overflow-y-auto">
+    <div class="flex md:overflow-y-auto">
       <MainAndSubCategories
         :data="data"
         :categories="categories"
