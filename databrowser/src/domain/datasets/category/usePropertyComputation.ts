@@ -91,8 +91,6 @@ const hasSpecialHandling = (
   component: string,
   obj: Record<string, unknown>
 ) => {
-  console.log(component, obj);
-
   return (
     (component === CellComponent.StringCell ||
       component === CellComponent.UrlCell) &&
