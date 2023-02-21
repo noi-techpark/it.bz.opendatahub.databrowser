@@ -32,13 +32,7 @@
           />
         </div>
       </CardIconGrid>
-      <CardIconGrid>
-        <IconTermsOfUse class="mt-0.5" />
-        <div class="flex flex-col gap-2 leading-tight text-gray-600">
-          <span class="font-semibold">Terms of use</span>
-          <TagCustom size="xs" type="blue" text="No limits" has-dot />
-        </div>
-      </CardIconGrid>
+
       <CardIconGrid>
         <IconNumberOfRecords class="mt-0.5" />
         <div class="flex flex-col gap-2 leading-tight text-gray-600">
@@ -70,7 +64,6 @@ import IconSource from '../../../components/svg/IconSource.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import ListWithMore from '../../../components/list/ListWithMore.vue';
 import IconAvailibilityOfData from '../../../components/svg/IconAvailibilityOfData.vue';
-import IconTermsOfUse from '../../../components/svg/IconTermsOfUse.vue';
 import IconNumberOfRecords from '../../../components/svg/IconNumberOfRecords.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 

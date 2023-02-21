@@ -51,11 +51,6 @@
             </ExternalLink>
           </TableCell>
         </tr>
-        <tr>
-          <TableCell>Image licenses</TableCell>
-          <TableCell>?</TableCell>
-        </tr>
-        <!-- <TableRo -->
       </TableBody>
     </TableCustom>
   </CardContainer>
