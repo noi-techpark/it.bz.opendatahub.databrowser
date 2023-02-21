@@ -23,7 +23,7 @@
           <TableCell>Swagger URL</TableCell>
           <TableCell>
             <ExternalLink
-              class="w-fit"
+              class="w-fit break-words"
               tone="primary"
               :href="dataset.swaggerUrl"
             >
@@ -51,11 +51,6 @@
             </ExternalLink>
           </TableCell>
         </tr>
-        <tr>
-          <TableCell>Image licenses</TableCell>
-          <TableCell>?</TableCell>
-        </tr>
-        <!-- <TableRo -->
       </TableBody>
     </TableCustom>
   </CardContainer>
@@ -63,13 +58,13 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { DatasetDescription } from '../../../config/config-for-pages';
 import CardContainer from '../../../components/card/CardContainer.vue';
 import TabButton from '../../../components/tab/TabButton.vue';
 import TableCustom from '../../../components/table/TableCustom.vue';
 import TableBody from '../../../components/table/TableBody.vue';
 import TableCell from '../../../components/table/TableCell.vue';
 import ExternalLink from '../../../components/link/ExternalLink.vue';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 
-defineProps<{ dataset: DatasetDescription }>();
+defineProps<{ dataset: TourismMetaData }>();
 </script>

@@ -8,7 +8,7 @@
         v-if="datasetConfigStore.hasConfig"
         class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
       >
-        {{ datasetConfigStore.config?.description?.title }}
+        {{ title }}
       </span>
       <span v-else class="mr-3 text-base">
         No view config found, try to change the view using the provided button
@@ -81,6 +81,8 @@ import AddRecordButton from './AddRecordButton.vue';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { SourceType } from '../../datasetConfig/source/types';
 import TagCustom from '../../../components/tag/TagCustom.vue';
+import { useCurrentMetaData } from '../../metaDataConfig/tourism/useCurrentMetaData';
+import { useRouter } from 'vue-router';
 
 const { t } = useI18n();
 
@@ -98,5 +100,19 @@ const showAddRecord = computed(
   () =>
     !datasetConfigStore.isSourceGenerated &&
     datasetConfigStore.hasCreatePermission
+);
+
+const pathParams = computed(
+  () => datasetConfigStore.config?.route.pathParams ?? []
+);
+const { currentRoute } = useRouter();
+const query = computed(() => currentRoute.value.query);
+const { currentMetaData } = useCurrentMetaData(pathParams, query);
+
+const title = computed(
+  () =>
+    currentMetaData.value?.title ??
+    datasetConfigStore.config?.description?.title ??
+    'Untitled'
 );
 </script>

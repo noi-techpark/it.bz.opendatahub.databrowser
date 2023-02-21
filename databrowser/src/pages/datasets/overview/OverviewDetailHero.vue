@@ -32,18 +32,23 @@
           />
         </div>
       </CardIconGrid>
-      <CardIconGrid>
-        <IconTermsOfUse class="mt-0.5" />
-        <div class="flex flex-col gap-2 leading-tight text-gray-600">
-          <span class="font-semibold">Terms of use</span>
-          <TagCustom size="xs" type="blue" text="No limits" has-dot />
-        </div>
-      </CardIconGrid>
+
       <CardIconGrid>
         <IconNumberOfRecords class="mt-0.5" />
         <div class="flex flex-col gap-2 leading-tight text-gray-600">
           <span class="font-semibold">Available records</span>
-          12304
+          <ul v-if="dataset.recordCount">
+            <li v-if="dataset.recordCount.open" class="flex justify-between">
+              <span>open</span> <span>{{ dataset.recordCount.open }}</span>
+            </li>
+            <li v-if="dataset.recordCount.reduced" class="flex justify-between">
+              <span>reduced</span>
+              <span>{{ dataset.recordCount.reduced }}</span>
+            </li>
+            <li v-if="dataset.recordCount.closed" class="flex justify-between">
+              <span>closed</span> <span>{{ dataset.recordCount.closed }}</span>
+            </li>
+          </ul>
         </div>
       </CardIconGrid>
     </div>
@@ -52,7 +57,6 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { DatasetDescription } from '../../../config/config-for-pages';
 import HeroContainer from '../../../components/hero/HeroContainer.vue';
 import HeroTitle from '../../../components/hero/HeroTitle.vue';
 import HeroSubTitle from '../../../components/hero/HeroSubTitle.vue';
@@ -61,8 +65,8 @@ import IconSource from '../../../components/svg/IconSource.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import ListWithMore from '../../../components/list/ListWithMore.vue';
 import IconAvailibilityOfData from '../../../components/svg/IconAvailibilityOfData.vue';
-import IconTermsOfUse from '../../../components/svg/IconTermsOfUse.vue';
 import IconNumberOfRecords from '../../../components/svg/IconNumberOfRecords.vue';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 
-defineProps<{ dataset: DatasetDescription }>();
+defineProps<{ dataset: TourismMetaData }>();
 </script>
