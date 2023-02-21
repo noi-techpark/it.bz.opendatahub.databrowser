@@ -38,14 +38,15 @@
         <div class="flex flex-col gap-2 leading-tight text-gray-600">
           <span class="font-semibold">Available records</span>
           <ul v-if="dataset.recordCount">
-            <li v-if="dataset.recordCount.open">
-              open: {{ dataset.recordCount.open }}
+            <li v-if="dataset.recordCount.open" class="flex justify-between">
+              <span>open</span> <span>{{ dataset.recordCount.open }}</span>
             </li>
-            <li v-if="dataset.recordCount.reduced">
-              reduced: {{ dataset.recordCount.reduced }}
+            <li v-if="dataset.recordCount.reduced" class="flex justify-between">
+              <span>reduced</span>
+              <span>{{ dataset.recordCount.reduced }}</span>
             </li>
-            <li v-if="dataset.recordCount.closed">
-              closed: {{ dataset.recordCount.closed }}
+            <li v-if="dataset.recordCount.closed" class="flex justify-between">
+              <span>closed</span> <span>{{ dataset.recordCount.closed }}</span>
             </li>
           </ul>
         </div>
