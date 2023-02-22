@@ -26,7 +26,10 @@ export const articleNewView: EditViewConfig = {
                 type: 'Type',
                 subType: 'SubType',
               },
-              params: { lookupUrl: withOdhBaseUrl('/v1/ArticleTypes') },
+              params: {
+                lookupUrl: withOdhBaseUrl('/v1/ArticleTypes'),
+                required: 'true',
+              },
               required: true,
             },
           ],
