@@ -16,6 +16,7 @@ import {
   sourceSubCategory,
   textInfoCategory,
   webcamTableCell,
+  locationCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -173,42 +174,7 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
-    {
-      name: 'Location',
-      slug: 'location',
-      subcategories: [
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Region',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.{language}' },
-            },
-            {
-              title: 'Tourismverein',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.TvInfo.{language}' },
-            },
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.{language}' },
-            },
-            {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.MunicipalityInfo.{language}' },
-            },
-            {
-              title: 'Ski Region',
-              component: CellComponent.StringCell,
-              fields: { text: 'SkiRegionName.{language}' },
-            },
-          ],
-        },
-      ],
-    },
+    locationCategory(),
     {
       name: 'Related content',
       slug: 'related-content',

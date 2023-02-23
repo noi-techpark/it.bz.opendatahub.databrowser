@@ -73,7 +73,7 @@ export const experienceAreaSharedView = ():
               component: CellComponent.TagReferenceCell,
               listFields: {
                 attributeName: 'tags',
-                pathToParent: 'Districts',
+                pathToParent: 'DistrictIds',
               },
               params: {
                 keySelector: 'Id',

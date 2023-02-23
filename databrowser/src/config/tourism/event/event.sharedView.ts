@@ -15,6 +15,7 @@ import {
   sourceSubCategory,
   textInfoCategory,
   idReadOnlyCell,
+  locationCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -147,21 +148,6 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
           ],
         },
         {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Location',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.TvInfo.Name.{language}' },
-            },
-            {
-              title: 'Region Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
-            },
-          ],
-        },
-        {
           name: 'Characteristics',
           properties: [
             {
@@ -235,6 +221,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
+    locationCategory(),
     gpsDataCategory(),
     {
       name: 'Files',
