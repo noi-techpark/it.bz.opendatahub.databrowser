@@ -15,7 +15,9 @@ import {
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
+  webcamTableCell,
 } from '../../builder/tourism';
+import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -75,8 +77,17 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
                 separator: ', ',
               },
             },
+            municipalityIdCell('LocationInfo.MunicipalityInfo.Id'),
           ],
         },
+        dataStatesSubCategory(),
+        sourceSubCategory(),
+      ],
+    },
+    {
+      name: 'Ski details',
+      slug: 'ski-detail',
+      subcategories: [
         {
           name: 'Slope information',
           properties: [
@@ -122,20 +133,46 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             {
               title: 'Ski map',
-              component: CellComponent.ImageCell,
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'SkiAreaMapURL',
               },
             },
           ],
         },
-        dataStatesSubCategory(),
-        sourceSubCategory(),
       ],
     },
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
+    {
+      name: 'Season/ Opening hours',
+      slug: 'season-opening-hours',
+      subcategories: [
+        {
+          name: 'Season/ Opening hours',
+          properties: [
+            {
+              title: 'Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'Shortname' },
+            },
+            {
+              title: 'Start Date and Time',
+              component: CellComponent.DateCell,
+              fields: { date: 'OperationSchedule.0.Start' },
+              params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
+            },
+            {
+              title: 'End Date and Time',
+              component: CellComponent.DateCell,
+              fields: { date: 'OperationSchedule.0.Stop' },
+              params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
+            },
+          ],
+        },
+      ],
+    },
     {
       name: 'Location',
       slug: 'location',
@@ -149,7 +186,7 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
               fields: { text: 'LocationInfo.RegionInfo.{language}' },
             },
             {
-              title: 'Valley',
+              title: 'Tourismverein',
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.TvInfo.{language}' },
             },
@@ -158,7 +195,11 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.DistrictInfo.{language}' },
             },
-            municipalityIdCell('LocationInfo.MunicipalityInfo.Id'),
+            {
+              title: 'Municipality',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.MunicipalityInfo.{language}' },
+            },
             {
               title: 'Ski Region',
               component: CellComponent.StringCell,
@@ -168,7 +209,43 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
+    {
+      name: 'Related content',
+      slug: 'related-content',
+      subcategories: [
+        {
+          name: 'Related data',
+          properties: [
+            {
+              title: 'Activity',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
+            },
+            {
+              title: 'Gastronomy',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
+            },
+            {
+              title: 'Event',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
+            },
+          ],
+        },
+      ],
+    },
     gpsDataCategory(),
+    {
+      name: 'Webcam Details',
+      slug: 'webcam-details',
+      subcategories: [
+        {
+          name: '',
+          properties: [webcamTableCell()],
+        },
+      ],
+    },
     odhTagCategory(),
   ],
 });

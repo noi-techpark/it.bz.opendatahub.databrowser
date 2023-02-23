@@ -7,6 +7,7 @@ import {
   eventDocumentCategory,
   idReadOnlyCell,
   imageGalleryCategory,
+  sourceSubCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -55,12 +56,18 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'Data states',
           properties: [
             {
-              title: 'Active',
+              title: 'Last Changes',
+              component: CellComponent.EditedDateCell,
+              params: { format: DEFAULT_DATE_TIME_FORMAT, type: 'datetime' },
+              fields: { date: 'LastChange' },
+            },
+            {
+              title: 'Active Today',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'ActiveToday' },
             },
             {
-              title: 'noi.bz.it Active',
+              title: 'noi.com Active',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'ActiveWeb' },
             },
@@ -71,6 +78,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
           ],
         },
+        sourceSubCategory(),
       ],
     },
     {

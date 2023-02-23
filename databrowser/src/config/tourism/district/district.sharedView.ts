@@ -14,6 +14,7 @@ import {
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
+  webcamTableCell,
 } from '../../builder/tourism';
 import { withOdhBaseUrl } from '../../utils';
 
@@ -57,8 +58,13 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
               properties: [
                 {
                   title: 'Is comune',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'IsComune' },
+                  component: CellComponent.ToggleCell,
+                  fields: { enabled: 'IsComune' },
+                },
+                {
+                  title: 'Visible in Search',
+                  component: CellComponent.ToggleCell,
+                  fields: { enabled: 'VisibleInSearch' },
                 },
               ],
             },
@@ -77,6 +83,19 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'Location',
           properties: [
             {
+              title: 'Tourism Assocciation',
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'Tourismassociation.Id' },
+              params: {
+                url: withOdhBaseUrl(
+                  '/v1/Location?language=en&type=null&showall=true'
+                ),
+                labelSelector: 'name',
+                keySelector: 'id',
+              },
+              required: true,
+            },
+            {
               title: 'Region / TVB',
               component: CellComponent.InputReferenceCell,
               fields: { value: 'Region.Id' },
@@ -89,12 +108,58 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
               required: true,
             },
-            municipalityIdCell('Municipality.Id'),
+            {
+              title: 'Municipality',
+              component: CellComponent.InputReferenceCell,
+              fields: { value: 'Municipality.Id' },
+              params: {
+                url: withOdhBaseUrl('/v1/Municipality?removenullvalues=false'),
+                labelSelector: 'Detail.en.Title',
+                keySelector: 'Id',
+              },
+              required: true,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Related content',
+      slug: 'related-content',
+      subcategories: [
+        {
+          name: 'Related data',
+          properties: [
+            {
+              title: 'Activity',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
+            },
+            {
+              title: 'Gastronomy',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
+            },
+            {
+              title: 'Event',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
+            },
           ],
         },
       ],
     },
     gpsDataCategory(),
+    {
+      name: 'Webcam Details',
+      slug: 'webcam-details',
+      subcategories: [
+        {
+          name: '',
+          properties: [webcamTableCell()],
+        },
+      ],
+    },
     odhTagCategory(),
   ],
 });

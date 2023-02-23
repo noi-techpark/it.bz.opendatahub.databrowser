@@ -2,7 +2,7 @@
   <div v-if="isWriteable">
     <div v-if="src != null" class="flex">
       <div class="flex items-start gap-3 rounded border-2 p-2">
-        <ImageCell :src="src" :width="width" :alt="alt" />
+        <ImageCell :src="src" width="100%" :alt="alt" />
         <button type="button" title="Delete image" @click="deleteImage">
           <IconDelete class="text-delete" />
         </button>
@@ -36,7 +36,7 @@ const props = withDefaults(
     readonly?: string | boolean;
   }>(),
   {
-    width: '100%',
+    width: undefined,
     alt: undefined,
     src: undefined,
     editable: true,

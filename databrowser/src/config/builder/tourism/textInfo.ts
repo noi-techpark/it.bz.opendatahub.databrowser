@@ -45,7 +45,7 @@ export const textInfoCategory = (): DetailElements => ({
         },
         {
           title: 'Intro Text',
-          component: CellComponent.TextAreaCell,
+          component: CellComponent.HtmlCell,
           fields: {
             html: 'Detail.{language}.IntroText',
           },

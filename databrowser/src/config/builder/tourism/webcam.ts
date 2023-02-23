@@ -4,6 +4,7 @@ import { PropertyConfig } from '../../../domain/datasetConfig/types';
 export const webcamTableCell = (): PropertyConfig => ({
   title: '',
   component: CellComponent.WebcamCell,
+  class: 'break-all',
   listFields: {
     attributeName: 'webcams',
     pathToParent: 'Webcam',

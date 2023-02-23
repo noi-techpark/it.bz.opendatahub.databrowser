@@ -13,7 +13,7 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
       slug: 'main-data',
       subcategories: [
         {
-          name: 'Shortname',
+          name: 'Area name',
           properties: [
             {
               title: '',
@@ -32,21 +32,20 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
               fields: { text: 'Skiregion' },
             },
             {
+              title: 'Logo',
+              component: CellComponent.ImageEditCell,
+              fields: { src: 'contactlogo' },
+              params: { width: '200' },
+            },
+            {
               title: 'Ski Map',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'SkiMapUrl',
               },
               params: {
                 width: '100%',
               },
-            },
-            {
-              title: 'Logo',
-              component: CellComponent.ImageEditCell,
-              fields: { src: 'contactlogo' },
-              params: { width: '200' },
             },
           ],
         },
@@ -121,7 +120,6 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Webcam-Url',
               component: CellComponent.ArrayCell,
-              class: 'w-40',
               fields: {
                 items: 'WebcamUrl',
               },

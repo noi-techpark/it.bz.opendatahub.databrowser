@@ -15,6 +15,7 @@ import {
   odhTagCategory,
   shortnameCell,
   sourceSubCategory,
+  mainImageCell,
 } from '../../builder/tourism';
 import { withOdhBaseUrl } from '../../utils';
 
@@ -30,12 +31,12 @@ export const accommodationSharedView = ():
           name: 'General data',
           properties: [
             shortnameCell(),
+            mainImageCell(),
             accommodationTypeCell(),
             accommodationCategoryCell(),
             {
               title: 'Boardings',
               component: CellComponent.ArrayCell,
-              class: 'w-40',
               fields: {
                 items: 'BoardIds',
               },
@@ -101,6 +102,19 @@ export const accommodationSharedView = ():
                 url: withOdhBaseUrl('/v1/AccommodationTypes'),
               },
             },
+            {
+              title: 'Themes',
+              component: CellComponent.TagReferenceCell,
+              listFields: {
+                attributeName: 'tags',
+                pathToParent: 'ThemeIds',
+              },
+              params: {
+                keySelector: 'Key',
+                labelSelector: 'TypeDesc.{language}',
+                url: withOdhBaseUrl('/v1/AccommodationTypes'),
+              },
+            },
           ],
         },
         {
@@ -122,7 +136,6 @@ export const accommodationSharedView = ():
             {
               title: 'Marketing Group IDs',
               component: CellComponent.ArrayCell,
-              class: 'w-40',
               fields: {
                 items: 'MarketingGroupIds',
               },

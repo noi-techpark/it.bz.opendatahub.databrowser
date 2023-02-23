@@ -3,7 +3,6 @@ import {
   DetailViewConfig,
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
-import { idReadOnlyCell } from '../../builder/tourism';
 
 export const weatherRealTimeSharedView = ():
   | DetailViewConfig
@@ -26,7 +25,12 @@ export const weatherRealTimeSharedView = ():
               component: CellComponent.StringCell,
               fields: { text: 'categoryId' },
             },
-            idReadOnlyCell(),
+            {
+              title: 'ID',
+              component: CellComponent.StringCell,
+              fields: { text: 'id' },
+              params: { readonly: 'true' },
+            },
           ],
         },
       ],
@@ -65,9 +69,9 @@ export const weatherRealTimeSharedView = ():
               fields: { text: 'measurements.0.description' },
             },
             {
-              title: 'Image URL',
-              component: CellComponent.UrlCell,
-              fields: { text: 'measurements.0.imageUrl' },
+              title: 'Image',
+              component: CellComponent.ImageEditCell,
+              fields: { src: 'measurements.0.imageUrl' },
             },
             {
               title: 'code',

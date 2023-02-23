@@ -4,6 +4,7 @@ import {
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
 import {
+  contactCategory,
   dataStatesSubCategory,
   gpsDataCategory,
   idAndCustomIdCells,
@@ -14,6 +15,7 @@ import {
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
+  webcamTableCell,
 } from '../../builder/tourism';
 
 export const municipalitySharedView = ():
@@ -26,8 +28,11 @@ export const municipalitySharedView = ():
       subcategories: [
         {
           name: 'General data',
+          properties: [shortnameCell(), mainImageCell()],
+        },
+        {
+          name: 'Municipality Details',
           properties: [
-            shortnameCell(),
             {
               title: 'CAP',
               component: CellComponent.StringCell,
@@ -42,7 +47,6 @@ export const municipalitySharedView = ():
                 text: 'Inhabitants',
               },
             },
-            mainImageCell(),
           ],
         },
         {
@@ -82,7 +86,44 @@ export const municipalitySharedView = ():
     },
     textInfoCategory(),
     imageGalleryCategory(),
+    {
+      name: 'Related content',
+      slug: 'related-content',
+      subcategories: [
+        {
+          name: 'Related data',
+          properties: [
+            {
+              title: 'Activity',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
+            },
+            {
+              title: 'Gastronomy',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
+            },
+            {
+              title: 'Event',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
+            },
+          ],
+        },
+      ],
+    },
+    contactCategory(),
     gpsDataCategory(),
+    {
+      name: 'Webcam Details',
+      slug: 'webcam-details',
+      subcategories: [
+        {
+          name: '',
+          properties: [webcamTableCell()],
+        },
+      ],
+    },
     odhTagCategory(),
   ],
 });

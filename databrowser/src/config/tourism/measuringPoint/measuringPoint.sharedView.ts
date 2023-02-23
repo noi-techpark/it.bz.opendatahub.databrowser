@@ -6,8 +6,8 @@ import {
 import {
   gpsDataCategory,
   idReadOnlyCell,
-  lastChangesCell,
   shortnameCell,
+  dataStatesSubCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_FORMAT } from '../../utils';
 
@@ -29,19 +29,9 @@ export const measuringPointSharedView = ():
               component: CellComponent.StringCell,
               fields: { text: 'OwnerId' },
             },
-            lastChangesCell(),
-            {
-              title: 'Active',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'Active' },
-            },
-            {
-              title: 'Smg Active',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'SmgActive' },
-            },
           ],
         },
+        dataStatesSubCategory(),
       ],
     },
     {

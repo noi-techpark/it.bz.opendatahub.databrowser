@@ -26,8 +26,11 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
       subcategories: [
         {
           name: 'General data',
+          properties: [shortnameCell(), ...logoWithMainImageCells()],
+        },
+        {
+          name: 'Gastronomy details',
           properties: [
-            shortnameCell(),
             {
               title: 'Max Seating Capacity',
               component: CellComponent.StringCell,
@@ -57,7 +60,6 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
                 max: '3',
               },
             },
-            ...logoWithMainImageCells(),
           ],
         },
         {
@@ -92,7 +94,7 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
             },
           ],
         },
-        dataStatesSubCategory(),
+        dataStatesSubCategory({ hasVisibleInSearch: true }),
         sourceSubCategory(),
       ],
     },
@@ -111,7 +113,11 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
-            municipalityIdCell('LocationInfo.MunicipalityInfo.Id'),
+            {
+              title: 'Municipality',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.MunicipalityInfo.Name.{language}' },
+            },
             {
               title: 'District',
               component: CellComponent.StringCell,

@@ -4,6 +4,7 @@ import {
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
 import {
+  contactCategory,
   dataStatesSubCategory,
   gpsDataCategory,
   idAndCustomIdCells,
@@ -14,6 +15,7 @@ import {
   sourceSubCategory,
   textInfoCategory,
 } from '../../builder/tourism';
+import { withOdhBaseUrl } from '../../utils';
 
 export const experienceAreaSharedView = ():
   | DetailViewConfig
@@ -32,15 +34,8 @@ export const experienceAreaSharedView = ():
           properties: [
             ...idAndCustomIdCells(),
             {
-              title: 'Company Id',
-              component: CellComponent.StringCell,
-              fields: { text: 'CompanyId' },
-              class: 'break-all',
-            },
-            {
-              title: 'Tourismverein IDs',
+              title: 'Tourism Associations IDs',
               component: CellComponent.ArrayCell,
-              class: 'w-40',
               fields: {
                 items: 'TourismvereinIds',
               },
@@ -51,7 +46,6 @@ export const experienceAreaSharedView = ():
             {
               title: 'District IDs',
               component: CellComponent.ArrayCell,
-              class: 'w-40',
               fields: {
                 items: 'DistrictIds',
               },
@@ -76,14 +70,22 @@ export const experienceAreaSharedView = ():
           properties: [
             {
               title: 'Districts',
-              component: CellComponent.ArrayCell,
-              fields: { items: 'Districts' },
-              params: { separator: ', ' },
+              component: CellComponent.TagReferenceCell,
+              listFields: {
+                attributeName: 'tags',
+                pathToParent: 'Districts',
+              },
+              params: {
+                keySelector: 'Id',
+                labelSelector: 'Detail.en.Title',
+                url: withOdhBaseUrl('/v1/District'),
+              },
             },
           ],
         },
       ],
     },
+    contactCategory(),
     gpsDataCategory(),
     odhTagCategory(),
   ],
