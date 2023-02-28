@@ -1,5 +1,5 @@
 <template>
-  <ToolBox :is-table-view="true" :tab-names="['General', 'JSON diff']">
+  <ToolBox :tab-names="['General', 'JSON diff']">
     <TabPanel>
       <ToolBoxCardHeader :margin-top="false">{{
         t('datasets.editView.toolbox.goodToKnow')

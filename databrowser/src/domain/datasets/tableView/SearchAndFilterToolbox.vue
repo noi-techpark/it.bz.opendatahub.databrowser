@@ -1,6 +1,6 @@
 <template>
   <ToolBox
-    :is-table-view="true"
+    :visible="false"
     :tab-names="['Search and filter', 'Export datasets']"
   >
     <TabPanel>

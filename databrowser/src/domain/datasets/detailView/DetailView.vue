@@ -15,7 +15,7 @@
         :show-edit-hint="false"
         :editable="false"
       />
-      <ExportDatasetToolBox :url="url" :is-table-view="false" />
+      <ExportDatasetToolBox :url="url" />
     </div>
   </template>
 </template>

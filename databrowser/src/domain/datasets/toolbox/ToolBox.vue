@@ -13,10 +13,8 @@
   <div
     class="absolute top-0 z-30 flex h-full flex-col overflow-x-auto bg-white transition-all md:relative"
     :class="{
-      'w-full md:w-1/3': isToolboxVisible && isTableView,
-      'w-full md:w-1/2': isToolboxVisible && !isTableView,
-      'w-0': !isToolboxVisible,
-      'md:w-16': !isToolboxVisible && isTableView,
+      'w-full md:w-1/3': isToolboxVisible,
+      'w-0 md:w-16': !isToolboxVisible,
     }"
   >
     <div
@@ -27,10 +25,7 @@
         @after-enter="(el: HTMLElement) => (el.classList.value = 'block h-full w-full')"
         @before-leave="(el: HTMLElement) => (el.classList.value = 'hidden')"
       >
-        <div
-          v-if="isToolboxVisible"
-          :class="{ hidden: isTableView || !mdAndLarger }"
-        >
+        <div v-if="isToolboxVisible" :class="{ hidden: !mdAndLarger }">
           <ContentAlignmentX class="h-full">
             <div class="flex flex-col justify-between">
               <TabGroup :default-index="defaultIndex">
@@ -77,8 +72,8 @@
       </Transition>
     </div>
 
-    <!-- Table view open / close button -->
-    <div v-if="isTableView" class="my-6 ml-4 hidden md:block">
+    <!-- Open / close button -->
+    <div class="my-6 ml-4 hidden md:block">
       <ButtonCustom
         size="xs"
         class="hidden h-8 w-8 items-center justify-center md:flex"
@@ -100,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, watch } from 'vue';
+import { ref, toRefs, watch } from 'vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { TabGroup, TabList, TabPanels, Tab } from '@headlessui/vue';
 import ButtonCustom from '../../../components/button/ButtonCustom.vue';
@@ -109,11 +104,19 @@ import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue
 import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
 import TabButton from '../../../components/tab/TabButton.vue';
 
-const props = defineProps<{
-  isTableView: boolean;
-  tabNames: string[];
-  defaultIndex?: number;
-}>();
+const props = withDefaults(
+  defineProps<{
+    tabNames: string[];
+    defaultIndex?: number;
+    visible?: boolean;
+  }>(),
+  {
+    defaultIndex: 0,
+    visible: true,
+  }
+);
+
+const { visible } = toRefs(props);
 
 const isToolboxVisible = ref(false);
 
@@ -121,15 +124,17 @@ const breakpoints = useBreakpoints(breakpointsTailwind);
 const mdAndLarger = breakpoints.greater('md');
 
 watch(
-  () => mdAndLarger.value,
-  (value, oldValue) => {
-    if (value && !props.isTableView) {
+  [visible, mdAndLarger],
+  ([visible, mdAndLargerValue], [oldVisible, oldMdAndLargerValue]) => {
+    if (visible !== oldVisible && mdAndLargerValue) {
+      isToolboxVisible.value = visible;
+    } else if (mdAndLargerValue) {
       isToolboxVisible.value = true;
-      return;
-    }
-    if (oldValue != null && value !== oldValue) {
+    } else if (
+      oldMdAndLargerValue != null &&
+      mdAndLargerValue !== oldMdAndLargerValue
+    ) {
       isToolboxVisible.value = false;
-      return;
     }
   },
   { immediate: true }
