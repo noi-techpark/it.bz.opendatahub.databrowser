@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div v-if="isWriteable" class="relative z-10 flex flex-col">
     <QuillEditor
