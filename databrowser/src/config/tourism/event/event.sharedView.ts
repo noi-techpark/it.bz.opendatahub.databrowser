@@ -223,38 +223,6 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
     },
     locationCategory(),
     gpsDataCategory(),
-    {
-      name: 'Files',
-      slug: 'files',
-      subcategories: [
-        {
-          name: 'General data',
-          properties: [
-            {
-              title: 'PDF',
-              // TODO: use PDF upload
-              component: CellComponent.EditImageGalleryCell,
-              fields: {
-                images: 'Pdf',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                copyright: 'CopyRight',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
-        },
-      ],
-    },
     odhTagCategory('event'),
   ],
 });
