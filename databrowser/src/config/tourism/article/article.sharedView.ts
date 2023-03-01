@@ -12,7 +12,6 @@ import {
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
-  logoWithMainImageCells,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_FORMAT, withOdhBaseUrl } from '../../utils';
 
@@ -24,39 +23,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
       subcategories: [
         {
           name: 'General data',
-          properties: [shortnameCell(), ...logoWithMainImageCells()],
-        },
-        {
-          name: 'Details',
-          properties: [
-            {
-              title: 'Highlight',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'Highlight' },
-            },
-            {
-              title: '',
-              component: CellComponent.ArticleTypeCell,
-              fields: {
-                type: 'Type',
-                subType: 'SubType',
-              },
-              params: { lookupUrl: withOdhBaseUrl('/v1/ArticleTypes') },
-              required: true,
-            },
-            {
-              title: 'Article Date',
-              component: CellComponent.DateCell,
-              fields: { date: 'ArticleDate' },
-              params: { format: DEFAULT_DATE_FORMAT },
-            },
-            {
-              title: 'Article Date To',
-              component: CellComponent.DateCell,
-              fields: { date: 'ArticleDateTo' },
-              params: { format: DEFAULT_DATE_FORMAT },
-            },
-          ],
+          properties: [shortnameCell()],
         },
         {
           name: 'IDs',
@@ -106,6 +73,47 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
       ],
     },
     odhTagCategory('article'),
+    {
+      name: 'Article Details',
+      slug: 'article-details',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Highlight',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'Highlight' },
+            },
+            {
+              title: '',
+              component: CellComponent.ArticleTypeCell,
+              fields: {
+                type: 'Type',
+                subType: 'SubType',
+              },
+              params: {
+                lookupUrl: withOdhBaseUrl('/v1/ArticleTypes'),
+                required: 'true',
+              },
+              required: true,
+            },
+            {
+              title: 'Article Date',
+              component: CellComponent.DateCell,
+              fields: { date: 'ArticleDate' },
+              params: { format: DEFAULT_DATE_FORMAT },
+            },
+            {
+              title: 'Article Date To',
+              component: CellComponent.DateCell,
+              fields: { date: 'ArticleDateTo' },
+              params: { format: DEFAULT_DATE_FORMAT },
+            },
+          ],
+        },
+      ],
+    },
     {
       name: 'License',
       slug: 'license',
