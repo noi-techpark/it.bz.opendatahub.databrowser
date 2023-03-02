@@ -55,7 +55,7 @@ watch(
         (dataset) => dataset.id !== route.params.id
       ),
       3
-    ).sort((a, b) => a.title.localeCompare(b.title));
+    ).sort((a, b) => a.shortname?.localeCompare(b.shortname));
   },
   { immediate: true }
 );

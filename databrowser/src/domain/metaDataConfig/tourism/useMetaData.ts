@@ -44,7 +44,8 @@ export const useMetaData = () => {
       return paginationData.items
         .map<TourismMetaData>((dataset) => ({
           id: dataset.Id,
-          title: dataset.ApiIdentifier,
+          shortname: dataset.Shortname,
+          apiIdentifier: dataset.ApiIdentifier,
           description: dataset.ApiDescription.en,
           output: Object.values(dataset.Output ?? {}).join(', '),
           apiVersion: dataset.ApiVersion,
@@ -62,7 +63,7 @@ export const useMetaData = () => {
           recordCount: dataset.RecordCount as Record<string, number>,
           deprecated: dataset.Deprecated,
         }))
-        .sort((a, b) => a?.title?.localeCompare(b?.title));
+        .sort((a, b) => a?.shortname?.localeCompare(b?.shortname));
     },
   });
 };

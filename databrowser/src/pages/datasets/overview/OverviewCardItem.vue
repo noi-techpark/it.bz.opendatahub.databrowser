@@ -9,8 +9,10 @@
         class="flex items-center gap-3 no-underline"
         :data-test="`dataset-link-${dataset.id}`"
       >
-        <span>{{ dataset.title }}</span>
-        <span v-if="dataset.deprecated"> (Deprecated)</span>
+        <DatasetTitle
+          :name="dataset.shortname"
+          :parent="dataset.apiIdentifier"
+        />
         <ArrowLine />
       </routerLink>
       <template #right>
@@ -110,6 +112,7 @@ import CardActions from '../../../components/card/CardActions.vue';
 import IconTable from '../../../components/svg/IconTable.vue';
 import ArrowLine from '../../../components/svg/ArrowLine.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
+import DatasetTitle from '../../../domain/datasets/common/DatasetTitle.vue';
 
 defineProps<{ dataset: TourismMetaData }>();
 </script>

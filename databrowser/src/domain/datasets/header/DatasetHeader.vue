@@ -8,7 +8,7 @@
         v-if="datasetConfigStore.hasConfig"
         class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
       >
-        {{ title }}
+        <DatasetTitle :name="datasetName" :parent="datasetParent" />
       </span>
       <span v-else class="mr-3 text-base">
         No view config found, try to change the view using the provided button
@@ -83,6 +83,7 @@ import { SourceType } from '../../datasetConfig/source/types';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import { useCurrentMetaData } from '../../metaDataConfig/tourism/useCurrentMetaData';
 import { useRouter } from 'vue-router';
+import DatasetTitle from '../common/DatasetTitle.vue';
 
 const { t } = useI18n();
 
@@ -103,16 +104,20 @@ const showAddRecord = computed(
 );
 
 const pathParams = computed(
-  () => datasetConfigStore.config?.route.pathParams ?? []
+  () => datasetConfigStore.config?.route.pathParams.slice(1) ?? []
 );
 const { currentRoute } = useRouter();
 const query = computed(() => currentRoute.value.query);
 const { currentMetaData } = useCurrentMetaData(pathParams, query);
 
-const title = computed(
+const datasetName = computed(
   () =>
-    currentMetaData.value?.title ??
+    currentMetaData.value?.shortname ??
     datasetConfigStore.config?.description?.title ??
     'Untitled'
+);
+
+const datasetParent = computed(
+  () => currentMetaData.value?.apiIdentifier ?? ''
 );
 </script>

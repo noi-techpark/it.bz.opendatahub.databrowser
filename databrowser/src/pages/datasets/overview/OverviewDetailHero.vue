@@ -1,6 +1,8 @@
 <template>
   <HeroContainer v-if="dataset">
-    <HeroTitle>{{ dataset.title }}</HeroTitle>
+    <HeroTitle>
+      <DatasetTitle :name="dataset.shortname" :parent="dataset.apiIdentifier" />
+    </HeroTitle>
     <HeroSubTitle class="lg:mt-3">Details</HeroSubTitle>
     <div
       class="mt-4 grid w-full grid-cols-2 gap-4 rounded bg-white p-5 md:grid-cols-4 md:gap-16"
@@ -67,6 +69,7 @@ import ListWithMore from '../../../components/list/ListWithMore.vue';
 import IconAvailibilityOfData from '../../../components/svg/IconAvailibilityOfData.vue';
 import IconNumberOfRecords from '../../../components/svg/IconNumberOfRecords.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
+import DatasetTitle from '../../../domain/datasets/common/DatasetTitle.vue';
 
 defineProps<{ dataset: TourismMetaData }>();
 </script>
