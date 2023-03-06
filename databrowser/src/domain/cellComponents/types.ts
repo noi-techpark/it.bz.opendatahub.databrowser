@@ -31,8 +31,9 @@ export enum CellComponent {
   TypeBasedCell = 'TypeBasedCell',
   WebcamCell = 'WebcamCell',
   WebcamGalleryCell = 'WebcamGalleryCell',
+
   QuickViewTextInfoCard = 'QuickViewTextInfoCard',
-  QuickViewContactsCard = 'WebcamGalleryCell',
+  QuickViewContactsCard = 'QuickViewContactsCard',
   QuickViewWebcamsView = 'QuickViewWebcamsView',
   QuickViewMapView = 'QuickViewMapView',
   QuickViewOpeningHoursView = 'QuickViewOpeningHoursView',

@@ -1,4 +1,7 @@
-export const getValueOfLocale = (currentLocale: string, obj: any) => {
+export const getValueOfLocale = (
+  currentLocale: string,
+  obj: Record<string, unknown>
+) => {
   // Note: function can be moved as utils
   const fallbackLocale = 'en';
 

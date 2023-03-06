@@ -43,6 +43,6 @@ defineEmits(['ctaClick']);
 }
 
 .icon-ct {
-  @apply w-4 h-4 cursor-pointer;
+  @apply w-4 h-4 cursor-pointer text-green-400;
 }
 </style>

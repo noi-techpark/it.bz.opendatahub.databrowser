@@ -10,6 +10,7 @@
 </template>
 
 <script setup lang="ts">
+import { format as formatFn } from 'date-fns';
 import { computed, defineProps, withDefaults } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -117,22 +118,18 @@ const operationScheduleSections = computed(() => {
 });
 
 const getTimePeriodRange = (start: string, end: string) => {
-  const [yearStart, , dayStart] = start.split('T')[0].split('-');
-  const [yearEnd, , dayEnd] = end.split('T')[0].split('-');
+  const startDate = new Date(start);
+  const monthStart = formatFn(startDate, 'LLLL');
+  const yearStart = formatFn(startDate, 'YYYY');
+  const dayStart = formatFn(startDate, 'd');
 
-  const dateLocale = 'en-US';
-  const dateOptions = {
-    month: 'long',
-  };
+  const endDate = new Date(end);
+  const monthEnd = formatFn(startDate, 'LLLL');
+  const yearEnd = formatFn(endDate, 'YYYY');
+  const dayEnd = formatFn(endDate, 'd');
 
-  const monthStart = new Date(start).toLocaleDateString(
-    dateLocale,
-    dateOptions
-  );
-  const monthEnd = new Date(end).toLocaleDateString(dateLocale, dateOptions);
-
-  return `${parseInt(dayStart)}. ${monthStart}${
+  return `${dayStart}. ${monthStart}${
     yearStart !== yearEnd ? ' ' + yearStart : ''
-  } - ${parseInt(dayEnd)}. ${monthEnd} ${yearEnd}`;
+  } - ${dayEnd}. ${monthEnd} ${yearEnd}`;
 };
 </script>

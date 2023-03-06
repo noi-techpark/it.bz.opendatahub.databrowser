@@ -33,6 +33,6 @@ withDefaults(
 }
 
 .icon-ct {
-  @apply h-8 w-8 flex-shrink-0;
+  @apply h-8 w-8 flex-shrink-0 text-green-400;
 }
 </style>

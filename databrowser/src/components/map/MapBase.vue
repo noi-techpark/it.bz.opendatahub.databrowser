@@ -33,7 +33,12 @@
 <script lang="ts" setup>
 import markerIcon from '../../assets/map-marker.svg';
 
-import { defineProps } from 'vue';
+import { defineProps, getCurrentInstance } from 'vue';
+import OpenLayersMap from 'vue3-openlayers';
+import 'vue3-openlayers/dist/vue3-openlayers.css';
+
+// Add OpenLayers Map
+getCurrentInstance()?.appContext.app.use(OpenLayersMap);
 
 withDefaults(
   defineProps<{
