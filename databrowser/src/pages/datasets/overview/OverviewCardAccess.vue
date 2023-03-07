@@ -11,7 +11,7 @@
             name: DatasetPage.TABLE,
             params: {
               domain: 'tourism',
-              pathParams: ['v1', ...dataset.pathParam],
+              pathParams: dataset.pathParam,
             },
           }"
           :data-test="`dataset-table-link-${dataset.id}`"

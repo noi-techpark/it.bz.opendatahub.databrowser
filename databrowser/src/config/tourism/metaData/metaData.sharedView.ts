@@ -40,8 +40,11 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Filter',
-              component: CellComponent.StringCell,
-              fields: { text: 'ApiFilter' },
+              component: CellComponent.ArrayEditableCell,
+              listFields: {
+                attributeName: 'items',
+                pathToParent: 'ApiFilter',
+              },
             },
             {
               title: 'API URL',

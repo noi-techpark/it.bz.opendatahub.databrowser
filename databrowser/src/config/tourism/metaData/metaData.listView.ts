@@ -44,9 +44,10 @@ export const metaDataListView: ListViewConfig = {
     },
     {
       title: 'Filter',
-      component: CellComponent.StringCell,
+      component: CellComponent.ArrayCell,
       class: 'w-60',
-      fields: { text: 'ApiFilter' },
+      fields: { items: 'ApiFilter' },
+      params: { separator: '&' },
     },
     {
       title: 'API URL',

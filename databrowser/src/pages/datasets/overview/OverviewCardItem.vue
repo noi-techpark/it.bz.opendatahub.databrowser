@@ -68,7 +68,7 @@
           name: DatasetPage.TABLE,
           params: {
             domain: 'tourism',
-            pathParams: ['v1', ...dataset.pathParam],
+            pathParams: dataset.pathParam,
           },
           query: dataset.apiFilter,
         }"
