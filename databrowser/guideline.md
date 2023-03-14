@@ -1,0 +1,48 @@
+# Guideline
+The following document presents the guideline to follow when developing for this project. It contains a series of directives useful for creating uniform code in order to make it easily readable and maintainable.
+
+If something is not specified below, it is advisable to try to search for a similar implementation in the code and, if it cannot be found, to ask on Github confirmation of the chosen implementation approach before starting.
+
+
+
+## Table of Contents
+- [Coding Style](#coding-style)
+- [Platform assumptions](#platform-assumptions)
+
+
+
+### Coding Style
+1. Components should be written using the Composition API, always indicating the default properties.
+
+```
+withDefaults(
+  defineProps<{
+    value?: string;
+  }>(),
+  {
+    value: '',
+  }
+);
+```
+2. The Tailwind classes shall be included in the Elements template and non separated in the <style> section of the component.
+3. Date manipulation should be performed using the date-fns library.
+4. SVGs should be inserted without fixed dimensions, without safety spaces, and without specifying the fill/stroke color. Instead, the currentColor property should be used.
+5. Plugins/libraries that are not useful throughout the project should only be included asynchronously in the individual component and not in main.ts, using the following method:
+```
+const MyLibrary = defineAsyncComponent(() =>
+  import('my-library').then((exports) => exports)
+);
+```
+6. All types must be clearly defined. Using "any" as a type is not allowed.
+7. Before developing any new component, it should be verified that it is not already present in /src/components/.
+8. All texts must be inserted as translatable strings, with the corresponding English translation in /src/locales/en.json.
+9. Before any PR, all commented-out code should be removed, or if it is necessary to release it because it is highly likeable that it will be reused in the near future, leaving a NOTE that specifies the reason.
+
+
+
+### Platform assumptions
+
+1. The DetailView and QuickView are designed to be generated through configuration files, differentiated according to the type of dataset. These files are located in the path /src/config/DATASET_NAME/DATASET_NAME.VIEW_TYPE.ts. For example, in /src/config/odhActivityPoi/odhActivityPoi.quickView.ts, you can see the configuration of the QuickView for points of interest.
+2. If the views define their respective components from the configuration file, they must use the ComponentRender component. To include the components with the ComponentRender component, they must be defined in /src/components/registerForComponentRender.js, and then the related components must be placed in the /src/components/ folder, using the following extension: "forRender". Eg, a component called Table that can ben rendered using the ComponentRender component, must be called Table.forRender.vue. Plus, all components built to be rendered with the ComponentRender, but respect the following predefined structure: TODO
+3. The list of components included in registerForComponentRender.ts must be entered in alphabetical order.
+4. The configuration of a component that renders data should be taken from Open API whenever available. The edit component should be read only per default till Open API doesn't provide the "readonly: true".
