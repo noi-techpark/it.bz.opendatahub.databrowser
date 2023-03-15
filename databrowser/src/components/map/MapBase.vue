@@ -40,10 +40,19 @@ import 'vue3-openlayers/dist/vue3-openlayers.css';
 // Add OpenLayers Map
 getCurrentInstance()?.appContext.app.use(OpenLayersMap);
 
+interface Marker {
+  position: Position;
+}
+
+interface Position {
+  lat: number;
+  lng: number;
+}
+
 withDefaults(
   defineProps<{
     center?: Array<number>;
-    markers: Array<number>;
+    markers: Array<Marker>;
     projection?: string;
     zoom?: number;
     rotation?: number;

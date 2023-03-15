@@ -84,9 +84,9 @@ import QuickViewCardOverviewContentText from './QuickViewCardOverviewContentText
 import TagCustom from '../tag/TagCustom.vue';
 
 interface Section {
-  icon: string;
+  icon?: string;
   content: Array<any>;
-  fullwidthContent: Array<any>;
+  fullwidthContent?: Array<any>;
 }
 
 withDefaults(

@@ -25,7 +25,7 @@
       >
         <img
           :src="mainImage.url"
-          :alt="mainImage.desc"
+          :alt="mainImage.desc as string || ''"
           class="w-full"
           @error="onMainImageError"
         />
@@ -86,6 +86,11 @@ import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
 import { usePropertyMapping } from '../../api';
 
+interface GalleryImage {
+  ImageUrl: string;
+  ImageDesc: Record<string, unknown>;
+}
+
 const { isError, isSuccess, error, data } = useApiReadForCurrentDataset();
 
 const forcePlaceholderImage = ref(false);
@@ -96,15 +101,28 @@ const currentLocale = locale.value;
 const { mapWithIndex } = usePropertyMapping();
 
 const title = computed(() => {
-  return getValueOfLocale(currentLocale, data.value.Detail)?.Title || '/';
+  return (
+    (
+      getValueOfLocale(
+        currentLocale,
+        (data.value as Record<string, unknown>).Detail as Record<
+          string,
+          unknown
+        >
+      ) as Record<string, unknown>
+    )?.Title || '/'
+  );
 });
 
 const id = computed(() => {
-  return data.value.Id;
+  return (data.value as Record<string, unknown>).Id;
 });
 
 const hasImage = computed(() => {
-  return imageGallery.value?.ImageUrl?.length > 0;
+  return (
+    imageGallery.value?.length > 0 &&
+    imageGallery.value?.[0].ImageUrl?.length > 0
+  );
 });
 
 const mainImage = computed(() => {
@@ -119,21 +137,25 @@ const mainImage = computed(() => {
         url: firstImage.ImageUrl,
         desc: getValueOfLocale(currentLocale, firstImage.ImageDesc),
       }
-    : {
-        url: 'https://via.placeholder.com/700x350?text=Missing+image', // NOTE: this is a demo image to preview the gallery functionality on datasets without a gallery. It should be removed for the final release.
-        desc: 'Placeholder image',
-      };
+    : null;
 });
 
 const imageGallery = computed(() => {
-  return (
-    data.value[odhActivityPoiConfig.views?.quick?.topGallery?.fields.gallery] ||
-    []
-  );
+  return ((data.value as Record<string, unknown>)[
+    odhActivityPoiConfig.views?.quick?.topGallery?.fields.gallery as string
+  ] || []) as GalleryImage[];
 });
 
 const logoUrl = computed(() => {
-  return getValueOfLocale(currentLocale, data.value.ContactInfos)?.LogoUrl;
+  return (
+    getValueOfLocale(
+      currentLocale,
+      (data.value as Record<string, unknown>).ContactInfos as Record<
+        string,
+        unknown
+      >
+    ) as Record<string, unknown>
+  )?.LogoUrl;
 });
 
 const onMainImageError = () => {

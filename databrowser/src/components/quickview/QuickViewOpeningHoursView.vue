@@ -30,6 +30,7 @@ interface ScheduleTime {
 
 interface ScheduleData {
   OperationScheduleTime: Array<ScheduleTime>;
+  OperationscheduleName: Record<string, unknown>;
   Start: string;
   Stop: string;
 }
@@ -43,19 +44,23 @@ const props = withDefaults(
   }
 );
 
+const getTimeValue = (schedule: ScheduleTime, key: keyof ScheduleTime) => {
+  return schedule[key];
+};
+
 const operationSchedule = computed(() => {
   let foundHours = false;
 
   const timing = props.scheduleData ? [...props.scheduleData] : [];
 
   const days = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
+    'Monday' as keyof ScheduleTime,
+    'Tuesday' as keyof ScheduleTime,
+    'Wednesday' as keyof ScheduleTime,
+    'Thursday' as keyof ScheduleTime,
+    'Friday' as keyof ScheduleTime,
+    'Saturday' as keyof ScheduleTime,
+    'Sunday' as keyof ScheduleTime,
   ];
 
   const parsedData = [];
@@ -74,12 +79,12 @@ const operationSchedule = computed(() => {
           State: schedule.State,
           Timecode: schedule.Timecode,
           Day: d.slice(0, 3).toUpperCase(),
-          Open: schedule[d],
+          Open: getTimeValue(schedule, d),
         });
       }
       operationScheduleTime.push(daysHours);
     }
-    time.OperationScheduleTime = operationScheduleTime;
+    time.OperationScheduleTime = operationScheduleTime[0];
     parsedData.push({
       ...time,
       OperationScheduleTime: operationScheduleTime,
@@ -103,7 +108,10 @@ const operationScheduleSections = computed(() => {
       content: [
         {
           title: getTextValue(
-            getValueOfLocale(currentLocale, schedule.OperationscheduleName)
+            getValueOfLocale(
+              'currentLocale',
+              schedule.OperationscheduleName
+            ) as string
           ),
           text: schedule.TimePeriodRange,
         },

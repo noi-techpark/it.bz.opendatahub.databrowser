@@ -38,7 +38,6 @@ const recordInformationSections = computed(() => {
   const isSourceActive = props.active;
   const isODHActive = props.odhActive;
 
-  // FIXME: change based on dataset
   const isSuedtirolInfoActive = false;
   return [
     {
@@ -76,7 +75,7 @@ const recordInformationSections = computed(() => {
   ];
 });
 
-const getTagActiveInfoObject = ({ active }) => {
+const getTagActiveInfoObject = ({ active }: { active: boolean }) => {
   return {
     size: 'md',
     type: active ? 'blue' : 'red',
