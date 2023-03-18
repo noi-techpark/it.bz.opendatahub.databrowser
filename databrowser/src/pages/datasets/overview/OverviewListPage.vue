@@ -45,10 +45,10 @@ import OverviewCardItem from './OverviewCardItem.vue';
 import PartnersAndContributors from '../../../components/partners/PartnersAndContributors.vue';
 import CardDivider from '../../../components/card/CardDivider.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
-import { useMetaData } from '../../../domain/metaDataConfig/tourism/useMetaData';
+import { useMetaDataQuery } from '../../../domain/metaDataConfig/tourism/useMetaDataQuery';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 
-const metaData = useMetaData();
+const metaData = useMetaDataQuery();
 const results = computed<TourismMetaData[]>(() => {
   const datasets = metaData.data?.value ?? [];
   if (currentAccessType.value === 'opendata') {

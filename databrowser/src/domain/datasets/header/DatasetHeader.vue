@@ -21,16 +21,96 @@
     </div>
 
     <!-- More info -->
-    <ButtonCustom
-      v-if="datasetConfigStore.hasConfig"
-      variant="ghost"
-      size="xs"
-      class="mr-1 flex h-6 items-center py-1 px-3"
-      data-test="more-info-button"
-    >
-      <IconInfo class="mr-2 stroke-current" />
-      <span class="line-height-1">{{ t('datasets.header.moreInfo') }}</span>
-    </ButtonCustom>
+    <TooltipCustom v-if="datasetConfigStore.hasConfig">
+      <template #default>
+        <ButtonCustom
+          variant="ghost"
+          size="xs"
+          class="mr-1 flex h-6 items-center py-1 px-3"
+          data-test="more-info-button"
+        >
+          <IconInfo class="mr-2 stroke-current" />
+          <span class="line-height-1">{{ t('datasets.header.moreInfo') }}</span>
+        </ButtonCustom>
+      </template>
+      <template #container>
+        <div v-if="currentMetaData != null">
+          <div
+            class="mr-1 mb-2 text-sm font-bold text-black md:w-auto md:text-base"
+          >
+            <DatasetTitle :name="datasetName" :parent="datasetParent" />
+          </div>
+          <div class="mb-4">
+            {{ currentMetaData.description }}
+          </div>
+          <div class="mb-5 flex justify-between gap-5">
+            <CardIconGrid class="gap-2">
+              <IconAvailibilityOfData class="-mt-0.5" />
+              <div class="flex flex-col gap-2 leading-tight text-gray-600">
+                <span class="font-semibold">Availability of data</span>
+                <TagCustom
+                  v-if="currentMetaData.access === 'opendata'"
+                  size="xs"
+                  type="blue"
+                  text="Full access"
+                  has-dot
+                />
+                <TagCustom
+                  v-if="
+                    currentMetaData.access === 'limited' ||
+                    currentMetaData.access === 'closed'
+                  "
+                  size="xs"
+                  type="yellow"
+                  text="Limited access"
+                  has-dot
+                />
+              </div>
+            </CardIconGrid>
+
+            <CardIconGrid class="gap-2">
+              <IconNumberOfRecords class="mt-0.5" />
+              <div class="flex flex-col gap-2 leading-tight text-gray-600">
+                <span class="font-semibold">Available records</span>
+                <ul v-if="currentMetaData.recordCount">
+                  <li
+                    v-if="currentMetaData.recordCount.open"
+                    class="flex justify-between"
+                  >
+                    <span>open</span>
+                    <span>{{ currentMetaData.recordCount.open }}</span>
+                  </li>
+                  <li
+                    v-if="currentMetaData.recordCount.reduced"
+                    class="flex justify-between"
+                  >
+                    <span>reduced</span>
+                    <span>{{ currentMetaData.recordCount.reduced }}</span>
+                  </li>
+                  <li
+                    v-if="currentMetaData.recordCount.closed"
+                    class="flex justify-between"
+                  >
+                    <span>closed</span>
+                    <span>{{ currentMetaData.recordCount.closed }}</span>
+                  </li>
+                </ul>
+              </div>
+            </CardIconGrid>
+          </div>
+          <ButtonLink
+            :to="{
+              name: 'OverviewDetailPage',
+              params: { id: currentMetaData.id },
+            }"
+            :variant="Variant.ghost"
+            class="w-full justify-center border-hint-info"
+          >
+            Dataset details
+          </ButtonLink>
+        </div>
+      </template>
+    </TooltipCustom>
 
     <!-- Popup -->
     <DatasetHeaderConfigPopup
@@ -81,9 +161,14 @@ import AddRecordButton from './AddRecordButton.vue';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { SourceType } from '../../datasetConfig/source/types';
 import TagCustom from '../../../components/tag/TagCustom.vue';
-import { useCurrentMetaData } from '../../metaDataConfig/tourism/useCurrentMetaData';
-import { useRouter } from 'vue-router';
+import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
 import DatasetTitle from '../common/DatasetTitle.vue';
+import TooltipCustom from '../../../components/tooltip/TooltipCustom.vue';
+import CardIconGrid from '../../../components/card/CardIconGrid.vue';
+import IconAvailibilityOfData from '../../../components/svg/IconAvailibilityOfData.vue';
+import IconNumberOfRecords from '../../../components/svg/IconNumberOfRecords.vue';
+import { Variant } from '../../../components/button/types';
+import ButtonLink from '../../../components/button/ButtonLink.vue';
 
 const { t } = useI18n();
 
@@ -103,12 +188,7 @@ const showAddRecord = computed(
     datasetConfigStore.hasCreatePermission
 );
 
-const pathParams = computed(
-  () => datasetConfigStore.config?.route.pathParams ?? []
-);
-const { currentRoute } = useRouter();
-const query = computed(() => currentRoute.value.query);
-const { currentMetaData } = useCurrentMetaData(pathParams, query);
+const { currentMetaData } = useMetaDataForCurrentRoute();
 
 const datasetName = computed(
   () =>

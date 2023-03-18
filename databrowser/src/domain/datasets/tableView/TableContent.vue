@@ -41,26 +41,14 @@
           >
             <DetailsLink
               v-if="showQuick"
-              :to="{
-                name: DatasetPage.QUICK,
-                params: {
-                  id: rowId(row),
-                },
-                query: { language: language },
-              }"
+              :to="quickViewPathForId(rowId(row)).value"
               :title="t('datasets.listView.linkQuick')"
               data-test="dataset-quick-link"
             >
               <IconLayer class="stroke-current" />
             </DetailsLink>
             <DetailsLink
-              :to="{
-                name: DatasetPage.DETAIL,
-                params: {
-                  id: rowId(row),
-                },
-                query: { language: language },
-              }"
+              :to="detailViewPathForId(rowId(row)).value"
               :title="t('datasets.listView.linkDetails')"
               data-test="dataset-detail-link"
             >
@@ -68,26 +56,14 @@
             </DetailsLink>
             <DetailsLink
               v-if="showEdit"
-              :to="{
-                name: DatasetPage.EDIT,
-                params: {
-                  id: rowId(row),
-                },
-                query: { language: language },
-              }"
+              :to="editViewPathForId(rowId(row)).value"
               :title="t('datasets.listView.linkEdit')"
               data-test="dataset-edit-link"
             >
               <IconEdit class="stroke-current" />
             </DetailsLink>
             <DetailsLink
-              :to="{
-                name: DatasetPage.RAW,
-                params: {
-                  id: rowId(row),
-                },
-                query: { language: language },
-              }"
+              :to="rawViewPathForId(rowId(row)).value"
               :title="t('datasets.listView.linkRaw')"
               data-test="dataset-raw-link"
             >
@@ -110,12 +86,12 @@ import TableCell from '../../../components/table/TableCell.vue';
 import IconEye from '../../../components/svg/IconEye.vue';
 import DetailsLink from './DetailsLink.vue';
 import { ListElements } from '../../datasetConfig/types';
-import { useApiQuery, usePropertyMapping } from '../../api';
+import { usePropertyMapping } from '../../api';
 import IconCode from '../../../components/svg/IconCode.vue';
 import IconLayer from '../../../components/svg/IconLayer.vue';
 import IconEdit from '../../../components/svg/IconEdit.vue';
 import { useI18n } from 'vue-i18n';
-import { DatasetPage } from '../../../routes';
+import { usePathsForCurrentRoute } from '../header/usePaths';
 
 const { t } = useI18n();
 
@@ -134,7 +110,13 @@ const props = withDefaults(
 const { rows, renderElements } = toRefs(props);
 
 const { mapWithIndex } = usePropertyMapping();
-const language = useApiQuery().useApiParameter('language');
 
 const rowId = (row: any) => row.Id ?? row.id;
+
+const {
+  detailViewPathForId,
+  quickViewPathForId,
+  rawViewPathForId,
+  editViewPathForId,
+} = usePathsForCurrentRoute();
 </script>

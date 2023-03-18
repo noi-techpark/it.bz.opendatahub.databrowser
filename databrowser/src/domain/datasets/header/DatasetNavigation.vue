@@ -64,7 +64,7 @@ import ButtonLink from '../../../components/button/ButtonLink.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import TabLink from '../../../components/tab/TabLink.vue';
 import { useI18n } from 'vue-i18n';
-import { usePaths } from './usePaths';
+import { usePathsForCurrentRoute } from './usePaths';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { computed } from 'vue';
 
@@ -79,7 +79,7 @@ const {
   editViewPath,
   tableViewPath,
   newViewPath,
-} = usePaths();
+} = usePathsForCurrentRoute();
 
 const isNewView = computed(() => datasetConfigStore.isNewView);
 
