@@ -104,7 +104,7 @@ const showAddRecord = computed(
 );
 
 const pathParams = computed(
-  () => datasetConfigStore.config?.route.pathParams.slice(1) ?? []
+  () => datasetConfigStore.config?.route.pathParams ?? []
 );
 const { currentRoute } = useRouter();
 const query = computed(() => currentRoute.value.query);
