@@ -44,59 +44,8 @@
             {{ currentMetaData.description }}
           </div>
           <div class="mb-5 flex justify-between gap-5">
-            <CardIconGrid class="gap-2">
-              <IconAvailibilityOfData class="-mt-0.5" />
-              <div class="flex flex-col gap-2 leading-tight text-gray-600">
-                <span class="font-semibold">Availability of data</span>
-                <TagCustom
-                  v-if="currentMetaData.access === 'opendata'"
-                  size="xs"
-                  type="blue"
-                  text="Full access"
-                  has-dot
-                />
-                <TagCustom
-                  v-if="
-                    currentMetaData.access === 'limited' ||
-                    currentMetaData.access === 'closed'
-                  "
-                  size="xs"
-                  type="yellow"
-                  text="Limited access"
-                  has-dot
-                />
-              </div>
-            </CardIconGrid>
-
-            <CardIconGrid class="gap-2">
-              <IconNumberOfRecords class="mt-0.5" />
-              <div class="flex flex-col gap-2 leading-tight text-gray-600">
-                <span class="font-semibold">Available records</span>
-                <ul v-if="currentMetaData.recordCount">
-                  <li
-                    v-if="currentMetaData.recordCount.open"
-                    class="flex justify-between"
-                  >
-                    <span>open</span>
-                    <span>{{ currentMetaData.recordCount.open }}</span>
-                  </li>
-                  <li
-                    v-if="currentMetaData.recordCount.reduced"
-                    class="flex justify-between"
-                  >
-                    <span>reduced</span>
-                    <span>{{ currentMetaData.recordCount.reduced }}</span>
-                  </li>
-                  <li
-                    v-if="currentMetaData.recordCount.closed"
-                    class="flex justify-between"
-                  >
-                    <span>closed</span>
-                    <span>{{ currentMetaData.recordCount.closed }}</span>
-                  </li>
-                </ul>
-              </div>
-            </CardIconGrid>
+            <OverviewInfoDataAvailability :dataset="currentMetaData" />
+            <OverviewInfoRecordCount :dataset="currentMetaData" />
           </div>
           <ButtonLink
             :to="{
@@ -164,11 +113,10 @@ import TagCustom from '../../../components/tag/TagCustom.vue';
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
 import DatasetTitle from '../common/DatasetTitle.vue';
 import TooltipCustom from '../../../components/tooltip/TooltipCustom.vue';
-import CardIconGrid from '../../../components/card/CardIconGrid.vue';
-import IconAvailibilityOfData from '../../../components/svg/IconAvailibilityOfData.vue';
-import IconNumberOfRecords from '../../../components/svg/IconNumberOfRecords.vue';
 import { Variant } from '../../../components/button/types';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
+import OverviewInfoDataAvailability from '../../../pages/datasets/overview/OverviewInfoDataAvailability.vue';
+import OverviewInfoRecordCount from '../../../pages/datasets/overview/OverviewInfoRecordCount.vue';
 
 const { t } = useI18n();
 
