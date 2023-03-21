@@ -6,7 +6,7 @@
     :style="style"
     @error="hasLoadingError = true"
   />
-  <PlaceholderImage v-else class="py-8" />
+  <PlaceholderImage v-else />
 </template>
 
 <script setup lang="ts">
