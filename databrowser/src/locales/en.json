@@ -89,8 +89,10 @@
       "columnSizeSmall": "small",
       "columnSizeMedium": "medium",
       "columnSizeLarge": "large",
+      "datasetDetails": "Dataset details",
       "moreInfo": "More info",
       "moreInformation": "More information",
+      "noViewConfig": "No view config found, try to change the view using the provided button",
       "lessInformation": "Less information",
       "selectColumnSize": "Select size of columns",
       "switchViews": "Switch between views",
@@ -131,5 +133,41 @@
   "components": {
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "overview": {
+    "cardItem": {
+      "accessTableView": "Access to table view",
+      "showDatasetApi": "Show dataset API"
+    },
+    "dataset": {
+      "titleJoiner": "from"
+    },
+    "hero": {
+      "details": "Details"
+    },
+    "info": {
+      "dataAvailability": {
+        "accessLimited": "Limited access",
+        "accessFull": "Full access",
+        "availability": "Availability of data"
+      },
+      "recordCount": {
+        "availableRecords": "Available records",
+        "closed": "closed",
+        "open": "open",
+        "reduced": "reduced"
+      },
+      "sources": {
+        "sources": "Sources"
+      }
+    },
+    "listPage": {
+      "accessOfData": "Access of data",
+      "accessTypeAll": "All access types",
+      "accessTypeLimited": "Limited access",
+      "accessTypeOpen": "Full access",
+      "listOfAllDatasets": "List of all datasets",
+      "showAllEndpoints": "Show all available Endpoints"
+    }
   }
 }

@@ -11,7 +11,7 @@
         <DatasetTitle :name="datasetName" :parent="datasetParent" />
       </span>
       <span v-else class="mr-3 text-base">
-        No view config found, try to change the view using the provided button
+        {{ t('datasets.header.noViewConfig') }}
       </span>
       <AddRecordButton
         v-if="showAddRecord"
@@ -55,7 +55,7 @@
             :variant="Variant.ghost"
             class="w-full justify-center border-hint-info"
           >
-            Dataset details
+            {{ t('datasets.header.datasetDetails') }}
           </ButtonLink>
         </div>
       </template>

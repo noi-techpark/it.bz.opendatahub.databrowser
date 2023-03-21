@@ -1,13 +1,15 @@
 <template>
   <AppLayout>
     <HeroContainer>
-      <HeroTitle>List of all datasets</HeroTitle>
+      <HeroTitle>
+        {{ t('overview.listPage.listOfAllDatasets') }}
+      </HeroTitle>
       <router-link
         to="/links"
         class="text-green-500"
         data-test="all-endpoints-link"
       >
-        Show all available Endpoints
+        {{ t('overview.listPage.showAllEndpoints') }}
       </router-link>
     </HeroContainer>
 
@@ -15,7 +17,7 @@
       <SelectWithLabel
         id="access-of-data"
         class="md:w-1/6"
-        label="Access of data"
+        :label="t('overview.listPage.accessOfData')"
         :options="accessTypeOptions"
         :value="currentAccessType"
         @change="currentAccessType = $event"
@@ -47,6 +49,9 @@ import CardDivider from '../../../components/card/CardDivider.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
 import { useMetaDataQuery } from '../../../domain/metaDataConfig/tourism/useMetaDataQuery';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const metaData = useMetaDataQuery();
 const results = computed<TourismMetaData[]>(() => {
@@ -65,15 +70,15 @@ const currentAccessType = ref('all');
 
 const accessTypeOptions = computed<SelectOption[]>(() => [
   {
-    label: 'All access types',
+    label: t('overview.listPage.accessTypeAll'),
     value: 'all',
   },
   {
-    label: 'Full access',
+    label: t('overview.listPage.accessTypeOpen'),
     value: 'opendata',
   },
   {
-    label: 'Limited access',
+    label: t('overview.listPage.accessTypeLimited'),
     value: 'limited',
   },
 ]);

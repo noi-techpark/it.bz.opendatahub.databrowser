@@ -3,7 +3,9 @@
     <HeroTitle>
       <DatasetTitle :name="dataset.shortname" :parent="dataset.apiIdentifier" />
     </HeroTitle>
-    <HeroSubTitle class="lg:mt-3">Details</HeroSubTitle>
+    <HeroSubTitle class="lg:mt-3">
+      {{ t('overview.hero.details') }}
+    </HeroSubTitle>
     <div
       class="mt-4 grid w-full grid-cols-2 gap-4 rounded bg-white p-5 md:grid-cols-4 md:gap-16"
     >
@@ -24,6 +26,9 @@ import DatasetTitle from '../../../domain/datasets/common/DatasetTitle.vue';
 import OverviewInfoSources from './OverviewInfoSources.vue';
 import OverviewInfoDataAvailability from './OverviewInfoDataAvailability.vue';
 import OverviewInfoRecordCount from './OverviewInfoRecordCount.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 defineProps<{ dataset: TourismMetaData }>();
 </script>

@@ -38,30 +38,7 @@
     <CardText>
       {{ dataset.description }}
     </CardText>
-    <CardIconGrid class="mt-5">
-      <IconSource class="mt-0.5" />
-      <div class="flex flex-col leading-tight text-gray-600">
-        <span class="font-semibold">Sources</span>
-        <div class="flex">
-          {{ dataset.sources[0] }}
-          <TooltipCustom v-if="dataset.sources.length > 0">
-            <template #default>
-              <button
-                v-if="dataset.sources.length > 1"
-                class="ml-1 text-green-700"
-              >
-                +{{ dataset.sources.length - 1 }} others
-              </button>
-            </template>
-            <template #container>
-              <span class="text-sm text-dialog">
-                {{ dataset.sources.slice(1).join(', ') }}
-              </span>
-            </template>
-          </TooltipCustom>
-        </div>
-      </div>
-    </CardIconGrid>
+    <OverviewInfoSources :dataset="dataset" />
     <CardDivider />
     <CardActions>
       <ButtonLink
@@ -77,7 +54,7 @@
         :data-test="`dataset-table-link-${dataset.id}`"
       >
         <IconTable />
-        Access to table view
+        {{ t('overview.cardItem.accessTableView') }}
       </ButtonLink>
       <ButtonRawLink
         target="_blank"
@@ -87,7 +64,9 @@
         :data-test="`dataset-api-link-${dataset.id}`"
       >
         <IconLink />
-        <span class="uppercase">Show dataset API</span>
+        <span class="uppercase">
+          {{ t('overview.cardItem.showDatasetApi') }}
+        </span>
       </ButtonRawLink>
     </CardActions>
   </CardContainer>
@@ -104,15 +83,16 @@ import { Size, Variant } from '../../../components/button/types';
 import IconLink from '../../../components/svg/IconLink.vue';
 import ButtonRawLink from '../../../components/button/ButtonRawLink.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
-import CardIconGrid from '../../../components/card/CardIconGrid.vue';
-import IconSource from '../../../components/svg/IconSource.vue';
-import TooltipCustom from '../../../components/tooltip/TooltipCustom.vue';
 import CardDivider from '../../../components/card/CardDivider.vue';
 import CardActions from '../../../components/card/CardActions.vue';
 import IconTable from '../../../components/svg/IconTable.vue';
 import ArrowLine from '../../../components/svg/ArrowLine.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import DatasetTitle from '../../../domain/datasets/common/DatasetTitle.vue';
+import { useI18n } from 'vue-i18n';
+import OverviewInfoSources from './OverviewInfoSources.vue';
+
+const { t } = useI18n();
 
 defineProps<{ dataset: TourismMetaData }>();
 </script>
