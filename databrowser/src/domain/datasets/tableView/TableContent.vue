@@ -21,9 +21,10 @@
       <tr v-if="rows.length === 0">
         <TableCell
           :colspan="renderElements.length + 1"
+          class="border-none"
           data-test="dataset-table-no-results"
         >
-          {{ t('datasets.listView.noData') }}
+          <TableDataEmpty />
         </TableCell>
       </tr>
       <tr v-for="(row, index) in rows" :key="index">
@@ -92,6 +93,7 @@ import IconLayer from '../../../components/svg/IconLayer.vue';
 import IconEdit from '../../../components/svg/IconEdit.vue';
 import { useI18n } from 'vue-i18n';
 import { usePathsForCurrentRoute } from '../header/usePaths';
+import TableDataEmpty from './TableDataEmpty.vue';
 
 const { t } = useI18n();
 

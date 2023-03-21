@@ -112,7 +112,10 @@
       "linkRaw": "Raw view",
       "linkQuick": "Quick view",
       "loadingData": "Loading data",
-      "noData": "No data",
+      "noData": {
+        "dataDoesNotExist": "You were looking for data that does not exist!",
+        "suggestion": "Please rethink your request"
+      },
       "of": "of"
     },
     "navigation": {
