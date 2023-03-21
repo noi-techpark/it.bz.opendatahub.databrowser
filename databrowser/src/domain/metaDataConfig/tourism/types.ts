@@ -1,6 +1,7 @@
 export interface TourismMetaData {
   id: string;
-  title: string;
+  shortname: string;
+  apiIdentifier: string;
   description: string;
   output: string;
   apiVersion: string;

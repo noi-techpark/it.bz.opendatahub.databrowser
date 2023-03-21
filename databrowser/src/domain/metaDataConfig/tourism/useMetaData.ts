@@ -1,91 +1,79 @@
-import { parse } from 'date-fns';
-import { useQuery } from 'vue-query';
-import { withOdhBaseUrl } from '../../../config/utils';
-import { unifyPagination, useAxiosFetcher } from '../../api';
-import { TourismMetaData } from './types';
+import { computed, Ref } from 'vue';
+import { PathParams } from '../../datasetConfig/types';
+import { useMetaDataQuery } from './useMetaDataQuery';
+import { stringifyParameter } from '../../api';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { useRouter } from 'vue-router';
 
-interface OdhTourismMetaData {
-  ApiIdentifier: string;
-  ApiFilter: string[];
-  Id: string;
-  OdhType: string;
-  SwaggerUrl: string;
-  Self: string;
-  ApiUrl: string;
-  Deprecated: boolean;
-  SingleDataset: boolean;
-  FirstImport: string;
-  LastChange: string;
-  Shortname: string;
-  Sources: string[];
-  RecordCount: { open?: number; closed?: number; reduced?: number };
-  Output: Record<string, string>;
-  ApiDescription: Record<string, string>;
-  ApiVersion: string;
-  PathParam: string[];
-  PublishedOn: string[];
-  ApiAccess: Record<string, string>;
-}
+type Query = Record<string, string | null | (string | null)[]>;
 
-const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
+// Return the metadata for the current route
+export const useMetaDataForCurrentRoute = () => {
+  const datasetConfigStore = useDatasetConfigStore();
+  const pathParams = computed(
+    () => datasetConfigStore.config?.route.pathParams ?? []
+  );
+  const { currentRoute } = useRouter();
+  const query = computed(() => currentRoute.value.query);
+  return useMetaDataForRoute(pathParams, query);
+};
 
-export const useMetaData = () => {
-  const queryKey = metaDataUrl;
-  const queryFn = useAxiosFetcher<OdhTourismMetaData>();
-  return useQuery({
-    queryKey,
-    queryFn,
-    select(data): TourismMetaData[] {
-      if (data?.data == null) {
-        return [];
-      }
-      const paginationData = unifyPagination(data.data);
-      // Map ODH MetaData to internal format
-      return paginationData.items
-        .map<TourismMetaData>((dataset) => ({
-          id: dataset.Id,
-          title: dataset.ApiIdentifier,
-          description: dataset.ApiDescription.en,
-          output: Object.values(dataset.Output ?? {}).join(', '),
-          apiVersion: dataset.ApiVersion,
-          swaggerUrl: dataset.SwaggerUrl,
-          access: parseAccess(dataset.ApiAccess),
-          pathParam: dataset.PathParam,
-          externalLink: dataset.ApiUrl,
-          sources: dataset.Sources,
-          lastUpdated: parse(
-            dataset.LastChange,
-            'dd.MM.yyyy HH:mm',
-            new Date()
-          ),
-          apiFilter: parseApiFilter(dataset.ApiFilter),
-          recordCount: dataset.RecordCount as Record<string, number>,
-          deprecated: dataset.Deprecated,
-        }))
-        .sort((a, b) => a?.title?.localeCompare(b?.title));
-    },
+// Return the metadata for the route specified by the path params and query
+export const useMetaDataForRoute = (
+  pathParams: Ref<PathParams>,
+  query: Ref<Query>
+) => {
+  const metaData = useMetaDataQuery();
+
+  const currentMetaData = computed(() => {
+    const candidates = (metaData.data.value ?? [])
+      .filter((md) => {
+        if (!pathsMatch(pathParams.value, md.pathParam)) {
+          return false;
+        }
+
+        const queryAsObject = queryToObject(query.value);
+        return filterContainedInQuery(md.apiFilter ?? {}, queryAsObject);
+      })
+      // There may be more than one candidate, for example if the query contains
+      // a filter that is not present in the API filter (e.g. language). In that
+      // case, we want to pick the one with the most filters, as that is the most
+      // specific.
+      .sort(
+        (a, b) =>
+          Object.keys(b.apiFilter ?? {}).length -
+          Object.keys(a.apiFilter ?? {}).length
+      );
+
+    return candidates.length > 0 ? candidates[0] : undefined;
   });
+
+  return { currentMetaData };
 };
 
-const parseAccess = (
-  apiAccess: Record<string, string>
-): TourismMetaData['access'] => {
-  // apiAccess is an object with keys like "open", "closed", "reduced" and values like "open", "closed", "reduced"
-  const accessTypes = new Set(Object.values(apiAccess));
-  if (accessTypes.has('closed')) {
-    return 'closed';
-  }
-  if (accessTypes.has('reduced')) {
-    return 'limited';
-  }
-  if (accessTypes.has('open')) {
-    return 'opendata';
-  }
-  return 'unknown';
-};
+const pathsMatch = (path1: PathParams, path2: PathParams) =>
+  JSON.stringify(path1).localeCompare(JSON.stringify(path2)) === 0;
 
-const parseApiFilter = (filters?: string[]) =>
-  (filters ?? []).reduce<Record<string, string>>((prev, curr) => {
-    const [key, value] = curr.split('=');
-    return { ...prev, [key]: value };
-  }, {});
+const queryToObject = (query: Query) =>
+  Object.entries(query).reduce<Record<string, string>>(
+    (prev, [key, value]) => ({ ...prev, [key]: stringifyParameter(value) }),
+    {}
+  );
+
+const filterContainedInQuery = (
+  apiFilter: Record<string, string>,
+  query: Record<string, string>
+) => {
+  const apiFilterKeys = Object.keys(apiFilter);
+  const queryKeys = Object.keys(query);
+
+  // If there are more API filter keys than query keys, the filter cannot be contained in the query
+  if (apiFilterKeys.length > queryKeys.length) {
+    return false;
+  }
+
+  // Check if all API filter key / values are present in the query
+  return Object.entries(apiFilter).every(
+    ([key, value]) => query[key] === value
+  );
+};

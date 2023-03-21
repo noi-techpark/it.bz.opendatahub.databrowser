@@ -3,7 +3,9 @@
     <div
       class="flex items-center justify-between bg-gray-50 py-2 text-xl uppercase"
     >
-      <TabButton :active="true">More information</TabButton>
+      <TabButton :active="true">
+        {{ t('overview.cardTabs.moreInfo') }}
+      </TabButton>
     </div>
     <TableCustom>
       <colgroup>
@@ -12,15 +14,15 @@
       </colgroup>
       <TableBody>
         <tr>
-          <TableCell>Output</TableCell>
+          <TableCell>{{ t('overview.cardTabs.output') }}</TableCell>
           <TableCell>{{ dataset.output }}</TableCell>
         </tr>
         <tr>
-          <TableCell>API version</TableCell>
+          <TableCell>{{ t('overview.cardTabs.apiVersion') }}</TableCell>
           <TableCell>{{ dataset.apiVersion }}</TableCell>
         </tr>
         <tr>
-          <TableCell>Swagger URL</TableCell>
+          <TableCell>{{ t('overview.cardTabs.swaggerUrl') }}</TableCell>
           <TableCell>
             <ExternalLink
               class="w-fit break-words"
@@ -32,22 +34,22 @@
           </TableCell>
         </tr>
         <tr>
-          <TableCell>Sources</TableCell>
+          <TableCell>{{ t('overview.cardTabs.sources') }}</TableCell>
           <TableCell>{{ dataset.sources.join(', ') }}</TableCell>
         </tr>
         <tr>
-          <TableCell>OpenData</TableCell>
+          <TableCell>{{ t('overview.cardTabs.openData') }}</TableCell>
           <TableCell>{{ dataset.access }}</TableCell>
         </tr>
         <tr>
-          <TableCell>Contact and support</TableCell>
+          <TableCell>{{ t('overview.cardTabs.contact') }}</TableCell>
           <TableCell>
             <ExternalLink
               class="w-fit"
-              href="mailto:info@opendatahub.com"
+              :href="`mailto:${t('contact.emailInfo')}`"
               tone="primary"
             >
-              info@opendatahub.com
+              {{ t('contact.emailInfo') }}
             </ExternalLink>
           </TableCell>
         </tr>
@@ -65,6 +67,9 @@ import TableBody from '../../../components/table/TableBody.vue';
 import TableCell from '../../../components/table/TableCell.vue';
 import ExternalLink from '../../../components/link/ExternalLink.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 defineProps<{ dataset: TourismMetaData }>();
 </script>

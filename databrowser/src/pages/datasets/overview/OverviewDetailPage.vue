@@ -30,12 +30,12 @@ import PartnersAndContributors from '../../../components/partners/PartnersAndCon
 import CardDivider from '../../../components/card/CardDivider.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
 import OverviewCardSuggestion from './OverviewCardSuggestion.vue';
-import { useMetaData } from '../../../domain/metaDataConfig/tourism/useMetaData';
+import { useMetaDataQuery } from '../../../domain/metaDataConfig/tourism/useMetaDataQuery';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 
 const route = useRoute();
 
-const metaData = useMetaData();
+const metaData = useMetaDataQuery();
 const dataset = computed<TourismMetaData | undefined>(() => {
   return (metaData.data?.value ?? []).find(
     (dataset) => dataset.id === route.params.id
@@ -55,7 +55,7 @@ watch(
         (dataset) => dataset.id !== route.params.id
       ),
       3
-    ).sort((a, b) => a.title.localeCompare(b.title));
+    ).sort((a, b) => a.shortname?.localeCompare(b.shortname));
   },
   { immediate: true }
 );
