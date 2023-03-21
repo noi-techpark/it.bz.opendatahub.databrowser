@@ -41,33 +41,8 @@
     <OverviewInfoSources :dataset="dataset" />
     <CardDivider />
     <CardActions>
-      <ButtonLink
-        :size="Size.xm2col"
-        :to="{
-          name: DatasetPage.TABLE,
-          params: {
-            domain: 'tourism',
-            pathParams: dataset.pathParam,
-          },
-          query: dataset.apiFilter,
-        }"
-        :data-test="`dataset-table-link-${dataset.id}`"
-      >
-        <IconTable />
-        {{ t('overview.cardItem.accessTableView') }}
-      </ButtonLink>
-      <ButtonRawLink
-        target="_blank"
-        :href="dataset.externalLink"
-        :size="Size.xm2col"
-        :variant="Variant.ghost"
-        :data-test="`dataset-api-link-${dataset.id}`"
-      >
-        <IconLink />
-        <span class="uppercase">
-          {{ t('overview.cardItem.showDatasetApi') }}
-        </span>
-      </ButtonRawLink>
+      <OverviewLinkTable :dataset="dataset" />
+      <OverviewLinkApi :dataset="dataset" />
     </CardActions>
   </CardContainer>
 </template>
@@ -77,22 +52,15 @@ import { defineProps } from 'vue';
 import CardContainer from '../../../components/card/CardContainer.vue';
 import CardTitle from '../../../components/card/CardTitle.vue';
 import CardText from '../../../components/card/CardText.vue';
-import ButtonLink from '../../../components/button/ButtonLink.vue';
-import { DatasetPage } from '../../../routes';
-import { Size, Variant } from '../../../components/button/types';
-import IconLink from '../../../components/svg/IconLink.vue';
-import ButtonRawLink from '../../../components/button/ButtonRawLink.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import CardDivider from '../../../components/card/CardDivider.vue';
 import CardActions from '../../../components/card/CardActions.vue';
-import IconTable from '../../../components/svg/IconTable.vue';
 import ArrowLine from '../../../components/svg/ArrowLine.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import DatasetTitle from '../../../domain/datasets/common/DatasetTitle.vue';
-import { useI18n } from 'vue-i18n';
 import OverviewInfoSources from './OverviewInfoSources.vue';
-
-const { t } = useI18n();
+import OverviewLinkTable from './OverviewLinkTable.vue';
+import OverviewLinkApi from './OverviewLinkApi.vue';
 
 defineProps<{ dataset: TourismMetaData }>();
 </script>
