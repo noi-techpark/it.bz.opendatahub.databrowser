@@ -18,21 +18,7 @@
       <template #right>
         <div class="flex gap-3 md:justify-self-end">
           <TagCustom size="xs" type="black" text="Tourism" />
-          <!-- TODO: extract these tags -->
-          <TagCustom
-            v-if="dataset.access === 'opendata'"
-            size="xs"
-            type="blue"
-            text="Full access"
-            has-dot
-          />
-          <TagCustom
-            v-if="dataset.access === 'limited' || dataset.access === 'closed'"
-            size="xs"
-            type="yellow"
-            text="Limited access"
-            has-dot
-          />
+          <OverviewTagAccess :dataset="dataset" />
         </div>
       </template>
     </CardTitle>
@@ -62,6 +48,7 @@ import DatasetTitle from '../../../domain/datasets/common/DatasetTitle.vue';
 import OverviewInfoSources from './OverviewInfoSources.vue';
 import OverviewLinkTable from './OverviewLinkTable.vue';
 import OverviewLinkApi from './OverviewLinkApi.vue';
+import OverviewTagAccess from './OverviewTagAccess.vue';
 
 defineProps<{ dataset: TourismMetaData }>();
 </script>
