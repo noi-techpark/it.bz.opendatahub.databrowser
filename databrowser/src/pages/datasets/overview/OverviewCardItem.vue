@@ -18,6 +18,7 @@
       <template #right>
         <div class="flex gap-3 md:justify-self-end">
           <TagCustom size="xs" type="black" text="Tourism" />
+          <!-- TODO: extract these tags -->
           <TagCustom
             v-if="dataset.access === 'opendata'"
             size="xs"

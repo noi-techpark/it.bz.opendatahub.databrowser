@@ -6,7 +6,8 @@
     "profile": "Profile"
   },
   "contact": {
-    "email": "help{'@'}opendatahub.com"
+    "email": "help{'@'}opendatahub.com",
+    "emailInfo": "info{'@'}opendatahub.com"
   },
   "header": {
     "logo": "Open Data Hub - Logo",
@@ -135,9 +136,29 @@
     "save": "Save"
   },
   "overview": {
+    "cardAccess": {
+      "accessData": "Access data",
+      "dataAccess": "Data access",
+      "viewInDataBrowser": "View in Data Browser"
+    },
+    "cardDescription": {
+      "description": "Description"
+    },
     "cardItem": {
       "accessTableView": "Access to table view",
       "showDatasetApi": "Show dataset API"
+    },
+    "cardSuggestion": {
+      "otherDatasets": "Datasets you may also like"
+    },
+    "cardTabs": {
+      "apiVersion": "API version",
+      "contact": "Contact and support",
+      "moreInfo": "More information",
+      "openData": "OpenData",
+      "output": "Output",
+      "sources": "Sources",
+      "swaggerUrl": "Swagger URL"
     },
     "dataset": {
       "titleJoiner": "from"

@@ -1,13 +1,15 @@
 <template>
   <CardContainer>
-    <CardTitle>Data access</CardTitle>
+    <CardTitle>{{ t('overview.cardAccess.dataAccess') }}</CardTitle>
     <div class="flex flex-wrap gap-5 md:flex-nowrap md:gap-16">
       <div class="flex w-full flex-col md:w-fit">
-        <CardText>View in Data Browser</CardText>
+        <CardText>{{ t('overview.cardAccess.viewInDataBrowser') }}</CardText>
         <OverviewLinkTable :dataset="dataset" />
       </div>
       <div class="flex w-full flex-col md:w-fit">
-        <CardText>Access data</CardText>
+        <CardText>
+          {{ t('overview.cardAccess.accessData') }}
+        </CardText>
         <OverviewLinkApi :dataset="dataset" />
       </div>
     </div>
@@ -22,6 +24,9 @@ import CardText from '../../../components/card/CardText.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import OverviewLinkTable from './OverviewLinkTable.vue';
 import OverviewLinkApi from './OverviewLinkApi.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 defineProps<{ dataset: TourismMetaData }>();
 </script>
