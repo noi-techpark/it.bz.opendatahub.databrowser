@@ -4,34 +4,16 @@ import { DatasetPage } from '../../../routes';
 import { useApiQuery } from '../../api';
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
 
-const initPathBuilder = () => {
-  const apiQuery = useApiQuery();
-  const currentLanguage = apiQuery.useApiParameter('language');
-  const { currentMetaData } = useMetaDataForCurrentRoute();
-  const router = useRouter();
+export const usePaths = () => {
+  const datasetOverviewForId = (id: string | Ref<string>) =>
+    computed<RouteLocationRaw>(() => ({
+      name: 'OverviewDetailPage',
+      params: { id: unref(id) },
+    }));
 
-  const buildPath = (
-    name: string,
-    preserveHash: boolean = true
-  ): RouteLocationNamedRaw => ({
-    name: name,
-    query: {
-      ...currentMetaData.value?.apiFilter,
-      language: currentLanguage.value,
-    },
-    hash: preserveHash ? router.currentRoute.value.hash : undefined,
-  });
-
-  const buildPathForId = (
-    name: string,
-    id: string,
-    preserveHash: boolean = true
-  ) => ({
-    ...buildPath(name, preserveHash),
-    params: { id },
-  });
-
-  return { buildPath, buildPathForId };
+  return {
+    datasetOverviewForId,
+  };
 };
 
 export const usePathsForCurrentRoute = () => {
@@ -95,4 +77,34 @@ export const usePathsForCurrentRoute = () => {
     tableViewPathForId,
     newViewPathForId,
   };
+};
+
+const initPathBuilder = () => {
+  const apiQuery = useApiQuery();
+  const currentLanguage = apiQuery.useApiParameter('language');
+  const { currentMetaData } = useMetaDataForCurrentRoute();
+  const router = useRouter();
+
+  const buildPath = (
+    name: string,
+    preserveHash: boolean = true
+  ): RouteLocationNamedRaw => ({
+    name: name,
+    query: {
+      ...currentMetaData.value?.apiFilter,
+      language: currentLanguage.value,
+    },
+    hash: preserveHash ? router.currentRoute.value.hash : undefined,
+  });
+
+  const buildPathForId = (
+    name: string,
+    id: string,
+    preserveHash: boolean = true
+  ) => ({
+    ...buildPath(name, preserveHash),
+    params: { id },
+  });
+
+  return { buildPath, buildPathForId };
 };

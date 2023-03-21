@@ -48,10 +48,7 @@
             <OverviewInfoRecordCount :dataset="currentMetaData" />
           </div>
           <ButtonLink
-            :to="{
-              name: 'OverviewDetailPage',
-              params: { id: currentMetaData.id },
-            }"
+            :to="datasetOverviewForId(currentMetaData.id).value"
             :variant="Variant.ghost"
             class="w-full justify-center border-hint-info"
           >
@@ -117,6 +114,7 @@ import { Variant } from '../../../components/button/types';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
 import OverviewInfoDataAvailability from '../../../pages/datasets/overview/OverviewInfoDataAvailability.vue';
 import OverviewInfoRecordCount from '../../../pages/datasets/overview/OverviewInfoRecordCount.vue';
+import { usePaths } from './usePaths';
 
 const { t } = useI18n();
 
@@ -148,4 +146,6 @@ const datasetName = computed(
 const datasetParent = computed(
   () => currentMetaData.value?.apiIdentifier ?? ''
 );
+
+const { datasetOverviewForId } = usePaths();
 </script>

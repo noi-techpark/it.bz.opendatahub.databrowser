@@ -2,10 +2,7 @@
   <CardContainer>
     <CardTitle tag-name="h2" class="text-green-400">
       <routerLink
-        :to="{
-          name: 'OverviewDetailPage',
-          params: { id: dataset.id },
-        }"
+        :to="datasetOverviewForId(dataset.id).value"
         class="flex items-center gap-3 no-underline"
         :data-test="`dataset-link-${dataset.id}`"
       >
@@ -49,6 +46,9 @@ import OverviewInfoSources from './OverviewInfoSources.vue';
 import OverviewLinkTable from './OverviewLinkTable.vue';
 import OverviewLinkApi from './OverviewLinkApi.vue';
 import OverviewTagAccess from './OverviewTagAccess.vue';
+import { usePaths } from '../../../domain/datasets/header/usePaths';
 
 defineProps<{ dataset: TourismMetaData }>();
+
+const { datasetOverviewForId } = usePaths();
 </script>
