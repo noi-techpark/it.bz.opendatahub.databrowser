@@ -4,6 +4,7 @@ import {
   SubCategoryElement,
 } from '../../../domain/datasetConfig/types';
 import { lastChangesCell } from './lastChanges';
+import { publishedOnCell } from './publishedOn';
 
 interface Options {
   hasLastChanges?: boolean;
@@ -17,6 +18,7 @@ export const dataStatesSubCategory = (
     name: 'Data states',
     properties: [
       lastChangesCell(),
+      publishedOnCell(),
       {
         title: 'Active on Source',
         component: CellComponent.ToggleCell,

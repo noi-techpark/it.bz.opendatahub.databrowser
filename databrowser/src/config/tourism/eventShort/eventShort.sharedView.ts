@@ -8,6 +8,7 @@ import {
   idReadOnlyCell,
   imageGalleryCategory,
 } from '../../builder/tourism';
+import { publishedOnCell } from '../../builder/tourism/publishedOn';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -69,6 +70,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.ToggleCell,
               fields: { enabled: 'ActiveCommunityApp' },
             },
+            publishedOnCell(),
           ],
         },
       ],
