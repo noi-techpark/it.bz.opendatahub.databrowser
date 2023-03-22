@@ -8,13 +8,11 @@ You can find an introduction on how to start developing in the [contribute-to-de
 
 ## Why a mono repository?
 
-The reason to use a mono repository is to speed up initial development. In the future, the projects in the repository may
-be moved to their own repositories.
+The reason to use a mono repository is to speed up initial development. In the future, the projects in the repository may be moved to their own repositories.
 
 ## How can I solve dependency issues?
 
-If you have any dependencies issues, consider removing all `node_modules` folders of all projects and try to invoke
-`npm run bootstrap` in the repository root.
+If you encounter any dependency issues, it may be helpful to delete all node_modules folders across all projects and attempt to run npm install in the appropriate repository.
 
 ## Where do I import / register my Web Component for the Data Browser application?
 
