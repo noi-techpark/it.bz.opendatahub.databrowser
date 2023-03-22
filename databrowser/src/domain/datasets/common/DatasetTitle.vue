@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-baseline gap-2">
     <span>{{ name }}</span>
-    <span v-if="showFrom" class="text-[0.6em]">
+    <span v-if="showFrom" class="text-[0.6em] font-normal">
       {{ t('overview.dataset.titleJoiner') }} {{ parent }}
     </span>
   </div>
