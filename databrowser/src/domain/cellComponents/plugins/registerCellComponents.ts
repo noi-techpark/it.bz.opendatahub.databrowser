@@ -2,6 +2,7 @@ import { App } from 'vue';
 
 import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
 import ArrayEditableCell from '../components/cells/arrayCell/ArrayEditableCell.vue';
+import ArrayLookupCell from '../components/cells/arrayLookupCell/ArrayLookupCell.vue';
 import ArrayTagsCell from '../components/cells/arrayTagsCell/ArrayTagsCell.vue';
 import ArticleAdditionalInfoCell from '../components/cells/articleAdditionalInfoCell/ArticleAdditionalInfoCell.vue';
 import ArticleLinkInfoCell from '../components/cells/articleLinkInfoCell/ArticleLinkInfoCell.vue';
@@ -38,6 +39,7 @@ export default {
   install: (app: App) => {
     app.component(CellComponent.ArrayCell, ArrayCell);
     app.component(CellComponent.ArrayEditableCell, ArrayEditableCell);
+    app.component(CellComponent.ArrayLookupCell, ArrayLookupCell);
     app.component(CellComponent.ArrayTagsCell, ArrayTagsCell);
     app.component(
       CellComponent.ArticleAdditionalInfoCell,
