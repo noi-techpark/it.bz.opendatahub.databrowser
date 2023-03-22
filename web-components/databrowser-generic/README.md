@@ -34,7 +34,7 @@ Change to this directory:
 cd web-components/databrowser-generic
 ```
 
-Install the dependencies (if not already installed with Lerna):
+Install the dependencies (if not already installed):
 
 ```bash
 npm ci
@@ -230,7 +230,7 @@ The code in this project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE
 
 ### Authors
 
-- **Christian Gapp** - *Initial work* - [gappc](https://github.com/gappc)
+- **Christian Gapp** - _Initial work_ - [gappc](https://github.com/gappc)
 
 ### Acknowledgements
 
