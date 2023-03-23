@@ -18,6 +18,11 @@ export const publishedOnSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: 'General data',
           properties: [
+            {
+              title: 'Name',
+              component: CellComponent.StringCell,
+              fields: { text: 'Name.{language}' },
+            },
             shortnameCell(),
             idReadOnlyCell(),
             {
