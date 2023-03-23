@@ -9,6 +9,7 @@ import {
   gpsDataCategory,
   idReadOnlyCell,
   imageGalleryCategory,
+  locationCategory,
   logoWithMainImageCells,
   municipalityIdCell,
   odhTagCategory,
@@ -101,32 +102,7 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
-    {
-      name: 'Location',
-      slug: 'location',
-      subcategories: [
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Region',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
-            },
-            {
-              title: 'Municipality',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.MunicipalityInfo.Name.{language}' },
-            },
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
-            },
-          ],
-        },
-      ],
-    },
+    locationCategory(),
     gpsDataCategory(),
     odhTagCategory('gastronomy'),
   ],
