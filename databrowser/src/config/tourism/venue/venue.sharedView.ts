@@ -14,6 +14,7 @@ import {
   shortnameCell,
   sourceSubCategory,
 } from '../../builder/tourism';
+import { publishedOnCell } from '../../builder/tourism/publishedOn';
 
 export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -44,6 +45,7 @@ export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
               fields: { enabled: 'OdhActive' },
               params: { readonly: 'true' },
             },
+            publishedOnCell(),
           ],
         },
         sourceSubCategory(),
