@@ -27,6 +27,7 @@ import {
   eventConfig,
   experienceAreaConfig,
   metaDataConfig,
+  publishedOnConfig,
 } from './tourism';
 
 type EmbeddedDatasetConfigs = Record<
@@ -62,6 +63,7 @@ const datasetConfigs = [
   eventConfig,
   experienceAreaConfig,
   metaDataConfig,
+  publishedOnConfig,
 ];
 
 const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {
