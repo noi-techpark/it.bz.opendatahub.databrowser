@@ -147,11 +147,11 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
     contactCategory(),
     imageGalleryCategory(),
     {
-      name: 'Season/ Opening hours',
+      name: 'Season / Opening hours',
       slug: 'season-opening-hours',
       subcategories: [
         {
-          name: 'Season/ Opening hours',
+          name: 'Season / Opening hours',
           properties: [
             {
               title: 'Name',
