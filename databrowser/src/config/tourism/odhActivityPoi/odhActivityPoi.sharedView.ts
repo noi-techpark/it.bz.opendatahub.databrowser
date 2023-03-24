@@ -17,7 +17,7 @@ import {
   shortnameCell,
   sourceWithInsertsSubCategory,
   textInfoCategory,
-  webcamTableCell,
+  webcamCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT, withOdhBaseUrl } from '../../utils';
 
@@ -385,15 +385,6 @@ export const odhActivityPoiSharedView = ():
         },
       ],
     },
-    {
-      name: 'Webcam Details',
-      slug: 'webcam-details',
-      subcategories: [
-        {
-          name: '',
-          properties: [webcamTableCell()],
-        },
-      ],
-    },
+    webcamCategory(),
   ],
 });

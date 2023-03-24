@@ -15,7 +15,7 @@ import {
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
-  webcamTableCell,
+  webcamCategory,
 } from '../../builder/tourism';
 
 export const municipalitySharedView = ():
@@ -114,16 +114,7 @@ export const municipalitySharedView = ():
     },
     contactCategory(),
     gpsDataCategory(),
-    {
-      name: 'Webcam Details',
-      slug: 'webcam-details',
-      subcategories: [
-        {
-          name: '',
-          properties: [webcamTableCell()],
-        },
-      ],
-    },
+    webcamCategory(),
     odhTagCategory(),
   ],
 });

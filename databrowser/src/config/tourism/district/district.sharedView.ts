@@ -14,7 +14,7 @@ import {
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
-  webcamTableCell,
+  webcamCategory,
 } from '../../builder/tourism';
 import { withOdhBaseUrl } from '../../utils';
 
@@ -150,16 +150,7 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
       ],
     },
     gpsDataCategory(),
-    {
-      name: 'Webcam Details',
-      slug: 'webcam-details',
-      subcategories: [
-        {
-          name: '',
-          properties: [webcamTableCell()],
-        },
-      ],
-    },
+    webcamCategory(),
     odhTagCategory(),
   ],
 });

@@ -13,7 +13,7 @@ import {
   shortnameWithLogoAndMainImageSubCategory,
   sourceSubCategory,
   textInfoCategory,
-  webcamTableCell,
+  webcamCategory,
 } from '../../builder/tourism';
 
 export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -79,16 +79,7 @@ export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
       ],
     },
     gpsDataCategory(),
-    {
-      name: 'Webcam Details',
-      slug: 'webcam-details',
-      subcategories: [
-        {
-          name: '',
-          properties: [webcamTableCell()],
-        },
-      ],
-    },
+    webcamCategory(),
     odhTagCategory(),
   ],
 });

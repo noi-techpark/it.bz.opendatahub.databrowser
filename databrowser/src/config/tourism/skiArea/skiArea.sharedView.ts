@@ -15,7 +15,7 @@ import {
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
-  webcamTableCell,
+  webcamCategory,
   locationCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
@@ -202,16 +202,7 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
       ],
     },
     gpsDataCategory(),
-    {
-      name: 'Webcam Details',
-      slug: 'webcam-details',
-      subcategories: [
-        {
-          name: '',
-          properties: [webcamTableCell()],
-        },
-      ],
-    },
+    webcamCategory(),
     odhTagCategory(),
   ],
 });
