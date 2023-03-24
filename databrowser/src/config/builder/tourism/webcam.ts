@@ -7,7 +7,6 @@ import {
 export const webcamCell = (): PropertyConfig => ({
   title: '',
   component: CellComponent.WebcamCell,
-  class: 'break-all',
   listFields: {
     attributeName: 'webcams',
     pathToParent: 'Webcam',
