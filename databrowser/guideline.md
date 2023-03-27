@@ -51,4 +51,4 @@ const MyLibrary = defineAsyncComponent(() =>
 ```
 
 3. The list of components included in registerForComponentRender.ts must be entered in alphabetical order.
-4. The configuration of a component that renders data should be taken from Open API whenever available. The edit component should be read only per default till Open API doesn't provide the "readonly: true".
+4. As a general rule, avoid retrieving data within your component. If it's necessary to do so, please ask for before on GitHub.
