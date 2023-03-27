@@ -94,7 +94,7 @@ export interface DetailViewElements {
   elements: DetailElements[];
 }
 export interface QuickViewPageConfig {
-  topGallery: QuickViewTopGallery;
+  topGallery?: QuickViewTopGallery;
   elements: QuickViewElements[];
 }
 

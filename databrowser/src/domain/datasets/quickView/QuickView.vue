@@ -17,7 +17,7 @@
       </div>
       <div
         v-if="
-          odhActivityPoiConfig.views?.quick?.topGallery.isVisible &&
+          odhActivityPoiConfig.views?.quick?.topGallery?.isVisible &&
           imageGallery.length <= 1 &&
           mainImage
         "
@@ -42,7 +42,7 @@
 
     <QuickViewFullscreenGallery
       v-if="
-        odhActivityPoiConfig.views?.quick?.topGallery.isVisible &&
+        odhActivityPoiConfig.views?.quick?.topGallery?.isVisible &&
         imageGallery.length > 1
       "
       :images="imageGallery"

@@ -1,10 +1,8 @@
 <template>
   <QuickViewCardOverview
     :title="t('datasets.quickView.locationOnMap')"
-    cta-icon="IconExpand"
     content-has-no-padding
     :sections="[]"
-    @cta-click="openMapFullscreen()"
   >
     <template #content>
       <MapBase
@@ -41,14 +39,6 @@ const props = withDefaults(
   }
 );
 
-const openMapFullscreen = () => {
-  const fullscreenButton = mapComponent.value.querySelector(
-    '.ol-full-screen > button'
-  ) as HTMLElement;
-
-  fullscreenButton!.click();
-};
-
 const map = computed(() => {
   if (!props.gpsInfo.length) {
     return {
@@ -60,7 +50,7 @@ const map = computed(() => {
   const { Longitude, Latitude } = props.gpsInfo[0];
 
   const mapObj = {
-    center: [Longitude, Latitude],
+    center: [Latitude, Longitude],
     markers: [
       {
         position: {

@@ -1,44 +1,45 @@
 <template>
-  <ol-map :style="`height: ${height}`" class="map-ct">
-    <ol-view
-      ref="view"
-      :center="center"
-      :rotation="rotation"
-      :zoom="zoom"
-      :projection="projection"
-    />
-
-    <ol-zoom-control></ol-zoom-control>
-    <ol-fullscreen-control></ol-fullscreen-control>
-
-    <ol-tile-layer>
-      <ol-source-osm />
-    </ol-tile-layer>
-
-    <ol-vector-layer v-for="(m, i) in markers" :key="i">
-      <ol-source-vector>
-        <ol-feature>
-          <ol-geom-point
-            :coordinates="[m.position.lng, m.position.lat]"
-          ></ol-geom-point>
-          <ol-style>
-            <ol-style-icon :src="markerIcon" :scale="1"></ol-style-icon>
-          </ol-style>
-        </ol-feature>
-      </ol-source-vector>
-    </ol-vector-layer>
-  </ol-map>
+  <l-map
+    ref="map"
+    :zoom="zoom"
+    :center="center"
+    :style="{ height }"
+    :use-global-leaflet="false"
+  >
+    <l-tile-layer
+      url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+      :attribution="attribution"
+    ></l-tile-layer>
+    <l-marker
+      v-for="marker in markers"
+      :key="
+        marker.position.lat +
+        '-' +
+        marker.position.lng +
+        '-' +
+        new Date().getTime()
+      "
+      :lat-lng="[marker.position.lat, marker.position.lng]"
+      class="marker"
+    ></l-marker>
+  </l-map>
 </template>
 
 <script lang="ts" setup>
-import markerIcon from '../../assets/map-marker.svg';
+import { defineProps, defineAsyncComponent } from 'vue';
+import 'leaflet/dist/leaflet.css';
 
-import { defineProps, getCurrentInstance } from 'vue';
-import OpenLayersMap from 'vue3-openlayers';
-import 'vue3-openlayers/dist/vue3-openlayers.css';
+const LMap = defineAsyncComponent(() =>
+  import('@vue-leaflet/vue-leaflet').then((exports) => exports.LMap)
+);
 
-// Add OpenLayers Map
-getCurrentInstance()?.appContext.app.use(OpenLayersMap);
+const LTileLayer = defineAsyncComponent(() =>
+  import('@vue-leaflet/vue-leaflet').then((exports) => exports.LTileLayer)
+);
+
+const LMarker = defineAsyncComponent(() =>
+  import('@vue-leaflet/vue-leaflet').then((exports) => exports.LMarker)
+);
 
 interface Marker {
   position: Position;
@@ -53,20 +54,19 @@ withDefaults(
   defineProps<{
     center?: Array<number>;
     markers: Array<Marker>;
-    projection?: string;
     zoom?: number;
-    rotation?: number;
     height?: string;
   }>(),
   {
     center: () => [40, 40],
     markers: () => [],
-    projection: 'EPSG:4326',
-    zoom: 19,
-    rotation: 0,
+    zoom: 8,
     height: '400px',
   }
 );
+
+const attribution =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 </script>
 
 <style>
