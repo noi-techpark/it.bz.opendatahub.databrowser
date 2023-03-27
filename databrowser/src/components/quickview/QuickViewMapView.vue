@@ -5,25 +5,20 @@
     :sections="[]"
   >
     <template #content>
-      <MapBase
-        ref="mapComponent"
-        :key="map.center.length"
-        :center="map.center"
-        :markers="map.markers"
-      />
+      <MapBase :center="map.center" :markers="map.markers" />
     </template>
   </QuickViewCardOverview>
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, withDefaults, ref } from 'vue';
+import { computed, defineProps, withDefaults } from 'vue';
+import { PointExpression } from 'leaflet';
 import { useI18n } from 'vue-i18n';
 
 import QuickViewCardOverview from './QuickViewCardOverview.vue';
 import MapBase from '../../components/map/MapBase.vue';
 
 const { t } = useI18n();
-const mapComponent = ref();
 
 interface GpsInfo {
   Latitude: number;
@@ -42,7 +37,7 @@ const props = withDefaults(
 const map = computed(() => {
   if (!props.gpsInfo.length) {
     return {
-      center: [],
+      center: undefined,
       markers: [],
     };
   }
@@ -50,7 +45,7 @@ const map = computed(() => {
   const { Longitude, Latitude } = props.gpsInfo[0];
 
   const mapObj = {
-    center: [Latitude, Longitude],
+    center: [Latitude, Longitude] as PointExpression,
     markers: [
       {
         position: {

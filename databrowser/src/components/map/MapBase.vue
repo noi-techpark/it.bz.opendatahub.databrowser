@@ -27,6 +27,7 @@
 
 <script lang="ts" setup>
 import { defineProps, defineAsyncComponent } from 'vue';
+import { PointExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const LMap = defineAsyncComponent(() =>
@@ -52,7 +53,7 @@ interface Position {
 
 withDefaults(
   defineProps<{
-    center?: Array<number>;
+    center?: PointExpression;
     markers: Array<Marker>;
     zoom?: number;
     height?: string;
