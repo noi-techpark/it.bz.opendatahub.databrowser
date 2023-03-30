@@ -166,6 +166,9 @@
     "dataset": {
       "titleJoiner": "from"
     },
+    "detailPage": {
+      "toOverview": "Back to overview"
+    },
     "hero": {
       "details": "Details"
     },

@@ -1,18 +1,19 @@
 import { computed, Ref } from 'vue';
-import { Tone } from './types';
+import { Tone, Variant } from './types';
 
 const toneClass: Record<Tone, string> = {
-  [Tone.primary]: 'text-green-500',
+  ['primary']: 'text-green-500 ',
+  ['text']: 'text-gray-900 ',
 };
 
-export const useClassNames = (tone: Ref<string | Tone>) =>
-  computed(() => {
-    const classNames = [];
+const variantClass: Record<Variant, string> = {
+  ['no-underline']: 'no-underline',
+  ['underline']: 'underline',
+};
 
-    const toneClasses = toneClass[tone.value as Tone];
-    if (toneClasses != null) {
-      classNames.push(toneClasses);
-    }
-
-    return classNames;
-  });
+export const useClassNames = (tone: Ref<Tone>, variant: Ref<Variant>) =>
+  computed(() => [
+    'rounded',
+    toneClass[tone.value],
+    variantClass[variant.value],
+  ]);

@@ -7,6 +7,7 @@
         <OverviewCardDescription :dataset="dataset" />
         <OverviewCardAccess :dataset="dataset" />
         <OverviewCardTabs :dataset="dataset" />
+        <OverviewToListLink class="justify-self-start" />
         <OverviewCardSuggestion :datasets="randomDatasets" />
 
         <CardDivider />
@@ -32,6 +33,7 @@ import PageGridContent from '../../../components/content/PageGridContent.vue';
 import OverviewCardSuggestion from './OverviewCardSuggestion.vue';
 import { useMetaDataQuery } from '../../../domain/metaDataConfig/tourism/useMetaDataQuery';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
+import OverviewToListLink from './OverviewToListLink.vue';
 
 const route = useRoute();
 

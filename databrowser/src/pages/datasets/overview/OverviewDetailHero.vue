@@ -1,5 +1,6 @@
 <template>
   <HeroContainer v-if="dataset">
+    <OverviewToListLink />
     <HeroTitle>
       <DatasetTitle :name="dataset.shortname" :parent="dataset.apiIdentifier" />
     </HeroTitle>
@@ -27,6 +28,7 @@ import OverviewInfoSources from './OverviewInfoSources.vue';
 import OverviewInfoDataAvailability from './OverviewInfoDataAvailability.vue';
 import OverviewInfoRecordCount from './OverviewInfoRecordCount.vue';
 import { useI18n } from 'vue-i18n';
+import OverviewToListLink from './OverviewToListLink.vue';
 
 const { t } = useI18n();
 
