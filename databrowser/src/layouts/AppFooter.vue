@@ -7,14 +7,20 @@
       >
         <li class="my-1 pr-4">@ Open Data Hub</li>
         <li class="my-1 px-4">
-          <a href="https://noi.bz.it/en/privacy-cookie-policy" target="_blank">
+          <ExternalLink
+            href="https://noi.bz.it/en/privacy-cookie-policy"
+            tone="text"
+          >
             {{ t('footer.privacy') }}
-          </a>
+          </ExternalLink>
         </li>
         <li class="my-1 pl-4">
-          <a href="https://noi.bz.it/en/impressum" target="_blank">
+          <ExternalLink
+            href="https://noi.bz.it/en/privacy-cookie-policy"
+            tone="text"
+          >
             {{ t('footer.imprint') }}
-          </a>
+          </ExternalLink>
         </li>
       </ul>
     </footer>
@@ -25,6 +31,7 @@
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../components/content/ContentDivider.vue';
 import { useI18n } from 'vue-i18n';
+import ExternalLink from '../components/link/ExternalLink.vue';
 
 const { t } = useI18n();
 </script>
