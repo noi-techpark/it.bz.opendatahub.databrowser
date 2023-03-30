@@ -1,5 +1,5 @@
 <template>
-  <ButtonRawLink
+  <ButtonExternalLink
     target="_blank"
     :href="dataset.externalLink"
     :size="Size.xm2col"
@@ -10,12 +10,12 @@
     <span class="uppercase">
       {{ t('overview.cardItem.showDatasetApi') }}
     </span>
-  </ButtonRawLink>
+  </ButtonExternalLink>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import ButtonRawLink from '../../../components/button/ButtonRawLink.vue';
+import ButtonExternalLink from '../../../components/button/ButtonExternalLink.vue';
 import { Size, Variant } from '../../../components/button/types';
 import IconLink from '../../../components/svg/IconLink.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';

@@ -88,20 +88,20 @@
             with others?
           </CardText>
           <CardActions>
-            <ButtonRawLink
+            <ButtonExternalLink
               href="mailto:info@opendatahub.com"
               :size="Size.md2col"
             >
               <IconMail /> Share data
-            </ButtonRawLink>
-            <ButtonRawLink
+            </ButtonExternalLink>
+            <ButtonExternalLink
               href="https://opendatahub.com"
               target="blank"
               :size="Size.md2col"
               :variant="Variant.ghost"
             >
               <IconExternal /> More information on sharing data
-            </ButtonRawLink>
+            </ButtonExternalLink>
           </CardActions>
         </div>
         <div>
@@ -111,20 +111,20 @@
             showcasing your work? We are looking forward to seeing what you did.
           </CardText>
           <CardActions>
-            <ButtonRawLink
+            <ButtonExternalLink
               href="mailto:info@opendatahub.com"
               :size="Size.md2col"
             >
               <IconMail /> Provide showcase
-            </ButtonRawLink>
-            <ButtonRawLink
+            </ButtonExternalLink>
+            <ButtonExternalLink
               href="https://opendatahub.com"
               target="blank"
               :size="Size.md2col"
               :variant="Variant.ghost"
             >
               <IconExternal /> More information on sharing work
-            </ButtonRawLink>
+            </ButtonExternalLink>
           </CardActions>
         </div>
       </CardGrid>
@@ -154,7 +154,7 @@ import IconDeveloper from '../components/svg/IconDeveloper.vue';
 import IconAgency from '../components/svg/IconAgency.vue';
 import IconDataanalyst from '../components/svg/IconDataanalyst.vue';
 import CardIconGrid from '../components/card/CardIconGrid.vue';
-import ButtonRawLink from '../components/button/ButtonRawLink.vue';
+import ButtonExternalLink from '../components/button/ButtonExternalLink.vue';
 import { Size, Variant } from '../components/button/types';
 import IconMail from '../components/svg/IconMail.vue';
 import IconExternal from '../components/svg/IconExternal.vue';
