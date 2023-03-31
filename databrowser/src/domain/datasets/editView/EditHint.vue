@@ -4,13 +4,13 @@
     sources. That’s why some of your changes may be overwritten. Check
     <ExternalLink
       href="https://opendatahub.readthedocs.io/en/latest/index.html"
+      tone="white"
+      >documentation</ExternalLink
     >
-      documentation
-    </ExternalLink>
     or contact
-    <ExternalLink href="mailto:support@opendatahub.com">
-      support@opendatahub.com
-    </ExternalLink>
+    <ExternalLink href="mailto:support@opendatahub.com" tone="white">
+      support@opendatahub.com</ExternalLink
+    >
     for more info!
   </HintCustom>
 </template>
