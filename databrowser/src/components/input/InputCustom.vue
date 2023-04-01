@@ -28,7 +28,7 @@ const props = defineProps<{
   placeholder?: string;
   inputClasses?: string;
   focus?: boolean;
-  type?: 'text' | 'date' | 'datetime-local';
+  type?: 'text' | 'date' | 'datetime-local' | 'time';
 }>();
 
 const inputRef = ref();
