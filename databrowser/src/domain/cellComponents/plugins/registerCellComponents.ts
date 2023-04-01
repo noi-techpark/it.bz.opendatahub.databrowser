@@ -28,6 +28,7 @@ import TagCell from '../components/cells/tagCell/TagCell.vue';
 import TagReferenceCell from '../components/cells/tagReferenceCell/TagReferenceCell.vue';
 import TextAreaCell from '../components/cells/textAreaCell/TextAreaCell.vue';
 import TextHighlightCell from '../components/cells/textHighlightCell/TextHighlightCell.vue';
+import ToggleButtonCell from '../components/cells/toggleCell/ToggleButtonCell.vue';
 import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
@@ -76,6 +77,7 @@ export default {
     app.component(CellComponent.TagReferenceCell, TagReferenceCell);
     app.component(CellComponent.TextAreaCell, TextAreaCell);
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
+    app.component(CellComponent.ToggleButtonCell, ToggleButtonCell);
     app.component(CellComponent.ToggleCell, ToggleCell);
     app.component(CellComponent.TypeBasedCell, TypeBasedCell);
     app.component(CellComponent.WebcamCell, WebcamCell);
