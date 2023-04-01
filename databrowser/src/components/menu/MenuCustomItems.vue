@@ -8,7 +8,7 @@
     leave-to-class="transform scale-95 opacity-0"
   >
     <MenuItems
-      class="absolute right-0 z-30 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded bg-white shadow-md ring-1 ring-gray-400 focus:outline-none"
+      class="absolute right-0 z-40 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded bg-white shadow-md ring-1 ring-gray-400 focus:outline-none"
     >
       <slot></slot>
     </MenuItems>
