@@ -12,6 +12,7 @@ import {
   logoWithMainImageCells,
   municipalityIdCell,
   odhTagCategory,
+  seasonCategory,
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
@@ -136,6 +137,7 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
+    seasonCategory(),
     {
       name: 'Location',
       slug: 'location',

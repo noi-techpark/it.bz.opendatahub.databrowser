@@ -14,12 +14,13 @@ import {
   municipalityIdCell,
   odhTagCategory,
   regionIdCell,
+  seasonCategory,
   shortnameCell,
   sourceWithInsertsSubCategory,
   textInfoCategory,
   webcamCell,
 } from '../../builder/tourism';
-import { DEFAULT_DATE_TIME_FORMAT, withOdhBaseUrl } from '../../utils';
+import { withOdhBaseUrl } from '../../utils';
 
 export const odhActivityPoiSharedView = ():
   | DetailViewConfig
@@ -274,34 +275,7 @@ export const odhActivityPoiSharedView = ():
     },
     contactCategory(),
     imageGalleryCategory(),
-    {
-      name: 'Season/ Opening hours',
-      slug: 'season-opening-hours',
-      subcategories: [
-        {
-          name: 'Season/ Opening hours',
-          properties: [
-            {
-              title: 'Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
-            },
-            {
-              title: 'Start Date and Time',
-              component: CellComponent.DateCell,
-              fields: { date: 'OperationSchedule.0.Start' },
-              params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
-            },
-            {
-              title: 'End Date and Time',
-              component: CellComponent.DateCell,
-              fields: { date: 'OperationSchedule.0.Stop' },
-              params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
-            },
-          ],
-        },
-      ],
-    },
+    seasonCategory(),
     locationCategory(),
     gpsDataCategory(),
     odhTagCategory('odhactivitypoi'),
