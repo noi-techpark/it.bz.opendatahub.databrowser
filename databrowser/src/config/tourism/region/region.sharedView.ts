@@ -52,32 +52,6 @@ export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
-    {
-      name: 'Related content',
-      slug: 'related-content',
-      subcategories: [
-        {
-          name: 'Related data',
-          properties: [
-            {
-              title: 'Activity',
-              component: CellComponent.StringCell,
-              fields: { text: 'RelatedContent' },
-            },
-            {
-              title: 'Gastronomy',
-              component: CellComponent.StringCell,
-              fields: { text: 'RelatedContent' },
-            },
-            {
-              title: 'Event',
-              component: CellComponent.StringCell,
-              fields: { text: 'RelatedContent' },
-            },
-          ],
-        },
-      ],
-    },
     gpsDataCategory(),
     webcamCategory(),
     odhTagCategory(),
