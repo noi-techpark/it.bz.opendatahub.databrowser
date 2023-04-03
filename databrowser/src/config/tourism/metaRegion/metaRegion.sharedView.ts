@@ -14,7 +14,6 @@ import {
   sourceSubCategory,
   textInfoCategory,
 } from '../../builder/tourism';
-import { withOdhBaseUrl } from '../../utils';
 
 export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -71,59 +70,5 @@ export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
     imageGalleryCategory(),
     gpsDataCategory(),
     odhTagCategory(),
-    {
-      name: 'Location',
-      slug: 'location',
-      subcategories: [
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Region / TVB',
-              component: CellComponent.TagReferenceCell,
-              listFields: {
-                attributeName: 'tags',
-                pathToParent: 'RegionIds',
-              },
-              params: {
-                keySelector: 'id',
-                labelSelector: 'name',
-                url: withOdhBaseUrl(
-                  '/v1/Location?language=en&type=null&showall=true'
-                ),
-              },
-            },
-            {
-              title: 'Districts',
-              component: CellComponent.TagReferenceCell,
-              listFields: {
-                attributeName: 'tags',
-                pathToParent: 'DistrictIds',
-              },
-              params: {
-                keySelector: 'Id',
-                labelSelector: 'Detail.en.Title',
-                url: withOdhBaseUrl('/v1/District'),
-              },
-            },
-            {
-              title: 'Tourismverein',
-              component: CellComponent.TagReferenceCell,
-              listFields: {
-                attributeName: 'tags',
-                pathToParent: 'TourismvereinIds',
-              },
-              params: {
-                keySelector: 'id',
-                labelSelector: 'name ',
-                url: withOdhBaseUrl(
-                  '/v1/Location?language=en&type=null&showall=true'
-                ),
-              },
-            },
-          ],
-        },
-      ],
-    },
   ],
 });

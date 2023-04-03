@@ -1,18 +1,18 @@
+import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
 import {
-  contactCategory,
+  accoContactCategory,
   gpsDataCategory,
   idReadOnlyCell,
   imageGalleryCategory,
+  lastChangesCell,
   locationCategory,
   odhTagCategory,
   shortnameCell,
   sourceSubCategory,
-  dataStatesSubCategory,
-  textInfoCategory,
 } from '../../builder/tourism';
 
 export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -29,12 +29,37 @@ export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'IDs',
           properties: [idReadOnlyCell()],
         },
-        dataStatesSubCategory(),
+        {
+          name: 'Data states',
+          properties: [
+            lastChangesCell(),
+            {
+              title: 'Active on Source',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'Active' },
+            },
+            {
+              title: 'Active on Open Data Hub',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'OdhActive' },
+              params: { readonly: 'true' },
+            },
+          ],
+        },
         sourceSubCategory(),
       ],
     },
-    textInfoCategory(),
-    contactCategory(),
+    {
+      name: 'Text information',
+      slug: 'text-information',
+      subcategories: [
+        {
+          name: 'General data',
+          properties: [shortnameCell()],
+        },
+      ],
+    },
+    accoContactCategory(),
     imageGalleryCategory(),
     locationCategory(),
     gpsDataCategory(),
