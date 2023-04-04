@@ -17,7 +17,7 @@ import {
   shortnameCell,
   sourceWithInsertsSubCategory,
   textInfoCategory,
-  webcamTableCell,
+  webcamCell,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT, withOdhBaseUrl } from '../../utils';
 
@@ -509,7 +509,7 @@ export const odhActivityPoiSharedView = ():
       subcategories: [
         {
           name: '',
-          properties: [webcamTableCell()],
+          properties: [webcamCell()],
         },
       ],
     },
