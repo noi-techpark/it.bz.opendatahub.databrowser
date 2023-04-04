@@ -22,7 +22,7 @@ const { t } = useI18n();
 
 const props = withDefaults(
   defineProps<{
-    webcamsMediaItems: Array<MediaItem>;
+    webcamsMediaItems?: Array<MediaItem>;
   }>(),
   {
     webcamsMediaItems: () => [],

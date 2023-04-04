@@ -18,8 +18,7 @@ import { getValueOfLocale, getTextValue } from './QuickViewUtils';
 
 import QuickViewCardOverview from './QuickViewCardOverview.vue';
 
-const { t, locale } = useI18n();
-const currentLocale = locale.value;
+const { t } = useI18n();
 
 interface ScheduleTime {
   Start: string;
@@ -84,9 +83,9 @@ const operationSchedule = computed(() => {
       }
       operationScheduleTime.push(daysHours);
     }
-    time.OperationScheduleTime = operationScheduleTime[0];
+    const result = { ...time, OperationScheduleTime: operationScheduleTime[0] };
     parsedData.push({
-      ...time,
+      ...result,
       OperationScheduleTime: operationScheduleTime,
       TimePeriodRange: getTimePeriodRange(time.Start, time.Stop),
     });
@@ -128,12 +127,12 @@ const operationScheduleSections = computed(() => {
 const getTimePeriodRange = (start: string, end: string) => {
   const startDate = new Date(start);
   const monthStart = formatFn(startDate, 'LLLL');
-  const yearStart = formatFn(startDate, 'YYYY');
+  const yearStart = formatFn(startDate, 'yyyy');
   const dayStart = formatFn(startDate, 'd');
 
   const endDate = new Date(end);
   const monthEnd = formatFn(startDate, 'LLLL');
-  const yearEnd = formatFn(endDate, 'YYYY');
+  const yearEnd = formatFn(endDate, 'yyyy');
   const dayEnd = formatFn(endDate, 'd');
 
   return `${dayStart}. ${monthStart}${
