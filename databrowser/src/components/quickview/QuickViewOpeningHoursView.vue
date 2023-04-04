@@ -83,9 +83,9 @@ const operationSchedule = computed(() => {
       }
       operationScheduleTime.push(daysHours);
     }
-    time.OperationScheduleTime = operationScheduleTime[0];
+    const result = { ...time, OperationScheduleTime: operationScheduleTime[0] };
     parsedData.push({
-      ...time,
+      ...result,
       OperationScheduleTime: operationScheduleTime,
       TimePeriodRange: getTimePeriodRange(time.Start, time.Stop),
     });
