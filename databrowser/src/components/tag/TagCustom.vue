@@ -28,6 +28,11 @@ const types: Record<TagType, Color> = {
     text: 'text-white',
     dot: 'bg-white',
   },
+  white: {
+    background: 'bg-gray-50',
+    text: 'text-dialog',
+    dot: 'bg-dialog',
+  },
   blue: {
     background: 'bg-hint-calm-secondary',
     text: 'text-hint-calm',

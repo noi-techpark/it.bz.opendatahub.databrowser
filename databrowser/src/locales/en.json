@@ -82,6 +82,32 @@
         }
       }
     },
+    "quickView": {
+      "standardImageWarning": "This is a standard image and not part of the dataset",
+      "textInformation": "Text information",
+      "contact": "Contact",
+      "locationOnMap": "Location on Map",
+      "recordInformation": "Record information",
+      "openingHours": "Opening hours",
+      "nameCompanyName": "Name/Company Name",
+      "firstName": "First name",
+      "surname": "Surnname",
+      "streetAndNumber": "Street & Hausnumber",
+      "city": "City",
+      "zip": "ZIP-CODE",
+      "country": "Country",
+      "email": "E-Mail",
+      "phoneNumber": "Phone Number",
+      "webUrl": "Web-URL",
+      "lastChanged": "Last Changed",
+      "activeOnSource": "Active on source",
+      "activeOnODH": "Active on ODH",
+      "suedtirolInfoActive": "Active on suedtirol.info",
+      "active": "Active",
+      "inactive": "Inactive",
+      "closed": "Closed",
+      "webcamDetails": "Webcam details"
+    },
     "generated": {
       "categoryName": "All data"
     },
