@@ -18,8 +18,7 @@ import { getValueOfLocale, getTextValue } from './QuickViewUtils';
 
 import QuickViewCardOverview from './QuickViewCardOverview.vue';
 
-const { t, locale } = useI18n();
-const currentLocale = locale.value;
+const { t } = useI18n();
 
 interface ScheduleTime {
   Start: string;
