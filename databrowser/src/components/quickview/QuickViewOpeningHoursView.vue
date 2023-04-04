@@ -127,12 +127,12 @@ const operationScheduleSections = computed(() => {
 const getTimePeriodRange = (start: string, end: string) => {
   const startDate = new Date(start);
   const monthStart = formatFn(startDate, 'LLLL');
-  const yearStart = formatFn(startDate, 'YYYY');
+  const yearStart = formatFn(startDate, 'yyyy');
   const dayStart = formatFn(startDate, 'd');
 
   const endDate = new Date(end);
   const monthEnd = formatFn(startDate, 'LLLL');
-  const yearEnd = formatFn(endDate, 'YYYY');
+  const yearEnd = formatFn(endDate, 'yyyy');
   const dayEnd = formatFn(endDate, 'd');
 
   return `${dayStart}. ${monthStart}${
