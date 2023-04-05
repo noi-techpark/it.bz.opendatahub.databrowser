@@ -192,7 +192,7 @@
           </div>
         </div>
         <div class="basis-full md:order-2 md:basis-1/3">
-          <div class="rounded border">
+          <div class="mb-3 rounded border">
             <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
               <span class="font-semibold">Season</span>
             </div>
@@ -202,6 +202,11 @@
               <div>Type: {{ getOperationScheduleTypeLabel(item.type) }}</div>
             </div>
           </div>
+
+          <QuickViewOpeningHoursView
+            class="md:min-w-[600px]"
+            :operation-schedules="items"
+          />
         </div>
       </div>
     </template>
@@ -236,6 +241,7 @@ import {
 import { format as formatFn } from 'date-fns';
 import { DEFAULT_DATE_FORMAT } from '../../../../../config/utils';
 import ToggleButtonCell from '../toggleCell/ToggleButtonCell.vue';
+import QuickViewOpeningHoursView from '../../../../../components/quickview/QuickViewOpeningHoursView.vue';
 
 defineProps<{ items: OperationScheduleEntry[] }>();
 
@@ -267,7 +273,6 @@ const updateOperationScheduleTime = (
   key: string,
   value: string | number | boolean
 ) => {
-  console.log(itemIndex, timeIndex, key, value);
   if (item.operationScheduleTimes == null) {
     item.operationScheduleTimes = [];
   }
