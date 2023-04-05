@@ -20,7 +20,7 @@ import DatasetBaseLayout from './DatasetBaseLayout.vue';
 
 withDefaults(
   defineProps<{
-    ignoreSectionStyling: boolean;
+    ignoreSectionStyling?: boolean;
   }>(),
   {
     ignoreSectionStyling: false,
