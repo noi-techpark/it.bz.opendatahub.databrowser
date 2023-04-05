@@ -95,6 +95,15 @@ jobs:
         with:
           working-directory: databrowser
           node-version: ${{ env.NODE_VERSION }}
+      - name: Sync to S3 bucket
+        uses: noi-techpark/github-actions/aws-s3-bucket-sync@v2
+        with:
+          working-directory: databrowser
+          access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY }}
+          region: ${{ env.AWS_REGION }}
+          s3-bucket-name: ${{ env.AWS_S3_BUCKET_NAME }}
+          folder: ./dist
       - name: Create .env file
         uses: noi-techpark/github-actions/env-file@v2
         with:
