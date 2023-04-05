@@ -1,12 +1,18 @@
 <template>
   <EditListTab :items="items">
     <template #tabLabel="{ index }">
-      <div class="w-full">Season {{ index + 1 }}</div>
+      <div class="w-full">
+        {{
+          t('components.operationSchedule.tab.seasonWithIndex', {
+            index: index + 1,
+          })
+        }}
+      </div>
     </template>
 
     <template #addItems>
       <EditListAddButton
-        :text="'Add new Season'"
+        :text="t('components.operationSchedule.addSeason')"
         @click="addItems([{ type: operationScheduleTypeDefaultValue }])"
       />
     </template>
@@ -16,15 +22,22 @@
     >
       <div class="flex flex-wrap gap-8 md:flex-nowrap">
         <div class="basis-full md:order-1 md:basis-1/3">
-          <div class="my-3 font-semibold text-black">Insert Season data</div>
-          <SubCategoryItem title="Name">
+          <div class="my-3 font-semibold text-black">
+            {{ t('components.operationSchedule.tab.insertSeasonData') }}
+          </div>
+          <SubCategoryItem
+            :title="t('components.operationSchedule.tab.seasonName')"
+          >
             <StringCell
               :text="item.name"
               :editable="editable"
               @input="updateItem(index, { name: $event.target.value })"
             />
           </SubCategoryItem>
-          <SubCategoryItem title="Season Start">
+          <SubCategoryItem
+            :title="t('components.operationSchedule.tab.seasonStart')"
+          >
+            <!-- title="Season Start" -->
             <DateCell
               :date="item.start"
               :editable="editable"
@@ -32,7 +45,9 @@
               @update="updateItem(index, { ...item, start: $event.value })"
             />
           </SubCategoryItem>
-          <SubCategoryItem title="Season End">
+          <SubCategoryItem
+            :title="t('components.operationSchedule.tab.seasonEnd')"
+          >
             <DateCell
               :date="item.stop"
               :editable="editable"
@@ -40,7 +55,9 @@
               @update="updateItem(index, { ...item, stop: $event.value })"
             />
           </SubCategoryItem>
-          <SubCategoryItem title="Type">
+          <SubCategoryItem
+            :title="t('components.operationSchedule.tab.seasonType')"
+          >
             <SelectWithOptionsCell
               v-if="editable"
               :value="item.type"
@@ -51,7 +68,9 @@
             <span v-else>{{ getOperationScheduleTypeLabel(item.type) }}</span>
           </SubCategoryItem>
 
-          <div class="my-3 font-semibold text-black">Insert Opening hours</div>
+          <div class="my-3 font-semibold text-black">
+            {{ t('components.operationSchedule.tab.insertOpeningHours') }}
+          </div>
           <div class="flex flex-col gap-3">
             <div
               v-for="(time, timeIndex) in item.operationScheduleTimes"
@@ -63,7 +82,9 @@
                   <IconDelete />
                 </button>
               </div>
-              <SubCategoryItem title="State">
+              <SubCategoryItem
+                :title="t('components.operationSchedule.tab.timeState')"
+              >
                 <SelectWithOptionsCell
                   v-if="editable"
                   :value="time.State"
@@ -83,7 +104,9 @@
                   getOperationScheduleTimeStateLabel(time.State)
                 }}</span>
               </SubCategoryItem>
-              <SubCategoryItem title="Timecode">
+              <SubCategoryItem
+                :title="t('components.operationSchedule.tab.timeTimecode')"
+              >
                 <SelectWithOptionsCell
                   v-if="editable"
                   :value="time.Timecode"
@@ -103,7 +126,9 @@
                   getOperationScheduleTimeCodeLabel(time.Timecode)
                 }}</span>
               </SubCategoryItem>
-              <SubCategoryItem title="Start time">
+              <SubCategoryItem
+                :title="t('components.operationSchedule.tab.timeStart')"
+              >
                 <DateCell
                   :date="time.Start"
                   :editable="editable"
@@ -119,7 +144,9 @@
                   "
                 />
               </SubCategoryItem>
-              <SubCategoryItem title="End time">
+              <SubCategoryItem
+                :title="t('components.operationSchedule.tab.timeEnd')"
+              >
                 <DateCell
                   :date="time.End"
                   :editable="editable"
@@ -135,7 +162,9 @@
                   "
                 />
               </SubCategoryItem>
-              <SubCategoryItem title="Select days">
+              <SubCategoryItem
+                :title="t('components.operationSchedule.tab.timeSelectDays')"
+              >
                 <div class="flex gap-1">
                   <ToggleButtonCell
                     v-for="day in operationScheduleTimeDays"
@@ -160,7 +189,7 @@
           <EditListAddButton
             v-if="editable"
             class="mt-6"
-            text="Add opening hours"
+            :text="t('components.operationSchedule.tab.timeAdd')"
             @click="addOperationScheduleTime(item, index)"
           />
         </div>
@@ -194,12 +223,20 @@
         <div class="basis-full md:order-2 md:basis-1/3">
           <div class="mb-3 rounded border">
             <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
-              <span class="font-semibold">Season</span>
+              <span class="font-semibold">
+                {{ t('components.operationSchedule.tab.season') }}
+              </span>
             </div>
 
             <div class="py-3 px-4">
-              <div>Date: {{ formatSeasonDate(item.start, item.stop) }}</div>
-              <div>Type: {{ getOperationScheduleTypeLabel(item.type) }}</div>
+              <div>
+                {{ t('components.operationSchedule.tab.seasonDate') }}:
+                {{ formatSeasonDate(item.start, item.stop) }}
+              </div>
+              <div>
+                {{ t('components.operationSchedule.tab.seasonType') }}:
+                {{ getOperationScheduleTypeLabel(item.type) }}
+              </div>
             </div>
           </div>
 
@@ -242,6 +279,9 @@ import { format as formatFn } from 'date-fns';
 import { DEFAULT_DATE_FORMAT } from '../../../../../config/utils';
 import ToggleButtonCell from '../toggleCell/ToggleButtonCell.vue';
 import QuickViewOpeningHoursView from '../../../../../components/quickview/QuickViewOpeningHoursView.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 defineProps<{ items: OperationScheduleEntry[] }>();
 

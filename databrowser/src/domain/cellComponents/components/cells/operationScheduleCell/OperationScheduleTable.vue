@@ -8,10 +8,18 @@
     </template>
 
     <template #tableHeader>
-      <TableHeaderCell>Season name</TableHeaderCell>
-      <TableHeaderCell>Season start</TableHeaderCell>
-      <TableHeaderCell>Season end</TableHeaderCell>
-      <TableHeaderCell>Type</TableHeaderCell>
+      <TableHeaderCell>
+        {{ t('components.operationSchedule.table.seasonName') }}
+      </TableHeaderCell>
+      <TableHeaderCell>
+        {{ t('components.operationSchedule.table.seasonStart') }}
+      </TableHeaderCell>
+      <TableHeaderCell>
+        {{ t('components.operationSchedule.table.seasonEnd') }}
+      </TableHeaderCell>
+      <TableHeaderCell>
+        {{ t('components.operationSchedule.table.seasonType') }}
+      </TableHeaderCell>
     </template>
 
     <template
@@ -57,10 +65,12 @@
         <span v-else>{{ getOperationScheduleTypeLabel(item.type) }}</span>
       </TableCell>
     </template>
-    <template #noItems>No seasons have been defined yet</template>
+    <template #noItems>
+      {{ t('components.operationSchedule.noSeason') }}
+    </template>
     <template #addItems>
       <EditListAddButton
-        :text="'Add new Season'"
+        :text="t('components.operationSchedule.addSeason')"
         @click="addItems([{ type: operationScheduleTypeDefaultValue }])"
       />
     </template>
@@ -84,6 +94,9 @@ import {
   operationScheduleTypeDefaultValue,
   getOperationScheduleTypeLabel,
 } from './operationScheduleOptions';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 defineProps<{ items: OperationScheduleEntry[] }>();
 
