@@ -34,7 +34,7 @@ defineEmits(['ctaClick']);
 
 <style scoped>
 .quickview-card-ct {
-  @apply rounded-lg border border-gray-250;
+  @apply rounded border;
 }
 
 .title-section {
