@@ -1,10 +1,10 @@
 <template>
   <!-- Mobile toolbox open button -->
   <ButtonCustom
-    v-if="!isToolboxVisible"
+    v-if="!toolboxStore.visible"
     class="absolute right-[20px] bottom-16 z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
     data-test="mobile-open-toolbox"
-    @click="isToolboxVisible = !isToolboxVisible"
+    @click="toolboxStore.visible = !toolboxStore.visible"
   >
     <IconClose class="just mr-2 h-5 w-5 rotate-45" /><span>Toolbox</span>
   </ButtonCustom>
@@ -13,24 +13,19 @@
   <div
     class="absolute top-0 z-30 flex h-full flex-col overflow-x-auto bg-white transition-all md:relative"
     :class="{
-      'w-full md:w-1/3': isToolboxVisible && isTableView,
-      'w-full md:w-1/2': isToolboxVisible && !isTableView,
-      'w-0': !isToolboxVisible,
-      'md:w-16': !isToolboxVisible && isTableView,
+      'w-full md:w-1/3': toolboxStore.visible,
+      'w-0 md:w-16': !toolboxStore.visible,
     }"
   >
     <div
       class="flex flex-1 overflow-y-auto md:block"
-      :class="{ block: isToolboxVisible, hidden: !isToolboxVisible }"
+      :class="{ block: toolboxStore.visible, hidden: !toolboxStore.visible }"
     >
       <Transition
         @after-enter="(el: HTMLElement) => (el.classList.value = 'block h-full w-full')"
         @before-leave="(el: HTMLElement) => (el.classList.value = 'hidden')"
       >
-        <div
-          v-if="isToolboxVisible"
-          :class="{ hidden: isTableView || !mdAndLarger }"
-        >
+        <div v-if="toolboxStore.visible" :class="{ hidden: !mdAndLarger }">
           <ContentAlignmentX class="h-full">
             <div class="flex flex-col justify-between">
               <TabGroup :default-index="defaultIndex">
@@ -43,7 +38,7 @@
                     size="xs"
                     class="mt-6 mr-2 flex h-8 w-8 items-center justify-center self-end md:hidden"
                     data-test="mobile-close-toolbox"
-                    @click="isToolboxVisible = false"
+                    @click="toolboxStore.visible = false"
                   >
                     <IconClose class="h-5 w-5" />
                   </ButtonCustom>
@@ -77,21 +72,23 @@
       </Transition>
     </div>
 
-    <!-- Table view open / close button -->
-    <div v-if="isTableView" class="my-6 ml-4 hidden md:block">
+    <!-- Open / close button -->
+    <div class="my-6 ml-4 hidden md:block">
       <ButtonCustom
         size="xs"
         class="hidden h-8 w-8 items-center justify-center md:flex"
         :data-test="
-          isToolboxVisible ? 'desktop-close-toolbox' : 'desktop-open-toolbox'
+          toolboxStore.visible
+            ? 'desktop-close-toolbox'
+            : 'desktop-open-toolbox'
         "
-        @click="isToolboxVisible = !isToolboxVisible"
+        @click="toolboxStore.visible = !toolboxStore.visible"
       >
         <IconStrokedArrowDown
           class="h-5 w-5 stroke-current"
           :class="{
-            '-rotate-90': isToolboxVisible,
-            'rotate-90': !isToolboxVisible,
+            '-rotate-90': toolboxStore.visible,
+            'rotate-90': !toolboxStore.visible,
           }"
         />
       </ButtonCustom>
@@ -100,7 +97,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, watch } from 'vue';
+import { toRefs, watch } from 'vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { TabGroup, TabList, TabPanels, Tab } from '@headlessui/vue';
 import ButtonCustom from '../../../components/button/ButtonCustom.vue';
@@ -108,28 +105,39 @@ import IconClose from '../../../components/svg/IconClose.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
 import TabButton from '../../../components/tab/TabButton.vue';
+import { useToolboxStore } from './toolboxStore';
 
-const props = defineProps<{
-  isTableView: boolean;
-  tabNames: string[];
-  defaultIndex?: number;
-}>();
+const props = withDefaults(
+  defineProps<{
+    tabNames: string[];
+    defaultIndex?: number;
+    visible?: boolean;
+  }>(),
+  {
+    defaultIndex: 0,
+    visible: true,
+  }
+);
 
-const isToolboxVisible = ref(false);
+const { visible } = toRefs(props);
+
+const toolboxStore = useToolboxStore();
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const mdAndLarger = breakpoints.greater('md');
 
 watch(
-  () => mdAndLarger.value,
-  (value, oldValue) => {
-    if (value && !props.isTableView) {
-      isToolboxVisible.value = true;
-      return;
-    }
-    if (oldValue != null && value !== oldValue) {
-      isToolboxVisible.value = false;
-      return;
+  [visible, mdAndLarger],
+  ([visible, mdAndLargerValue], [oldVisible, oldMdAndLargerValue]) => {
+    if (visible !== oldVisible && mdAndLargerValue) {
+      toolboxStore.visible = visible;
+    } else if (mdAndLargerValue) {
+      toolboxStore.visible = true;
+    } else if (
+      oldMdAndLargerValue != null &&
+      mdAndLargerValue !== oldMdAndLargerValue
+    ) {
+      toolboxStore.visible = false;
     }
   },
   { immediate: true }

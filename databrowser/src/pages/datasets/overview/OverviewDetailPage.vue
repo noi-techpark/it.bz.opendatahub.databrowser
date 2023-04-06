@@ -7,6 +7,7 @@
         <OverviewCardDescription :dataset="dataset" />
         <OverviewCardAccess :dataset="dataset" />
         <OverviewCardTabs :dataset="dataset" />
+        <OverviewToListLink class="justify-self-start" />
         <OverviewCardSuggestion :datasets="randomDatasets" />
 
         <CardDivider />
@@ -21,10 +22,6 @@
 import AppLayout from '../../../layouts/AppLayout.vue';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import {
-  DatasetDescription,
-  datasetsForPages,
-} from '../../../config/config-for-pages';
 import OverviewCardTabs from './OverviewCardTabs.vue';
 import OverviewCardDescription from './OverviewCardDescription.vue';
 import OverviewCardAccess from './OverviewCardAccess.vue';
@@ -34,14 +31,20 @@ import PartnersAndContributors from '../../../components/partners/PartnersAndCon
 import CardDivider from '../../../components/card/CardDivider.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
 import OverviewCardSuggestion from './OverviewCardSuggestion.vue';
+import { useMetaDataQuery } from '../../../domain/metaDataConfig/tourism/useMetaDataQuery';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
+import OverviewToListLink from './OverviewToListLink.vue';
 
 const route = useRoute();
 
-const dataset = computed(() =>
-  datasetsForPages.tourism.find((dataset) => dataset.id === route.params.id)
-);
+const metaData = useMetaDataQuery();
+const dataset = computed<TourismMetaData | undefined>(() => {
+  return (metaData.data?.value ?? []).find(
+    (dataset) => dataset.id === route.params.id
+  );
+});
 
-const randomDatasets = ref<DatasetDescription[]>([]);
+const randomDatasets = ref<TourismMetaData[]>([]);
 
 watch(
   () => dataset.value,
@@ -50,11 +53,11 @@ watch(
     // Note that the current dataset will never be in
     // in the result list, because it is filtered out
     randomDatasets.value = getRandomElementsFromArray(
-      datasetsForPages.tourism.filter(
+      (metaData.data?.value ?? []).filter(
         (dataset) => dataset.id !== route.params.id
       ),
       3
-    ).sort((a, b) => a.title.localeCompare(b.title));
+    ).sort((a, b) => a.shortname?.localeCompare(b.shortname));
   },
   { immediate: true }
 );

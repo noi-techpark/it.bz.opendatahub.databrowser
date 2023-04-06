@@ -7,23 +7,19 @@ It contains the [Data Browser application](./databrowser) and its [Web Component
 ## Table of Contents
 
 - [Getting started](#getting-started)
-- [Docker environment](#docker-environment)
 - [Information](#information)
 
 ## Getting started
 
-These instructions will get you a copy of this mono repository and prepare it for development.
+These instructions will get you a copy of this mono repository and prepare it for development of the [Data Browser application](./databrowser).
 
-Please take a look at the subprojects and their corresponding `README.md` files inside this mono repository to see
-how to do develop, test and build.
+Please take a look at the subprojects and their corresponding `README.md` files inside this mono repository to see how to do develop, test and build.
 
 ### Prerequisites
 
 To build the projects in the repository, the following prerequisites must be met:
 
 - Node.js, at least v12 (see [https://nodejs.org/en/about/releases/](https://nodejs.org/en/about/releases/))
-
-If you want to use Docker instead, take a look at the [Docker environment](#docker-environment) section.
 
 ### Installing
 
@@ -33,22 +29,16 @@ Get a copy of the repository, e.g. by cloning it from the following location:
 git clone https://github.com/noi-techpark/it.bz.opendatahub.databrowser
 ```
 
-Change directory:
+Change into the Data Browser directory:
 
 ```bash
-cd it.bz.opendatahub.databrowser
+cd it.bz.opendatahub.databrowser/databrowser
 ```
 
-Install Lerna:
+Install the dependencies:
 
 ```bash
-npm ci
-```
-
-Install the dependencies of all subprojects in this mono repository:
-
-```bash
-npm run bootstrap
+npm install
 ```
 
 Please take a look at the `README.md` files of the subprojects in this mono repository for further setup details.
@@ -77,8 +67,8 @@ The code in this project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE
 
 ### Authors
 
-- **Christian Gapp** - *Initial work* - [gappc](https://github.com/gappc)
-- **AboutBits** - *Initial work* - [aboutbits](https://github.com/aboutbits)
+- **Christian Gapp** - _Initial work_ - [gappc](https://github.com/gappc)
+- **AboutBits** - _Initial work_ - [aboutbits](https://github.com/aboutbits)
 
 ### Acknowledgements
 

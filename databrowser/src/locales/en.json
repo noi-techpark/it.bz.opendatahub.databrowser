@@ -6,7 +6,8 @@
     "profile": "Profile"
   },
   "contact": {
-    "email": "help{'@'}opendatahub.com"
+    "email": "help{'@'}opendatahub.com",
+    "emailInfo": "info{'@'}opendatahub.com"
   },
   "header": {
     "logo": "Open Data Hub - Logo",
@@ -81,6 +82,32 @@
         }
       }
     },
+    "quickView": {
+      "standardImageWarning": "This is a standard image and not part of the dataset",
+      "textInformation": "Text information",
+      "contact": "Contact",
+      "locationOnMap": "Location on Map",
+      "recordInformation": "Record information",
+      "openingHours": "Opening hours",
+      "nameCompanyName": "Name/Company Name",
+      "firstName": "First name",
+      "surname": "Surnname",
+      "streetAndNumber": "Street & Hausnumber",
+      "city": "City",
+      "zip": "ZIP-CODE",
+      "country": "Country",
+      "email": "E-Mail",
+      "phoneNumber": "Phone Number",
+      "webUrl": "Web-URL",
+      "lastChanged": "Last Changed",
+      "activeOnSource": "Active on source",
+      "activeOnODH": "Active on ODH",
+      "suedtirolInfoActive": "Active on suedtirol.info",
+      "active": "Active",
+      "inactive": "Inactive",
+      "closed": "Closed",
+      "webcamDetails": "Webcam details"
+    },
     "generated": {
       "categoryName": "All data"
     },
@@ -89,8 +116,10 @@
       "columnSizeSmall": "small",
       "columnSizeMedium": "medium",
       "columnSizeLarge": "large",
+      "datasetDetails": "Dataset details",
       "moreInfo": "More info",
       "moreInformation": "More information",
+      "noViewConfig": "No view config found, try to change the view using the provided button",
       "lessInformation": "Less information",
       "selectColumnSize": "Select size of columns",
       "switchViews": "Switch between views",
@@ -109,7 +138,10 @@
       "linkRaw": "Raw view",
       "linkQuick": "Quick view",
       "loadingData": "Loading data",
-      "noData": "No data",
+      "noData": {
+        "dataDoesNotExist": "You were looking for data that does not exist!",
+        "suggestion": "Please rethink your request"
+      },
       "of": "of"
     },
     "navigation": {
@@ -131,5 +163,64 @@
   "components": {
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "overview": {
+    "cardAccess": {
+      "accessData": "Access data",
+      "dataAccess": "Data access",
+      "viewInDataBrowser": "View in Data Browser"
+    },
+    "cardDescription": {
+      "description": "Description"
+    },
+    "cardItem": {
+      "accessTableView": "Access to table view",
+      "showDatasetApi": "Show dataset API"
+    },
+    "cardSuggestion": {
+      "otherDatasets": "Datasets you may also like"
+    },
+    "cardTabs": {
+      "apiVersion": "API version",
+      "contact": "Contact and support",
+      "moreInfo": "More information",
+      "openData": "OpenData",
+      "output": "Output",
+      "sources": "Sources",
+      "swaggerUrl": "Swagger URL"
+    },
+    "dataset": {
+      "titleJoiner": "from"
+    },
+    "detailPage": {
+      "toOverview": "Back to overview"
+    },
+    "hero": {
+      "details": "Details"
+    },
+    "info": {
+      "dataAvailability": {
+        "accessLimited": "Limited access",
+        "accessFull": "Full access",
+        "availability": "Availability of data"
+      },
+      "recordCount": {
+        "availableRecords": "Available records",
+        "closed": "closed",
+        "open": "open",
+        "reduced": "reduced"
+      },
+      "sources": {
+        "sources": "Sources"
+      }
+    },
+    "listPage": {
+      "accessOfData": "Access of data",
+      "accessTypeAll": "All access types",
+      "accessTypeLimited": "Limited access",
+      "accessTypeOpen": "Full access",
+      "listOfAllDatasets": "List of all datasets",
+      "showAllEndpoints": "Show all available Endpoints"
+    }
   }
 }

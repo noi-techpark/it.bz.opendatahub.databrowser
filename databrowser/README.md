@@ -24,7 +24,7 @@ If you want to use Docker instead, take a look at the [Docker environment](#dock
 
 ### Installation
 
-Change to this directory:
+Change to this directory, e.g.:
 
 ```bash
 cd databrowser
@@ -32,10 +32,10 @@ cd databrowser
 
 Copy the file `.env.example` to `.env` and adjust the configuration parameters if required.
 
-Install the dependencies (if not already installed with Lerna):
+Install the dependencies (if not already installed):
 
 ```bash
-npm ci
+npm install
 ```
 
 ### Start development
@@ -129,8 +129,8 @@ The code in this project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE
 
 ### Authors
 
-- **Christian Gapp** - *Initial work* - [gappc](https://github.com/gappc)
-- **AboutBits** - *Initial work* - [aboutbits](https://github.com/aboutbits)
+- **Christian Gapp** - _Initial work_ - [gappc](https://github.com/gappc)
+- **AboutBits** - _Initial work_ - [aboutbits](https://github.com/aboutbits)
 
 ### Acknowledgements
 

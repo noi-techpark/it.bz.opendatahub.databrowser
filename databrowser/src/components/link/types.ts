@@ -1,3 +1,3 @@
-export enum Tone {
-  primary = 'primary',
-}
+export type Tone = 'primary' | 'text';
+
+export type Variant = 'no-underline' | 'underline';

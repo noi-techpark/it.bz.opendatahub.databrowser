@@ -8,23 +8,11 @@ You can find an introduction on how to start developing in the [contribute-to-de
 
 ## Why a mono repository?
 
-The reason to use a mono repository is to speed up initial development. In the future, the projects in the repository may
-be moved to their own repositories.
-
-## Why do I have to install node_modules in the referenced web-component projects before I can compile the Data Browser app?
-
-Before you can compile the Data Browser app project, you need to install the dependencies of the referenced Web Components (see [web-component](../web-component)).
-
-The reason is, that the web-components need their dependencies to compile. They expect those dependencies in their own
-`node_modules` folder.
-
-It is advised to invoke `npm run bootstrap` in the repository root, because that in turn uses [lerna](https://lerna.js.org/)
-to take care of the dependencies.
+The reason to use a mono repository is to speed up initial development. In the future, the projects in the repository may be moved to their own repositories.
 
 ## How can I solve dependency issues?
 
-If you have any dependencies issues, consider removing all `node_modules` folders of all projects and try to invoke
-`npm run bootstrap` in the repository root.
+If you encounter any dependency issues, it may be helpful to delete all node_modules folders across all projects and attempt to run npm install in the appropriate repository.
 
 ## Where do I import / register my Web Component for the Data Browser application?
 

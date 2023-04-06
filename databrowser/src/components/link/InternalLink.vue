@@ -1,22 +1,26 @@
 <template>
-  <router-link :to="to" :class="className"><slot></slot></router-link>
+  <router-link :to="to" :class="classNames"><slot></slot></router-link>
 </template>
 
 <script setup lang="ts">
 import { defineProps, toRefs, withDefaults } from 'vue';
+import { RouteLocationRaw } from 'vue-router';
+import { Tone, Variant } from './types';
 import { useClassNames } from './useClassNames';
 
 const props = withDefaults(
   defineProps<{
-    to: string;
-    tone?: string;
+    to: RouteLocationRaw;
+    tone?: Tone;
+    variant?: Variant;
   }>(),
   {
-    tone: '',
+    tone: 'primary',
+    variant: 'underline',
   }
 );
 
-const { tone } = toRefs(props);
+const { tone, variant } = toRefs(props);
 
-const className = useClassNames(tone);
+const classNames = useClassNames(tone, variant);
 </script>

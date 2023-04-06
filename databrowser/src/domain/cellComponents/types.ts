@@ -1,5 +1,7 @@
 export enum CellComponent {
   ArrayCell = 'ArrayCell',
+  ArrayEditableCell = 'ArrayEditableCell',
+  ArrayLookupCell = 'ArrayLookupCell',
   ArrayTagsCell = 'ArrayTagsCell',
   ArticleAdditionalInfoCell = 'ArticleAdditionalInfoCell',
   ArticleLinkInfoCell = 'ArticleLinkInfoCell',
@@ -28,6 +30,14 @@ export enum CellComponent {
   ToggleCell = 'ToggleCell',
   TypeBasedCell = 'TypeBasedCell',
   WebcamCell = 'WebcamCell',
+  WebcamGalleryCell = 'WebcamGalleryCell',
+
+  QuickViewTextInfoCard = 'QuickViewTextInfoCard',
+  QuickViewContactsCard = 'QuickViewContactsCard',
+  QuickViewWebcamsView = 'QuickViewWebcamsView',
+  QuickViewMapView = 'QuickViewMapView',
+  QuickViewOpeningHoursView = 'QuickViewOpeningHoursView',
+  QuickViewRecordInfoView = 'QuickViewRecordInfoView',
 }
 
 export enum FilterComponent {

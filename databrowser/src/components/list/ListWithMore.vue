@@ -18,8 +18,8 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { DatasetDescription } from '../../config/config-for-pages';
+import { TourismMetaData } from '../../domain/metaDataConfig/tourism/types';
 import TooltipCustom from '../tooltip/TooltipCustom.vue';
 
-defineProps<{ dataset: DatasetDescription }>();
+defineProps<{ dataset: TourismMetaData }>();
 </script>

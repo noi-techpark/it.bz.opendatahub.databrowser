@@ -1,4 +1,4 @@
-import { toRaw } from 'vue';
+import { ApiParameters, stringifyParameter } from '..';
 import {
   isWithArrayPagination,
   isWithTourismPagination,
@@ -6,17 +6,26 @@ import {
   WithTourismPagination,
 } from './types';
 
+interface PaginationContext {
+  defaultParameters?: ApiParameters;
+  parameters?: ApiParameters;
+}
+
 export const tourismPaginatedMapper = (
   data: WithTourismPagination,
-  context: {
-    defaultParameters: Record<string, string>;
-    parameters: Record<string, string>;
-  }
+  context?: PaginationContext
 ): PaginationData => {
   const total = data.TotalResults;
-  const sizeAsString =
-    context.parameters.pagesize ?? context.defaultParameters.pagesize;
-  const size = parseInt(sizeAsString, 10);
+
+  const parameters = {
+    ...context?.defaultParameters,
+    ...context?.parameters,
+  };
+
+  const size =
+    parameters.pagesize != null
+      ? parseInt(stringifyParameter(parameters.pagesize), 10)
+      : 0;
   const page = data.CurrentPage;
 
   return {
@@ -31,24 +40,24 @@ export const tourismPaginatedMapper = (
 
 export const arrayPaginatedMapper = (
   data: unknown[],
-  context: {
-    defaultParameters: Record<string, string>;
-    parameters: Record<string, string>;
-  }
+  context?: PaginationContext
 ): PaginationData => {
   const total = data.length;
 
-  // Set default page size if not defined
-  const queryParametersWithPageSize = {
-    ...toRaw(context.defaultParameters),
-    ...toRaw(context.parameters),
+  const parameters = {
+    ...context?.defaultParameters,
+    ...context?.parameters,
   };
 
-  const size = parseInt(queryParametersWithPageSize.pagesize, 10);
+  const size =
+    parameters.pagesize != null
+      ? parseInt(stringifyParameter(parameters.pagesize), 10)
+      : 0;
 
-  const pageNumberFromFilter = parseInt(queryParametersWithPageSize.pagenumber);
-
-  const page = pageNumberFromFilter ?? 1;
+  const page =
+    parameters.pagenumber != null
+      ? parseInt(stringifyParameter(parameters.pagenumber), 10)
+      : 1;
 
   const start = (page - 1) * size;
   const items = data.slice(page, start + size);
@@ -65,10 +74,7 @@ export const arrayPaginatedMapper = (
 
 export const unifyPagination = <T = unknown>(
   data: T,
-  context: {
-    defaultParameters: any;
-    parameters: any;
-  }
+  context?: PaginationContext
 ): PaginationData<T> => {
   if (isWithTourismPagination(data)) {
     return tourismPaginatedMapper(data, context);

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SubCategoryItem title="Main Type">
+    <SubCategoryItem title="Main Type" :required="requiredValue">
       <LoadingState
         :is-loading="isLoading"
         :is-error="isError"
@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import { computed, toRefs } from 'vue';
 import LoadingState from '../../../../../components/loading/LoadingState.vue';
+import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
@@ -50,6 +51,7 @@ const props = withDefaults(
     lookupUrl?: string;
     editable?: boolean;
     readonly?: string | boolean;
+    required?: string | boolean;
   }>(),
   {
     type: undefined,
@@ -57,10 +59,12 @@ const props = withDefaults(
     lookupUrl: undefined,
     editable: true,
     readonly: false,
+    required: false,
   }
 );
 
-const { type, subType, lookupUrl, editable, readonly } = toRefs(props);
+const { type, subType, lookupUrl, editable, readonly, required } =
+  toRefs(props);
 
 // Show empty value options for type select if type and sub type
 // are undefined / null, which is the case for new articles.
@@ -69,6 +73,8 @@ const showEmptyValueForType = computed(
 );
 
 const isWritable = useWriteable({ editable, readonly });
+
+const requiredValue = booleanOrStringToBoolean(required.value, false);
 
 const { articleTypesHierarchy, isLoading, isSuccess, isError, error } =
   useFetchArticleTypes(lookupUrl, isWritable);

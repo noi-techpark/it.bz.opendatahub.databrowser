@@ -7,6 +7,10 @@ on:
 env:
   AWS_REGION : "eu-west-1"
   NODE_VERSION: 16.x
+  PROJECT_NAME: opendatahub-databrowser
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}/opendatahub-databrowser
+  DOCKER_TAG: ${{ github.sha }}
+  SERVER_PORT: 1005
 
 jobs:
   test:
@@ -44,15 +48,29 @@ jobs:
         with:
           working-directory: databrowser
           node-version: ${{ env.NODE_VERSION }}
-      - name: Sync to S3 bucket
-        uses: noi-techpark/github-actions/aws-s3-bucket-sync@v2
+      - name: Create .env file
+        uses: noi-techpark/github-actions/env-file@v2
         with:
-          working-directory: databrowser
-          access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_ID }}
-          secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY }}
-          region: ${{ env.AWS_REGION }}
-          s3-bucket-name: ${{ env.AWS_S3_BUCKET_NAME }}
-          folder: ./dist
+          working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          X_SERVER_PORT: ${{ env.SERVER_PORT }}
+          X_DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
+          X_DOCKER_TAG: ${{ env.DOCKER_TAG }}
+      - name: Build and push images
+        uses: noi-techpark/github-actions/docker-build-and-push@v2
+        with:
+          working-directory: infrastructure
+          docker-username: ${{ github.actor }}
+          docker-password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy application
+        uses: noi-techpark/github-actions/docker-deploy@v2
+        with:
+          working-directory: infrastructure/ansible
+          hosts: 'test'
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          docker-username: 'noi-techpark-bot'
+          docker-password: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          project-name: ${{ env.PROJECT_NAME }}
 
   deploy-prod:
     runs-on: ubuntu-20.04
@@ -86,3 +104,26 @@ jobs:
           region: ${{ env.AWS_REGION }}
           s3-bucket-name: ${{ env.AWS_S3_BUCKET_NAME }}
           folder: ./dist
+      - name: Create .env file
+        uses: noi-techpark/github-actions/env-file@v2
+        with:
+          working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          X_SERVER_PORT: ${{ env.SERVER_PORT }}
+          X_DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
+          X_DOCKER_TAG: ${{ env.DOCKER_TAG }}
+      - name: Build and push images
+        uses: noi-techpark/github-actions/docker-build-and-push@v2
+        with:
+          working-directory: infrastructure
+          docker-username: ${{ github.actor }}
+          docker-password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy application
+        uses: noi-techpark/github-actions/docker-deploy@v2
+        with:
+          working-directory: infrastructure/ansible
+          hosts: 'prod'
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          docker-username: 'noi-techpark-bot'
+          docker-password: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          project-name: ${{ env.PROJECT_NAME }}

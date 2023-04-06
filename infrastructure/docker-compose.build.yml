@@ -1,0 +1,8 @@
+version: "3.4"
+
+services:
+  app:
+    image: ${DOCKER_IMAGE}:${DOCKER_TAG}
+    build:
+      context: ../
+      dockerfile: infrastructure/docker/dockerfile-static-nginx

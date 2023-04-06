@@ -1,10 +1,14 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { PropertyConfig } from '../../../domain/datasetConfig/types';
 
-export const idReadOnlyCell = (): PropertyConfig => ({
+export const idCell = (): PropertyConfig => ({
   title: 'ID',
   component: CellComponent.StringCell,
   fields: { text: 'Id' },
+});
+
+export const idReadOnlyCell = (): PropertyConfig => ({
+  ...idCell(),
   params: { readonly: 'true' },
 });
 

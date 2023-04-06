@@ -1,4 +1,5 @@
 import { computed, Ref } from 'vue';
+import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
 
 export const useWriteable = ({
   editable,
@@ -8,8 +9,8 @@ export const useWriteable = ({
   readonly?: Ref<string | boolean | undefined> | undefined;
 }) =>
   computed(() => {
-    const isEditable = toBool(editable?.value);
-    const isReadonly = toBool(readonly?.value);
+    const isEditable = booleanOrStringToBoolean(editable?.value);
+    const isReadonly = booleanOrStringToBoolean(readonly?.value);
 
     const hasEditable = isEditable != null;
     const hasReadonly = isReadonly != null;
@@ -28,6 +29,3 @@ export const useWriteable = ({
 
     return !isReadonly && isEditable;
   });
-
-const toBool = (value: string | boolean | undefined) =>
-  typeof value === 'string' ? value.toLowerCase() === 'true' : value;

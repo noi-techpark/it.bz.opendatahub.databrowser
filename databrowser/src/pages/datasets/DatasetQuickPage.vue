@@ -1,5 +1,5 @@
 <template>
-  <SingleDatasetLayout>
+  <SingleDatasetLayout :ignore-section-styling="true">
     <QuickView />
   </SingleDatasetLayout>
 </template>
