@@ -9,6 +9,7 @@ import {
   idReadOnlyCell,
   imageGalleryCategory,
   odhTagCategory,
+  seasonCategory,
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
@@ -36,6 +37,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
+    seasonCategory(),
     {
       name: 'Additional Information',
       slug: 'additional-information',

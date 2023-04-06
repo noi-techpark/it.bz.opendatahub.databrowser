@@ -51,15 +51,15 @@
     <PageContent>
       <div class="grid-ct">
         <div
-          v-for="(element, index) in odhActivityPoiConfig.views?.quick
-            ?.elements"
+          v-for="(element, index) in mappedElements"
           :key="index"
           class="element-ct"
         >
           <ComponentRenderer
             :tag-name="element.component"
-            :attributes="mapWithIndex(data, element.fields, element.params)"
+            :attributes="element.value"
             :fields="element.fields"
+            :list-fields="element.listFields"
           />
         </div>
       </div>
@@ -84,7 +84,8 @@ import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewF
 import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
 
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
-import { usePropertyMapping } from '../../api';
+import { usePropertyComputation } from '../category/usePropertyComputation';
+import { PropertyConfig } from '../../datasetConfig/types';
 
 interface GalleryImage {
   ImageUrl: string;
@@ -98,7 +99,16 @@ const forcePlaceholderImage = ref(false);
 const { t, locale } = useI18n();
 const currentLocale = locale.value;
 
-const { mapWithIndex } = usePropertyMapping();
+const { computeProperties } = usePropertyComputation();
+
+const mappedElements = computed(() => {
+  return computeProperties(
+    data.value as Record<string, unknown>,
+    (odhActivityPoiConfig.views?.quick?.elements as PropertyConfig[]) ?? [],
+    true,
+    false
+  );
+});
 
 const title = computed(() => {
   return (

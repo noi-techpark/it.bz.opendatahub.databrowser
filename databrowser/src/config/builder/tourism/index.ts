@@ -11,6 +11,7 @@ export * from './location';
 export * from './municipality';
 export * from './odh';
 export * from './region';
+export * from './season';
 export * from './shortname';
 export * from './source';
 export * from './textInfo';

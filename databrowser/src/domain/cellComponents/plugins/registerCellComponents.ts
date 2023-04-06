@@ -18,6 +18,7 @@ import InputReferenceCell from '../components/cells/inputReferenceCell/InputRefe
 import ImageCell from '../components/cells/imageCell/ImageCell.vue';
 import ImageEditCell from '../components/cells/imageCell/ImageEditCell.vue';
 import ImageGalleryCell from '../components/cells/imageGalleryCell/ImageGalleryCell.vue';
+import OperationScheduleCell from '../components/cells/operationScheduleCell/OperationScheduleCell.vue';
 import JsonCell from '../components/cells/jsonCell/JsonCell.vue';
 import SelectWithOptionsCell from '../components/cells/selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StateCell from '../components/cells/stateCell/StateCell.vue';
@@ -28,6 +29,7 @@ import TagCell from '../components/cells/tagCell/TagCell.vue';
 import TagReferenceCell from '../components/cells/tagReferenceCell/TagReferenceCell.vue';
 import TextAreaCell from '../components/cells/textAreaCell/TextAreaCell.vue';
 import TextHighlightCell from '../components/cells/textHighlightCell/TextHighlightCell.vue';
+import ToggleButtonCell from '../components/cells/toggleCell/ToggleButtonCell.vue';
 import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
@@ -67,6 +69,7 @@ export default {
     app.component(CellComponent.ImageEditCell, ImageEditCell);
     app.component(CellComponent.ImageGalleryCell, ImageGalleryCell);
     app.component(CellComponent.JsonCell, JsonCell);
+    app.component(CellComponent.OperationScheduleCell, OperationScheduleCell);
     app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);
     app.component(CellComponent.StateCell, StateCell);
     app.component(CellComponent.StringCell, StringCell);
@@ -76,6 +79,7 @@ export default {
     app.component(CellComponent.TagReferenceCell, TagReferenceCell);
     app.component(CellComponent.TextAreaCell, TextAreaCell);
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
+    app.component(CellComponent.ToggleButtonCell, ToggleButtonCell);
     app.component(CellComponent.ToggleCell, ToggleCell);
     app.component(CellComponent.TypeBasedCell, TypeBasedCell);
     app.component(CellComponent.WebcamCell, WebcamCell);

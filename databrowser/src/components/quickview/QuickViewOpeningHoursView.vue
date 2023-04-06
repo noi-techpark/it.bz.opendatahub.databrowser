@@ -14,71 +14,54 @@ import { format as formatFn } from 'date-fns';
 import { computed, defineProps, withDefaults } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { getValueOfLocale, getTextValue } from './QuickViewUtils';
-
 import QuickViewCardOverview from './QuickViewCardOverview.vue';
+import { getTextValue } from './QuickViewUtils';
+import {
+  OperationScheduleEntry,
+  OperationScheduleTimeEntry,
+} from '../../domain/cellComponents/components/cells/operationScheduleCell/types';
+import { operationScheduleTimeDays } from '../../domain/cellComponents/components/cells/operationScheduleCell/operationScheduleOptions';
 
 const { t } = useI18n();
 
-interface ScheduleTime {
-  Start: string;
-  End: string;
-  Timecode: string;
-  State: string;
-}
-
-interface ScheduleData {
-  OperationScheduleTime: Array<ScheduleTime>;
-  OperationscheduleName: Record<string, unknown>;
-  Start: string;
-  Stop: string;
-}
-
 const props = withDefaults(
   defineProps<{
-    scheduleData?: Array<ScheduleData>;
+    operationSchedules?: OperationScheduleEntry[];
   }>(),
   {
-    scheduleData: () => [],
+    operationSchedules: () => [],
   }
 );
 
-const getTimeValue = (schedule: ScheduleTime, key: keyof ScheduleTime) => {
-  return schedule[key];
+const formatTime = (time?: string) => {
+  if (time == null || time === '') {
+    return '-';
+  }
+
+  const [hour, minute] = time.split(':');
+  return `${hour}:${minute}`;
 };
 
 const operationSchedule = computed(() => {
   let foundHours = false;
 
-  const timing = props.scheduleData ? [...props.scheduleData] : [];
-
-  const days = [
-    'Monday' as keyof ScheduleTime,
-    'Tuesday' as keyof ScheduleTime,
-    'Wednesday' as keyof ScheduleTime,
-    'Thursday' as keyof ScheduleTime,
-    'Friday' as keyof ScheduleTime,
-    'Saturday' as keyof ScheduleTime,
-    'Sunday' as keyof ScheduleTime,
-  ];
+  const timing = props.operationSchedules ? [...props.operationSchedules] : [];
 
   const parsedData = [];
   for (const time of timing) {
     const operationScheduleTime = [];
 
-    for (const schedule of time?.OperationScheduleTime || []) {
+    for (const schedule of time?.operationScheduleTimes || []) {
       foundHours = true;
       const daysHours = [];
-      const [startHour, startMinute] = schedule.Start.split(':');
-      const [endHour, endMinute] = schedule.End.split(':');
-      for (const d of days) {
+      for (const d of operationScheduleTimeDays) {
         daysHours.push({
-          Start: `${startHour}:${startMinute}`,
-          End: `${endHour}:${endMinute}`,
+          Start: formatTime(schedule.Start),
+          End: formatTime(schedule.End),
           State: schedule.State,
           Timecode: schedule.Timecode,
-          Day: d.slice(0, 3).toUpperCase(),
-          Open: getTimeValue(schedule, d),
+          Day: d.label,
+          Open: schedule[d.key as keyof OperationScheduleTimeEntry],
         });
       }
       operationScheduleTime.push(daysHours);
@@ -87,7 +70,7 @@ const operationSchedule = computed(() => {
     parsedData.push({
       ...result,
       OperationScheduleTime: operationScheduleTime,
-      TimePeriodRange: getTimePeriodRange(time.Start, time.Stop),
+      TimePeriodRange: getTimePeriodRange(time.start, time.stop),
     });
   }
 
@@ -106,12 +89,7 @@ const operationScheduleSections = computed(() => {
       icon: 'IconClock',
       content: [
         {
-          title: getTextValue(
-            getValueOfLocale(
-              'currentLocale',
-              schedule.OperationscheduleName
-            ) as string
-          ),
+          title: getTextValue(schedule.name),
           text: schedule.TimePeriodRange,
         },
       ],
@@ -124,19 +102,12 @@ const operationScheduleSections = computed(() => {
   return sections;
 });
 
-const getTimePeriodRange = (start: string, end: string) => {
-  const startDate = new Date(start);
-  const monthStart = formatFn(startDate, 'LLLL');
-  const yearStart = formatFn(startDate, 'yyyy');
-  const dayStart = formatFn(startDate, 'd');
+const getTimePeriodRange = (start?: string, end?: string) => {
+  const startAsString =
+    start == null ? 'Unknown' : formatFn(new Date(start), 'd. LLLL yyyy');
+  const endAsString =
+    end == null ? 'Unknown' : formatFn(new Date(end), 'd. LLLL yyyy');
 
-  const endDate = new Date(end);
-  const monthEnd = formatFn(startDate, 'LLLL');
-  const yearEnd = formatFn(endDate, 'yyyy');
-  const dayEnd = formatFn(endDate, 'd');
-
-  return `${dayStart}. ${monthStart}${
-    yearStart !== yearEnd ? ' ' + yearStart : ''
-  } - ${dayEnd}. ${monthEnd} ${yearEnd}`;
+  return `${startAsString} - ${endAsString}`;
 };
 </script>

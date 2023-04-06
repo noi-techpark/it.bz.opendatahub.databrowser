@@ -52,11 +52,10 @@ export interface DetailElements {
   subcategories: SubCategoryElement[];
 }
 
-export interface QuickViewElements {
-  component: string;
-  fields: Record<string, string>;
-  params?: Record<string, string>;
-}
+export type QuickViewElements = Omit<
+  PropertyConfig,
+  'title' | 'class' | 'required' | 'tooltip'
+>;
 
 export interface EditElements {
   name: string;

@@ -46,8 +46,16 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     },
     {
       component: CellComponent.QuickViewOpeningHoursView,
-      fields: {
-        scheduleData: 'OperationSchedule',
+      listFields: {
+        pathToParent: 'OperationSchedule',
+        attributeName: 'operationSchedules',
+        fields: {
+          name: 'OperationscheduleName.{language}',
+          start: 'Start',
+          stop: 'Stop',
+          type: 'Type',
+          operationScheduleTimes: 'OperationScheduleTime',
+        },
       },
     },
     {

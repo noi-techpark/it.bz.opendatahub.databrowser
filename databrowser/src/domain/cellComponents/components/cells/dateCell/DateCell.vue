@@ -21,7 +21,7 @@ const props = withDefaults(
   defineProps<{
     date?: string;
     format?: string;
-    type?: 'date' | 'datetime';
+    type?: 'date' | 'datetime' | 'time';
     editable?: boolean;
     readonly?: string | boolean;
   }>(),
@@ -47,7 +47,11 @@ const formattedDate = computed(() => {
 });
 
 const inputType = computed(() =>
-  props.type === 'datetime' ? 'datetime-local' : 'date'
+  props.type === 'datetime'
+    ? 'datetime-local'
+    : props.type === 'date'
+    ? 'date'
+    : 'time'
 );
 
 const parsedDate = computed(() => {
