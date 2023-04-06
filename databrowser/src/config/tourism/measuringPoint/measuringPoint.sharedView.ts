@@ -9,7 +9,6 @@ import {
   shortnameCell,
   dataStatesSubCategory,
 } from '../../builder/tourism';
-import { publishedOnCell } from '../../builder/tourism/publishedOn';
 import { DEFAULT_DATE_FORMAT } from '../../utils';
 
 export const measuringPointSharedView = ():
