@@ -3,6 +3,7 @@ import {
   DetailElements,
   PropertyConfig,
 } from '../../../domain/datasetConfig/types';
+import { withOdhBaseUrl } from '../../utils';
 
 export const locationCategory = (): DetailElements => ({
   name: 'Location',
@@ -13,25 +14,51 @@ export const locationCategory = (): DetailElements => ({
       properties: [
         {
           title: 'Region / TVB',
-          component: CellComponent.StringCell,
-          fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
+          component: CellComponent.InputReferenceCell,
+          fields: { value: 'LocationInfo.RegionInfo.Id' },
+          params: {
+            url: withOdhBaseUrl(
+              '/v1/Location?language=en&type=null&showall=true'
+            ),
+            labelSelector: 'name',
+            keySelector: 'id',
+          },
+          required: true,
         },
         {
-          title: 'Tourismorganization',
-          component: CellComponent.StringCell,
-          fields: { text: 'TourismorganizationId' },
+          title: 'Tourism Assocciation',
+          component: CellComponent.InputReferenceCell,
+          fields: { value: 'LocationInfo.TvInfo.Id' },
+          params: {
+            url: withOdhBaseUrl(
+              '/v1/Location?language=en&type=null&showall=true'
+            ),
+            labelSelector: 'name',
+            keySelector: 'id',
+          },
+          required: true,
         },
         {
           title: 'Municipality',
-          component: CellComponent.StringCell,
-          fields: {
-            text: 'LocationInfo.MunicipalityInfo.Name.{language}',
+          component: CellComponent.InputReferenceCell,
+          fields: { value: 'LocationInfo.MunicipalityInfo.Id' },
+          params: {
+            url: withOdhBaseUrl('/v1/Municipality?removenullvalues=false'),
+            labelSelector: 'Detail.en.Title',
+            keySelector: 'Id',
           },
+          required: true,
         },
         {
           title: 'District',
-          component: CellComponent.StringCell,
-          fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+          component: CellComponent.InputReferenceCell,
+          fields: { value: 'LocationInfo.DistrictInfo.Id' },
+          params: {
+            url: withOdhBaseUrl('/v1/District?removenullvalues=false'),
+            labelSelector: 'Detail.en.Title',
+            keySelector: 'Id',
+          },
+          required: true,
         },
       ],
     },

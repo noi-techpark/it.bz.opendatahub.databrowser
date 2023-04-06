@@ -13,6 +13,7 @@ import {
   shortnameWithLogoAndMainImageSubCategory,
   sourceSubCategory,
   textInfoCategory,
+  webcamCategory,
 } from '../../builder/tourism';
 
 export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -52,6 +53,7 @@ export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
     contactCategory(),
     imageGalleryCategory(),
     gpsDataCategory(),
+    webcamCategory(),
     odhTagCategory(),
   ],
 });

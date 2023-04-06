@@ -14,7 +14,6 @@ export const gpsDataCategory = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.GpsPointsCell,
-          class: 'w-48',
           fields: {
             type: 'GpsPoints.position.Gpstype',
             latitude: 'GpsPoints.position.Latitude',

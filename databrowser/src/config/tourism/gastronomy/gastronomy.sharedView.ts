@@ -9,6 +9,7 @@ import {
   gpsDataCategory,
   idReadOnlyCell,
   imageGalleryCategory,
+  locationCategory,
   logoWithMainImageCells,
   municipalityIdCell,
   odhTagCategory,
@@ -26,8 +27,11 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
       subcategories: [
         {
           name: 'General data',
+          properties: [shortnameCell(), ...logoWithMainImageCells()],
+        },
+        {
+          name: 'Gastronomy details',
           properties: [
-            shortnameCell(),
             {
               title: 'Max Seating Capacity',
               component: CellComponent.StringCell,
@@ -57,7 +61,6 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
                 max: '3',
               },
             },
-            ...logoWithMainImageCells(),
           ],
         },
         {
@@ -92,35 +95,14 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
             },
           ],
         },
-        dataStatesSubCategory(),
+        dataStatesSubCategory({ hasVisibleInSearch: true }),
         sourceSubCategory(),
       ],
     },
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
-    {
-      name: 'Location',
-      slug: 'location',
-      subcategories: [
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Region',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
-            },
-            municipalityIdCell('LocationInfo.MunicipalityInfo.Id'),
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
-            },
-          ],
-        },
-      ],
-    },
+    locationCategory(),
     gpsDataCategory(),
     odhTagCategory('gastronomy'),
   ],

@@ -14,6 +14,7 @@ import {
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
+  webcamCategory,
 } from '../../builder/tourism';
 
 export const skiRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -46,6 +47,7 @@ export const skiRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
     contactCategory(),
     imageGalleryCategory(),
     gpsDataCategory(),
+    webcamCategory(),
     odhTagCategory(),
   ],
 });

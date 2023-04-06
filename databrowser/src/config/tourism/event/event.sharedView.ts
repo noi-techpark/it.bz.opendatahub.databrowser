@@ -4,6 +4,7 @@ import {
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
 import {
+  contactCategory,
   dataStatesSubCategory,
   gpsDataCategory,
   imageGalleryCategory,
@@ -13,6 +14,8 @@ import {
   shortnameWithLogoAndMainImageSubCategory,
   sourceSubCategory,
   textInfoCategory,
+  idReadOnlyCell,
+  locationCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -26,6 +29,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: 'IDs',
           properties: [
+            idReadOnlyCell(),
             {
               title: 'Tv Info',
               component: CellComponent.StringCell,
@@ -50,41 +54,8 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
       ],
     },
     textInfoCategory(),
+    contactCategory(),
     imageGalleryCategory(),
-    gpsDataCategory(),
-    {
-      name: 'Files',
-      slug: 'files',
-      subcategories: [
-        {
-          name: 'General data',
-          properties: [
-            {
-              title: 'PDF',
-              // TODO: use PDF upload
-              component: CellComponent.EditImageGalleryCell,
-              fields: {
-                images: 'Pdf',
-              },
-              params: {
-                alt: 'ImageAltText.{language}',
-                src: 'ImageUrl',
-                name: 'ImageName',
-                width: 'Width',
-                height: 'Height',
-                title: 'ImageTitle.{language}',
-                description: 'ImageDesc.{language}',
-                copyright: 'CopyRight',
-                license: 'License',
-                listPosition: 'ListPosition',
-                active: '',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    odhTagCategory('event'),
     {
       name: 'Event details',
       slug: 'Event-details',
@@ -115,7 +86,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'Organizer Info',
           properties: [
             {
-              title: 'CompanyName',
+              title: 'Company / Name',
               component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.CompanyName' },
             },
@@ -173,21 +144,6 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Url',
               component: CellComponent.StringCell,
               fields: { text: 'ContactInfos.{language}.Url' },
-            },
-          ],
-        },
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Location',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.TvInfo.Name.{language}' },
-            },
-            {
-              title: 'Region Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
             },
           ],
         },
@@ -265,5 +221,8 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
+    locationCategory(),
+    gpsDataCategory(),
+    odhTagCategory('event'),
   ],
 });

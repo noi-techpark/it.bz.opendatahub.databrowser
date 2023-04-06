@@ -1,7 +1,10 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { PropertyConfig } from '../../../domain/datasetConfig/types';
+import {
+  DetailElements,
+  PropertyConfig,
+} from '../../../domain/datasetConfig/types';
 
-export const webcamTableCell = (): PropertyConfig => ({
+export const webcamCell = (): PropertyConfig => ({
   title: '',
   component: CellComponent.WebcamCell,
   listFields: {
@@ -16,4 +19,15 @@ export const webcamTableCell = (): PropertyConfig => ({
       listPosition: 'ListPosition',
     },
   },
+});
+
+export const webcamCategory = (): DetailElements => ({
+  name: 'Webcam Details',
+  slug: 'webcam-details',
+  subcategories: [
+    {
+      name: '',
+      properties: [webcamCell()],
+    },
+  ],
 });

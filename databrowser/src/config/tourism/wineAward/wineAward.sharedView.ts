@@ -61,7 +61,6 @@ export const wineAwardSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Awards',
               component: CellComponent.ArrayCell,
-              class: 'w-40',
               fields: {
                 items: 'Awards',
               },

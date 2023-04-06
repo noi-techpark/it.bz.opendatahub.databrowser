@@ -57,6 +57,9 @@ export const logoCell = (): PropertyConfig => ({
   title: 'Logo',
   component: CellComponent.ImageEditCell,
   fields: { src: 'ContactInfos.{language}.LogoUrl' },
+  params: {
+    width: '40%',
+  },
 });
 
 export const logoTableCell = (): PropertyConfig => ({

@@ -17,7 +17,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'date',
               },
@@ -28,7 +27,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Evolution Title',
               component: CellComponent.StringCell,
-              class: 'w-48',
               fields: {
                 text: 'evolutiontitle',
               },
@@ -36,7 +34,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Evolution',
               component: CellComponent.StringCell,
-              class: 'w-48',
               fields: {
                 text: 'evolution',
               },
@@ -55,7 +52,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Conditions.0.date',
               },
@@ -65,8 +61,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Conditions.0.WeatherImgurl',
               },
@@ -77,7 +72,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Title',
               component: CellComponent.StringCell,
-              class: 'w-48',
               fields: {
                 text: 'Conditions.0.Title',
               },
@@ -85,7 +79,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Weather Condition',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Conditions.0.WeatherCondition',
               },
@@ -93,7 +86,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Conditions.0.Weatherdesc',
               },
@@ -101,7 +93,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Temperatures',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Conditions.0.Temperatures',
               },
@@ -109,7 +100,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Temperature Max',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Conditions.0.TempMaxmax',
               },
@@ -117,7 +107,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Temperature MaxMin',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Conditions.0.TempMaxmin',
               },
@@ -125,7 +114,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Temperature MinMax',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Conditions.0.TempMinmax',
               },
@@ -133,7 +121,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Temperature Min',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Conditions.0.TempMinmin',
               },
@@ -141,7 +128,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Reliability in %',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Conditions.0.Reliability',
               },
@@ -149,7 +135,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Bulletin Status',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Conditions.0.bulletinStatus',
               },
@@ -168,7 +153,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Forecast.0.date',
               },
@@ -178,8 +162,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Forecast.0.WeatherImgurl',
               },
@@ -190,7 +173,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Forecast.0.Weatherdesc',
               },
@@ -198,7 +180,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Weather Code',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Forecast.0.Weathercode',
               },
@@ -206,7 +187,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Temperature Max',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Forecast.0.TempMaxmax',
               },
@@ -214,7 +194,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Temperature MaxMin',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Forecast.0.TempMaxmin',
               },
@@ -222,7 +201,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Temperature MinMax',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Forecast.0.TempMinmin',
               },
@@ -230,7 +208,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Reliability in %',
               component: CellComponent.StringCell,
-              class: 'w-40',
               fields: {
                 text: 'Forecast.0.Reliability',
               },
@@ -249,7 +226,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Mountain.0.date',
               },
@@ -259,8 +235,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Mountain.0.MountainImgurl',
               },
@@ -302,7 +277,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Mountain.0.date',
               },
@@ -312,8 +286,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Mountain.0.Northimgurl',
               },
@@ -339,7 +312,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Mountain.0.date',
               },
@@ -349,8 +321,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Mountain.0.Southimgurl',
               },
@@ -376,7 +347,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Mountain.0.date',
               },
@@ -412,7 +382,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Mountain.0.date',
               },
@@ -448,7 +417,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Mountain.0.date',
               },
@@ -458,8 +426,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Mountain.0.WindImgurl',
               },
@@ -496,7 +463,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Stationdata.3.date',
               },
@@ -506,8 +472,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Stationdata.2.WeatherImgUrl',
               },
@@ -564,7 +529,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Stationdata.1.date',
               },
@@ -574,8 +538,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Stationdata.1.WeatherImgUrl',
               },
@@ -632,7 +595,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Stationdata.4.date',
               },
@@ -642,8 +604,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Stationdata.4.WeatherImgUrl',
               },
@@ -700,7 +661,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Stationdata.5.date',
               },
@@ -710,8 +670,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Stationdata.5.WeatherImgUrl',
               },
@@ -768,7 +727,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Stationdata.3.date',
               },
@@ -778,8 +736,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Stationdata.3.WeatherImgUrl',
               },
@@ -836,7 +793,6 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              class: 'w-40',
               fields: {
                 date: 'Stationdata.0.date',
               },
@@ -846,8 +802,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Image',
-              component: CellComponent.ImageCell,
-              class: 'w-40',
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'Stationdata.0.WeatherImgUrl',
               },
