@@ -40,7 +40,9 @@
         </UseFullscreen>
       </TableCell>
       <TableCell>{{ item.name }}</TableCell>
-      <TableCell>{{ item.imageUrl }}</TableCell>
+      <TableCell>
+        <UrlCell :text="item.imageUrl" :editable="editable" />
+      </TableCell>
       <TableCell>{{ item.latitude }}</TableCell>
       <TableCell>{{ item.longitude }}</TableCell>
       <TableCell>{{ item.altitude }}</TableCell>
@@ -63,8 +65,12 @@ import { useInjectActionTriggers } from '../../utils/editList/actions/useActions
 import UseFullscreen from '../../../../../components/fullscreen/UseFullscreen.vue';
 import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
 import { WebcamEntry } from './types';
+import UrlCell from '../UrlCell/UrlCell.vue';
+import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 
 defineProps<{ items: WebcamEntry[] }>();
 
 const { addEmptyItem } = useInjectActionTriggers();
+
+const { editable } = useInjectEditMode();
 </script>
