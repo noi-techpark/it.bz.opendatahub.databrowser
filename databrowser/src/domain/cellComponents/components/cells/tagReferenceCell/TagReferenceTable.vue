@@ -54,7 +54,7 @@ const { editable } = useInjectEditMode();
 
 const tagSet = computed(() => new Set(tags.value));
 
-const getOptionsForTag = (tag: string, tagSet: Set<string>) => {
+const getOptionsForTag = (tag: string, tagSet: Set<string | number>) => {
   const allOptions = props.options.map((option) => ({
     ...option,
     selected: tag === option.value,

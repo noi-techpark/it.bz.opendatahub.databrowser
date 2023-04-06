@@ -66,7 +66,7 @@ const { addItems, updateItem } = useInjectActionTriggers();
 
 const itemSet = computed(() => new Set(props.items));
 
-const getOptionsForItem = (item: string, itemSet: Set<string>) => {
+const getOptionsForItem = (item: string, itemSet: Set<string | number>) => {
   const allOptions = props.options.map((option) => ({
     ...option,
     selected: item === option.value,
