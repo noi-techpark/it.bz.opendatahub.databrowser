@@ -12,11 +12,13 @@ import {
   logoWithMainImageCells,
   municipalityIdCell,
   odhTagCategory,
-  seasonCategory,
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
+  webcamCategory,
+  locationCategory,
 } from '../../builder/tourism';
+import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -76,8 +78,17 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
                 separator: ', ',
               },
             },
+            municipalityIdCell('LocationInfo.MunicipalityInfo.Id'),
           ],
         },
+        dataStatesSubCategory(),
+        sourceSubCategory(),
+      ],
+    },
+    {
+      name: 'Ski details',
+      slug: 'ski-detail',
+      subcategories: [
         {
           name: 'Slope information',
           properties: [
@@ -123,54 +134,75 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             {
               title: 'Ski map',
-              component: CellComponent.ImageCell,
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'SkiAreaMapURL',
               },
             },
           ],
         },
-        dataStatesSubCategory(),
-        sourceSubCategory(),
       ],
     },
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
-    seasonCategory(),
     {
-      name: 'Location',
-      slug: 'location',
+      name: 'Season / Opening hours',
+      slug: 'season-opening-hours',
       subcategories: [
         {
-          name: 'Location',
+          name: 'Season / Opening hours',
           properties: [
             {
-              title: 'Region',
+              title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.{language}' },
+              fields: { text: 'Shortname' },
             },
             {
-              title: 'Valley',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.TvInfo.{language}' },
+              title: 'Start Date and Time',
+              component: CellComponent.DateCell,
+              fields: { date: 'OperationSchedule.0.Start' },
+              params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
             {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.{language}' },
+              title: 'End Date and Time',
+              component: CellComponent.DateCell,
+              fields: { date: 'OperationSchedule.0.Stop' },
+              params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
-            municipalityIdCell('LocationInfo.MunicipalityInfo.Id'),
+          ],
+        },
+      ],
+    },
+    locationCategory(),
+    {
+      name: 'Related content',
+      slug: 'related-content',
+      subcategories: [
+        {
+          name: 'Related data',
+          properties: [
             {
-              title: 'Ski Region',
+              title: 'Activity',
               component: CellComponent.StringCell,
-              fields: { text: 'SkiRegionName.{language}' },
+              fields: { text: 'RelatedContent' },
+            },
+            {
+              title: 'Gastronomy',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
+            },
+            {
+              title: 'Event',
+              component: CellComponent.StringCell,
+              fields: { text: 'RelatedContent' },
             },
           ],
         },
       ],
     },
     gpsDataCategory(),
+    webcamCategory(),
     odhTagCategory(),
   ],
 });
