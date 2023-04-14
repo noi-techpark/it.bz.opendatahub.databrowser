@@ -10,12 +10,13 @@ import {
   idAndCustomIdCells,
   imageGalleryCategory,
   logoWithMainImageCells,
-  municipalityIdCell,
   odhTagCategory,
   seasonCategory,
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
+  webcamCategory,
+  locationCategory,
 } from '../../builder/tourism';
 
 export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -123,7 +124,7 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             {
               title: 'Ski map',
-              component: CellComponent.ImageCell,
+              component: CellComponent.ImageEditCell,
               fields: {
                 src: 'SkiAreaMapURL',
               },
@@ -138,39 +139,9 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
     contactCategory(),
     imageGalleryCategory(),
     seasonCategory(),
-    {
-      name: 'Location',
-      slug: 'location',
-      subcategories: [
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Region',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.{language}' },
-            },
-            {
-              title: 'Valley',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.TvInfo.{language}' },
-            },
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.{language}' },
-            },
-            municipalityIdCell('LocationInfo.MunicipalityInfo.Id'),
-            {
-              title: 'Ski Region',
-              component: CellComponent.StringCell,
-              fields: { text: 'SkiRegionName.{language}' },
-            },
-          ],
-        },
-      ],
-    },
+    locationCategory(),
     gpsDataCategory(),
+    webcamCategory(),
     odhTagCategory(),
   ],
 });
