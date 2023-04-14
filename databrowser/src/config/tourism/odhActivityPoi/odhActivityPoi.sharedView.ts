@@ -10,7 +10,7 @@ import {
   idAndCustomIdCells,
   imageGalleryCategory,
   locationCategory,
-  logoCell,
+  logoWithMainImageCells,
   municipalityIdCell,
   odhTagCategory,
   regionIdCell,
@@ -18,7 +18,7 @@ import {
   shortnameCell,
   sourceWithInsertsSubCategory,
   textInfoCategory,
-  webcamCell,
+  webcamCategory,
 } from '../../builder/tourism';
 import { withOdhBaseUrl } from '../../utils';
 
@@ -33,6 +33,7 @@ export const odhActivityPoiSharedView = ():
         {
           name: 'General data',
           properties: [
+            shortnameCell(),
             {
               title: 'Title',
               component: CellComponent.StringCell,
@@ -40,45 +41,7 @@ export const odhActivityPoiSharedView = ():
                 text: 'Detail.{language}.Title',
               },
             },
-            shortnameCell(),
-            logoCell(),
-            {
-              title: 'Type',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'Type' },
-              params: {
-                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
-                labelSelector: 'TypeDesc.{language}',
-                keySelector: 'Key',
-              },
-            },
-            {
-              title: 'Sub Type',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'SubType' },
-              params: {
-                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
-                labelSelector: 'TypeDesc.{language}',
-                keySelector: 'Key',
-              },
-            },
-            {
-              title: 'Poi Type',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'PoiType' },
-              params: {
-                url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
-                labelSelector: 'TypeDesc.{language}',
-                keySelector: 'Key',
-              },
-            },
-            {
-              title: 'Novelty',
-              component: CellComponent.ToggleCell,
-              fields: {
-                text: 'AdditionalPoiInfos.{language}.Novelty',
-              },
-            },
+            ...logoWithMainImageCells(),
           ],
         },
         {
@@ -111,118 +74,10 @@ export const odhActivityPoiSharedView = ():
               fields: { text: 'OwnerRid' },
               class: 'break-all',
             },
-
             {
               title: 'Outdoor Active ID',
               component: CellComponent.StringCell,
               fields: { text: 'OutdooractiveID' },
-            },
-          ],
-        },
-        {
-          name: 'Additional Information',
-          properties: [
-            {
-              title: 'Highlight',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'Highlight' },
-            },
-            {
-              title: 'Open',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'IsOpen' },
-            },
-            {
-              title: 'Free Entrance',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'HasFreeEntrance' },
-            },
-            {
-              title: 'Prepared',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'IsPrepared' },
-            },
-            {
-              title: 'With Light',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'IsWithLigth' },
-            },
-            {
-              title: 'Has Rentals',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'HasRentals' },
-            },
-            {
-              title: 'Runs To Valley',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'RunToValley' },
-            },
-            {
-              title: 'Lift Available',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'LiftAvailable' },
-            },
-            {
-              title: 'Feet Climb',
-              component: CellComponent.ToggleCell,
-              fields: { text: 'FeetClimb' },
-            },
-            {
-              title: 'Author Tip',
-              component: CellComponent.StringCell,
-              fields: {
-                text: 'Detail.{language}.AuthorTip',
-              },
-            },
-            {
-              title: 'Parking Info',
-              component: CellComponent.StringCell,
-              fields: { text: 'ParkingInfo' },
-            },
-            {
-              title: 'Public Transportation Info',
-              component: CellComponent.StringCell,
-              fields: { text: 'PublicTransportationInfo' },
-            },
-            {
-              title: 'Safety Info',
-              component: CellComponent.StringCell,
-              fields: { text: 'SafetyInfo' },
-            },
-            {
-              title: 'Equipment Info',
-              component: CellComponent.StringCell,
-              fields: { text: 'EquipmentInfo' },
-            },
-          ],
-        },
-        {
-          name: 'Target Group',
-          properties: [
-            {
-              title: 'Age from',
-              component: CellComponent.StringCell,
-              fields: { text: 'AgeFrom' },
-            },
-            {
-              title: 'Age to',
-              component: CellComponent.StringCell,
-              fields: { text: 'AgeTo' },
-            },
-          ],
-        },
-        {
-          name: 'Other',
-          properties: [
-            {
-              title: 'Tourism organization Id',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
-            },
-            {
-              title: 'District',
-              component: CellComponent.StringCell,
-              fields: { text: 'DistrictInfo.Name.de' },
             },
           ],
         },
@@ -370,47 +225,47 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Highlight',
               component: CellComponent.ToggleCell,
-              fields: { text: 'Highlight' },
+              fields: { enabled: 'Highlight' },
             },
             {
               title: 'Open',
               component: CellComponent.ToggleCell,
-              fields: { text: 'IsOpen' },
+              fields: { enabled: 'IsOpen' },
             },
             {
               title: 'Free entrance',
               component: CellComponent.ToggleCell,
-              fields: { text: 'HasFreeEntrance' },
+              fields: { enabled: 'HasFreeEntrance' },
             },
             {
               title: 'Prepared',
               component: CellComponent.ToggleCell,
-              fields: { text: 'IsPrepared' },
+              fields: { enabled: 'IsPrepared' },
             },
             {
               title: 'With Light',
               component: CellComponent.ToggleCell,
-              fields: { text: 'IsWithLigth' },
+              fields: { enabled: 'IsWithLigth' },
             },
             {
               title: 'Has Rental',
               component: CellComponent.ToggleCell,
-              fields: { text: 'HasRentals' },
+              fields: { enabled: 'HasRentals' },
             },
             {
               title: 'Run to Valley',
               component: CellComponent.ToggleCell,
-              fields: { text: 'RunToValley' },
+              fields: { enabled: 'RunToValley' },
             },
             {
               title: 'Lift Available',
               component: CellComponent.ToggleCell,
-              fields: { text: 'LiftAvailable' },
+              fields: { enabled: 'LiftAvailable' },
             },
             {
               title: 'Feet Climb',
               component: CellComponent.ToggleCell,
-              fields: { text: 'FeetClimb' },
+              fields: { enabled: 'FeetClimb' },
             },
           ],
         },
@@ -471,21 +326,119 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Novelty',
               component: CellComponent.ToggleCell,
-              fields: { text: 'AdditionalPoiInfos.{language}.Novelty' },
+              fields: { enabled: 'AdditionalPoiInfos.{language}.Novelty' },
+            },
+          ],
+        },
+        {
+          name: 'Additional Information',
+          properties: [
+            {
+              title: 'Highlight',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'Highlight' },
+            },
+            {
+              title: 'Open',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'IsOpen' },
+            },
+            {
+              title: 'Free Entrance',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'HasFreeEntrance' },
+            },
+            {
+              title: 'Prepared',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'IsPrepared' },
+            },
+            {
+              title: 'With Light',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'IsWithLigth' },
+            },
+            {
+              title: 'Has Rentals',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'HasRentals' },
+            },
+            {
+              title: 'Runs To Valley',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'RunToValley' },
+            },
+            {
+              title: 'Lift Available',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'LiftAvailable' },
+            },
+            {
+              title: 'Feet Climb',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'FeetClimb' },
+            },
+            {
+              title: 'Author Tip',
+              component: CellComponent.StringCell,
+              fields: {
+                text: 'Detail.{language}.AuthorTip',
+              },
+            },
+            {
+              title: 'Parking Info',
+              component: CellComponent.StringCell,
+              fields: { text: 'ParkingInfo' },
+            },
+            {
+              title: 'Public Transportation Info',
+              component: CellComponent.StringCell,
+              fields: { text: 'PublicTransportationInfo' },
+            },
+            {
+              title: 'Safety Info',
+              component: CellComponent.StringCell,
+              fields: { text: 'SafetyInfo' },
+            },
+            {
+              title: 'Equipment Info',
+              component: CellComponent.StringCell,
+              fields: { text: 'EquipmentInfo' },
+            },
+          ],
+        },
+        {
+          name: 'Target Group',
+          properties: [
+            {
+              title: 'Age from',
+              component: CellComponent.StringCell,
+              fields: { text: 'AgeFrom' },
+            },
+            {
+              title: 'Age to',
+              component: CellComponent.StringCell,
+              fields: { text: 'AgeTo' },
+            },
+          ],
+        },
+        {
+          name: 'Other',
+          properties: [
+            {
+              title: 'Tourism organization Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'TourismorganizationId' },
+            },
+            {
+              title: 'District',
+              component: CellComponent.StringCell,
+              fields: { text: 'DistrictInfo.Name.de' },
             },
           ],
         },
       ],
     },
-    {
-      name: 'Webcam Details',
-      slug: 'webcam-details',
-      subcategories: [
-        {
-          name: '',
-          properties: [webcamCell()],
-        },
-      ],
-    },
+    webcamCategory(),
   ],
 });
