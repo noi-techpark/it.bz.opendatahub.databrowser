@@ -1,6 +1,6 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { EditViewConfig } from '../../../domain/datasetConfig/types';
-import { shortnameCell, idCell } from '../../builder/tourism';
+import { shortnameCell } from '../../builder/tourism';
 
 export const publishedOnNewView: EditViewConfig = {
   elements: [
