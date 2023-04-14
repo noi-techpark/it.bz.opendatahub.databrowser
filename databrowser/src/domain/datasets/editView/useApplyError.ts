@@ -15,7 +15,13 @@ export const useApplyError = (
     }
 
     if (err instanceof AxiosError) {
-      const responseData = err.response?.data;
+      if (err.response == null) {
+        return {
+          title: err.message,
+        };
+      }
+
+      const responseData = err.response.data;
 
       // For some cases (e.g. error during POST to create a new record),
       // there is no error object and the error message is just send as
