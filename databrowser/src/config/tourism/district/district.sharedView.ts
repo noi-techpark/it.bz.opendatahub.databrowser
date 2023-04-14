@@ -14,6 +14,7 @@ import {
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
+  webcamCategory,
 } from '../../builder/tourism';
 import { withOdhBaseUrl } from '../../utils';
 
@@ -57,8 +58,13 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
               properties: [
                 {
                   title: 'Is comune',
-                  component: CellComponent.StringCell,
-                  fields: { text: 'IsComune' },
+                  component: CellComponent.ToggleCell,
+                  fields: { enabled: 'IsComune' },
+                },
+                {
+                  title: 'Visible in Search',
+                  component: CellComponent.ToggleCell,
+                  fields: { enabled: 'VisibleInSearch' },
                 },
               ],
             },
@@ -95,6 +101,7 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
       ],
     },
     gpsDataCategory(),
+    webcamCategory(),
     odhTagCategory(),
   ],
 });
