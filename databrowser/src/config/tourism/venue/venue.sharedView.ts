@@ -1,20 +1,20 @@
-import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
 import {
-  accoContactCategory,
+  contactCategory,
+  textInfoCategory,
   gpsDataCategory,
   idReadOnlyCell,
   imageGalleryCategory,
-  lastChangesCell,
+  logoWithMainImageCells,
   locationCategory,
   odhTagCategory,
   shortnameCell,
+  dataStatesSubCategory,
   sourceSubCategory,
 } from '../../builder/tourism';
-import { publishedOnCell } from '../../builder/tourism/publishedOn';
 
 export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -24,44 +24,18 @@ export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
       subcategories: [
         {
           name: 'General data',
-          properties: [shortnameCell()],
+          properties: [shortnameCell(), ...logoWithMainImageCells()],
         },
         {
           name: 'IDs',
           properties: [idReadOnlyCell()],
         },
-        {
-          name: 'Data states',
-          properties: [
-            lastChangesCell(),
-            {
-              title: 'Active on Source',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'Active' },
-            },
-            {
-              title: 'Active on Open Data Hub',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'OdhActive' },
-              params: { readonly: 'true' },
-            },
-            publishedOnCell(),
-          ],
-        },
+        dataStatesSubCategory(),
         sourceSubCategory(),
       ],
     },
-    {
-      name: 'Text information',
-      slug: 'text-information',
-      subcategories: [
-        {
-          name: 'General data',
-          properties: [shortnameCell()],
-        },
-      ],
-    },
-    accoContactCategory(),
+    textInfoCategory(),
+    contactCategory(),
     imageGalleryCategory(),
     locationCategory(),
     gpsDataCategory(),
