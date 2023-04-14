@@ -17,7 +17,6 @@ export const publishedOnNewView: EditViewConfig = {
               fields: { text: 'Name.{language}' },
             },
             shortnameCell(),
-            idCell(),
             {
               title: 'Publisher URL',
               component: CellComponent.UrlCell,
