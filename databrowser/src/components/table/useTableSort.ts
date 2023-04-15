@@ -19,7 +19,7 @@ const nextSortState = (sortState: SortState) => {
   }
 };
 
-// This function computes the rawsort value based on the filter field and the filter state.
+// This function computes the rawsort value based on the sort field and the sort state.
 const rawsortValue = (sortField: string, sortState: SortState) => {
   switch (sortState) {
     case 'none':
@@ -83,14 +83,26 @@ export const useTableSort = (fields: Ref<Record<string, string>>) => {
     currentSortFromUrl.value = sortValue;
   };
 
-  // If the current sort does not match the sort field, we reset the sort state.
-  // The reason for this is that the sorted field might have changed, and we
-  // want to reset the sort state in that case.
-  watch(currentSortMatchesSortField, (matching) => {
-    if (!matching) {
-      currentSortState.value = 'none';
-    }
-  });
+  watch(
+    currentSortMatchesSortField,
+    (matching) => {
+      if (!matching || currentSortFromUrl.value == null) {
+        // If the current sort does not match the sort field, we reset the sort state.
+        // The reason for this is that the sorted field might have changed, and we
+        // want to reset the sort state in that case.
+        currentSortState.value = 'none';
+      } else {
+        // Otherwise, we compute the current sort state from the current sort value.
+        const currentSortAsString = stringifyParameter(
+          currentSortFromUrl.value
+        );
+        currentSortState.value = currentSortAsString.startsWith('-')
+          ? 'desc'
+          : 'asc';
+      }
+    },
+    { immediate: true }
+  );
 
   return {
     currentSortState,
