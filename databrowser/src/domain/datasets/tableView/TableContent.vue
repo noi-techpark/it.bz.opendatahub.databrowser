@@ -6,11 +6,11 @@
     </template>
 
     <template #header-cols>
-      <TableHeaderFilter
+      <TableHeaderSort
         v-for="col in renderElements"
         :key="col.title"
         :text="col.title"
-        :filter="col.filter"
+        :fields="col.fields"
       />
       <TableHeaderCell class="sticky right-0 bg-gray-50 font-semibold">
         {{ t('datasets.listView.colDetail') }}
@@ -27,7 +27,7 @@
           <TableDataEmpty />
         </TableCell>
       </tr>
-      <tr v-for="(row, index) in rows" :key="index">
+      <tr v-for="(row, index) in rows" :key="row.Id ?? row.id ?? index">
         <TableCell v-for="col in renderElements" :key="col.title">
           <ComponentRenderer
             :tag-name="col.component"
@@ -81,7 +81,7 @@
 import { defineProps, toRefs, withDefaults } from 'vue';
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
-import TableHeaderFilter from '../../../components/table/TableHeaderFilter.vue';
+import TableHeaderSort from '../../../components/table/TableHeaderSort.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../components/table/TableCell.vue';
 import IconEye from '../../../components/svg/IconEye.vue';
