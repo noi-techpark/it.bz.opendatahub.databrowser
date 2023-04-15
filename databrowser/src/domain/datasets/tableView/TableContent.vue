@@ -27,7 +27,7 @@
           <TableDataEmpty />
         </TableCell>
       </tr>
-      <tr v-for="(row, index) in rows" :key="index">
+      <tr v-for="(row, index) in rows" :key="row.Id ?? row.id ?? index">
         <TableCell v-for="col in renderElements" :key="col.title">
           <ComponentRenderer
             :tag-name="col.component"
