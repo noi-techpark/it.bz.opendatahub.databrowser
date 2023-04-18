@@ -244,10 +244,23 @@
             </div>
           </div>
 
-          <QuickViewOpeningHoursView
-            class="md:min-w-[600px]"
-            :operation-schedules="items"
-          />
+          <div
+            v-for="(
+              scheduleTime, scheduleTimeIndex
+            ) in item.operationScheduleTimes ?? []"
+            :key="scheduleTimeIndex"
+            class="mb-3 rounded border"
+          >
+            <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
+              <span class="font-semibold">
+                {{ getOperationScheduleTimeCodeLabel(scheduleTime.Timecode) }}
+              </span>
+            </div>
+
+            <div class="flex flex-col gap-2 py-3 px-4 md:flex-row">
+              <QuickViewDayInfo :schedule-time="scheduleTime" />
+            </div>
+          </div>
         </div>
       </div>
     </template>
@@ -282,8 +295,8 @@ import {
 import { format as formatFn } from 'date-fns';
 import { DEFAULT_DATE_FORMAT } from '../../../../../config/utils';
 import ToggleButtonCell from '../toggleCell/ToggleButtonCell.vue';
-import QuickViewOpeningHoursView from '../../../../../components/quickview/QuickViewOpeningHoursView.vue';
 import { useI18n } from 'vue-i18n';
+import QuickViewDayInfo from '../../../../../components/quickview/QuickViewDayInfo.vue';
 
 const { t } = useI18n();
 
