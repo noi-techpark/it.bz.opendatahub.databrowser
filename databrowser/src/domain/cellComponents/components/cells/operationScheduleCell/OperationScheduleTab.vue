@@ -71,14 +71,18 @@
           <div class="my-3 font-semibold text-black">
             {{ t('components.operationSchedule.tab.insertOpeningHours') }}
           </div>
-          <div class="flex flex-col gap-3">
+          <div ref="operationScheduleTimesRef" class="flex flex-col gap-3">
             <div
-              v-for="(time, timeIndex) in item.operationScheduleTimes"
-              :key="timeIndex"
+              v-for="(time, scheduleTimeIndex) in item.operationScheduleTimes"
+              :key="scheduleTimeIndex"
               class="rounded border p-2"
             >
               <div v-if="editable" class="flex justify-end text-delete">
-                <button @click="deleteOperationScheduleTime(item, index)">
+                <button
+                  @click="
+                    deleteOperationScheduleTime(item, index, scheduleTimeIndex)
+                  "
+                >
                   <IconDelete />
                 </button>
               </div>
@@ -87,6 +91,7 @@
               >
                 <SelectWithOptionsCell
                   v-if="editable"
+                  class="opening-hours-state"
                   :value="time.State"
                   :editable="editable"
                   :options="operationScheduleTimeStateOptions"
@@ -94,7 +99,7 @@
                     updateOperationScheduleTime(
                       item,
                       index,
-                      timeIndex,
+                      scheduleTimeIndex,
                       'State',
                       $event.value
                     )
@@ -116,7 +121,7 @@
                     updateOperationScheduleTime(
                       item,
                       index,
-                      timeIndex,
+                      scheduleTimeIndex,
                       'Timecode',
                       $event.value
                     )
@@ -137,7 +142,7 @@
                     updateOperationScheduleTime(
                       item,
                       index,
-                      timeIndex,
+                      scheduleTimeIndex,
                       'Start',
                       $event.value
                     )
@@ -155,7 +160,7 @@
                     updateOperationScheduleTime(
                       item,
                       index,
-                      timeIndex,
+                      scheduleTimeIndex,
                       'End',
                       $event.value
                     )
@@ -176,7 +181,7 @@
                       updateOperationScheduleTime(
                         item,
                         index,
-                        timeIndex,
+                        scheduleTimeIndex,
                         day.key,
                         $event.value
                       )
@@ -255,6 +260,18 @@
               <span class="font-semibold">
                 {{ getOperationScheduleTimeCodeLabel(scheduleTime.Timecode) }}
               </span>
+              <div class="flex gap-3">
+                <button @click="focusOpeningHour(scheduleTimeIndex)">
+                  <IconEdit class="text-green-500" />
+                </button>
+                <button
+                  @click="
+                    deleteOperationScheduleTime(item, index, scheduleTimeIndex)
+                  "
+                >
+                  <IconDelete class="text-delete" />
+                </button>
+              </div>
             </div>
 
             <div class="flex flex-col gap-2 py-3 px-4 md:flex-row">
@@ -268,7 +285,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import IconCopy from '../../../../../components/svg/IconCopy.vue';
@@ -297,6 +314,7 @@ import { DEFAULT_DATE_FORMAT } from '../../../../../config/utils';
 import ToggleButtonCell from '../toggleCell/ToggleButtonCell.vue';
 import { useI18n } from 'vue-i18n';
 import QuickViewDayInfo from '../../../../../components/quickview/QuickViewDayInfo.vue';
+import IconEdit from '../../../../../components/svg/IconEdit.vue';
 
 const { t } = useI18n();
 
@@ -370,18 +388,37 @@ const addOperationScheduleTime = (
 
 const deleteOperationScheduleTime = (
   item: OperationScheduleEntry,
-  index: number
+  itemIndex: number,
+  scheduleTimeIndex: number
 ) => {
   if (item.operationScheduleTimes == null) {
-    item.operationScheduleTimes = [];
+    return;
   }
 
   const result = item.operationScheduleTimes.filter(
-    (time, idx) => idx !== index
+    (time, idx) => idx !== scheduleTimeIndex
   );
 
   item.operationScheduleTimes = result;
 
-  updateItem(index, { ...item });
+  updateItem(itemIndex, { ...item });
+};
+
+const operationScheduleTimesRef = ref<HTMLDivElement>();
+
+const focusOpeningHour = (index: number) => {
+  if (operationScheduleTimesRef.value != null) {
+    const openingHoursStateElements =
+      operationScheduleTimesRef.value.querySelectorAll('.opening-hours-state');
+    if (openingHoursStateElements[index] != null) {
+      openingHoursStateElements[index]
+        .querySelector<HTMLElement>('button')
+        ?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center',
+        });
+    }
+  }
 };
 </script>
