@@ -230,6 +230,10 @@
 
             <div class="py-3 px-4">
               <div>
+                {{ t('components.operationSchedule.tab.seasonName') }}:
+                {{ item.name }}
+              </div>
+              <div>
                 {{ t('components.operationSchedule.tab.seasonDate') }}:
                 {{ formatSeasonDate(item.start, item.stop) }}
               </div>
