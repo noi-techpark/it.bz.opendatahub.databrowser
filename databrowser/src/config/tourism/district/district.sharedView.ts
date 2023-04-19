@@ -8,7 +8,7 @@ import {
   gpsDataCategory,
   idAndCustomIdCells,
   imageGalleryCategory,
-  municipalityIdCell,
+  locationCategoryDistrict,
   odhTagCategory,
   regionIdCell,
   shortnameCell,
@@ -16,7 +16,6 @@ import {
   textInfoCategory,
   webcamCategory,
 } from '../../builder/tourism';
-import { withOdhBaseUrl } from '../../utils';
 
 export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -43,7 +42,6 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
               fields: { text: 'TourismvereinId' },
             },
             regionIdCell('Region.Id'),
-            municipalityIdCell('Municipality.Id'),
             {
               title: 'HGV ID',
               component: CellComponent.StringCell,
@@ -75,31 +73,7 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
     },
     textInfoCategory(),
     imageGalleryCategory(),
-    {
-      name: 'Location',
-      slug: 'location',
-      subcategories: [
-        {
-          name: 'Location',
-          properties: [
-            {
-              title: 'Region / TVB',
-              component: CellComponent.InputReferenceCell,
-              fields: { value: 'Region.Id' },
-              params: {
-                url: withOdhBaseUrl(
-                  '/v1/Location?language=en&type=null&showall=true'
-                ),
-                labelSelector: 'name',
-                keySelector: 'id',
-              },
-              required: true,
-            },
-            municipalityIdCell('Municipality.Id'),
-          ],
-        },
-      ],
-    },
+    locationCategoryDistrict(),
     gpsDataCategory(),
     webcamCategory(),
     odhTagCategory(),
