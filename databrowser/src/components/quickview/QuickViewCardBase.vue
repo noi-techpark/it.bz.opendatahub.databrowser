@@ -1,7 +1,7 @@
 <template>
   <div class="rounded border">
     <div
-      class="text-dialog flex items-center justify-between bg-gray-50 py-2 px-4 font-semibold"
+      class="flex items-center justify-between bg-gray-50 py-2 px-4 font-semibold text-dialog"
     >
       {{ title }}
       <IconParser

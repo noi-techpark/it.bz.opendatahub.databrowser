@@ -47,7 +47,7 @@
     <div
       v-for="(item, i) in mediaItems"
       :key="i"
-      class="bg-gray-250 h-3 w-3 rounded-full"
+      class="h-3 w-3 rounded-full bg-gray-250"
       :class="{ 'bg-green-500': i === currentMediaIndex }"
       :style="{
         transform: `scale(-${1 - Math.abs(i - currentMediaIndex) / 10})`,

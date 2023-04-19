@@ -10,7 +10,7 @@
     >
       {{ d.day }}
     </div>
-    <div class="text-dialog flex grow flex-col justify-center p-2 text-center">
+    <div class="flex grow flex-col justify-center p-2 text-center text-dialog">
       <template v-if="d.open">
         <span class="leading-tight">{{ d.start ?? '&nbsp;' }}</span>
         <span class="divisor leading-tight">-</span>

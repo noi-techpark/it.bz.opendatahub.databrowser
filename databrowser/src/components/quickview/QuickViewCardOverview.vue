@@ -10,7 +10,7 @@
         v-for="(s, i) in sections"
         :key="i"
         :icon="s.icon"
-        class="[&:not(:last-child)]:border-gray-250 py-6 first:pt-0 last:pb-0 [&:not(:last-child)]:border-b"
+        class="py-6 first:pt-0 last:pb-0 [&:not(:last-child)]:border-b [&:not(:last-child)]:border-gray-250"
       >
         <template #content>
           <div
