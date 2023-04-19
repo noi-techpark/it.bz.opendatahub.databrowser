@@ -128,12 +128,6 @@ export const accommodationSharedView = ():
               class: 'break-all',
             },
             {
-              title: 'District ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'DistrictId' },
-              class: 'break-all',
-            },
-            {
               title: 'Marketing Group IDs',
               component: CellComponent.ArrayCell,
               fields: {

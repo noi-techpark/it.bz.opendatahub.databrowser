@@ -8,9 +8,7 @@ import {
   dataStatesSubCategory,
   gpsDataCategory,
   imageGalleryCategory,
-  municipalityIdCell,
   odhTagCategory,
-  regionIdCell,
   shortnameWithLogoAndMainImageSubCategory,
   sourceSubCategory,
   textInfoCategory,
@@ -31,21 +29,9 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             idReadOnlyCell(),
             {
-              title: 'Tv Info',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.TvInfo.Id' },
-            },
-            regionIdCell('LocationInfo.RegionInfo.Id'),
-            {
               title: 'Area Id',
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.AreaInfo.Id' },
-            },
-            municipalityIdCell('LocationInfo.MunicipalityInfo.Id'),
-            {
-              title: 'District Id',
-              component: CellComponent.StringCell,
-              fields: { text: 'DistrictId' },
             },
           ],
         },
