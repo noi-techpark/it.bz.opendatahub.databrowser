@@ -42,26 +42,6 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             ...idAndCustomIdCells(),
             {
-              title: 'Tourismverein Ids',
-              component: CellComponent.ArrayCell,
-              fields: {
-                items: 'TourismvereinIds',
-              },
-              params: {
-                separator: ', ',
-              },
-            },
-            {
-              title: 'Region Ids',
-              component: CellComponent.ArrayCell,
-              fields: {
-                items: 'RegionIds',
-              },
-              params: {
-                separator: ', ',
-              },
-            },
-            {
               title: 'SkiRegionId',
               component: CellComponent.StringCell,
               fields: { text: 'SkiRegionId' },

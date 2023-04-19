@@ -10,7 +10,6 @@ import {
   imageGalleryCategory,
   locationCategoryDistrict,
   odhTagCategory,
-  regionIdCell,
   shortnameCell,
   sourceSubCategory,
   textInfoCategory,
@@ -36,12 +35,6 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.StringCell,
               fields: { text: 'SiagId' },
             },
-            {
-              title: 'Tourismverein ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'TourismvereinId' },
-            },
-            regionIdCell('Region.Id'),
             {
               title: 'HGV ID',
               component: CellComponent.StringCell,

@@ -11,9 +11,7 @@ import {
   imageGalleryCategory,
   locationCategory,
   logoWithMainImageCells,
-  municipalityIdCell,
   odhTagCategory,
-  regionIdCell,
   seasonCategory,
   shortnameCell,
   sourceWithInsertsSubCategory,
@@ -54,18 +52,10 @@ export const odhActivityPoiSharedView = ():
               fields: { text: 'OwnerRid' },
               class: 'break-all',
             },
-            regionIdCell('LocationInfo.RegionInfo.Id'),
             {
               title: 'Area ID',
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.AreaInfo.Id' },
-              class: 'break-all',
-            },
-            municipalityIdCell('LocationInfo.MunicipalityInfo.Id'),
-            {
-              title: 'District ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.DistrictInfo.Id' },
               class: 'break-all',
             },
             {

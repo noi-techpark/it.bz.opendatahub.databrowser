@@ -11,9 +11,7 @@ import {
   imageGalleryCategory,
   locationCategory,
   logoWithMainImageCells,
-  municipalityIdCell,
   odhTagCategory,
-  regionIdCell,
   seasonCategory,
   shortnameCell,
   sourceSubCategory,
@@ -68,18 +66,10 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
           name: 'IDs',
           properties: [
             idReadOnlyCell(),
-            regionIdCell('LocationInfo.RegionInfo.Id'),
             {
               title: 'Area ID',
               component: CellComponent.StringCell,
               fields: { text: 'LocationInfo.AreaInfo.Id' },
-              class: 'break-all',
-            },
-            municipalityIdCell('LocationInfo.MunicipalityInfo.Id'),
-            {
-              title: 'District ID',
-              component: CellComponent.StringCell,
-              fields: { text: 'DistrictId' },
               class: 'break-all',
             },
             {
