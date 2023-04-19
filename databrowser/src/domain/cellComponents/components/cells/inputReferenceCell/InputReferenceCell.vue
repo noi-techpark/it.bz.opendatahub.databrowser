@@ -1,15 +1,17 @@
 <template>
-  <div v-if="isWriteable">
+  <div>
     <LoadingState :is-loading="isLoading" :is-error="isError" :error="error" />
     <SelectCustom
-      v-if="isSuccess"
+      v-if="isWriteable && isSuccess"
       :options="options"
       :value="value"
       :show-empty-value="showEmptyValue"
       @change="change"
     />
+    <span v-if="!isWriteable && !isLoading">
+      {{ options.find((option) => option.value === value)?.label ?? value }}
+    </span>
   </div>
-  <span v-else>{{ value }}</span>
 </template>
 
 <script setup lang="ts">
@@ -59,7 +61,7 @@ const isWriteable = useWriteable({ editable, readonly });
 
 const queryKey = url;
 const queryFn = useAxiosFetcher();
-const response = useQuery({ queryKey, queryFn, enabled: isWriteable.value });
+const response = useQuery({ queryKey, queryFn });
 
 const { options } = useMapper(
   response.data,
