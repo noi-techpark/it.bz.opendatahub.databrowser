@@ -41,28 +41,11 @@
           >
             <div v-if="c.operationScheduleTime">
               <div
-                v-for="(time, indexTime) in c.operationScheduleTime"
+                v-for="(scheduleTime, indexTime) in c.operationScheduleTime"
                 :key="indexTime"
                 class="opening-hour-card-ct"
               >
-                <div v-for="d in time" :key="d.Day" class="opening-hour-card">
-                  <div
-                    class="day"
-                    :class="[
-                      d.Open
-                        ? 'bg-hint-calm-secondary text-hint-calm'
-                        : 'bg-hint-error-secondary text-hint-error',
-                    ]"
-                  >
-                    {{ d.Day }}
-                  </div>
-                  <div class="time">
-                    <span> {{ d.Open ? d.Start : '&nbsp;' }}</span>
-                    <span v-if="d.Open" class="divisor">-</span>
-                    <span v-else>{{ t('datasets.quickView.closed') }}</span>
-                    <span> {{ d.Open ? d.End : '&nbsp;' }}</span>
-                  </div>
-                </div>
+                <QuickViewDayInfo :schedule-time="scheduleTime" />
               </div>
             </div>
           </div>
@@ -75,13 +58,12 @@
 <script setup lang="ts">
 import { defineProps, withDefaults, defineEmits } from 'vue';
 import { useI18n } from 'vue-i18n';
-
 import QuickViewCardBase from './QuickViewCardBase.vue';
 import QuickViewCardOverviewContentContainer from './QuickViewCardOverviewContentContainer.vue';
 import QuickViewCardOverviewContentTitle from './QuickViewCardOverviewContentTitle.vue';
 import QuickViewCardOverviewContentText from './QuickViewCardOverviewContentText.vue';
-
 import TagCustom from '../tag/TagCustom.vue';
+import QuickViewDayInfo from './QuickViewDayInfo.vue';
 
 interface Section {
   icon?: string;
@@ -135,26 +117,5 @@ const { t } = useI18n();
 
 .opening-hour-card-ct {
   @apply grid grid-cols-3 md:grid-cols-7 gap-3 mt-4;
-}
-
-.opening-hour-card {
-  @apply border-2 border-gray-250 rounded;
-}
-
-.opening-hour-card .day {
-  @apply font-bold text-2xl text-center p-2;
-}
-
-.opening-hour-card .time {
-  @apply text-dialog text-center p-2
-  flex flex-col justify-center;
-}
-
-.opening-hour-card .time.closed {
-  @apply pt-5;
-}
-
-.opening-hour-card span {
-  @apply leading-tight;
 }
 </style>
