@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="content-section">
-      <div v-if="icon" class="icon-ct">
+    <div class="flex gap-3">
+      <div v-if="icon" class="h-8 w-8 shrink-0 text-green-400">
         <IconParser :name="icon" />
       </div>
       <div>
@@ -26,13 +26,3 @@ withDefaults(
   }
 );
 </script>
-
-<style scoped>
-.content-section {
-  @apply flex gap-3;
-}
-
-.icon-ct {
-  @apply h-8 w-8 flex-shrink-0 text-green-400;
-}
-</style>

@@ -1,11 +1,13 @@
 <template>
-  <div class="quickview-card-ct">
-    <div class="title-section">
+  <div class="rounded border">
+    <div
+      class="text-dialog flex items-center justify-between bg-gray-50 py-2 px-4 font-semibold"
+    >
       {{ title }}
       <IconParser
         v-if="ctaIcon"
         :name="ctaIcon"
-        class="icon-ct"
+        class="h-4 w-4 cursor-pointer text-green-400"
         @click="$emit('ctaClick')"
       />
     </div>
@@ -31,18 +33,3 @@ withDefaults(
 
 defineEmits(['ctaClick']);
 </script>
-
-<style scoped>
-.quickview-card-ct {
-  @apply rounded border;
-}
-
-.title-section {
-  @apply font-semibold text-dialog bg-gray-50 py-2 px-4
-  flex justify-between items-center;
-}
-
-.icon-ct {
-  @apply w-4 h-4 cursor-pointer text-green-400;
-}
-</style>

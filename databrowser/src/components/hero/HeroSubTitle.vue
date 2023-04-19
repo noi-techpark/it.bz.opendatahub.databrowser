@@ -4,7 +4,7 @@
   </h2>
 </template>
 
-<style>
+<style scoped>
 .sub-title {
   font-size: 1.375rem;
 }

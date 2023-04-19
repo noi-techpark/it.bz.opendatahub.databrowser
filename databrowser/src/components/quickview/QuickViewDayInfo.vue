@@ -1,7 +1,7 @@
 <template>
-  <div v-for="d in days" :key="d.day" class="opening-hour-card">
+  <div v-for="d in days" :key="d.day" class="flex flex-col rounded border">
     <div
-      class="day"
+      class="p-2 text-center text-2xl font-bold"
       :class="[
         d.open
           ? 'bg-hint-calm-secondary text-hint-calm'
@@ -10,13 +10,15 @@
     >
       {{ d.day }}
     </div>
-    <div class="time">
+    <div class="text-dialog flex grow flex-col justify-center p-2 text-center">
       <template v-if="d.open">
-        <span>{{ d.start ?? '&nbsp;' }}</span>
-        <span class="divisor">-</span>
-        <span>{{ d.end ?? '&nbsp;' }}</span>
+        <span class="leading-tight">{{ d.start ?? '&nbsp;' }}</span>
+        <span class="divisor leading-tight">-</span>
+        <span class="leading-tight">{{ d.end ?? '&nbsp;' }}</span>
       </template>
-      <span v-else>{{ t('datasets.quickView.closed') }}</span>
+      <span v-else class="leading-tight">{{
+        t('datasets.quickView.closed')
+      }}</span>
     </div>
   </div>
 </template>
@@ -49,21 +51,3 @@ const days = computed(() =>
   }))
 );
 </script>
-
-<style scoped>
-.opening-hour-card {
-  @apply flex flex-col border rounded;
-}
-
-.opening-hour-card .day {
-  @apply font-bold text-2xl text-center p-2;
-}
-
-.opening-hour-card .time {
-  @apply text-dialog text-center p-2 flex flex-col grow justify-center;
-}
-
-.opening-hour-card span {
-  @apply leading-tight;
-}
-</style>

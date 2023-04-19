@@ -4,16 +4,13 @@
     :cta-icon="ctaIcon"
     @cta-click="$emit('ctaClick')"
   >
-    <div
-      class="overview-content-card-ct"
-      :class="{ 'no-padding': contentHasNoPadding }"
-    >
+    <div :class="{ 'p-4': !contentHasNoPadding }">
       <slot name="content" />
       <QuickViewCardOverviewContentContainer
         v-for="(s, i) in sections"
         :key="i"
         :icon="s.icon"
-        class="overview-ct"
+        class="[&:not(:last-child)]:border-gray-250 py-6 first:pt-0 last:pb-0 [&:not(:last-child)]:border-b"
       >
         <template #content>
           <div
@@ -43,7 +40,7 @@
               <div
                 v-for="(scheduleTime, indexTime) in c.operationScheduleTime"
                 :key="indexTime"
-                class="opening-hour-card-ct"
+                class="mt-4 grid grid-cols-3 gap-3 md:grid-cols-7"
               >
                 <QuickViewDayInfo :schedule-time="scheduleTime" />
               </div>
@@ -57,7 +54,6 @@
 
 <script setup lang="ts">
 import { defineProps, withDefaults, defineEmits } from 'vue';
-import { useI18n } from 'vue-i18n';
 import QuickViewCardBase from './QuickViewCardBase.vue';
 import QuickViewCardOverviewContentContainer from './QuickViewCardOverviewContentContainer.vue';
 import QuickViewCardOverviewContentTitle from './QuickViewCardOverviewContentTitle.vue';
@@ -86,36 +82,4 @@ withDefaults(
 );
 
 defineEmits(['ctaClick']);
-
-const { t } = useI18n();
 </script>
-
-<style scoped>
-.overview-content-card-ct {
-  @apply p-4;
-}
-
-.overview-content-card-ct.no-padding {
-  @apply p-0;
-}
-
-.overview-ct {
-  @apply py-6;
-}
-
-.overview-ct:not(:last-child) {
-  @apply border-b border-gray-250;
-}
-
-.overview-ct:first-child {
-  @apply pt-0;
-}
-
-.overview-ct:last-child {
-  @apply pb-0;
-}
-
-.opening-hour-card-ct {
-  @apply grid grid-cols-3 md:grid-cols-7 gap-3 mt-4;
-}
-</style>

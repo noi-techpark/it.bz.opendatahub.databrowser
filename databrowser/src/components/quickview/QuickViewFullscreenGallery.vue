@@ -1,5 +1,5 @@
 <template>
-  <div class="gallery-ct">
+  <div class="relative flex items-center overflow-x-hidden md:gap-2">
     <div
       v-for="(image, i) in images"
       :id="`image-in-gallery-${i}`"
@@ -14,13 +14,17 @@
     />
     <div
       v-if="currentMediaIndex > 0"
-      class="control-ct flip-icon"
+      class="absolute top-1/2 left-2 right-auto flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white"
       @click="prevImage()"
     >
-      <ChevronRight />
+      <ChevronRight class="h-3 -scale-x-100" />
     </div>
-    <div v-if="showNextIcon" class="control-ct" @click="nextImage()">
-      <ChevronRight />
+    <div
+      v-if="showNextIcon"
+      class="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white"
+      @click="nextImage()"
+    >
+      <ChevronRight class="h-3" />
     </div>
   </div>
 </template>
@@ -77,32 +81,3 @@ const checkShowNextIcon = (isPrev: boolean) => {
     : right - imageWidth > window.innerWidth;
 };
 </script>
-
-<style scoped>
-.gallery-ct {
-  @apply flex overflow-x-hidden relative md:gap-2 items-center;
-}
-
-.gallery-ct .control-ct {
-  @apply flex items-center justify-center
-  rounded-full bg-white cursor-pointer
-  w-9 h-9
-  absolute
-  right-2;
-
-  transform: translate(0, -50%);
-  top: 50%;
-}
-
-.gallery-ct .control-ct.flip-icon {
-  @apply left-2 right-auto;
-}
-
-.gallery-ct .control-ct.flip-icon svg {
-  @apply -scale-x-100;
-}
-
-.gallery-ct .control-ct svg {
-  @apply h-3;
-}
-</style>
