@@ -49,21 +49,22 @@
     />
 
     <PageContent>
-      <div class="grid-ct">
-        <div
-          v-for="(element, index) in mappedElements"
-          :key="index"
-          class="element-ct"
-        >
-          <ComponentRenderer
-            :tag-name="element.component"
-            :attributes="element.value"
-            :fields="element.fields"
-            :list-fields="element.listFields"
-          />
-        </div>
+      <div
+        v-for="(element, index) in mappedElements"
+        :key="index"
+        class="mt-3 max-lg:!w-auto lg:mt-6 lg:odd:float-left lg:even:float-right lg:even:ml-8"
+        :style="{
+          width: 'calc(50% - 1rem)',
+        }"
+      >
+        <ComponentRenderer
+          :tag-name="element.component"
+          :attributes="element.value"
+          :fields="element.fields"
+          :list-fields="element.listFields"
+        />
       </div>
-      <div class="clear" />
+      <div class="clear-both mb-4" />
     </PageContent>
   </template>
 </template>
@@ -172,37 +173,3 @@ const onMainImageError = () => {
   forcePlaceholderImage.value = true;
 };
 </script>
-
-<style scoped>
-.clear {
-  @apply mb-4 clear-both;
-}
-
-.grid-ct .element-ct {
-  @apply mt-6;
-
-  width: calc(50% - 15px);
-}
-
-.grid-ct .element-ct:nth-child(odd) {
-  @apply float-left;
-}
-
-.grid-ct .element-ct:nth-child(even) {
-  @apply float-right;
-
-  margin-left: 30px;
-}
-
-@media screen and (max-width: 980px) {
-  .grid-ct .element-ct {
-    @apply w-auto;
-
-    float: none !important;
-  }
-
-  .grid-ct .element-ct:nth-child(even) {
-    @apply ml-0;
-  }
-}
-</style>

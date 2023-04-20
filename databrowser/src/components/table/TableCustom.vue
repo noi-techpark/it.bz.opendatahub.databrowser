@@ -1,6 +1,10 @@
 <template>
   <div class="flex-1">
-    <table :id="id" class="data-table" :data-test="id">
+    <table
+      :id="id"
+      class="data-table w-full table-fixed border-separate border-spacing-0"
+      :data-test="id"
+    >
       <slot></slot>
     </table>
   </div>
@@ -13,10 +17,6 @@ withDefaults(defineProps<{ id?: string }>(), { id: randomId() });
 </script>
 
 <style scoped>
-.data-table {
-  @apply w-full border-separate table-fixed;
-  border-spacing: 0;
-}
 .data-table :deep(th),
 .data-table :deep(td) {
   @apply border;

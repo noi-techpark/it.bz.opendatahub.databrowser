@@ -69,29 +69,3 @@ withDefaults(
 const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 </script>
-
-<style>
-.map-ct .ol-control {
-  @apply bg-white p-0;
-
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
-}
-
-.map-ct .ol-control button {
-  @apply bg-white hover:bg-gray-100 text-black opacity-100 text-2xl 
-  relative m-0;
-}
-
-.map-ct .ol-control button:first-child::after {
-  @apply w-full bg-gray-300 left-0 absolute;
-
-  content: '';
-  height: 2px;
-  bottom: -1px;
-}
-
-.map-ct .ol-full-screen {
-  @apply hidden pointer-events-none;
-}
-</style>
