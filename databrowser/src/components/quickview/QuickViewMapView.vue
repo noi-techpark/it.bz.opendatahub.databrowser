@@ -25,7 +25,10 @@ const props = withDefaults(
     latitude?: string | number;
     longitude?: string | number;
   }>(),
-  {}
+  {
+    latitude: undefined,
+    longitude: undefined,
+  }
 );
 
 const map = computed(() => {
