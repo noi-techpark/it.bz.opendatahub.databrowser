@@ -1,12 +1,12 @@
 import { computed, Ref, unref } from 'vue';
-import { RouteLocationNamedRaw, RouteLocationRaw, useRouter } from 'vue-router';
+import { RouteLocationNamedRaw, useRouter } from 'vue-router';
 import { DatasetPage } from '../../../routes';
 import { useApiQuery } from '../../api';
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
 
 export const usePaths = () => {
   const datasetOverviewForId = (id: string | Ref<string>) =>
-    computed<RouteLocationRaw>(() => ({
+    computed<RouteLocationNamedRaw>(() => ({
       name: 'OverviewDetailPage',
       params: { id: unref(id) },
     }));
@@ -19,47 +19,47 @@ export const usePaths = () => {
 export const usePathsForCurrentRoute = () => {
   const { buildPath, buildPathForId } = initPathBuilder();
 
-  const detailViewPath = computed<RouteLocationRaw>(() =>
+  const detailViewPath = computed<RouteLocationNamedRaw>(() =>
     buildPath(DatasetPage.DETAIL)
   );
-  const quickViewPath = computed<RouteLocationRaw>(() =>
+  const quickViewPath = computed<RouteLocationNamedRaw>(() =>
     buildPath(DatasetPage.QUICK)
   );
-  const rawViewPath = computed<RouteLocationRaw>(() =>
+  const rawViewPath = computed<RouteLocationNamedRaw>(() =>
     buildPath(DatasetPage.RAW)
   );
-  const editViewPath = computed<RouteLocationRaw>(() =>
+  const editViewPath = computed<RouteLocationNamedRaw>(() =>
     buildPath(DatasetPage.EDIT)
   );
-  const tableViewPath = computed<RouteLocationRaw>(() =>
+  const tableViewPath = computed<RouteLocationNamedRaw>(() =>
     buildPath(DatasetPage.TABLE, false)
   );
-  const newViewPath = computed<RouteLocationRaw>(() =>
+  const newViewPath = computed<RouteLocationNamedRaw>(() =>
     buildPath(DatasetPage.NEW, false)
   );
 
   const detailViewPathForId = (id: string | Ref<string>) =>
-    computed<RouteLocationRaw>(() =>
+    computed<RouteLocationNamedRaw>(() =>
       buildPathForId(DatasetPage.DETAIL, unref(id))
     );
   const quickViewPathForId = (id: string | Ref<string>) =>
-    computed<RouteLocationRaw>(() =>
+    computed<RouteLocationNamedRaw>(() =>
       buildPathForId(DatasetPage.QUICK, unref(id))
     );
   const rawViewPathForId = (id: string | Ref<string>) =>
-    computed<RouteLocationRaw>(() =>
+    computed<RouteLocationNamedRaw>(() =>
       buildPathForId(DatasetPage.RAW, unref(id))
     );
   const editViewPathForId = (id: string | Ref<string>) =>
-    computed<RouteLocationRaw>(() =>
+    computed<RouteLocationNamedRaw>(() =>
       buildPathForId(DatasetPage.EDIT, unref(id))
     );
   const tableViewPathForId = (id: string | Ref<string>) =>
-    computed<RouteLocationRaw>(() =>
+    computed<RouteLocationNamedRaw>(() =>
       buildPathForId(DatasetPage.TABLE, unref(id), false)
     );
   const newViewPathForId = (id: string | Ref<string>) =>
-    computed<RouteLocationRaw>(() =>
+    computed<RouteLocationNamedRaw>(() =>
       buildPathForId(DatasetPage.NEW, unref(id), false)
     );
 
