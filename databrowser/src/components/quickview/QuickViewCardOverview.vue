@@ -57,7 +57,6 @@
 
 <script setup lang="ts">
 import { defineProps, withDefaults, defineEmits } from 'vue';
-import { useI18n } from 'vue-i18n';
 import QuickViewCardBase from './QuickViewCardBase.vue';
 import QuickViewCardOverviewContentContainer from './QuickViewCardOverviewContentContainer.vue';
 import QuickViewCardOverviewContentTitle from './QuickViewCardOverviewContentTitle.vue';
@@ -86,8 +85,6 @@ withDefaults(
 );
 
 defineEmits(['ctaClick']);
-
-const { t } = useI18n();
 </script>
 
 <style scoped>
