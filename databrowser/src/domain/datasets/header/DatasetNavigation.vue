@@ -2,7 +2,6 @@
   <div class="bg-gray-50 text-sm">
     <div class="overflow-x-auto whitespace-nowrap">
       <ContentAlignmentX class="flex items-center">
-        {{ tableViewPath.query }}||{{ routeQuery }}
         <ButtonLink
           variant="ghost"
           size="xs"
