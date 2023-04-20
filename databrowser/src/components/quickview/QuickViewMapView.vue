@@ -32,28 +32,19 @@ const props = withDefaults(
 );
 
 const map = computed(() => {
-  if (props.longitude == null) {
+  if (props.longitude == null || props.latitude == null) {
     return {
       center: undefined,
       markers: [],
     };
   }
 
-  const Longitude = props.longitude;
-  const Latitude = props.latitude;
+  const lng = Number(props.longitude);
+  const lat = Number(props.latitude);
 
-  const mapObj = {
-    center: [Latitude, Longitude] as PointExpression,
-    markers: [
-      {
-        position: {
-          lat: Latitude,
-          lng: Longitude,
-        },
-      },
-    ],
+  return {
+    center: [lat, lng] as PointExpression,
+    markers: [{ position: { lat, lng } }],
   };
-
-  return mapObj;
 });
 </script>
