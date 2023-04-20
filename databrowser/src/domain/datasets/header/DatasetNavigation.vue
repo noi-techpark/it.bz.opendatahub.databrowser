@@ -2,11 +2,12 @@
   <div class="bg-gray-50 text-sm">
     <div class="overflow-x-auto whitespace-nowrap">
       <ContentAlignmentX class="flex items-center">
+        {{ tableViewPath.query }}||{{ routeQuery }}
         <ButtonLink
           variant="ghost"
           size="xs"
           class="mr-2 flex h-6 items-center bg-white py-1 px-3 md:mr-9"
-          :to="tableViewPath"
+          :to="combinedTableViewPath"
           data-test="table-view-link"
         >
           <IconStrokedArrowDown
@@ -67,6 +68,7 @@ import { useI18n } from 'vue-i18n';
 import { usePathsForCurrentRoute } from './usePaths';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { computed } from 'vue';
+import { useTableViewRouteQueryStore } from '../tableView/tableViewRouteQueryStore';
 
 const { t } = useI18n();
 
@@ -80,6 +82,20 @@ const {
   tableViewPath,
   newViewPath,
 } = usePathsForCurrentRoute();
+
+// Combine query params from TableView with ones from the current route.
+// This is needed to keep the query params when switching between DetailView
+// and TableView.
+const { routeQuery } = useTableViewRouteQueryStore();
+const combinedTableViewPath = computed(() => {
+  return {
+    ...tableViewPath.value,
+    query: {
+      ...routeQuery,
+      ...tableViewPath.value.query,
+    },
+  };
+});
 
 const isNewView = computed(() => datasetConfigStore.isNewView);
 

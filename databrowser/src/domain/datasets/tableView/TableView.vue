@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { defaultQueryParameters, validPageSizes } from './defaultValues';
 import TableContent from './TableContent.vue';
 import { AxiosResponse } from 'axios';
@@ -51,6 +51,8 @@ import { useI18n } from 'vue-i18n';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import SearchAndFilterToolbox from './SearchAndFilterToolbox.vue';
 import LoadingError from '../../../components/loading/LoadingError.vue';
+import { useRouter } from 'vue-router';
+import { useTableViewRouteQueryStore } from './tableViewRouteQueryStore';
 
 const { t } = useI18n();
 
@@ -97,4 +99,10 @@ const pageSize = useApiParameter('pagesize');
 const rows = computed(() => (data.value as PaginationData).items ?? []);
 
 const pagination = computed(() => (data.value as PaginationData).pagination);
+
+// Store TableView route query in a store for later use e.g. in DetailView
+// to keep the query params when switching between DetailView and TableView.
+const { currentRoute } = useRouter();
+const { setRouteQuery } = useTableViewRouteQueryStore();
+watch(currentRoute, ({ query }) => setRouteQuery(query), { immediate: true });
 </script>
