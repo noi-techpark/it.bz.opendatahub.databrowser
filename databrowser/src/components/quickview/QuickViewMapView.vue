@@ -20,29 +20,24 @@ import MapBase from '../../components/map/MapBase.vue';
 
 const { t } = useI18n();
 
-interface GpsInfo {
-  Latitude: number;
-  Longitude: number;
-}
-
 const props = withDefaults(
   defineProps<{
-    gpsInfo: Array<GpsInfo>;
+    latitude?: string | number;
+    longitude?: string | number;
   }>(),
-  {
-    gpsInfo: () => [],
-  }
+  {}
 );
 
 const map = computed(() => {
-  if (!props.gpsInfo.length) {
+  if (props.longitude == null) {
     return {
       center: undefined,
       markers: [],
     };
   }
 
-  const { Longitude, Latitude } = props.gpsInfo[0];
+  const Longitude = props.longitude;
+  const Latitude = props.latitude;
 
   const mapObj = {
     center: [Latitude, Longitude] as PointExpression,

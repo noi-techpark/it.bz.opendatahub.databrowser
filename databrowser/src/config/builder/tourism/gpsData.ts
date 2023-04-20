@@ -31,7 +31,8 @@ export const gpsDataCategory = (): DetailElements => ({
           title: '',
           component: CellComponent.QuickViewMapView,
           fields: {
-            gpsInfo: 'GpsInfo',
+            latitude: 'GpsPoints.position.Latitude',
+            longitude: 'GpsPoints.position.Longitude',
           },
         },
       ],
