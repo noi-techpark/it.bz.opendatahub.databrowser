@@ -41,7 +41,8 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     {
       component: CellComponent.QuickViewMapView,
       fields: {
-        gpsInfo: 'GpsInfo',
+        latitude: 'GpsPoints.position.Latitude',
+        longitude: 'GpsPoints.position.Longitude',
       },
     },
     {
