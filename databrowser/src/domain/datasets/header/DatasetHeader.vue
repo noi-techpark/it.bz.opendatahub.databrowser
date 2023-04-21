@@ -131,7 +131,8 @@ const setDatasetConfigSource = (source: SourceType) => {
 const showAddRecord = computed(
   () =>
     !datasetConfigStore.isSourceGenerated &&
-    datasetConfigStore.hasCreatePermission
+    datasetConfigStore.hasCreatePermission &&
+    datasetConfigStore.hasNewView
 );
 
 const { currentMetaData } = useMetaDataForCurrentRoute();
