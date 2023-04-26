@@ -1,10 +1,10 @@
 <template>
   <div class="flex">
-    <label class="inline-flex items-center">
+    <label class="inline-flex cursor-pointer items-center">
       <input
         v-model="checked"
         type="checkbox"
-        class="h-5 w-5 rounded border-gray-400 text-green-700"
+        class="h-5 w-5 cursor-pointer rounded border-gray-400 text-green-700"
       />
       <span v-if="label != null" class="ml-3 font-semibold">{{ label }}</span>
     </label>
