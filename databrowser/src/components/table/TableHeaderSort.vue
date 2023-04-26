@@ -1,5 +1,5 @@
 <template>
-  <th class="p-4 font-semibold uppercase text-gray-900" @click="toggleSort">
+  <TableHeaderCell @click="toggleSort">
     <div
       class="flex items-center justify-between"
       :class="{ 'cursor-pointer': hasSortField }"
@@ -11,13 +11,14 @@
         :class="{ 'rotate-180': currentSortState === 'asc' }"
       />
     </div>
-  </th>
+  </TableHeaderCell>
 </template>
 
 <script setup lang="ts">
 import { toRefs } from 'vue';
 import { useTableSort } from './useTableSort';
 import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
+import TableHeaderCell from './TableHeaderCell.vue';
 
 const props = withDefaults(
   defineProps<{
