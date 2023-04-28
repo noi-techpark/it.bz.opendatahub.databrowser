@@ -14,7 +14,9 @@
 
     <template #tableCols="{ item }">
       <TableCell>{{ item.Shortname }} </TableCell>
-      <TableCell>{{ item.Indoor }} </TableCell>
+      <TableCell>
+        <ToggleCell :enabled="item.Indoor" :editable="true" />
+      </TableCell>
       <TableCell>{{ item.SquareMeters }} </TableCell>
     </template>
     <template #noItems>No rooms have been defined yet</template>
@@ -32,6 +34,7 @@ import EditListTable from '../../utils/editList/table/EditListTable.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { RoomVenueEntry } from './types';
+import ToggleCell from '../toggleCell/ToggleCell.vue';
 
 defineProps<{ items: RoomVenueEntry[] }>();
 
