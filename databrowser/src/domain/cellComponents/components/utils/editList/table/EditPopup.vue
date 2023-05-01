@@ -1,6 +1,6 @@
 <template>
   <ThreeDotsPopover>
-    <PopoverCustomPanel v-slot="{ close }">
+    <PopoverCustomPanel v-slot="{ close }" class="w-48">
       <PopoverContent
         with-hover
         class="flex items-center gap-2"
