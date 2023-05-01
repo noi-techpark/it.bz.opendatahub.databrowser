@@ -19,11 +19,15 @@ a {
   @apply underline;
 }
 
-a:focus-visible {
-  @apply focus:border-green-500;
+a:focus-visible[button-link] {
+  @apply outline-none
 }
 
-a:focus-visible,
+a:focus-visible {
+  @apply border-green-500;
+}
+
+a:focus-visible:not([button-link]),
 button:focus-visible,
 input:focus-visible,
 ul:focus-visible {

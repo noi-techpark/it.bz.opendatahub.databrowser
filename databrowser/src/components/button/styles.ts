@@ -3,11 +3,11 @@ import { Size, Tone, Variant } from './types';
 export const variantClass: Record<Variant, Record<Tone, String>> = {
   [Variant.solid]: {
     [Tone.primary]:
-      'border border-transparent bg-green-500 text-white hover:bg-green-700 focus:bg-green-500 focus:border-white',
+      'border border-transparent bg-green-500 text-white hover:bg-green-700 focus-visible:bg-green-700 focus-visible:outline-green-700',
   },
   [Variant.ghost]: {
     [Tone.primary]:
-      'font-normal border text-green-500 hover:bg-green-500/10 hover:border-green-500 focus:bg-green-500 focus:text-white',
+      'font-normal border text-green-500 hover:bg-green-500/10 hover:border-green-500 focus-visible:bg-green-500/10 focus-visible:text-green-500',
   },
 };
 
