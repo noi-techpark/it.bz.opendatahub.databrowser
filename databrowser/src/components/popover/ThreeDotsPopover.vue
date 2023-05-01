@@ -3,7 +3,7 @@
     <template #trigger>
       <PopoverCustomButton
         v-slot="{ open }"
-        class="flex h-6 w-6 items-center justify-center rounded border text-green-500 hover:border-green-500 hover:bg-green-500/10 focus:bg-green-500 focus:text-white"
+        class="flex h-6 w-6 items-center justify-center rounded border text-green-500 hover:border-green-500 hover:bg-green-500/10 focus-visible:bg-green-500/10"
       >
         <IconThreeDots
           class="fill-current transition-transform"
