@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center justify-between gap-2 rounded border border-gray-400 p-2 text-black focus:border-green-500"
+    class="flex items-center justify-between gap-2 rounded border border-gray-400 p-2 text-black focus-within:border-green-500"
   >
     <input
       :id="id"
@@ -23,21 +23,21 @@
       </button>
       <ButtonCustom
         size="xm"
-        class="flex items-center gap-2 rounded px-3"
+        class="flex items-center gap-2 rounded p-2 md:px-3 md:py-0"
         aria-label="Search"
         :disabled="disabled"
         :data-test="`${id}-start-search`"
         @click="emitSearch"
       >
         <IconSearch />
-        <span>Search</span>
+        <span class="hidden md:inline">Search</span>
       </ButtonCustom>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
 import IconDelete from '../svg/IconDelete.vue';
 import IconSearch from '../svg/IconSearch.vue';
@@ -63,12 +63,24 @@ const props = withDefaults(
 const searchTerm = ref(props.modelValue);
 
 watch(
+  () => props.modelValue,
+  (value) => {
+    searchTerm.value = value;
+  }
+);
+
+watch(
   () => searchTerm.value,
   (value) => emit('update:modelValue', value)
 );
 
 const inputRef = ref();
-const focusInput = () => setTimeout(() => inputRef.value.focus(), 500);
+const focusInput = () =>
+  setTimeout(() => {
+    if (inputRef.value != null) {
+      inputRef.value.focus();
+    }
+  }, 500);
 
 onMounted(() => {
   if (props.focus === true) {
