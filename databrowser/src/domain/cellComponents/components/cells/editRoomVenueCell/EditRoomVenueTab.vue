@@ -19,7 +19,7 @@
             />
           </SubCategoryItem>
           <SubCategoryItem title="Indoor" :required="true">
-            <StringCell
+            <ToggleCell
               :text="item.Indoor"
               :editable="editable"
               @input="updateItem(index, { Indoor: $event.target.value })"
