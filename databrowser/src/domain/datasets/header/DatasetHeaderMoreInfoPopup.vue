@@ -2,7 +2,8 @@
   <PopoverCustom>
     <template #trigger>
       <PopoverCustomButton
-        class="mr-1 flex h-6 items-center justify-center rounded border px-3 text-green-500 hover:border-green-500 hover:bg-green-500/10 focus-visible:bg-green-500/10"
+        class="mr-1 flex h-6 items-center justify-center px-3"
+        :class="buttonClasses"
       >
         <IconInfo class="mr-2 stroke-current" />
         <span class="line-height-1">{{ t('datasets.header.moreInfo') }}</span>
@@ -42,7 +43,7 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
-import { Variant } from '../../../components/button/types';
+import { Size, Variant } from '../../../components/button/types';
 import PopoverContent from '../../../components/popover/PopoverContent.vue';
 import PopoverCustom from '../../../components/popover/PopoverCustom.vue';
 import PopoverCustomButton from '../../../components/popover/PopoverCustomButton.vue';
@@ -54,8 +55,14 @@ import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigSt
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
 import DatasetTitle from '../common/DatasetTitle.vue';
 import { usePaths } from './usePaths';
+import { computeButtonClasses } from '../../../components/button/styles';
 
 const { t } = useI18n();
+
+const buttonClasses = computeButtonClasses({
+  size: Size.xs,
+  variant: Variant.ghost,
+});
 
 const { currentMetaData } = useMetaDataForCurrentRoute();
 

@@ -3,7 +3,8 @@
     <template #trigger>
       <PopoverCustomButton
         v-slot="{ open }"
-        class="flex h-6 w-6 items-center justify-center rounded border text-green-500 hover:border-green-500 hover:bg-green-500/10 focus-visible:bg-green-500/10"
+        class="flex h-6 w-6 items-center justify-center border"
+        :class="buttonClasses"
       >
         <IconThreeDots
           class="fill-current transition-transform"
@@ -22,4 +23,11 @@
 import PopoverCustomButton from './PopoverCustomButton.vue';
 import IconThreeDots from '../svg/IconThreeDots.vue';
 import PopoverCustom from './PopoverCustom.vue';
+import { computeButtonClasses } from '../button/styles';
+import { Size, Variant } from '../button/types';
+
+const buttonClasses = computeButtonClasses({
+  variant: Variant.ghost,
+  size: Size.xs,
+});
 </script>
