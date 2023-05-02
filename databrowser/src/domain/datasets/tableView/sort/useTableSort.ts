@@ -3,21 +3,8 @@ import {
   stringifyParameter,
   useApiQuery,
   useReplaceWithApiParameters,
-} from '../../domain/api';
-
-type SortState = 'none' | 'asc' | 'desc';
-
-// This function computes the next sort state based on the current sort state.
-const nextSortState = (sortState: SortState) => {
-  switch (sortState) {
-    case 'none':
-      return 'asc';
-    case 'asc':
-      return 'desc';
-    case 'desc':
-      return 'none';
-  }
-};
+} from '../../../api';
+import { SortState } from './types';
 
 // This function computes the rawsort value based on the sort field and the sort state.
 const rawsortValue = (sortField: string, sortState: SortState) => {
@@ -42,8 +29,8 @@ export const useTableSort = (fields: Ref<Record<string, string>>) => {
     return values.length === 1 ? replace(values[0]) : undefined;
   });
 
-  // The hasSortField property is true if there exists a field by which sorting can be performed.
-  const hasSortField = computed(() => sortField.value != null);
+  // The canSort property is true if there exists a field by which sorting can be performed.
+  const canSort = computed(() => sortField.value != null);
 
   // The currentSortFromUrl property contains the current sort value from the URL (may be undefined).
   const currentSortFromUrl = useApiParameter('rawsort');
@@ -62,15 +49,17 @@ export const useTableSort = (fields: Ref<Record<string, string>>) => {
   // The currentSortState property contains the current sort state.
   const currentSortState = ref<SortState>('none');
 
-  // This function is called when the user clicks the sort button.
-  const toggleSort = () => {
-    // If there is no sort field, we can't toggle the sort
+  const isCurrentSortAsc = computed(() => currentSortState.value === 'asc');
+
+  const isCurrentSortDesc = computed(() => currentSortState.value === 'desc');
+
+  // Set the current sort state.
+  const setSort = (sortState: SortState) => {
     if (sortField.value == null) {
       return;
     }
 
-    // Compute the next sort state
-    currentSortState.value = nextSortState(currentSortState.value);
+    currentSortState.value = sortState;
 
     // If the next sort state is 'none', we remove the rawsort parameter
     if (currentSortState.value === 'none') {
@@ -105,9 +94,9 @@ export const useTableSort = (fields: Ref<Record<string, string>>) => {
   );
 
   return {
-    currentSortState,
-    currentSortMatchesSortField,
-    hasSortField,
-    toggleSort,
+    canSort,
+    isCurrentSortAsc,
+    isCurrentSortDesc,
+    setSort,
   };
 };

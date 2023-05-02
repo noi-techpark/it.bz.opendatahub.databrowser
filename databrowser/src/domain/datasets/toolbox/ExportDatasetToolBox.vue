@@ -1,6 +1,6 @@
 <template>
   <ToolBox :tab-names="['Export datasets']">
-    <TabPanel>
+    <TabPanel tabindex="-1">
       <ExportDataset :url="url" />
     </TabPanel>
   </ToolBox>

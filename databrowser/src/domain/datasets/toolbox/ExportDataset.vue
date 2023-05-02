@@ -18,10 +18,11 @@
     </ToolBoxCard>
     <ToolBoxCardHeader margin-top>Further details</ToolBoxCardHeader>
     <ToolBoxCard label="DOCUMENTATION" :margin-bottom="false">
-      <template #icon>
+      <template #right>
         <a
           href="https://opendatahub.readthedocs.io/en/latest/index.html"
           target="_blank"
+          class="rounded p-1"
         >
           <IconLink class="text-green-500" />
         </a>

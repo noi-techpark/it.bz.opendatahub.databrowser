@@ -4,13 +4,15 @@
     :class="{ 'mt-5': marginTop, 'mb-4': marginBottom }"
   >
     <div
-      class="flex justify-between p-4"
+      class="flex items-center justify-between p-4"
       :class="{ 'text-black font-semibold': isFilter }"
     >
       <span>{{ label }}</span>
-      <div class="cursor-pointer" @click="$emit('icon-click')">
-        <slot name="icon"></slot>
-      </div>
+      <slot name="right">
+        <button class="rounded p-1" @click="$emit('icon-click')">
+          <slot name="icon"></slot>
+        </button>
+      </slot>
     </div>
     <div :class="{ 'bg-gray-50': !isFilter, 'border-t': isFilter }">
       <div class="p-4" :class="{ 'break-all': breakAll }">

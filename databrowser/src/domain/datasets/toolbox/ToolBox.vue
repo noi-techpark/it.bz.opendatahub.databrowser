@@ -53,7 +53,7 @@
                     >
                       <TabButton
                         :active="selected"
-                        class="uppercase"
+                        class="mt-px"
                         :data-test="`toolbox-tab-${index}`"
                       >
                         {{ tabName }}
