@@ -1,25 +1,23 @@
 # Data Browser for the Open Data Hub
 
-This is the mono repository for the Open Data Hub Data Browser.
-
-It contains the [Data Browser application](./databrowser) and its [Web Components](./web-components). You can find more details about those projects (development, build and more) in the corresponding folders.
+This is the repository for the Open Data Hub Data Browser.
 
 ## Table of Contents
 
 - [Getting started](#getting-started)
+- [Build for production](#build-for-production)
+- [Docker environment](#docker-environment)
 - [Information](#information)
 
 ## Getting started
 
-These instructions will get you a copy of this mono repository and prepare it for development of the [Data Browser application](./databrowser).
-
-Please take a look at the subprojects and their corresponding `README.md` files inside this mono repository to see how to do develop, test and build.
+These instructions will get you a copy of this repository and prepare it for development of the Data Browser.
 
 ### Prerequisites
 
 To build the projects in the repository, the following prerequisites must be met:
 
-- Node.js, at least v12 (see [https://nodejs.org/en/about/releases/](https://nodejs.org/en/about/releases/))
+- Node.js, at least v14.16 or v16 LTS (see [https://nodejs.org/en/about/releases/](https://nodejs.org/en/about/releases/))
 
 ### Installing
 
@@ -29,7 +27,7 @@ Get a copy of the repository, e.g. by cloning it from the following location:
 git clone https://github.com/noi-techpark/it.bz.opendatahub.databrowser
 ```
 
-Change into the Data Browser directory:
+Change into the `databrowser` directory:
 
 ```bash
 cd it.bz.opendatahub.databrowser/databrowser
@@ -41,7 +39,43 @@ Install the dependencies:
 npm install
 ```
 
-Please take a look at the `README.md` files of the subprojects in this mono repository for further setup details.
+Copy the file .env.example to .env and adjust the configuration parameters if required.
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+On successful start, the Data Browser application can be found at [http://localhost:3000](http://localhost:3000).
+
+## Build for production
+
+> Before proceeding, please ensure that you are in the `databrowser` directory.
+
+Build the production version:
+
+```bash
+npm run build
+```
+
+The result, found in the `./dist` folder, can be deployed to a web server.
+
+Launch local production server:
+
+```bash
+npm run start
+```
+
+## Docker environment
+
+> Before proceeding, please ensure that you are in the `databrowser` directory.
+
+For the project a Docker environment is already prepared and ready to use with all necessary prerequisites.
+
+These Docker containers are the same as used by the continuous integration servers.
+
+In order to use the Docker environment, you must have [Docker](https://docs.docker.com/install/) installed locally on your machine, together with [Docker Compose](https://docs.docker.com/compose/).
 
 ## Information
 
@@ -54,7 +88,7 @@ For support, please contact [Christian Gapp](https://github.com/gappc) or
 
 Please take a look at the [Contributor Guidelines](https://github.com/noi-techpark/odh-docs/wiki/Contributor-Guidelines%3A-Getting-started).
 
-You can find an introduction on how to start developing in the [contribute-to-development](./doc/contribute-to-development.md) file.
+You can find an introduction on how to start developing in the [contribute-to-development](./doc/contribute-to-development.md) and [guideline](./databrowser/guideline.md) files.
 
 ### Versioning
 
@@ -68,7 +102,9 @@ The code in this project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE
 ### Authors
 
 - **Christian Gapp** - _Initial work_ - [gappc](https://github.com/gappc)
-- **AboutBits** - _Initial work_ - [aboutbits](https://github.com/aboutbits)
+- **AboutBits** - _Initial work_ - [AboutBits](https://github.com/aboutbits)
+- **FlashBeing** - Guideline and _Quick View_ [FlashBeing](https://flashbeing.com/)
+- **NOI Support Team** - _Configurations and tests_
 
 ### Acknowledgements
 
