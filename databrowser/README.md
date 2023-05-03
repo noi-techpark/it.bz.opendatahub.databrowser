@@ -50,6 +50,8 @@ On successful start, the demo application can be found at [http://localhost:3000
 
 ## Build and deploy
 
+> Before proceeding, please ensure that you are in the databrowser directory.
+
 Build the production version:
 
 ```bash
@@ -65,6 +67,8 @@ npm run start
 ```
 
 ## Docker environment
+
+> Before proceeding, please ensure that you are in the databrowser directory.
 
 For the project a Docker environment is already prepared and ready to use with all necessary prerequisites.
 
