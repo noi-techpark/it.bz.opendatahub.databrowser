@@ -77,6 +77,42 @@ These Docker containers are the same as used by the continuous integration serve
 
 In order to use the Docker environment, you must have [Docker](https://docs.docker.com/install/) installed locally on your machine, together with [Docker Compose](https://docs.docker.com/compose/).
 
+### Start and stop the containers
+
+Before start working you have to start the Docker containers:
+
+```bash
+docker-compose up --build --detach
+```
+
+After finished working you can stop the Docker containers:
+
+```bash
+docker-compose stop
+```
+
+### Running commands inside the container
+
+When the containers are running, you can execute any command inside the environment. Just replace the dots `...` in the following example with the command you wish to execute:
+
+```bash
+docker-compose exec node /bin/bash -c "..."
+```
+
+Some examples are:
+
+```bash
+docker-compose exec node /bin/bash -c "npm install"
+
+# or
+
+docker-compose exec node /bin/bash -c "npm run dev"
+
+# or
+
+docker-compose exec node /bin/bash -c "npm run build"
+```
+
 ## Information
 
 ### Support
