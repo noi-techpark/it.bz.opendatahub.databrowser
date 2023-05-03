@@ -114,6 +114,16 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               fields: { text: 'AnchorVenue' },
             },
             {
+              title: 'Age From',
+              component: CellComponent.StringCell,
+              fields: { text: 'TypicalAgeRange.AgeFrom' },
+            },
+            {
+              title: 'Age To',
+              component: CellComponent.StringCell,
+              fields: { text: 'TypicalAgeRange.AgeTo' },
+            },
+            {
               title: 'Location',
               component: CellComponent.SelectWithOptionsCell,
               fields: { value: 'EventLocation' },
