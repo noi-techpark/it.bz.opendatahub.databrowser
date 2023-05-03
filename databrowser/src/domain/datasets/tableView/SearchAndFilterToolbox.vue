@@ -61,6 +61,8 @@
                 filter.operator !== 'isnull' && filter.operator !== 'isnotnull'
               "
               :id="`filter-${filter.field}`"
+              label-button="Filter"
+              label-placeholder="Insert filter value ..."
               :model-value="filter.value?.toString()"
               @search="updateFilterValue(index, filter.operator, $event)"
             />

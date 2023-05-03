@@ -7,7 +7,7 @@
       ref="inputRef"
       v-model="searchTerm"
       class="grow"
-      placeholder="Insert search value ..."
+      :placeholder="labelPlaceholder"
       :disabled="disabled"
       :data-test="`${id}-input`"
       @keypress.enter="emitSearch"
@@ -30,7 +30,7 @@
         @click="emitSearch"
       >
         <IconSearch />
-        <span class="hidden md:inline">Search</span>
+        <span class="hidden md:inline">{{ labelButton }}</span>
       </ButtonCustom>
     </div>
   </div>
@@ -51,12 +51,16 @@ const props = withDefaults(
     disabled?: boolean;
     focus?: boolean;
     id?: string;
+    labelButton?: string;
+    labelPlaceholder?: string;
   }>(),
   {
     modelValue: undefined,
     disabled: undefined,
     focus: undefined,
     id: randomId(),
+    labelButton: 'Search',
+    labelPlaceholder: 'Insert search value ...',
   }
 );
 
