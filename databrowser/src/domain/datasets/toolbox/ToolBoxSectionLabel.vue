@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
 withDefaults(defineProps<{ marginTop?: boolean; marginBottom?: boolean }>(), {
   marginTop: false,
   marginBottom: true,

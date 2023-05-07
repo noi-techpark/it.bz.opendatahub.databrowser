@@ -1,9 +1,9 @@
 <template>
   <ToolBox :tab-names="['General', 'JSON diff']">
     <TabPanel>
-      <ToolBoxCardHeader :margin-top="false">{{
+      <ToolBoxSectionLabel>{{
         t('datasets.editView.toolbox.goodToKnow')
-      }}</ToolBoxCardHeader>
+      }}</ToolBoxSectionLabel>
       <ToolBoxCard :label="t('datasets.editView.toolbox.label.header')">
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-html="t('datasets.editView.toolbox.label.body')"> </span>
@@ -34,7 +34,7 @@
 import { useI18n } from 'vue-i18n';
 import ToolBox from '../toolbox/ToolBox.vue';
 import { TabPanel } from '@headlessui/vue';
-import ToolBoxCardHeader from '../toolbox/ToolBoxCardHeader.vue';
+import ToolBoxSectionLabel from '../toolbox/ToolBoxSectionLabel.vue';
 import ToolBoxCard from '../toolbox/ToolBoxCard.vue';
 import { useEditStore } from './store/editStore';
 import { defineAsyncComponent } from 'vue';

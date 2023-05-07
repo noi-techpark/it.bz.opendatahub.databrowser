@@ -1,8 +1,6 @@
 <template>
   <div>
-    <ToolBoxCardHeader :margin-top="false">
-      Retrieve data for this record
-    </ToolBoxCardHeader>
+    <ToolBoxSectionLabel>Retrieve data for this record</ToolBoxSectionLabel>
     <ToolBoxCard label="API datasets" :break-all="true" @icon-click="copyUrl">
       <template #icon>
         <IconCopy v-if="!copiedUrl" class="text-green-500" />
@@ -16,7 +14,7 @@
       </template>
       <span>dataset.json</span>
     </ToolBoxCard>
-    <ToolBoxCardHeader margin-top>Further details</ToolBoxCardHeader>
+    <ToolBoxSectionLabel margin-top>Further details</ToolBoxSectionLabel>
     <ToolBoxCard label="DOCUMENTATION" :margin-bottom="false">
       <template #right>
         <a
@@ -33,8 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-import ToolBoxCardHeader from './ToolBoxCardHeader.vue';
+import ToolBoxSectionLabel from './ToolBoxSectionLabel.vue';
 import ToolBoxCard from './ToolBoxCard.vue';
 import IconCopy from '../../../components/svg/IconCopy.vue';
 import IconCheck from '../../../components/svg/IconCheck.vue';
