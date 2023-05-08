@@ -8,12 +8,12 @@
       Data from different fields and sources.
     </CardText>
     <div class="grid grid-cols-2 gap-3 rounded lg:grid-cols-4">
-      <a
+      <ButtonExternalLink
         v-for="(partner, index) in partners"
         :key="index"
         :href="partner.url"
-        :title="partner.linkTitle"
-        class="flex items-center justify-center rounded border p-3 hover:border-green-500"
+        :variant="Variant.ghost"
+        class="flex items-center justify-center hover:bg-transparent focus-visible:bg-transparent"
         target="_blank"
       >
         <img
@@ -21,12 +21,14 @@
           :alt="partner.imageAlt"
           :src="partner.imageSrc"
         />
-      </a>
+      </ButtonExternalLink>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import ButtonExternalLink from '../button/ButtonExternalLink.vue';
+import { Variant } from '../button/types';
 import CardText from '../card/CardText.vue';
 
 interface Partner {

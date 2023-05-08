@@ -19,16 +19,16 @@ a {
   @apply underline;
 }
 
-a:focus-visible {
-  @apply focus:border-green-500;
+a:focus-visible:not([button-link]) {
+  @apply outline outline-green-500 outline-1 outline-offset-2;
 }
 
-a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 ul:focus-visible {
   @apply outline outline-green-500 outline-1;
 }
+
 input:focus-visible {
   @apply outline-0;
 }

@@ -73,7 +73,7 @@ import { useAuth } from '../../auth/store/auth';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import EditFooter from './EditFooter.vue';
 import { useCategories } from '../category/useCategories';
-import EditToolBox from './EditToolBox.vue';
+import EditToolBox from './toolBox/EditToolBox.vue';
 import { useEditStore } from './store/editStore';
 import { useEditStoreSync } from './useEditStoreSync';
 import { useApplyError } from './useApplyError';

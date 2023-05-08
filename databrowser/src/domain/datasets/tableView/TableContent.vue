@@ -6,13 +6,13 @@
     </template>
 
     <template #header-cols>
-      <TableHeaderSort
-        v-for="col in renderElements"
-        :key="col.title"
-        :text="col.title"
-        :fields="col.fields"
-      />
-      <TableHeaderCell class="sticky right-0 bg-gray-50 font-semibold">
+      <TableHeaderCell v-for="(col, index) in renderElements" :key="col.title">
+        <SortAndFilterHeader
+          :title="columns[index]?.title ?? 'index mismatch'"
+          :field="columns[index]?.field"
+        />
+      </TableHeaderCell>
+      <TableHeaderCell class="sticky right-0 bg-gray-50">
         {{ t('datasets.listView.colDetail') }}
       </TableHeaderCell>
     </template>
@@ -78,10 +78,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs, withDefaults } from 'vue';
+import { toRefs } from 'vue';
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
-import TableHeaderSort from '../../../components/table/TableHeaderSort.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../components/table/TableCell.vue';
 import IconEye from '../../../components/svg/IconEye.vue';
@@ -94,6 +93,8 @@ import IconEdit from '../../../components/svg/IconEdit.vue';
 import { useI18n } from 'vue-i18n';
 import { usePathsForCurrentRoute } from '../header/usePaths';
 import TableDataEmpty from './TableDataEmpty.vue';
+import SortAndFilterHeader from './SortAndFilterHeader.vue';
+import { useTableViewColumns } from '../../datasetConfig/utils';
 
 const { t } = useI18n();
 
@@ -121,4 +122,7 @@ const {
   rawViewPathForId,
   editViewPathForId,
 } = usePathsForCurrentRoute();
+
+// TODO: temporary solution until we have a better way to handle this
+const columns = useTableViewColumns();
 </script>

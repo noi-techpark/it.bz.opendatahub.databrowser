@@ -21,42 +21,7 @@
     </div>
 
     <!-- More info -->
-    <TooltipCustom v-if="datasetConfigStore.hasConfig">
-      <template #default>
-        <ButtonCustom
-          variant="ghost"
-          size="xs"
-          class="mr-1 flex h-6 items-center py-1 px-3"
-          data-test="more-info-button"
-        >
-          <IconInfo class="mr-2 stroke-current" />
-          <span class="line-height-1">{{ t('datasets.header.moreInfo') }}</span>
-        </ButtonCustom>
-      </template>
-      <template #container>
-        <div v-if="currentMetaData != null">
-          <div
-            class="mr-1 mb-2 text-sm font-bold text-black md:w-auto md:text-base"
-          >
-            <DatasetTitle :name="datasetName" :parent="datasetParent" />
-          </div>
-          <div class="mb-4">
-            {{ currentMetaData.description }}
-          </div>
-          <div class="mb-5 flex justify-between gap-5">
-            <OverviewInfoDataAvailability :dataset="currentMetaData" />
-            <OverviewInfoRecordCount :dataset="currentMetaData" />
-          </div>
-          <ButtonLink
-            :to="datasetOverviewForId(currentMetaData.id).value"
-            :variant="Variant.ghost"
-            class="w-full justify-center border-hint-info"
-          >
-            {{ t('datasets.header.datasetDetails') }}
-          </ButtonLink>
-        </div>
-      </template>
-    </TooltipCustom>
+    <DatasetHeaderMoreInfoPopup />
 
     <!-- Popup -->
     <DatasetHeaderConfigPopup
@@ -98,8 +63,6 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import ButtonCustom from '../../../components/button/ButtonCustom.vue';
-import IconInfo from '../../../components/svg/IconInfo.vue';
 import LanguagePicker from '../../../components/language/LanguagePicker.vue';
 import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
 import { useI18n } from 'vue-i18n';
@@ -109,12 +72,7 @@ import { SourceType } from '../../datasetConfig/source/types';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
 import DatasetTitle from '../common/DatasetTitle.vue';
-import TooltipCustom from '../../../components/tooltip/TooltipCustom.vue';
-import { Variant } from '../../../components/button/types';
-import ButtonLink from '../../../components/button/ButtonLink.vue';
-import OverviewInfoDataAvailability from '../../../pages/datasets/overview/OverviewInfoDataAvailability.vue';
-import OverviewInfoRecordCount from '../../../pages/datasets/overview/OverviewInfoRecordCount.vue';
-import { usePaths } from './usePaths';
+import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
 
 const { t } = useI18n();
 
@@ -147,6 +105,4 @@ const datasetName = computed(
 const datasetParent = computed(
   () => currentMetaData.value?.apiIdentifier ?? ''
 );
-
-const { datasetOverviewForId } = usePaths();
 </script>

@@ -1,31 +1,31 @@
 <template>
-  <!-- Mobile toolbox open button -->
+  <!-- Mobile toolBox open button -->
   <ButtonCustom
-    v-if="!toolboxStore.visible"
+    v-if="!toolBoxStore.visible"
     class="absolute right-[20px] bottom-16 z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
-    data-test="mobile-open-toolbox"
-    @click="toolboxStore.visible = !toolboxStore.visible"
+    data-test="mobile-open-toolBox"
+    @click="toolBoxStore.visible = !toolBoxStore.visible"
   >
     <IconClose class="just mr-2 h-5 w-5 rotate-45" /><span>Toolbox</span>
   </ButtonCustom>
 
-  <!-- Toolbox content -->
+  <!-- ToolBox content -->
   <div
     class="absolute top-0 z-30 flex h-full flex-col overflow-x-auto bg-white transition-all md:relative"
     :class="{
-      'w-full md:w-1/3': toolboxStore.visible,
-      'w-0 md:w-16': !toolboxStore.visible,
+      'w-full md:w-1/3': toolBoxStore.visible,
+      'w-0 md:w-16': !toolBoxStore.visible,
     }"
   >
     <div
       class="flex flex-1 overflow-y-auto md:block"
-      :class="{ block: toolboxStore.visible, hidden: !toolboxStore.visible }"
+      :class="{ block: toolBoxStore.visible, hidden: !toolBoxStore.visible }"
     >
       <Transition
-        @after-enter="(el: HTMLElement) => (el.classList.value = 'block h-full w-full')"
-        @before-leave="(el: HTMLElement) => (el.classList.value = 'hidden')"
+        @after-enter="(el: Element) => (el.classList.value = 'block h-full w-full')"
+        @before-leave="(el: Element) => (el.classList.value = 'hidden')"
       >
-        <div v-if="toolboxStore.visible" :class="{ hidden: !mdAndLarger }">
+        <div v-if="toolBoxStore.visible" :class="{ hidden: !mdAndLarger }">
           <ContentAlignmentX class="h-full">
             <div class="flex flex-col justify-between">
               <TabGroup :default-index="defaultIndex">
@@ -37,8 +37,8 @@
                     variant="ghost"
                     size="xs"
                     class="mt-6 mr-2 flex h-8 w-8 items-center justify-center self-end md:hidden"
-                    data-test="mobile-close-toolbox"
-                    @click="toolboxStore.visible = false"
+                    data-test="mobile-close-toolBox"
+                    @click="toolBoxStore.visible = false"
                   >
                     <IconClose class="h-5 w-5" />
                   </ButtonCustom>
@@ -53,8 +53,8 @@
                     >
                       <TabButton
                         :active="selected"
-                        class="uppercase"
-                        :data-test="`toolbox-tab-${index}`"
+                        class="mt-px"
+                        :data-test="`toolBox-tab-${index}`"
                       >
                         {{ tabName }}
                       </TabButton>
@@ -78,17 +78,17 @@
         size="xs"
         class="hidden h-8 w-8 items-center justify-center md:flex"
         :data-test="
-          toolboxStore.visible
-            ? 'desktop-close-toolbox'
-            : 'desktop-open-toolbox'
+          toolBoxStore.visible
+            ? 'desktop-close-toolBox'
+            : 'desktop-open-toolBox'
         "
-        @click="toolboxStore.visible = !toolboxStore.visible"
+        @click="toolBoxStore.visible = !toolBoxStore.visible"
       >
         <IconStrokedArrowDown
           class="h-5 w-5 stroke-current"
           :class="{
-            '-rotate-90': toolboxStore.visible,
-            'rotate-90': !toolboxStore.visible,
+            '-rotate-90': toolBoxStore.visible,
+            'rotate-90': !toolBoxStore.visible,
           }"
         />
       </ButtonCustom>
@@ -97,15 +97,15 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, watch } from 'vue';
+import { Tab, TabGroup, TabList, TabPanels } from '@headlessui/vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
-import { TabGroup, TabList, TabPanels, Tab } from '@headlessui/vue';
+import { toRefs, watch } from 'vue';
 import ButtonCustom from '../../../components/button/ButtonCustom.vue';
-import IconClose from '../../../components/svg/IconClose.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
+import IconClose from '../../../components/svg/IconClose.vue';
 import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
 import TabButton from '../../../components/tab/TabButton.vue';
-import { useToolboxStore } from './toolboxStore';
+import { useToolBoxStore } from './toolBoxStore';
 
 const props = withDefaults(
   defineProps<{
@@ -121,7 +121,7 @@ const props = withDefaults(
 
 const { visible } = toRefs(props);
 
-const toolboxStore = useToolboxStore();
+const toolBoxStore = useToolBoxStore();
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const mdAndLarger = breakpoints.greater('md');
@@ -130,14 +130,14 @@ watch(
   [visible, mdAndLarger],
   ([visible, mdAndLargerValue], [oldVisible, oldMdAndLargerValue]) => {
     if (visible !== oldVisible && mdAndLargerValue) {
-      toolboxStore.visible = visible;
+      toolBoxStore.visible = visible;
     } else if (mdAndLargerValue) {
-      toolboxStore.visible = true;
+      toolBoxStore.visible = true;
     } else if (
       oldMdAndLargerValue != null &&
       mdAndLargerValue !== oldMdAndLargerValue
     ) {
-      toolboxStore.visible = false;
+      toolBoxStore.visible = false;
     }
   },
   { immediate: true }

@@ -12,7 +12,15 @@
           :data-test="`${id}-select-button`"
         />
         <Teleport to="#popper-root">
-          <div ref="container" class="absolute z-10" :class="{ hidden: !open }">
+          <div
+            ref="container"
+            class="absolute"
+            :class="{ hidden: !open, 'z-10': zIndex == null }"
+            :style="{
+              zIndex: zIndex == null ? undefined : zIndex,
+            }"
+            :data-test="`${id}-select-options`"
+          >
             <transition
               enter-active-class="transition duration-100 ease-out"
               enter-from-class="transform scale-95 opacity-0"
@@ -75,6 +83,7 @@ const props = withDefaults(
     // - set this number to Infinity to always hide the search
     showSearchWhenAtLeastCountOptions?: number;
     showEmptyValue?: boolean;
+    zIndex?: number;
   }>(),
   {
     options: () => [],
@@ -83,6 +92,7 @@ const props = withDefaults(
     id: randomId(),
     showSearchWhenAtLeastCountOptions: 7,
     showEmptyValue: false,
+    zIndex: undefined,
   }
 );
 const {

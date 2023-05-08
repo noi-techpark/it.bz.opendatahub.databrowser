@@ -24,7 +24,7 @@
         t('datasets.header.selectColumnSize')
       }}</PopoverContentHeader>
       <PopoverContentDivider />
-      <PopoverContent class="flex justify-between">
+      <PopoverContent class="flex justify-between gap-2">
         <ButtonCustom
           :variant="columnWidth === 'small' ? 'solid' : 'ghost'"
           size="sm"

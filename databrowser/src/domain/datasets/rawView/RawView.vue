@@ -10,7 +10,7 @@
           class="flex-1"
         />
       </ContentAlignmentX>
-      <ExportDatasetToolBox :url="url" />
+      <ExportDatasetsToolBox :url="url" />
     </div>
   </template>
 </template>
@@ -19,7 +19,7 @@
 import { defineAsyncComponent } from 'vue';
 import { useApiReadForCurrentDataset } from '../../api';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
-import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
+import ExportDatasetsToolBox from '../toolBox/ExportDatasetsToolBox.vue';
 import LoadingError from '../../../components/loading/LoadingError.vue';
 import 'vue-json-pretty/lib/styles.css';
 

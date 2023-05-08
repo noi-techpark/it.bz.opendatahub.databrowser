@@ -1,12 +1,11 @@
 <template>
-  <a :href="href" :class="className"><slot></slot></a>
+  <a :href="href" :class="className" button-link><slot></slot></a>
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
-import { Size, Tone, Variant } from './types';
 import { computed } from 'vue';
 import { sizeClass, variantClass } from './styles';
+import { Size, Tone, Variant } from './types';
 
 const props = withDefaults(
   defineProps<{

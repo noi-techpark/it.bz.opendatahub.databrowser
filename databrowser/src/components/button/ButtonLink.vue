@@ -1,13 +1,14 @@
 <template>
-  <router-link :to="to" :class="className"><slot></slot></router-link>
+  <router-link :to="to" :class="className" button-link>
+    <slot></slot>
+  </router-link>
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
-import { Size, Tone, Variant } from './types';
 import { computed } from 'vue';
-import { sizeClass, variantClass } from './styles';
 import { RouteLocationRaw } from 'vue-router';
+import { sizeClass, variantClass } from './styles';
+import { Size, Tone, Variant } from './types';
 
 const props = withDefaults(
   defineProps<{

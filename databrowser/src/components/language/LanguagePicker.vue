@@ -9,7 +9,7 @@
       class="mx-1 hidden h-6 w-9 text-center uppercase md:flex md:items-center md:justify-center"
       :class="[
         link.value === selected
-          ? 'bg-green-500 bg-opacity-10 border-green-500 focus:text-white'
+          ? 'bg-green-500 bg-opacity-10 border-green-500'
           : '',
       ]"
       :data-test="`desktop-language-picker-${link.value}`"

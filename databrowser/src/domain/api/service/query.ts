@@ -1,6 +1,6 @@
 import { ParameterValue } from './types';
 
-export const stringifyParameter = (value: ParameterValue): string => {
+export const stringifyParameter = (value?: ParameterValue): string => {
   if (value === undefined) {
     return '';
   }
