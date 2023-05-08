@@ -106,7 +106,12 @@
       "active": "Active",
       "inactive": "Inactive",
       "closed": "Closed",
-      "webcamDetails": "Webcam details"
+      "webcamDetails": "Webcam details",
+      "name": "Name",
+      "link": "Link",
+      "header": "Header",
+      "subheader": "Subheader",
+      "introtext": "Introtext"
     },
     "generated": {
       "categoryName": "All data"

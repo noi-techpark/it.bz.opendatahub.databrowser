@@ -33,15 +33,15 @@ const textInformationSections = computed(() => {
     {
       content: [
         {
-          title: 'Header',
+          title: t('datasets.quickView.header'),
           text: getTextValue(props.header),
         },
         {
-          title: 'Subheader',
+          title: t('datasets.quickView.subheader'),
           text: getTextValue(props.subHeader),
         },
         {
-          title: 'Introtext',
+          title: t('datasets.quickView.introtext'),
           text: getTextValue(props.introText),
         },
       ],
