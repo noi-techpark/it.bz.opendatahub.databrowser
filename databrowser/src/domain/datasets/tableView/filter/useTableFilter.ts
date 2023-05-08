@@ -1,7 +1,7 @@
 import { Ref, computed, toRefs, watch } from 'vue';
 import { replacePlaceholders, useApiParameterReplacements } from '../../../api';
 import { useDatasetConfigStore } from '../../../datasetConfig/store/datasetConfigStore';
-import { useToolboxStore } from '../../toolbox/toolboxStore';
+import { useToolBoxStore } from '../../toolBox/toolBoxStore';
 import { useRawfilterHandler } from './rawfilterHandler';
 import { useTableFilterStore } from './tableFilterStore';
 import { FilterOperator, FilterValue } from './types';
@@ -99,7 +99,7 @@ export const useTableFilter = (
   const addFilterInternal = () => {
     if (fieldName.value != null) {
       addFilter(fieldName.value, title.value);
-      useToolboxStore().visible = true;
+      useToolBoxStore().visible = true;
     }
   };
 

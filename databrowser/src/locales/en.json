@@ -70,15 +70,21 @@
         "saveMobile": "Save",
         "saving": "Saving your changes ..."
       },
-      "toolbox": {
-        "goodToKnow": "Good to know",
-        "label": {
-          "header": "«Label»",
-          "body": "If a label is signed with two arrows it means that the field options depend on data from other datasets. <strong>For example:</strong> Selection of cities is taken from the insert data from the locations dataset."
+      "toolBox": {
+        "editHints": {
+          "goodToKnow": "Good to know",
+          "label": {
+            "header": "«Label»",
+            "body": "If a label is signed with two arrows it means that the field options depend on data from other datasets. <strong>For example:</strong> Selection of cities is taken from the insert data from the locations dataset."
+          },
+          "obligatory": {
+            "header": "*",
+            "body": "Obligatory fields"
+          },
+          "panelName": "General"
         },
-        "obligatory": {
-          "header": "*",
-          "body": "Obligatory fields"
+        "jsonDiff": {
+          "panelName": "JSON diff"
         }
       }
     },
@@ -142,7 +148,22 @@
         "dataDoesNotExist": "You were looking for data that does not exist!",
         "suggestion": "Please rethink your request"
       },
-      "of": "of"
+      "of": "of",
+      "toolBox": {
+        "searchAndFilter": {
+          "basicSearch": {
+            "header": "Basic search"
+          },
+          "otherFilters": {
+            "addNewFilter": "Add a new filter",
+            "header": "All other filters",
+            "filterInputPlaceholder": "Insert filter value ...",
+            "filterInputButton": "Filter",
+            "resetAllFilters": "Reset all filters"
+          },
+          "panelName": "Search and filter"
+        }
+      }
     },
     "navigation": {
       "detailView": "Detail View",
@@ -158,6 +179,27 @@
       "copyAction": "Copy to clipboard",
       "downloadJSON": "Download dataset as JSON",
       "downloadCSV": "Download dataset as CSV"
+    },
+    "toolBox": {
+      "exportDatasets": {
+        "apiDatasets": {
+          "header": "API datasets",
+          "iconAlt": "Copy the URL for the currently displayed data"
+        },
+        "documentation": {
+          "header": "documentation",
+          "body": "Check documentation for full details",
+          "iconAlt": "Link to documentation"
+        },
+        "json": {
+          "header": "JSON",
+          "body": "dataset.json",
+          "iconAlt": "Download the currently displayed data"
+        },
+        "panelName": "Export datasets",
+        "sectionFurtherDetails": "Further details",
+        "sectionRetrieveData": "Retrieve data for this record"
+      }
     }
   },
   "components": {

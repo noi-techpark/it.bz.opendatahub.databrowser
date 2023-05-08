@@ -27,7 +27,7 @@
             @paginate-to="paginateTo"
           />
         </div>
-        <SearchAndFilterToolbox :url="url" />
+        <TableToolBox :url="url" />
       </div>
     </template>
   </section>
@@ -49,7 +49,7 @@ import TableFooter from './TableFooter.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import { useI18n } from 'vue-i18n';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
-import SearchAndFilterToolbox from './SearchAndFilterToolbox.vue';
+import TableToolBox from './toolBox/TableToolBox.vue';
 import LoadingError from '../../../components/loading/LoadingError.vue';
 import { useRouter } from 'vue-router';
 import { useTableViewRouteQueryStore } from './tableViewRouteQueryStore';

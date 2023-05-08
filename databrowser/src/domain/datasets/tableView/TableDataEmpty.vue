@@ -1,7 +1,7 @@
 <template>
   <div
     class="fixed top-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-black transition-all"
-    :class="toolboxStore.visible ? 'left-1/2 md:left-1/3' : 'left-1/2'"
+    :class="toolBoxStore.visible ? 'left-1/2 md:left-1/3' : 'left-1/2'"
   >
     <div class="flex flex-col items-center justify-center">
       <IconEyeWithLid class="h-24 w-36" />
@@ -18,9 +18,9 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import IconEyeWithLid from '../../../components/svg/IconEyeWithLid.vue';
-import { useToolboxStore } from '../toolbox/toolboxStore';
+import { useToolBoxStore } from '../toolBox/toolBoxStore';
 
 const { t } = useI18n();
 
-const toolboxStore = useToolboxStore();
+const toolBoxStore = useToolBoxStore();
 </script>

@@ -15,7 +15,7 @@
         :show-edit-hint="false"
         :editable="false"
       />
-      <ExportDatasetToolBox :url="url" />
+      <ExportDatasetsToolBox :url="url" />
     </div>
   </template>
 </template>
@@ -24,7 +24,7 @@
 import { ref } from 'vue';
 import { useApiReadForCurrentDataset } from '../../api';
 import { useCategories } from '../category/useCategories';
-import ExportDatasetToolBox from '../toolbox/ExportDatasetToolBox.vue';
+import ExportDatasetsToolBox from '../toolBox/ExportDatasetsToolBox.vue';
 import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
 import MainAndSubCategories from '../common/MainAndSubCategories.vue';
 import LoadingError from '../../../components/loading/LoadingError.vue';
