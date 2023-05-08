@@ -6,7 +6,7 @@
       :variant="Variant.ghost"
       @click="addFilter"
     >
-      Access filter for
+      Add filter for
       <span class="font-semibold uppercase">{{ title }}</span>
     </ButtonCustom>
   </PopoverContent>
@@ -16,7 +16,7 @@
       class="flex items-center gap-2 p-2"
       :size="Size.xs"
       :variant="Variant.ghost"
-      @click="removeFilterByField"
+      @click="removeFilter"
     >
       <IconDelete class="text-delete" /> Reset filter
     </ButtonCustom>
@@ -30,17 +30,20 @@ import { Size, Variant } from '../../../../components/button/types';
 import PopoverContent from '../../../../components/popover/PopoverContent.vue';
 import PopoverContentDivider from '../../../../components/popover/PopoverContentDivider.vue';
 import IconDelete from '../../../../components/svg/IconDelete.vue';
-import { useTableFilter } from './useTableFilter';
+import { useTableFilterForField } from './useTableFilter';
 
-const props = defineProps<{
-  title: string;
-  fields: Record<string, string>;
-}>();
+const props = withDefaults(
+  defineProps<{
+    title: string;
+    field?: string;
+  }>(),
+  { field: undefined }
+);
 
-const { title, fields } = toRefs(props);
+const { title, field } = toRefs(props);
 
-const { isFilterActive, addFilter, removeFilterByField } = useTableFilter(
-  fields,
-  title
+const { isFilterActive, addFilter, removeFilter } = useTableFilterForField(
+  title,
+  field
 );
 </script>

@@ -1,75 +1,173 @@
-import { Ref, computed, toRefs, watch } from 'vue';
-import { replacePlaceholders, useApiParameterReplacements } from '../../../api';
-import { useDatasetConfigStore } from '../../../datasetConfig/store/datasetConfigStore';
+import { ComputedRef, Ref, computed, toRefs, watch } from 'vue';
 import { useToolBoxStore } from '../../toolBox/toolBoxStore';
 import { useRawfilterHandler } from './rawfilterHandler';
 import { useTableFilterStore } from './tableFilterStore';
-import { FilterOperator, FilterValue } from './types';
+import { Filter, FilterOperator, FilterValue, Rawfilter } from './types';
+import {
+  TableViewColumn,
+  useTableViewColumns,
+} from '../../../datasetConfig/utils';
 
 interface Column {
   title: string;
   field?: string;
 }
 
-let isValueEmptyChange = false;
+let isValueChange = false;
 
-export const useTableFilter = (
-  fields: Ref<Record<string, string>>,
-  title: Ref<string>
+export const useTableFilterForField = (
+  title: Ref<string>,
+  field: Ref<string | undefined>
 ) => {
+  // Access rawfilters from URL
   const { rawfilters, updateRawfilters } = useRawfilterHandler();
 
-  //////////////////////////////////////////////////////////////
-  // Get table columns from dataset config
-  //////////////////////////////////////////////////////////////
-  const datasetConfigStore = useDatasetConfigStore();
-  const renderElements = computed(
-    () => datasetConfigStore.tableView?.elements ?? []
-  );
+  // Get table columns from dataset config with placeholders replaced
+  const columns = useTableViewColumns();
 
-  const replacements = useApiParameterReplacements();
-  const cols = computed<Column[]>(() => {
-    const replace = (s: string): string =>
-      replacePlaceholders(s, replacements.value);
+  // Filter store import
+  const {
+    addFilterByField,
+    removeFilterByField,
+    setFilters,
+    filtersFromStore,
+  } = useTableFilterStoreImport();
 
-    return renderElements.value.map((element) => {
-      const values = Object.values(element.fields ?? {});
-      const field = values.length === 1 ? replace(values[0]) : undefined;
-      return { title: element.title, field };
+  // Update filters in store from rawfilters (URL)
+  addFilterWatcherSingleton(rawfilters, columns, setFilters);
+
+  // Add filter for current field to store and show toolbox
+  const addFilter = () =>
+    wrapFilterMutation(() => {
+      if (field.value != null) {
+        addFilterByField(field.value, title.value);
+        useToolBoxStore().visible = true;
+      }
     });
+
+  const removeFilter = () =>
+    wrapFilterMutation(() => {
+      removeFilterByField(field.value);
+      updateRawfilters(filtersFromStore.value);
+    });
+
+  // The canFilter property is true if there exists a field for which filtering can be performed.
+  const canFilter = computed(() => field.value != null);
+
+  const isFilterActive = computed(() => {
+    if (field.value == null) {
+      return false;
+    }
+    return rawfilters.value.filter((f) => f.field === field.value).length > 0;
   });
 
-  //////////////////////////////////////////////////////////////
-  // Pinia store: import
-  //////////////////////////////////////////////////////////////
+  return {
+    canFilter,
+    isFilterActive,
+    addFilter,
+    removeFilter,
+  };
+};
 
+export const useTableFilter = () => {
+  const { rawfilters, updateRawfilters } = useRawfilterHandler();
+
+  // Get table columns from dataset config with placeholders replaced
+  const columns = useTableViewColumns();
+
+  // Filter store import
+  const {
+    addFilterByField,
+    removeFilterByIndex,
+    setFilters,
+    filtersFromStore,
+  } = useTableFilterStoreImport();
+
+  // Update filters in store from rawfilters (URL)
+  addFilterWatcherSingleton(rawfilters, columns, setFilters);
+
+  const addEmptyFilter = () =>
+    wrapFilterMutation(() => {
+      const colsWithoutNull = columns.value.find(
+        (col): col is Required<Column> => col.field != null
+      );
+      if (colsWithoutNull != null) {
+        addFilterByField(colsWithoutNull.field, colsWithoutNull.title);
+      }
+    });
+
+  const removeFilterByIndexInternal = (index: number) =>
+    wrapFilterMutation(() => {
+      removeFilterByIndex(index);
+      updateRawfilters(filtersFromStore.value);
+    });
+
+  const updateFilterValue = (
+    index: number,
+    operator: FilterOperator,
+    value: FilterValue
+  ) =>
+    wrapFilterMutation(() => {
+      const updatedFilters = filtersFromStore.value.map((filter, i) =>
+        i === index ? { ...filter, operator, value } : filter
+      );
+
+      setFilters(updatedFilters);
+      updateRawfilters(filtersFromStore.value);
+    });
+
+  const removeAllFilters = () => updateRawfilters([]);
+
+  return {
+    filtersFromStore,
+    addEmptyFilter,
+    removeAllFilters,
+    removeFilterByIndex: removeFilterByIndexInternal,
+    updateFilterValue,
+  };
+};
+
+const useTableFilterStoreImport = () => {
   const tableFilterStore = useTableFilterStore();
-  const { addFilter, removeFilterByField, removeFilterByIndex, setFilters } =
-    tableFilterStore;
+  const {
+    addFilterByField,
+    removeFilterByField,
+    removeFilterByIndex,
+    setFilters,
+  } = tableFilterStore;
   const { filters: filtersFromStore } = toRefs(tableFilterStore);
 
-  //////////////////////////////////////////////////////////////
-  // Pinia store: update filters in store from rawfilters (URL)
-  //////////////////////////////////////////////////////////////
+  return {
+    addFilterByField,
+    removeFilterByField,
+    removeFilterByIndex,
+    setFilters,
+    filtersFromStore,
+  };
+};
+
+let hasFilterWatcher = false;
+
+const addFilterWatcherSingleton = (
+  rawfilters: ComputedRef<Rawfilter[]>,
+  columns: ComputedRef<TableViewColumn[]>,
+  setFilters: (filters: Filter[]) => void
+) => {
+  if (hasFilterWatcher) {
+    return;
+  }
 
   watch(
-    [renderElements, rawfilters, cols],
+    [rawfilters, columns],
     () => {
-      if (isValueEmptyChange) {
-        console.log('isValueEmptyChange, aborting');
+      if (isValueChange) {
+        console.debug('isValueEmptyChange, aborting');
         return;
       }
 
-      // const filtersOrderedByTitles = rawfilters.value
-      //   .slice()
-      //   .sort(
-      //     (a, b) =>
-      //       cols.value.findIndex((col) => col.field === a.field) -
-      //       cols.value.findIndex((col) => col.field === b.field)
-      //   );
       const filtersWithTitles = rawfilters.value.map((filter) => {
         const title =
-          cols.value.find((col) => col.field === filter.field)?.title ??
+          columns.value.find((col) => col.field === filter.field)?.title ??
           filter.field;
         return { ...filter, title };
       });
@@ -79,106 +177,18 @@ export const useTableFilter = (
     { immediate: true }
   );
 
-  //////////////////////////////////////////////////////////////
-  // Handle field of this instance (instance related)
-  //////////////////////////////////////////////////////////////
+  hasFilterWatcher = true;
+};
 
-  // The fieldName property contains the field name that is used to filter.
-  // At the moment, filtering works only if there is exactly one field.
-
-  const fieldName = computed(() => {
-    const replace = (s: string): string =>
-      replacePlaceholders(s, replacements.value);
-    const values = Object.values(fields.value);
-    return values.length === 1 ? replace(values[0]) : undefined;
-  });
-
-  // The canFilter property is true if there exists a field for which filtering can be performed.
-  const canFilter = computed(() => fieldName.value != null);
-
-  const addFilterInternal = () => {
-    if (fieldName.value != null) {
-      addFilter(fieldName.value, title.value);
-      useToolBoxStore().visible = true;
-    }
-  };
-
-  const removeFilterByFieldInternal = () => {
-    removeFilterByField(fieldName.value);
-    updateRawfilters(filtersFromStore.value);
-  };
-
-  const isFilterActive = computed(() => {
-    if (fieldName.value == null) {
-      return false;
-    }
-    return (
-      rawfilters.value.filter((f) => f.field === fieldName.value).length > 0
-    );
-  });
-
-  //////////////////////////////////////////////////////////////
-  // Handle all fields
-  //////////////////////////////////////////////////////////////
-
-  const addEmptyFilter = () => {
-    const colsWithoutNull = cols.value.find(
-      (col): col is Required<Column> => col.field != null
-    );
-    if (colsWithoutNull != null) {
-      addFilter(colsWithoutNull.field, colsWithoutNull.title);
-    }
-  };
-
-  const removeFilterByIndexInternal = (index: number) => {
-    removeFilterByIndex(index);
-    updateRawfilters(filtersFromStore.value);
-  };
-
-  const updateFilterValue = (
-    index: number,
-    operator: FilterOperator,
-    value: FilterValue
-  ) => {
-    console.log('updateFilterValue', index, operator, JSON.stringify(value));
-
-    // Handle operators that need a value (all except isnull and isnotnull)
-    // and the case when the new value is an empty string (e.g. because the
-    // input field is empty).
-    // Reason: the UI is build out from a pinia store that is updated by
-    // the rawfilters that are parsed from the URL. If the new value for a filter
-    // is empty, that filter is by convention not part of the URL. In consequence,
-    // the filter would be removed from URL and then from rawfilters and UI store.
-    // This is usually not what a user would expect if he/she just clears the input.
-    // The  isValueEmptyChange flag is used to handel that case.
-    if (
-      operator !== 'isnull' &&
-      operator !== 'isnotnull' &&
-      (value === '' || value == null)
-    ) {
-      isValueEmptyChange = true;
-    }
-
-    const updatedFilters = filtersFromStore.value.map((filter, i) =>
-      i === index ? { ...filter, operator, value } : filter
-    );
-
-    setFilters(updatedFilters);
-    updateRawfilters(filtersFromStore.value);
-    setTimeout(() => (isValueEmptyChange = false), 50);
-  };
-
-  const removeAllFilters = () => updateRawfilters([]);
-
-  return {
-    canFilter,
-    filtersFromStore,
-    isFilterActive,
-    addEmptyFilter,
-    addFilter: addFilterInternal,
-    removeAllFilters,
-    removeFilterByField: removeFilterByFieldInternal,
-    removeFilterByIndex: removeFilterByIndexInternal,
-    updateFilterValue,
-  };
+// This is a workaround to temporarily prevent filter updates from URL
+// (by rawfilters).
+// The reason is, that filter updates update also the URL, which triggers
+// the watcher above. This watcher then updates the filters in the store,
+// removing all filters with empty values. This is not what we want.
+// We want to keep the empty filters in the store, so that the user can
+// add a value to the filter again.
+const wrapFilterMutation = (fn: () => void) => {
+  isValueChange = true;
+  fn();
+  setTimeout(() => (isValueChange = false), 50);
 };

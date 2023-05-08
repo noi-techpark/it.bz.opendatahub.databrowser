@@ -1,9 +1,5 @@
 import { Ref, computed, ref, watch } from 'vue';
-import {
-  stringifyParameter,
-  useApiQuery,
-  useReplaceWithApiParameters,
-} from '../../../api';
+import { stringifyParameter, useApiQuery } from '../../../api';
 import { SortState } from './types';
 
 // This function computes the rawsort value based on the sort field and the sort state.
@@ -18,19 +14,11 @@ const rawsortValue = (sortField: string, sortState: SortState) => {
   }
 };
 
-export const useTableSort = (fields: Ref<Record<string, string>>) => {
+export const useTableSortForField = (field: Ref<string | undefined>) => {
   const { useApiParameter } = useApiQuery();
 
-  // The sortField property contains the field name that is used to sort.
-  // At the moment, sorting works only if there is exactly one field.
-  const { replace } = useReplaceWithApiParameters();
-  const sortField = computed(() => {
-    const values = Object.values(fields.value);
-    return values.length === 1 ? replace(values[0]) : undefined;
-  });
-
   // The canSort property is true if there exists a field by which sorting can be performed.
-  const canSort = computed(() => sortField.value != null);
+  const canSort = computed(() => field.value != null);
 
   // The currentSortFromUrl property contains the current sort value from the URL (may be undefined).
   const currentSortFromUrl = useApiParameter('rawsort');
@@ -43,7 +31,7 @@ export const useTableSort = (fields: Ref<Record<string, string>>) => {
     }
     const currentSortAsString = stringifyParameter(currentSortFromUrl.value);
     const currentSortField = currentSortAsString.replace(/^-/, '');
-    return sortField.value === currentSortField;
+    return field.value === currentSortField;
   });
 
   // The currentSortState property contains the current sort state.
@@ -55,7 +43,7 @@ export const useTableSort = (fields: Ref<Record<string, string>>) => {
 
   // Set the current sort state.
   const setSort = (sortState: SortState) => {
-    if (sortField.value == null) {
+    if (field.value == null) {
       return;
     }
 
@@ -68,7 +56,7 @@ export const useTableSort = (fields: Ref<Record<string, string>>) => {
     }
 
     // Otherwise, we set the rawsort parameter to the current sort field
-    const sortValue = rawsortValue(sortField.value, currentSortState.value);
+    const sortValue = rawsortValue(field.value, currentSortState.value);
     currentSortFromUrl.value = sortValue;
   };
 

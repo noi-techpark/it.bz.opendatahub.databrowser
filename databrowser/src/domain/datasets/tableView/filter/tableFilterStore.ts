@@ -13,7 +13,7 @@ export const useTableFilterStore = defineStore('tableFilterStore', {
   state: () => initialState,
 
   actions: {
-    addFilter(field: string, title: string) {
+    addFilterByField(field: string, title: string) {
       this.filters = [
         ...this.filters,
         { field, title, operator: 'eq', value: '' },

@@ -6,8 +6,11 @@
     </template>
 
     <template #header-cols>
-      <TableHeaderCell v-for="col in renderElements" :key="col.title">
-        <SortAndFilterHeader :title="col.title" :fields="col.fields" />
+      <TableHeaderCell v-for="(col, index) in renderElements" :key="col.title">
+        <SortAndFilterHeader
+          :title="columns[index]?.title ?? 'index mismatch'"
+          :field="columns[index]?.field"
+        />
       </TableHeaderCell>
       <TableHeaderCell class="sticky right-0 bg-gray-50">
         {{ t('datasets.listView.colDetail') }}
@@ -91,6 +94,7 @@ import { useI18n } from 'vue-i18n';
 import { usePathsForCurrentRoute } from '../header/usePaths';
 import TableDataEmpty from './TableDataEmpty.vue';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
+import { useTableViewColumns } from '../../datasetConfig/utils';
 
 const { t } = useI18n();
 
@@ -118,4 +122,7 @@ const {
   rawViewPathForId,
   editViewPathForId,
 } = usePathsForCurrentRoute();
+
+// TODO: temporary solution until we have a better way to handle this
+const columns = useTableViewColumns();
 </script>

@@ -21,10 +21,10 @@
       <template #container>
         <PopoverCustomPanel>
           <PopoverContentHeader class="pb-0">Sort</PopoverContentHeader>
-          <SortPopoverContent :fields="fields" />
+          <SortPopoverContent :field="field" />
 
           <PopoverContentHeader class="py-0">Filter</PopoverContentHeader>
-          <FilterPopoverContent :fields="fields" :title="title" />
+          <FilterPopoverContent :field="field" :title="title" />
         </PopoverCustomPanel>
       </template>
     </PopoverCustom>
@@ -41,25 +41,23 @@ import IconFilter from '../../../components/svg/IconFilter.vue';
 import IconSortAsc from '../../../components/svg/IconSortAsc.vue';
 import IconSortDesc from '../../../components/svg/IconSortDesc.vue';
 import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
-import { useTableFilter } from './filter/useTableFilter';
-import { useTableSort } from './sort/useTableSort';
+import { useTableFilterForField } from './filter/useTableFilter';
+import { useTableSortForField } from './sort/useTableSort';
 import SortPopoverContent from './sort/SortPopoverContent.vue';
 import FilterPopoverContent from './filter/FilterPopoverContent.vue';
 
 const props = withDefaults(
   defineProps<{
     title: string;
-    fields?: Record<string, string>;
+    field?: string;
   }>(),
-  {
-    title: undefined,
-    fields: () => ({}),
-  }
+  { field: undefined }
 );
 
-const { title, fields } = toRefs(props);
+const { title, field } = toRefs(props);
 
-const { canSort, isCurrentSortAsc, isCurrentSortDesc } = useTableSort(fields);
+const { canSort, isCurrentSortAsc, isCurrentSortDesc } =
+  useTableSortForField(field);
 
-const { canFilter, isFilterActive } = useTableFilter(fields, title);
+const { canFilter, isFilterActive } = useTableFilterForField(title, field);
 </script>

@@ -95,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../components/button/types';
@@ -105,14 +105,14 @@ import { SelectOption } from '../../../../components/select/types';
 import IconClose from '../../../../components/svg/IconClose.vue';
 import IconDelete from '../../../../components/svg/IconDelete.vue';
 import TagCustom from '../../../../components/tag/TagCustom.vue';
-import { useApiQuery, useReplaceWithApiParameters } from '../../../api';
-import { useDatasetConfigStore } from '../../../datasetConfig/store/datasetConfigStore';
+import { useApiQuery } from '../../../api';
 import ToolBoxCard from '../../toolBox/ToolBoxCard.vue';
 import ToolBoxCardBody from '../../toolBox/ToolBoxCardBody.vue';
 import ToolBoxCardHeader from '../../toolBox/ToolBoxCardHeader.vue';
 import ToolBoxPanel from '../../toolBox/ToolBoxPanel.vue';
 import { filterSelectOptions } from '../filter/filterSelectOptions';
 import { useTableFilter } from '../filter/useTableFilter';
+import { useTableViewColumns } from '../../../datasetConfig/utils';
 
 const { t } = useI18n();
 
@@ -128,27 +128,15 @@ const search = (term: string) => {
   updateApiParameterValue('searchfilter', value);
 };
 
-const { replace } = useReplaceWithApiParameters();
-
-const columns = computed(() => {
-  const elements = useDatasetConfigStore().tableView?.elements ?? [];
-  return elements.map((element) => {
-    const values = Object.values(element.fields ?? {});
-    const field = values.length === 1 ? replace(values[0]) : undefined;
-    return { title: element.title, field };
-  });
-});
-
-const tableFilter = useTableFilter(ref({}), ref(''));
-
 const {
   addEmptyFilter,
   updateFilterValue,
   removeAllFilters,
   removeFilterByIndex,
-} = tableFilter;
+  filtersFromStore,
+} = useTableFilter();
 
-const { filtersFromStore } = tableFilter;
+const columns = useTableViewColumns();
 
 const columnOptions = computed(() =>
   columns.value.map<SelectOption>((col) => ({
