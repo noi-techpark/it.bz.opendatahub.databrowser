@@ -5,4 +5,5 @@ export const metaDataViews = {
   table: metaDataListView,
   detail: metaDataSharedView(),
   edit: metaDataSharedView(),
+  new: metaDataSharedView(),
 };

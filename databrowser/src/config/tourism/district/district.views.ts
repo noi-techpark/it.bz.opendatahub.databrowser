@@ -5,4 +5,5 @@ export const districtViews = {
   table: districtListView,
   detail: districtSharedView(),
   edit: districtSharedView(),
+  new: districtSharedView(),
 };

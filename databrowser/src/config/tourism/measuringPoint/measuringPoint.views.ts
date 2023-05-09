@@ -5,4 +5,5 @@ export const measuringPointViews = {
   table: measuringPointListView,
   detail: measuringPointSharedView(),
   edit: measuringPointSharedView(),
+  new: measuringPointSharedView(),
 };

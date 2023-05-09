@@ -5,4 +5,5 @@ export const regionViews = {
   table: regionListView,
   detail: regionSharedView(),
   edit: regionSharedView(),
+  new: regionSharedView(),
 };

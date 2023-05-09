@@ -6,5 +6,6 @@ export const odhActivityPoiViews = {
   table: odhActivityPoiListView,
   detail: odhActivityPoiSharedView(),
   edit: odhActivityPoiSharedView(),
+  new: odhActivityPoiSharedView(),
   quick: odhActivityPoiQuickView,
 };

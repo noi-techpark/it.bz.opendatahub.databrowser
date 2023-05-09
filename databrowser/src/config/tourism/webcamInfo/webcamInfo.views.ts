@@ -5,4 +5,5 @@ export const webcamInfoViews = {
   table: webcamInfoListView,
   detail: webcamInfoSharedView(),
   edit: webcamInfoSharedView(),
+  new: webcamInfoSharedView(),
 };

@@ -5,4 +5,5 @@ export const snowReportViews = {
   table: snowReportListView,
   detail: snowReportSharedView(),
   edit: snowReportSharedView(),
+  new: snowReportSharedView(),
 };

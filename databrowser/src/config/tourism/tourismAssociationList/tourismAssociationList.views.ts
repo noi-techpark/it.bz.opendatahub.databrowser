@@ -5,4 +5,5 @@ export const tourismAssociationListViews = {
   table: tourismAssociationListListView,
   detail: tourismAssociationListSharedView(),
   edit: tourismAssociationListSharedView(),
+  new: tourismAssociationListSharedView(),
 };

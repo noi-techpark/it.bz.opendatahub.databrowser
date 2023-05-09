@@ -5,4 +5,5 @@ export const gastronomyViews = {
   table: gastronomyListView,
   detail: gastronomySharedView(),
   edit: gastronomySharedView(),
+  new: gastronomySharedView(),
 };

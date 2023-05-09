@@ -5,4 +5,5 @@ export const accommodationViews = {
   table: accommodationListView,
   detail: accommodationSharedView(),
   edit: accommodationSharedView(),
+  new: accommodationSharedView(),
 };
