@@ -1,4 +1,4 @@
-import { Ref, computed, ref, watch } from 'vue';
+import { Ref, computed } from 'vue';
 import { stringifyParameter, useApiQuery } from '../../../api';
 import { SortState } from './types';
 
@@ -6,7 +6,7 @@ import { SortState } from './types';
 const rawsortValue = (sortField: string, sortState: SortState) => {
   switch (sortState) {
     case 'none':
-      return '';
+      return undefined;
     case 'asc':
       return sortField;
     case 'desc':
@@ -15,27 +15,32 @@ const rawsortValue = (sortField: string, sortState: SortState) => {
 };
 
 export const useTableSortForField = (field: Ref<string | undefined>) => {
-  const { useApiParameter } = useApiQuery();
+  // The sortFromUrl property contains the current sort value from the URL (may be undefined).
+  const sortFromUrl = useApiQuery().useApiParameter('rawsort');
 
-  // The canSort property is true if there exists a field by which sorting can be performed.
-  const canSort = computed(() => field.value != null);
-
-  // The currentSortFromUrl property contains the current sort value from the URL (may be undefined).
-  const currentSortFromUrl = useApiParameter('rawsort');
-
-  // The currentSortMatchesSortField property is true if the current sort value from the URL matches
-  // the sort field of this instance.
-  const currentSortMatchesSortField = computed(() => {
-    if (currentSortFromUrl.value == null) {
-      return false;
+  // The currentSortState property contains the current sort state for the given field.
+  // It is 'none' if the URL contains no sort information or the the given field is not the
+  // current sort field. It is 'asc' if the URL contains the sort field without a leading '-'
+  // and 'desc' if the URL contains the sort field with a leading '-'.
+  const currentSortState = computed(() => {
+    // If the no sort is set in the URL, the current sort state is 'none'.
+    if (sortFromUrl.value == null) {
+      return 'none';
     }
-    const currentSortAsString = stringifyParameter(currentSortFromUrl.value);
-    const currentSortField = currentSortAsString.replace(/^-/, '');
-    return field.value === currentSortField;
+
+    // Convert the sort value from the URL to a string
+    const sortFromUrlAsString = stringifyParameter(sortFromUrl.value);
+    const sortField = sortFromUrlAsString.replace(/^-/, '');
+
+    if (field.value !== sortField) {
+      return 'none';
+    }
+
+    return sortFromUrlAsString.startsWith('-') ? 'desc' : 'asc';
   });
 
-  // The currentSortState property contains the current sort state.
-  const currentSortState = ref<SortState>('none');
+  // The canSort property is true if the given field can be sorted.
+  const canSort = computed(() => field.value != null);
 
   const isCurrentSortAsc = computed(() => currentSortState.value === 'asc');
 
@@ -47,39 +52,8 @@ export const useTableSortForField = (field: Ref<string | undefined>) => {
       return;
     }
 
-    currentSortState.value = sortState;
-
-    // If the next sort state is 'none', we remove the rawsort parameter
-    if (currentSortState.value === 'none') {
-      currentSortFromUrl.value = undefined;
-      return;
-    }
-
-    // Otherwise, we set the rawsort parameter to the current sort field
-    const sortValue = rawsortValue(field.value, currentSortState.value);
-    currentSortFromUrl.value = sortValue;
+    sortFromUrl.value = rawsortValue(field.value, sortState);
   };
-
-  watch(
-    currentSortMatchesSortField,
-    (matching) => {
-      if (!matching || currentSortFromUrl.value == null) {
-        // If the current sort does not match the sort field, we reset the sort state.
-        // The reason for this is that the sorted field might have changed, and we
-        // want to reset the sort state in that case.
-        currentSortState.value = 'none';
-      } else {
-        // Otherwise, we compute the current sort state from the current sort value.
-        const currentSortAsString = stringifyParameter(
-          currentSortFromUrl.value
-        );
-        currentSortState.value = currentSortAsString.startsWith('-')
-          ? 'desc'
-          : 'asc';
-      }
-    },
-    { immediate: true }
-  );
 
   return {
     canSort,
