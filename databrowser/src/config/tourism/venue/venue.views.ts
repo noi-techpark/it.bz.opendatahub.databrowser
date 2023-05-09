@@ -5,4 +5,5 @@ export const venueViews = {
   table: venueListView,
   detail: venueSharedView(),
   edit: venueSharedView(),
+  new: venueSharedView(),
 };

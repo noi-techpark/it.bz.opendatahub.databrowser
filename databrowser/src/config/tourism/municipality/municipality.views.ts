@@ -5,4 +5,5 @@ export const municipalityViews = {
   table: municipalityListView,
   detail: municipalitySharedView(),
   edit: municipalitySharedView(),
+  new: municipalitySharedView(),
 };

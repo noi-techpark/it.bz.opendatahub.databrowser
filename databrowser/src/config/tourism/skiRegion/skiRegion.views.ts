@@ -5,4 +5,5 @@ export const skiRegionViews = {
   table: skiRegionListView,
   detail: skiRegionSharedView(),
   edit: skiRegionSharedView(),
+  new: skiRegionSharedView(),
 };

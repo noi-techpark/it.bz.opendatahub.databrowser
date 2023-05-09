@@ -5,4 +5,5 @@ export const eventViews = {
   table: eventListView,
   detail: eventSharedView(),
   edit: eventSharedView(),
+  new: eventSharedView(),
 };

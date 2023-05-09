@@ -5,4 +5,5 @@ export const experienceAreaViews = {
   table: experienceAreaListView,
   detail: experienceAreaSharedView(),
   edit: experienceAreaSharedView(),
+  new: experienceAreaSharedView(),
 };
