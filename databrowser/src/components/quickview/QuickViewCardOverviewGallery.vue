@@ -70,12 +70,12 @@
 import { defineProps, withDefaults, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n();
-
 import QuickViewCardOverviewContentTitle from './QuickViewCardOverviewContentTitle.vue';
 import QuickViewCardOverviewContentText from './QuickViewCardOverviewContentText.vue';
 import ChevronRight from '../svg/ChevronRight.vue';
 import { MediaItem, MediaItemType } from './QuickViewCommonTypes';
+
+const { t } = useI18n();
 
 withDefaults(
   defineProps<{
