@@ -4,7 +4,7 @@
       class="w-full p-2"
       :size="Size.xs"
       :variant="Variant.ghost"
-      @click="addFilter"
+      @click="addFilterInternal"
     >
       Add filter for
       <span class="font-semibold uppercase">{{ title }}</span>
@@ -32,6 +32,8 @@ import PopoverContentDivider from '../../../../components/popover/PopoverContent
 import IconDelete from '../../../../components/svg/IconDelete.vue';
 import { useTableFilterForField } from './useTableFilter';
 
+const emit = defineEmits(['addFilter', 'removeFilter']);
+
 const props = withDefaults(
   defineProps<{
     title: string;
@@ -46,4 +48,9 @@ const { isFilterActive, addFilter, removeFilter } = useTableFilterForField(
   title,
   field
 );
+
+const addFilterInternal = () => {
+  addFilter();
+  emit('addFilter');
+};
 </script>

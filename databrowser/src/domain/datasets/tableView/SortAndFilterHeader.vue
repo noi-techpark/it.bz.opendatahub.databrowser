@@ -19,12 +19,16 @@
         </PopoverCustomButton>
       </template>
       <template #container>
-        <PopoverCustomPanel>
+        <PopoverCustomPanel v-slot="{ close }">
           <PopoverContentHeader class="pb-0">Sort</PopoverContentHeader>
           <SortPopoverContent :field="field" />
 
           <PopoverContentHeader class="py-0">Filter</PopoverContentHeader>
-          <FilterPopoverContent :field="field" :title="title" />
+          <FilterPopoverContent
+            :field="field"
+            :title="title"
+            @add-filter="close"
+          />
         </PopoverCustomPanel>
       </template>
     </PopoverCustom>
