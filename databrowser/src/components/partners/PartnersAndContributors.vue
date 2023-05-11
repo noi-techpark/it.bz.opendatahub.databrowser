@@ -41,7 +41,7 @@ interface Partner {
 const partners: Partner[] = [
   {
     imageAlt: 'Noi Techpark company logo',
-    imageSrc: 'https://noi.bz.it/themes/custom/noi_techpark/logo_bn.svg',
+    imageSrc: '/logo-noi.svg',
     linkTitle: 'NOI Techpark homepage',
     url: 'https://noi.bz.it/',
   },
