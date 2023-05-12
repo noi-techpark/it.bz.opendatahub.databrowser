@@ -4,12 +4,16 @@
       <col class="w-32 md:w-40" />
       <col class="w-32 md:w-40" />
       <col class="w-32 md:w-40" />
+      <col class="w-32 md:w-40" />
+      <col class="w-32 md:w-40" />
     </template>
 
     <template #tableHeader>
       <TableHeaderCell>Room name</TableHeaderCell>
       <TableHeaderCell>Indoor</TableHeaderCell>
       <TableHeaderCell>SquareMeters</TableHeaderCell>
+      <TableHeaderCell>Capacity</TableHeaderCell>
+      <TableHeaderCell>Setup Type</TableHeaderCell>
     </template>
 
     <template #tableCols="{ item }">
@@ -18,6 +22,8 @@
         <ToggleCell :enabled="item.Indoor" :editable="true" />
       </TableCell>
       <TableCell>{{ item.SquareMeters }} </TableCell>
+      <TableCell>{{ item.Capacity }} </TableCell>
+      <TableCell>{{ item.SetupType }} </TableCell>
     </template>
     <template #noItems>No rooms have been defined yet</template>
     <template #addItems>

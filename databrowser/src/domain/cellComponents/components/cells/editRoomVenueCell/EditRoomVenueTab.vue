@@ -32,6 +32,20 @@
               @input="updateItem(index, { SquareMeters: $event.target.value })"
             />
           </SubCategoryItem>
+          <SubCategoryItem title="Capacity">
+            <StringCell
+              :text="item.Capacity"
+              :editable="false"
+              @input="updateItem(index, { Capacity: $event.target.value })"
+            />
+          </SubCategoryItem>
+          <SubCategoryItem title="SetupType">
+            <StringCell
+              :text="item.SetupType"
+              :editable="false"
+              @input="updateItem(index, { SetupType: $event.target.value })"
+            />
+          </SubCategoryItem>
         </div>
         <div class="basis-full md:order-3 md:basis-1/3">
           <div v-if="editable" class="rounded border">
