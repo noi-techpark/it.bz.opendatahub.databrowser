@@ -11,7 +11,7 @@
     </template>
     <template #container>
       <PopoverCustomPanel>
-        <PopoverContent>
+        <PopoverContent class="max-w-lg">
           <div v-if="currentMetaData != null">
             <div
               class="mr-1 mb-2 text-sm font-bold text-black md:w-auto md:text-base"
