@@ -1,3 +1,4 @@
+import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
@@ -29,6 +30,26 @@ export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: 'IDs',
           properties: [idReadOnlyCell()],
+        },
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Room Details',
+              component: CellComponent.EditRoomVenueCell,
+              listFields: {
+                pathToParent: 'RoomDetails',
+                fields: {
+                  Shortname: 'Shortname',
+                  Indoor: 'Indoor',
+                  SquareMeters: 'SquareMeters',
+                  Capacity: 'VenueSetup.0.Capacity',
+                  SetupType: 'VenueSetup.0.VenueCode',
+                },
+                attributeName: 'roomVenue',
+              },
+            },
+          ],
         },
         dataStatesSubCategory(),
         sourceSubCategory(),
