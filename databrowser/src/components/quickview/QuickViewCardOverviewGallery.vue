@@ -16,14 +16,14 @@
     />
     <div
       v-if="currentMediaIndex > 0"
-      class="absolute left-2 right-auto top-1/2 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-gray-250 bg-white hover:bg-green-400 hover:bg-opacity-90 hover:text-white"
+      class="absolute left-2 right-auto top-1/2 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-gray-250 bg-white hover:bg-green-400/90 hover:text-white"
       @click="currentMediaIndex--"
     >
       <ChevronRight class="h-3 -scale-x-100" />
     </div>
     <div
       v-if="currentMediaIndex !== mediaItems.length - 1"
-      class="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-gray-250 bg-white hover:bg-green-400 hover:bg-opacity-90 hover:text-white"
+      class="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-gray-250 bg-white hover:bg-green-400/90 hover:text-white"
       @click="currentMediaIndex++"
     >
       <ChevronRight class="h-3" />
