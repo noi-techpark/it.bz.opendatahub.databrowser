@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex gap-3">
-      <div v-if="icon" class="h-8 w-8 shrink-0 text-green-400">
+      <div v-if="icon" class="h-6 w-6 shrink-0 text-green-400">
         <IconParser :name="icon" />
       </div>
       <div>
