@@ -11,25 +11,26 @@ export interface Pagination {
   size: number;
 }
 
-export interface PaginationData<T = any> {
+export interface PaginationData<T = unknown> {
   items: T[];
   pagination: Pagination;
 }
 
-export interface WithTourismPagination<T = any> {
+export interface WithTourismPagination<T = unknown> {
   CurrentPage: number;
   TotalResults: number;
   TotalPages: number;
   Items: T[];
 }
 
-export const isWithTourismPagination = (
-  data: any
-): data is WithTourismPagination =>
+export const isWithTourismPagination = <T = unknown>(
+  data: unknown
+): data is WithTourismPagination<T> =>
   data != null &&
   (data as WithTourismPagination).TotalResults != null &&
   (data as WithTourismPagination).TotalPages != null &&
   (data as WithTourismPagination).Items != null;
 
-export const isWithArrayPagination = (data: any): data is unknown[] =>
-  Array.isArray(data);
+export const isWithArrayPagination = <T = unknown>(
+  data: unknown
+): data is T[] => Array.isArray(data);

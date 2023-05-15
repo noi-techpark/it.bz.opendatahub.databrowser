@@ -1,3 +1,4 @@
+import { Pagination, defaultPagination } from '../../api';
 import { defaultLanguage } from '../language';
 
 export const pageSizeOptions: { value: string; label: string }[] = [
@@ -21,7 +22,7 @@ export const pageSizeOptions: { value: string; label: string }[] = [
 
 export const validPageSizes = pageSizeOptions.map((option) => option.value);
 
-export const defaultPageSize = pageSizeOptions[0].value;
+export const defaultPageSize = Number(pageSizeOptions[0].value);
 
 export const defaultPageNumber = 1;
 
@@ -29,4 +30,9 @@ export const defaultQueryParameters = {
   pagesize: defaultPageSize.toString(),
   pagenumber: defaultPageNumber.toString(),
   language: defaultLanguage,
+};
+
+export const defaultTablePagination: Pagination = {
+  ...defaultPagination,
+  size: defaultPageSize,
 };

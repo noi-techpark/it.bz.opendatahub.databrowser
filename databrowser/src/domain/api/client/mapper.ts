@@ -5,16 +5,17 @@ import {
   PaginationData,
   WithTourismPagination,
 } from './types';
+import { defaultPagination } from './defaultValues';
 
 interface PaginationContext {
   defaultParameters?: ApiParameters;
   parameters?: ApiParameters;
 }
 
-export const tourismPaginatedMapper = (
-  data: WithTourismPagination,
+export const tourismPaginatedMapper = <T>(
+  data: WithTourismPagination<T>,
   context?: PaginationContext
-): PaginationData => {
+): PaginationData<T> => {
   const total = data.TotalResults;
 
   const parameters = {
@@ -38,10 +39,10 @@ export const tourismPaginatedMapper = (
   };
 };
 
-export const arrayPaginatedMapper = (
-  data: unknown[],
+export const arrayPaginatedMapper = <T = unknown>(
+  data: T[],
   context?: PaginationContext
-): PaginationData => {
+): PaginationData<T> => {
   const total = data.length;
 
   const parameters = {
@@ -76,20 +77,16 @@ export const unifyPagination = <T = unknown>(
   data: T,
   context?: PaginationContext
 ): PaginationData<T> => {
-  if (isWithTourismPagination(data)) {
-    return tourismPaginatedMapper(data, context);
+  if (isWithTourismPagination<T>(data)) {
+    return tourismPaginatedMapper<T>(data, context);
   }
 
-  if (isWithArrayPagination(data)) {
-    return arrayPaginatedMapper(data, context);
+  if (isWithArrayPagination<T>(data)) {
+    return arrayPaginatedMapper<T>(data, context);
   }
 
   return {
     items: [],
-    pagination: {
-      page: 1,
-      size: 0,
-      total: 0,
-    },
+    pagination: defaultPagination,
   };
 };
