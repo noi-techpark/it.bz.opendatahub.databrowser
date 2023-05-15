@@ -22,13 +22,9 @@
       />
     </template>
     <template v-else>
-      <LoadingError v-if="isError" :error="error" class="h-28 overflow-auto" />
-      <LoadingError
-        v-if="isMutateError"
-        :error="mutateError"
-        class="h-28 overflow-auto"
-      />
-      <template v-if="isSuccess">
+      <LoadingError v-if="isError" :error="error" />
+      <LoadingError v-else-if="isMutateError" :error="mutateError" />
+      <template v-else>
         <DiscardChangesDialog @discard="resetAndCleanup" />
         <LeaveSectionDialog
           :is-save-success="isMutateSuccess"
@@ -50,6 +46,7 @@
               :show-all="true"
               :show-edit-hint="true"
               :editable="true"
+              :is-start-or-fetch="isStartOrFetch"
             />
             <EditToolBox />
           </div>
@@ -101,15 +98,16 @@ const datasetConfigStore = useDatasetConfigStore();
 
 const { slug, categories, subcategories, currentCategory } = useCategories();
 
-const { isError, isSuccess, data, error, url } = datasetConfigStore.isNewView
-  ? {
-      isError: ref(false),
-      isSuccess: ref(true),
-      data: ref(),
-      error: ref(),
-      url: computed(() => datasetConfigStore.currentPath ?? ''),
-    }
-  : useApiReadForCurrentDataset({ withQueryParameters: false });
+const { isError, isStartOrFetch, data, error, url } =
+  datasetConfigStore.isNewView
+    ? {
+        isError: ref(false),
+        isStartOrFetch: ref(false),
+        data: ref(),
+        error: ref(),
+        url: computed(() => datasetConfigStore.currentPath ?? ''),
+      }
+    : useApiReadForCurrentDataset({ withQueryParameters: false });
 
 const mutation = computed(() =>
   datasetConfigStore.isNewView ? 'create' : 'update'

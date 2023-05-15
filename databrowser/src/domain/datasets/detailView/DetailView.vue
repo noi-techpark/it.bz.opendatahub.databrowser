@@ -1,6 +1,6 @@
 <template>
   <LoadingError v-if="isError" :error="error" />
-  <template v-if="isSuccess === true">
+  <template v-else>
     <div>
       <ShowEmptyFields v-model="showAll" />
     </div>
@@ -14,6 +14,7 @@
         :show-all="showAll"
         :show-edit-hint="false"
         :editable="false"
+        :is-start-or-fetch="isStartOrFetch"
       />
       <ExportDatasetsToolBox :url="url" />
     </div>
@@ -33,5 +34,6 @@ const showAll = ref(false);
 
 const { slug, categories, subcategories, currentCategory } = useCategories();
 
-const { isError, isSuccess, data, error, url } = useApiReadForCurrentDataset();
+const { isError, isStartOrFetch, data, error, url } =
+  useApiReadForCurrentDataset();
 </script>
