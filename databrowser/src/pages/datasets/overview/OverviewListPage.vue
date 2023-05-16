@@ -13,7 +13,7 @@
       </router-link>
     </HeroContainer>
 
-    <PageGridContent>
+    <PageGridContent class="grow">
       <SelectWithLabel
         id="access-of-data"
         class="md:w-1/6"
@@ -23,11 +23,27 @@
         @change="currentAccessType = $event"
       />
       <OverviewCardItem
-        v-for="(dataset, index) in results"
+        v-for="(dataset, index) in metaDataDatasets"
         :key="index"
         :dataset="dataset"
         :data-test="`dataset-card-${dataset.id}`"
       />
+
+      <CardDivider />
+
+      <div v-if="isOtherDatasetsLoading" class="animate-pulse">
+        {{ t('overview.listPage.loadOtherDatasets') }}
+      </div>
+      <template v-else>
+        <div class="text-2xl">{{ t('overview.listPage.otherDatasets') }}</div>
+        <OverviewCardItem
+          v-for="(dataset, index) in tourismDatasets"
+          :key="index"
+          :dataset="dataset"
+          :data-test="`dataset-card-${dataset.id}`"
+          class="break-words"
+        />
+      </template>
 
       <CardDivider />
 
@@ -40,46 +56,19 @@
 import AppLayout from '../../../layouts/AppLayout.vue';
 import HeroContainer from '../../../components/hero/HeroContainer.vue';
 import HeroTitle from '../../../components/hero/HeroTitle.vue';
-import { computed, ref } from 'vue';
-import { SelectOption } from '../../../components/select/types';
 import SelectWithLabel from '../../../components/select/SelectWithLabel.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import PartnersAndContributors from '../../../components/partners/PartnersAndContributors.vue';
 import CardDivider from '../../../components/card/CardDivider.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
-import { useMetaDataQuery } from '../../../domain/metaDataConfig/tourism/useMetaDataQuery';
-import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import { useI18n } from 'vue-i18n';
+import { useMetaDataDatasets, useOtherDatasets } from './useDatasets';
 
 const { t } = useI18n();
 
-const metaData = useMetaDataQuery();
-const results = computed<TourismMetaData[]>(() => {
-  const datasets = metaData.data?.value ?? [];
-  if (currentAccessType.value === 'opendata') {
-    return datasets.filter((dataset) => dataset.access === 'opendata');
-  } else if (currentAccessType.value === 'limited') {
-    return datasets.filter(
-      (dataset) => dataset.access === 'limited' || dataset.access === 'closed'
-    );
-  }
-  return datasets;
-});
+const { metaDataDatasets, accessTypeOptions, currentAccessType } =
+  useMetaDataDatasets();
 
-const currentAccessType = ref('all');
-
-const accessTypeOptions = computed<SelectOption[]>(() => [
-  {
-    label: t('overview.listPage.accessTypeAll'),
-    value: 'all',
-  },
-  {
-    label: t('overview.listPage.accessTypeOpen'),
-    value: 'opendata',
-  },
-  {
-    label: t('overview.listPage.accessTypeLimited'),
-    value: 'limited',
-  },
-]);
+const { isOtherDatasetsLoading, tourismDatasets } =
+  useOtherDatasets(metaDataDatasets);
 </script>

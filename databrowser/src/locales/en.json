@@ -294,6 +294,8 @@
       "accessTypeLimited": "Limited access",
       "accessTypeOpen": "Full access",
       "listOfAllDatasets": "List of all datasets",
+      "loadOtherDatasets": "Loading all other datasets...",
+      "otherDatasets": "All other datasets",
       "showAllEndpoints": "Show all available Endpoints"
     }
   }

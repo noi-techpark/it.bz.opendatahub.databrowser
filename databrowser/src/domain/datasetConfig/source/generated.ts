@@ -115,6 +115,8 @@ const parse = (
         }
         const rolesAllowed = mapOperationToRoles(operation);
         datasetConfig.operations[operation] = { rolesAllowed };
+
+        datasetConfig.description.description = httpMethods.summary;
         // End resolve operation
 
         // Begin resolve view
@@ -189,7 +191,10 @@ const getOrBuildBaseDatasetConfig = (
         pathParams: resourcePathParams,
       },
       description: {
-        title: resourcePathParams.at(-1) ?? '',
+        title:
+          resourcePathParams.length > 0
+            ? resourcePathParams.slice(1).join('/')
+            : '',
       },
     },
     isResourceInstancePath,

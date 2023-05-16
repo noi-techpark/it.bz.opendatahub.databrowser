@@ -19,7 +19,7 @@
         </div>
       </template>
     </CardTitle>
-    <CardText>
+    <CardText class="mb-4">
       {{ dataset.description }}
     </CardText>
     <OverviewInfoSources :dataset="dataset" />
