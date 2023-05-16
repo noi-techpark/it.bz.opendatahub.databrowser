@@ -1,3 +1,4 @@
+export { defaultPagination } from './client/defaultValues';
 export { useApiRead, useApiReadForCurrentDataset } from './client/useApiRead';
 export {
   useApiCreate,

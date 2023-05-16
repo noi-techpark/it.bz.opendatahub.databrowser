@@ -1,9 +1,13 @@
 <template>
   <LoadingError v-if="isError" :error="error" />
-  <template v-if="isSuccess === true">
+  <template v-else>
     <div class="overflow-y-auto md:flex">
       <ContentAlignmentX class="overflow-y-auto py-6 md:flex">
+        <div v-if="isStartOrFetch" class="w-full">
+          <LoadingCell v-for="i in 10" :key="i" class="my-3" />
+        </div>
         <VueJsonPretty
+          v-else
           :data="(data as any)"
           :deep="3"
           show-length
@@ -22,14 +26,16 @@ import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue
 import ExportDatasetsToolBox from '../toolBox/ExportDatasetsToolBox.vue';
 import LoadingError from '../../../components/loading/LoadingError.vue';
 import 'vue-json-pretty/lib/styles.css';
+import LoadingCell from '../../cellComponents/components/cells/loadingCell/LoadingCell.vue';
 
 const VueJsonPretty = defineAsyncComponent(() =>
   import('vue-json-pretty').then((exports) => exports.default)
 );
 
-const { isError, isSuccess, data, error, url } = useApiReadForCurrentDataset({
-  withQueryParameters: false,
-});
+const { isError, isStartOrFetch, data, error, url } =
+  useApiReadForCurrentDataset({
+    withQueryParameters: false,
+  });
 </script>
 
 <style>

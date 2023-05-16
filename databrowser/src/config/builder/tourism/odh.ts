@@ -9,7 +9,7 @@ import { idReadOnlyCell } from './id';
 export const odhActiveTableCell = (): PropertyConfig => ({
   title: 'Open Data Hub state',
   component: CellComponent.StateCell,
-  class: 'w-36',
+  class: 'w-40',
   fields: { state: 'OdhActive' },
 });
 
