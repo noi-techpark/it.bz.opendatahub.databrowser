@@ -16,19 +16,7 @@
     <ToolBoxCard>
       <ToolBoxCardHeader>
         {{ t('datasets.listView.toolBox.searchAndFilter.otherFilters.header') }}
-        <ButtonCustom
-          class="flex items-center gap-2 p-2 py-1"
-          :size="Size.xs"
-          :variant="Variant.ghost"
-          @click="removeAllFilters"
-        >
-          <IconDelete class="text-delete" />
-          {{
-            t(
-              'datasets.listView.toolBox.searchAndFilter.otherFilters.resetAllFilters'
-            )
-          }}
-        </ButtonCustom>
+        <ResetAllFilters @reset-all-filters="removeAllFilters" />
       </ToolBoxCardHeader>
       <ToolBoxCardBody
         v-for="(filter, index) in filtersFromStore"
@@ -113,6 +101,7 @@ import ToolBoxPanel from '../../toolBox/ToolBoxPanel.vue';
 import { filterSelectOptions } from '../filter/filterSelectOptions';
 import { useTableFilter } from '../filter/useTableFilter';
 import { useTableViewColumns } from '../../../datasetConfig/utils';
+import ResetAllFilters from '../filter/ResetAllFilters.vue';
 
 const { t } = useI18n();
 
