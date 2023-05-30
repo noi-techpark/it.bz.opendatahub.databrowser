@@ -30,15 +30,13 @@ export const articleListView: ListViewConfig = {
     },
     {
       title: 'Tags',
-      component: CellComponent.ArrayTagsCell,
+      component: CellComponent.ArrayCell,
       class: 'w-40',
       fields: {
-        items: 'ODHTags',
+        items: 'SmgTags',
       },
       params: {
-        fieldName: 'Id',
         separator: ', ',
-        max: '3',
       },
     },
     languageTableCell(),
