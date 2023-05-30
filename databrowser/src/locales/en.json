@@ -154,6 +154,7 @@
         "suggestion": "Please rethink your request"
       },
       "of": "of",
+      "tableFilterHint": "Filters have been applied to this view",
       "toolBox": {
         "searchAndFilter": {
           "basicSearch": {

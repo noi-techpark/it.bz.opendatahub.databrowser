@@ -118,7 +118,10 @@ export const useTableFilter = () => {
 
   const removeAllFilters = () => updateRawfilters([]);
 
+  const areFiltersActive = computed(() => rawfilters.value.length > 0);
+
   return {
+    areFiltersActive,
     filtersFromStore,
     addEmptyFilter,
     removeAllFilters,
