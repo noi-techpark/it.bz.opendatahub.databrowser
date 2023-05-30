@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between">
     {{ title }}
     <PopoverCustom v-if="canSort || canFilter">
-      <template #trigger="{}">
+      <template #trigger>
         <PopoverCustomButton
           v-slot="{ open }"
           class="flex items-center rounded"

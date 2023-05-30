@@ -39,9 +39,9 @@ export const useRawfilterHandler = () => {
         case 'isnotnull':
           return [...prev, `isnotnull(${curr.field})`];
         case 'in':
-          return [...prev, `in(${curr.field},'${curr.value}')`];
+          return [...prev, `in(${curr.field}.[*],'${curr.value}')`];
         case 'nin':
-          return [...prev, `nin(${curr.field},'${curr.value}')`];
+          return [...prev, `nin(${curr.field}.[*],'${curr.value}')`];
       }
     }, []);
 

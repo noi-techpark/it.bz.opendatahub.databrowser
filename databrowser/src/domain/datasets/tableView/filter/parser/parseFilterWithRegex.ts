@@ -74,16 +74,22 @@ export const parseFilterWithRegex: RawfilterParser = (rawfilter) => {
   const soho = Array.from(matches, (m) => m.groups)
     .filter((g) => g != null && g.field != null && isFilterOperator(g.operator))
     .map<Rawfilter>((g) => {
-      const field = g!.field;
+      const field = convertToField(g!.field);
       const operator = g!.operator as FilterOperator;
       const value = convertToValue(g!.value);
 
       return { field, operator, value };
     });
 
-  // console.log('soho', matches, soho);
-
   return soho;
+};
+
+const convertToField = (field: string) => {
+  // Handle array fields for includes / not includes operators
+  if (field.endsWith('.[*]')) {
+    return field.substring(0, field.length - 4);
+  }
+  return field;
 };
 
 const convertToValue = (value: string | undefined) => {
