@@ -12,8 +12,6 @@ export const useRawfilterHandler = () => {
   );
 
   const updateRawfilters = (updatedFilters: Rawfilter[]) => {
-    // console.log('updatedFilters', updatedFilters);
-
     const filterValues = updatedFilters.reduce<string[]>((prev, curr) => {
       if (
         curr.operator !== 'isnull' &&
