@@ -158,11 +158,23 @@
       "toolBox": {
         "searchAndFilter": {
           "basicSearch": {
-            "header": "Basic search"
+            "header": "Basic search",
+            "infoPopup": {
+              "header": "Information on how to search",
+              "body": "Access our wiki to get all information on how to use the search.",
+              "linkHref": "https://github.com/noi-techpark/it.bz.opendatahub.databrowser/wiki/How-To-Filter-and-Search#basic-search",
+              "linkText": "Open wiki"
+            }
           },
           "otherFilters": {
             "addNewFilter": "Add a new filter",
             "header": "All other filters",
+            "infoPopup": {
+              "header": "Information on how to set filters",
+              "body": "Access our wiki to get all information on how to work with our filters.",
+              "linkHref": "https://github.com/noi-techpark/it.bz.opendatahub.databrowser/wiki/How-To-Filter-and-Search#filter",
+              "linkText": "Open wiki"
+            },
             "filterInputPlaceholder": "Insert filter value ...",
             "filterInputButton": "Filter",
             "resetAllFilters": "Reset all filters"

@@ -2,7 +2,12 @@
   <ToolBoxPanel>
     <ToolBoxCard>
       <ToolBoxCardHeader>
-        {{ t('datasets.listView.toolBox.searchAndFilter.basicSearch.header') }}
+        <div class="flex items-center gap-2">
+          {{
+            t('datasets.listView.toolBox.searchAndFilter.basicSearch.header')
+          }}
+          <InfoSearch />
+        </div>
         <TagCustom text="BETA" type="info" class="font-normal" />
       </ToolBoxCardHeader>
       <ToolBoxCardBody>
@@ -15,7 +20,12 @@
     </ToolBoxCard>
     <ToolBoxCard>
       <ToolBoxCardHeader>
-        {{ t('datasets.listView.toolBox.searchAndFilter.otherFilters.header') }}
+        <div class="flex items-center gap-2">
+          {{
+            t('datasets.listView.toolBox.searchAndFilter.otherFilters.header')
+          }}
+          <InfoFilter />
+        </div>
         <ResetAllFilters @reset-all-filters="removeAllFilters" />
       </ToolBoxCardHeader>
       <ToolBoxCardBody
@@ -102,6 +112,8 @@ import { filterSelectOptions } from '../filter/filterSelectOptions';
 import { useTableFilter } from '../filter/useTableFilter';
 import { useTableViewColumns } from '../../../datasetConfig/utils';
 import ResetAllFilters from '../filter/ResetAllFilters.vue';
+import InfoSearch from './InfoSearch.vue';
+import InfoFilter from './InfoFilter.vue';
 
 const { t } = useI18n();
 

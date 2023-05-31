@@ -1,0 +1,18 @@
+<template>
+  <PopoverCustom>
+    <template #trigger>
+      <PopoverCustomButton class="flex items-center rounded">
+        <IconInfo class="text-green-500" />
+      </PopoverCustomButton>
+    </template>
+    <template #container>
+      <slot></slot>
+    </template>
+  </PopoverCustom>
+</template>
+
+<script setup lang="ts">
+import IconInfo from '../svg/IconInfo.vue';
+import PopoverCustom from './PopoverCustom.vue';
+import PopoverCustomButton from './PopoverCustomButton.vue';
+</script>
