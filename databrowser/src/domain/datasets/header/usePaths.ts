@@ -11,8 +11,18 @@ export const usePaths = () => {
       params: { id: unref(id) },
     }));
 
+  const tableViewPathForId = (pathParams: string[] | Ref<string[]>) =>
+    computed<RouteLocationNamedRaw>(() => ({
+      name: DatasetPage.TABLE,
+      params: {
+        domain: 'tourism',
+        pathParams: unref(pathParams),
+      },
+    }));
+
   return {
     datasetOverviewForId,
+    tableViewPathForId,
   };
 };
 

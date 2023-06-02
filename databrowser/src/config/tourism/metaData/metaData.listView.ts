@@ -30,12 +30,6 @@ export const metaDataListView: ListViewConfig = {
       fields: { text: 'Deprecated' },
     },
     {
-      title: 'Version',
-      component: CellComponent.StringCell,
-      class: 'w-40',
-      fields: { text: 'ApiVersion' },
-    },
-    {
       title: 'Path',
       component: CellComponent.ArrayCell,
       class: 'w-60',

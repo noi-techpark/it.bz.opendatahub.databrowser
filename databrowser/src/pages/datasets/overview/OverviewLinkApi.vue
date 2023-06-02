@@ -1,5 +1,6 @@
 <template>
   <ButtonExternalLink
+    v-if="dataset.externalLink != null"
     target="_blank"
     :href="dataset.externalLink"
     :size="Size.xm2col"

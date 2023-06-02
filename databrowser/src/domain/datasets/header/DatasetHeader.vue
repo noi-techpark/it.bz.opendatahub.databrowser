@@ -8,7 +8,7 @@
         v-if="datasetConfigStore.hasConfig"
         class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
       >
-        <DatasetTitle :name="datasetName" :parent="datasetParent" />
+        <DatasetHeaderTitle />
       </span>
       <span v-else class="mr-3 text-base">
         {{ t('datasets.header.noViewConfig') }}
@@ -70,9 +70,8 @@ import AddRecordButton from './AddRecordButton.vue';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { SourceType } from '../../datasetConfig/source/types';
 import TagCustom from '../../../components/tag/TagCustom.vue';
-import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
-import DatasetTitle from '../common/DatasetTitle.vue';
 import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
+import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
 
 const { t } = useI18n();
 
@@ -91,18 +90,5 @@ const showAddRecord = computed(
     !datasetConfigStore.isSourceGenerated &&
     datasetConfigStore.hasCreatePermission &&
     datasetConfigStore.hasNewView
-);
-
-const { currentMetaData } = useMetaDataForCurrentRoute();
-
-const datasetName = computed(
-  () =>
-    currentMetaData.value?.shortname ??
-    datasetConfigStore.config?.description?.title ??
-    'Untitled'
-);
-
-const datasetParent = computed(
-  () => currentMetaData.value?.apiIdentifier ?? ''
 );
 </script>

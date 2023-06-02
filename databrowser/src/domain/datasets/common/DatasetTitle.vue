@@ -1,29 +1,36 @@
 <template>
   <div class="flex items-baseline gap-2">
-    <span>{{ name }}</span>
-    <span v-if="showFrom" class="text-[0.6em] font-normal">
-      {{ t('overview.dataset.titleJoiner') }} {{ parent }}
-    </span>
+    <span>{{ dataset.shortname }}</span>
+    <template v-if="dataset.parent != null">
+      <InternalLink
+        v-if="linkToParent"
+        :to="tableViewPathForId(dataset.parent.pathParam).value"
+        class="text-[0.8em] font-normal"
+      >
+        {{ t('overview.dataset.titleJoiner') }} {{ dataset.parent.shortname }}
+      </InternalLink>
+      <span v-else class="text-[0.8em] font-normal">
+        {{ t('overview.dataset.titleJoiner') }} {{ dataset.parent.shortname }}
+      </span>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { TourismMetaData } from '../../metaDataConfig/tourism/types';
+import { usePaths } from '../header/usePaths';
+import InternalLink from '../../../components/link/InternalLink.vue';
 
 const { t } = useI18n();
 
-const props = withDefaults(
-  defineProps<{ name: string; parent?: string | null }>(),
-  {
-    parent: '',
-  }
+withDefaults(
+  defineProps<{
+    dataset: { shortname: string; parent?: TourismMetaData };
+    linkToParent?: boolean;
+  }>(),
+  { linkToParent: false }
 );
 
-const showFrom = computed(
-  () =>
-    props.parent != null &&
-    props.parent.length > 0 &&
-    props.parent !== props.name
-);
+const { tableViewPathForId } = usePaths();
 </script>

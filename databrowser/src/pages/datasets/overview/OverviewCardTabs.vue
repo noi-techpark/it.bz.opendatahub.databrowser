@@ -18,13 +18,10 @@
           <TableCell>{{ dataset.output }}</TableCell>
         </tr>
         <tr>
-          <TableCell>{{ t('overview.cardTabs.apiVersion') }}</TableCell>
-          <TableCell>{{ dataset.apiVersion }}</TableCell>
-        </tr>
-        <tr>
           <TableCell>{{ t('overview.cardTabs.swaggerUrl') }}</TableCell>
           <TableCell>
             <ExternalLink
+              v-if="dataset.swaggerUrl != null"
               class="w-fit break-words"
               tone="primary"
               :href="dataset.swaggerUrl"

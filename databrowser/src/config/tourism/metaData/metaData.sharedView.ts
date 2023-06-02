@@ -26,11 +26,6 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               fields: { enabled: 'Deprecated' },
             },
             {
-              title: 'Version',
-              component: CellComponent.StringCell,
-              fields: { text: 'ApiVersion' },
-            },
-            {
               title: 'Path',
               component: CellComponent.ArrayEditableCell,
               listFields: {
@@ -50,6 +45,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'API URL',
               component: CellComponent.UrlCell,
               fields: { text: 'ApiUrl' },
+              params: { readonly: 'true' },
             },
             {
               title: 'Swagger URL',

@@ -60,13 +60,13 @@ export const useOtherDatasets = (metaDataDatasets: Ref<TourismMetaData[]>) => {
         description:
           config.description.description ?? 'No description available',
         shortname: config.description.title ?? '',
-        apiIdentifier: config.route.pathParams.slice(1).join('/'),
-        apiVersion: '1.0',
         output: 'json',
         swaggerUrl: 'https://api.tourism.testingmachine.eu/swagger/index.htm',
         externalLink: `${config.baseUrl}/${config.route.pathParams.join('/')}`,
         pathParam: config.route.pathParams,
         sources: ['No information available'],
+        apiFilter: {},
+        recordCount: {},
       }))
       .sort((a, b) => a.shortname.localeCompare(b.shortname))
   );
@@ -74,7 +74,6 @@ export const useOtherDatasets = (metaDataDatasets: Ref<TourismMetaData[]>) => {
   generatedDatasetConfigSource
     .getAllDatasetConfigs()
     .then((datasetConfigsByDomain) => {
-      // tourismConfigs.value =
       datasetConfigs.value = (datasetConfigsByDomain['tourism'] ?? {})
         .map((config) => {
           return config;

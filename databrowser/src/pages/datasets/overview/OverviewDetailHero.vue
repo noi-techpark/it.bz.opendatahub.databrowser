@@ -2,7 +2,7 @@
   <HeroContainer v-if="dataset">
     <OverviewToListLink />
     <HeroTitle>
-      <DatasetTitle :name="dataset.shortname" :parent="dataset.apiIdentifier" />
+      <DatasetTitle :dataset="dataset" />
     </HeroTitle>
     <HeroSubTitle class="lg:mt-3">
       {{ t('overview.hero.details') }}

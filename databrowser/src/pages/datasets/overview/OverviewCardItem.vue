@@ -6,10 +6,7 @@
         class="flex items-center gap-3 no-underline"
         :data-test="`dataset-link-${dataset.id}`"
       >
-        <DatasetTitle
-          :name="dataset.shortname"
-          :parent="dataset.apiIdentifier"
-        />
+        <DatasetTitle :dataset="dataset" />
         <ArrowLine />
       </routerLink>
       <template #right>

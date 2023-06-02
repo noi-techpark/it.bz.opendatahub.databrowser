@@ -3,28 +3,27 @@ import { useQuery } from 'vue-query';
 import { withOdhBaseUrl } from '../../../config/utils';
 import { unifyPagination, useAxiosFetcher } from '../../api';
 import { TourismMetaData } from './types';
+import { AxiosResponse } from 'axios';
 
 interface OdhTourismMetaData {
-  ApiIdentifier: string;
   ApiFilter: string[];
   Id: string;
-  OdhType: string;
-  SwaggerUrl: string;
-  Self: string;
-  ApiUrl: string;
+  OdhType?: string;
+  SwaggerUrl?: string;
+  Self?: string;
+  ApiUrl?: string;
   Deprecated: boolean;
   SingleDataset: boolean;
-  FirstImport: string;
-  LastChange: string;
+  FirstImport?: string;
+  LastChange?: string;
   Shortname: string;
-  Sources: string[];
-  RecordCount: { open?: number; closed?: number; reduced?: number };
-  Output: Record<string, string>;
-  ApiDescription: Record<string, string>;
-  ApiVersion: string;
+  Sources?: string[];
+  RecordCount?: { open?: number; closed?: number; reduced?: number };
+  Output?: Record<string, string>;
+  ApiDescription?: Record<string, string>;
   PathParam: string[];
   PublishedOn: string[];
-  ApiAccess: Record<string, string>;
+  ApiAccess?: Record<string, string>;
 }
 
 const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
@@ -32,45 +31,78 @@ const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
 export const useMetaDataQuery = () => {
   const queryKey = metaDataUrl;
   const queryFn = useAxiosFetcher<OdhTourismMetaData>();
-  return useQuery({
-    queryKey,
-    queryFn,
-    select(data): TourismMetaData[] {
-      if (data?.data == null) {
-        return [];
+  return useQuery({ queryKey, queryFn, select });
+};
+
+const select = (
+  data: AxiosResponse<OdhTourismMetaData, any>
+): TourismMetaData[] => {
+  if (data?.data == null) {
+    return [];
+  }
+  const paginationData = unifyPagination(data.data);
+
+  // Map ODH MetaData to internal format
+  const itemsWithoutParentInfo = mapResponse(paginationData.items);
+
+  // Add parent information to all sub-datasets
+  return addParentInfo(itemsWithoutParentInfo);
+};
+
+const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
+  datasets
+    .map((dataset) => ({
+      id: dataset.Id,
+      shortname: dataset.Shortname,
+      description: dataset.ApiDescription?.en,
+      output: Object.values(dataset.Output ?? {}).join(', '),
+      swaggerUrl: dataset.SwaggerUrl,
+      access: parseAccess(dataset.ApiAccess),
+      pathParam: dataset.PathParam,
+      externalLink: dataset.ApiUrl,
+      sources: dataset.Sources ?? [],
+      lastUpdated: parseLastUpdated(dataset.LastChange),
+      apiFilter: parseApiFilter(dataset.ApiFilter),
+      recordCount: dataset.RecordCount as Record<string, number>,
+      deprecated: dataset.Deprecated,
+      parent: undefined,
+    }))
+    .sort((a, b) => a?.shortname?.localeCompare(b?.shortname));
+
+const addParentInfo = (datasets: TourismMetaData[]): TourismMetaData[] => {
+  const buildKey = (dataset: TourismMetaData) => dataset.pathParam.join('/');
+  // Build a map of all root-datasets (i.e. not sub-datasets that have no apiFilter set).
+  // The key corresponds to the path params of the dataset as string (joined by '/'), the
+  // value is the dataset itself. The parent connection is then resolved by path params.
+  const rootDatasets = datasets.reduce<Record<string, TourismMetaData>>(
+    (prev, dataset) => {
+      if (!hasApiFilter(dataset)) {
+        const key = buildKey(dataset);
+        return { ...prev, [key]: dataset };
       }
-      const paginationData = unifyPagination(data.data);
-      // Map ODH MetaData to internal format
-      return paginationData.items
-        .map<TourismMetaData>((dataset) => ({
-          id: dataset.Id,
-          shortname: dataset.Shortname,
-          apiIdentifier: dataset.ApiIdentifier,
-          description: dataset.ApiDescription.en,
-          output: Object.values(dataset.Output ?? {}).join(', '),
-          apiVersion: dataset.ApiVersion,
-          swaggerUrl: dataset.SwaggerUrl,
-          access: parseAccess(dataset.ApiAccess),
-          pathParam: dataset.PathParam,
-          externalLink: dataset.ApiUrl,
-          sources: dataset.Sources,
-          lastUpdated: parse(
-            dataset.LastChange,
-            'dd.MM.yyyy HH:mm',
-            new Date()
-          ),
-          apiFilter: parseApiFilter(dataset.ApiFilter),
-          recordCount: dataset.RecordCount as Record<string, number>,
-          deprecated: dataset.Deprecated,
-        }))
-        .sort((a, b) => a?.shortname?.localeCompare(b?.shortname));
+      return prev;
     },
+    {}
+  );
+
+  // Set root-dataset as parent for all sub-datasets (a sub-dataset is a dataset that has
+  // an apiFilter set)
+  return datasets.map((dataset) => {
+    if (!hasApiFilter(dataset)) {
+      return dataset;
+    }
+    const key = buildKey(dataset);
+    const parent = rootDatasets[key];
+    return { ...dataset, parent };
   });
 };
 
 const parseAccess = (
-  apiAccess: Record<string, string>
+  apiAccess?: Record<string, string>
 ): TourismMetaData['access'] => {
+  if (apiAccess == null) {
+    return 'unknown';
+  }
   // apiAccess is an object with keys like "open", "closed", "reduced" and values like "open", "closed", "reduced"
   const accessTypes = new Set(Object.values(apiAccess));
   if (accessTypes.has('closed')) {
@@ -90,3 +122,13 @@ const parseApiFilter = (filters?: string[]) =>
     const [key, value] = curr.split('=');
     return { ...prev, [key]: value };
   }, {});
+
+const parseLastUpdated = (lastUpdated?: string) => {
+  if (lastUpdated == null) {
+    return undefined;
+  }
+  return parse(lastUpdated, 'dd.MM.yyyy HH:mm', new Date());
+};
+
+const hasApiFilter = (dataset: TourismMetaData) =>
+  Object.keys(dataset.apiFilter).length > 0;

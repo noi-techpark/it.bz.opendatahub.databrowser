@@ -16,7 +16,7 @@
             <div
               class="mr-1 mb-2 text-sm font-bold text-black md:w-auto md:text-base"
             >
-              <DatasetTitle :name="datasetName" :parent="datasetParent" />
+              <DatasetHeaderTitle />
             </div>
             <div class="mb-4">
               {{ currentMetaData.description }}
@@ -40,7 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
 import { Size, Variant } from '../../../components/button/types';
@@ -51,11 +50,10 @@ import PopoverCustomPanel from '../../../components/popover/PopoverCustomPanel.v
 import IconInfo from '../../../components/svg/IconInfo.vue';
 import OverviewInfoDataAvailability from '../../../pages/datasets/overview/OverviewInfoDataAvailability.vue';
 import OverviewInfoRecordCount from '../../../pages/datasets/overview/OverviewInfoRecordCount.vue';
-import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
-import DatasetTitle from '../common/DatasetTitle.vue';
 import { usePaths } from './usePaths';
 import { computeButtonClasses } from '../../../components/button/styles';
+import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
 
 const { t } = useI18n();
 
@@ -65,19 +63,6 @@ const buttonClasses = computeButtonClasses({
 });
 
 const { currentMetaData } = useMetaDataForCurrentRoute();
-
-const datasetConfigStore = useDatasetConfigStore();
-
-const datasetName = computed(
-  () =>
-    currentMetaData.value?.shortname ??
-    datasetConfigStore.config?.description?.title ??
-    'Untitled'
-);
-
-const datasetParent = computed(
-  () => currentMetaData.value?.apiIdentifier ?? ''
-);
 
 const { datasetOverviewForId } = usePaths();
 </script>
