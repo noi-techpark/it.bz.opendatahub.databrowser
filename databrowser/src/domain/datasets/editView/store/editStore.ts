@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import * as R from 'ramda';
 import { markRaw } from 'vue';

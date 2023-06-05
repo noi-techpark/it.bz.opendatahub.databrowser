@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { publishedOnListView } from './publishedOn.listView';
 import { publishedOnNewView } from './publishedOn.newView';
 import { publishedOnSharedView } from './publishedOn.sharedView';

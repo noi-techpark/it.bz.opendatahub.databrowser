@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { computed, inject, provide, ref, Ref } from 'vue';
 
 type EditListNavigable = 'table' | 'tab' | 'add';

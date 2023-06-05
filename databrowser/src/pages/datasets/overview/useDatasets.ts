@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { Ref, computed, ref } from 'vue';
 import { useMetaDataQuery } from '../../../domain/metaDataConfig/tourism/useMetaDataQuery';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';

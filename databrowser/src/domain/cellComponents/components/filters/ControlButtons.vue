@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <div class="flex space-x-2 p-2">
     <ButtonCustom variant="ghost" @click="emit('cancel')">{{

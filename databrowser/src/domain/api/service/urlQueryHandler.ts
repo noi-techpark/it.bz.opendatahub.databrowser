@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { App, computed, inject, isRef, Ref, ref, watch } from 'vue';
 import { Router } from 'vue-router';
 import { ApiQuery, UrlQuery, UrlParameters } from './types';

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { useScriptTag } from '@vueuse/core';
 import { isUrlWithType, TagName, WebComponentConfig } from './types';
 import { webComponentRegistry } from './webComponentRegistry';

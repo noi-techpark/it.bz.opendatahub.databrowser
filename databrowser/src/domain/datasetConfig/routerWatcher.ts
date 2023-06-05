@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { watch } from 'vue';
 import { RouteLocationNormalizedLoaded, Router } from 'vue-router';
 import { SupportedDomains } from '../openApi/types';

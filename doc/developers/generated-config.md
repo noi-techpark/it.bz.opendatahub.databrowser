@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Generated ViewConfig
 
 Generate configuration for UI from [OpenAPI](https://www.openapis.org/) (previously called Swagger) documents, the principle is the same as the one from [Swagger UI](https://swagger.io/tools/swagger-ui/).

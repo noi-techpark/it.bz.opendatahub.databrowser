@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { domains } from '../../../domain/openApi';
 import { DatasetConfig } from '../../../domain/datasetConfig/types';
 import { eventShortDescription } from './eventShort.description';

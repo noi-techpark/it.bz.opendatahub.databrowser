@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 export const ROLE_READ = ['DataReader'];
 export const ROLE_CREATE = ['DataWriter', 'DataCreate'];
 export const ROLE_UPDATE = ['DataWriter', 'DataModify'];

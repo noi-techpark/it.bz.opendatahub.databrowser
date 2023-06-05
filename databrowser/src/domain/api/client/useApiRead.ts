@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { useQuery, UseQueryOptions } from 'vue-query';
 import { computed, reactive, Ref, shallowReactive, watch } from 'vue';
 import { useAuth } from '../../auth/store/auth';

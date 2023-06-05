@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <div
     class="flex items-center justify-between gap-2 rounded border border-gray-400 p-2 text-black focus-within:border-green-500"

@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div v-if="isWriteable" class="relative z-10 flex flex-col">

@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <button
     class="flex h-14 basis-full items-center justify-center border border-transparent text-white hover:bg-green-700 focus:bg-green-500 focus-visible:border-white disabled:bg-transparent md:basis-2/4"

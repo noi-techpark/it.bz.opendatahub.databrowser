@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <ContentAlignmentX class="mt-3 hidden items-center md:flex">
     <div class="mr-4 text-sm">

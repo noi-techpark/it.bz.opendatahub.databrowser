@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { inject, provide, readonly, Ref } from 'vue';
 
 export const useEditMode = (editable: Ref<boolean>) => {

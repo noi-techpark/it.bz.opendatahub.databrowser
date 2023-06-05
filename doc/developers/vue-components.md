@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Vue Components
 
 The Data Browser App provides different views to present the [Open Data Hub](https://opendatahub.bz.it/) datasets, e.g.

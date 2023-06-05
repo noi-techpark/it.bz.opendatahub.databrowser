@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Dataset configuration
 
 The dataset views of the Data Browser App are configured in files located at the [dataset configs](../../databrowser/src/config) folder.

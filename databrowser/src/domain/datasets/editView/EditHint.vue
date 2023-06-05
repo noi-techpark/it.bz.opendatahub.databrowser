@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <HintCustom v-if="showEditHint" type="calm" title="Hint!" @close="hideHint">
     You can edit all data. Be aware that some data is synched from other

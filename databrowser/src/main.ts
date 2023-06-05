@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import axios from 'axios';
 import { createApp } from 'vue';
 import VueAxios from 'vue-axios';

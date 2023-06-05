@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { AxiosResponse } from 'axios';
 import { ref, Ref, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';

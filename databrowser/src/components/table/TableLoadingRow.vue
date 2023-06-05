@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <tr v-for="rindex in rows" :key="rindex" class="w-full">
     <TableCell v-for="cindex in cells" :key="cindex">

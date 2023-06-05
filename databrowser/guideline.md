@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Guideline
 
 The following document presents the guideline to follow when developing for this project. It contains a series of directives useful for creating uniform code in order to make it easily readable and maintainable.

@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <div
     class="fixed top-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-black transition-all"

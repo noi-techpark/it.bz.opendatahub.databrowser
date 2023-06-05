@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # Open Data Hub Data Browser - Application
 
 This directory/project provides the [Open Data Hub](https://opendatahub.bz.it/) Data Browser Application.
