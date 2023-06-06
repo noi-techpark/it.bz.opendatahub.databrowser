@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <header class="flex flex-wrap items-center py-2 text-xs md:py-3">
     <!-- Dataset title -->

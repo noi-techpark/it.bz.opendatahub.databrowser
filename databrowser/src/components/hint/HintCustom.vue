@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <div :class="[classNames.background, classNames.text]" class="px-4 py-2">
     <div class="flex items-center justify-between gap-3">

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { isRef, nextTick } from 'vue';
 import { createI18n, I18n, Locale } from 'vue-i18n';
 

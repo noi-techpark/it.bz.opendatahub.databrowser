@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <section class="flex flex-1 flex-col justify-start overflow-y-auto">
     <LoadingError v-if="isError" :error="error" />

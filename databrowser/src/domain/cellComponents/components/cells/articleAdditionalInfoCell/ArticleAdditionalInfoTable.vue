@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <EditListTable :items="infos" :hide-tab-link="true" :hide-sortable="true">
     <template #colGroup>

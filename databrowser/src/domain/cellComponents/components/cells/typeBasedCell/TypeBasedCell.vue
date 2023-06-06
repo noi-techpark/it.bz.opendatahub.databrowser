@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <div v-if="data != null" class="max-h-32 overflow-auto">
     <span v-if="dataInfo.type == 'string' || dataInfo.type == 'number'">{{

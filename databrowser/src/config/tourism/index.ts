@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 export { accommodationConfig } from './accommodation/accommodation.config';
 export { articleConfig } from './article/article.config';
 export { eventShortConfig } from './eventShort/eventShort.config';

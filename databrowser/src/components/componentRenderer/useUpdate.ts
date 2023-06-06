@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { useDebounceFn } from '@vueuse/core';
 import { Ref } from 'vue';
 import { useReplaceWithApiParameters } from '../../domain/api';

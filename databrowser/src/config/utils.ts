@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 export const withOdhBaseUrl = (path: string) =>
   `${import.meta.env.VITE_APP_ODH_LOOKUP_BASE_URL}${path}`;
 

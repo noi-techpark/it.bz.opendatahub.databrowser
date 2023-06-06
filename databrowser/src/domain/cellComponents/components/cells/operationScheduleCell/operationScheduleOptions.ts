@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 export const operationScheduleTypeOptions = [
   { label: 'Standard', value: '1' },
   { label: 'Only day + month recurring', value: '2' },

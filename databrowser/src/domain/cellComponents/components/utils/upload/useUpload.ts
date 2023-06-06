@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { computed, inject, readonly, Ref, ref } from 'vue';
 import { createEventHook } from '@vueuse/core';
 import { AxiosError, AxiosInstance } from 'axios';

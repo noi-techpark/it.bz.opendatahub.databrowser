@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
   <div class="flex items-center justify-end bg-gray-50 py-2 text-xs">
     <span class="mr-3 block">{{ t('datasets.listView.linesPerPage') }}</span>

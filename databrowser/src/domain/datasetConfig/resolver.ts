@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { DatasetRoute, DatasetConfig } from './types';
 import { embeddedDatasetConfigSource } from './source/embedded';
 import { generatedDatasetConfigSource } from './source/generated';
