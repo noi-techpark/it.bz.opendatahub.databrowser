@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if ! command -v reuse &> /dev/null
+then
+    echo -e "\e[33mWarning: reuse is not installed, omitting reuse compliance check\e[0m"
+else
+    (cd databrowser && reuse lint)
+fi
