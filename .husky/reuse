@@ -1,8 +1,11 @@
 #!/bin/bash
 
-if ! command -v reuse &> /dev/null
+if command -v reuse &> /dev/null
 then
-    echo -e "\e[33mWarning: reuse is not installed, omitting reuse compliance check\e[0m"
-else
     (cd databrowser && reuse lint)
+elif command -v pipx &> /dev/null
+then
+    (cd databrowser && pipx run reuse lint)
+else
+    echo -e "\e[33mWarning: neither reuse nor pipx is installed, omitting reuse compliance check\e[0m"
 fi
