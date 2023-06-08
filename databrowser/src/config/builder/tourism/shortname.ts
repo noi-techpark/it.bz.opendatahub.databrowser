@@ -15,7 +15,7 @@ export const shortnameCell = (options?: {
   title: 'Shortname',
   component: CellComponent.StringCell,
   fields: { text: 'Shortname' },
-  params: options?.required === true ? { required: 'true' } : undefined,
+  required: options?.required === true ? true : undefined,
 });
 
 export const shortnameWithLogoAndMainImageSubCategory =
