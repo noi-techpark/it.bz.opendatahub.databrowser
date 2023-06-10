@@ -33,8 +33,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <TableDataEmpty />
         </TableCell>
       </tr>
-      <tr v-for="(row, index) in rows" :key="row.Id ?? row.id ?? index">
-        <TableCell v-for="col in renderElements" :key="col.title">
+      <tr
+        v-for="(row, index) in rows"
+        :key="row.Id ?? row.id ?? index"
+        :class="{ 'bg-green-400/10': index === selectedRowIndex }"
+        @click="rowClicked(index)"
+        @dblclick="rowDblClicked(row)"
+      >
+        <TableCell
+          v-for="col in renderElements"
+          :key="col.title"
+          :class="{ 'mix-blend-multiply': index === selectedRowIndex }"
+        >
           <ComponentRenderer
             :tag-name="col.component"
             :attributes="mapWithIndex(row, col.fields, col.params)"
@@ -101,6 +111,7 @@ import { usePathsForCurrentRoute } from '../header/usePaths';
 import TableDataEmpty from './TableDataEmpty.vue';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
 import { useTableViewColumns } from '../../datasetConfig/utils';
+import { useTableRowSelection } from './useTableRowSelection';
 
 const { t } = useI18n();
 
@@ -128,6 +139,10 @@ const {
   rawViewPathForId,
   editViewPathForId,
 } = usePathsForCurrentRoute();
+
+// Table row selection logic
+const { selectedRowIndex, rowClicked, rowDblClicked } =
+  useTableRowSelection(rows);
 
 // TODO: temporary solution until we have a better way to handle this
 const columns = useTableViewColumns();
