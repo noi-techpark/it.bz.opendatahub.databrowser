@@ -9,9 +9,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :to="to"
     variant="ghost"
     size="xs"
-    class="flex h-8 w-8 items-center justify-center md:w-10"
-    ><slot></slot
-  ></ButtonLink>
+    class="flex h-10 w-11 flex-col items-center p-1"
+  >
+    <slot></slot>
+  </ButtonLink>
 </template>
 
 <script setup lang="ts">
