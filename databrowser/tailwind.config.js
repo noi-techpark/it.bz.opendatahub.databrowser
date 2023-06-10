@@ -14,6 +14,8 @@ module.exports = {
         'table-static-col': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
       },
       fontSize: {
+        '2xs': '0.625rem',
+        '3xs': '0.5rem',
         '2xl': '1.625rem',
         '3xl': '2rem',
       },
