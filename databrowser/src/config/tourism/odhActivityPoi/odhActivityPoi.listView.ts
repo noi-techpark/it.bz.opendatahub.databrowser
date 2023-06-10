@@ -11,7 +11,7 @@ import {
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
-  locationTableCell,
+  locationTableCells,
   logoTableCell,
   odhActiveTableCell,
   sourceTableCell,
@@ -34,7 +34,7 @@ export const odhActivityPoiListView: ListViewConfig = {
         separator: ', ',
       },
     },
-    locationTableCell(),
+    ...locationTableCells(),
     {
       title: 'Web-URL',
       component: CellComponent.UrlCell,

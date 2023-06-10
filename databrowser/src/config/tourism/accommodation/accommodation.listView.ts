@@ -8,7 +8,7 @@ import {
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
-  locationTableCell,
+  locationTableCells,
   odhActiveTableCell,
   sourceTableCell,
 } from '../../builder/tourism';
@@ -40,7 +40,7 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoCategoryId',
       },
     },
-    locationTableCell(),
+    ...locationTableCells(),
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
