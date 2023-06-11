@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <PillLink
         v-for="category in categories"
         :key="category.slug"
-        class="py-1 px-4"
+        class="px-4 py-1"
         :to="category.to"
         :active="slug === category.slug"
         :data-test="`desktop-main-category-${category.slug}`"

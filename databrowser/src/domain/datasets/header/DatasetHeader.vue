@@ -34,7 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :picked="picked"
       :column-width="columnWidth"
       :class="{
-        'animate-pulse outline rounded outline-green-500':
+        'animate-pulse rounded outline outline-green-500':
           !datasetConfigStore.hasConfig,
       }"
       @picked-change="setDatasetConfigSource"

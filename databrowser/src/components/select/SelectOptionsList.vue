@@ -18,9 +18,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     >
       <li
         :class="[
-          { 'bg-green-500 bg-opacity-10': active || selected },
+          { 'bg-green-500/10': active || selected },
           { 'text-green-500': selected },
-          'relative cursor-pointer select-none pl-4 pr-8 py-1',
+          'relative cursor-pointer select-none py-1 pl-4 pr-8',
         ]"
       >
         <span :class="[{ 'font-semibold': selected }, 'block']">

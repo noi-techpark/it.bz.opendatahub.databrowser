@@ -14,9 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       size="xs"
       class="mx-1 hidden h-6 w-9 text-center uppercase md:flex md:items-center md:justify-center"
       :class="[
-        link.value === selected
-          ? 'bg-green-500 bg-opacity-10 border-green-500'
-          : '',
+        link.value === selected ? 'border-green-500 bg-green-500/10' : '',
       ]"
       :data-test="`desktop-language-picker-${link.value}`"
       >{{ link.label }}</ButtonLink

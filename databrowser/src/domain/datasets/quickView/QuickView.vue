@@ -41,7 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           type="white"
           :text="t('datasets.quickView.standardImageWarning')"
           has-dot
-          class="absolute top-4 right-4"
+          class="absolute right-4 top-4"
         />
       </div>
     </PageContent>

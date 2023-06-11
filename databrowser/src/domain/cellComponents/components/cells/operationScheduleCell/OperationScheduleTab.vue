@@ -206,7 +206,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
         <div class="basis-full md:order-3 md:basis-1/3">
           <div v-if="editable" class="rounded border">
-            <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
+            <div class="flex items-center justify-between bg-gray-50 px-4 py-3">
               <span class="font-semibold">Info &amp; action</span>
             </div>
             <div class="divide-y p-4">
@@ -233,13 +233,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
         <div class="basis-full md:order-2 md:basis-1/3">
           <div class="mb-3 rounded border">
-            <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
+            <div class="flex items-center justify-between bg-gray-50 px-4 py-3">
               <span class="font-semibold">
                 {{ t('components.operationSchedule.tab.season') }}
               </span>
             </div>
 
-            <div class="py-3 px-4">
+            <div class="px-4 py-3">
               <div>
                 {{ t('components.operationSchedule.tab.seasonName') }}:
                 {{ item.name }}
@@ -262,7 +262,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :key="scheduleTimeIndex"
             class="mb-3 rounded border"
           >
-            <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
+            <div class="flex items-center justify-between bg-gray-50 px-4 py-3">
               <span class="font-semibold">
                 {{ getOperationScheduleTimeCodeLabel(scheduleTime.Timecode) }}
               </span>
@@ -280,7 +280,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               </div>
             </div>
 
-            <div class="flex flex-col gap-2 py-3 px-4 md:flex-row">
+            <div class="flex flex-col gap-2 px-4 py-3 md:flex-row">
               <QuickViewDayInfo :schedule-time="scheduleTime" />
             </div>
           </div>

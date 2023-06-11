@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <!-- Mobile toolBox open button -->
   <ButtonCustom
     v-if="!toolBoxStore.visible"
-    class="absolute right-[20px] bottom-16 z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
+    class="absolute bottom-16 right-[20px] z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
     data-test="mobile-open-toolBox"
     @click="toolBoxStore.visible = !toolBoxStore.visible"
   >
@@ -42,7 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   <ButtonCustom
                     variant="ghost"
                     size="xs"
-                    class="mt-6 mr-2 flex h-8 w-8 items-center justify-center self-end md:hidden"
+                    class="mr-2 mt-6 flex h-8 w-8 items-center justify-center self-end md:hidden"
                     data-test="mobile-close-toolBox"
                     @click="toolBoxStore.visible = false"
                   >
@@ -50,7 +50,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   </ButtonCustom>
 
                   <!-- Tab navigation -->
-                  <TabList class="mt-2 mb-8 flex justify-around md:mt-0">
+                  <TabList class="mb-8 mt-2 flex justify-around md:mt-0">
                     <Tab
                       v-for="(tabName, index) in tabNames"
                       :key="tabName"

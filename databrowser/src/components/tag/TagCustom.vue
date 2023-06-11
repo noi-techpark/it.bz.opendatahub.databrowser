@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div
-    class="inline-flex items-center gap-2 rounded py-1 px-3"
+    class="inline-flex items-center gap-2 rounded px-3 py-1"
     :class="[classNames.background, textSizeClass]"
   >
     <div

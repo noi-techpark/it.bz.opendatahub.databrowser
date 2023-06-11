@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div
     class="p-4"
     :class="{
-      'hover:bg-gray-50 cursor-pointer': withHover && !disabled,
+      'cursor-pointer hover:bg-gray-50': withHover && !disabled,
       'text-disabled': disabled,
     }"
   >

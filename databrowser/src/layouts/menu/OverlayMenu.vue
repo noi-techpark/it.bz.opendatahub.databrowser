@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
     <!-- Desktop Menu -->
     <div
-      class="absolute top-0 left-0 hidden h-screen flex-col overflow-x-auto bg-white md:flex"
+      class="absolute left-0 top-0 hidden h-screen flex-col overflow-x-auto bg-white md:flex"
     >
       <button
         class="block p-4"

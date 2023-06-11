@@ -22,14 +22,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <li
         v-for="(category, index) in item.items"
         :key="category.label"
-        :class="[
-          selected == index ? 'bg-green-500 bg-opacity-10' : 'hover:bg-gray-50',
-        ]"
+        :class="[selected == index ? 'bg-green-500/10' : 'hover:bg-gray-50']"
         class="flex whitespace-nowrap"
       >
         <button
           v-if="isMenuCategory(category) && category.items.length"
-          class="inline-flex w-full flex-1 items-center justify-between py-2 px-4 text-left md:max-w-xs"
+          class="inline-flex w-full flex-1 items-center justify-between px-4 py-2 text-left md:max-w-xs"
           :data-test="`main-menu-category-${labelToDataTest(category.label)}`"
           @click="setSelected(category, index)"
         >
@@ -39,7 +37,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <router-link
           v-if="isMenuLink(category)"
           :to="category.url"
-          class="w-full flex-1 py-2 px-4 text-left no-underline"
+          class="w-full flex-1 px-4 py-2 text-left no-underline"
           :data-test="`main-menu-link-${labelToDataTest(category.label)}`"
           @click="$emit('close-dialog')"
         >
