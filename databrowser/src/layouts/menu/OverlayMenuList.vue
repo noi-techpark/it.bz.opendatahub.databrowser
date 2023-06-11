@@ -51,7 +51,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, ref, watch, withDefaults } from 'vue';
+import { ref, watch } from 'vue';
 import ArrowRight from '../../components/svg/ArrowRight.vue';
 import ArrowLeft from '../../components/svg/ArrowLeft.vue';
 import { useI18n } from 'vue-i18n';

@@ -19,7 +19,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import EditImageGalleryTab from './EditImageGalleryTab.vue';
 import EditImageGalleryTable from './EditImageGalleryTable.vue';
 import EditListCell from '../../utils/editList/EditListCell.vue';

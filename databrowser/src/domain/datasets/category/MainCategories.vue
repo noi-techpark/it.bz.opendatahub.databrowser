@@ -34,7 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import PillLink from '../../../components/pill/PillLink.vue';
 import { Category } from './types';

@@ -26,7 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 import IconWarning from '../svg/IconWarning.vue';
 import IconCheck from '../svg/IconCheck.vue';
 import { AlertType } from './types';

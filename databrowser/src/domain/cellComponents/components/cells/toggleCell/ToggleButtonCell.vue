@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, toRefs, withDefaults } from 'vue';
+import { computed, toRefs } from 'vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import ToggleButton from '../../../../../components/toggle/ToggleButton.vue';
 

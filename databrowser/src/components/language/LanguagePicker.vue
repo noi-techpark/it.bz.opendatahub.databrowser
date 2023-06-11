@@ -39,7 +39,7 @@ import {
   defaultLanguage,
   FilterLanguage,
 } from '../../domain/datasets/language';
-import { computed, defineProps, withDefaults } from 'vue';
+import { computed } from 'vue';
 import { RouteLocationRaw, useRouter } from 'vue-router';
 import { stringifyParameter, useApiQuery, useUrlQuery } from '../../domain/api';
 import ButtonLink from '../button/ButtonLink.vue';

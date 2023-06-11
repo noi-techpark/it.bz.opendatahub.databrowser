@@ -82,7 +82,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs, watch } from 'vue';
+import { toRefs, watch } from 'vue';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useImageUpload } from '../../utils/upload/useUpload';

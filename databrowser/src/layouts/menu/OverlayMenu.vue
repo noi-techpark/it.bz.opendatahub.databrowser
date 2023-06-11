@@ -72,7 +72,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, ref } from 'vue';
+import { computed, ref } from 'vue';
 import OverlayMenuList, { MenuColumn } from './OverlayMenuList.vue';
 import IconClose from '../../components/svg/IconClose.vue';
 import IconMenu from '../../components/svg/IconMenu.vue';

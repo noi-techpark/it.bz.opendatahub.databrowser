@@ -19,8 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, ref } from 'vue';
-import { watch } from 'vue';
+import { ref, watch } from 'vue';
 import PillButtonGroupItem from './PillButtonGroupItem.vue';
 
 const props = defineProps<{

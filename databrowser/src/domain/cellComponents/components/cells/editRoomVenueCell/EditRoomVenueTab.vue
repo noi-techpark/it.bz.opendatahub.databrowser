@@ -87,7 +87,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import IconCopy from '../../../../../components/svg/IconCopy.vue';

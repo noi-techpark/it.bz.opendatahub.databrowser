@@ -21,14 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import {
-  defineEmits,
-  defineProps,
-  ref,
-  toRefs,
-  useAttrs,
-  withDefaults,
-} from 'vue';
+import { ref, toRefs, useAttrs } from 'vue';
 import { useMapper } from './mapper';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import {

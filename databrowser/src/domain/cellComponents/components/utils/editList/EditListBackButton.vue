@@ -16,7 +16,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import ButtonCustom from '../../../../../components/button/ButtonCustom.vue';
 import IconStrokedArrowDown from '../../../../../components/svg/IconStrokedArrowDown.vue';
 

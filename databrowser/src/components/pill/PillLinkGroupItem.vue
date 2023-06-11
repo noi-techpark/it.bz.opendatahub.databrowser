@@ -31,7 +31,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
 import { computed } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 

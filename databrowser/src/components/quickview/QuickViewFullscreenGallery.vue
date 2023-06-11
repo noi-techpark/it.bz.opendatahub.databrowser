@@ -36,8 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults, ref, toRefs, computed } from 'vue';
-
+import { ref, toRefs, computed } from 'vue';
 import ChevronRight from '../svg/ChevronRight.vue';
 
 interface Image {

@@ -26,7 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps } from 'vue';
+import { computed } from 'vue';
 import { useProvideActions } from './actions/useActions';
 import { useProvideNavigation } from './actions/useNavigation';
 import { useProvideEditMode } from './actions/useEditMode';

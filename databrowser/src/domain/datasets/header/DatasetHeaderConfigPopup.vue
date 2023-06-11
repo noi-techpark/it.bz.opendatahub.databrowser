@@ -58,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import ButtonCustom from '../../../components/button/ButtonCustom.vue';
 import PopoverCustomPanel from '../../../components/popover/PopoverCustomPanel.vue';
 import PopoverContentDivider from '../../../components/popover/PopoverContentDivider.vue';
