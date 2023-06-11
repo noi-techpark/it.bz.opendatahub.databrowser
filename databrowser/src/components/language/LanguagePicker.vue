@@ -34,7 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script lang="ts" setup>
 import {
-  defaultLanguage,
+  defaultLanguage as dl,
   FilterLanguage,
 } from '../../domain/datasets/language';
 import { computed } from 'vue';
@@ -48,7 +48,7 @@ const props = withDefaults(
   defineProps<{
     defaultLanguage?: FilterLanguage;
   }>(),
-  { defaultLanguage: defaultLanguage }
+  { defaultLanguage: dl }
 );
 
 const supportedLanguages: Array<string> = Object.values(FilterLanguage);
