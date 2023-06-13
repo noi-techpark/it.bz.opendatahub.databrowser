@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, watch } from 'vue';
+import { watch } from 'vue';
 import EditFooterButton from './EditFooterButton.vue';
 import IconClose from '../../../components/svg/IconClose.vue';
 import IconCheck from '../../../components/svg/IconCheck.vue';

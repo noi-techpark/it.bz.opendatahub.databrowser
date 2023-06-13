@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, watch, withDefaults } from 'vue';
+import { ref, watch } from 'vue';
 import PlaceholderImage from '../../../../../components/image/PlaceholderImage.vue';
 import { resizeImageWidth } from '../../../../image';
 

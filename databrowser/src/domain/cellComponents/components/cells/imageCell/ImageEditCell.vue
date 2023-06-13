@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, toRefs, withDefaults } from 'vue';
+import { toRefs } from 'vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import FileUpload from '../../utils/upload/FileUpload.vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';

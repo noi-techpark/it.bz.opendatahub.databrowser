@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 import IconClose from '../svg/IconClose.vue';
 import { HintType } from './types';
 

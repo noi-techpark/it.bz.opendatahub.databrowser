@@ -18,14 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  defineProps,
-  ref,
-  toRefs,
-  useAttrs,
-  withDefaults,
-} from 'vue';
+import { computed, ref, toRefs, useAttrs } from 'vue';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import { useMapper } from './mapper';
 import TagTable from './TagTable.vue';

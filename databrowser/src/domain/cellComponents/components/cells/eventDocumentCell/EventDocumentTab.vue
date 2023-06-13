@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
         <div class="basis-full md:order-3 md:basis-1/3">
           <div class="rounded border">
-            <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
+            <div class="flex items-center justify-between bg-gray-50 px-4 py-3">
               <span class="font-semibold">Info &amp; action</span>
             </div>
             <div class="divide-y p-4">
@@ -82,7 +82,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs, watch } from 'vue';
+import { toRefs, watch } from 'vue';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useImageUpload } from '../../utils/upload/useUpload';

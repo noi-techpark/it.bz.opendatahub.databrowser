@@ -42,7 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
 import SubCategoryItem from './SubCategoryItem.vue';
 import { Category, SubCategory } from './types';

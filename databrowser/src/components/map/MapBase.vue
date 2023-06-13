@@ -32,7 +32,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineAsyncComponent } from 'vue';
+import { defineAsyncComponent } from 'vue';
 import { PointExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 

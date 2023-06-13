@@ -17,7 +17,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { MenuItem } from '@headlessui/vue';
-import { defineProps } from 'vue';
 
 const props = defineProps<{
   type: 'link' | 'button';

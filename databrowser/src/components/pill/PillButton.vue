@@ -8,23 +8,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <button
     :class="[
       {
-        'border text-green-500 bg-opacity-10 bg-green-500 border-green-500':
+        'border border-green-500 bg-green-500/10 text-green-500':
           active && !disabled,
         'hover:bg-gray-200': !active && !disabled,
-        'border-gray-500 bg-transparent text-gray-700 opacity-25 pointer-events-none':
+        'pointer-events-none border-gray-500 bg-transparent text-gray-700 opacity-25':
           disabled,
       },
       classNames,
     ]"
     :disabled="disabled"
-    class="py-1 px-5 text-center font-semibold text-gray-700"
+    class="px-5 py-1 text-center font-semibold text-gray-700"
   >
     <slot></slot>
   </button>
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
 import { computed } from 'vue';
 import { PillVariant } from './types';
 

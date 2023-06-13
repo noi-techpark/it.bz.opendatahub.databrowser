@@ -53,7 +53,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from 'vue';
+import { ref } from 'vue';
 import TabButton from '../../../../../../components/tab/TabButton.vue';
 import EditListActionHeader from '../header/EditListActionHeader.vue';
 import EditListBackButton from '../EditListBackButton.vue';

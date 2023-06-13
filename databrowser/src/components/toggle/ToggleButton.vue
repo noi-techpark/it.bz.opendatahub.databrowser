@@ -11,12 +11,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     class="px-2 py-1"
     :class="[
       {
-        'bg-green-500/10 focus:bg-green-500/10 focus:text-green-500 border-green-500':
+        'border-green-500 bg-green-500/10 focus:bg-green-500/10 focus:text-green-500':
           enabled && !disabled,
       },
       { 'bg-transparent focus:bg-transparent focus:text-green-500': !enabled },
       {
-        'bg-green-500/40 text-black border-green-500': enabled && disabled,
+        'border-green-500 bg-green-500/40 text-black': enabled && disabled,
       },
     ]"
     :disabled="disabled"

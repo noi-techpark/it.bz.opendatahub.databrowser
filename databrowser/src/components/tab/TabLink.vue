@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script lang="ts" setup>
-import { defineProps, toRefs } from 'vue';
+import { toRefs } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 import ButtonLink from '../button/ButtonLink.vue';
 import { useTabClasses } from './useTabClasses';

@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, toRefs, withDefaults } from 'vue';
+import { computed, toRefs } from 'vue';
 import { useQuery } from 'vue-query';
 import { useAxiosFetcher } from '../../../../api';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';

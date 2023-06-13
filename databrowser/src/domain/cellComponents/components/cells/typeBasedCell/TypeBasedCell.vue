@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { format, isValid, parseISO } from 'date-fns';
-import { computed, defineProps, withDefaults } from 'vue';
+import { computed } from 'vue';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../../../../config/utils';
 
 const props = withDefaults(

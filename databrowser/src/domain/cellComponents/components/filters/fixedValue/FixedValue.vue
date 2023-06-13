@@ -20,7 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, toRefs, withDefaults } from 'vue';
+import { toRefs } from 'vue';
 import CheckboxCustom from '../../../../../components/checkbox/CheckboxCustom.vue';
 import { useAsSet } from '../../../../api';
 import ControlButtons from '../ControlButtons.vue';
