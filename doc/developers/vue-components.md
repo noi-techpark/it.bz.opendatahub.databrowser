@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Vue Components
 
-The Data Browser App provides different views to present the [Open Data Hub](https://opendatahub.bz.it/) datasets, e.g.
+The Data Browser App provides different views to present the [Open Data Hub](https://opendatahub.com/) datasets, e.g.
 
 - The table view shows a list of dataset entries
 - The detail view shows the details for a dataset
