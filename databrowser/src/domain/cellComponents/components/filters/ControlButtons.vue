@@ -16,8 +16,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-/* eslint-disable no-unused-vars */
-import { defineEmits } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 

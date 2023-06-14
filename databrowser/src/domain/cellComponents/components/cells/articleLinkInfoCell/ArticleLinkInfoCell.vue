@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, toRefs } from 'vue';
+import { toRefs } from 'vue';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import { useRecordSupportForCell } from '../../utils/editList/support/useRecordSupport';
 import ArticleLinkInfoTable from './ArticleLinkInfoTable.vue';

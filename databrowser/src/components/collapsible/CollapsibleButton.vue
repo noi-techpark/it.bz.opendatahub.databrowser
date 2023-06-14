@@ -23,7 +23,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { DisclosureButton } from '@headlessui/vue';
 import ArrowUp from '../svg/ArrowUp.vue';
 import ArrowDown from '../svg/ArrowDown.vue';
-import { defineProps } from 'vue';
 
 const props = defineProps<{
   showMoreText: string;

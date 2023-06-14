@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <div
     v-if="title != null || content != null"
-    class="flex gap-8 py-2 px-4"
+    class="flex gap-8 px-4 py-2"
     :class="classNames.background"
   >
     <div
@@ -26,7 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 import IconWarning from '../svg/IconWarning.vue';
 import IconCheck from '../svg/IconCheck.vue';
 import { AlertType } from './types';

@@ -22,7 +22,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { randomId } from '../utils/random';
 
 const id = randomId();

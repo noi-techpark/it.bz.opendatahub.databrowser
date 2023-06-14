@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs, withDefaults } from 'vue';
+import { toRefs } from 'vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import StringCell from '../stringCell/StringCell.vue';
 

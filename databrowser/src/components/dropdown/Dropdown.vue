@@ -32,7 +32,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, ref, toRefs } from 'vue';
+import { ref, toRefs } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import ArrowDown from '../svg/ArrowDown.vue';
 import ArrowUp from '../svg/ArrowUp.vue';

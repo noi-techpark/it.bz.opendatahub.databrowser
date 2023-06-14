@@ -59,7 +59,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults, defineEmits } from 'vue';
 import QuickViewCardBase from './QuickViewCardBase.vue';
 import QuickViewCardOverviewContentContainer from './QuickViewCardOverviewContentContainer.vue';
 import QuickViewCardOverviewContentTitle from './QuickViewCardOverviewContentTitle.vue';

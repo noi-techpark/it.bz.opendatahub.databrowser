@@ -28,7 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <li
               v-for="(config, index) of configsForDomain"
               :key="index"
-              class="py-1 px-4"
+              class="px-4 py-1"
             >
               <router-link
                 :to="{

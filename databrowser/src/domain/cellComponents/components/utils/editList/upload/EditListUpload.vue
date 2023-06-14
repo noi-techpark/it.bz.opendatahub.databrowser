@@ -14,7 +14,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import EditListBackButton from '../EditListBackButton.vue';
 import EditListHeader from '../header/EditListHeader.vue';
 import { useInjectNavigation } from '../actions/useNavigation';
