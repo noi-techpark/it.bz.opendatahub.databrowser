@@ -14,9 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       size="xs"
       class="mx-1 hidden h-6 w-9 text-center uppercase md:flex md:items-center md:justify-center"
       :class="[
-        link.value === selected
-          ? 'bg-green-500 bg-opacity-10 border-green-500'
-          : '',
+        link.value === selected ? 'border-green-500 bg-green-500/10' : '',
       ]"
       :data-test="`desktop-language-picker-${link.value}`"
       >{{ link.label }}</ButtonLink
@@ -36,10 +34,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script lang="ts" setup>
 import {
-  defaultLanguage,
+  defaultLanguage as dl,
   FilterLanguage,
 } from '../../domain/datasets/language';
-import { computed, defineProps, withDefaults } from 'vue';
+import { computed } from 'vue';
 import { RouteLocationRaw, useRouter } from 'vue-router';
 import { stringifyParameter, useApiQuery, useUrlQuery } from '../../domain/api';
 import ButtonLink from '../button/ButtonLink.vue';
@@ -50,7 +48,7 @@ const props = withDefaults(
   defineProps<{
     defaultLanguage?: FilterLanguage;
   }>(),
-  { defaultLanguage: defaultLanguage }
+  { defaultLanguage: dl }
 );
 
 const supportedLanguages: Array<string> = Object.values(FilterLanguage);

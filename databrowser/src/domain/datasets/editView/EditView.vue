@@ -40,7 +40,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <ShowEmptyFields v-model="showAll" :disabled="true" />
           <div
             class="flex grow md:overflow-y-auto"
-            :class="[{ 'opacity-50 pointer-events-none': isMutateLoading }]"
+            :class="[{ 'pointer-events-none opacity-50': isMutateLoading }]"
           >
             <MainAndSubCategories
               class="md:border-r"

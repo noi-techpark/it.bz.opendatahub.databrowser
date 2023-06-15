@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, toRefs, withDefaults } from 'vue';
+import { computed, toRefs } from 'vue';
 import { format as formatFn } from 'date-fns';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import InputCustom from '../../../../../components/input/InputCustom.vue';

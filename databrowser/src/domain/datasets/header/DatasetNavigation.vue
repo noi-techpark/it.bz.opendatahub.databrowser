@@ -11,12 +11,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <ButtonLink
           variant="ghost"
           size="xs"
-          class="mr-2 flex h-6 items-center bg-white py-1 px-3 md:mr-9"
+          class="mr-2 flex h-6 items-center bg-white px-3 py-1 md:mr-9"
           :to="combinedTableViewPath"
           data-test="table-view-link"
         >
           <IconStrokedArrowDown
-            class="mr-1 -ml-1 h-5 w-5 rotate-90 stroke-current"
+            class="-ml-1 mr-1 h-5 w-5 rotate-90 stroke-current"
           />
           <span class="line-height-1">
             {{ t('datasets.navigation.tableView') }}

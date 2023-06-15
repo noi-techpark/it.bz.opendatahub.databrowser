@@ -20,7 +20,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue';
 import { onKeyStroke } from '@vueuse/core';
 import DialogCustom from '../../../../../../components/dialog/DialogCustom.vue';
 import ButtonCustom from '../../../../../../components/button/ButtonCustom.vue';

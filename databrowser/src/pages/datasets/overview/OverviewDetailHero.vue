@@ -24,7 +24,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import HeroContainer from '../../../components/hero/HeroContainer.vue';
 import HeroTitle from '../../../components/hero/HeroTitle.vue';
 import HeroSubTitle from '../../../components/hero/HeroSubTitle.vue';

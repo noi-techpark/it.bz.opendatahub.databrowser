@@ -9,9 +9,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :to="to"
     :class="[
       {
-        'text-green-500 bg-opacity-10 bg-green-500': active && !disabled,
+        'bg-green-500/10 text-green-500': active && !disabled,
         'hover:bg-gray-50': !active && !disabled,
-        'border border-gray-500 bg-transparent text-gray-700 opacity-25 pointer-events-none':
+        'pointer-events-none border border-gray-500 bg-transparent text-gray-700 opacity-25':
           disabled,
       },
       classNames,
@@ -24,7 +24,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
 import { computed } from 'vue';
 import { PillVariant } from './types';
 import { RouteLocationRaw } from 'vue-router';

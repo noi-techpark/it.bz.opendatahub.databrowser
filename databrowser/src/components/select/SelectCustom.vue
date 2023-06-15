@@ -51,15 +51,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  defineEmits,
-  defineProps,
-  ref,
-  toRefs,
-  watch,
-  withDefaults,
-} from 'vue';
+import { computed, ref, toRefs, watch } from 'vue';
 import { Listbox } from '@headlessui/vue';
 import {
   SelectOption,

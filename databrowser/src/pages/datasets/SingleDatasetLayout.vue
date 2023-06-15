@@ -18,8 +18,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { withDefaults, defineProps } from 'vue';
-
 import ContentDivider from '../../components/content/ContentDivider.vue';
 import DatasetNavigation from '../../domain/datasets/header/DatasetNavigation.vue';
 import DatasetBaseLayout from './DatasetBaseLayout.vue';

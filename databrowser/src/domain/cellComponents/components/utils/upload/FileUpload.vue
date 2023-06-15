@@ -43,7 +43,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { toRefs, useDropZone } from '@vueuse/core';
 import { useUploadForType } from './useUpload';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';

@@ -16,7 +16,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import EditRoomVenueTab from './EditRoomVenueTab.vue';
 import EditRoomVenueTable from './EditRoomVenueTable.vue';
