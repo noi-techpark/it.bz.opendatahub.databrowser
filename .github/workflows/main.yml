@@ -85,9 +85,9 @@ jobs:
       VITE_APP_KEYCLOAK_REALM: "noi"
       VITE_APP_KEYCLOAK_CLIENT_ID: "it.bz.opendatahub.databrowser"
       VITE_APP_KEYCLOAK_REDIRECT_URI: "https://v2-beta.databrowser.opendatahub.com//silent-check-sso.html"
-      VITE_APP_IMAGE_UPLOAD_URL: "https://tourism.opendatahub.bz.it/v1/FileUpload/Image"
-      VITE_APP_FILE_UPLOAD_URL: "https://tourism.opendatahub.bz.it/v1/FileUpload"
-      VITE_APP_ODH_LOOKUP_BASE_URL: "https://tourism.opendatahub.bz.it"
+      VITE_APP_IMAGE_UPLOAD_URL: "https://tourism.opendatahub.com/v1/FileUpload/Image"
+      VITE_APP_FILE_UPLOAD_URL: "https://tourism.opendatahub.com/v1/FileUpload"
+      VITE_APP_ODH_LOOKUP_BASE_URL: "https://tourism.opendatahub.com"
       VITE_APP_HOTJAR_ID: "3316285"
     steps:
       - name: Checkout source code
