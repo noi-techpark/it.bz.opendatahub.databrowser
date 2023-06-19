@@ -27,7 +27,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   <Dialog
     :open="dialogOpen"
-    class="fixed top-0 z-20 w-screen p-0"
+    class="fixed top-0 z-40 w-screen p-0"
     @close="closeDialog"
   >
     <DialogOverlay
