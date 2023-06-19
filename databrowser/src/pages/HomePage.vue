@@ -101,7 +101,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <IconMail /> Share data
             </ButtonExternalLink>
             <ButtonExternalLink
-              href="https://opendatahub.com"
+              href="https://opendatahub.com/data-access/"
               target="blank"
               :size="Size.md2col"
               :variant="Variant.ghost"
@@ -124,12 +124,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <IconMail /> Provide showcase
             </ButtonExternalLink>
             <ButtonExternalLink
-              href="https://opendatahub.com"
+              href="https://opendatahub.com/data-visualization/"
               target="blank"
               :size="Size.md2col"
               :variant="Variant.ghost"
             >
-              <IconExternal /> More information on sharing work
+              <IconExternal /> More information on data visualization
             </ButtonExternalLink>
           </CardActions>
         </div>
