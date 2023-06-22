@@ -17,6 +17,7 @@ export const eventDocumentCell = (): PropertyConfig => ({
     fields: {
       src: 'DocumentURL',
       language: 'Language',
+      documentName: 'DocumentName',
     },
   },
 });

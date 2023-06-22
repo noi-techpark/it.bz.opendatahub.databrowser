@@ -13,6 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template #tableHeader>
       <TableHeaderCell>URL</TableHeaderCell>
       <TableHeaderCell>Language</TableHeaderCell>
+      <TableHeaderCell>Document Name</TableHeaderCell>
     </template>
 
     <template #tableCols="{ item, index }: { item: FileEntry, index: number }">
@@ -27,6 +28,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :show-search-when-at-least-count-options="Infinity"
           @update="updateItem(index, { language: $event.value })"
         />
+      </TableCell>
+      <TableCell>
+        <StringCell :text="item.documentName" />
       </TableCell>
     </template>
     <template #noItems>No files have been uploaded yet</template>
@@ -43,6 +47,7 @@ import EditListTable from '../../utils/editList/table/EditListTable.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
 import UrlCell from '../UrlCell/UrlCell.vue';
+import StringCell from '../stringCell/StringCell.vue';
 import { FileEntry } from './types';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import { getLanguageOptionsForFile } from './utils';

@@ -32,6 +32,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               @update="updateItem(index, { language: $event.value })"
             />
           </SubCategoryItem>
+          <SubCategoryItem title="Document Name">
+            <StringCell :text="item.documentName" :editable="true" />
+          </SubCategoryItem>
         </div>
         <div class="basis-full md:order-3 md:basis-1/3">
           <div class="rounded border">
@@ -101,6 +104,7 @@ import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
 import UrlCell from '../UrlCell/UrlCell.vue';
 import { FileEntry } from './types';
 import { getLanguageOptionsForFile } from './utils';
+import StringCell from '../stringCell/StringCell.vue';
 
 const props = defineProps<{ items: FileEntry[]; type?: FileType }>();
 
