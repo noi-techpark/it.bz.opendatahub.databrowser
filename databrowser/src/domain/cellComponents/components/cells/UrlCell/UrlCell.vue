@@ -12,10 +12,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :editable="editable"
       @update="emit('update', { prop: 'text', value: $event.value })"
     />
-    <span v-if="!isWriteable && text != null" class="break-all">
-      <a :href="text" target="_blank">
+    <span v-else class="break-all">
+      <!-- Render URL as link for FQDN URLs -->
+      <a v-if="isValidFqdn" :href="text" target="_blank">
         {{ text }}
       </a>
+      <!-- Render URL as text for non-FQDN URLs -->
+      <template v-else>
+        {{ text }}
+      </template>
     </span>
   </div>
 </template>
@@ -24,6 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { toRefs } from 'vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import StringCell from '../stringCell/StringCell.vue';
+import { useUrlCheck } from './useUrlCheck';
 
 const emit = defineEmits(['update']);
 
@@ -43,4 +49,6 @@ const props = withDefaults(
 const { text, editable, readonly } = toRefs(props);
 
 const isWriteable = useWriteable({ editable, readonly });
+
+const { isValidFqdn } = useUrlCheck(text);
 </script>
