@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-set -o pipefail
-
-(cd databrowser && npm run lint)

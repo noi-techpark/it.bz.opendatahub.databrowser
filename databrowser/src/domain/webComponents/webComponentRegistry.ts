@@ -16,7 +16,7 @@ export enum WebComponent {
  */
 export const webComponentRegistry: Record<TagName, WebComponentConfig> = {
   [WebComponent.ODHActivityPoi]:
-    'https://cdn.webcomponents.opendatahub.bz.it/dist/0e5fbede-4a21-4dd3-bf85-7d2be71dfb12/bundle.js',
+    'https://cdn.webcomponents.opendatahub.com/dist/0e5fbede-4a21-4dd3-bf85-7d2be71dfb12/bundle.js',
 };
 
 export const isRegisteredWebComponent = (tagName: TagName) =>

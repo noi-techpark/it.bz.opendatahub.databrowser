@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC0-1.0
 
 # Open Data Hub Data Browser - Application
 
-This directory/project provides the [Open Data Hub](https://opendatahub.bz.it/) Data Browser Application.
+This directory/project provides the [Open Data Hub](https://opendatahub.com/) Data Browser Application.
 
 It is part of a mono repository, together with the [Data Browser Web Components](../web-components).
 

@@ -15,9 +15,9 @@ The OpenAPI document contains information about all endpoints, e.g. their URL, r
 ## Tourism domain
 
 - OpenAPI document: [https://api.tourism.testingmachine.eu/swagger/v1/swagger.json](https://api.tourism.testingmachine.eu/swagger/v1/swagger.json)
-- Swagger UI: [https://swagger.opendatahub.bz.it/?url=https://api.tourism.testingmachine.eu/swagger/v1/swagger.json](https://swagger.opendatahub.bz.it/?url=https://api.tourism.testingmachine.eu/swagger/v1/swagger.json)
+- Swagger UI: [https://swagger.opendatahub.com/?url=https://api.tourism.testingmachine.eu/swagger/v1/swagger.json](https://swagger.opendatahub.com/?url=https://api.tourism.testingmachine.eu/swagger/v1/swagger.json)
 
 ## Mobility domain
 
-- OpenAPI document: [https://mobility.api.opendatahub.bz.it/v2/apispec](https://mobility.api.opendatahub.bz.it/v2/apispec)
-- Swagger UI: [https://swagger.opendatahub.bz.it/?url=https://mobility.api.opendatahub.bz.it/v2/apispec](https://swagger.opendatahub.bz.it/?url=https://mobility.api.opendatahub.bz.it/v2/apispec)
+- OpenAPI document: [https://mobility.api.opendatahub.com/v2/apispec](https://mobility.api.opendatahub.com/v2/apispec)
+- Swagger UI: [https://swagger.opendatahub.com/?url=https://mobility.api.opendatahub.com/v2/apispec](https://swagger.opendatahub.com/?url=https://mobility.api.opendatahub.com/v2/apispec)
