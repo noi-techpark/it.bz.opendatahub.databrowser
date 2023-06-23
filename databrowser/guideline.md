@@ -66,4 +66,5 @@ const MyLibrary = defineAsyncComponent(() =>
 1. All files either have to be mentioned in the [dep5](/.reuse/dep5) file of the project or contain a header containing SPDX copyright and licensing information.
 2. Files which cannot recieve a header e.g. .json or .png files should not have a respective FILE_NAME.FILE_EXT.license file (as would also compliant with the REUSE standards) but rather be mentioned in the dep5 file.
 3. Configuration or informative files e.g. .md or .config.js files should be licensed CC0-1.0, preferably within their header. 
-4. Source code files should be licensed AGPL-3.0-or-later, preferably within their header. 
+4. Source code files should be licensed AGPL-3.0-or-later, preferably within their header.
+4. Find more information about REUSE guidelines in NOI Techpark projects [here](https://github.com/noi-techpark/odh-docs/wiki/REUSE)
