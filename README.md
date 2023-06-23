@@ -141,6 +141,18 @@ see the [tags on this repository](https://github.com/noi-techpark/it.bz.opendata
 
 The code in this project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE license, Version 3. See the LICENSE file for more information.
 
+### Reuse
+
+This project aims to be [REUSE](https://reuse.software) compliant. All files contained in the repository either have to be mentioned in the [dep5](.reuse/dep5) file or preferably contain a header containing SPDX copyright and licensing information.
+
+The project is checked for licensing and copyright information before every commit by a pre-commit hook if the [reuse-helper-tool](https://github.com/fsfe/reuse-tool) is installed as well as in the github CI which will fail if REUSE standards are not satisfied. Instructions for the installation of the helper tool [here](https://github.com/fsfe/reuse-tool#install). If you want to use the helper tool via `pipx run` consider setting an alias for the command `reuse` to enable the pre commit hook to execute the lint.
+
+```bash
+alias reuse="pipx run reuse"
+```
+
+For more information on how to make new files REUSE compliant check the project [guidline](databrowser/guideline.md).
+
 ### Authors
 
 - **Christian Gapp** - _Initial work_ - [gappc](https://github.com/gappc)

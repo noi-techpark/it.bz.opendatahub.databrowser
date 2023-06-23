@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+. "$(dirname -- "$0")/reuse"
+
 (cd databrowser && npm run lint)

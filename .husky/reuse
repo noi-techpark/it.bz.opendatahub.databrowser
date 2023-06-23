@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+if [ "$(command -v reuse &> /dev/null)" ]
+then
+    reuse lint
+else
+    echo "\e[33mWarning: The reuse helper tool is not installed, omitting reuse compliance check\e[0m"
+    echo "\e[33mFor instructions on how to install the reuse helper tool, check the projects README.md\e[0m"
+fi
