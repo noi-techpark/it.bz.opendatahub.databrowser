@@ -24,7 +24,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue';
 import SelectCustom from '../../../components/select/SelectCustom.vue';
 import Paginator from '../../../components/paginator/Paginator.vue';
 import { Pagination } from '../../api';

@@ -28,7 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { useInjectNavigation } from '../actions/useNavigation';
 import EditListTabBody from './EditListTabBody.vue';
 import EditListTabHeader from './EditListTabHeader.vue';

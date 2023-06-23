@@ -144,10 +144,6 @@
       "colDetail": "Detail",
       "go": "GO",
       "linesPerPage": "Lines per page",
-      "linkEdit": "Edit view",
-      "linkDetails": "Detail view",
-      "linkRaw": "Raw view",
-      "linkQuick": "Quick view",
       "loadingData": "Loading data",
       "noData": {
         "dataDoesNotExist": "You were looking for data that does not exist!",
@@ -180,6 +176,24 @@
             "resetAllFilters": "Reset all filters"
           },
           "panelName": "Search and filter"
+        }
+      },
+      "viewLinks": {
+        "detail": {
+          "short": "Detail",
+          "title": "Detail view"
+        },
+        "edit": {
+          "short": "Edit",
+          "title": "Edit view"
+        },
+        "quick": {
+          "short": "Quick",
+          "title": "Quick view"
+        },
+        "raw": {
+          "short": "Raw",
+          "title": "Raw view"
         }
       }
     },

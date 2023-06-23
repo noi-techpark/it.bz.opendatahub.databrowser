@@ -23,7 +23,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import { TourismMetaData } from '../../domain/metaDataConfig/tourism/types';
 import TooltipCustom from '../tooltip/TooltipCustom.vue';
 

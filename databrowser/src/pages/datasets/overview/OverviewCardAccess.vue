@@ -23,7 +23,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import CardContainer from '../../../components/card/CardContainer.vue';
 import CardTitle from '../../../components/card/CardTitle.vue';
 import CardText from '../../../components/card/CardText.vue';

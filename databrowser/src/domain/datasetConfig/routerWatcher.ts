@@ -55,7 +55,7 @@ export const useConfigRouterWatcher = (router: Router) => {
       );
 
       // Call store action to resolve config
-      datasetConfigStore.resolve(viewKey, datasetRoute);
+      await datasetConfigStore.resolve(viewKey, datasetRoute);
 
       console.debug('dataset config', datasetConfigStore.config);
     },

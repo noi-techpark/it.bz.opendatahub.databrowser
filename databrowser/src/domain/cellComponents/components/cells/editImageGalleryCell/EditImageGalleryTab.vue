@@ -82,7 +82,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
         <div class="basis-full md:order-3 md:basis-1/3">
           <div class="rounded border">
-            <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
+            <div class="flex items-center justify-between bg-gray-50 px-4 py-3">
               <span class="font-semibold">Info &amp; action</span>
             </div>
             <div class="divide-y p-4">
@@ -133,7 +133,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
         <div class="basis-full md:order-2 md:basis-1/3">
           <div class="rounded border">
-            <div class="flex items-center justify-between bg-gray-50 py-3 px-4">
+            <div class="flex items-center justify-between bg-gray-50 px-4 py-3">
               <span class="font-semibold">Preview of image</span>
               <button @click="toggle()">
                 <IconExpanded
@@ -160,7 +160,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, toRefs, watch } from 'vue';
+import { ref, toRefs, watch } from 'vue';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import { getResolutionAsText, resizeImageWidth } from '../../../../image';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';

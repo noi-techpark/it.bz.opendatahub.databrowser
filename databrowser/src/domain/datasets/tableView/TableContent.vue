@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <TableWithStickyHeader id="dataset-table">
     <template #colgroup-cols>
       <col v-for="col in renderElements" :key="col.title" :class="col.class" />
-      <col class="w-32 md:w-40" />
+      <col class="w-28 md:w-32" />
     </template>
 
     <template #header-cols>
@@ -33,8 +33,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <TableDataEmpty />
         </TableCell>
       </tr>
-      <tr v-for="(row, index) in rows" :key="row.Id ?? row.id ?? index">
-        <TableCell v-for="col in renderElements" :key="col.title">
+      <tr
+        v-for="(row, index) in rows"
+        :key="rowId(row, index.toString())"
+        :class="{ 'bg-green-400/10': index === selectedRowIndex }"
+        @click="rowClicked(index)"
+        @dblclick="rowDblClicked(row)"
+      >
+        <TableCell
+          v-for="col in renderElements"
+          :key="col.title"
+          :class="{ 'mix-blend-multiply': index === selectedRowIndex }"
+        >
           <ComponentRenderer
             :tag-name="col.component"
             :attributes="mapWithIndex(row, col.fields, col.params)"
@@ -42,41 +52,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           />
         </TableCell>
         <TableCell class="sticky right-0 bg-white shadow-table-static-col">
-          <div
-            class="grid gap-2"
-            :class="showEdit ? 'grid-cols-2 w-24' : 'grid-cols-3'"
-          >
-            <DetailsLink
-              v-if="showQuick"
-              :to="quickViewPathForId(rowId(row)).value"
-              :title="t('datasets.listView.linkQuick')"
-              data-test="dataset-quick-link"
-            >
-              <IconLayer class="stroke-current" />
-            </DetailsLink>
-            <DetailsLink
-              :to="detailViewPathForId(rowId(row)).value"
-              :title="t('datasets.listView.linkDetails')"
-              data-test="dataset-detail-link"
-            >
-              <IconEye class="stroke-current" />
-            </DetailsLink>
-            <DetailsLink
-              v-if="showEdit"
-              :to="editViewPathForId(rowId(row)).value"
-              :title="t('datasets.listView.linkEdit')"
-              data-test="dataset-edit-link"
-            >
-              <IconEdit class="stroke-current" />
-            </DetailsLink>
-            <DetailsLink
-              :to="rawViewPathForId(rowId(row)).value"
-              :title="t('datasets.listView.linkRaw')"
-              data-test="dataset-raw-link"
-            >
-              <IconCode class="stroke-current" />
-            </DetailsLink>
-          </div>
+          <TableLinks
+            :row="row"
+            :show-edit="showEdit"
+            :show-quick="showQuick"
+          />
         </TableCell>
       </tr>
     </template>
@@ -89,18 +69,15 @@ import ComponentRenderer from '../../../components/componentRenderer/ComponentRe
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../components/table/TableCell.vue';
-import IconEye from '../../../components/svg/IconEye.vue';
-import DetailsLink from './DetailsLink.vue';
 import { ListElements } from '../../datasetConfig/types';
 import { usePropertyMapping } from '../../api';
-import IconCode from '../../../components/svg/IconCode.vue';
-import IconLayer from '../../../components/svg/IconLayer.vue';
-import IconEdit from '../../../components/svg/IconEdit.vue';
 import { useI18n } from 'vue-i18n';
-import { usePathsForCurrentRoute } from '../header/usePaths';
 import TableDataEmpty from './TableDataEmpty.vue';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
 import { useTableViewColumns } from '../../datasetConfig/utils';
+import { useTableRowSelection } from './useTableRowSelection';
+import { rowId } from './utils';
+import TableLinks from './TableLinks.vue';
 
 const { t } = useI18n();
 
@@ -120,14 +97,9 @@ const { rows, renderElements } = toRefs(props);
 
 const { mapWithIndex } = usePropertyMapping();
 
-const rowId = (row: any) => row.Id ?? row.id;
-
-const {
-  detailViewPathForId,
-  quickViewPathForId,
-  rawViewPathForId,
-  editViewPathForId,
-} = usePathsForCurrentRoute();
+// Table row selection logic
+const { selectedRowIndex, rowClicked, rowDblClicked } =
+  useTableRowSelection(rows);
 
 // TODO: temporary solution until we have a better way to handle this
 const columns = useTableViewColumns();

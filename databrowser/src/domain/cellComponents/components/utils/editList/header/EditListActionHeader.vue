@@ -30,7 +30,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, ref } from 'vue';
+import { ref } from 'vue';
 import EditListDeleteButton from '../EditListDeleteButton.vue';
 import EditListDeleteDialog from '../dialogs/EditListDeleteDialog.vue';
 

@@ -13,8 +13,8 @@ export const domains = {
   },
   mobility: {
     description: 'Open Data Hub Mobility API',
-    documentUrl: 'https://mobility.api.opendatahub.bz.it/v2/apispec',
-    baseUrl: 'https://mobility.api.opendatahub.bz.it',
+    documentUrl: 'https://mobility.api.opendatahub.com/v2/apispec',
+    baseUrl: 'https://mobility.api.opendatahub.com',
   },
 };
 

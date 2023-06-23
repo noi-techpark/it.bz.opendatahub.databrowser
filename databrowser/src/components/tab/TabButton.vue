@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script lang="ts" setup>
-import { defineProps, toRefs } from 'vue';
+import { toRefs } from 'vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
 import { useTabClasses } from './useTabClasses';
 

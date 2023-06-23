@@ -62,7 +62,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import CardContainer from '../../../components/card/CardContainer.vue';
 import TabButton from '../../../components/tab/TabButton.vue';
 import TableCustom from '../../../components/table/TableCustom.vue';

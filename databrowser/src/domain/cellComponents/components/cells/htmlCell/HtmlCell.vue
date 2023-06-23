@@ -26,14 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import {
-  defineAsyncComponent,
-  defineEmits,
-  defineProps,
-  ref,
-  toRefs,
-  withDefaults,
-} from 'vue';
+import { defineAsyncComponent, ref, toRefs } from 'vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 

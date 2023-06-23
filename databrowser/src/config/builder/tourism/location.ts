@@ -186,12 +186,17 @@ export const locationCategoryDistrict = (): DetailElements => ({
   ],
 });
 
-export const locationTableCell = (): PropertyConfig => ({
-  title: 'Location',
-  component: CellComponent.TextHighlightCell,
-  class: 'w-52',
-  fields: {
-    title: 'LocationInfo.RegionInfo.Name.{language}',
-    subtitle: 'LocationInfo.MunicipalityInfo.Name.{language}',
+export const locationTableCells = (): PropertyConfig[] => [
+  {
+    title: 'Region',
+    component: CellComponent.StringCell,
+    class: 'w-52',
+    fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
   },
-});
+  {
+    title: 'Municipality',
+    component: CellComponent.StringCell,
+    class: 'w-52',
+    fields: { text: 'LocationInfo.MunicipalityInfo.Name.{language}' },
+  },
+];

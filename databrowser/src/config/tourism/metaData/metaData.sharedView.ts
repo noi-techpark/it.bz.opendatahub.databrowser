@@ -18,7 +18,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: 'General data',
           properties: [
-            shortnameCell(),
+            shortnameCell({ required: true }),
             {
               title: 'Description',
               component: CellComponent.StringCell,
@@ -36,6 +36,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
                 attributeName: 'items',
                 pathToParent: 'PathParam',
               },
+              required: true,
             },
             {
               title: 'Filter',

@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, toRefs, withDefaults } from 'vue';
+import { computed, toRefs } from 'vue';
 import { format as formatFn, formatDistanceToNow } from 'date-fns';
 const props = withDefaults(
   defineProps<{

@@ -53,9 +53,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, ref } from 'vue';
+import { ref, watch } from 'vue';
 import { Pagination } from '../../domain/api';
-import { watch } from 'vue';
 import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
 import { useI18n } from 'vue-i18n';

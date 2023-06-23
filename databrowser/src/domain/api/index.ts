@@ -3,14 +3,14 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 export { defaultPagination } from './client/defaultValues';
-export { useApiRead, useApiReadForCurrentDataset } from './client/useApiRead';
+export * from './client/useApiRead';
 export {
   useApiCreate,
   useApiDelete,
   useApiUpdate,
   useApiMutate,
 } from './client/useApiMutation';
-export { unifyPagination } from './client/mapper';
+export * from './client/mapper';
 export {
   useAxiosFetcher,
   useAxiosFileDownloader,

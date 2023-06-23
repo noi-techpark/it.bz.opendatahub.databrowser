@@ -14,11 +14,12 @@ export interface TableViewColumn {
 
 export const useTableViewColumns = (): ComputedRef<TableViewColumn[]> => {
   const replacements = useApiParameterReplacements();
-  const elements = useDatasetConfigStore().tableView?.elements ?? [];
 
   return computed(() => {
     const replace = (s: string): string =>
       replacePlaceholders(s, replacements.value);
+
+    const elements = useDatasetConfigStore().tableView?.elements ?? [];
 
     return elements.map((element) => {
       const values = Object.values(element.fields ?? {});

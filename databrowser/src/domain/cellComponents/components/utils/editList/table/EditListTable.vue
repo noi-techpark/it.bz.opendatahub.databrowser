@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div>
     <EditListActionHeader
       v-if="editable && hasItems"
-      class="mt-2 mb-5 flex justify-between gap-5 md:justify-end"
+      class="mb-5 mt-2 flex justify-between gap-5 md:justify-end"
       :class="anyItemSelected ? 'text-default' : 'text-disabled'"
       delete-label="Delete"
       :any-item-selected="anyItemSelected"
@@ -116,7 +116,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, ref } from 'vue';
+import { computed, ref } from 'vue';
 import TableHeaderCell from '../../../../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../../../../components/table/TableCell.vue';
 import CheckboxCustom from '../../../../../../components/checkbox/CheckboxCustom.vue';

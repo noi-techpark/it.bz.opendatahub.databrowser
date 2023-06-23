@@ -20,7 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
     <div
       v-if="currentMediaIndex > 0"
-      class="absolute top-1/2 left-2 right-auto flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-gray-250 bg-white hover:bg-green-400/90 hover:text-white"
+      class="absolute left-2 right-auto top-1/2 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-gray-250 bg-white hover:bg-green-400/90 hover:text-white"
       @click="prevImage()"
     >
       <ChevronRight class="h-3 -scale-x-100" />
@@ -36,8 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults, ref, toRefs, computed } from 'vue';
-
+import { ref, toRefs, computed } from 'vue';
 import ChevronRight from '../svg/ChevronRight.vue';
 
 interface Image {

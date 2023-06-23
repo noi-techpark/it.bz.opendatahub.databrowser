@@ -15,7 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs, watch, withDefaults } from 'vue';
+import { toRefs, watch } from 'vue';
 import { BaseListFields } from '../../domain/datasetConfig/types';
 import { loadWebComponent } from '../../domain/webComponents/lazyLoadedWebComponent';
 import { isRegisteredWebComponent } from '../../domain/webComponents/webComponentRegistry';
