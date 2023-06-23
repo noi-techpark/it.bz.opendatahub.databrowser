@@ -62,21 +62,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             @change="updateFilterValue(index, $event, filter.value)"
           />
         </div>
-        <InputSearch
+        <InputFilter
           v-if="filter.operator !== 'isnull' && filter.operator !== 'isnotnull'"
           :id="`filter-${filter.field}`"
-          :label-button="
-            t(
-              'datasets.listView.toolBox.searchAndFilter.otherFilters.filterInputButton'
-            )
-          "
-          :label-placeholder="
-            t(
-              'datasets.listView.toolBox.searchAndFilter.otherFilters.filterInputPlaceholder'
-            )
-          "
           :model-value="filter.value?.toString()"
-          @search="updateFilterValue(index, filter.operator, $event)"
+          @filter="updateFilterValue(index, filter.operator, $event)"
         />
       </ToolBoxCardBody>
       <ToolBoxCardBody>
@@ -103,7 +93,6 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../components/button/types';
-import InputSearch from '../../../../components/input/InputSearch.vue';
 import SelectCustom from '../../../../components/select/SelectCustom.vue';
 import { SelectOption } from '../../../../components/select/types';
 import IconClose from '../../../../components/svg/IconClose.vue';
@@ -120,6 +109,8 @@ import { useTableViewColumns } from '../../../datasetConfig/utils';
 import ResetAllFilters from '../filter/ResetAllFilters.vue';
 import InfoSearch from './InfoSearch.vue';
 import InfoFilter from './InfoFilter.vue';
+import InputSearch from '../../../../components/input/InputSearch.vue';
+import InputFilter from '../../../../components/input/InputFilter.vue';
 
 const { t } = useI18n();
 
