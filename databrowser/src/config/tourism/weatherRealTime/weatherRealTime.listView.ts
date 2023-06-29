@@ -25,12 +25,19 @@ export const weatherRealTimeListView: ListViewConfig = {
       },
     },
     {
-      title: 'GPS Data',
-      component: CellComponent.GpsPointsCell,
+      title: 'Latitude',
+      component: CellComponent.StringCell,
       class: 'w-48',
       fields: {
-        latitude: 'latitude',
-        longitude: 'longitude',
+        text: 'latitude',
+      },
+    },
+    {
+      title: 'Longitude',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      fields: {
+        text: 'longitude',
       },
     },
     {
