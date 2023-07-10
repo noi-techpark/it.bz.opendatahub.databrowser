@@ -7,8 +7,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <EditListTable :items="items">
     <template #colGroup>
-      <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
+      <col class="w-32 md:w-60" />
+      <col class="w-32 md:w-28" />
+      <col class="w-32 md:w-60" />
     </template>
     <template #tableHeader>
       <TableHeaderCell>URL</TableHeaderCell>
@@ -21,16 +22,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <UrlCell :text="item.src" :editable="false" />
       </TableCell>
       <TableCell>
-        <SelectWithOptionsCell
-          :value="item.language"
-          :editable="editable"
-          :options="getLanguageOptionsForFile(item.language)"
-          :show-search-when-at-least-count-options="Infinity"
-          @update="updateItem(index, { language: $event.value })"
-        />
+        <StringCell :text="item.language" :editable="false" />
       </TableCell>
       <TableCell>
-        <StringCell :text="item.documentName" />
+        <StringCell
+          :text="item.documentName"
+          :editable="editable"
+          @update="
+            updateItem(index, {
+              documentName: $event.value,
+              src: item.src,
+              language: item.language,
+            })
+          "
+        />
       </TableCell>
     </template>
     <template #noItems>No files have been uploaded yet</template>
@@ -49,8 +54,6 @@ import { useInjectNavigation } from '../../utils/editList/actions/useNavigation'
 import UrlCell from '../UrlCell/UrlCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
 import { FileEntry } from './types';
-import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
-import { getLanguageOptionsForFile } from './utils';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 
