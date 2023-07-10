@@ -155,7 +155,11 @@ export const usePropertyMapping = () => {
     const defaultResult = { [attributeName]: [], ...params };
 
     // Get array from input data
-    const path = pathToParent.split('.');
+    const pathToParentWithReplacements = replacePlaceholders(
+      pathToParent,
+      replacements.value
+    );
+    const path = pathToParentWithReplacements.split('.');
     const lensePath = R.lensPath(path);
     const dataArray = R.view(lensePath, data);
 
