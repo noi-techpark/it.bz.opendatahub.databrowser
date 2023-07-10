@@ -13,7 +13,7 @@ export const eventDocumentCell = (): PropertyConfig => ({
   component: CellComponent.EventDocumentCell,
   listFields: {
     attributeName: 'files',
-    pathToParent: 'EventDocument',
+    pathToParent: 'Documents.{language}',
     fields: {
       src: 'DocumentURL',
       language: 'Language',
