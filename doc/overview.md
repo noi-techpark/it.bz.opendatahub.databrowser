@@ -6,19 +6,39 @@ SPDX-License-Identifier: CC0-1.0
 
 # OPEN DATA HUB DATABROWSER
 
-Welcome to the documentation for the Opendatahub Databrowser. This document provides a general overview of the project and serves as a guide for contributing developers. Here, you will find information about the project's structure, how to get started, and links to more detailed documentation for specific topics.
+Welcome to the documentation for the Open Data Hub Databrowser. This document provides a general overview of the project and serves as a guide for contributing developers. Here, you will find information about the project's structure, how to get started, and links to more detailed documentation for specific topics.
 
 ## Table of Contents
 
-1. Project Overview
-2. Getting Started
-3. Project Structure
-4. Documentation
-5. Contributing Guidelines
-6. Issue Tracking
-7. Contact Information
+1. [Project Overview](overview.md#1-project-overview)
+1. [Project Main technologies](overview.md#2-project-main-technologies)
+1. [Getting Started](overview.md#3-getting-started)
+1. [Project Structure](overview.md#4-project-structure)
+1. [Documentation](overview.md#5-documentation)
+1. [Contributing Guidelines](overview.md#6-contributing-guidelines)
+1. [Issue Tracking](overview.md#7-issue-tracking)
+1. [Contact Information](overview.md#8-contact-information)
 
 ## 1. Project Overview
+
+### **Goal**
+
+The primary goals of the project are to enable convenient access to Open Data Hub data, prioritize user interface (UI) and user experience (UX) enhancements, facilitate straightforward data discoveries by offering dataset overviews and filtering options. Additionally, the project aims to ensure the databrowser's configurability, allowing customization according to specific needs, and provide a dedicated tool for developers to streamline their workflow and interaction with the data.
+
+### **Visualization**
+
+- **List or Table view** <br>
+  The table view allows users to easily browse and analyze the dataset by visually organizing the data in a grid-like structure. It provides a clear and concise representation of the data, displaying multiple records and their corresponding attributes simultaneously. The table view includes sorting and filtering options, allowing users to rearrange and refine the displayed data based on specific criteria.
+- **Raw view** <br>
+  The raw view presents the JSON file representation of a single record.
+- **Detail view** <br>
+  The detail provides an in-depth and comprehensive representation of a single record. It allows users to examine a specific record in detail, displaying all available attributes and associated information in a focused and structured manner.
+- **Edit view** <br>
+  The edit view enables authorized users to modify the attributes of a single record. They can do so in the detail view interface where users can edit the existing values or input new values for the different attributes associated with the record.
+- **Quick view** <br>
+  The quick view is a user-friendly interface that provides a concise and summary-based overview of a record, highlighting the most important attributes. It aims to present key information in a visually appealing and easily digestible format.
+
+## 2. Project Main technologies
 
 The databrowser leverages the following technologies:
 
@@ -39,13 +59,11 @@ The databrowser leverages the following technologies:
 
 Feel free to explore the documentation of each technology to gain a deeper understanding of their capabilities and how they contribute to the project.
 
-## 2. Getting Started
+## 3. Getting Started
 
 To contribute to the Databrowser, follow the steps outlined [here]()
 
-If you encounter any issues during the setup process, please refer to the troubleshooting section in the respective documentation page.
-
-## 3. Project Structure
+## 4. Project Structure
 
 The main folder you will see when first opening the project are:
 
@@ -54,7 +72,7 @@ The main folder you will see when first opening the project are:
 
 For more detailed information about the project's structure and individual components, refer to the dedicated documentation pages linked below.
 
-## 4. Documentation
+## 5. Documentation
 
 We have organized the project's documentation into several pages, each focusing on a specific aspect. Please refer to the following links for more detailed information:
 
@@ -62,11 +80,11 @@ We have organized the project's documentation into several pages, each focusing 
 - [All you need to know for configuration ](link/to/featureB/documentation)
 - [API Reference](link/to/API/reference/documentation)
 
-## 5. Contributing Guidelines
+## 6. Contributing Guidelines
 
-1. **Fork and Branch:** Fork the repository and create a new branch for your contributions from the `development branch ` . Make sure to give the branch a descriptive name that reflects the nature of your changes.
+1. **Fork and Branch:** Fork the repository and create a new branch for your contributions from the `development branch`. Make sure to give the branch a descriptive name that reflects the nature of your changes.
 
-2. **Code Style and Formatting:** Follow the established code style and formatting guidelines for the project. Use consistent naming conventions, proper indentation, and adhere to any linting rules specified in the project's configuration.
+2. **Code Style and Formatting:** Follow the established code style and formatting guidelines for the project. You can find them in [guidelines](guidelines.md)
 
 3. **Commit Messages:** Write clear and descriptive commit messages that accurately describe the changes made in the commit. Use the imperative mood and keep messages concise and meaningful.
 
@@ -78,13 +96,13 @@ We have organized the project's documentation into several pages, each focusing 
 
 7. **License and Ownership:** Ensure that your contributions align with the project's chosen license.
 
-For more details, refer to the [Contributing Guidelines]() page.
+For more details, refer to the [Guidelines](guidelines.md) page.
 
-## 6. Issue Tracking
+## 7. Issue Tracking
 
 If you encounter any bugs, have feature requests, or want to report issues, please visit our [github](https://github.com/noi-techpark/it.bz.opendatahub.databrowser). Before submitting a new issue, please check if a similar one already exists.
 
-## 7. Contact Information
+## 8. Contact Information
 
 If you have any questions or need further assistance, you can reach out to us at [help@opendatahub.com](mailto:help@opendatahub.com).
 
