@@ -5,245 +5,97 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <ContentAlignmentX class="flex flex-row justify-between py-4">
-    <div class="flex items-center">
-      <router-link to="/" class="rounded" data-test="link-to-home-page">
-        <img
-          :alt="t('header.logo')"
-          class="h-8"
-          src="/logo-open-data-hub-black.svg"
-        />
-      </router-link>
-      <div class="ml-4 inline-flex items-center">
-        <OverlayMenu :items="data" />
-      </div>
-      <TagCustom class="ml-4 py-1.5 text-sm" type="info" text="BETA" />
+  <div
+    ref="header"
+    class="fixed z-10 flex w-full flex-col"
+    :class="menuOpen ? 'h-full' : ''"
+  >
+    <div class="bg-[#F4F8F9]">
+      <ContentAlignmentX
+        class="m-auto flex justify-between px-4 py-2 xl:w-[80rem] 2xl:px-0"
+      >
+        <TagCustom class="text-sm" type="info" text="BETA" />
+        <ExternalLink
+          href="https://opendatahub.com"
+          variant="no-underline"
+          tone="text"
+          class="flex items-center gap-x-2 text-sm"
+        >
+          presented by
+          <img
+            :alt="t('header.logo')"
+            class="aspect-square h-6"
+            src="/logo-open-data-hub-black.svg"
+          />
+        </ExternalLink>
+      </ContentAlignmentX>
     </div>
-    <MenuUserSection />
-  </ContentAlignmentX>
+    <div class="bg-white">
+      <ContentAlignmentX
+        class="m-auto flex flex-col gap-x-20 gap-y-2 px-4 py-2 md:flex-row xl:w-[80rem] 2xl:px-0"
+      >
+        <div class="flex items-center">
+          <router-link
+            to="/"
+            class="no-underline"
+            data-test="link-to-home-page"
+          >
+            <div class="flex">
+              <img
+                :alt="t('header.logo')"
+                class="aspect-square h-12"
+                src="/logo-open-data-hub-black.svg"
+              />
+              <div class="mx-2 w-px self-stretch bg-black"></div>
+              <div
+                class="h-full rounded border border-black px-2 py-1 text-lg font-semibold leading-5 text-black"
+              >
+                DATA<br />BROWSER
+              </div>
+            </div>
+          </router-link>
+          <IconClose
+            v-if="menuOpen"
+            class="ml-auto lg:hidden"
+            @click="menuOpen = false"
+          />
+          <IconMenu v-else class="ml-auto lg:hidden" @click="menuOpen = true" />
+        </div>
+
+        <MenuItems
+          :class="menuOpen ? '' : 'hidden'"
+          class="grow border-t border-gray-250 py-4 lg:flex lg:border-0"
+        />
+      </ContentAlignmentX>
+    </div>
+    <div class="grow bg-black/60"></div>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
-import OverlayMenu from './menu/OverlayMenu.vue';
-import { MenuColumn } from './menu/OverlayMenuList.vue';
-import MenuUserSection from '../domain/auth/MenuUserSection.vue';
 import { useI18n } from 'vue-i18n';
 import TagCustom from '../components/tag/TagCustom.vue';
+import ExternalLink from '../components/link/ExternalLink.vue';
+import MenuItems from './menu/MenuItems.vue';
+import IconMenu from '../components/svg/IconMenu.vue';
+import IconClose from '../components/svg/IconClose.vue';
+import { onMounted, ref } from 'vue';
 
 const { t } = useI18n();
 
-// Static data for testing only.
-// This block of data will be replaces with the generated data from the config
-const data: MenuColumn = {
-  label: t('header.menu.allDatasets'),
-  items: [
-    {
-      label: 'Places',
-      items: [
-        {
-          label: 'Locations',
-          items: [
-            {
-              label: 'Districts',
-              url: '/dataset/table/tourism/v1/District',
-            },
-            {
-              label: 'Experience Areas',
-              url: '/dataset/table/tourism/v1/ExperienceArea',
-            },
-            {
-              label: 'Gastronomy',
-              url: '/dataset/table/tourism/v1/Gastronomy',
-            },
-            {
-              label: 'Gastronomy Types',
-              url: '/dataset/table/tourism/v1/GastronomyTypes',
-            },
-            {
-              label: 'Locations',
-              url: '/dataset/table/tourism/v1/Location',
-            },
-            {
-              label: 'Meta Regions',
-              url: '/dataset/table/tourism/v1/MetaRegion',
-            },
-            {
-              label: 'Municipality',
-              url: '/dataset/table/tourism/v1/Municipality',
-            },
-            {
-              label: 'Regions',
-              url: '/dataset/table/tourism/v1/Region',
-            },
-            {
-              label: 'Ski Areas',
-              url: '/dataset/table/tourism/v1/SkiArea',
-            },
-            {
-              label: 'Ski Area List',
-              url: '/dataset/table/tourism/v1/Location/Skiarea',
-            },
-            {
-              label: 'Ski Regions',
-              url: '/dataset/table/tourism/v1/SkiRegion',
-            },
-            {
-              label: 'Venues',
-              url: '/dataset/table/tourism/v1/Venue',
-            },
-            {
-              label: 'Venue Types',
-              url: '/dataset/table/tourism/v1/VenueTypes',
-            },
-          ],
-        },
-        {
-          label: 'POIs',
-          items: [
-            {
-              label: 'Activities and Points of Interest (POIs)',
-              url: '/dataset/table/tourism/v1/ODHActivityPoi',
-            },
-            {
-              label: 'Activities and Points of Interest types',
-              url: '/dataset/table/tourism/v1/ODHActivityPoiTypes',
-            },
-            {
-              label: 'Points of Interest (POIs)',
-              url: '/dataset/table/tourism/v1/Poi',
-            },
-            {
-              label: 'Points of Interest types',
-              url: '/dataset/table/tourism/v1/PoiTypes',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: 'Accommodations',
-      items: [
-        {
-          label: 'Accommodation',
-          url: '/dataset/table/tourism/v1/Accommodation',
-        },
-        {
-          label: 'Accommodation Types',
-          url: '/dataset/table/tourism/v1/AccommodationTypes',
-        },
-        {
-          label: 'Accommodation Features',
-          url: '/dataset/table/tourism/v1/AccommodationFeatures',
-        },
-      ],
-    },
-    {
-      label: 'Activities and Events',
-      items: [
-        {
-          label: 'Activities',
-          items: [
-            {
-              label: 'Activities',
-              url: '/dataset/table/tourism/v1/Activity',
-            },
-            {
-              label: 'Activity Types',
-              url: '/dataset/table/tourism/v1/ActivityTypes',
-            },
-          ],
-        },
-        {
-          label: 'Events',
-          items: [
-            {
-              label: 'Events',
-              url: '/dataset/table/tourism/v1/Event',
-            },
-            {
-              label: 'Event Topics',
-              url: '/dataset/table/tourism/v1/EventTopics',
-            },
-            {
-              label: 'Event Short',
-              url: '/dataset/table/tourism/v1/EventShort',
-            },
-            {
-              label: 'Event Short by Room Occupation',
-              url: '/dataset/table/tourism/v1/EventShort/GetbyRoomBooked',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: 'Others',
-      items: [
-        {
-          label: 'Articles',
-          items: [
-            {
-              label: 'Articles',
-              url: '/dataset/table/tourism/v1/Article',
-            },
-            {
-              label: 'Article Types',
-              url: '/dataset/table/tourism/v1/ArticleTypes',
-            },
-          ],
-        },
-        {
-          label: 'Weather',
-          items: [
-            {
-              label: 'Current Realtime Weather LIVE',
-              url: '/dataset/table/tourism/v1/Weather/Realtime',
-            },
-            {
-              label: 'Current Suedtirol Weather LIVE',
-              url: '/dataset/table/tourism/v1/Weather',
-            },
-            {
-              label: 'District Weather LIVE',
-              url: '/dataset/table/tourism/v1/Weather/District',
-            },
-            {
-              label: 'Weather Measuringpoints',
-              url: '/dataset/table/tourism/v1/Weather/Measuringpoint',
-            },
-            {
-              label: 'SnowReport',
-              url: '/dataset/table/tourism/v1/Weather/SnowReport',
-            },
-          ],
-        },
-        {
-          label: 'Areas',
-          url: '/dataset/table/tourism/v1/Area',
-        },
-        {
-          label: 'ODH Tags',
-          url: '/dataset/table/tourism/v1/ODHTag',
-        },
-        {
-          label: 'Tourism Associations',
-          url: '/dataset/table/tourism/v1/TourismAssociation',
-        },
-        {
-          label: 'Webcams',
-          url: '/dataset/table/tourism/v1/WebcamInfo',
-        },
-        {
-          label: 'Wine Awards',
-          url: '/dataset/table/tourism/v1/WineAward',
-        },
-      ],
-    },
-    {
-      label: 'All available endpoints',
-      url: '/links',
-    },
-  ],
-};
+const menuOpen = ref(false);
+
+const header = ref<HTMLDivElement | null>(null);
+const emit = defineEmits<{
+  setSpacerHeight: [height: number];
+}>();
+
+onMounted(() => {
+  if (!header.value) {
+    return;
+  }
+
+  emit('setSpacerHeight', header.value.clientHeight);
+});
 </script>

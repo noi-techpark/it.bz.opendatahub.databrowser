@@ -28,7 +28,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </MenuCustomItems>
     </MenuCustom>
   </div>
-  <div v-else class="flex items-center space-x-4">
+  <div
+    v-else
+    class="flex flex-col items-start gap-x-5 gap-y-4 lg:flex-row lg:items-center"
+  >
     <HeaderButton @click="onLogin">{{ t('auth.login') }}</HeaderButton>
     <HeaderButton @click="onRegister">{{ t('auth.register') }}</HeaderButton>
   </div>
