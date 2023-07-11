@@ -91,11 +91,9 @@ const emit = defineEmits<{
   setSpacerHeight: [height: number];
 }>();
 
+// Only sets the height of the spacer once, spacer will be off by 10px if user hits breakpoint lg without a refresh.
+// Could maybe by solved by setting a watcher for the clientHeight property for the header template ref?
 onMounted(() => {
-  if (!header.value) {
-    return;
-  }
-
-  emit('setSpacerHeight', header.value.clientHeight);
+  emit('setSpacerHeight', header.value?.clientHeight ?? 110);
 });
 </script>
