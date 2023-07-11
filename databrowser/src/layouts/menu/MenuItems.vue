@@ -17,17 +17,23 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </router-link>
       </HeaderButton>
       <HeaderButton>
-        <ExternalLink href="/" variant="no-underline" tone="text">
-          How to
+        <ExternalLink
+          class="flex items-center gap-2"
+          href="/"
+          variant="no-underline"
+          tone="text"
+        >
+          How to<IconExternal />
         </ExternalLink>
       </HeaderButton>
       <HeaderButton>
         <ExternalLink
+          class="flex items-center gap-2"
           href="https://opendatahub.com/contact"
           variant="no-underline"
           tone="text"
         >
-          Contact
+          Contact<IconExternal />
         </ExternalLink>
       </HeaderButton>
     </div>
@@ -40,4 +46,5 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import MenuUserSection from '../../domain/auth/MenuUserSection.vue';
 import ExternalLink from '../../components/link/ExternalLink.vue';
 import HeaderButton from '../../components/header/HeaderButton.vue';
+import IconExternal from '../../components/svg/IconExternal.vue';
 </script>
