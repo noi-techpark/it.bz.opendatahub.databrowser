@@ -4,6 +4,7 @@ SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div
     ref="header"
@@ -21,7 +22,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           tone="text"
           class="flex items-center gap-x-2 text-sm"
         >
-          presented by
+          {{ t('header.presentedBy') }}
           <img
             :alt="t('header.logo')"
             class="aspect-square h-6"
@@ -49,9 +50,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <div class="mx-2 w-px self-stretch bg-black"></div>
               <div
                 class="h-full rounded border border-black px-2 py-1 text-lg font-semibold leading-5 text-black"
-              >
-                DATA<br />BROWSER
-              </div>
+                v-html="t('header.toolBadge')"
+              ></div>
             </div>
           </router-link>
           <IconClose

@@ -4,6 +4,7 @@ SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="flex flex-col">
     <div class="bg-[#F4F8F9]">
@@ -29,12 +30,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   <div class="mx-2 w-px self-stretch bg-black"></div>
                   <div
                     class="h-full rounded border border-black px-2 py-1 text-lg font-semibold leading-5 text-black"
-                  >
-                    DATA<br />BROWSER
-                  </div>
+                    v-html="t('header.toolBadge')"
+                  ></div>
                 </div>
               </router-link>
-              Tool to access<br />open data
+              <span v-html="t('footer.cards.databrowser')"></span>
             </div>
           </CardContainer>
           <CardContainer :no-padding="true" class="grow bg-white p-3">
@@ -44,22 +44,24 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 class="aspect-square h-12"
                 src="/logo-open-data-hub-black.svg"
               />
-              Place where data and<br />tech are shared
+              <span v-html="t('footer.cards.openDataHub')"></span>
             </div>
           </CardContainer>
           <CardContainer :no-padding="true" class="grow bg-white p-3">
             <div class="flex items-center gap-4">
               <img alt="NOI Techpark" src="/logo-noi.svg" />
-              Innovation hub in<br />Südtirol/Alto Adige
+              <span v-html="t('footer.cards.noi')"></span>
             </div>
           </CardContainer>
         </div>
         <div class="flex w-full flex-col gap-4 pt-4 lg:flex-row">
           <ul class="grow basis-0">
-            <li class="font-semibold">Relevant links</li>
+            <li class="font-semibold">
+              {{ t('footer.columns.relevantLinks.title') }}
+            </li>
             <li>
               <router-link to="/dataset-overview" class="no-underline">
-                Datasets
+                {{ t('header.menu.datasets') }}
               </router-link>
             </li>
             <li>
@@ -69,7 +71,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 variant="no-underline"
                 tone="text"
               >
-                How to
+                {{ t('header.menu.howTo') }}
               </ExternalLink>
             </li>
             <li>
@@ -79,12 +81,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 variant="no-underline"
                 tone="text"
               >
-                Contact
+                {{ t('header.menu.contact') }}
               </ExternalLink>
             </li>
           </ul>
           <ul class="grow basis-0">
-            <li class="font-semibold">Quickstart</li>
+            <li class="font-semibold">
+              {{ t('footer.columns.quickstart.title') }}
+            </li>
             <li>
               <ExternalLink
                 class="flex items-center gap-2"
@@ -92,11 +96,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 variant="no-underline"
                 tone="text"
               >
-                Open Data Hub Website
+                {{ t('footer.columns.quickstart.openDataHubWebsite') }}
               </ExternalLink>
             </li>
             <li>
-              <router-link to="/"> Databrowser </router-link>
+              <router-link to="/">{{
+                t('footer.columns.quickstart.databrowser')
+              }}</router-link>
             </li>
             <li>
               <ExternalLink
@@ -105,33 +111,39 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 variant="no-underline"
                 tone="text"
               >
-                Web Components
+                {{ t('footer.columns.quickstart.webComponents') }}
               </ExternalLink>
             </li>
           </ul>
           <ul class="grow basis-0">
-            <li class="font-semibold">Contributors</li>
+            <li class="font-semibold">
+              {{ t('footer.columns.contributors.title') }}
+            </li>
             <li>
-              The Data Browser is the result of a great collaboration between
-              many awesome people!
+              {{ t('footer.columns.contributors.text') }}
               <ExternalLink
                 class="inline-flex items-center gap-2"
                 href="https://opendatahub.com/community/contributors?project=databrowser"
                 tone="text"
               >
-                Check them out!<IconExternal />
+                {{ t('footer.columns.contributors.link') }}<IconExternal />
               </ExternalLink>
             </li>
           </ul>
           <ul class="grow basis-0">
-            <li class="font-semibold">Social Media</li>
+            <li class="font-semibold">
+              {{ t('footer.columns.socialMedia.title') }}
+            </li>
             <li>
               <ExternalLink
                 class="flex items-center gap-2 no-underline"
                 href="https://opendatahub.com/community/contributors?project=databrowser"
                 tone="text"
               >
-                <img src="/logo-github.svg" alt="GitHub" />GitHub
+                <img
+                  src="/logo-github.svg"
+                  :alt="t('footer.columns.socialMedia.github')"
+                />{{ t('footer.columns.socialMedia.github') }}
               </ExternalLink>
             </li>
             <li>
@@ -140,7 +152,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 href="https://opendatahub.com/community/contributors?project=databrowser"
                 tone="text"
               >
-                <img src="/logo-telegram.svg" alt="Telegram" />Telegram
+                <img
+                  src="/logo-telegram.svg"
+                  :alt="t('footer.columns.socialMedia.telegram')"
+                />{{ t('footer.columns.socialMedia.telegram') }}
               </ExternalLink>
             </li>
             <li>
@@ -149,7 +164,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 href="https://opendatahub.com/community/contributors?project=databrowser"
                 tone="text"
               >
-                <img src="/logo-element.svg" alt="element" />element.io
+                <img
+                  src="/logo-element.svg"
+                  :alt="t('footer.columns.socialMedia.element')"
+                />{{ t('footer.columns.socialMedia.element') }}
               </ExternalLink>
             </li>
             <li>
@@ -158,7 +176,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 href="https://opendatahub.com/community/contributors?project=databrowser"
                 tone="text"
               >
-                <img src="/logo-facebook.svg" alt="Facebook" />Facebook
+                <img
+                  src="/logo-facebook.svg"
+                  :alt="t('footer.columns.socialMedia.facebook')"
+                />{{ t('footer.columns.socialMedia.facebook') }}
               </ExternalLink>
             </li>
           </ul>

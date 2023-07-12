@@ -11,12 +11,12 @@
   },
   "header": {
     "logo": "Open Data Hub - Logo",
+    "toolBadge": "DATA<br />BROWSER",
+    "presentedBy": "presented by",
     "menu": {
-      "title": "Menu",
-      "allDatasets": "All Datasets",
-      "goBackAction": "Go back",
-      "closeAction": "Close menu",
-      "openAction": "Open menu"
+      "datasets": "Datasets",
+      "howTo": "How To",
+      "contact": "Contact"
     },
     "hero": {
       "loading": {
@@ -27,10 +27,39 @@
     }
   },
   "footer": {
-    "imprint": "Imprint",
-    "legal": "Legal",
-    "privacy": "Privacy",
-    "sitemap": "Sitemap"
+    "cards": {
+      "databrowser": "Tool to access<br />open data",
+      "openDataHub": "Place where data and<br />tech are shared",
+      "noi": "Innovation hub in<br />Südtirol/Alto Adige"
+    },
+    "columns": {
+      "relevantLinks": {
+        "title": "Relevant links"
+      },
+      "quickstart": {
+        "title": "Quickstart",
+        "openDataHubWebsite": "Open Data Hub Website",
+        "databrowser": "Databrowser",
+        "webComponents": "Web Components"
+      },
+      "contributors": {
+        "title": "Contributors",
+        "text": "The Data Browser is the result of a great collaboration between many awesome people!",
+        "link": "Check them out!"
+      },
+      "socialMedia": {
+        "title": "Social Media",
+        "github": "GitHub",
+        "telegram": "Telegram",
+        "element": "element.io",
+        "facebook": "Facebook"
+      }
+    },
+    "notice": {
+      "copyright": "@Open Data Hub",
+      "privacy": "Privacy",
+      "imprint": "Imprint"
+    }
   },
   "languageSwitch": {
     "language": {
