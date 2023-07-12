@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <HeaderButton>
         <ExternalLink
           class="flex items-center gap-2"
-          href="/"
+          href="https://github.com/noi-techpark/it.bz.opendatahub.databrowser/wiki"
           variant="no-underline"
           tone="text"
         >
