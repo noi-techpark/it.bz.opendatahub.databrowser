@@ -14,7 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     leave-to-class="transform scale-95 opacity-0"
   >
     <MenuItems
-      class="absolute max-lg:start-0 z-40 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded bg-white shadow-md ring-1 ring-gray-400 focus:outline-none lg:end-0"
+      class="absolute z-40 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded bg-white shadow-md ring-1 ring-gray-400 focus:outline-none max-lg:start-0 lg:end-0"
     >
       <slot></slot>
     </MenuItems>
