@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     >
       <HeaderButton>
         <router-link to="/dataset-overview" class="no-underline">
-          Datasets
+          {{ t('header.menu.datasets') }}
         </router-link>
       </HeaderButton>
       <HeaderButton>
@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           variant="no-underline"
           tone="text"
         >
-          How to<IconExternal />
+          {{ t('header.menu.howTo') }}<IconExternal />
         </ExternalLink>
       </HeaderButton>
       <HeaderButton>
@@ -33,7 +33,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           variant="no-underline"
           tone="text"
         >
-          Contact<IconExternal />
+          {{ t('header.menu.contact') }}<IconExternal />
         </ExternalLink>
       </HeaderButton>
     </div>
@@ -47,4 +47,7 @@ import MenuUserSection from '../../domain/auth/MenuUserSection.vue';
 import ExternalLink from '../../components/link/ExternalLink.vue';
 import HeaderButton from '../../components/header/HeaderButton.vue';
 import IconExternal from '../../components/svg/IconExternal.vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 </script>
