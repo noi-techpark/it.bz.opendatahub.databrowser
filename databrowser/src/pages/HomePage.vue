@@ -134,10 +134,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           </CardActions>
         </div>
       </CardGrid>
-
-      <CardDivider />
-
-      <PartnersAndContributors />
     </PageGridContent>
   </AppLayout>
 </template>
@@ -164,7 +160,5 @@ import ButtonExternalLink from '../components/button/ButtonExternalLink.vue';
 import { Size, Variant } from '../components/button/types';
 import IconMail from '../components/svg/IconMail.vue';
 import IconExternal from '../components/svg/IconExternal.vue';
-import PartnersAndContributors from '../components/partners/PartnersAndContributors.vue';
-import CardDivider from '../components/card/CardDivider.vue';
 import PageGridContent from '../components/content/PageGridContent.vue';
 </script>
