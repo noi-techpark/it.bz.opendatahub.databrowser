@@ -12,9 +12,7 @@ Welcome to the documentation for the Open Data Hub Databrowser. This document pr
 
 1. [Project Overview](overview.md#1-project-overview)
 1. [Project Main technologies](overview.md#2-project-main-technologies)
-1. [Getting Started](overview.md#3-getting-started)
 1. [Project Structure](overview.md#4-project-structure)
-1. [Documentation](overview.md#5-documentation)
 1. [Contributing Guidelines](overview.md#6-contributing-guidelines)
 1. [Issue Tracking](overview.md#7-issue-tracking)
 1. [Contact Information](overview.md#8-contact-information)
@@ -59,28 +57,16 @@ The databrowser leverages the following technologies:
 
 Feel free to explore the documentation of each technology to gain a deeper understanding of their capabilities and how they contribute to the project.
 
-## 3. Getting Started
-
-To contribute to the Databrowser, follow the steps outlined [here]()
-
-## 4. Project Structure
+## 3. Project Structure
 
 The main folder you will see when first opening the project are:
 
-- **databrowser:** The databrowser folder is considered the heart of the project as it contains almost all essential components and functionalities.Further documentation will be provided to dive deeper into its contents.
+- **databrowser:** The databrowser folder is considered the heart of the project as it contains almost all essential components and functionalities. Further documentation will be provided to dive deeper into its contents.
 - **infrastructure:** The infrastructure folder contains the necessary configurations and scripts for the CI/CD pipeline, building and deployment processes, and instructions for deploying the application on a server.
 
-For more detailed information about the project's structure and individual components, refer to the dedicated documentation pages linked below.
+For more detailed information about the project's structure and individual components, refer to the dedicated [code structure documentation](code-structure.md) page.
 
-## 5. Documentation
-
-We have organized the project's documentation into several pages, each focusing on a specific aspect. Please refer to the following links for more detailed information:
-
-- [Databrowser code stucture](link/to/featureA/documentation)
-- [All you need to know for configuration ](link/to/featureB/documentation)
-- [API Reference](link/to/API/reference/documentation)
-
-## 6. Contributing Guidelines
+## 4. Contributing Guidelines
 
 1. **Fork and Branch:** Fork the repository and create a new branch for your contributions from the `development branch`. Make sure to give the branch a descriptive name that reflects the nature of your changes.
 
@@ -98,11 +84,11 @@ We have organized the project's documentation into several pages, each focusing 
 
 For more details, refer to the [Guidelines](guidelines.md) page.
 
-## 7. Issue Tracking
+## 5. Issue Tracking
 
 If you encounter any bugs, have feature requests, or want to report issues, please visit our [github](https://github.com/noi-techpark/it.bz.opendatahub.databrowser). Before submitting a new issue, please check if a similar one already exists.
 
-## 8. Contact Information
+## 6. Contact Information
 
 If you have any questions or need further assistance, you can reach out to us at [help@opendatahub.com](mailto:help@opendatahub.com).
 
