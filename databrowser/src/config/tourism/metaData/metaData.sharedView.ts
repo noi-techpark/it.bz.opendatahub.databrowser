@@ -7,7 +7,11 @@ import {
   DetailViewConfig,
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
-import { idReadOnlyCell, shortnameCell } from '../../builder/tourism';
+import {
+  idReadOnlyCell,
+  shortnameCell,
+  imageGalleryCategory,
+} from '../../builder/tourism';
 
 export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -76,5 +80,6 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
+    imageGalleryCategory(),
   ],
 });
