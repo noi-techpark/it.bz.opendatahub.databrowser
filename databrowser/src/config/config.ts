@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { DatasetConfig, DatasetDomain } from '../domain/datasetConfig/types';
+import { representationConfig, stationTypesConfig } from './mobility';
 import {
   accommodationConfig,
   articleConfig,
@@ -34,6 +35,7 @@ import {
   publishedOnConfig,
   sourceConfig,
 } from './tourism';
+import { findCandidateConfigs } from './utils';
 
 type EmbeddedDatasetConfigs = Record<
   DatasetDomain,
@@ -70,6 +72,8 @@ const datasetConfigs = [
   metaDataConfig,
   publishedOnConfig,
   sourceConfig,
+  representationConfig,
+  stationTypesConfig,
 ];
 
 const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {
@@ -86,4 +90,29 @@ export const embeddedDatasetConfigs = computeEmbeddedDatasetConfigs();
 export const findEmbeddedDatasetConfig = (
   domain: string,
   path: string
-): DatasetConfig | undefined => embeddedDatasetConfigs[domain]?.[path];
+): DatasetConfig | undefined => {
+  // Try to find a literal match (fastest resolution attempt)
+  const literalMatchedConfig = embeddedDatasetConfigs[domain]?.[path];
+  if (literalMatchedConfig != null) {
+    return literalMatchedConfig;
+  }
+
+  // Domain is not found, return undefined.
+  if (embeddedDatasetConfigs[domain] == null) {
+    return undefined;
+  }
+
+  // Domain is found, but path is not found via literal match. That may
+  // be because the path contains dynamic path params. In that case,
+  // try to find a config using candidates.
+  const candidates = findCandidateConfigs(path, embeddedDatasetConfigs[domain]);
+
+  // If there are no candidates, return undefined.
+  if (candidates.length === 0) {
+    return undefined;
+  }
+
+  // Sort candidates by rank and return the config with the highest rank.
+  candidates.sort((a, b) => b.rank - a.rank);
+  return candidates[0].config;
+};

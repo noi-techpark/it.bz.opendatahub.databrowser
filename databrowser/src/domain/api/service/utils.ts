@@ -231,9 +231,19 @@ const mapValuesWithIndex = (
       property,
       replacements
     );
-    const path = propertyWithReplacements.split('.');
+    const path = propertyWithReplacements
+      .split(/(?<!\\)\./)
+      .map((p) => p.replace(/\\/g, ''));
     const lensePath = R.lensPath(path);
     const value = R.view(lensePath, item);
+    console.log('mapValuesWithIndex', {
+      propertyWithReplacements,
+      key,
+      value,
+      path,
+      item,
+    });
+
     return { ...prev, [key]: value };
   }, {});
 

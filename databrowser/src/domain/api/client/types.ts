@@ -35,6 +35,20 @@ export const isWithTourismPagination = <T = unknown>(
   (data as WithTourismPagination).TotalPages != null &&
   (data as WithTourismPagination).Items != null;
 
+export interface WithMobilityPagination<T = unknown> {
+  limit: number;
+  offset: number;
+  data: T[];
+}
+
+export const isWithMobilityPagination = <T = unknown>(
+  data: unknown
+): data is WithMobilityPagination<T> =>
+  data != null &&
+  (data as WithMobilityPagination).limit != null &&
+  (data as WithMobilityPagination).offset != null &&
+  (data as WithMobilityPagination).data != null;
+
 export const isWithArrayPagination = <T = unknown>(
   data: unknown
 ): data is T[] => Array.isArray(data);

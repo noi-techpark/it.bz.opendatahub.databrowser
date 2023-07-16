@@ -88,6 +88,8 @@ export const useTableViewLoading = () => {
   const changePage = (page: string) =>
     updateApiParameterValue('pagenumber', page);
 
+  const showDetail = computed(() => datasetConfigStore.hasDetailView);
+
   const showEdit = computed(
     () =>
       datasetConfigStore.hasUpdatePermission &&
@@ -103,6 +105,7 @@ export const useTableViewLoading = () => {
     pagination,
     renderElements,
     rows,
+    showDetail,
     showEdit,
     showQuick,
     url,

@@ -14,6 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <TableContent
             :render-elements="renderElements"
             :rows="rows"
+            :show-detail="showDetail"
             :show-edit="showEdit"
             :show-quick="showQuick"
           />
@@ -48,6 +49,7 @@ const {
   pagination,
   renderElements,
   rows,
+  showDetail,
   showEdit,
   showQuick,
   url,

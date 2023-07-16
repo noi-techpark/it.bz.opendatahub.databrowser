@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <TableWithStickyHeader id="dataset-table">
     <template #colgroup-cols>
       <col v-for="col in renderElements" :key="col.title" :class="col.class" />
-      <col class="w-28 md:w-32" />
+      <col v-if="showLinkColumn" class="w-28 md:w-32" />
     </template>
 
     <template #header-cols>
@@ -18,7 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :field="columns[index]?.field"
         />
       </TableHeaderCell>
-      <TableHeaderCell class="sticky right-0 bg-gray-50">
+      <TableHeaderCell v-if="showLinkColumn" class="sticky right-0 bg-gray-50">
         {{ t('datasets.listView.colDetail') }}
       </TableHeaderCell>
     </template>
@@ -51,7 +51,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :fields="col.fields"
           />
         </TableCell>
-        <TableCell class="sticky right-0 bg-white shadow-table-static-col">
+        <TableCell
+          v-if="showLinkColumn"
+          class="sticky right-0 bg-white shadow-table-static-col"
+        >
           <TableLinks
             :row="row"
             :show-edit="showEdit"
@@ -64,7 +67,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
@@ -85,6 +88,7 @@ const props = withDefaults(
   defineProps<{
     rows: any[];
     renderElements: ListElements[];
+    showDetail: boolean;
     showEdit: boolean;
     showQuick: boolean;
   }>(),
@@ -103,4 +107,8 @@ const { selectedRowIndex, rowClicked, rowDblClicked } =
 
 // TODO: temporary solution until we have a better way to handle this
 const columns = useTableViewColumns();
+
+const showLinkColumn = computed(() => {
+  return props.showDetail || props.showEdit || props.showQuick;
+});
 </script>

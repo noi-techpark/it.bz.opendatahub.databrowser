@@ -5,8 +5,10 @@
 import { ApiParameters, stringifyParameter } from '..';
 import {
   isWithArrayPagination,
+  isWithMobilityPagination,
   isWithTourismPagination,
   PaginationData,
+  WithMobilityPagination,
   WithTourismPagination,
 } from './types';
 import { defaultPagination } from './defaultValues';
@@ -35,6 +37,24 @@ export const tourismPaginatedMapper = <T>(
 
   return {
     items: data.Items,
+    pagination: {
+      total,
+      page,
+      size,
+    },
+  };
+};
+
+export const mobilityPaginatedMapper = <T>(
+  data: WithMobilityPagination<T>
+): PaginationData<T> => {
+  // TODO: arbitrary number; is there some way to get the total number of items?
+  const total = 1000;
+  const size = data.limit;
+  const page = Math.floor(data.offset / size) + 1;
+
+  return {
+    items: data.data,
     pagination: {
       total,
       page,
@@ -83,6 +103,10 @@ export const unifyPagination = <T = unknown>(
 ): PaginationData<T> => {
   if (isWithTourismPagination<T>(data)) {
     return tourismPaginatedMapper<T>(data, context);
+  }
+
+  if (isWithMobilityPagination<T>(data)) {
+    return mobilityPaginatedMapper<T>(data);
   }
 
   if (isWithArrayPagination<T>(data)) {
