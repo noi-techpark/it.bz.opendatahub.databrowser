@@ -58,6 +58,8 @@ export const useUpdate = (
       return parent?.at(index) ?? {};
     };
 
+    const pathToParentWithReplacements = replace(listFieldsValue.pathToParent);
+
     const dataArray = updates[0].value as unknown[];
 
     // If fields is undefined or empty, then the data consist of an
@@ -65,7 +67,7 @@ export const useUpdate = (
     // return it as it is
     if (isFieldsEmpty(listFieldsValue.fields)) {
       return {
-        prop: listFieldsValue.pathToParent,
+        prop: pathToParentWithReplacements,
         value: dataArray,
       };
     }
@@ -76,7 +78,7 @@ export const useUpdate = (
     const mappedDataArray = complexDataArray.map((entry, index) => {
       // Get current element value from store to be merged with incoming value.
       // This is necessary to support e.g. translations that are stored inside an object (like in ODH tourism domain)
-      const currentValue = getCurrentValue(listFieldsValue.pathToParent, index);
+      const currentValue = getCurrentValue(pathToParentWithReplacements, index);
 
       return Object.entries(entry).reduce<Record<string, unknown>>(
         (prev, [key, value]) => {
@@ -94,7 +96,7 @@ export const useUpdate = (
     });
 
     return {
-      prop: listFieldsValue.pathToParent,
+      prop: pathToParentWithReplacements,
       value: mappedDataArray,
     };
   };

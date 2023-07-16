@@ -24,12 +24,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <UrlCell :text="item.src" :editable="false" />
           </SubCategoryItem>
           <SubCategoryItem title="Language">
-            <SelectWithOptionsCell
-              :value="item.language"
+            <StringCell :text="item.language" :editable="false" />
+          </SubCategoryItem>
+          <SubCategoryItem title="Document Name">
+            <StringCell
+              :text="item.documentName"
               :editable="editable"
-              :options="getLanguageOptionsForFile(item.language)"
-              :show-search-when-at-least-count-options="Infinity"
-              @update="updateItem(index, { language: $event.value })"
+              @update="
+                updateItem(index, {
+                  documentName: $event.value,
+                  src: item.src,
+                  language: item.language,
+                })
+              "
             />
           </SubCategoryItem>
         </div>
@@ -95,12 +102,11 @@ import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
-import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import { FileType } from '../../utils/upload/types';
 import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
 import UrlCell from '../UrlCell/UrlCell.vue';
 import { FileEntry } from './types';
-import { getLanguageOptionsForFile } from './utils';
+import StringCell from '../stringCell/StringCell.vue';
 
 const props = defineProps<{ items: FileEntry[]; type?: FileType }>();
 
