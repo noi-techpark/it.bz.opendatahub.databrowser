@@ -6,6 +6,8 @@ SPDX-License-Identifier: CC0-1.0
 
 # Data Browser for the Open Data Hub
 
+[![REUSE Compliance](https://github.com/noi-techpark/it.bz.opendatahub.databrowser/actions/workflows/reuse.yml/badge.svg)](https://github.com/noi-techpark/odh-docs/wiki/REUSE#badges)
+
 This is the repository for the Open Data Hub Data Browser.
 
 ## Table of Contents
