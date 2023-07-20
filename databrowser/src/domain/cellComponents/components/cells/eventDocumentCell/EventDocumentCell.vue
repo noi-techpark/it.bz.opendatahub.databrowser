@@ -24,22 +24,20 @@ import EventDocumentTable from './EventDocumentTable.vue';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import EditListUpload from '../../utils/editList/upload/EditListUpload.vue';
 import { FileEntry } from './types';
-import { useApiParameterHandler } from '../../../../api';
+import { apiParameters } from '../../../../api/service/apiParameterHandler';
 
 const emit = defineEmits(['update']);
 
 defineProps<{ files?: FileEntry[] }>();
 
-const { useApiParameter } = useApiParameterHandler();
-
 // Set current language for each file
 const updateWithCurrentLanguage = ({ value }: { value?: FileEntry[] }) => {
-  const currentLanguage = useApiParameter('language');
+  const currentLanguage = apiParameters.language.value;
 
   const updatedFiles =
     value?.map((file) => ({
       ...file,
-      language: currentLanguage.value,
+      language: currentLanguage,
     })) || [];
 
   emit('update', { prop: 'items', value: updatedFiles });

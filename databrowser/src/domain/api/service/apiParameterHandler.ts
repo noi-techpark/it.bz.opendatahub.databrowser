@@ -40,7 +40,9 @@ const computeValidApiParameters = (
     return { ...previous, [key]: value };
   }, {});
 
-export const useApiParameterHandler = (): ApiQuery => {
+export const useApiParameterHandler = () => useApiParameterHandlerInternal();
+
+const useApiParameterHandlerInternal = (): ApiQuery => {
   const currentApiParameters = computed({
     get: () => useParameterStore().params,
     set: (value) => useParameterStore().setParameters(value),
@@ -142,4 +144,8 @@ export const useApiParameterHandler = (): ApiQuery => {
     updateApiParameterValidator,
     cleanApiParametersExtendWith,
   };
+};
+
+export const apiParameters = {
+  language: useApiParameterHandler().useApiParameter('language'),
 };

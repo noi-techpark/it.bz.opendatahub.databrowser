@@ -5,8 +5,8 @@
 import { computed, Ref, unref } from 'vue';
 import { RouteLocationNamedRaw, useRouter } from 'vue-router';
 import { DatasetPage } from '../../../routes';
-import { useApiParameterHandler } from '../../api';
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
+import { apiParameters } from '../../api/service/apiParameterHandler';
 
 export const usePaths = () => {
   const datasetOverviewForId = (id: string | Ref<string>) =>
@@ -94,7 +94,6 @@ export const usePathsForCurrentRoute = () => {
 };
 
 const initPathBuilder = () => {
-  const currentLanguage = useApiParameterHandler().useApiParameter('language');
   const { currentMetaData } = useMetaDataForCurrentRoute();
   const router = useRouter();
 
@@ -105,7 +104,7 @@ const initPathBuilder = () => {
     name: name,
     query: {
       ...currentMetaData.value?.apiFilter,
-      language: currentLanguage.value,
+      language: apiParameters.language.value,
     },
     hash: preserveHash ? router.currentRoute.value.hash : undefined,
   });
