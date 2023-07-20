@@ -6,7 +6,7 @@ import { App, computed, inject, isRef, Ref, ref, watch } from 'vue';
 import { Router } from 'vue-router';
 import { UrlQuery, UrlParameters } from './types';
 import { buildUrlQuery } from './urlBuilder';
-import { useApiQuery } from './apiQueryHandler';
+import { useApiParameterHandler } from './apiParameterHandler';
 
 export const urlQueryHandlerKey = 'url-query-handler';
 
@@ -17,7 +17,7 @@ export const createUrlQueryHandler = (router: Router): UrlQuery => {
     cleanApiParameters,
     setApiParameters,
     cleanApiParametersExtendWith,
-  } = useApiQuery();
+  } = useApiParameterHandler();
 
   // Update route if API query parameters change
   watch(

@@ -98,7 +98,7 @@ import { SelectOption } from '../../../../components/select/types';
 import IconClose from '../../../../components/svg/IconClose.vue';
 import IconDelete from '../../../../components/svg/IconDelete.vue';
 import TagCustom from '../../../../components/tag/TagCustom.vue';
-import { useApiQuery } from '../../../api';
+import { useApiParameterHandler } from '../../../api';
 import ToolBoxCard from '../../toolBox/ToolBoxCard.vue';
 import ToolBoxCardBody from '../../toolBox/ToolBoxCardBody.vue';
 import ToolBoxCardHeader from '../../toolBox/ToolBoxCardHeader.vue';
@@ -114,7 +114,7 @@ import InputFilter from '../../../../components/input/InputFilter.vue';
 
 const { t } = useI18n();
 
-const { updateApiParameterValue, useApiParameter } = useApiQuery();
+const { updateApiParameterValue, useApiParameter } = useApiParameterHandler();
 
 const searchFilter = useApiParameter('searchfilter');
 const searchFilterAsString = computed(

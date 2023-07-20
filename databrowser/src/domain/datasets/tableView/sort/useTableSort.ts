@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { Ref, computed } from 'vue';
-import { stringifyParameter, useApiQuery } from '../../../api';
+import { stringifyParameter, useApiParameterHandler } from '../../../api';
 import { SortState } from './types';
 
 // This function computes the rawsort value based on the sort field and the sort state.
@@ -20,7 +20,7 @@ const rawsortValue = (sortField: string, sortState: SortState) => {
 
 export const useTableSortForField = (field: Ref<string | undefined>) => {
   // The sortFromUrl property contains the current sort value from the URL (may be undefined).
-  const sortFromUrl = useApiQuery().useApiParameter('rawsort');
+  const sortFromUrl = useApiParameterHandler().useApiParameter('rawsort');
 
   // The currentSortState property contains the current sort state for the given field.
   // It is 'none' if the URL contains no sort information or the the given field is not the

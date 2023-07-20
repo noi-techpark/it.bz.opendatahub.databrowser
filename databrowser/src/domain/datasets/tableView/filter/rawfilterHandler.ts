@@ -3,12 +3,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed } from 'vue';
-import { stringifyParameter, useApiQuery } from '../../../api';
+import { stringifyParameter, useApiParameterHandler } from '../../../api';
 import { parseFilterWithRegex } from './parser/parseFilterWithRegex';
 import { Rawfilter } from './types';
 
 export const useRawfilterHandler = () => {
-  const { updateApiParameterValue, useApiParameter } = useApiQuery();
+  const { updateApiParameterValue, useApiParameter } = useApiParameterHandler();
   const currentRawfilter = useApiParameter('rawfilter');
 
   const rawfilters = computed<Rawfilter[]>(() =>

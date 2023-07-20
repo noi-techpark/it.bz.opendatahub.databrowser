@@ -4,7 +4,7 @@
 
 import { AxiosError } from 'axios';
 import { computed, ref, Ref, watch } from 'vue';
-import { useApiQuery } from './apiQueryHandler';
+import { useApiParameterHandler } from './apiParameterHandler';
 import { stringifyParameter } from './query';
 import { ParameterValue } from './types';
 import * as R from 'ramda';
@@ -99,12 +99,10 @@ export const toErrorString = (error: unknown): string => {
 };
 
 export const useApiParameterReplacements = () => {
-  const apiQuery = useApiQuery();
+  const { allApiParameters } = useApiParameterHandler();
 
   return computed(() =>
-    Object.entries(apiQuery.allApiParameters.value).reduce<
-      Record<string, string>
-    >(
+    Object.entries(allApiParameters.value).reduce<Record<string, string>>(
       (previous, [key, value]) => ({
         ...previous,
         [key]: stringifyParameter(value),

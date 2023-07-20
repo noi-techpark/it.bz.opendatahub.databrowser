@@ -39,7 +39,11 @@ import {
 } from '../../domain/datasets/language';
 import { computed } from 'vue';
 import { RouteLocationRaw, useRouter } from 'vue-router';
-import { stringifyParameter, useApiQuery, useUrlQuery } from '../../domain/api';
+import {
+  stringifyParameter,
+  useApiParameterHandler,
+  useUrlQuery,
+} from '../../domain/api';
 import ButtonLink from '../button/ButtonLink.vue';
 import SelectCustom from '../select/SelectCustom.vue';
 import { SelectSize } from '../select/types';
@@ -53,7 +57,8 @@ const props = withDefaults(
 
 const supportedLanguages: Array<string> = Object.values(FilterLanguage);
 
-const { useApiParameter, updateApiParameterValidator } = useApiQuery();
+const { useApiParameter, updateApiParameterValidator } =
+  useApiParameterHandler();
 
 updateApiParameterValidator('language', (value) =>
   supportedLanguages.includes(stringifyParameter(value))

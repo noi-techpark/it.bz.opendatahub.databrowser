@@ -6,7 +6,7 @@ import { computed } from 'vue';
 import {
   stringifyParameter,
   unifyPagination,
-  useApiQuery,
+  useApiParameterHandler,
   useApiReadForCurrentDataset,
 } from '../../api';
 import {
@@ -36,7 +36,7 @@ export const useTableViewLoading = () => {
     updateApiParameterValidator,
     updateApiParameterValue,
     useApiParameter,
-  } = useApiQuery();
+  } = useApiParameterHandler();
 
   setDefaultApiParameters(defaultQueryParameters);
   updateApiParameterValidator('pagesize', (value) =>
