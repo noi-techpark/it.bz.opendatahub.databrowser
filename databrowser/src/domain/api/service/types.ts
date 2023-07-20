@@ -50,7 +50,6 @@ export interface ApiQuery {
     validator?: (value: ParameterValue) => boolean
   ) => void;
   cleanApiParametersExtendWith: (apiParameters: ApiParameters) => ApiParameters;
-  install(app: App): void;
 }
 
 export type ApiParameterValidator = (value: ParameterValue) => boolean;

@@ -17,7 +17,7 @@ export {
 } from './client/fetcher/axios';
 export * from './client/types';
 
-export { createApiQueryHandler, useApiQuery } from './service/apiQueryHandler';
+export { useApiQuery } from './service/apiQueryHandler';
 export { stringifyParameter } from './service/query';
 export { createUrlQueryHandler, useUrlQuery } from './service/urlQueryHandler';
 export {

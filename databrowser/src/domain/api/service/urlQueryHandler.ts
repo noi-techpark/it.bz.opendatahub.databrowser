@@ -4,26 +4,30 @@
 
 import { App, computed, inject, isRef, Ref, ref, watch } from 'vue';
 import { Router } from 'vue-router';
-import { ApiQuery, UrlQuery, UrlParameters } from './types';
+import { UrlQuery, UrlParameters } from './types';
 import { buildUrlQuery } from './urlBuilder';
+import { useApiQuery } from './apiQueryHandler';
 
 export const urlQueryHandlerKey = 'url-query-handler';
 
-export const createUrlQueryHandler = (
-  router: Router,
-  apiQuery: ApiQuery
-): UrlQuery => {
+export const createUrlQueryHandler = (router: Router): UrlQuery => {
   const currentUrlQuery = ref('');
+  const {
+    allApiParameters,
+    cleanApiParameters,
+    setApiParameters,
+    cleanApiParametersExtendWith,
+  } = useApiQuery();
 
   // Update route if API query parameters change
   watch(
-    () => apiQuery.allApiParameters.value,
+    () => allApiParameters.value,
     (allApiParameters) => {
       const urlQuery = buildUrlQuery(allApiParameters, ['language'], '?');
       currentUrlQuery.value = urlQuery;
 
       router.replace({
-        query: { ...apiQuery.cleanApiParameters.value },
+        query: { ...cleanApiParameters.value },
         hash: router.currentRoute.value.hash,
       });
     }
@@ -32,7 +36,7 @@ export const createUrlQueryHandler = (
   // Use initial parameters from current route
   watch(
     () => router?.currentRoute.value.query,
-    (query) => apiQuery.setApiParameters(query)
+    (query) => setApiParameters(query)
   );
 
   const useUrlWithQueryParameters = (url: string | Ref<string>) =>
@@ -43,7 +47,7 @@ export const createUrlQueryHandler = (
 
   const cleanQueryParametersExtendedWith = (
     queryParameters: UrlParameters
-  ): UrlParameters => apiQuery.cleanApiParametersExtendWith(queryParameters);
+  ): UrlParameters => cleanApiParametersExtendWith(queryParameters);
 
   return {
     useUrlWithQueryParameters,
