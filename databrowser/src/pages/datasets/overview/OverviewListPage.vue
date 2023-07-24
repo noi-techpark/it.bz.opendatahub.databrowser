@@ -6,50 +6,52 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <AppLayout>
-    <HeroContainer>
-      <HeroTitle>
-        {{ t('overview.listPage.listOfAllDatasets') }}
-      </HeroTitle>
-      <router-link
-        to="/links"
-        class="text-green-500"
-        data-test="all-endpoints-link"
-      >
-        {{ t('overview.listPage.showAllEndpoints') }}
-      </router-link>
-    </HeroContainer>
-
-    <PageGridContent class="grow">
-      <SelectWithLabel
-        id="access-of-data"
-        class="md:w-1/6"
-        :label="t('overview.listPage.accessOfData')"
-        :options="accessTypeOptions"
-        :value="currentAccessType"
-        @change="currentAccessType = $event"
-      />
-      <OverviewCardItem
-        v-for="(dataset, index) in metaDataDatasets"
-        :key="index"
-        :dataset="dataset"
-        :data-test="`dataset-card-${dataset.id}`"
-      />
-
-      <CardDivider />
-
-      <div v-if="isOtherDatasetsLoading" class="animate-pulse">
-        {{ t('overview.listPage.loadOtherDatasets') }}
+    <PageGridContent class="grow gap-3 lg:gap-3">
+      <div class="flex gap-4">
+        <div class="w-64" />
+        <div class="flex">
+          <h1 class="grow text-2xl font-semibold">
+            {{ tourismDatasets?.length || '...' }}
+            {{
+              tourismDatasets?.length === 1
+                ? t('overview.listPage.datasetFound')
+                : t('overview.listPage.datasetsFound')
+            }}
+          </h1>
+        </div>
       </div>
-      <template v-else>
-        <div class="text-2xl">{{ t('overview.listPage.otherDatasets') }}</div>
-        <OverviewCardItem
-          v-for="(dataset, index) in tourismDatasets"
-          :key="index"
-          :dataset="dataset"
-          :data-test="`dataset-card-${dataset.id}`"
-          class="break-words"
-        />
-      </template>
+
+      <div class="flex w-full gap-4">
+        <div class="w-64 border border-gray-300">
+          <div>
+            <h3 class="py-2 px-4 text-2xl font-semibold">
+              {{ t('overview.listPage.filter') }}
+            </h3>
+          </div>
+          <div class="truncate border-t border-gray-300 py-2 px-4">
+            <ToggleCustom />
+            {{ $t('overview.listPage.noMetadataAvailable') }}
+          </div>
+          <div class="truncate border-t border-gray-300 py-2 px-4">
+            <ToggleCustom />
+            {{ $t('overview.listPage.deprecated') }}
+          </div>
+        </div>
+        <div class="flex w-full flex-col gap-4">
+          <div v-if="isOtherDatasetsLoading" class="animate-pulse">
+            {{ t('overview.listPage.loadOtherDatasets') }}
+          </div>
+          <template v-else>
+            <OverviewCardItem
+              v-for="(dataset, index) in tourismDatasets"
+              :key="index"
+              :dataset="dataset"
+              :data-test="`dataset-card-${dataset.id}`"
+              class="break-words"
+            />
+          </template>
+        </div>
+      </div>
 
       <CardDivider />
 
@@ -69,6 +71,7 @@ import CardDivider from '../../../components/card/CardDivider.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
 import { useI18n } from 'vue-i18n';
 import { useMetaDataDatasets, useOtherDatasets } from './useDatasets';
+import ToggleCustom from '../../../components/toggle/ToggleCustom.vue';
 
 const { t } = useI18n();
 

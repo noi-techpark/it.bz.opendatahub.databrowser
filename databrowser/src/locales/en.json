@@ -331,7 +331,13 @@
       "listOfAllDatasets": "List of all datasets",
       "loadOtherDatasets": "Loading all other datasets...",
       "otherDatasets": "All other datasets",
-      "showAllEndpoints": "Show all available Endpoints"
+      "showAllEndpoints": "Show all available Endpoints",
+      "datasetFound": "Dataset found",
+      "datasetsFound": "Datasets found",
+      "filter": "Filter",
+      "resetFilters": "Reset Filters",
+      "noMetadataAvailable": "No metadata available",
+      "deprecated": "Deprecated"
     }
   }
 }
