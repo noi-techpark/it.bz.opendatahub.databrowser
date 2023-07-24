@@ -12,6 +12,7 @@ import {
   shortnameCell,
   imageGalleryCategory,
 } from '../../builder/tourism';
+import { withOdhBaseUrl } from '../../utils';
 
 export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -61,8 +62,22 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.UrlCell,
               fields: { text: 'SwaggerUrl' },
             },
+            {
+              title: 'Tags',
+              component: CellComponent.TagReferenceCell,
+              listFields: {
+                attributeName: 'tags',
+                pathToParent: 'OdhTagIds',
+              },
+              params: {
+                keySelector: 'Id',
+                labelSelector: 'TagName.{language}',
+                url: withOdhBaseUrl('/v1/ODHTag'),
+              },
+            },
           ],
         },
+
         {
           name: 'IDs',
           properties: [idReadOnlyCell()],
