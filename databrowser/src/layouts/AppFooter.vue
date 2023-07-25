@@ -123,7 +123,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               {{ t('footer.columns.contributors.text') }}
               <ExternalLink
                 class="inline-flex items-center gap-2"
-                href="https://opendatahub.com/community/contributors?project=databrowser"
+                href="https://opendatahub.com/community/#contributors"
                 tone="text"
               >
                 {{ t('footer.columns.contributors.link') }}<IconExternal />
@@ -137,8 +137,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <li>
               <ExternalLink
                 class="flex items-center gap-2 no-underline"
-                href="https://opendatahub.com/community/contributors?project=databrowser"
+                href="https://github.com/noi-techpark"
                 tone="text"
+                target="_blank"
               >
                 <img
                   src="/logo-github.svg"
@@ -149,8 +150,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <li>
               <ExternalLink
                 class="flex items-center gap-2 no-underline"
-                href="https://opendatahub.com/community/contributors?project=databrowser"
+                href="https://t.me/OpenDataHub"
                 tone="text"
+                target="_blank"
               >
                 <img
                   src="/logo-telegram.svg"
@@ -161,8 +163,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <li>
               <ExternalLink
                 class="flex items-center gap-2 no-underline"
-                href="https://opendatahub.com/community/contributors?project=databrowser"
+                href="https://app.element.io/#/room/#opendatahub:matrix.org"
                 tone="text"
+                target="_blank"
               >
                 <img
                   src="/logo-element.svg"
@@ -173,8 +176,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <li>
               <ExternalLink
                 class="flex items-center gap-2 no-underline"
-                href="https://opendatahub.com/community/contributors?project=databrowser"
+                href="https://www.facebook.com/opendatahub"
                 tone="text"
+                target="_blank"
               >
                 <img
                   src="/logo-facebook.svg"
