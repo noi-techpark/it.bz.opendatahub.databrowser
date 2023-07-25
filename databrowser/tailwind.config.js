@@ -49,6 +49,9 @@ module.exports = {
           900: '#3c4043',
         },
       },
+      spacing: {
+        default: '80rem',
+      },
     },
   },
   safelist: [
