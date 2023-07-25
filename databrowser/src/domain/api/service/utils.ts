@@ -114,6 +114,7 @@ export const useApiParameterReplacements = () => {
 
 export const useReplaceWithApiParameters = () => {
   const replacements = useApiParameterReplacements();
+  console.log('replacements', JSON.stringify(replacements.value));
 
   const replace = (s: string): string =>
     replacePlaceholders(s, replacements.value);
@@ -234,13 +235,13 @@ const mapValuesWithIndex = (
       .map((p) => p.replace(/\\/g, ''));
     const lensePath = R.lensPath(path);
     const value = R.view(lensePath, item);
-    console.log('mapValuesWithIndex', {
-      propertyWithReplacements,
-      key,
-      value,
-      path,
-      item,
-    });
+    // console.log('mapValuesWithIndex', {
+    //   propertyWithReplacements,
+    //   key,
+    //   value,
+    //   path,
+    //   item,
+    // });
 
     return { ...prev, [key]: value };
   }, {});

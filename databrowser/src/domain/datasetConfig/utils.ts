@@ -13,17 +13,12 @@ export interface TableViewColumn {
 }
 
 export const useTableViewColumns = (): ComputedRef<TableViewColumn[]> => {
-  const replacements = useApiParameterReplacements();
-
   return computed(() => {
-    const replace = (s: string): string =>
-      replacePlaceholders(s, replacements.value);
-
     const elements = useDatasetConfigStore().tableView?.elements ?? [];
 
     return elements.map((element) => {
       const values = Object.values(element.fields ?? {});
-      const field = values.length === 1 ? replace(values[0]) : undefined;
+      const field = values.length === 1 ? values[0] : undefined;
       return { title: element.title, field };
     });
   });

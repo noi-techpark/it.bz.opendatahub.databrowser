@@ -9,6 +9,8 @@ import { useAuth } from '../../auth/store/auth';
 import { resolveDatasetConfig } from '../resolver';
 import { SourceType } from '../source/types';
 import { embeddedDatasetConfigs } from '../../../config/config';
+import { useReplaceWithApiParameters } from '../../api';
+import * as R from 'ramda';
 
 export const useDatasetConfigStore = defineStore('datasetConfigStore', {
   state: () => initialState,
@@ -102,9 +104,125 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', {
 
       this.setPending();
       try {
-        const config = await resolveDatasetConfig(datasetRoute, {
+        const resolvedConfig = await resolveDatasetConfig(datasetRoute, {
           source: this.source,
         });
+
+        let config = { ...resolvedConfig };
+
+        const { replace } = useReplaceWithApiParameters();
+        const replaceFields = (fields?: Record<string, string>) => {
+          return fields == null
+            ? {}
+            : Object.entries(fields).reduce(
+                (prev, [key, value]) => ({
+                  ...prev,
+                  [key]: replace(value),
+                }),
+                {}
+              );
+        };
+
+        // Replace placeholders in detail config
+        if (viewKey === 'detail' && config.views?.detail?.elements != null) {
+          config = {
+            ...config,
+            views: {
+              ...config.views,
+              detail: {
+                ...config.views.detail,
+                elements: config.views.detail.elements.map((element) => ({
+                  ...element,
+                  subcategories: element.subcategories.map((subcategory) => ({
+                    ...subcategory,
+                    properties: subcategory.properties.map((property) => {
+                      if (property.fields != null) {
+                        return {
+                          ...property,
+                          listFields: undefined,
+                          fields: replaceFields(property.fields),
+                        };
+                      } else if (property.listFields != null) {
+                        return {
+                          ...property,
+                          fields: undefined,
+                          listFields: {
+                            ...property.listFields,
+                            fields: replaceFields(property.listFields.fields),
+                          },
+                        };
+                      }
+                      return property;
+                    }),
+                  })),
+                })),
+              },
+            },
+          };
+        }
+
+        // Replace placeholders in edit config
+        if (viewKey === 'edit' && config.views?.edit?.elements != null) {
+          config = {
+            ...config,
+            views: {
+              ...config.views,
+              edit: {
+                ...config.views.edit,
+                elements: config.views.edit.elements.map((element) => ({
+                  ...element,
+                  subcategories: element.subcategories.map((subcategory) => ({
+                    ...subcategory,
+                    properties: subcategory.properties.map((property) => {
+                      if (property.fields != null) {
+                        return {
+                          ...property,
+                          listFields: undefined,
+                          fields: replaceFields(property.fields),
+                        };
+                      } else if (property.listFields != null) {
+                        return {
+                          ...property,
+                          fields: undefined,
+                          listFields: {
+                            ...property.listFields,
+                            fields: replaceFields(property.listFields.fields),
+                          },
+                        };
+                      }
+                      return property;
+                    }),
+                  })),
+                })),
+              },
+            },
+          };
+        }
+
+        // Replace placeholders in table config
+        if (viewKey === 'table' && config.views?.table?.elements != null) {
+          config = {
+            ...config,
+            views: {
+              ...config.views,
+              table: {
+                ...config.views.table,
+                elements: config.views.table.elements.map((element) => ({
+                  ...element,
+                  listFields: undefined,
+                  fields: replaceFields(element.fields),
+                })),
+              },
+            },
+          };
+        }
+
+        console.log(
+          'config',
+          JSON.parse(JSON.stringify(config.views?.table?.elements[4].fields))
+        );
+        console.log(R.view(R.lensPath(['views', 'table', 'elements']), config));
+
         this.setSuccess(viewKey, datasetRoute, config);
       } catch (error) {
         this.setError(error);

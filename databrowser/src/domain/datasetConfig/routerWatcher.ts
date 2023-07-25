@@ -17,14 +17,14 @@ export const useConfigRouterWatcher = (router: Router) => {
     async (route, oldRoute) => {
       console.debug('Router watcher route changed', route);
 
-      // Return early if no dataset config affecting route details changed
-      // e.g. when just the route query or hash changed
-      if (isSameRouteConfig(route, oldRoute)) {
-        console.debug(
-          'No dataset config affecting route details changed, returning early'
-        );
-        return;
-      }
+      // // Return early if no dataset config affecting route details changed
+      // // e.g. when just the route query or hash changed
+      // if (isSameRouteConfig(route, oldRoute)) {
+      //   console.debug(
+      //     'No dataset config affecting route details changed, returning early'
+      //   );
+      //   return;
+      // }
 
       // Get route info
       const viewKey = routeNameToViewKey(route.name);

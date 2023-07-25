@@ -36,7 +36,7 @@ export const useUpdate = (
           return;
         }
 
-        const fieldName = replace(field);
+        const fieldName = field;
 
         console.debug(
           `Change for ${tagName.value}: prop "${prop}" becomes "${value}" for field ${fieldName}`
