@@ -11,31 +11,28 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div
       class="flex flex-col items-start gap-x-5 gap-y-4 lg:flex-row lg:items-center"
     >
-      <HeaderButton>
-        <router-link to="/dataset-overview" class="no-underline">
-          {{ t('header.menu.datasets') }}
-        </router-link>
-      </HeaderButton>
-      <HeaderButton>
-        <ExternalLink
-          class="flex items-center gap-2"
-          href="https://github.com/noi-techpark/it.bz.opendatahub.databrowser/wiki"
-          variant="no-underline"
-          tone="text"
-        >
-          {{ t('header.menu.howTo') }}<IconExternal />
-        </ExternalLink>
-      </HeaderButton>
-      <HeaderButton>
-        <ExternalLink
-          class="flex items-center gap-2"
-          href="https://opendatahub.com/contact"
-          variant="no-underline"
-          tone="text"
-        >
-          {{ t('header.menu.contact') }}<IconExternal />
-        </ExternalLink>
-      </HeaderButton>
+      <router-link
+        to="/dataset-overview"
+        class="text-xl text-gray-900 no-underline"
+      >
+        {{ t('header.menu.datasets') }}
+      </router-link>
+      <ExternalLink
+        class="flex items-center gap-2 text-xl text-gray-900"
+        href="https://github.com/noi-techpark/it.bz.opendatahub.databrowser/wiki"
+        variant="no-underline"
+        tone="text"
+      >
+        {{ t('header.menu.howTo') }}<IconExternal />
+      </ExternalLink>
+      <ExternalLink
+        class="flex items-center gap-2 text-xl text-gray-900"
+        href="https://opendatahub.com/contact"
+        variant="no-underline"
+        tone="text"
+      >
+        {{ t('header.menu.contact') }}<IconExternal />
+      </ExternalLink>
     </div>
 
     <MenuUserSection />
