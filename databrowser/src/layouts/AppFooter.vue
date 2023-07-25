@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div>
     <div class="bg-gray-50">
       <ContentAlignmentX
-        class="m-auto flex flex-col p-4 text-xl xl:w-[80rem] 2xl:px-0"
+        class="m-auto flex flex-col p-4 text-xl xl:w-default 2xl:px-0"
       >
         <div
           class="flex w-full flex-col gap-x-10 gap-y-4 border-b border-black pb-4 font-semibold text-black lg:flex-row"
@@ -192,7 +192,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </div>
     <div>
       <ContentAlignmentX
-        class="flex w-full justify-center p-4 xl:w-[80rem] 2xl:px-0"
+        class="flex w-full justify-center p-4 xl:w-default 2xl:px-0"
       >
         <span class="text-sm">
           @Open Data Hub |

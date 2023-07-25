@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     class="overflow-auto border-transparent bg-green-500 pl-2"
     :class="{ 'bg-red-500': !editStore.isEqual }"
   >
-    <div class="h-[30rem] w-[80rem]">
+    <div class="h-[30rem] w-default">
       <VueDiff
         :mode="'split'"
         :theme="'dark'"
