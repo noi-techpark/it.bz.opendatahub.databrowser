@@ -42,7 +42,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script lang="ts" setup>
 import MenuUserSection from '../../domain/auth/MenuUserSection.vue';
 import ExternalLink from '../../components/link/ExternalLink.vue';
-import HeaderButton from '../../components/header/HeaderButton.vue';
 import IconExternal from '../../components/svg/IconExternal.vue';
 import { useI18n } from 'vue-i18n';
 
