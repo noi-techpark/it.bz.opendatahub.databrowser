@@ -5,11 +5,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div>
-    <AppHeader @set-spacer-height="setSpacerHeight" />
-    <div ref="spacer"></div>
+  <div class="flex h-screen flex-col overflow-y-auto">
+    <AppHeader :is-menu-open="isMenuOpen" @toggle-menu="toggleMenu" />
     <slot></slot>
     <AppFooter v-if="showAppFooter" />
+    <div
+      class="absolute w-full bg-black/60"
+      :class="isMenuOpen ? 'h-full' : 'h-0'"
+    ></div>
   </div>
 </template>
 
@@ -22,13 +25,9 @@ withDefaults(defineProps<{ showAppFooter?: boolean }>(), {
   showAppFooter: true,
 });
 
-const spacer = ref<HTMLDivElement | null>(null);
+const isMenuOpen = ref(false);
 
-function setSpacerHeight(height: number) {
-  if (!spacer.value) {
-    return;
-  }
-
-  spacer.value.style.height = `${height}px`;
+function toggleMenu() {
+  isMenuOpen.value = !isMenuOpen.value;
 }
 </script>

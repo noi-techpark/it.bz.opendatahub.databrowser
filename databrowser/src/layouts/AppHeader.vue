@@ -6,11 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <div
-    ref="header"
-    class="fixed z-10 flex w-full flex-col"
-    :class="menuOpen ? 'h-full' : ''"
-  >
+  <div class="sticky top-0 z-10 w-full">
     <div class="bg-[#F4F8F9]">
       <ContentAlignmentX
         class="m-auto flex justify-between px-4 py-1 xl:w-[80rem] 2xl:px-0"
@@ -55,20 +51,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </div>
           </router-link>
           <IconClose
-            v-if="menuOpen"
+            v-if="props.isMenuOpen"
             class="ml-auto lg:hidden"
-            @click="menuOpen = false"
+            @click="toggleMenu"
           />
-          <IconMenu v-else class="ml-auto lg:hidden" @click="menuOpen = true" />
+          <IconMenu v-else class="ml-auto lg:hidden" @click="toggleMenu" />
         </div>
 
         <MenuItems
-          :class="menuOpen ? '' : 'hidden'"
+          :class="props.isMenuOpen ? '' : 'hidden'"
           class="grow border-t border-gray-250 py-4 lg:flex lg:border-0"
         />
       </ContentAlignmentX>
     </div>
-    <div class="grow bg-black/60"></div>
   </div>
 </template>
 
@@ -80,20 +75,18 @@ import ExternalLink from '../components/link/ExternalLink.vue';
 import MenuItems from './menu/MenuItems.vue';
 import IconMenu from '../components/svg/IconMenu.vue';
 import IconClose from '../components/svg/IconClose.vue';
-import { onMounted, ref } from 'vue';
 
 const { t } = useI18n();
 
-const menuOpen = ref(false);
-
-const header = ref<HTMLDivElement | null>(null);
-const emit = defineEmits<{
-  setSpacerHeight: [height: number];
+const props = defineProps<{
+  isMenuOpen: boolean;
 }>();
 
-// Only sets the height of the spacer once, spacer will be off by 10px if user hits breakpoint lg without a refresh.
-// Could maybe by solved by setting a watcher for the clientHeight property for the header template ref?
-onMounted(() => {
-  emit('setSpacerHeight', header.value?.clientHeight ?? 110);
-});
+const emit = defineEmits<{
+  toggleMenu: [boolean];
+}>();
+
+function toggleMenu() {
+  emit('toggleMenu', !props.isMenuOpen);
+}
 </script>
