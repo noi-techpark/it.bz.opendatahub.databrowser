@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div>
-    <div class="bg-[#F4F8F9]">
+    <div class="bg-gray-50">
       <ContentAlignmentX
         class="m-auto flex flex-col p-4 text-xl xl:w-[80rem] 2xl:px-0"
       >
