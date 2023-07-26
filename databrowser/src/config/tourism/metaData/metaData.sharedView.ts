@@ -34,6 +34,11 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               fields: { enabled: 'Deprecated' },
             },
             {
+              title: 'Base URL',
+              component: CellComponent.UrlCell,
+              fields: { text: 'BaseUrl' },
+            },
+            {
               title: 'Path',
               component: CellComponent.ArrayEditableCell,
               listFields: {
