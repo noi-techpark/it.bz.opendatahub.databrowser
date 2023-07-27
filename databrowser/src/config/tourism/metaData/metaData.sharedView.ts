@@ -82,7 +82,6 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
           ],
         },
-
         {
           name: 'IDs',
           properties: [idReadOnlyCell()],
