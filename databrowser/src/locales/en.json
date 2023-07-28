@@ -337,7 +337,19 @@
       "filter": "Filter",
       "resetFilters": "Reset Filters",
       "noMetadataAvailable": "No metadata available",
-      "deprecated": "Deprecated"
+      "deprecated": "Deprecated",
+      "searchDataset": "Search Dataset",
+      "dataSpace": "Dataspace",
+      "showFilters": "Show filters",
+      "applyFilters": "Apply filters",
+      "categories": "Categories",
+      "tags": "Tags",
+      "datasetConfigurations": "Dataset configurations",
+      "accessType": "Access type",
+      "dataProvider": "Data provider",
+      "dataset": "Dataset",
+      "aggregated": "Aggregated",
+      "single": "Single"
     }
   }
 }
