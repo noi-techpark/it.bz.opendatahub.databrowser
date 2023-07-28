@@ -199,8 +199,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <ExternalLink href="https://noi.bz.it/en/privacy" tone="text"
             >Privacy</ExternalLink
           >
-          |
-          <ExternalLink href="/" tone="text">Privacy</ExternalLink>
         </span>
       </ContentAlignmentX>
     </div>
