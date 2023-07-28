@@ -34,7 +34,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import { onClickOutside } from '@vueuse/core';
 import ArrowDownCompact from '../svg/ArrowDownCompact.vue';
 
 const props = defineProps<{
@@ -57,8 +56,6 @@ const toggle = () => {
   show.value = !show.value;
   emit('visible', show.value);
 };
-
-onClickOutside(target, () => close());
 
 const emit = defineEmits<{
   // eslint-disable-next-line no-unused-vars
