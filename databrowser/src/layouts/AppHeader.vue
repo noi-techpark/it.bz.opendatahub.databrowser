@@ -29,7 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </div>
     <div class="bg-white">
       <ContentAlignmentX
-        class="m-auto flex flex-col gap-x-20 gap-y-2 px-4 py-1 md:flex-row xl:w-default 2xl:px-0"
+        class="m-auto flex flex-col gap-x-20 gap-y-2 px-4 py-1 lg:flex-row xl:w-default 2xl:px-0"
       >
         <div class="flex items-center">
           <router-link
