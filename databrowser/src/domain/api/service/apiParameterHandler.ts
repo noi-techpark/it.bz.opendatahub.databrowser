@@ -24,7 +24,11 @@ const removeDefaultValues = (
 ): ApiParameters =>
   Object.entries(apiParameters)
     // Remove all entries where value === default value
-    .filter(([key, value]) => defaultApiParameters[key] !== value)
+    .filter(([key, value]) => {
+      console.log('removeDefaultValues', key, value, defaultApiParameters[key]);
+
+      return defaultApiParameters[key] !== value;
+    })
     .reduce((previous, [key, value]) => ({ ...previous, [key]: value }), {});
 
 const computeValidApiParameters = (
@@ -40,7 +44,14 @@ const computeValidApiParameters = (
     return { ...previous, [key]: value };
   }, {});
 
-export const useApiParameterHandler = () => useApiParameterHandlerInternal();
+let apiParameterHandler: ApiQuery | null = null;
+
+export const useApiParameterHandler = () => {
+  if (apiParameterHandler == null) {
+    apiParameterHandler = useApiParameterHandlerInternal();
+  }
+  return apiParameterHandler;
+};
 
 const useApiParameterHandlerInternal = (): ApiQuery => {
   const currentApiParameters = computed({
@@ -63,6 +74,10 @@ const useApiParameterHandlerInternal = (): ApiQuery => {
   const setDefaultApiParameters = (apiParameters: ApiParameters): void => {
     const nextApiParameters = removeUndefinedValues({ ...apiParameters });
     defaultApiParameters.value = nextApiParameters;
+    console.log(
+      'setDefaultApiParameters defaultApiParameters',
+      defaultApiParameters.value
+    );
   };
 
   const allApiParameters = computed(() => {
