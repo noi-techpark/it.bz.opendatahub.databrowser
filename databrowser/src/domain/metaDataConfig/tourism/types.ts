@@ -17,4 +17,11 @@ export interface TourismMetaData {
   recordCount: { open?: number; closed?: number; reduced?: number };
   deprecated?: boolean;
   parent?: TourismMetaData;
+  tags?: string[];
+  hasNoMetadata?: boolean;
+  dataSpace?: string;
+  categories?: string[];
+  dataProviders?: string[];
+  dataset?: string; // FIXME
+  datasetConfigurations?: string[]; // FIXME
 }

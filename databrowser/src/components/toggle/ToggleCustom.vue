@@ -32,7 +32,7 @@ const props = withDefaults(
   }
 );
 
-const enabled = ref(props.modelValue);
+const enabled = computed(() => props.modelValue);
 
 const switchColorClass = computed(() => {
   if (props.disabled === true) {

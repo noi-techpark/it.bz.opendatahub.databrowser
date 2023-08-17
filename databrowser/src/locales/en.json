@@ -349,7 +349,8 @@
       "dataProvider": "Data provider",
       "dataset": "Dataset",
       "aggregated": "Aggregated",
-      "single": "Single"
+      "single": "Single",
+      "noDatasetFoundWithSelectedFilters": "No dataset were found with the selected filters."
     }
   }
 }

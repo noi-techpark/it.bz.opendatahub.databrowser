@@ -11,9 +11,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <div class="shrink-0 md:w-64" />
         <div class="flex w-full flex-col gap-6 md:flex-row md:gap-0">
           <h1 class="grow text-2xl font-semibold text-gray-900">
-            {{ tourismDatasets?.length || '...' }}
+            {{ isOtherDatasetsLoading ? '...' : visibleDatasets?.length }}
             {{
-              tourismDatasets?.length === 1
+              !isOtherDatasetsLoading && visibleDatasets?.length === 1
                 ? t('overview.listPage.datasetFound')
                 : t('overview.listPage.datasetsFound')
             }}
@@ -48,11 +48,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         >
           <!-- Title -->
           <div class="sticky top-0 flex items-center gap-2">
-            <h3 class="grow py-2 px-3 text-2xl font-semibold text-gray-900">
+            <h3 class="grow px-3 py-2 text-2xl font-semibold text-gray-900">
               {{ t('overview.listPage.filter') }}
             </h3>
             <div
-              class="mx-3 hidden cursor-pointer select-none items-center justify-center gap-1 rounded border border-gray-300 py-1 px-2 text-sm text-green-400 md:flex"
+              class="mx-3 hidden cursor-pointer select-none items-center justify-center gap-1 rounded border border-gray-300 px-2 py-1 text-sm text-green-400 md:flex"
               @click="resetFilters"
             >
               <IconDelete class="h-4 w-4 text-error" />
@@ -68,20 +68,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
           <!-- Filters list -->
           <div
-            class="truncate border-t border-gray-300 py-2 px-3 text-dialog"
-            @click="toggleFilter('no_metadata')"
+            class="truncate border-t border-gray-300 px-3 py-2 text-dialog"
+            @click="toggleFilter('hasNoMetadata')"
           >
             <ToggleCustom v-model="_inputModels.no_metadata" class="mr-2" />
             {{ $t('overview.listPage.noMetadataAvailable') }}
           </div>
           <div
-            class="truncate border-t border-gray-300 py-2 px-3 text-dialog"
+            class="truncate border-t border-gray-300 px-3 py-2 text-dialog"
             @click="toggleFilter('deprecated')"
           >
             <ToggleCustom v-model="_inputModels.deprecated" class="mr-2" />
             {{ $t('overview.listPage.deprecated') }}
           </div>
-          <Accordion
+          <!--<Accordion
             :text="$t('overview.listPage.dataSpace')"
             class="border-t border-gray-300 pt-2 text-dialog"
             button-class="font-semibold text-gray-900 pb-2 px-4"
@@ -106,9 +106,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             class="border-t border-gray-300 pt-2 text-dialog"
             button-class="font-semibold text-gray-900 pb-2 px-4"
           >
-            <div class="flex border-t border-gray-300 py-2 px-4">
-              <CheckboxCustom class="mr-2" />
-              Test
+            <div
+              v-for="tag in availableTags"
+              :key="tag.key"
+              class="flex border-t border-gray-300 py-2 px-4"
+            >
+              <CheckboxCustom
+                v-model="_inputModels[tag.key + tag.value]"
+                class="mr-2"
+                @input="
+                  toggleFilter(
+                    'tag',
+                    getFilterMatchObject(TourismMetaDataIndexes.array, tag.key)
+                  )
+                "
+              />
+              {{ tag.value }}
             </div>
           </Accordion>
           <Accordion
@@ -120,18 +133,30 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <CheckboxCustom class="mr-2" />
               Test
             </div>
-          </Accordion>
+          </Accordion>-->
+
           <Accordion
-            :text="$t('overview.listPage.accessType')"
+            v-for="filter in dynamicFilters"
+            :key="filter.id"
+            :text="filter.name"
             class="border-t border-gray-300 pt-2 text-dialog"
             button-class="font-semibold text-gray-900 pb-2 px-4"
           >
-            <div class="flex border-t border-gray-300 py-2 px-4">
-              <CheckboxCustom class="mr-2" />
-              Test
+            <div
+              v-for="option in filter.data"
+              :key="option.key"
+              class="flex border-t border-gray-300 px-4 py-2"
+            >
+              <CheckboxCustom
+                v-model="_inputModels[getInputModelId(filter.id as tourismMetaDataIndexes, option.value)]"
+                class="mr-2"
+                @input="toggleFilter(filter.id, option.key)"
+              />
+              {{ option.value }}
             </div>
           </Accordion>
-          <Accordion
+
+          <!--<Accordion
             :text="$t('overview.listPage.dataProvider')"
             class="border-t border-gray-300 pt-2 text-dialog"
             button-class="font-semibold text-gray-900 pb-2 px-4"
@@ -154,7 +179,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <CheckboxCustom class="mr-2" />
               {{ $t('overview.listPage.single') }}
             </div>
-          </Accordion>
+          </Accordion>-->
 
           <!-- Action buttons -->
           <div class="mx-3 flex gap-3">
@@ -187,6 +212,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               :data-test="`dataset-card-${dataset.id}`"
               class="break-words"
             />
+            <div
+              v-if="!visibleDatasets.length"
+              class="flex items-center justify-center rounded border border-gray-300 p-3"
+            >
+              {{ t('overview.listPage.noDatasetFoundWithSelectedFilters') }}
+            </div>
           </template>
         </div>
       </div>
@@ -201,6 +232,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 const { t } = useI18n();
+import lodash from 'lodash';
 
 import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
@@ -216,10 +248,36 @@ import CheckboxCustom from '../../../components/checkbox/CheckboxCustom.vue';
 import IconDelete from '../../../components/svg/IconDelete.vue';
 import IconFilter from '../../../components/svg/IconFilter.vue';
 import IconClose from '../../../components/svg/IconClose.vue';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
+
+type tourismMetaDataIndexes =
+  | 'dataSpace'
+  | 'categories'
+  | 'tags'
+  | 'datasetConfigurations'
+  | 'access'
+  | 'sources'
+  | 'dataset';
+
+interface Filters {
+  searchVal: string;
+  applied: { [key: string]: FilterObject };
+}
 
 interface FilterObject {
   key: string;
   value?: string;
+}
+
+interface FilterSelectItem {
+  key: string;
+  value: string;
+}
+
+interface DynamicFilter {
+  id: string;
+  name: string;
+  data: FilterSelectItem[];
 }
 
 const defaultFilters = {
@@ -229,38 +287,59 @@ const defaultFilters = {
 const _inputModels = ref({
   no_metadata: false,
   deprecated: false,
-});
+} as { [key: string]: boolean });
 
 const isFiltersModalVisible = ref(false);
-const filters = ref(defaultFilters);
-
-// Computed
-const visibleDatasets = computed(() => {
-  let datasets = tourismDatasets.value;
-
-  if (filters.value.searchVal) {
-    datasets = datasets.filter((dataset) =>
-      dataset.shortname
-        .toLowerCase()
-        .includes(filters.value.searchVal.toLowerCase())
-    );
-  }
-
-  for (const [filterKey, filter] of Object.entries(filters.value.applied)) {
-    switch (filterKey) {
-      case 'deprecated':
-        datasets = datasets.filter(
-          (dataset) =>
-            (dataset[filterKey] as string | boolean) === (filter.value || true)
-        );
-        break;
-    }
-  }
-
-  return datasets;
-});
+const filters = ref(lodash.cloneDeep(defaultFilters) as Filters);
 
 // Methods
+const mapDatasetsKeyArrayToFilterItems = (
+  datasets: TourismMetaData[],
+  key: tourismMetaDataIndexes
+) => {
+  const addedProps = {} as { [key: string]: boolean };
+  let finalList = [] as FilterSelectItem[];
+
+  datasets.forEach((dataset) => {
+    if (dataset[key]) {
+      (dataset[key]! as string[]).forEach((propName) => {
+        if (!addedProps[propName]) {
+          addedProps[propName] = true;
+          finalList.push(getFilterSectionItemObject(propName, propName));
+          _inputModels.value[
+            getInputModelId(key as tourismMetaDataIndexes, propName)
+          ] = false; // NOTE: defining the object key here it's necessary to properly rest the object programmatically
+        }
+      });
+    }
+  });
+
+  return finalList;
+};
+
+const mapDatasetsKeyStringToFilterItems = (
+  datasets: TourismMetaData[],
+  key: tourismMetaDataIndexes
+) => {
+  const addedProps = {} as { [key: string]: boolean };
+  let finalList = [] as FilterSelectItem[];
+
+  datasets.forEach((dataset) => {
+    const propName = dataset[key] as string;
+    if (propName) {
+      if (!addedProps[propName]) {
+        addedProps[propName] = true;
+        finalList.push(getFilterSectionItemObject(propName, propName));
+        _inputModels.value[
+          getInputModelId(key as tourismMetaDataIndexes, propName)
+        ] = false; // NOTE: defining the object key here it's necessary to properly rest the object programmatically
+      }
+    }
+  });
+
+  return finalList;
+};
+
 const showFilters = () => {
   isFiltersModalVisible.value = true;
 };
@@ -270,28 +349,39 @@ const hideFilters = () => {
 };
 
 const resetFilters = () => {
-  filters.value = defaultFilters;
+  filters.value = lodash.cloneDeep(defaultFilters);
+
+  for (const [key] of Object.entries(_inputModels.value)) {
+    _inputModels.value[key] = false;
+  }
   hideFilters();
 };
 
-const isFilterEnabled = (key: string) => {
-  return typeof filters.value.applied[key] !== 'undefined';
+const isFilterEnabled = (key: string, value?: string) => {
+  const filterFullKey = getFilterFullKey(key, value);
+  return typeof filters.value.applied[filterFullKey] !== 'undefined';
 };
 
 const toggleFilter = (key: string, value?: string) => {
-  if (isFilterEnabled(key)) {
-    unsetFilter(key);
+  if (isFilterEnabled(key, value)) {
+    unsetFilter(key, value);
   } else {
     setFilter(key, value);
   }
 };
 
 const setFilter = (key: string, value?: string) => {
-  filters.value.applied[key] = getFilterObject(key, value);
+  const filterFullKey = getFilterFullKey(key, value);
+  filters.value.applied[filterFullKey] = getFilterObject(key, value);
 };
 
-const unsetFilter = (key: string) => {
-  delete filters.value.applied[key];
+const unsetFilter = (key: string, value?: string) => {
+  const filterFullKey = getFilterFullKey(key, value);
+  delete filters.value.applied[filterFullKey];
+};
+
+const getFilterFullKey = (key: string, value?: string) => {
+  return key + (value ? '-' + value : '');
 };
 
 const getFilterObject = (key: string, value?: string): FilterObject => {
@@ -301,9 +391,155 @@ const getFilterObject = (key: string, value?: string): FilterObject => {
   };
 };
 
+const getInputModelId = (matchType: tourismMetaDataIndexes, match: string) => {
+  return matchType + '-' + match;
+};
+
+const getDynamicFilterObject = (
+  id: string,
+  name: string,
+  data: FilterSelectItem[]
+): DynamicFilter => {
+  return {
+    id,
+    name,
+    data,
+  };
+};
+
+const getFilterSectionItemObject = (
+  key: string,
+  value: string
+): FilterSelectItem => {
+  return {
+    key,
+    value,
+  };
+};
+
+// Computed
+const dynamicFilters = computed(
+  () =>
+    [
+      getDynamicFilterObject(
+        'dataSpace',
+        t('overview.listPage.dataSpace'),
+        availableDataSpaces.value
+      ),
+      getDynamicFilterObject(
+        'categories',
+        t('overview.listPage.categories'),
+        availableCategories.value
+      ),
+      getDynamicFilterObject(
+        'tags',
+        t('overview.listPage.tags'),
+        availableTags.value
+      ),
+      getDynamicFilterObject(
+        'datasetConfigurations',
+        t('overview.listPage.datasetConfigurations'),
+        [] // TODO
+      ),
+      getDynamicFilterObject(
+        'access',
+        t('overview.listPage.accessType'),
+        availableAccessTypes.value
+      ),
+      getDynamicFilterObject(
+        'sources',
+        t('overview.listPage.dataProvider'),
+        availableDataProviders.value
+      ),
+      getDynamicFilterObject(
+        'dataset',
+        t('overview.listPage.dataset'),
+        availableDatasetFilters.value // TODO
+      ),
+    ] as DynamicFilter[]
+);
+
+const allDatasets = computed(() => {
+  return [...metaDataDatasets.value, ...tourismDatasets.value];
+});
+
+const visibleDatasets = computed(() => {
+  let datasets = allDatasets.value;
+
+  if (filters.value.searchVal) {
+    datasets = datasets.filter((dataset) =>
+      dataset.shortname
+        .toLowerCase()
+        .includes(filters.value.searchVal.toLowerCase())
+    );
+  }
+
+  for (const [_, filter] of Object.entries(filters.value.applied)) {
+    switch (filter.key) {
+      case 'hasNoMetadata':
+      case 'deprecated':
+      case 'dataSpace':
+      case 'access':
+        datasets = datasets.filter(
+          (dataset) =>
+            (dataset[filter.key as tourismMetaDataIndexes] as
+              | string
+              | boolean) === (filter.value || true)
+        );
+        break;
+
+      case 'tags':
+      case 'categories':
+      case 'sources':
+        datasets = datasets.filter((dataset) => {
+          return (
+            dataset[filter.key as tourismMetaDataIndexes]! as String[]
+          ).find((value) => filter.value === value);
+        });
+        break;
+    }
+  }
+
+  return datasets;
+});
+
+const availableDataSpaces = computed(() => {
+  return mapDatasetsKeyStringToFilterItems(allDatasets.value, 'dataSpace');
+});
+
+const availableCategories = computed(() => {
+  return mapDatasetsKeyArrayToFilterItems(allDatasets.value, 'categories');
+});
+
+const availableDataProviders = computed(() => {
+  return mapDatasetsKeyArrayToFilterItems(allDatasets.value, 'sources');
+});
+
+const availableTags = computed(() => {
+  return mapDatasetsKeyArrayToFilterItems(allDatasets.value, 'tags');
+});
+
+const availableAccessTypes = computed(() => {
+  return mapDatasetsKeyStringToFilterItems(allDatasets.value, 'access');
+});
+
+const availableDatasetFilters = computed(() => {
+  const filters = [
+    getFilterSectionItemObject('aggregated', t('overview.listPage.aggregated')),
+    getFilterSectionItemObject('signgle', t('overview.listPage.single')),
+  ];
+
+  filters.forEach((filter) => {
+    _inputModels.value[
+      getInputModelId('dataset' as tourismMetaDataIndexes, filter.value)
+    ] = false;
+  });
+
+  return filters;
+});
+
 // Data fetch
-const { metaDataDatasets, accessTypeOptions, currentAccessType } =
-  useMetaDataDatasets();
+const { metaDataDatasets } = useMetaDataDatasets();
 
 const { isOtherDatasetsLoading, tourismDatasets } =
   useOtherDatasets(metaDataDatasets);

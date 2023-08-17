@@ -28,6 +28,10 @@ interface OdhTourismMetaData {
   PathParam: string[];
   PublishedOn: string[];
   ApiAccess?: Record<string, string>;
+  ODHTags?: string[];
+  Dataspace?: string;
+  Category?: string[];
+  DataProvider?: string[];
 }
 
 const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
@@ -70,6 +74,10 @@ const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
       recordCount: dataset.RecordCount as Record<string, number>,
       deprecated: dataset.Deprecated,
       parent: undefined,
+      tags: dataset.ODHTags,
+      dataSpace: dataset.Dataspace,
+      categories: dataset.Category,
+      dataProviders: dataset.DataProvider,
     }))
     .sort((a, b) => a?.shortname?.localeCompare(b?.shortname));
 
