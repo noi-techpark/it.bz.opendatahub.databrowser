@@ -15,7 +15,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :class="buttonClass"
         @click="toggle"
       >
-        <span :class="buttonLabelClass">{{ text }}</span>
+        <span
+          class="mr-2 flex grow items-center justify-start gap-2 text-left"
+          :class="buttonLabelClass"
+          ><div class="grow">{{ text }}</div>
+          <div
+            v-if="badgeValue"
+            class="rounded bg-gray-200 px-2 text-sm text-gray-900"
+          >
+            {{ badgeValue }}
+          </div></span
+        >
         <ArrowDownCompact
           class="h-4 w-4 fill-current text-green-400 transition"
           :class="{
@@ -40,6 +50,7 @@ const props = defineProps<{
   text: string;
   buttonClass?: string;
   buttonLabelClass?: string;
+  badgeValue?: string;
 }>();
 const { text, buttonClass, buttonLabelClass } = toRefs(props);
 

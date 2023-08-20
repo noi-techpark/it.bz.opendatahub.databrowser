@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="flex items-center gap-3">
+  <div class="relative flex items-center gap-3">
     <label v-if="hasLabel" :for="id">{{ label }}</label>
     <input
       :id="id"
@@ -17,12 +17,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :type="type"
     />
     <span v-if="label != null" class="ml-3 font-semibold"></span>
+    <div
+      v-if="type === 'search' && !text"
+      class="absolute right-0 flex h-full w-12 items-center justify-center"
+    >
+      <IconSearch class="h-5 w-5 text-green-400" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { randomId } from '../utils/random';
+import IconSearch from '../svg/IconSearch.vue';
 
 const id = randomId();
 
@@ -34,7 +41,7 @@ const props = defineProps<{
   placeholder?: string;
   inputClasses?: string;
   focus?: boolean;
-  type?: 'text' | 'date' | 'datetime-local' | 'time';
+  type?: 'text' | 'date' | 'datetime-local' | 'time' | 'search';
 }>();
 
 const inputRef = ref();

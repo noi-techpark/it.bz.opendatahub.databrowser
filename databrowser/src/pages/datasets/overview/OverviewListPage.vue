@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <InputCustom
             v-model="filters.searchVal"
             :placeholder="t('overview.listPage.searchDataset')"
-            type="text"
+            type="search"
             input-classes="w-full md:w-64"
           />
         </div>
@@ -30,11 +30,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <div class="flex w-full flex-col items-start gap-8 md:flex-row">
         <!-- Mobile filters button -->
         <div
-          class="flex w-full shrink-0 items-center rounded border border-gray-300 px-3 py-2 font-semibold text-green-400 md:hidden"
+          class="flex w-full shrink-0 items-center gap-2 rounded border border-gray-300 px-3 py-2 font-semibold text-green-400 md:hidden"
           @click="showFilters"
         >
           <div class="grow">
             {{ t('overview.listPage.showFilters') }}
+          </div>
+          <div
+            v-if="appliedFiltersNum"
+            class="rounded bg-gray-200 px-2 text-sm text-gray-900"
+          >
+            {{ appliedFiltersNum }}
           </div>
           <IconFilter class="mr-2 h-3 w-3" />
         </div>
@@ -47,10 +53,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           }"
         >
           <!-- Title -->
-          <div class="sticky top-0 flex items-center gap-2">
-            <h3 class="grow px-3 py-2 text-2xl font-semibold text-gray-900">
+          <div
+            class="fixed top-0 z-10 flex w-full items-center gap-1 bg-white md:relative"
+          >
+            <h3
+              class="flex grow items-center gap-2 px-3 py-2 text-2xl font-semibold text-gray-900"
+            >
               {{ t('overview.listPage.filter') }}
+              <div
+                v-if="appliedFiltersNum"
+                class="rounded bg-gray-200 px-2 text-sm text-gray-900"
+              >
+                {{ appliedFiltersNum }}
+              </div>
             </h3>
+
             <div
               class="mx-3 hidden cursor-pointer select-none items-center justify-center gap-1 rounded border border-gray-300 px-2 py-1 text-sm text-green-400 md:flex"
               @click="resetFilters"
@@ -67,122 +84,48 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           </div>
 
           <!-- Filters list -->
-          <div
-            class="truncate border-t border-gray-300 px-3 py-2 text-dialog"
-            @click="toggleFilter('hasNoMetadata')"
-          >
-            <ToggleCustom v-model="_inputModels.no_metadata" class="mr-2" />
-            {{ $t('overview.listPage.noMetadataAvailable') }}
-          </div>
-          <div
-            class="truncate border-t border-gray-300 px-3 py-2 text-dialog"
-            @click="toggleFilter('deprecated')"
-          >
-            <ToggleCustom v-model="_inputModels.deprecated" class="mr-2" />
-            {{ $t('overview.listPage.deprecated') }}
-          </div>
-          <!--<Accordion
-            :text="$t('overview.listPage.dataSpace')"
-            class="border-t border-gray-300 pt-2 text-dialog"
-            button-class="font-semibold text-gray-900 pb-2 px-4"
-          >
-            <div class="flex border-t border-gray-300 py-2 px-4">
-              <CheckboxCustom class="mr-2" />
-              Test
-            </div>
-          </Accordion>
-          <Accordion
-            :text="$t('overview.listPage.categories')"
-            class="border-t border-gray-300 pt-2 text-dialog"
-            button-class="font-semibold text-gray-900 pb-2 px-4"
-          >
-            <div class="flex border-t border-gray-300 py-2 px-4">
-              <CheckboxCustom class="mr-2" />
-              Test
-            </div>
-          </Accordion>
-          <Accordion
-            :text="$t('overview.listPage.tags')"
-            class="border-t border-gray-300 pt-2 text-dialog"
-            button-class="font-semibold text-gray-900 pb-2 px-4"
-          >
+          <div class="h-full overflow-y-auto py-14 md:h-auto md:p-0">
             <div
-              v-for="tag in availableTags"
-              :key="tag.key"
-              class="flex border-t border-gray-300 py-2 px-4"
+              class="truncate border-t border-gray-300 px-3 py-2 text-dialog"
+              @click="toggleFilter('hasNoMetadata')"
             >
-              <CheckboxCustom
-                v-model="_inputModels[tag.key + tag.value]"
-                class="mr-2"
-                @input="
-                  toggleFilter(
-                    'tag',
-                    getFilterMatchObject(TourismMetaDataIndexes.array, tag.key)
-                  )
-                "
-              />
-              {{ tag.value }}
+              <ToggleCustom v-model="_inputModels.no_metadata" class="mr-2" />
+              {{ $t('overview.listPage.noMetadataAvailable') }}
             </div>
-          </Accordion>
-          <Accordion
-            :text="$t('overview.listPage.datasetConfigurations')"
-            class="border-t border-gray-300 pt-2 text-dialog"
-            button-class="font-semibold text-gray-900 pb-2 px-4"
-          >
-            <div class="flex border-t border-gray-300 py-2 px-4">
-              <CheckboxCustom class="mr-2" />
-              Test
-            </div>
-          </Accordion>-->
-
-          <Accordion
-            v-for="filter in dynamicFilters"
-            :key="filter.id"
-            :text="filter.name"
-            class="border-t border-gray-300 pt-2 text-dialog"
-            button-class="font-semibold text-gray-900 pb-2 px-4"
-          >
             <div
-              v-for="option in filter.data"
-              :key="option.key"
-              class="flex border-t border-gray-300 px-4 py-2"
+              class="truncate border-t border-gray-300 px-3 py-2 text-dialog"
+              @click="toggleFilter('deprecated')"
             >
-              <CheckboxCustom
-                v-model="_inputModels[getInputModelId(filter.id as tourismMetaDataIndexes, option.value)]"
-                class="mr-2"
-                @input="toggleFilter(filter.id, option.key)"
-              />
-              {{ option.value }}
+              <ToggleCustom v-model="_inputModels.deprecated" class="mr-2" />
+              {{ $t('overview.listPage.deprecated') }}
             </div>
-          </Accordion>
-
-          <!--<Accordion
-            :text="$t('overview.listPage.dataProvider')"
-            class="border-t border-gray-300 pt-2 text-dialog"
-            button-class="font-semibold text-gray-900 pb-2 px-4"
-          >
-            <div class="flex border-t border-gray-300 py-2 px-4">
-              <CheckboxCustom class="mr-2" />
-              Test
-            </div>
-          </Accordion>
-          <Accordion
-            :text="$t('overview.listPage.dataset')"
-            class="border-t border-gray-300 pt-2 text-dialog"
-            button-class="font-semibold text-gray-900 pb-2 px-4"
-          >
-            <div class="flex border-t border-gray-300 py-2 px-4">
-              <CheckboxCustom class="mr-2" />
-              {{ $t('overview.listPage.aggregated') }}
-            </div>
-            <div class="flex border-t border-gray-300 py-2 px-4">
-              <CheckboxCustom class="mr-2" />
-              {{ $t('overview.listPage.single') }}
-            </div>
-          </Accordion>-->
+            <Accordion
+              v-for="filter in dynamicFilters"
+              :key="filter.id"
+              :text="filter.name"
+              button-class="font-semibold text-gray-900 pb-2 px-4"
+              :badge-value="getActiveFiltersCountOfGroup(filter.id as tourismMetaDataIndexes)"
+              class="border-t border-gray-300 pt-2 text-dialog"
+            >
+              <div
+                v-for="option in filter.data"
+                :key="option.key"
+                class="flex border-t border-gray-300 px-4 py-2"
+              >
+                <CheckboxCustom
+                  v-model="_inputModels[getInputModelId(filter.id as tourismMetaDataIndexes, option.value)]"
+                  class="mr-2"
+                  @input="toggleFilter(filter.id, option.key)"
+                />
+                {{ option.value }}
+              </div>
+            </Accordion>
+          </div>
 
           <!-- Action buttons -->
-          <div class="mx-3 flex gap-3">
+          <div
+            class="fixed bottom-0 flex w-full gap-3 bg-white px-3 py-4 md:relative md:mx-3 md:w-auto md:p-0"
+          >
             <div
               class="flex flex-1 cursor-pointer select-none items-center justify-center gap-1 rounded border border-gray-300 py-1 text-sm text-green-400"
               @click="resetFilters"
@@ -417,6 +360,18 @@ const getFilterSectionItemObject = (
   };
 };
 
+const getActiveFiltersCountOfGroup = (groupId: tourismMetaDataIndexes) => {
+  let count = 0;
+
+  for (const [filterId] of Object.entries(filters.value.applied)) {
+    if (filterId.startsWith(groupId + '-')) {
+      count++;
+    }
+  }
+
+  return count;
+};
+
 // Computed
 const dynamicFilters = computed(
   () =>
@@ -536,6 +491,10 @@ const availableDatasetFilters = computed(() => {
   });
 
   return filters;
+});
+
+const appliedFiltersNum = computed(() => {
+  return Object.keys(filters.value.applied).length;
 });
 
 // Data fetch
