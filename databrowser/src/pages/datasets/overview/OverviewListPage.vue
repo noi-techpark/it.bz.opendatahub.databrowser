@@ -110,7 +110,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <div
                 v-for="option in filter.data"
                 :key="option.key"
-                class="flex border-t border-gray-300 px-4 py-2"
+                class="flex items-center border-t border-gray-300 px-4 py-2"
               >
                 <CheckboxCustom
                   v-model="_inputModels[getInputModelId(filter.id as tourismMetaDataIndexes, option.value)]"
@@ -118,13 +118,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   @input="toggleFilter(filter.id, option.key)"
                 />
                 {{ option.value }}
+                <InfoPopover v-if="filter.id === 'singleDataset'" class="ml-2">
+                  <PopoverCustomPanel>
+                    <PopoverContent>
+                      {{ getSingleDatasetPopoverDescription(option.key) }}
+                    </PopoverContent>
+                  </PopoverCustomPanel>
+                </InfoPopover>
               </div>
             </Accordion>
           </div>
 
           <!-- Action buttons -->
           <div
-            class="fixed bottom-0 flex w-full gap-3 bg-white px-3 py-4 md:relative md:mx-3 md:w-auto md:p-0"
+            class="fixed bottom-0 flex w-full gap-3 border-t border-gray-300 bg-white px-3 py-4 md:relative md:w-auto md:py-3 md:pb-0"
           >
             <div
               class="flex flex-1 cursor-pointer select-none items-center justify-center gap-1 rounded border border-gray-300 py-1 text-sm text-green-400"
@@ -191,6 +198,9 @@ import CheckboxCustom from '../../../components/checkbox/CheckboxCustom.vue';
 import IconDelete from '../../../components/svg/IconDelete.vue';
 import IconFilter from '../../../components/svg/IconFilter.vue';
 import IconClose from '../../../components/svg/IconClose.vue';
+import InfoPopover from '../../../components/popover/InfoPopover.vue';
+import PopoverCustomPanel from '../../../components/popover/PopoverCustomPanel.vue';
+import PopoverContent from '../../../components/popover/PopoverContent.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 
 type tourismMetaDataIndexes =
@@ -200,7 +210,7 @@ type tourismMetaDataIndexes =
   | 'datasetConfigurations'
   | 'access'
   | 'sources'
-  | 'dataset';
+  | 'singleDataset';
 
 interface Filters {
   searchVal: string;
@@ -372,6 +382,19 @@ const getActiveFiltersCountOfGroup = (groupId: tourismMetaDataIndexes) => {
   return count;
 };
 
+const getSingleDatasetPopoverDescription = (forOption: string) => {
+  switch (forOption) {
+    case 'aggregated':
+      return 'TODO: aggregated desc';
+
+    case 'single':
+      return 'TODO: single desc';
+
+    default:
+      return 'Unknown option';
+  }
+};
+
 // Computed
 const dynamicFilters = computed(
   () =>
@@ -407,9 +430,9 @@ const dynamicFilters = computed(
         availableDataProviders.value
       ),
       getDynamicFilterObject(
-        'dataset',
+        'singleDataset',
         t('overview.listPage.dataset'),
-        availableDatasetFilters.value // TODO
+        availableDatasetFilters.value
       ),
     ] as DynamicFilter[]
 );
@@ -448,8 +471,21 @@ const visibleDatasets = computed(() => {
       case 'sources':
         datasets = datasets.filter((dataset) => {
           return (
-            dataset[filter.key as tourismMetaDataIndexes]! as String[]
+            dataset[filter.key as tourismMetaDataIndexes]! as string[]
           ).find((value) => filter.value === value);
+        });
+        break;
+
+      case 'singleDataset':
+        datasets = datasets.filter((dataset) => {
+          let matchPref = true;
+          if (filter.value === 'aggregated') {
+            matchPref = false;
+          }
+          return (
+            (dataset[filter.key as tourismMetaDataIndexes]! as boolean) ===
+            matchPref
+          );
         });
         break;
     }
@@ -481,12 +517,12 @@ const availableAccessTypes = computed(() => {
 const availableDatasetFilters = computed(() => {
   const filters = [
     getFilterSectionItemObject('aggregated', t('overview.listPage.aggregated')),
-    getFilterSectionItemObject('signgle', t('overview.listPage.single')),
+    getFilterSectionItemObject('single', t('overview.listPage.single')),
   ];
 
   filters.forEach((filter) => {
     _inputModels.value[
-      getInputModelId('dataset' as tourismMetaDataIndexes, filter.value)
+      getInputModelId('singleDataset' as tourismMetaDataIndexes, filter.value)
     ] = false;
   });
 

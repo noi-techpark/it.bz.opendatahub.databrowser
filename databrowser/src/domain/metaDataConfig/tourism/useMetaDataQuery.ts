@@ -78,6 +78,7 @@ const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
       dataSpace: dataset.Dataspace,
       categories: dataset.Category,
       dataProviders: dataset.DataProvider,
+      singleDataset: dataset.SingleDataset,
     }))
     .sort((a, b) => a?.shortname?.localeCompare(b?.shortname));
 

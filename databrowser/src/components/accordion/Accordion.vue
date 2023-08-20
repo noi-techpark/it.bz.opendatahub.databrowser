@@ -50,7 +50,7 @@ const props = defineProps<{
   text: string;
   buttonClass?: string;
   buttonLabelClass?: string;
-  badgeValue?: string;
+  badgeValue?: string | number;
 }>();
 const { text, buttonClass, buttonLabelClass } = toRefs(props);
 
