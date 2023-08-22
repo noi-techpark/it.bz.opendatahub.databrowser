@@ -10,6 +10,7 @@ export type TagType =
   | 'green'
   | 'red'
   | 'yellow'
-  | 'info';
+  | 'info'
+  | 'pink';
 
 export type TagSize = 'xs' | 'md';
