@@ -184,6 +184,7 @@ import { ref, computed } from 'vue';
 const { t } = useI18n();
 import lodash from 'lodash';
 
+import { embeddedDatasetConfigs } from '../../../config/config';
 import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import PartnersAndContributors from '../../../components/partners/PartnersAndContributors.vue';
@@ -202,6 +203,7 @@ import InfoPopover from '../../../components/popover/InfoPopover.vue';
 import PopoverCustomPanel from '../../../components/popover/PopoverCustomPanel.vue';
 import PopoverContent from '../../../components/popover/PopoverContent.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
+import { DatasetConfig } from '../../../domain/datasetConfig/types';
 
 type tourismMetaDataIndexes =
   | 'dataSpace'
@@ -210,6 +212,7 @@ type tourismMetaDataIndexes =
   | 'datasetConfigurations'
   | 'access'
   | 'sources'
+  | 'dataProviders'
   | 'singleDataset';
 
 interface Filters {
@@ -385,10 +388,10 @@ const getActiveFiltersCountOfGroup = (groupId: tourismMetaDataIndexes) => {
 const getSingleDatasetPopoverDescription = (forOption: string) => {
   switch (forOption) {
     case 'aggregated':
-      return 'TODO: aggregated desc';
+      return t('overview.listPage.aggregatedDatasetDesc');
 
     case 'single':
-      return 'TODO: single desc';
+      return t('overview.listPage.singleDatasetDesc');
 
     default:
       return 'Unknown option';
@@ -396,6 +399,18 @@ const getSingleDatasetPopoverDescription = (forOption: string) => {
 };
 
 // Computed
+const allDatasetConfigs = computed(() => {
+  let list: DatasetConfig[] = [];
+
+  for (const [_, datasets] of Object.entries(embeddedDatasetConfigs)) {
+    for (const [_, dataset] of Object.entries(datasets)) {
+      list.push(dataset);
+    }
+  }
+
+  return list;
+});
+
 const dynamicFilters = computed(
   () =>
     [
@@ -417,7 +432,7 @@ const dynamicFilters = computed(
       getDynamicFilterObject(
         'datasetConfigurations',
         t('overview.listPage.datasetConfigurations'),
-        [] // TODO
+        availableDatasetConfigurations.value
       ),
       getDynamicFilterObject(
         'access',
@@ -425,9 +440,14 @@ const dynamicFilters = computed(
         availableAccessTypes.value
       ),
       getDynamicFilterObject(
-        'sources',
+        'dataProviders',
         t('overview.listPage.dataProvider'),
         availableDataProviders.value
+      ),
+      getDynamicFilterObject(
+        'sources',
+        t('overview.listPage.source'),
+        availableSources.value
       ),
       getDynamicFilterObject(
         'singleDataset',
@@ -469,10 +489,14 @@ const visibleDatasets = computed(() => {
       case 'tags':
       case 'categories':
       case 'sources':
+      case 'dataProviders':
         datasets = datasets.filter((dataset) => {
-          return (
-            dataset[filter.key as tourismMetaDataIndexes]! as string[]
-          ).find((value) => filter.value === value);
+          const filtrableValues = dataset[
+            filter.key as tourismMetaDataIndexes
+          ]! as string[];
+          if (filtrableValues?.length) {
+            return filtrableValues.find((value) => filter.value === value);
+          }
         });
         break;
 
@@ -486,6 +510,21 @@ const visibleDatasets = computed(() => {
             (dataset[filter.key as tourismMetaDataIndexes]! as boolean) ===
             matchPref
           );
+        });
+        break;
+
+      case 'datasetConfigurations':
+        datasets = datasets.filter((dataset) => {
+          const datasetPath = dataset.pathParam.join('/');
+          if (!datasetPath) {
+            return false;
+          }
+
+          const hasConfig =
+            allDatasetConfigs.value.find(
+              (dataset) => dataset.route.pathParams.join('/') === datasetPath
+            ) !== undefined;
+          return filter.value === 'with' ? hasConfig : !hasConfig;
         });
         break;
     }
@@ -503,6 +542,10 @@ const availableCategories = computed(() => {
 });
 
 const availableDataProviders = computed(() => {
+  return mapDatasetsKeyArrayToFilterItems(allDatasets.value, 'dataProviders');
+});
+
+const availableSources = computed(() => {
   return mapDatasetsKeyArrayToFilterItems(allDatasets.value, 'sources');
 });
 
@@ -523,6 +566,30 @@ const availableDatasetFilters = computed(() => {
   filters.forEach((filter) => {
     _inputModels.value[
       getInputModelId('singleDataset' as tourismMetaDataIndexes, filter.value)
+    ] = false;
+  });
+
+  return filters;
+});
+
+const availableDatasetConfigurations = computed(() => {
+  const filters = [
+    getFilterSectionItemObject(
+      'with',
+      t('overview.listPage.withConfiguration')
+    ),
+    getFilterSectionItemObject(
+      'without',
+      t('overview.listPage.withoutConfiguration')
+    ),
+  ];
+
+  filters.forEach((filter) => {
+    _inputModels.value[
+      getInputModelId(
+        'datasetConfigurations' as tourismMetaDataIndexes,
+        filter.value
+      )
     ] = false;
   });
 

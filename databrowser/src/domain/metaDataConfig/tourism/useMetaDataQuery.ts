@@ -9,6 +9,10 @@ import { unifyPagination, useAxiosFetcher } from '../../api';
 import { TourismMetaData } from './types';
 import { AxiosResponse } from 'axios';
 
+interface ODHTag {
+  Id: string;
+  Self: string;
+}
 interface OdhTourismMetaData {
   ApiFilter: string[];
   Id: string;
@@ -28,7 +32,7 @@ interface OdhTourismMetaData {
   PathParam: string[];
   PublishedOn: string[];
   ApiAccess?: Record<string, string>;
-  ODHTags?: string[];
+  ODHTags?: ODHTag[];
   Dataspace?: string;
   Category?: string[];
   DataProvider?: string[];
@@ -74,7 +78,7 @@ const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
       recordCount: dataset.RecordCount as Record<string, number>,
       deprecated: dataset.Deprecated,
       parent: undefined,
-      tags: dataset.ODHTags,
+      tags: dataset.ODHTags?.map((tag) => tag.Id),
       dataSpace: dataset.Dataspace,
       categories: dataset.Category,
       dataProviders: dataset.DataProvider,

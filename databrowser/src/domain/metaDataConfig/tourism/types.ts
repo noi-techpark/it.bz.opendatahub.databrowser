@@ -23,5 +23,5 @@ export interface TourismMetaData {
   categories?: string[];
   dataProviders?: string[];
   singleDataset?: boolean;
-  datasetConfigurations?: string[]; // FIXME
+  datasetConfigurations?: string[];
 }
