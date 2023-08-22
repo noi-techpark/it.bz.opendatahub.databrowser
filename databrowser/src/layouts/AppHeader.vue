@@ -8,10 +8,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <div class="sticky top-0 z-10 w-full">
     <div class="bg-gray-50">
-      <ContentAlignmentX
-        class="m-auto flex justify-between px-4 py-1 xl:w-default 2xl:px-0"
-      >
+      <ContentAlignmentX class="m-auto flex w-full gap-2 px-4 py-2 2xl:px-0">
         <TagCustom class="text-sm" type="info" text="BETA" />
+        <TagCustom
+          v-if="envBadge"
+          class="text-sm"
+          type="pink"
+          :text="envBadge"
+        />
+        <div class="flex grow" />
         <ExternalLink
           href="https://opendatahub.com"
           variant="no-underline"
@@ -29,7 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </div>
     <div class="bg-white">
       <ContentAlignmentX
-        class="m-auto flex flex-col gap-x-20 gap-y-2 px-4 py-1 lg:flex-row xl:w-default 2xl:px-0"
+        class="m-auto flex flex-col gap-x-20 gap-y-2 px-4 py-2 lg:flex-row 2xl:px-0"
       >
         <div class="flex items-center">
           <router-link
@@ -85,6 +90,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   toggleMenu: [boolean];
 }>();
+
+const envBadge = import.meta.env.VITE_APP_ENV_BADGE;
 
 function toggleMenu() {
   emit('toggleMenu', !props.isMenuOpen);

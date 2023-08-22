@@ -69,6 +69,11 @@ const types: Record<TagType, Color> = {
     text: 'text-black',
     dot: 'bg-black',
   },
+  pink: {
+    background: 'bg-pink-400',
+    text: 'text-black',
+    dot: 'bg-black',
+  },
 };
 
 const props = withDefaults(

@@ -21,6 +21,7 @@ interface ImportMetaEnv
   readonly VITE_APP_FILE_UPLOAD_URL: string;
   readonly VITE_APP_ODH_LOOKUP_BASE_URL: string;
   readonly VITE_APP_HOTJAR_ID: string;
+  readonly VITE_APP_ENV_BADGE: string;
 }
 
 interface ImportMeta {
