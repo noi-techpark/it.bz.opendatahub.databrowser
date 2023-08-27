@@ -32,33 +32,33 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         ></TabLink>
 
         <TabLink
-          v-if="showQuickViewTab"
+          v-if="!isNewView && hasQuickView"
           :label="t('datasets.navigation.quickView')"
           :to="quickViewPath"
-          :active="datasetConfigStore.isQuickView"
+          :active="isQuickView"
           data-test="quick-view-link"
         />
-        <TabLink
-          v-if="!isNewView"
+        <!-- <TabLink
+          v-if="!isNewView && hasDetailView"
           :label="t('datasets.navigation.detailView')"
           :to="detailViewPath"
-          :active="datasetConfigStore.isDetailView"
+          :active="isDetailView"
           data-test="detail-view-link"
-        />
-        <TabLink
-          v-if="showEditTab"
+        /> -->
+        <!-- <TabLink
+          v-if="!isNewView && editRecordSupported"
           :label="t('datasets.navigation.editView')"
           :to="editViewPath"
-          :active="datasetConfigStore.isEditView"
+          :active="isEditView"
           data-test="edit-view-link"
-        />
-        <TabLink
+        /> -->
+        <!-- <TabLink
           v-if="!isNewView"
           :label="t('datasets.navigation.rawView')"
           :to="rawViewPath"
-          :active="datasetConfigStore.isRawView"
+          :active="isRawView"
           data-test="raw-view-link"
-        />
+        /> -->
       </ContentAlignmentX>
     </div>
   </div>
@@ -71,13 +71,23 @@ import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue
 import TabLink from '../../../components/tab/TabLink.vue';
 import { useI18n } from 'vue-i18n';
 import { usePathsForCurrentRoute } from './usePaths';
-import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 import { computed } from 'vue';
 import { useTableViewRouteQueryStore } from '../tableView/tableViewRouteQueryStore';
+import { storeToRefs } from 'pinia';
 
 const { t } = useI18n();
 
-const datasetConfigStore = useDatasetConfigStore();
+const {
+  editRecordSupported,
+  hasDetailView,
+  hasQuickView,
+  isDetailView,
+  isEditView,
+  isNewView,
+  isQuickView,
+  isRawView,
+} = storeToRefs(useDatasetConfigStore());
 
 const {
   detailViewPath,
@@ -101,17 +111,4 @@ const combinedTableViewPath = computed(() => {
     },
   };
 });
-
-const isNewView = computed(() => datasetConfigStore.isNewView);
-
-const showEditTab = computed(
-  () =>
-    !isNewView.value &&
-    !datasetConfigStore.isSourceGenerated &&
-    datasetConfigStore.hasUpdatePermission
-);
-
-const showQuickViewTab = computed(
-  () => !isNewView.value && datasetConfigStore.hasQuickView
-);
 </script>

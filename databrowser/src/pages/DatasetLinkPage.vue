@@ -69,7 +69,7 @@ const isLoading = ref(true);
 
 const configs = ref<Record<DatasetDomain, DatasetConfig[]>>({});
 
-const promises = getDatasetConfigSources().map((source) =>
+const promises = getDatasetConfigSources('any').map((source) =>
   source.getAllDatasetConfigs()
 );
 

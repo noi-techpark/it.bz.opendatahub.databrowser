@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { SourceType } from './source/types';
-import { SupportedDomains } from '../openApi/types';
+import { KnownDomainsWithOpenApiDocument } from '../openApi/types';
 
 interface BasePropertyConfig {
   title: string;
@@ -42,7 +42,8 @@ export interface FilterConfig {
 }
 
 export type ListElements = PropertyConfig & {
-  filter?: FilterConfig;
+  // Any entry from the fields property of the object
+  field?: string;
 };
 
 export interface SubCategoryElement {
@@ -79,7 +80,7 @@ export interface EditElements {
 export type PathParams = string[];
 
 export interface DatasetRoute {
-  domain: SupportedDomains;
+  domain: DatasetDomains;
   pathParams: PathParams;
   id?: string;
 }
@@ -158,3 +159,10 @@ export type OperationKey = keyof Required<DatasetConfig>['operations'];
 export type Operations = NonNullable<DatasetConfig['operations']>;
 
 export type DatasetDomain = string;
+
+export type DatasetDomains =
+  | KnownDomainsWithOpenApiDocument
+  // In case there is a URL parameter for the domain, but the domain is not known
+  | 'unknown'
+  // In case the current URL is not related to datasets
+  | 'no-dataset-domain-in-url';

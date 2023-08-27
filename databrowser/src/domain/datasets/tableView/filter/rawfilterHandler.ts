@@ -3,16 +3,19 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed } from 'vue';
-import { stringifyParameter, useApiParameterHandler } from '../../../api';
+// import { stringifyParameter, useApiParameterHandler } from '../../../api';
 import { parseFilterWithRegex } from './parser/parseFilterWithRegex';
 import { Rawfilter } from './types';
+import { storeToRefs } from 'pinia';
+import { useApiParameterStore } from '../../../api/service/apiParameterStore';
 
 export const useRawfilterHandler = () => {
-  const { updateApiParameterValue, useApiParameter } = useApiParameterHandler();
-  const currentRawfilter = useApiParameter('rawfilter');
+  // const { updateApiParameterValue, useApiParameter } = useApiParameterHandler();
+  // const currentRawfilter = useApiParameter('rawfilter');
+  const { currentApiParams } = storeToRefs(useApiParameterStore());
 
   const rawfilters = computed<Rawfilter[]>(() =>
-    parseRawfilter(stringifyParameter(currentRawfilter.value))
+    parseRawfilter(currentApiParams.value.rawfilter)
   );
 
   const updateRawfilters = (updatedFilters: Rawfilter[]) => {
@@ -53,10 +56,15 @@ export const useRawfilterHandler = () => {
       }
     }, []);
 
-    const rawfilter =
-      filterValues.length > 0 ? `and(${filterValues.join(',')})` : undefined;
+    // const rawfilter =
+    //   filterValues.length > 0 ? `and(${filterValues.join(',')})` : undefined;
+    // updateApiParameterValue('rawfilter', rawfilter);
 
-    updateApiParameterValue('rawfilter', rawfilter);
+    if (filterValues.length > 0) {
+      currentApiParams.value['rawfilter'] = `and(${filterValues.join(',')})`;
+    } else {
+      delete currentApiParams.value['rawfilter'];
+    }
   };
 
   return { rawfilters, updateRawfilters };

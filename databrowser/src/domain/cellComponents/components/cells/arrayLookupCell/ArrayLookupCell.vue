@@ -22,15 +22,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed, toRefs } from 'vue';
 import { useQuery } from 'vue-query';
 import {
-  replacePlaceholders,
+  // replacePlaceholders,
   unifyPagination,
-  useApiParameterReplacements,
+  // useApiParameterReplacements,
   useAxiosFetcher,
 } from '../../../../api';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import ArrayLookupTable from './ArrayLookupTable.vue';
 import * as R from 'ramda';
 import { SelectOption } from '../../../../../components/select/types';
+import { useApiParameterStore } from '../../../../api/service/apiParameterStore';
 
 const props = withDefaults(
   defineProps<{
@@ -63,13 +64,16 @@ const { lookupUrl: queryKey, keySelector, labelSelector } = toRefs(props);
 const queryFn = useAxiosFetcher();
 const response = useQuery({ queryKey, queryFn });
 
-const replacements = useApiParameterReplacements();
+// const replacements = useApiParameterReplacements();
 
 const options = computed<(SelectOption & { url: string })[]>(() => {
-  const replace = (s: string): string =>
-    replacePlaceholders(s, replacements.value);
-  const keySelectorWithReplacements = replace(keySelector.value);
-  const labelSelectorWithReplacements = replace(labelSelector.value);
+  // const replace = (s: string): string =>
+  //   replacePlaceholders(s, replacements.value);
+  const { replaceWithApiParams } = useApiParameterStore();
+  const keySelectorWithReplacements = replaceWithApiParams(keySelector.value);
+  const labelSelectorWithReplacements = replaceWithApiParams(
+    labelSelector.value
+  );
 
   if (response.isSuccess.value) {
     const { items } = unifyPagination(response.data.value?.data);

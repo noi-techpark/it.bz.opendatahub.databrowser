@@ -10,21 +10,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <AlertError :title="'Error!'" :content="error.message" />
     </div>
 
-    <div v-if="datasetConfigStore.resolution.state === 'error'">
-      <AlertError
-        :title="'Error!'"
-        :content="datasetConfigStore.resolution.error"
-      />
+    <div v-if="datasetConfigStore.isError">
+      <AlertError :title="'Error!'" :content="datasetConfigStore.error" />
     </div>
-
-    <ContentAlignmentX>
-      <div
-        v-if="datasetConfigStore.resolution.state === 'pending'"
-        class="animate-pulse"
-      >
-        {{ t('datasets.info.loadingConfig') }}
-      </div>
-    </ContentAlignmentX>
 
     <ContentDivider />
 
@@ -47,16 +35,8 @@ import AppLayout from '../../layouts/AppLayout.vue';
 import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../../components/content/ContentDivider.vue';
 import DatasetHeader from '../../domain/datasets/header/DatasetHeader.vue';
-import { useI18n } from 'vue-i18n';
-import { useDatasetConfigStore } from '../../domain/datasetConfig/store/datasetConfigStore';
-import { useRouter } from 'vue-router';
-import { useConfigRouterWatcher } from '../../domain/datasetConfig/routerWatcher';
+import { useDatasetConfigStore } from '../../domain/datasetConfig/datasetConfigStore';
 import AlertError from '../../components/alert/AlertError.vue';
-
-const { t } = useI18n();
-
-const router = useRouter();
-useConfigRouterWatcher(router);
 
 const datasetConfigStore = useDatasetConfigStore();
 

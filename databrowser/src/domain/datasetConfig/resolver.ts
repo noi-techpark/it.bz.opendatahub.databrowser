@@ -5,10 +5,10 @@
 import { DatasetRoute, DatasetConfig } from './types';
 import { embeddedDatasetConfigSource } from './source/embedded';
 import { generatedDatasetConfigSource } from './source/generated';
-import { DatasetConfigSource } from './source/types';
+import { DatasetConfigSource, SourceType } from './source/types';
 
 interface DatasetConfigResolutionOptions {
-  source?: string;
+  source: SourceType;
 }
 
 const datasetConfigSource: DatasetConfigSource[] = [
@@ -18,7 +18,7 @@ const datasetConfigSource: DatasetConfigSource[] = [
 
 export const resolveDatasetConfig = async (
   datasetRoute: DatasetRoute,
-  options?: DatasetConfigResolutionOptions
+  source: SourceType
 ): Promise<DatasetConfig> => {
   // Throw an error if path params are empty, because no resolution would be possible
   if (datasetRoute.pathParams.length === 0) {
@@ -27,7 +27,7 @@ export const resolveDatasetConfig = async (
 
   // Define pool for dataset config sources. This pool takes into account
   // source preferences
-  const configSourcesPool = getDatasetConfigSources(options?.source);
+  const configSourcesPool = getDatasetConfigSources(source);
 
   // Compute dataset config config
   for (let i = 0; i < configSourcesPool.length; i++) {
@@ -53,9 +53,9 @@ export const resolveDatasetConfig = async (
 };
 
 export const getDatasetConfigSources = (
-  source?: string
+  source: SourceType
 ): DatasetConfigSource[] => {
-  if (source == null) {
+  if (source === 'any') {
     return datasetConfigSource;
   }
 

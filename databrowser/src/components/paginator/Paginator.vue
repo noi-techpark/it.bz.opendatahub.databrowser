@@ -8,13 +8,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div class="flex items-center">
+    {{ pagination }}
     <button
       :id="`${id}-previous-page`"
       class="mr-4 rounded"
-      :class="[hasPrevious ? 'text-green-500' : 'text-gray-400']"
-      :disabled="!hasPrevious"
+      :class="[pagination.hasPrevious ? 'text-green-500' : 'text-gray-400']"
+      :disabled="!pagination.hasPrevious"
       :data-test="`${id}-previous-page`"
-      @click="paginateTo(previousIndex)"
+      @click="paginateTo(pagination.currentPage - 1)"
     >
       <IconStrokedArrowDown class="h-5 w-5 rotate-90 stroke-current" />
     </button>
@@ -37,15 +38,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         {{ t('datasets.listView.go') }}
       </ButtonCustom>
     </div>
-    <span class="mr-4">{{ t('datasets.listView.of') }} {{ pageCount }}</span>
+    <span class="mr-4">{{ pageOfManyLabel }}</span>
 
     <button
       :id="`${id}-next-page`"
       class="rounded"
-      :class="[hasNext ? 'text-green-500' : 'text-gray-400']"
-      :disabled="!hasNext"
+      :class="[pagination.hasNext ? 'text-green-500' : 'text-gray-400']"
+      :disabled="!pagination.hasNext"
       :data-test="`${id}-next-page`"
-      @click="paginateTo(nextIndex)"
+      @click="paginateTo(pagination.currentPage + 1)"
     >
       <IconStrokedArrowDown class="h-5 w-5 -rotate-90 stroke-current" />
     </button>
@@ -53,44 +54,35 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { Pagination } from '../../domain/api';
 import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
 import { useI18n } from 'vue-i18n';
-import { randomId } from '../utils/random';
 
 const { t } = useI18n();
 
-const props = withDefaults(
-  defineProps<{ pagination: Pagination; id?: string }>(),
-  { id: randomId() }
-);
+const props = defineProps<{ pagination: Pagination; id: string }>();
 
-const emits = defineEmits(['paginateTo']);
-
-const pageCount = ref(0);
-const previousIndex = ref(0);
-const nextIndex = ref(0);
-const hasPrevious = ref(false);
-const hasNext = ref(false);
-const inputPageValue = ref(props.pagination.page);
+const inputPageValue = ref(props.pagination.currentPage);
+const goToPage = ref(props.pagination.goToPage);
 
 watch(
   () => props.pagination,
   (pagination) => {
-    pageCount.value = Math.floor(pagination.total / pagination.size) + 1;
-    previousIndex.value = Math.max(pagination.page - 1, 1);
-    nextIndex.value = Math.min(pagination.page + 1, pageCount.value);
-    hasPrevious.value = pagination.page > 1;
-    hasNext.value = pagination.page < pageCount.value;
-    inputPageValue.value = pagination.page;
-  },
-  { immediate: true }
+    inputPageValue.value = pagination.currentPage;
+    goToPage.value = pagination.goToPage;
+  }
 );
 
 const paginateTo = (value: string | number) => {
   const numberValue = typeof value === 'string' ? parseInt(value, 10) : value;
-  emits('paginateTo', numberValue);
+  goToPage.value(numberValue);
 };
+
+const pageOfManyLabel = computed(() =>
+  props.pagination.pageCount === Infinity
+    ? t('datasets.listView.ofUnknown')
+    : t('datasets.listView.of', { pageCount: props.pagination.pageCount })
+);
 </script>

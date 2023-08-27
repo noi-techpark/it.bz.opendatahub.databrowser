@@ -28,15 +28,20 @@ export const validPageSizes = pageSizeOptions.map((option) => option.value);
 
 export const defaultPageSize = Number(pageSizeOptions[0].value);
 
-export const defaultPageNumber = 1;
-
-export const defaultQueryParameters = {
+export const defaultTourismTablePageNumber = 1;
+export const defaultTourismTableQueryParameters = {
   pagesize: defaultPageSize.toString(),
-  pagenumber: defaultPageNumber.toString(),
+  pagenumber: defaultTourismTablePageNumber.toString(),
   language: defaultLanguage,
+};
+
+export const defaultMobilityTablePageNumber = 0;
+export const defaultMobilityTableQueryParameters = {
+  limit: defaultPageSize.toString(),
+  offset: defaultMobilityTablePageNumber.toString(),
 };
 
 export const defaultTablePagination: Pagination = {
   ...defaultPagination,
-  size: defaultPageSize,
+  pageSize: defaultPageSize,
 };

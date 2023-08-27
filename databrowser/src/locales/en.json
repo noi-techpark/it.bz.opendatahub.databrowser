@@ -191,7 +191,8 @@
         "dataDoesNotExist": "You were looking for data that does not exist!",
         "suggestion": "Please rethink your request"
       },
-      "of": "of",
+      "of": "of {pageCount}",
+      "ofUnknown": "of unknown",
       "tableFilterHint": "Filters have been applied to this view",
       "toolBox": {
         "searchAndFilter": {

@@ -39,21 +39,23 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref, toRefs, watchEffect } from 'vue';
+import { computed, ref, toRefs, watch } from 'vue';
 import { useQuery } from 'vue-query';
 import AlertError from '../../../../../components/alert/AlertError.vue';
 import { SelectOption } from '../../../../../components/select/types';
 import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
 import { randomId } from '../../../../../components/utils/random';
 import {
-  replacePlaceholders,
-  useApiParameterReplacements,
+  // replacePlaceholders,
+  // useApiParameterReplacements,
   useAxiosFetcher,
 } from '../../../../api';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import TagReferenceTable from './TagReferenceTable.vue';
 import * as R from 'ramda';
 import LoadingState from '../../../../../components/loading/LoadingState.vue';
+import { useApiParameterStore } from '../../../../api/service/apiParameterStore';
+import { storeToRefs } from 'pinia';
 
 const props = withDefaults(
   defineProps<{
@@ -90,12 +92,24 @@ const sortByLabelValue = computed(() =>
 const keySelectorWithReplacements = ref(keySelector.value ?? '');
 const labelSelectorWithReplacements = ref(labelSelector.value ?? '');
 
-const replacements = useApiParameterReplacements();
-watchEffect(() => {
-  const replace = (s: string): string =>
-    replacePlaceholders(s, replacements.value);
-  keySelectorWithReplacements.value = replace(keySelector.value ?? '');
-  labelSelectorWithReplacements.value = replace(labelSelector.value ?? '');
+// const replacements = useApiParameterReplacements();
+// watchEffect(() => {
+//   const replace = (s: string): string =>
+//     replacePlaceholders(s, replacements.value);
+//   keySelectorWithReplacements.value = replace(keySelector.value ?? '');
+//   labelSelectorWithReplacements.value = replace(labelSelector.value ?? '');
+// });
+
+const { allApiParams } = storeToRefs(useApiParameterStore());
+const { replaceWithApiParams } = useApiParameterStore();
+
+watch(allApiParams, () => {
+  keySelectorWithReplacements.value = replaceWithApiParams(
+    keySelector.value ?? ''
+  );
+  labelSelectorWithReplacements.value = replaceWithApiParams(
+    labelSelector.value ?? ''
+  );
 });
 
 const queryKey = url.value ?? randomId();

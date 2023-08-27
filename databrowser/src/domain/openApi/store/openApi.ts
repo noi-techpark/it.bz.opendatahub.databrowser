@@ -3,22 +3,25 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { OpenApi, SupportedDomains } from '../types';
+import { OpenApi, KnownDomainsWithOpenApiDocument } from '../types';
 import { initialState } from './initialState';
-import { domains } from '../domain';
+import { knownDomainsWithOpenApiDocument } from '../domain';
 
 const dynamicSwaggerClientImport = async () =>
   await import('swagger-client').then((exports) => exports.default);
 
 // Internal store for loaded OpenAPI documents. The documents are not stored in the
 // state because they won't change and because they may be several KB in size.
-const documents: Record<SupportedDomains, OpenApi.Document | null> = {
+const documents: Record<
+  KnownDomainsWithOpenApiDocument,
+  OpenApi.Document | null
+> = {
   tourism: null,
   mobility: null,
 };
 
 // Get OpenAPI document for given domain
-export const getOpenApiDocument = (domain: SupportedDomains) =>
+export const getOpenApiDocument = (domain: KnownDomainsWithOpenApiDocument) =>
   documents[domain];
 
 // OpenAPI store
@@ -26,7 +29,7 @@ export const useOpenApi = defineStore('openApi', {
   state: () => initialState,
   actions: {
     async loadDocument(
-      domain: SupportedDomains
+      domain: KnownDomainsWithOpenApiDocument
     ): Promise<OpenApi.Document | null> {
       const documentState = this[domain];
       // If OpenAPI document is already loaded, do nothing
@@ -50,7 +53,7 @@ export const useOpenApi = defineStore('openApi', {
 
       documentState.loading = true;
 
-      const url = domains[domain].documentUrl;
+      const url = knownDomainsWithOpenApiDocument[domain].documentUrl;
 
       try {
         const SwaggerClient = await dynamicSwaggerClientImport();
@@ -72,7 +75,7 @@ export const useOpenApi = defineStore('openApi', {
 
       return documents[domain];
     },
-    finishDocumentLoad(domain: SupportedDomains) {
+    finishDocumentLoad(domain: KnownDomainsWithOpenApiDocument) {
       const documentState = this[domain];
       documentState.loading = false;
       documentState.loaded = true;

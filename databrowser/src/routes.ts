@@ -33,7 +33,7 @@ export const router = createRouter({
     },
     {
       path: '/dataset/new/:domain/:pathParams+',
-      component: () => import('./pages/datasets/DatasetEditPage.vue'),
+      component: () => import('./pages/datasets/DatasetNewPage.vue'),
       name: DatasetPage.NEW,
       meta: { viewKey: View.NEW },
     },

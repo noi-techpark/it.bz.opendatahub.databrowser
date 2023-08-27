@@ -8,3 +8,8 @@
 // id property, then return undefined.
 export const rowId = (row: { Id?: string; id?: string }, defaultId?: string) =>
   row.Id ?? row.id ?? defaultId;
+
+export const firstField = (fields?: Record<string, string>) => {
+  const values = Object.values(fields ?? {});
+  return values.length === 1 ? values[0] : undefined;
+};

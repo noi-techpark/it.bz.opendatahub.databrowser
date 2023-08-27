@@ -2,10 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {
-  CellComponent,
-  FilterComponent,
-} from '../../../domain/cellComponents/types';
+import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import {
   imageTableCell,
@@ -51,22 +48,22 @@ export const odhActivityPoiListView: ListViewConfig = {
       fields: {
         state: 'Active',
       },
-      filter: {
-        name: 'active',
-        component: FilterComponent.FixedValue,
-        params: {
-          filterOptions: [
-            {
-              label: 'Active',
-              value: 'true',
-            },
-            {
-              label: 'Not active',
-              value: 'false',
-            },
-          ],
-        },
-      },
+      // filter: {
+      //   name: 'active',
+      //   component: FilterComponent.FixedValue,
+      //   params: {
+      //     filterOptions: [
+      //       {
+      //         label: 'Active',
+      //         value: 'true',
+      //       },
+      //       {
+      //         label: 'Not active',
+      //         value: 'false',
+      //       },
+      //     ],
+      //   },
+      // },
     },
     odhActiveTableCell(),
   ],

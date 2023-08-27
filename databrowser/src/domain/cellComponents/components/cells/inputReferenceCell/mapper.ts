@@ -6,10 +6,11 @@ import { AxiosResponse } from 'axios';
 import { ref, Ref, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
 import * as R from 'ramda';
-import {
-  replacePlaceholders,
-  useApiParameterReplacements,
-} from '../../../../api';
+// import // replacePlaceholders,
+// // useApiParameterReplacements,
+// '../../../../api';
+import { useApiParameterStore } from '../../../../api/service/apiParameterStore';
+import { storeToRefs } from 'pinia';
 
 export const useMapper = (
   data: Ref<undefined> | Ref<AxiosResponse<unknown[], any>>,
@@ -19,20 +20,26 @@ export const useMapper = (
 ) => {
   const options = ref<SelectOption[]>([]);
 
-  const replacements = useApiParameterReplacements();
+  // const replacements = useApiParameterReplacements();
+  const { allApiParams } = storeToRefs(useApiParameterStore());
 
   watch(
-    () => [data.value, replacements.value],
+    () => [data.value, allApiParams.value],
     () => {
       if (data.value == null) {
         return;
       }
 
+      const { replaceWithApiParams } = useApiParameterStore();
       // Compute key and value selectors with replacements (e.g. current language)
-      const replace = (s: string): string =>
-        replacePlaceholders(s, replacements.value);
-      const keySelectorWithReplacements = replace(keySelector.value);
-      const labelSelectorWithReplacements = replace(labelSelector.value);
+      // const replace = (s: string): string =>
+      //   replacePlaceholders(s, replacements.value);
+      const keySelectorWithReplacements = replaceWithApiParams(
+        keySelector.value
+      );
+      const labelSelectorWithReplacements = replaceWithApiParams(
+        labelSelector.value
+      );
 
       options.value = data.value.data.map((item) => {
         const value = getPropertyValue(item, keySelectorWithReplacements);

@@ -7,16 +7,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <TableWithStickyHeader id="dataset-table">
     <template #colgroup-cols>
-      <col v-for="col in renderElements" :key="col.title" :class="col.class" />
+      <col v-for="col in cols" :key="col.title" :class="col.class" />
       <col v-if="showLinkColumn" class="w-28 md:w-32" />
     </template>
 
     <template #header-cols>
-      <TableHeaderCell v-for="(col, index) in renderElements" :key="col.title">
-        <SortAndFilterHeader
-          :title="columns[index]?.title ?? 'index mismatch'"
-          :field="columns[index]?.field"
-        />
+      <TableHeaderCell v-for="col in cols" :key="col.title">
+        <SortAndFilterHeader :title="col.title" :field="col.field" />
       </TableHeaderCell>
       <TableHeaderCell v-if="showLinkColumn" class="sticky right-0 bg-gray-50">
         {{ t('datasets.listView.colDetail') }}
@@ -26,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template #body-rows>
       <tr v-if="rows.length === 0">
         <TableCell
-          :colspan="renderElements.length + 1"
+          :colspan="cols.length + 1"
           class="border-none"
           data-test="dataset-table-no-results"
         >
@@ -41,9 +38,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         @dblclick="rowDblClicked(row)"
       >
         <TableCell
-          v-for="col in renderElements"
+          v-for="col in cols"
           :key="col.title"
           :class="{ 'mix-blend-multiply': index === selectedRowIndex }"
+          :is-loading="isLoading"
         >
           <ComponentRenderer
             :tag-name="col.component"
@@ -67,27 +65,28 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue';
-import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
-import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
-import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
-import TableCell from '../../../components/table/TableCell.vue';
-import { ListElements } from '../../datasetConfig/types';
-import { usePropertyMapping } from '../../api';
+import { computed, onBeforeUpdate, onUpdated, toRefs } from 'vue';
 import { useI18n } from 'vue-i18n';
-import TableDataEmpty from './TableDataEmpty.vue';
+import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
+import TableCell from '../../../components/table/TableCell.vue';
+import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
+import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
+import { usePropertyMapping } from '../../api';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
-import { useTableViewColumns } from '../../datasetConfig/utils';
+import TableDataEmpty from './TableDataEmpty.vue';
+import TableLinks from './TableLinks.vue';
+import { TableViewColumn } from './tableViewColsStore';
 import { useTableRowSelection } from './useTableRowSelection';
 import { rowId } from './utils';
-import TableLinks from './TableLinks.vue';
+import { ListElements } from '../../datasetConfig/types';
 
 const { t } = useI18n();
 
 const props = withDefaults(
   defineProps<{
     rows: any[];
-    renderElements: ListElements[];
+    cols: ListElements[];
+    isLoading: boolean;
     showDetail: boolean;
     showEdit: boolean;
     showQuick: boolean;
@@ -97,7 +96,7 @@ const props = withDefaults(
   }
 );
 
-const { rows, renderElements } = toRefs(props);
+const { rows, cols } = toRefs(props);
 
 const { mapWithIndex } = usePropertyMapping();
 
@@ -105,10 +104,18 @@ const { mapWithIndex } = usePropertyMapping();
 const { selectedRowIndex, rowClicked, rowDblClicked } =
   useTableRowSelection(rows);
 
-// TODO: temporary solution until we have a better way to handle this
-const columns = useTableViewColumns();
+const showLinkColumn = computed(
+  () => props.showDetail || props.showEdit || props.showQuick
+);
 
-const showLinkColumn = computed(() => {
-  return props.showDetail || props.showEdit || props.showQuick;
+let updateStart = 0;
+
+onBeforeUpdate(() => {
+  updateStart = Date.now();
+  console.log('----------onBeforeUpdate-------------');
+});
+
+onUpdated(() => {
+  console.log('----------onUpdate-------------', Date.now() - updateStart);
 });
 </script>

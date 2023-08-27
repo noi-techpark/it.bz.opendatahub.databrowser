@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <SingleDatasetLayout>
-    <EditView :is-new-view="false" />
+    <EditView :is-new-view="true" />
   </SingleDatasetLayout>
 </template>
 

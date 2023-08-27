@@ -4,7 +4,7 @@
 
 import { useDebounceFn } from '@vueuse/core';
 import { Ref } from 'vue';
-import { useReplaceWithApiParameters } from '../../domain/api';
+// import { useReplaceWithApiParameters } from '../../domain/api';
 import { useEditStore } from '../../domain/datasets/editView/store/editStore';
 import {
   PropertyUpdate,
@@ -13,13 +13,14 @@ import {
 import * as R from 'ramda';
 import { BaseListFields } from '../../domain/datasetConfig/types';
 import { isFieldsEmpty } from '../../domain/api';
+import { useReplaceWithApiParamsStore } from '../../domain/api/service/replaceWithApiParamsStore';
 
 export const useUpdate = (
   tagName: Ref<string>,
   fields: Ref<Record<string, string> | undefined>,
   listFields: Ref<BaseListFields | undefined>
 ) => {
-  const { replace } = useReplaceWithApiParameters();
+  const { replace } = useReplaceWithApiParamsStore();
   const editStore = useEditStore();
 
   const computeSingleFieldsUpdates = (
@@ -101,6 +102,8 @@ export const useUpdate = (
     };
   };
 
+  // TODO: take a look at immutable data (immer) and see if it can be used here
+  // see https://vuejs.org/guide/extras/reactivity-in-depth.html#immutable-data
   return useDebounceFn((update: PropertyUpdate) => {
     const updates = Array.isArray(update) ? update : [update];
 

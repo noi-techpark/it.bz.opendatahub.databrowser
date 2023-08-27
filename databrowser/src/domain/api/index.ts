@@ -17,16 +17,16 @@ export {
 } from './client/fetcher/axios';
 export * from './client/types';
 
-export { useApiParameterHandler } from './service/apiParameterHandler';
+// export { useApiParameterHandler } from './service/apiParameterHandler';
 export { stringifyParameter } from './service/query';
-export { createUrlQueryHandler, useUrlQuery } from './service/urlQueryHandler';
+// export { createUrlQueryHandler, useUrlQuery } from './service/urlQueryHandler';
 export {
   isFieldsEmpty,
   replacePlaceholders,
-  useApiParameterReplacements,
+  // useApiParameterReplacements,
   useAsList,
   useAsSet,
   usePropertyMapping,
-  useReplaceWithApiParameters,
+  // useReplaceWithApiParameters,
 } from './service/utils';
 export * from './service/types';

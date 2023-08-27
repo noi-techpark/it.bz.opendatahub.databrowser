@@ -48,7 +48,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
         <div class="flex items-center gap-2">
           <SelectCustom
-            :options="columnOptions"
+            :options="filterOptions"
             :value="filter.field"
             :z-index="30"
             class="basis-1/2"
@@ -89,41 +89,48 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../components/button/types';
+import InputFilter from '../../../../components/input/InputFilter.vue';
+import InputSearch from '../../../../components/input/InputSearch.vue';
 import SelectCustom from '../../../../components/select/SelectCustom.vue';
 import { SelectOption } from '../../../../components/select/types';
 import IconClose from '../../../../components/svg/IconClose.vue';
 import IconDelete from '../../../../components/svg/IconDelete.vue';
 import TagCustom from '../../../../components/tag/TagCustom.vue';
-import { useApiParameterHandler } from '../../../api';
+import { useApiParameterStore } from '../../../api/service/apiParameterStore';
 import ToolBoxCard from '../../toolBox/ToolBoxCard.vue';
 import ToolBoxCardBody from '../../toolBox/ToolBoxCardBody.vue';
 import ToolBoxCardHeader from '../../toolBox/ToolBoxCardHeader.vue';
 import ToolBoxPanel from '../../toolBox/ToolBoxPanel.vue';
+import ResetAllFilters from '../filter/ResetAllFilters.vue';
 import { filterSelectOptions } from '../filter/filterSelectOptions';
 import { useTableFilter } from '../filter/useTableFilter';
-import { useTableViewColumns } from '../../../datasetConfig/utils';
-import ResetAllFilters from '../filter/ResetAllFilters.vue';
-import InfoSearch from './InfoSearch.vue';
 import InfoFilter from './InfoFilter.vue';
-import InputSearch from '../../../../components/input/InputSearch.vue';
-import InputFilter from '../../../../components/input/InputFilter.vue';
+import InfoSearch from './InfoSearch.vue';
 
 const { t } = useI18n();
 
-const { updateApiParameterValue, useApiParameter } = useApiParameterHandler();
+defineProps<{ filterOptions: SelectOption[] }>();
+// const { tableCols } = toRefs(props);
 
-const searchFilter = useApiParameter('searchfilter');
-const searchFilterAsString = computed(
-  () => searchFilter.value?.toString() ?? ''
-);
+// const { updateApiParameterValue, useApiParameter } = useApiParameterHandler();
+const { currentApiParams } = storeToRefs(useApiParameterStore());
+
+const searchFilter = currentApiParams.value['searchfilter'];
+const searchFilterAsString = computed(() => searchFilter ?? '');
 
 const search = (term: string) => {
   const value = term === '' ? undefined : term;
-  updateApiParameterValue('searchfilter', value);
+  if (value != null) {
+    currentApiParams.value['searchfilter'] = value;
+  } else {
+    delete currentApiParams.value['searchfilter'];
+  }
+  // currentApiParams.value['searchfilter'] = value;
 };
 
 const {
@@ -134,12 +141,12 @@ const {
   filtersFromStore,
 } = useTableFilter();
 
-const columns = useTableViewColumns();
+// const columns = useTableViewColumns();
 
-const columnOptions = computed(() =>
-  columns.value.map<SelectOption>((col) => ({
-    label: col.title,
-    value: col.field,
-  }))
-);
+// const columnOptions = computed(() =>
+//   tableCols.value.map<SelectOption>((col) => ({
+//     label: col.title,
+//     value: col.field,
+//   }))
+// );
 </script>

@@ -4,7 +4,7 @@
 
 import { DatasetConfig, DatasetDomain, DatasetRoute } from '../types';
 
-export type SourceType = 'embedded' | 'generated';
+export type SourceType = 'any' | 'embedded' | 'generated';
 
 export interface SourceResult {
   config?: DatasetConfig;

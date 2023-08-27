@@ -4,11 +4,15 @@
 
 import { AxiosError } from 'axios';
 import { computed, ref, Ref, watch } from 'vue';
-import { useApiParameterHandler } from './apiParameterHandler';
 import { stringifyParameter } from './query';
 import { ParameterValue } from './types';
 import * as R from 'ramda';
-import { ArrayPropertyConfig } from '../../datasetConfig/types';
+import {
+  ArrayPropertyConfig,
+  ObjectPropertyConfig,
+} from '../../datasetConfig/types';
+import { useApiParameterStore } from './apiParameterStore';
+import { storeToRefs } from 'pinia';
 
 export interface UseAsOptions {
   twoWayBinding?: boolean;
@@ -98,36 +102,48 @@ export const toErrorString = (error: unknown): string => {
   return JSON.stringify(error);
 };
 
-export const useApiParameterReplacements = () => {
-  const { allApiParameters } = useApiParameterHandler();
+// export const useApiParameterReplacements = () => {
+//   const { allApiParams } = storeToRefs(useApiParameterStore());
+//   // const { allApiParameters } = useApiParameterHandler();
 
-  return computed(() =>
-    Object.entries(allApiParameters.value).reduce<Record<string, string>>(
-      (previous, [key, value]) => ({
-        ...previous,
-        [key]: stringifyParameter(value),
-      }),
-      {}
-    )
-  );
-};
+//   return computed(() => {
+//     console.log('------------allApiParameters', allApiParams.value);
 
-export const useReplaceWithApiParameters = () => {
-  const replacements = useApiParameterReplacements();
-  console.log('replacements', JSON.stringify(replacements.value));
+//     return Object.entries(allApiParameters.value).reduce<
+//       Record<string, string>
+//     >(
+//       (previous, [key, value]) => ({
+//         ...previous,
+//         [key]: stringifyParameter(value),
+//       }),
+//       {}
+//     );
+//   });
+// };
+// let counter = 0;
 
-  const replace = (s: string): string =>
-    replacePlaceholders(s, replacements.value);
+// export const useReplaceWithApiParameters = () => {
+//   // const replacements = useApiParameterReplacements();
+//   // console.log('replacements', JSON.stringify(replacements.value));
+//   // console.log('replacements');
+//   const internalCounter = counter++;
+//   console.log('replacements', internalCounter);
 
-  return { replace };
-};
+//   const replace = (s: string): string => {
+//     console.log('replacing', internalCounter);
+//     const replacements = useApiParameterStore().allApiParams;
+//     return replacePlaceholders(s, replacements);
+//   };
+
+//   return { replace };
+// };
 
 export const usePropertyMapping = () => {
-  const replacements = useApiParameterReplacements();
+  // const replacements = useApiParameterReplacements();
 
   const mapWithIndex = (
-    item: unknown,
-    propertyMapping?: Record<string, string>,
+    data: unknown,
+    propertyMapping?: ObjectPropertyConfig['fields'],
     params?: Record<string, unknown>
   ) => {
     if (propertyMapping == null) {
@@ -135,9 +151,9 @@ export const usePropertyMapping = () => {
     }
 
     const extractedFields = mapValuesWithIndex(
-      item,
-      propertyMapping,
-      replacements.value
+      data,
+      propertyMapping
+      // replacements.value
     );
     return { ...extractedFields, ...params };
   };
@@ -154,11 +170,11 @@ export const usePropertyMapping = () => {
     const defaultResult = { [attributeName]: [], ...params };
 
     // Get array from input data
-    const pathToParentWithReplacements = replacePlaceholders(
-      pathToParent,
-      replacements.value
-    );
-    const path = pathToParentWithReplacements.split('.');
+    // const pathToParentWithReplacements = replacePlaceholders(
+    //   pathToParent,
+    //   replacements.value
+    // );
+    const path = pathToParent.split('.');
     const lensePath = R.lensPath(path);
     const dataArray = R.view(lensePath, data);
 
@@ -174,30 +190,30 @@ export const usePropertyMapping = () => {
     }
 
     const listOfExtractedFields = dataArray.map((item) => {
-      return mapValuesWithIndex(item, fields, replacements.value);
+      return mapValuesWithIndex(item, fields);
     });
 
     return { ...defaultResult, [attributeName]: listOfExtractedFields };
   };
 
-  const mapWithReverseIndex = (
-    item: Record<string, unknown>,
-    reversePropertyMapping: Record<string, string>,
-    baseItem?: Record<string, unknown>
-  ) => {
-    const extractedFields = mapValuesWithReverseIndex(
-      item,
-      reversePropertyMapping,
-      replacements.value,
-      baseItem
-    );
-    return { ...extractedFields };
-  };
+  // const mapWithReverseIndex = (
+  //   item: Record<string, unknown>,
+  //   reversePropertyMapping: Record<string, string>,
+  //   baseItem?: Record<string, unknown>
+  // ) => {
+  //   const extractedFields = mapValuesWithReverseIndex(
+  //     item,
+  //     reversePropertyMapping,
+  //     // replacements.value,
+  //     baseItem
+  //   );
+  //   return { ...extractedFields };
+  // };
 
   return {
     mapWithIndex,
     mapListWithIndex,
-    mapWithReverseIndex,
+    // mapWithReverseIndex,
   };
 };
 
@@ -221,18 +237,16 @@ export const replacePlaceholders = (
 
 const mapValuesWithIndex = (
   item: unknown,
-  propertyMapping: Record<string, string>,
-  replacements: Record<string, string>
+  propertyMapping: Record<string, string>
+  // replacements: Record<string, string>
 ) =>
   Object.keys(propertyMapping).reduce<Record<string, unknown>>((prev, key) => {
     const property = propertyMapping[key];
-    const propertyWithReplacements = replacePlaceholders(
-      property,
-      replacements
-    );
-    const path = propertyWithReplacements
-      .split(/(?<!\\)\./)
-      .map((p) => p.replace(/\\/g, ''));
+    // const propertyWithReplacements = replacePlaceholders(
+    //   property,
+    //   replacements
+    // );
+    const path = property.split(/(?<!\\)\./).map((p) => p.replace(/\\/g, ''));
     const lensePath = R.lensPath(path);
     const value = R.view(lensePath, item);
     // console.log('mapValuesWithIndex', {
@@ -246,21 +260,21 @@ const mapValuesWithIndex = (
     return { ...prev, [key]: value };
   }, {});
 
-const mapValuesWithReverseIndex = (
-  item: Record<string, unknown>,
-  reversePropertyMapping: Record<string, string>,
-  replacements: Record<string, string>,
-  baseItem?: Record<string, unknown>
-) =>
-  Object.entries(reversePropertyMapping).reduce<Record<string, unknown>>(
-    (prev, [itemKey, resultKey]) => {
-      const propertyWithReplacements = replacePlaceholders(
-        resultKey,
-        replacements
-      );
-      const path = propertyWithReplacements.split('.');
-      const value = item[itemKey];
-      return R.assocPath(path, value, prev);
-    },
-    baseItem ?? {}
-  );
+// const mapValuesWithReverseIndex = (
+//   item: Record<string, unknown>,
+//   reversePropertyMapping: Record<string, string>,
+//   // replacements: Record<string, string>,
+//   baseItem?: Record<string, unknown>
+// ) =>
+//   Object.entries(reversePropertyMapping).reduce<Record<string, unknown>>(
+//     (prev, [itemKey, resultKey]) => {
+//       // const propertyWithReplacements = replacePlaceholders(
+//       //   resultKey,
+//       //   replacements
+//       // );
+//       const path = resultKey.split('.');
+//       const value = item[itemKey];
+//       return R.assocPath(path, value, prev);
+//     },
+//     baseItem ?? {}
+//   );

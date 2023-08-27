@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { OpenAPIV3 } from 'openapi-types';
-import { domains } from './domain';
+import { knownDomainsWithOpenApiDocument } from './domain';
 
 // Disable typescript error for next line, the export OpenApi is used
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -15,4 +15,10 @@ export interface DocumentState {
   error: Error | null;
 }
 
-export type SupportedDomains = keyof typeof domains;
+export type KnownDomainsWithOpenApiDocument =
+  keyof typeof knownDomainsWithOpenApiDocument;
+
+export const isKnownDomainWithOpenApiDocument = (
+  domain: string
+): domain is KnownDomainsWithOpenApiDocument =>
+  Object.keys(knownDomainsWithOpenApiDocument).includes(domain);

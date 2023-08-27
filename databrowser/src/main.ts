@@ -3,31 +3,27 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import axios from 'axios';
+import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import VueAxios from 'vue-axios';
-import { createPinia } from 'pinia';
+import CookieConsent from 'vue-cookieconsent';
+import VueHotjar from 'vue-hotjar-next';
 import App from './App.vue';
+import { consentOptions } from './cookieconsent/consentOptions';
+import './cookieconsent/cookieconsent.css';
+import registerCellComponents from './domain/cellComponents/plugins/registerCellComponents';
 import { loadLocaleMessages, setupI18n } from './i18n';
 import './index.css';
 import { router } from './routes';
-import registerCellComponents from './domain/cellComponents/plugins/registerCellComponents';
-import { createUrlQueryHandler } from './domain/api';
-import CookieConsent from 'vue-cookieconsent';
-import './cookieconsent/cookieconsent.css';
-import { consentOptions } from './cookieconsent/consentOptions';
-import VueHotjar from 'vue-hotjar-next';
 
 const app = createApp(App);
+app.config.performance = true;
 
 // Add Vue router
 app.use(router);
 
 // Add pinia store
 app.use(createPinia());
-
-// Register API and URL query handler for API parameter handling in combination with URL
-const urlQuery = createUrlQueryHandler(router);
-app.use(urlQuery);
 
 // Add axios and provide it as injectable property (see https://www.npmjs.com/package/vue-axios)
 app.use(VueAxios, axios);

@@ -39,14 +39,16 @@ import {
 } from '../../domain/datasets/language';
 import { computed } from 'vue';
 import { RouteLocationRaw, useRouter } from 'vue-router';
-import {
-  stringifyParameter,
-  useApiParameterHandler,
-  useUrlQuery,
-} from '../../domain/api';
+// import {
+//   stringifyParameter,
+//   // useApiParameterHandler,
+//   // useUrlQuery,
+// } from '../../domain/api';
 import ButtonLink from '../button/ButtonLink.vue';
 import SelectCustom from '../select/SelectCustom.vue';
 import { SelectSize } from '../select/types';
+import { storeToRefs } from 'pinia';
+import { useApiParameterStore } from '../../domain/api/service/apiParameterStore';
 
 const props = withDefaults(
   defineProps<{
@@ -57,22 +59,26 @@ const props = withDefaults(
 
 const supportedLanguages: Array<string> = Object.values(FilterLanguage);
 
-const { useApiParameter, updateApiParameterValidator } =
-  useApiParameterHandler();
+// const { useApiParameter } = useApiParameterHandler();
 
-updateApiParameterValidator('language', (value) =>
-  supportedLanguages.includes(stringifyParameter(value))
+// const currentLanguage = useApiParameter('language', {
+//   defaultValue: props.defaultLanguage,
+// });
+
+const { allApiParams, nonDefaultApiParams } = storeToRefs(
+  useApiParameterStore()
 );
-const currentLanguage = useApiParameter('language', {
-  defaultValue: props.defaultLanguage,
-});
+const currentLanguage = computed(
+  () => allApiParams.value.language ?? props.defaultLanguage
+);
 
-const { cleanQueryParametersExtendedWith } = useUrlQuery();
+// const { cleanQueryParametersExtendedWith } = useUrlQuery();
 const router = useRouter();
 
 const links = computed(() => {
   return supportedLanguages.map((language) => {
-    const query = cleanQueryParametersExtendedWith({ language });
+    // const query = cleanQueryParametersExtendedWith({ language });
+    const query = { ...nonDefaultApiParams.value, language };
 
     const location: RouteLocationRaw = {
       query,
@@ -88,12 +94,14 @@ const links = computed(() => {
 });
 
 const selected = computed({
-  get: () => stringifyParameter(currentLanguage.value ?? ''),
+  get: () => currentLanguage.value ?? '',
   set: (value) => {
-    const to = links.value.find((link) => link.value === value)?.to;
-    if (to != null) {
-      router.push(to);
-    }
+    allApiParams.value.language = value;
+    // TODO: push to apiParameterStore?
+    // const to = links.value.find((link) => link.value === value)?.to;
+    // if (to != null) {
+    //   router.push(to);
+    // }
   },
 });
 </script>

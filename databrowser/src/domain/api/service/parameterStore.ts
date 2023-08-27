@@ -3,38 +3,22 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { ApiParameters, ParameterValue } from './types';
+import { ApiParameterValidator, ApiParameters } from './types';
 
 interface State {
   params: ApiParameters;
+  defaultParams: ApiParameters;
+  validators: Record<string, ApiParameterValidator>;
 }
 
 const state: State = {
   params: {},
+  defaultParams: {},
+  validators: {},
 };
 
 export const useParameterStore = defineStore('parameterStore', {
   state: () => state,
-  actions: {
-    setParameter(key: string, value: ParameterValue) {
-      this.params[key] = value;
-    },
-    getParameter(key: string) {
-      return this.params[key];
-    },
-    getParameters() {
-      return this.params;
-    },
-    setParameters(params: Record<string, ParameterValue>) {
-      this.params = params;
-    },
-    removeParameter(key: string) {
-      delete this.params[key];
-    },
-    clearParameters() {
-      this.params = {};
-    },
-  },
 });
 
 // Add support for hot-module-reload

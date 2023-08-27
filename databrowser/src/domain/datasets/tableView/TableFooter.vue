@@ -11,15 +11,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       id="dataset-table-page-size"
       class="mr-6 w-16"
       :options="pageSizeOptions"
-      :value="pageSize"
+      :value="pagination.pageSize.toString()"
       :size="SelectSize.sm"
-      @change="$emit('pageSizeChanges', $event)"
+      @change="pagination.changePageSize($event)"
     />
-    <Paginator
-      id="dataset-table-paginator"
-      :pagination="pagination"
-      @paginate-to="$emit('paginateTo', $event)"
-    />
+    <Paginator id="dataset-table-paginator" :pagination="pagination" />
   </div>
 </template>
 
@@ -33,10 +29,5 @@ import { SelectSize } from '../../../components/select/types';
 
 const { t } = useI18n();
 
-defineProps<{
-  pagination: Pagination;
-  pageSize: string;
-}>();
-
-defineEmits(['pageSizeChanges', 'paginateTo']);
+defineProps<{ pagination: Pagination }>();
 </script>

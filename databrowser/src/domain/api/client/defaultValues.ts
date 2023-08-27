@@ -5,7 +5,12 @@
 import { Pagination } from './types';
 
 export const defaultPagination: Pagination = {
-  page: 1,
-  size: 0,
-  total: 0,
+  totalItems: 0,
+  pageCount: 0,
+  pageSize: 0,
+  currentPage: 1,
+  hasPrevious: false,
+  hasNext: false,
+  goToPage: () => {},
+  changePageSize: () => {},
 };

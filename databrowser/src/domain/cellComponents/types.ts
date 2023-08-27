@@ -50,6 +50,6 @@ export enum CellComponent {
   QuickViewRecordInfoView = 'QuickViewRecordInfoView',
 }
 
-export enum FilterComponent {
-  FixedValue = 'FixedValue',
-}
+// export enum FilterComponent {
+//   FixedValue = 'FixedValue',
+// }

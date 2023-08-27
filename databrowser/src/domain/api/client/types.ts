@@ -10,9 +10,15 @@ export enum PaginationType {
 }
 
 export interface Pagination {
-  total: number;
-  page: number;
-  size: number;
+  totalItems: number;
+  pageCount: number;
+  pageSize: number;
+  currentPage: number;
+  hasPrevious: boolean;
+  hasNext: boolean;
+
+  goToPage: (value: number) => void;
+  changePageSize: (value: number) => void;
 }
 
 export interface PaginationData<T = unknown> {

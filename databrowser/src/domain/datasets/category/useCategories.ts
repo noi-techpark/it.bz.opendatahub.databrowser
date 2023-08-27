@@ -5,7 +5,7 @@
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Router, useRouter } from 'vue-router';
-import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 import { DatasetConfig, DetailElements } from '../../datasetConfig/types';
 import { Category, SubCategory } from './types';
 

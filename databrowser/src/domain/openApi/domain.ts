@@ -3,9 +3,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { withOdhBaseUrl } from '../../config/utils';
-import { SupportedDomains } from './types';
+import { KnownDomainsWithOpenApiDocument } from './types';
 
-export const domains = {
+export const knownDomainsWithOpenApiDocument = {
   tourism: {
     description: 'Open Data Hub Tourism API',
     documentUrl: withOdhBaseUrl('/json/swagger.json'),
@@ -18,7 +18,8 @@ export const domains = {
   },
 };
 
-export const domainKeys = new Set(Object.keys(domains));
+const domainKeys = new Set(Object.keys(knownDomainsWithOpenApiDocument));
 
-export const isDomainKnown = (s: string): s is SupportedDomains =>
-  domainKeys.has(s);
+export const domainIsKnownToHaveOpenApiDocument = (
+  s: string
+): s is KnownDomainsWithOpenApiDocument => domainKeys.has(s);

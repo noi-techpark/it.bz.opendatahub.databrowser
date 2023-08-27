@@ -11,21 +11,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <TableFilterHint />
       <div class="flex h-full overflow-y-auto">
         <div class="flex flex-1 flex-col overflow-y-auto">
+          <!-- {{ debouncedRows.length }} - {{ debouncedCols.length }} -->
           <TableContent
-            :render-elements="renderElements"
+            :cols="cols"
             :rows="rows"
-            :show-detail="showDetail"
-            :show-edit="showEdit"
-            :show-quick="showQuick"
+            :is-loading="isLoading"
+            :show-detail="hasDetailView"
+            :show-edit="editRecordSupported"
+            :show-quick="hasQuickView"
           />
-          <TableFooter
-            :page-size="pageSize"
-            :pagination="pagination"
-            @page-size-changes="changePageSize"
-            @paginate-to="changePage"
-          />
+          <TableFooter :pagination="pagination" />
         </div>
-        <TableToolBox :url="url" />
+        <TableToolBox :url="url" :cols="cols" />
       </div>
     </template>
   </section>
@@ -39,23 +36,21 @@ import TableContent from './TableContent.vue';
 import TableFooter from './TableFooter.vue';
 import { useTableViewRouteQueryStore } from './tableViewRouteQueryStore';
 import TableToolBox from './toolBox/TableToolBox.vue';
-import { useTableViewLoading } from './useTableViewLoading';
+import { useTableLoad } from './load/useTableLoad';
 import TableFilterHint from './filter/TableFilterHint.vue';
 
 const {
-  error,
-  isError,
-  pageSize,
-  pagination,
-  renderElements,
+  cols,
   rows,
-  showDetail,
-  showEdit,
-  showQuick,
+  pagination,
+  isLoading,
+  isError,
+  error,
+  hasDetailView,
+  hasQuickView,
+  editRecordSupported,
   url,
-  changePage,
-  changePageSize,
-} = useTableViewLoading();
+} = useTableLoad();
 
 // Store TableView route query in a store for later use e.g. in DetailView
 // to keep the query params when switching between DetailView and TableView.

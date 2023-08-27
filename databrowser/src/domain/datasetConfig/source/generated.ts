@@ -10,8 +10,16 @@ import {
 } from '../../../config/tourism/roles';
 import { isWithTourismPagination } from '../../api';
 import { CellComponent } from '../../cellComponents/types';
-import { domains, isDomainKnown, useOpenApi } from '../../openApi';
-import { OpenApi, SupportedDomains } from '../../openApi/types';
+import {
+  knownDomainsWithOpenApiDocument,
+  domainIsKnownToHaveOpenApiDocument,
+  useOpenApi,
+} from '../../openApi';
+import {
+  OpenApi,
+  KnownDomainsWithOpenApiDocument,
+  isKnownDomainWithOpenApiDocument,
+} from '../../openApi/types';
 import {
   DatasetConfig,
   DatasetDomain,
@@ -37,7 +45,7 @@ const isErrorMessage = (o: unknown): o is ErrorMessage =>
 const sourceResolver: SourceResolver = async (datasetRoute) => {
   const { domain } = datasetRoute;
 
-  if (!isDomainKnown(domain)) {
+  if (!domainIsKnownToHaveOpenApiDocument(domain)) {
     return Promise.reject(
       `ODH domain ${domain} is unknown, not able to generate configuration`
     );
@@ -79,7 +87,7 @@ const toGeneratedConfiguration = (
 };
 
 const parse = (
-  domain: SupportedDomains,
+  domain: DatasetDomain,
   document: OpenApi.Document
 ): Resources | ErrorMessage => {
   // Use first server URL
@@ -91,6 +99,10 @@ const parse = (
   return Object.entries(document.paths).reduce<Resources>(
     (previous, [path, httpMethods]) => {
       if (httpMethods == null) {
+        return previous;
+      }
+
+      if (!isKnownDomainWithOpenApiDocument(domain)) {
         return previous;
       }
 
@@ -159,7 +171,7 @@ const parse = (
 };
 
 const getOrBuildBaseDatasetConfig = (
-  domain: SupportedDomains,
+  domain: KnownDomainsWithOpenApiDocument,
   serverUrl: string,
   path: string,
   knownDatasetConfigs: Resources
@@ -361,7 +373,7 @@ const getAllDatasetConfigs = async (): Promise<
 > => {
   const result: Record<DatasetDomain, DatasetConfig[]> = {};
 
-  for (const domain of Object.keys(domains)) {
+  for (const domain of Object.keys(knownDomainsWithOpenApiDocument)) {
     const document = await useOpenApi().loadDocument(domain as any);
 
     // If no OpenAPI document could be found, then there are no view configs to return
@@ -378,7 +390,10 @@ const getAllDatasetConfigs = async (): Promise<
       );
     }
 
-    const resources = parse(domain as SupportedDomains, document);
+    const resources = parse(
+      domain as KnownDomainsWithOpenApiDocument,
+      document
+    );
 
     result[domain] = Object.values(resources);
   }

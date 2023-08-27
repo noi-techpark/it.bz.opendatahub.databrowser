@@ -73,14 +73,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { useApiMutate, useApiReadForCurrentDataset } from '../../api';
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
-import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 import EditFooter from './EditFooter.vue';
 import { useCategories } from '../category/useCategories';
 import EditToolBox from './toolBox/EditToolBox.vue';
 import { useEditStore } from './store/editStore';
 import { useEditStoreSync } from './useEditStoreSync';
 import { useApplyError } from './useApplyError';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, toRefs, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { DatasetPage } from '../../../routes';
 import DiscardChangesDialog from './dialogs/DiscardChangesDialog.vue';
@@ -96,6 +96,9 @@ import {
   useEventDiscardChanges,
 } from '../../cellComponents/components/utils/editList/dialogMultipleFilesLanguage/utils';
 const { t } = useI18n();
+
+const props = defineProps<{ isNewView: boolean }>();
+const { isNewView } = toRefs(props);
 
 const showAll = ref(true);
 
@@ -119,20 +122,17 @@ useEventDiscardChanges.on((value: boolean) => {
 
 const { slug, categories, subcategories, currentCategory } = useCategories();
 
-const { isError, isStartOrFetch, data, error, url } =
-  datasetConfigStore.isNewView
-    ? {
-        isError: ref(false),
-        isStartOrFetch: ref(false),
-        data: ref(),
-        error: ref(),
-        url: computed(() => datasetConfigStore.currentPath ?? ''),
-      }
-    : useApiReadForCurrentDataset({ withQueryParameters: false });
+const { isError, isStartOrFetch, data, error, url } = isNewView.value
+  ? {
+      isError: ref(false),
+      isStartOrFetch: ref(false),
+      data: ref(),
+      error: ref(),
+      url: computed(() => datasetConfigStore.currentPath ?? ''),
+    }
+  : useApiReadForCurrentDataset({ withQueryParameters: false });
 
-const mutation = computed(() =>
-  datasetConfigStore.isNewView ? 'create' : 'update'
-);
+const mutation = computed(() => (isNewView.value ? 'create' : 'update'));
 const {
   isMutateSuccess,
   isMutateLoading,
@@ -180,7 +180,7 @@ const router = useRouter();
 watch(
   () => isMutateSuccess.value,
   (success) => {
-    if (datasetConfigStore.isNewView && success) {
+    if (isNewView.value && success) {
       // At the moment there are at least two different forms of response
       // when a new record is created. The first one is from the EventShort
       // dataset, the second comes from the Article dataset

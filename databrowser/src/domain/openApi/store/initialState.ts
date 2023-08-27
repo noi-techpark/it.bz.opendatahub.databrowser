@@ -2,9 +2,12 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DocumentState, SupportedDomains } from '../types';
+import { DocumentState, KnownDomainsWithOpenApiDocument } from '../types';
 
-export const initialState: Record<SupportedDomains, DocumentState> = {
+export const initialState: Record<
+  KnownDomainsWithOpenApiDocument,
+  DocumentState
+> = {
   tourism: {
     loading: false,
     loaded: false,

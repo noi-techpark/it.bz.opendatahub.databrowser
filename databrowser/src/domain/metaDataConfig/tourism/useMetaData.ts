@@ -6,7 +6,7 @@ import { computed, Ref } from 'vue';
 import { PathParams } from '../../datasetConfig/types';
 import { useMetaDataQuery } from './useMetaDataQuery';
 import { stringifyParameter } from '../../api';
-import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 import { useRouter } from 'vue-router';
 
 type Query = Record<string, string | null | (string | null)[]>;

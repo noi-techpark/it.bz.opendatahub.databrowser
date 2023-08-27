@@ -8,21 +8,9 @@ export type ParameterValue = string | null | (string | null)[];
 
 export type ApiParameters = Record<string, ParameterValue>;
 
-export interface ApiParameterOptions {
-  /**
-   * A validator function invoked when the parameter is updated.
-   *
-   * If this function is undefined, no validation will be
-   * performed, the value is used.
-   *
-   * If this function is defined and the validation was
-   * successful (returns true), the value is used.
-   *
-   * If this function is defined and the validation failed,
-   * the defaultValue is used.
-   */
-  validator?: (value: ParameterValue) => boolean;
+export type ApiParams = Record<string, string>;
 
+export interface ApiParameterOptions {
   /**
    * The defaultValue is returned in case no value is set.
    *
@@ -45,10 +33,6 @@ export interface ApiQuery {
     name: string,
     options?: ApiParameterOptions
   ) => WritableComputedRef<ParameterValue | undefined>;
-  updateApiParameterValidator: (
-    name: string,
-    validator?: (value: ParameterValue) => boolean
-  ) => void;
   cleanApiParametersExtendWith: (apiParameters: ApiParameters) => ApiParameters;
 }
 

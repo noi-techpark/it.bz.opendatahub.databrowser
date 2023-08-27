@@ -6,7 +6,10 @@ import { computed, Ref, unref } from 'vue';
 import { RouteLocationNamedRaw, useRouter } from 'vue-router';
 import { DatasetPage } from '../../../routes';
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
-import { apiParameters } from '../../api/service/apiParameterHandler';
+import { useApiParameterStore } from '../../api/service/apiParameterStore';
+// import { apiParameters } from '../../api/service/apiParameterHandler';
+
+// TODO: make this file a store
 
 export const usePaths = () => {
   const datasetOverviewForId = (id: string | Ref<string>) =>
@@ -104,7 +107,7 @@ const initPathBuilder = () => {
     name: name,
     query: {
       ...currentMetaData.value?.apiFilter,
-      language: apiParameters.language.value,
+      language: useApiParameterStore().allApiParams.language,
     },
     hash: preserveHash ? router.currentRoute.value.hash : undefined,
   });

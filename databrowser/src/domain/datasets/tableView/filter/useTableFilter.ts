@@ -2,20 +2,22 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { ComputedRef, Ref, computed, toRefs, watch } from 'vue';
+import { storeToRefs } from 'pinia';
+import { Ref, computed, toRefs, watch } from 'vue';
 import { useToolBoxStore } from '../../toolBox/toolBoxStore';
+import { TableViewColumn, useTableViewColsStore } from '../tableViewColsStore';
 import { useRawfilterHandler } from './rawfilterHandler';
 import { useTableFilterStore } from './tableFilterStore';
 import { Filter, FilterOperator, FilterValue, Rawfilter } from './types';
-import {
-  TableViewColumn,
-  useTableViewColumns,
-} from '../../../datasetConfig/utils';
+// import {
+//   TableViewColumn,
+//   useTableViewColumns,
+// } from '../../../datasetConfig/utils';
 
-interface Column {
-  title: string;
-  field?: string;
-}
+// interface Column {
+//   title: string;
+//   field?: string;
+// }
 
 let isValueChange = false;
 
@@ -27,7 +29,7 @@ export const useTableFilterForField = (
   const { rawfilters, updateRawfilters } = useRawfilterHandler();
 
   // Get table columns from dataset config with placeholders replaced
-  const columns = useTableViewColumns();
+  const { cols } = storeToRefs(useTableViewColsStore());
 
   // Filter store import
   const {
@@ -38,7 +40,7 @@ export const useTableFilterForField = (
   } = useTableFilterStoreImport();
 
   // Update filters in store from rawfilters (URL)
-  addFilterWatcherSingleton(rawfilters, columns, setFilters);
+  addFilterWatcherSingleton(rawfilters, cols, setFilters);
 
   // Add filter for current field to store and show toolbox
   const addFilter = () =>
@@ -77,7 +79,7 @@ export const useTableFilter = () => {
   const { rawfilters, updateRawfilters } = useRawfilterHandler();
 
   // Get table columns from dataset config with placeholders replaced
-  const columns = useTableViewColumns();
+  const { cols } = storeToRefs(useTableViewColsStore());
 
   // Filter store import
   const {
@@ -88,12 +90,12 @@ export const useTableFilter = () => {
   } = useTableFilterStoreImport();
 
   // Update filters in store from rawfilters (URL)
-  addFilterWatcherSingleton(rawfilters, columns, setFilters);
+  addFilterWatcherSingleton(rawfilters, cols, setFilters);
 
   const addEmptyFilter = () =>
     wrapFilterMutation(() => {
-      const colsWithoutNull = columns.value.find(
-        (col): col is Required<Column> => col.field != null
+      const colsWithoutNull = cols.value.find(
+        (col): col is Required<TableViewColumn> => col.field != null
       );
       if (colsWithoutNull != null) {
         addFilterByField(colsWithoutNull.field, colsWithoutNull.title);
@@ -156,8 +158,8 @@ const useTableFilterStoreImport = () => {
 let hasFilterWatcher = false;
 
 const addFilterWatcherSingleton = (
-  rawfilters: ComputedRef<Rawfilter[]>,
-  columns: ComputedRef<TableViewColumn[]>,
+  rawfilters: Ref<Rawfilter[]>,
+  columns: Ref<TableViewColumn[]>,
   setFilters: (filters: Filter[]) => void
 ) => {
   if (hasFilterWatcher) {

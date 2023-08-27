@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { DatasetConfig } from '../../../domain/datasetConfig/types';
-import { domains } from '../../../domain/openApi';
+import { knownDomainsWithOpenApiDocument } from '../../../domain/openApi';
 import { venueDescription } from './venue.description';
 import { venueOperations } from './venue.operations';
 import { venueViews } from './venue.views';
@@ -11,7 +11,7 @@ import { venueRoute } from './venue.route';
 
 export const venueConfig: DatasetConfig = {
   source: 'embedded',
-  baseUrl: domains.tourism.baseUrl,
+  baseUrl: knownDomainsWithOpenApiDocument.tourism.baseUrl,
   route: venueRoute,
   description: venueDescription,
   views: venueViews,

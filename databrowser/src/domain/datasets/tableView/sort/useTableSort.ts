@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { Ref, computed } from 'vue';
-import { stringifyParameter, useApiParameterHandler } from '../../../api';
+// import { stringifyParameter, useApiParameterHandler } from '../../../api';
 import { SortState } from './types';
+import { useApiParameterStore } from '../../../api/service/apiParameterStore';
+import { storeToRefs } from 'pinia';
 
 // This function computes the rawsort value based on the sort field and the sort state.
 const rawsortValue = (sortField: string, sortState: SortState) => {
@@ -20,27 +22,30 @@ const rawsortValue = (sortField: string, sortState: SortState) => {
 
 export const useTableSortForField = (field: Ref<string | undefined>) => {
   // The sortFromUrl property contains the current sort value from the URL (may be undefined).
-  const sortFromUrl = useApiParameterHandler().useApiParameter('rawsort');
+  // const sortFromUrl = useApiParameterHandler().useApiParameter('rawsort');
+  const { currentApiParams } = storeToRefs(useApiParameterStore());
+  // const sortFromUrl = computed(())
 
   // The currentSortState property contains the current sort state for the given field.
   // It is 'none' if the URL contains no sort information or the the given field is not the
   // current sort field. It is 'asc' if the URL contains the sort field without a leading '-'
   // and 'desc' if the URL contains the sort field with a leading '-'.
   const currentSortState = computed(() => {
+    const sortFromUrl = currentApiParams.value['rawsort'];
     // If the no sort is set in the URL, the current sort state is 'none'.
-    if (sortFromUrl.value == null) {
+    if (sortFromUrl == null) {
       return 'none';
     }
 
     // Convert the sort value from the URL to a string
-    const sortFromUrlAsString = stringifyParameter(sortFromUrl.value);
-    const sortField = sortFromUrlAsString.replace(/^-/, '');
+    // const sortFromUrlAsString = stringifyParameter(sortFromUrl.value);
+    const sortField = sortFromUrl.replace(/^-/, '');
 
     if (field.value !== sortField) {
       return 'none';
     }
 
-    return sortFromUrlAsString.startsWith('-') ? 'desc' : 'asc';
+    return sortFromUrl.startsWith('-') ? 'desc' : 'asc';
   });
 
   // The canSort property is true if the given field can be sorted.
@@ -56,7 +61,13 @@ export const useTableSortForField = (field: Ref<string | undefined>) => {
       return;
     }
 
-    sortFromUrl.value = rawsortValue(field.value, sortState);
+    const rawsort = rawsortValue(field.value, sortState);
+    if (rawsort != null) {
+      currentApiParams.value['rawsort'] = rawsort;
+    } else {
+      delete currentApiParams.value['rawsort'];
+    }
+    // currentApiParams.value['rawsort'] = rawsortValue(field.value, sortState);
   };
 
   return {
