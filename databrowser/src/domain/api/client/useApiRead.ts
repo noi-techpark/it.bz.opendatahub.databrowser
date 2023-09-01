@@ -31,11 +31,11 @@ export const useApiReadForCurrentDataset = <
   resultMapper?: (data: T) => T;
   withQueryParameters?: boolean;
 }) => {
-  const router = useRouter();
+  // const router = useRouter();
   const { resultMapper, withQueryParameters = true } = options ?? {};
   const url = computed(
     () => {
-      console.log('currentRoute', router.currentRoute.value);
+      // console.log('currentRoute', router.currentRoute.value);
 
       const currentPath = useDatasetConfigStore().currentPath ?? '';
 

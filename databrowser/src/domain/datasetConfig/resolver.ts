@@ -7,10 +7,6 @@ import { embeddedDatasetConfigSource } from './source/embedded';
 import { generatedDatasetConfigSource } from './source/generated';
 import { DatasetConfigSource, SourceType } from './source/types';
 
-interface DatasetConfigResolutionOptions {
-  source: SourceType;
-}
-
 const datasetConfigSource: DatasetConfigSource[] = [
   embeddedDatasetConfigSource,
   generatedDatasetConfigSource,

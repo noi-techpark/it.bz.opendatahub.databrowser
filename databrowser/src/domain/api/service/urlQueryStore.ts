@@ -82,7 +82,8 @@ export const useUrlQueryStore = defineStore('urlQueryStore', () => {
         (prev, [key, value]) => ({ ...prev, [key]: stringifyParameter(value) }),
         {}
       );
-    }
+    },
+    { immediate: true }
   );
 
   return { currentUrlQuery: readonly(currentUrlQuery) };

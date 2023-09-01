@@ -12,12 +12,15 @@ import App from './App.vue';
 import { consentOptions } from './cookieconsent/consentOptions';
 import './cookieconsent/cookieconsent.css';
 import registerCellComponents from './domain/cellComponents/plugins/registerCellComponents';
-import { loadLocaleMessages, setupI18n } from './i18n';
+import { setupI18n } from './i18n';
 import './index.css';
 import { router } from './routes';
 
+const isProduction = process.env.NODE_ENV !== 'development';
+
 const app = createApp(App);
-app.config.performance = true;
+// Enable performance measurement in development mode
+app.config.performance = !isProduction;
 
 // Add Vue router
 app.use(router);
@@ -32,23 +35,18 @@ app.provide('axios', app.config.globalProperties.axios);
 // Register Vue cell render components globally for dynamic rendering
 app.use(registerCellComponents);
 
-// Add i18n translation
-const locale = 'en';
-const i18n = setupI18n({ locale, warnHtmlMessage: false });
-
-loadLocaleMessages(i18n, locale).then(() => {
-  app.use(i18n);
-
-  // Mount the app
-  app.mount('#app');
-});
-
 // Add cookie-banner
 app.use(CookieConsent, consentOptions);
 
 // Add hotjar
-const isProduction = process.env.NODE_ENV !== 'development';
 app.use(VueHotjar, {
   id: parseInt(import.meta.env.VITE_APP_HOTJAR_ID, 10),
   isProduction,
 });
+
+// Add i18n translation
+const i18n = await setupI18n({ locale: 'en', warnHtmlMessage: false });
+app.use(i18n);
+
+// Mount the app
+app.mount('#app');

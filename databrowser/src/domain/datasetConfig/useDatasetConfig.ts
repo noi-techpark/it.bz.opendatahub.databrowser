@@ -21,7 +21,7 @@ import { DatasetPage } from '../../routes';
 import { useAuth } from '../auth/store/auth';
 import { useApiParameterStore } from '../api/service/apiParameterStore';
 
-export const useDatasetConfigStore = defineStore('datasetConfigStore', () => {
+export const useDatasetConfigStore = () => {
   const _currentDomain = ref<DatasetDomains>('no-dataset-domain-in-url');
   const _config = ref<DatasetConfig>();
   const _source = ref<SourceType>('embedded');
@@ -113,57 +113,6 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', () => {
 
     await resolve(_datasetRoute.value, _source.value);
   };
-
-  // const router = useRouter();
-  // watch(
-  //   router.currentRoute,
-  //   async (route, oldRoute) => {
-  //     console.debug('datasetConfigStore route changed', route);
-
-  //     // Return early if no dataset config affecting route details changed
-  //     // e.g. when just the route query or hash changed
-  //     if (isSameRouteConfig(route, oldRoute)) {
-  //       console.debug(
-  //         'No dataset config affecting route details changed, returning early'
-  //       );
-  //       return;
-  //     }
-
-  //     // Return early if current url contains no domain part of a dataset page
-  //     _currentDomain.value = computeCurrentDomain(route.params.domain);
-  //     if (_currentDomain.value === 'no-dataset-domain-in-url') {
-  //       console.debug(
-  //         'No dataset domain found in current URL, returning early'
-  //       );
-
-  //       // Clear state before returning
-  //       clearState();
-
-  //       return;
-  //     }
-
-  //     // If viewKey is not defined for a dataset route, then something is wrong.
-  //     _viewKey.value = routeNameToViewKey(route.name);
-  //     console.log('VIEWKEY', _viewKey.value);
-
-  //     if (_viewKey.value == null) {
-  //       setResolutionState(
-  //         'error',
-  //         `No view type defined for current route "${route.path}". Please check the router configuration.`
-  //       );
-  //       // setError(
-  //       //   `No view type defined for current route "${route.path}". Please check the router configuration.`
-  //       // );
-  //       return;
-  //     }
-
-  //     // Build dataset route
-  //     _datasetRoute.value = toDatasetRoute(_currentDomain.value, route);
-
-  //     await resolve(_datasetRoute.value, _source.value);
-  //   },
-  //   { immediate: true }
-  // );
 
   const currentPath = computed(() => {
     if (_config.value == null || _datasetRoute.value == null) {
@@ -290,7 +239,7 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', () => {
     changeRoute,
     changeSource,
   };
-});
+};
 
 const computeCurrentDomain = (domainFromRoutingParam: string | string[]) => {
   if (domainFromRoutingParam == null) {
@@ -379,12 +328,12 @@ const toDatasetRoute = (
 
 const toArray = (s?: string | string[]) => (Array.isArray(s) ? s : [s]);
 
-// Add support for hot-module-reload
-if (import.meta.hot) {
-  import.meta.hot.accept(
-    acceptHMRUpdate(useDatasetConfigStore, import.meta.hot)
-  );
-}
+// // Add support for hot-module-reload
+// if (import.meta.hot) {
+//   import.meta.hot.accept(
+//     acceptHMRUpdate(useDatasetConfigStore, import.meta.hot)
+//   );
+// }
 
 // // Add support for datasetConfig config hot-module-reload
 // if (import.meta.hot) {

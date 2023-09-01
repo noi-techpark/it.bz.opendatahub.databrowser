@@ -30,15 +30,26 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { onErrorCaptured, ref } from 'vue';
+import { onErrorCaptured, ref, watch } from 'vue';
 import AppLayout from '../../layouts/AppLayout.vue';
 import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../../components/content/ContentDivider.vue';
 import DatasetHeader from '../../domain/datasets/header/DatasetHeader.vue';
 import { useDatasetConfigStore } from '../../domain/datasetConfig/datasetConfigStore';
 import AlertError from '../../components/alert/AlertError.vue';
+import { useRouter } from 'vue-router';
 
 const datasetConfigStore = useDatasetConfigStore();
+
+const router = useRouter();
+watch(
+  () => router.currentRoute.value,
+  async (route, oldRoute) => {
+    console.log('DatasetBaseLayout route updated', route, oldRoute);
+    datasetConfigStore.changeRoute(route, oldRoute);
+  },
+  { immediate: true }
+);
 
 const error = ref<Error>();
 
