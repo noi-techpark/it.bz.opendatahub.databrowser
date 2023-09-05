@@ -11,11 +11,10 @@ export const buildFieldReplacer = (
 ): { replaceFields: FieldsReplacer } => {
   // Replace all placeholders in a string with the corresponding API parameter
   const replaceWithParams = (s: string): string =>
-    s.replace(/\{([^}]+)\}/g, (wtf, paramName) => {
-      console.log('REPLACVE', wtf, paramName);
-
-      return replacements[paramName] ?? wtf;
-    });
+    s.replace(
+      /\{([^}]+)\}/g,
+      (wtf, paramName) => replacements[paramName] ?? wtf
+    );
 
   // Utility function to replace all placeholders in an object with the
   // corresponding API parameter
