@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { createRouter, createWebHistory } from 'vue-router';
-import { View, ViewKey } from './domain/datasetConfig/types';
+import { ViewKey } from './domain/datasetConfig/types';
 
 export const DatasetPage: Record<Uppercase<ViewKey>, string> = {
   DETAIL: 'DatasetDetailPage',
@@ -13,6 +13,8 @@ export const DatasetPage: Record<Uppercase<ViewKey>, string> = {
   RAW: 'DatasetRawPage',
   TABLE: 'DatasetTablePage',
 } as const;
+
+// TODO: remove unused paths and associated pages
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -35,7 +37,6 @@ export const router = createRouter({
       path: '/dataset/new/:domain/:pathParams+',
       component: () => import('./pages/datasets/DatasetNewPage.vue'),
       name: DatasetPage.NEW,
-      meta: { viewKey: View.NEW },
     },
     {
       path: '/dataset/quick/:domain/:pathParams+/:id',

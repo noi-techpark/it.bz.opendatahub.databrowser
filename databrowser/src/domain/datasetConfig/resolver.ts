@@ -7,7 +7,7 @@ import { embeddedDatasetConfigSource } from './source/embedded';
 import { generatedDatasetConfigSource } from './source/generated';
 import { DatasetConfigSource, SourceType } from './source/types';
 
-const datasetConfigSource: DatasetConfigSource[] = [
+const datasetConfigSources: DatasetConfigSource[] = [
   embeddedDatasetConfigSource,
   generatedDatasetConfigSource,
 ];
@@ -52,10 +52,10 @@ export const getDatasetConfigSources = (
   source: SourceType
 ): DatasetConfigSource[] => {
   if (source === 'any') {
-    return datasetConfigSource;
+    return datasetConfigSources;
   }
 
-  const vcs = datasetConfigSource.find((vcs) => vcs.source === source);
+  const vcs = datasetConfigSources.find((vcs) => vcs.source === source);
 
   return vcs == null ? [] : [vcs];
 };

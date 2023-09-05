@@ -52,7 +52,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               :show-all="true"
               :show-edit-hint="true"
               :editable="true"
-              :is-start-or-fetch="isStartOrFetch"
+              :is-start-or-fetch="isLoading"
             />
             <EditToolBox />
           </div>
@@ -70,7 +70,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script lang="ts" setup>
-import { useApiMutate, useApiReadForCurrentDataset } from '../../api';
+import { useApiMutate } from '../../api';
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
 import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
@@ -95,6 +95,8 @@ import {
   useEventSaveChanges,
   useEventDiscardChanges,
 } from '../../cellComponents/components/utils/editList/dialogMultipleFilesLanguage/utils';
+import { useSingleDatasetLoad } from '../common/load/useSingleDatasetLoad';
+
 const { t } = useI18n();
 
 const props = defineProps<{ isNewView: boolean }>();
@@ -122,15 +124,15 @@ useEventDiscardChanges.on((value: boolean) => {
 
 const { slug, categories, subcategories, currentCategory } = useCategories();
 
-const { isError, isStartOrFetch, data, error, url } = isNewView.value
+const { isError, isLoading, data, error, url } = isNewView.value
   ? {
       isError: ref(false),
-      isStartOrFetch: ref(false),
+      isLoading: ref(false),
       data: ref(),
       error: ref(),
       url: computed(() => datasetConfigStore.currentPath ?? ''),
     }
-  : useApiReadForCurrentDataset({ withQueryParameters: false });
+  : useSingleDatasetLoad();
 
 const mutation = computed(() => (isNewView.value ? 'create' : 'update'));
 const {

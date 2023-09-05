@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { ApiParams, stringifyParameter } from '..';
+import { stringifyParameter } from '..';
 import {
   isWithArrayPagination,
   isWithMobilityPagination,
@@ -14,28 +14,19 @@ import {
 import { defaultPagination } from './defaultValues';
 import { useApiParameterStore } from '../service/apiParameterStore';
 import { storeToRefs } from 'pinia';
+import { LocationQuery, useRoute, useRouter } from 'vue-router';
+import { computed } from 'vue';
+import { useUrlQueryStore } from '../service/urlQueryStore';
 
-// interface PaginationContext {
-//   defaultParameters?: ApiParameters;
-//   parameters?: ApiParameters;
-// }
-
-// const { updateApiParameterValue } = useApiParameterHandler();
 export const tourismPaginatedMapper = <T>(
   data: WithTourismPagination<T>,
-  params?: ApiParams
-  // context?: PaginationContext
+  routeQuery: LocationQuery
 ): PaginationData<T> => {
   const totalItems = data.TotalResults;
 
-  // const parameters = {
-  //   ...context?.defaultParameters,
-  //   ...context?.parameters,
-  // };
-
   const pageSize =
-    params?.pagesize != null
-      ? parseInt(stringifyParameter(params.pagesize), 10)
+    routeQuery.pagesize != null
+      ? parseInt(stringifyParameter(routeQuery.pagesize), 10)
       : 0;
   const currentPage = data.CurrentPage;
 
@@ -44,6 +35,7 @@ export const tourismPaginatedMapper = <T>(
   const hasNext = currentPage < pageCount;
 
   const { currentApiParams } = storeToRefs(useApiParameterStore());
+  useUrlQueryStore();
 
   return {
     items: data.Items,
@@ -56,10 +48,8 @@ export const tourismPaginatedMapper = <T>(
       hasNext,
       goToPage: (value: number) =>
         (currentApiParams.value['pagenumber'] = value.toString()),
-      // updateApiParameterValue('pagenumber', value.toString()),
       changePageSize: (value: number) =>
         (currentApiParams.value['pagesize'] = value.toString()),
-      // updateApiParameterValue('pagesize', value.toString()),
     },
   };
 };
@@ -93,36 +83,26 @@ export const mobilityPaginatedMapper = <T>(
           (value - 1) *
           data.limit
         ).toString()),
-      //   'offset',
-      //   ((value - 1) * data.limit).toString()
-      // ),
       changePageSize: (value: number) =>
         (currentApiParams.value['limit'] = value.toString()),
-      // updateApiParameterValue('limit', value.toString()),
     },
   };
 };
 
 export const arrayPaginatedMapper = <T = unknown>(
   data: T[],
-  params?: ApiParams
-  // context?: PaginationContext
+  routeQuery: LocationQuery
 ): PaginationData<T> => {
   const totalItems = data.length;
 
-  // const parameters = {
-  //   ...context?.defaultParameters,
-  //   ...context?.parameters,
-  // };
-
   const pageSize =
-    params?.pagesize != null
-      ? parseInt(stringifyParameter(params.pagesize), 10)
+    routeQuery.pagesize != null
+      ? parseInt(stringifyParameter(routeQuery.pagesize), 10)
       : 0;
 
   const currentPage =
-    params?.pagenumber != null
-      ? parseInt(stringifyParameter(params.pagenumber), 10)
+    routeQuery.pagenumber != null
+      ? parseInt(stringifyParameter(routeQuery.pagenumber), 10)
       : 1;
 
   const start = (currentPage - 1) * pageSize;
@@ -145,21 +125,18 @@ export const arrayPaginatedMapper = <T = unknown>(
       hasNext,
       goToPage: (value: number) =>
         (currentApiParams.value['pagenumber'] = value.toString()),
-      // updateApiParameterValue('pagenumber', value.toString()),
       changePageSize: (value: number) =>
         (currentApiParams.value['pagesize'] = value.toString()),
-      // updateApiParameterValue('pagesize', value.toString()),
     },
   };
 };
 
 export const unifyPagination = <T = unknown>(
   data: T,
-  params?: ApiParams
-  // context?: PaginationContext
+  routeQuery: LocationQuery
 ): PaginationData<T> => {
   if (isWithTourismPagination<T>(data)) {
-    return tourismPaginatedMapper<T>(data, params);
+    return tourismPaginatedMapper<T>(data, routeQuery);
   }
 
   if (isWithMobilityPagination<T>(data)) {
@@ -167,7 +144,7 @@ export const unifyPagination = <T = unknown>(
   }
 
   if (isWithArrayPagination<T>(data)) {
-    return arrayPaginatedMapper<T>(data, params);
+    return arrayPaginatedMapper<T>(data, routeQuery);
   }
 
   return {

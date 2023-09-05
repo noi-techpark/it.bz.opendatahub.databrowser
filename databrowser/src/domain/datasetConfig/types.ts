@@ -110,12 +110,16 @@ export interface EditViewElements {
   elements: EditElements[];
 }
 
-export type ListViewConfig = TableViewElements;
-export type DetailViewConfig = DetailViewElements;
-export type QuickViewConfig = QuickViewPageConfig;
-export type EditViewConfig = EditViewElements;
-export type RawViewConfig = unknown;
-export type NewViewConfig = EditViewElements;
+export type WithDefaultQueryParams = {
+  defaultQueryParams?: Record<string, string>;
+};
+
+export type ListViewConfig = TableViewElements & WithDefaultQueryParams;
+export type DetailViewConfig = DetailViewElements & WithDefaultQueryParams;
+export type QuickViewConfig = QuickViewPageConfig & WithDefaultQueryParams;
+export type EditViewConfig = EditViewElements & WithDefaultQueryParams;
+export type RawViewConfig = WithDefaultQueryParams;
+export type NewViewConfig = EditViewElements & WithDefaultQueryParams;
 
 export interface Operation {
   rolesAllowed: string[];

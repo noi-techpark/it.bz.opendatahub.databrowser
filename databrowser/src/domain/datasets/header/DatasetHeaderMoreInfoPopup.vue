@@ -68,6 +68,8 @@ const buttonClasses = computeButtonClasses({
   variant: Variant.ghost,
 });
 
+console.log('DatasetHeaderMoreInfoPopup');
+
 const { currentMetaData } = useMetaDataForCurrentRoute();
 
 const { datasetOverviewForId } = usePaths();

@@ -11,6 +11,10 @@ import {
 import { isWithTourismPagination } from '../../api';
 import { CellComponent } from '../../cellComponents/types';
 import {
+  defaultMobilityTableQueryParameters,
+  defaultTourismTableQueryParameters,
+} from '../../datasets/tableView/defaultValues';
+import {
   knownDomainsWithOpenApiDocument,
   domainIsKnownToHaveOpenApiDocument,
   useOpenApi,
@@ -154,6 +158,12 @@ const parse = (
             datasetConfig.views.table =
               listViewConfigFromProperties(schemaProperties);
           }
+
+          // Set default query parameters
+          datasetConfig.views.table.defaultQueryParams =
+            domain === 'tourism'
+              ? defaultTourismTableQueryParameters
+              : defaultMobilityTableQueryParameters;
         } else if (viewKey === 'detail') {
           datasetConfig.views.detail =
             detailViewConfigFromProperties(schemaProperties);

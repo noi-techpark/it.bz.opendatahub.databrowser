@@ -10,7 +10,7 @@ type Mutation = 'create' | 'update' | 'delete';
 
 const buildUseMutation = (
   axios: AxiosInstance,
-  url: Ref<string>,
+  url: Ref<string | undefined>,
   method: Ref<string>
 ) => {
   const useRequestMutation = () =>
@@ -82,7 +82,10 @@ export const useApiDelete = (url: Ref<string>) => {
   };
 };
 
-export const useApiMutate = (url: Ref<string>, mutation: Ref<Mutation>) => {
+export const useApiMutate = (
+  url: Ref<string | undefined>,
+  mutation: Ref<Mutation>
+) => {
   const axios = inject<AxiosInstance>('axios')!;
   const method = mutationToMethod(mutation);
   const mut = buildUseMutation(axios, url, method);

@@ -2,41 +2,52 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { computed } from 'vue';
-import { useApiReadForCurrentDataset } from '../../../api';
+import { computed, watch } from 'vue';
+import { PaginationData } from '../../../api';
 import { defaultTablePagination } from '../defaultValues';
-import { useDatasetConfigStore } from '../../../datasetConfig/datasetConfigStore';
+import {
+  buildAuthInterceptor,
+  useBaseAxiosFetch,
+} from '../../../api/client/fetcher/axios';
+import { useTableConfig } from './useTableConfig';
+import { useAuth } from '../../../auth/store/auth';
 import { storeToRefs } from 'pinia';
-import { useTableViewColsStore } from '../tableViewColsStore';
-import { useTableSettings } from './useTableSettings';
-// import { useTableViewColsStore } from '../tableViewColsStore';
 
 const buildFallbackRows = (pageSize: number) =>
   [...Array(pageSize).keys()].map((_, index) => ({ Id: index }));
 
-export const useTableLoad = () => {
-  const { dataMapper } = useTableSettings();
+export const useTableLoad = <T = unknown>() => {
+  // Resolved table config
+  const {
+    url,
+    cols,
+    editRecordSupported,
+    hasDetailView,
+    hasQuickView,
+    isResolving,
+    mapper,
+  } = useTableConfig<T>();
 
-  // Use api read
-  const { isError, isStartOrFetch, data, error, url } =
-    useApiReadForCurrentDataset({ resultMapper: dataMapper });
+  // Fetch data
+  const {
+    data,
+    error,
+    isError,
+    isLoading: isDataLoading,
+  } = useBaseAxiosFetch<PaginationData<T> | null, T>(url, {
+    beforeFetch: buildAuthInterceptor(),
+    afterFetch: (ctx) => (ctx.data == null ? null : mapper(ctx.data)),
+  });
+
+  const isLoading = computed(() => isResolving.value || isDataLoading.value);
 
   // If there are no items yet (e.g. because of initial load),
   // show a fallback table with empty rows
   const rows = computed(() =>
-    isStartOrFetch.value
+    isLoading.value
       ? buildFallbackRows(data.value?.pagination.pageSize ?? 25)
       : data.value?.items ?? []
   );
-
-  // Get dataset config
-  const { editRecordSupported, hasDetailView, hasQuickView, isResolving } =
-    storeToRefs(useDatasetConfigStore());
-
-  // Get table columns from dataset config
-  const { cols } = storeToRefs(useTableViewColsStore());
-
-  const isLoading = computed(() => isStartOrFetch.value || isResolving.value);
 
   // Handle pagination
   const pagination = computed(
@@ -47,12 +58,12 @@ export const useTableLoad = () => {
     cols,
     rows,
     pagination,
-    isLoading,
     isError,
+    isLoading,
     error,
+    url,
+    editRecordSupported,
     hasDetailView,
     hasQuickView,
-    editRecordSupported,
-    url,
   };
 };

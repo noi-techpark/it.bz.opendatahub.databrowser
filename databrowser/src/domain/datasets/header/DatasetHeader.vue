@@ -72,13 +72,20 @@ import TagCustom from '../../../components/tag/TagCustom.vue';
 import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
 import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
 import { storeToRefs } from 'pinia';
+import { useDatasetSourceStore } from '../../datasetConfig/useDatasetSourceStore';
+import { SourceType } from '../../datasetConfig/source/types';
 
 const { t } = useI18n();
 
-const { hasConfig, source, addRecordSupported, datasetRoute } = storeToRefs(
+const { hasConfig, addRecordSupported, datasetRoute } = storeToRefs(
   useDatasetConfigStore()
 );
-const { changeSource } = useDatasetConfigStore();
+
+const { source } = storeToRefs(useDatasetSourceStore());
+
+const changeSource = (value: SourceType) => {
+  source.value = value;
+};
 
 const showLanguagePicker = computed(
   () => datasetRoute.value?.domain === 'tourism'

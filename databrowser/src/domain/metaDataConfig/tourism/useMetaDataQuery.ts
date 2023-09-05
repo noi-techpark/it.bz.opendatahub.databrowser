@@ -52,7 +52,7 @@ const select = (
   if (data?.data == null) {
     return [];
   }
-  const paginationData = unifyPagination(data.data);
+  const paginationData = unifyPagination(data.data, {});
 
   // Map ODH MetaData to internal format
   const itemsWithoutParentInfo = mapResponse(paginationData.items);

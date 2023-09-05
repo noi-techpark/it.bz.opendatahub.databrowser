@@ -13,8 +13,8 @@ import {
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { resolveDatasetConfig } from './resolver';
 import { SourceType } from './source/types';
-import { computed, ref, watch } from 'vue';
-import { RouteLocationNormalizedLoaded, useRouter } from 'vue-router';
+import { computed, ref } from 'vue';
+import { RouteLocationNormalizedLoaded } from 'vue-router';
 import { stringifyParameter } from '../api';
 import { domainIsKnownToHaveOpenApiDocument } from '../openApi';
 import { DatasetPage } from '../../routes';
@@ -216,6 +216,8 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', () => {
     if (table == null) {
       return undefined;
     }
+
+    console.time('datasetConfigStore table view config');
 
     const { replaceFields } = useApiParameterStore();
 

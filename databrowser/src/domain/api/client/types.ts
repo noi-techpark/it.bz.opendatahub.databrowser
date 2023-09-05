@@ -35,11 +35,16 @@ export interface WithTourismPagination<T = unknown> {
 
 export const isWithTourismPagination = <T = unknown>(
   data: unknown
-): data is WithTourismPagination<T> =>
-  data != null &&
-  (data as WithTourismPagination).TotalResults != null &&
-  (data as WithTourismPagination).TotalPages != null &&
-  (data as WithTourismPagination).Items != null;
+): data is WithTourismPagination<T> => {
+  // console.log('isWithTourismPagination2q', data);
+
+  return (
+    data != null &&
+    (data as WithTourismPagination).TotalResults != null &&
+    (data as WithTourismPagination).TotalPages != null &&
+    (data as WithTourismPagination).Items != null
+  );
+};
 
 export interface WithMobilityPagination<T = unknown> {
   limit: number;

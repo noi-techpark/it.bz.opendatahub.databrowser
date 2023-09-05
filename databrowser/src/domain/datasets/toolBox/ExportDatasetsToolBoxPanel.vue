@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <ToolBoxSectionLabel>{{
       t('datasets.toolBox.exportDatasets.sectionRetrieveData')
     }}</ToolBoxSectionLabel>
-    <ToolBoxCard>
+    <ToolBoxCard v-if="hasUrl">
       <ToolBoxCardHeader>
         {{ t('datasets.toolBox.exportDatasets.apiDatasets.header') }}
         <ToolBoxCardHeaderButton
@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       }}</ToolBoxCardBody>
     </ToolBoxCard>
 
-    <ToolBoxCard>
+    <ToolBoxCard v-if="hasUrl">
       <ToolBoxCardHeader>
         {{ t('datasets.toolBox.exportDatasets.json.header') }}
         <ToolBoxCardHeaderButton
@@ -79,15 +79,23 @@ import ToolBoxCardHeader from './ToolBoxCardHeader.vue';
 import ToolBoxCardHeaderButton from './ToolBoxCardHeaderButton.vue';
 import ToolBoxPanel from './ToolBoxPanel.vue';
 import ToolBoxSectionLabel from './ToolBoxSectionLabel.vue';
+import { computed, toRefs } from 'vue';
 
 const { t } = useI18n();
 
-const props = defineProps<{ url: string }>();
+const props = withDefaults(defineProps<{ url?: string }>(), { url: undefined });
+const { url } = toRefs(props);
+
+const hasUrl = computed(() => url.value != null);
 
 const { copy: copyUrl, copied: copiedUrl } = useClipboard({
-  source: props.url,
+  source: url.value,
 });
 
 const fileDownloader = useAxiosFileDownloader();
-const downloadData = async () => fileDownloader.download(props.url);
+const downloadData = async () => {
+  if (hasUrl.value) {
+    await fileDownloader.download(url.value!);
+  }
+};
 </script>

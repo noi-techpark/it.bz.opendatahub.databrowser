@@ -19,6 +19,9 @@ export const useMetaDataForCurrentRoute = () => {
   );
   const { currentRoute } = useRouter();
   const query = computed(() => currentRoute.value.query);
+
+  // console.log('useMetaDataForCurrentRoute');
+
   return useMetaDataForRoute(pathParams, query);
 };
 

@@ -32,6 +32,7 @@ import ArrayLookupTable from './ArrayLookupTable.vue';
 import * as R from 'ramda';
 import { SelectOption } from '../../../../../components/select/types';
 import { useApiParameterStore } from '../../../../api/service/apiParameterStore';
+import { useRoute } from 'vue-router';
 
 const props = withDefaults(
   defineProps<{
@@ -76,7 +77,10 @@ const options = computed<(SelectOption & { url: string })[]>(() => {
   );
 
   if (response.isSuccess.value) {
-    const { items } = unifyPagination(response.data.value?.data);
+    const { items } = unifyPagination(
+      response.data.value?.data,
+      useRoute().query
+    );
     return items.map((item: any) => ({
       label: getPropertyValue(item, labelSelectorWithReplacements),
       value: getPropertyValue(item, keySelectorWithReplacements),

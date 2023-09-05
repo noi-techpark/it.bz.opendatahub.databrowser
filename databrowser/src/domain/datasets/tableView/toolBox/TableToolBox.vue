@@ -24,12 +24,12 @@ import { useI18n } from 'vue-i18n';
 import { SelectOption } from '../../../../components/select/types';
 import ExportDatasetsToolBoxPanel from '../../toolBox/ExportDatasetsToolBoxPanel.vue';
 import ToolBox from '../../toolBox/ToolBox.vue';
-import { TableViewColumn } from '../tableViewColsStore';
 import SearchAndFilterToolBoxPanel from './SearchAndFilterToolBoxPanel.vue';
+import { ListElements } from '../../../datasetConfig/types';
 
 const { t } = useI18n();
 
-const props = defineProps<{ url: string; cols: TableViewColumn[] }>();
+const props = defineProps<{ url?: string; cols: ListElements[] }>();
 const { cols } = toRefs(props);
 
 const filterOptions = computed(() =>
