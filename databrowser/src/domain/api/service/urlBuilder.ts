@@ -20,6 +20,7 @@ const concatParameters = (
 
 export const buildUrlQuery = (
   apiParameters?: ApiParameters,
+  omitParameter: string[] = [],
   firstChar = ''
 ): string => {
   if (apiParameters == null) {
@@ -27,6 +28,9 @@ export const buildUrlQuery = (
   }
 
   const queryParams = Object.keys(apiParameters).reduce((prev, filterName) => {
+    if (omitParameter.includes(filterName)) {
+      return prev;
+    }
     const parameterValue = apiParameters[filterName];
     return [...prev, ...concatParameters(filterName, parameterValue)];
   }, [] as string[]);

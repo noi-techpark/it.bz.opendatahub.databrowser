@@ -19,7 +19,7 @@ export const createUrlQueryHandler = (
   watch(
     () => apiQuery.allApiParameters.value,
     (allApiParameters) => {
-      const urlQuery = buildUrlQuery(allApiParameters, '?');
+      const urlQuery = buildUrlQuery(allApiParameters, ['language'], '?');
       currentUrlQuery.value = urlQuery;
 
       router.replace({
