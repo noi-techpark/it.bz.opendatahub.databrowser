@@ -30,7 +30,7 @@ export const useSingleDatasetLoad = <T = unknown>() => {
     error,
     isError,
     isLoading: isDataLoading,
-  } = useBaseAxiosFetch<PaginationData<T> | null, T>(url, {
+  } = useBaseAxiosFetch<T | null, T>(url, {
     beforeFetch: buildAuthInterceptor(),
   });
 
