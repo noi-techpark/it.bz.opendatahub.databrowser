@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <LoadingError v-if="isError" :error="error" />
-  <template v-if="isSuccess === true">
+  <template v-else>
     <PageContent>
       <div
         class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
@@ -80,7 +80,6 @@ import LoadingError from '../../../components/loading/LoadingError.vue';
 
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useApiReadForCurrentDataset } from '../../api';
 
 import { odhActivityPoiConfig } from '../../../config/tourism/odhActivityPoi/odhActivityPoi.config';
 
@@ -93,13 +92,15 @@ import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
 import { usePropertyComputation } from '../category/usePropertyComputation';
 import { PropertyConfig } from '../../datasetConfig/types';
+import { useSingleDatasetLoad } from '../common/load/useSingleDatasetLoad';
 
 interface GalleryImage {
   ImageUrl: string;
   ImageDesc: Record<string, unknown>;
 }
 
-const { isError, isSuccess, error, data } = useApiReadForCurrentDataset();
+const { isError, data, error } =
+  useSingleDatasetLoad<Record<string, unknown>>();
 
 const forcePlaceholderImage = ref(false);
 
@@ -110,7 +111,7 @@ const { computeProperties } = usePropertyComputation();
 
 const mappedElements = computed(() => {
   return computeProperties(
-    data.value as Record<string, unknown>,
+    data.value,
     (odhActivityPoiConfig.views?.quick?.elements as PropertyConfig[]) ?? [],
     true,
     false
@@ -122,17 +123,14 @@ const title = computed(() => {
     (
       getValueOfLocale(
         currentLocale,
-        (data.value as Record<string, unknown>).Detail as Record<
-          string,
-          unknown
-        >
+        data.value?.Detail as Record<string, unknown>
       ) as Record<string, unknown>
     )?.Title || '/'
   );
 });
 
 const id = computed(() => {
-  return (data.value as Record<string, unknown>).Id;
+  return data.value?.Id;
 });
 
 const hasImage = computed(() => {
@@ -158,7 +156,7 @@ const mainImage = computed(() => {
 });
 
 const imageGallery = computed(() => {
-  return ((data.value as Record<string, unknown>)[
+  return (data.value?.[
     odhActivityPoiConfig.views?.quick?.topGallery?.fields.gallery as string
   ] || []) as GalleryImage[];
 });
@@ -167,10 +165,7 @@ const logoUrl = computed(() => {
   return (
     getValueOfLocale(
       currentLocale,
-      (data.value as Record<string, unknown>).ContactInfos as Record<
-        string,
-        unknown
-      >
+      data.value?.ContactInfos as Record<string, unknown>
     ) as Record<string, unknown>
   )?.LogoUrl;
 });

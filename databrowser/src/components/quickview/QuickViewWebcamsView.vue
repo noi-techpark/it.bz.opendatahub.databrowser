@@ -45,7 +45,7 @@ const getPlaceholderMediaItems = () => {
   for (let index = 0; index < 5; index++) {
     items.push({
       type: 'IMAGE',
-      url: `https://picsum.photos/1280/720`,
+      url: `https://picsum.photos/1280/720?${Math.random()}}`,
       name: `Immagine di test ${index}`,
     });
   }
