@@ -29,7 +29,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-// import { useApiReadForCurrentDataset } from '../../api';
 import { useCategories } from '../category/useCategories';
 import ExportDatasetsToolBox from '../toolBox/ExportDatasetsToolBox.vue';
 import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
@@ -40,9 +39,6 @@ import { useSingleDatasetLoad } from '../common/load/useSingleDatasetLoad';
 const showAll = ref(false);
 
 const { slug, categories, subcategories, currentCategory } = useCategories();
-
-// const { isError, isStartOrFetch, data, error, url } =
-//   useApiReadForCurrentDataset();
 
 const { isError, isLoading, data, error, url } = useSingleDatasetLoad();
 </script>

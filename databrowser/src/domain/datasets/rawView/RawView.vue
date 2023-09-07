@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <template v-else>
     <div class="overflow-y-auto md:flex">
       <ContentAlignmentX class="overflow-y-auto py-6 md:flex">
-        <div v-if="isStartOrFetch" class="w-full">
+        <div v-if="isLoading" class="w-full">
           <LoadingCell v-for="i in 10" :key="i" class="my-3" />
         </div>
         <VueJsonPretty
@@ -27,21 +27,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue';
-import { useApiReadForCurrentDataset } from '../../api';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import ExportDatasetsToolBox from '../toolBox/ExportDatasetsToolBox.vue';
 import LoadingError from '../../../components/loading/LoadingError.vue';
 import 'vue-json-pretty/lib/styles.css';
 import LoadingCell from '../../cellComponents/components/cells/loadingCell/LoadingCell.vue';
+import { useSingleDatasetLoad } from '../common/load/useSingleDatasetLoad';
 
 const VueJsonPretty = defineAsyncComponent(() =>
   import('vue-json-pretty').then((exports) => exports.default)
 );
 
-const { isError, isStartOrFetch, data, error, url } =
-  useApiReadForCurrentDataset({
-    withQueryParameters: false,
-  });
+const { isError, isLoading, data, error, url } = useSingleDatasetLoad();
 </script>
 
 <style>
