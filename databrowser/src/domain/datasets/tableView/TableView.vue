@@ -11,7 +11,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <TableFilterHint />
       <div class="flex h-full overflow-y-auto">
         <div class="flex flex-1 flex-col overflow-y-auto">
-          <!-- {{ debouncedRows.length }} - {{ debouncedCols.length }} -->
           <TableContent
             :cols="cols"
             :rows="rows"

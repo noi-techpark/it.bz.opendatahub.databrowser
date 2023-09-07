@@ -13,6 +13,7 @@ import {
   EditViewConfig,
   NewViewConfig,
   ListViewConfig,
+  QuickViewConfig,
 } from './types';
 import { resolveDatasetConfig } from './resolver';
 import {
@@ -20,7 +21,7 @@ import {
   RouteLocationNormalizedLoaded,
   useRouter,
 } from 'vue-router';
-import { stringifyParameter } from '../api';
+import { stringifyParameter, usePropertyMapping } from '../api';
 import { domainIsKnownToHaveOpenApiDocument } from '../openApi';
 import { DatasetPage } from '../../routes';
 import { ref, watch } from 'vue';
@@ -33,6 +34,8 @@ export type ResolvedDatasetConfig = Awaited<
   ReturnType<typeof computeDatasetConfig>
 >;
 
+const { mapWithIndex } = usePropertyMapping();
+
 export const computeDatasetConfigForCurrentRoute = () => {
   const isResolving = ref(false);
   const resolvedDatasetConfig = ref<ResolvedDatasetConfig>();
@@ -40,8 +43,15 @@ export const computeDatasetConfigForCurrentRoute = () => {
   const detailView = ref<ReturnType<typeof computeDetailView>>();
   const editView = ref<ReturnType<typeof computeEditView>>();
   const newView = ref<ReturnType<typeof computeNewView>>();
+  const quickView = ref<ReturnType<typeof computeQuickView>>();
 
   const defaultQueryParams = ref<Record<string, string>>({});
+  const allParams = ref<Record<string, string>>({});
+
+  const replaceFields = ref<FieldsReplacer>((fields) => fields ?? {});
+  const getDataForField = ref<(data: unknown, name: string) => unknown>(
+    (data) => data
+  );
 
   const router = useRouter();
   const datasetSourceStore = useDatasetSourceStore();
@@ -67,9 +77,12 @@ export const computeDatasetConfigForCurrentRoute = () => {
         : resolvedDatasetConfig.value.isNewView
         ? resolvedDatasetConfig.value.config.views?.new?.defaultQueryParams ??
           {}
+        : resolvedDatasetConfig.value.isQuickView
+        ? resolvedDatasetConfig.value.config.views?.quick?.defaultQueryParams ??
+          {}
         : {};
 
-      const replacements = Object.entries(defaultQueryParams.value).reduce<
+      allParams.value = Object.entries(defaultQueryParams.value).reduce<
         Record<string, string>
       >((prev, [key, defaultValue]) => {
         if (route.query[key] == null) {
@@ -85,28 +98,38 @@ export const computeDatasetConfigForCurrentRoute = () => {
       }, {});
 
       // Compute views
-      const { replaceFields } = buildFieldReplacer(replacements);
+      replaceFields.value = buildFieldReplacer(allParams.value).replaceFields;
       if (resolvedDatasetConfig.value.isTableView) {
         tableView.value = computeTableView(
           resolvedDatasetConfig.value.config,
-          replaceFields
+          replaceFields.value
         );
       } else if (resolvedDatasetConfig.value.isDetailView) {
         detailView.value = computeDetailView(
           resolvedDatasetConfig.value.config,
-          replaceFields
+          replaceFields.value
         );
       } else if (resolvedDatasetConfig.value.isEditView) {
         editView.value = computeEditView(
           resolvedDatasetConfig.value.config,
-          replaceFields
+          replaceFields.value
         );
       } else if (resolvedDatasetConfig.value.isNewView) {
         newView.value = computeNewView(
           resolvedDatasetConfig.value.config,
-          replaceFields
+          replaceFields.value
+        );
+      } else if (resolvedDatasetConfig.value.isQuickView) {
+        quickView.value = computeQuickView(
+          resolvedDatasetConfig.value.config,
+          replaceFields.value
         );
       }
+
+      getDataForField.value = (data: unknown, name: string) => {
+        const fieldWithReplacements = replaceFields.value({ field: name });
+        return mapWithIndex(data, fieldWithReplacements).field;
+      };
 
       // Remove default query params from url
       const sanitizedQuery = Object.entries(route.query)
@@ -135,12 +158,16 @@ export const computeDatasetConfigForCurrentRoute = () => {
 
   return {
     isResolving,
-    config: resolvedDatasetConfig,
+    resolvedDatasetConfig,
     defaultQueryParams,
+    allParams,
     tableView,
     detailView,
     editView,
     newView,
+    quickView,
+    replaceFields,
+    getDataForField,
   };
 };
 
@@ -377,6 +404,41 @@ const computeNewView = (
   }));
 
   return { ...newViewConfig, elements };
+};
+
+const computeQuickView = (
+  config: DatasetConfig,
+  replaceFields: FieldsReplacer
+): QuickViewConfig | undefined => {
+  console.log('computeQuickView');
+
+  const quickViewConfig = config.views?.quick;
+  if (quickViewConfig == null) {
+    return;
+  }
+
+  const elements = quickViewConfig.elements.map((element) => {
+    if (element.fields != null) {
+      return {
+        ...element,
+        listFields: undefined,
+        fields: replaceFields(element.fields),
+      };
+    } else if (element.listFields != null) {
+      return {
+        ...element,
+        fields: undefined,
+        listFields: {
+          ...element.listFields,
+          fields: replaceFields(element.listFields.fields),
+        },
+      };
+    }
+
+    return { ...element };
+  });
+
+  return { ...quickViewConfig, elements };
 };
 
 const computeCurrentDomain = (domainFromRoutingParam: string | string[]) => {

@@ -34,6 +34,9 @@ export const defaultTourismTableQueryParameters = {
   pagenumber: defaultTourismTablePageNumber.toString(),
   language: defaultLanguage,
 };
+export const defaultTourismSingleRecordQueryParameters = {
+  language: defaultLanguage,
+};
 
 export const defaultMobilityTablePageNumber = 0;
 export const defaultMobilityTableQueryParameters = {

@@ -17,12 +17,20 @@ export const useSingleDatasetLoad = <T = unknown>() => {
   // Resolve view config
   const {
     url,
+    allParams,
     addRecordSupported,
     editRecordSupported,
     hasDetailView,
+    hasEditView,
+    hasNewView,
     hasQuickView,
+    detailView,
+    editView,
+    newView,
+    quickView,
     isResolving,
-  } = useSingleDatasetConfig<T>();
+    getDataForField,
+  } = useSingleDatasetConfig();
 
   // Fetch data
   const {
@@ -40,9 +48,21 @@ export const useSingleDatasetLoad = <T = unknown>() => {
 
   return {
     data,
+    allParams,
+    addRecordSupported,
+    editRecordSupported,
+    hasDetailView,
+    hasEditView,
+    hasNewView,
+    hasQuickView,
+    detailView,
+    editView,
+    newView,
+    quickView,
     isError,
     isLoading,
     error,
     url,
+    getDataForField,
   };
 };

@@ -3,36 +3,32 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { ref, watch } from 'vue';
-import { LocationQuery, stringifyQuery, useRoute } from 'vue-router';
-import { PaginationData, defaultPagination } from '../../../api';
+import { stringifyQuery } from 'vue-router';
 import { computeDatasetConfigForCurrentRoute } from '../../../datasetConfig/datasetConfig';
-import { ListElements } from '../../../datasetConfig/types';
 import { useDatasetPermissions } from '../../../datasetConfig/useDatasetPermissions';
 
-export const useSingleDatasetConfig = <T>() => {
+export const useSingleDatasetConfig = () => {
   const {
-    config,
-    defaultQueryParams,
+    resolvedDatasetConfig,
+    allParams,
     isResolving,
     detailView,
     editView,
     newView,
+    quickView,
+    getDataForField,
   } = computeDatasetConfigForCurrentRoute();
 
   const url = ref<string>();
   const hasDetailView = ref(false);
   const hasEditView = ref(false);
+  const hasNewView = ref(false);
   const hasQuickView = ref(false);
 
-  const { addRecordSupported, editRecordSupported } =
-    useDatasetPermissions(config);
+  const { addRecordSupported, editRecordSupported } = useDatasetPermissions(
+    resolvedDatasetConfig
+  );
 
-  const mapper: (data: T) => PaginationData<T> = () => ({
-    items: [],
-    pagination: defaultPagination,
-  });
-
-  const route = useRoute();
   watch(
     isResolving,
     (resolving) => {
@@ -40,15 +36,15 @@ export const useSingleDatasetConfig = <T>() => {
         return;
       }
 
-      hasDetailView.value = config.value?.hasDetailView ?? false;
-      hasEditView.value = config.value?.hasEditView ?? false;
-      hasQuickView.value = config.value?.hasQuickView ?? false;
+      hasDetailView.value = resolvedDatasetConfig.value?.hasDetailView ?? false;
+      hasEditView.value = resolvedDatasetConfig.value?.hasEditView ?? false;
+      hasNewView.value = resolvedDatasetConfig.value?.hasNewView ?? false;
+      hasQuickView.value = resolvedDatasetConfig.value?.hasQuickView ?? false;
 
       // Compute url
       url.value = computeUrl(
-        config.value?.currentPath,
-        defaultQueryParams.value,
-        route.query
+        resolvedDatasetConfig.value?.currentPath,
+        allParams.value
       );
     },
     { immediate: true }
@@ -56,29 +52,31 @@ export const useSingleDatasetConfig = <T>() => {
 
   return {
     url,
+    allParams,
     addRecordSupported,
     editRecordSupported,
     hasDetailView,
     hasEditView,
+    hasNewView,
     hasQuickView,
+    detailView,
+    editView,
+    newView,
+    quickView,
     isResolving,
-    mapper: (data: T) => mapper(data),
+    getDataForField,
   };
 };
 
 const computeUrl = (
   currentPath: string | undefined,
-  defaultQueryParams: LocationQuery,
-  routeQueryParams: LocationQuery
+  allParams: Record<string, string>
 ) => {
   if (currentPath == null) {
     return undefined;
   }
 
-  const queryParams = stringifyQuery({
-    ...defaultQueryParams,
-    ...routeQueryParams,
-  });
+  const queryParams = stringifyQuery(allParams);
 
   return currentPath + (queryParams.length > 0 ? '?' + queryParams : '');
 };

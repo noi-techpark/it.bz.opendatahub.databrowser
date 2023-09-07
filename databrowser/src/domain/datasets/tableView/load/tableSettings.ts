@@ -3,10 +3,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {
-  defaultMobilityTableQueryParameters,
-  defaultTourismTableQueryParameters,
-} from '../defaultValues';
-import {
   PaginationData,
   arrayPaginatedMapper,
   defaultPagination,
@@ -17,10 +13,8 @@ import {
   tourismPaginatedMapper,
 } from '../../../api';
 import { DatasetDomain } from '../../../datasetConfig/types';
-import { LocationQuery } from 'vue-router';
 
 interface TableSettings<T> {
-  defaultQueryParams: LocationQuery;
   dataMapper: DataMapper<T>;
 }
 
@@ -33,37 +27,24 @@ const defaultDataMapper = <T = unknown>(): PaginationData<T> => ({
 
 export const computeTableSettings = <T = unknown>(
   domain: DatasetDomain | undefined,
-  routeQuery: LocationQuery
+  allParams: Record<string, string>
 ): TableSettings<T> => {
-  console.warn('computeTableSettings', domain, routeQuery);
+  console.warn('computeTableSettings', domain, allParams);
   if (domain === 'tourism') {
-    const defaultQueryParams = {
-      ...defaultTourismTableQueryParameters,
-    };
-
     const dataMapper = (data: T) => {
-      const allApiParams = {
-        ...defaultQueryParams,
-        ...routeQuery,
-      };
-
       if (isWithTourismPagination<T>(data)) {
-        return tourismPaginatedMapper<T>(data, allApiParams);
+        return tourismPaginatedMapper<T>(data, allParams);
       }
       if (isWithArrayPagination<T>(data)) {
-        return arrayPaginatedMapper<T>(data, allApiParams);
+        return arrayPaginatedMapper<T>(data, allParams);
       }
       return defaultDataMapper<T>();
     };
 
-    return { defaultQueryParams, dataMapper };
+    return { dataMapper };
   }
 
   if (domain === 'mobility') {
-    const defaultQueryParams = {
-      ...defaultMobilityTableQueryParameters,
-    };
-
     const dataMapper = (data: T) => {
       if (isWithMobilityPagination<T>(data)) {
         return mobilityPaginatedMapper<T>(data);
@@ -71,8 +52,8 @@ export const computeTableSettings = <T = unknown>(
       return defaultDataMapper<T>();
     };
 
-    return { defaultQueryParams, dataMapper };
+    return { dataMapper };
   }
 
-  return { defaultQueryParams: {}, dataMapper: defaultDataMapper };
+  return { dataMapper: defaultDataMapper };
 };

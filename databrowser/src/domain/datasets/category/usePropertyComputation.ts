@@ -24,6 +24,8 @@ export const usePropertyComputation = () => {
     // Add data to properties such that it can be used in the render component
     const propertiesWithValue: PropertyConfigWithValue[] = properties.map(
       (property) => {
+        console.log('JADDA');
+
         // Use replacements (e.g. for language) to extract correct data from value
         const value =
           property.fields != null

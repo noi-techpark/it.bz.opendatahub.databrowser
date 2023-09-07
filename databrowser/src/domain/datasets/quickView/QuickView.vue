@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </div>
       <div
         v-if="
-          odhActivityPoiConfig.views?.quick?.topGallery?.isVisible &&
+          quickView?.topGallery?.isVisible &&
           imageGallery.length <= 1 &&
           mainImage
         "
@@ -47,16 +47,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </PageContent>
 
     <QuickViewFullscreenGallery
-      v-if="
-        odhActivityPoiConfig.views?.quick?.topGallery?.isVisible &&
-        imageGallery.length > 1
-      "
+      v-if="quickView?.topGallery?.isVisible && imageGallery.length > 1"
       :images="imageGallery"
     />
 
     <PageContent>
       <div
-        v-for="(element, index) in mappedElements"
+        v-for="(element, index) in quickView?.elements"
         :key="index"
         class="mt-3 max-lg:!w-auto lg:mt-6 lg:odd:float-left lg:even:float-right lg:even:ml-8"
         :style="{
@@ -65,7 +62,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       >
         <ComponentRenderer
           :tag-name="element.component"
-          :attributes="element.value"
+          :attributes="mapWithIndex(data, element.fields, element.params)"
           :fields="element.fields"
           :list-fields="element.listFields"
         />
@@ -81,8 +78,6 @@ import LoadingError from '../../../components/loading/LoadingError.vue';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { odhActivityPoiConfig } from '../../../config/tourism/odhActivityPoi/odhActivityPoi.config';
-
 import PageContent from '../../../components/content/PageContent.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewFullscreenGallery.vue';
@@ -90,44 +85,27 @@ import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewF
 import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
 
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
-import { usePropertyComputation } from '../category/usePropertyComputation';
-import { PropertyConfig } from '../../datasetConfig/types';
 import { useSingleDatasetLoad } from '../common/load/useSingleDatasetLoad';
+import { usePropertyMapping } from '../../api';
 
 interface GalleryImage {
   ImageUrl: string;
   ImageDesc: Record<string, unknown>;
 }
 
-const { isError, data, error } =
+const { isError, data, error, quickView, getDataForField } =
   useSingleDatasetLoad<Record<string, unknown>>();
+
+const { mapWithIndex } = usePropertyMapping();
 
 const forcePlaceholderImage = ref(false);
 
 const { t, locale } = useI18n();
 const currentLocale = locale.value;
 
-const { computeProperties } = usePropertyComputation();
-
-const mappedElements = computed(() => {
-  return computeProperties(
-    data.value,
-    (odhActivityPoiConfig.views?.quick?.elements as PropertyConfig[]) ?? [],
-    true,
-    false
-  );
-});
-
-const title = computed(() => {
-  return (
-    (
-      getValueOfLocale(
-        currentLocale,
-        data.value?.Detail as Record<string, unknown>
-      ) as Record<string, unknown>
-    )?.Title || '/'
-  );
-});
+const title = computed(
+  () => getDataForField.value(data.value, 'Detail.{language}.Title') ?? '/'
+);
 
 const id = computed(() => {
   return data.value?.Id;
@@ -141,7 +119,7 @@ const hasImage = computed(() => {
 });
 
 const mainImage = computed(() => {
-  if (!imageGallery.value) {
+  if (imageGallery.value == null) {
     return null;
   }
 
@@ -156,19 +134,16 @@ const mainImage = computed(() => {
 });
 
 const imageGallery = computed(() => {
-  return (data.value?.[
-    odhActivityPoiConfig.views?.quick?.topGallery?.fields.gallery as string
-  ] || []) as GalleryImage[];
+  const gallery = getDataForField.value(
+    data.value,
+    quickView.value?.topGallery?.fields.gallery as string
+  );
+  return (gallery ?? []) as GalleryImage[];
 });
 
-const logoUrl = computed(() => {
-  return (
-    getValueOfLocale(
-      currentLocale,
-      data.value?.ContactInfos as Record<string, unknown>
-    ) as Record<string, unknown>
-  )?.LogoUrl;
-});
+const logoUrl = computed(() =>
+  getDataForField.value(data.value, 'ContactInfos.{language}.LogoUrl')
+);
 
 const onMainImageError = () => {
   forcePlaceholderImage.value = true;

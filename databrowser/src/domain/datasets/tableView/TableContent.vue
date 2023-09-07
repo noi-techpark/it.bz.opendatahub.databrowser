@@ -75,7 +75,6 @@ import { usePropertyMapping } from '../../api';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
 import TableDataEmpty from './TableDataEmpty.vue';
 import TableLinks from './TableLinks.vue';
-import { TableViewColumn } from './tableViewColsStore';
 import { useTableRowSelection } from './useTableRowSelection';
 import { rowId } from './utils';
 import { ListElements } from '../../datasetConfig/types';
