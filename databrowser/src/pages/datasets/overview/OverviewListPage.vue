@@ -69,7 +69,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </h3>
 
             <ResetAllFilters
-              class="mx-3 text-sm"
+              class="mr-3 text-xs"
               @reset-all-filters="resetFilters"
             />
             <button
@@ -470,17 +470,26 @@ const visibleDatasets = computed(() => {
     );
   }
 
+  // Group filters by key
+  const filterGroups: Record<string, (string | boolean)[]> = {};
   for (const filter of Object.values(filters.value.applied)) {
-    switch (filter.key) {
+    const key = filter.key;
+    if (filterGroups[key] === undefined) {
+      filterGroups[key] = [];
+    }
+    filterGroups[key].push(filter.value || true);
+  }
+
+  for (const [key, acceptedValues] of Object.entries(filterGroups)) {
+    switch (key) {
       case 'hasNoMetadata':
       case 'deprecated':
       case 'dataSpace':
       case 'access':
-        datasets = datasets.filter(
-          (dataset) =>
-            (dataset[filter.key as TourismMetaDataIndexes] as
-              | string
-              | boolean) === (filter.value || true)
+        datasets = datasets.filter((dataset) =>
+          acceptedValues.includes(
+            dataset[key as TourismMetaDataIndexes] as string | boolean
+          )
         );
         break;
 
@@ -490,40 +499,51 @@ const visibleDatasets = computed(() => {
       case 'dataProviders':
         datasets = datasets.filter((dataset) => {
           const filtrableValues = dataset[
-            filter.key as TourismMetaDataIndexes
+            key as TourismMetaDataIndexes
           ]! as string[];
           if (filtrableValues?.length) {
-            return filtrableValues.find((value) => filter.value === value);
+            return filtrableValues.find((value) =>
+              acceptedValues.includes(value)
+            );
           }
         });
         break;
 
       case 'singleDataset':
-        datasets = datasets.filter((dataset) => {
-          let matchPref = true;
-          if (filter.value === 'aggregated') {
-            matchPref = false;
-          }
-          return (
-            (dataset[filter.key as TourismMetaDataIndexes]! as boolean) ===
-            matchPref
-          );
-        });
+        if (
+          !acceptedValues.includes('aggregated') ||
+          !acceptedValues.includes('single')
+        ) {
+          datasets = datasets.filter((dataset) => {
+            let matchPref = true;
+            if (acceptedValues.includes('aggregated')) {
+              matchPref = false;
+            }
+            return (
+              (dataset[key as TourismMetaDataIndexes]! as boolean) === matchPref
+            );
+          });
+        }
         break;
 
       case 'datasetConfigurations':
-        datasets = datasets.filter((dataset) => {
-          const datasetPath = dataset.pathParam.join('/');
-          if (!datasetPath) {
-            return false;
-          }
+        if (
+          !acceptedValues.includes('with') ||
+          !acceptedValues.includes('without')
+        ) {
+          datasets = datasets.filter((dataset) => {
+            const datasetPath = dataset.pathParam.join('/');
+            if (!datasetPath) {
+              return false;
+            }
 
-          const hasConfig =
-            allDatasetConfigs.value.find(
-              (dataset) => dataset.route.pathParams.join('/') === datasetPath
-            ) !== undefined;
-          return filter.value === 'with' ? hasConfig : !hasConfig;
-        });
+            const hasConfig =
+              allDatasetConfigs.value.find(
+                (dataset) => dataset.route.pathParams.join('/') === datasetPath
+              ) !== undefined;
+            return acceptedValues.includes('with') ? hasConfig : !hasConfig;
+          });
+        }
         break;
     }
   }
