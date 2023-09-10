@@ -78,11 +78,12 @@ const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
       recordCount: dataset.RecordCount as Record<string, number>,
       deprecated: dataset.Deprecated,
       parent: undefined,
-      tags: dataset.ODHTags?.map((tag) => tag.Id),
+      tags: dataset.ODHTags?.map((tag) => tag.Id) || [],
       dataSpace: dataset.Dataspace,
-      categories: dataset.Category,
-      dataProviders: dataset.DataProvider,
+      categories: dataset.Category || [],
+      dataProviders: dataset.DataProvider || [],
       singleDataset: dataset.SingleDataset,
+      datasetConfigurations: [],
     }))
     .sort((a, b) => a?.shortname?.localeCompare(b?.shortname));
 

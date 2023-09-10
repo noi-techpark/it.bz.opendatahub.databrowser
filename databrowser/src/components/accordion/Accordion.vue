@@ -26,11 +26,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             {{ badgeValue }}
           </div></span
         >
-        <ArrowDownCompact
-          class="h-4 w-4 fill-current text-green-400 transition"
-          :class="{
-            'rotate-180': show,
-          }"
+        <ArrowLine
+          class="h-4 w-4 text-green-400 transition"
+          :class="show ? '-rotate-90' : 'rotate-90'"
         />
       </button>
 
@@ -44,7 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import ArrowDownCompact from '../svg/ArrowDownCompact.vue';
+import ArrowLine from '../svg/ArrowLine.vue';
 
 const props = defineProps<{
   text: string;
@@ -69,7 +67,6 @@ const toggle = () => {
 };
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (e: 'visible', visible: boolean): void;
 }>();
 </script>

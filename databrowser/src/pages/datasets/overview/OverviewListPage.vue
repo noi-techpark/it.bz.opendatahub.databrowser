@@ -29,7 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
       <div class="flex w-full flex-col items-start gap-8 md:flex-row">
         <!-- Mobile filters button -->
-        <div
+        <button
           class="flex w-full shrink-0 items-center gap-2 rounded border border-gray-300 px-3 py-2 font-semibold text-green-400 md:hidden"
           @click="showFilters"
         >
@@ -43,7 +43,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             {{ appliedFiltersNum }}
           </div>
           <IconFilter class="mr-2 h-3 w-3" />
-        </div>
+        </button>
 
         <!-- Filters -->
         <div
@@ -68,43 +68,40 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               </div>
             </h3>
 
-            <div
-              class="mx-3 hidden cursor-pointer select-none items-center justify-center gap-1 rounded border border-gray-300 px-2 py-1 text-sm text-green-400 md:flex"
-              @click="resetFilters"
-            >
-              <IconDelete class="h-4 w-4 text-error" />
-              {{ $t('overview.listPage.resetFilters') }}
-            </div>
-            <div
-              class="mr-3 flex h-5 w-5 items-center justify-center border border-gray-300 text-green-400 md:hidden"
-              @click="resetFilters"
+            <ResetAllFilters
+              class="mx-3 text-sm"
+              @reset-all-filters="resetFilters"
+            />
+            <button
+              class="mr-3 flex h-6 w-6 items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
+              @click="hideFilters"
             >
               <IconClose class="h-4 w-4" />
-            </div>
+            </button>
           </div>
 
           <!-- Filters list -->
           <div class="h-full overflow-y-auto py-14 md:h-auto md:p-0">
-            <div
-              class="truncate border-t border-gray-300 px-3 py-2 text-dialog"
+            <button
+              class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
               @click="toggleFilter('hasNoMetadata')"
             >
               <ToggleCustom v-model="_inputModels.no_metadata" class="mr-2" />
-              {{ $t('overview.listPage.noMetadataAvailable') }}
-            </div>
-            <div
-              class="truncate border-t border-gray-300 px-3 py-2 text-dialog"
+              {{ t('overview.listPage.noMetadataAvailable') }}
+            </button>
+            <button
+              class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
               @click="toggleFilter('deprecated')"
             >
               <ToggleCustom v-model="_inputModels.deprecated" class="mr-2" />
-              {{ $t('overview.listPage.deprecated') }}
-            </div>
+              {{ t('overview.listPage.deprecated') }}
+            </button>
             <Accordion
               v-for="filter in dynamicFilters"
               :key="filter.id"
               :text="filter.name"
               button-class="font-semibold text-gray-900 pb-2 px-4"
-              :badge-value="getActiveFiltersCountOfGroup(filter.id as tourismMetaDataIndexes)"
+              :badge-value="getActiveFiltersCountOfGroup(filter.id as TourismMetaDataIndexes)"
               class="border-t border-gray-300 pt-2 text-dialog"
             >
               <div
@@ -113,11 +110,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 class="flex items-center border-t border-gray-300 px-4 py-2"
               >
                 <CheckboxCustom
-                  v-model="_inputModels[getInputModelId(filter.id as tourismMetaDataIndexes, option.value)]"
+                  v-model="_inputModels[getInputModelId(filter.id as TourismMetaDataIndexes, option.value)]"
                   class="mr-2"
+                  :label="option.value"
                   @input="toggleFilter(filter.id, option.key)"
                 />
-                {{ option.value }}
                 <InfoPopover v-if="filter.id === 'singleDataset'" class="ml-2">
                   <PopoverCustomPanel>
                     <PopoverContent>
@@ -133,19 +130,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <div
             class="fixed bottom-0 flex w-full gap-3 border-t border-gray-300 bg-white px-3 py-4 md:relative md:w-auto md:py-3 md:pb-0"
           >
-            <div
-              class="flex flex-1 cursor-pointer select-none items-center justify-center gap-1 rounded border border-gray-300 py-1 text-sm text-green-400"
-              @click="resetFilters"
-            >
-              <IconDelete class="h-4 w-4 text-error" />
-              {{ $t('overview.listPage.resetFilters') }}
-            </div>
-            <div
+            <ResetAllFilters
+              class="flex flex-1 items-center justify-center text-sm"
+              @reset-all-filters="resetFilters"
+            />
+            <button
               class="flex flex-1 cursor-pointer select-none items-center justify-center gap-1 rounded border border-gray-300 bg-green-400 py-1 text-sm text-white md:hidden"
               @click="hideFilters"
             >
-              {{ $t('overview.listPage.applyFilters') }}
-            </div>
+              {{ t('overview.listPage.applyFilters') }}
+            </button>
           </div>
         </div>
 
@@ -182,7 +176,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 const { t } = useI18n();
-import lodash from 'lodash';
 
 import { embeddedDatasetConfigs } from '../../../config/config';
 import AppLayout from '../../../layouts/AppLayout.vue';
@@ -196,7 +189,6 @@ import ToggleCustom from '../../../components/toggle/ToggleCustom.vue';
 import InputCustom from '../../../components/input/InputCustom.vue';
 import Accordion from '../../../components/accordion/Accordion.vue';
 import CheckboxCustom from '../../../components/checkbox/CheckboxCustom.vue';
-import IconDelete from '../../../components/svg/IconDelete.vue';
 import IconFilter from '../../../components/svg/IconFilter.vue';
 import IconClose from '../../../components/svg/IconClose.vue';
 import InfoPopover from '../../../components/popover/InfoPopover.vue';
@@ -204,8 +196,9 @@ import PopoverCustomPanel from '../../../components/popover/PopoverCustomPanel.v
 import PopoverContent from '../../../components/popover/PopoverContent.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import { DatasetConfig } from '../../../domain/datasetConfig/types';
+import ResetAllFilters from '../../../domain/datasets/tableView/filter/ResetAllFilters.vue';
 
-type tourismMetaDataIndexes =
+type TourismMetaDataIndexes =
   | 'dataSpace'
   | 'categories'
   | 'tags'
@@ -217,7 +210,7 @@ type tourismMetaDataIndexes =
 
 interface Filters {
   searchVal: string;
-  applied: { [key: string]: FilterObject };
+  applied: Record<string, FilterObject>;
 }
 
 interface FilterObject {
@@ -238,33 +231,40 @@ interface DynamicFilter {
 
 const defaultFilters = {
   searchVal: '',
-  applied: {} as { [key: string]: FilterObject },
+  applied: {} as Record<string, FilterObject>,
 };
-const _inputModels = ref({
+const _inputModels = ref<Record<string, boolean>>({
   no_metadata: false,
   deprecated: false,
-} as { [key: string]: boolean });
+});
 
 const isFiltersModalVisible = ref(false);
-const filters = ref(lodash.cloneDeep(defaultFilters) as Filters);
+const filters = ref(structuredClone(defaultFilters) as Filters);
 
 // Methods
+const setInputModelKeyValue = (
+  key: TourismMetaDataIndexes,
+  propName: string
+) => {
+  // NOTE: defining the object key here it's necessary to properly reset the object programmatically with the reset button. Using the filters array to handle component's v-model will lead into too much code complexity.
+  _inputModels.value[getInputModelId(key as TourismMetaDataIndexes, propName)] =
+    false;
+};
+
 const mapDatasetsKeyArrayToFilterItems = (
   datasets: TourismMetaData[],
-  key: tourismMetaDataIndexes
+  key: TourismMetaDataIndexes
 ) => {
-  const addedProps = {} as { [key: string]: boolean };
+  const addedProps: Record<string, boolean> = {};
   let finalList = [] as FilterSelectItem[];
 
   datasets.forEach((dataset) => {
-    if (dataset[key]) {
+    if (dataset[key] !== undefined) {
       (dataset[key]! as string[]).forEach((propName) => {
-        if (!addedProps[propName]) {
+        if (addedProps[propName] !== true) {
           addedProps[propName] = true;
           finalList.push(getFilterSectionItemObject(propName, propName));
-          _inputModels.value[
-            getInputModelId(key as tourismMetaDataIndexes, propName)
-          ] = false; // NOTE: defining the object key here it's necessary to properly rest the object programmatically
+          setInputModelKeyValue(key, propName);
         }
       });
     }
@@ -275,10 +275,10 @@ const mapDatasetsKeyArrayToFilterItems = (
 
 const mapDatasetsKeyStringToFilterItems = (
   datasets: TourismMetaData[],
-  key: tourismMetaDataIndexes
+  key: TourismMetaDataIndexes
 ) => {
-  const addedProps = {} as { [key: string]: boolean };
-  let finalList = [] as FilterSelectItem[];
+  const addedProps = {} as Record<string, boolean>;
+  let finalList: FilterSelectItem[] = [];
 
   datasets.forEach((dataset) => {
     const propName = dataset[key] as string;
@@ -286,9 +286,7 @@ const mapDatasetsKeyStringToFilterItems = (
       if (!addedProps[propName]) {
         addedProps[propName] = true;
         finalList.push(getFilterSectionItemObject(propName, propName));
-        _inputModels.value[
-          getInputModelId(key as tourismMetaDataIndexes, propName)
-        ] = false; // NOTE: defining the object key here it's necessary to properly rest the object programmatically
+        setInputModelKeyValue(key, propName);
       }
     }
   });
@@ -305,7 +303,7 @@ const hideFilters = () => {
 };
 
 const resetFilters = () => {
-  filters.value = lodash.cloneDeep(defaultFilters);
+  filters.value = structuredClone(defaultFilters);
 
   for (const [key] of Object.entries(_inputModels.value)) {
     _inputModels.value[key] = false;
@@ -315,7 +313,7 @@ const resetFilters = () => {
 
 const isFilterEnabled = (key: string, value?: string) => {
   const filterFullKey = getFilterFullKey(key, value);
-  return typeof filters.value.applied[filterFullKey] !== 'undefined';
+  return filters.value.applied[filterFullKey] !== undefined;
 };
 
 const toggleFilter = (key: string, value?: string) => {
@@ -347,7 +345,7 @@ const getFilterObject = (key: string, value?: string): FilterObject => {
   };
 };
 
-const getInputModelId = (matchType: tourismMetaDataIndexes, match: string) => {
+const getInputModelId = (matchType: TourismMetaDataIndexes, match: string) => {
   return matchType + '-' + match;
 };
 
@@ -373,7 +371,7 @@ const getFilterSectionItemObject = (
   };
 };
 
-const getActiveFiltersCountOfGroup = (groupId: tourismMetaDataIndexes) => {
+const getActiveFiltersCountOfGroup = (groupId: TourismMetaDataIndexes) => {
   let count = 0;
 
   for (const [filterId] of Object.entries(filters.value.applied)) {
@@ -402,8 +400,8 @@ const getSingleDatasetPopoverDescription = (forOption: string) => {
 const allDatasetConfigs = computed(() => {
   let list: DatasetConfig[] = [];
 
-  for (const [_, datasets] of Object.entries(embeddedDatasetConfigs)) {
-    for (const [_, dataset] of Object.entries(datasets)) {
+  for (const datasets of Object.values(embeddedDatasetConfigs)) {
+    for (const dataset of Object.values(datasets)) {
       list.push(dataset);
     }
   }
@@ -472,7 +470,7 @@ const visibleDatasets = computed(() => {
     );
   }
 
-  for (const [_, filter] of Object.entries(filters.value.applied)) {
+  for (const filter of Object.values(filters.value.applied)) {
     switch (filter.key) {
       case 'hasNoMetadata':
       case 'deprecated':
@@ -480,7 +478,7 @@ const visibleDatasets = computed(() => {
       case 'access':
         datasets = datasets.filter(
           (dataset) =>
-            (dataset[filter.key as tourismMetaDataIndexes] as
+            (dataset[filter.key as TourismMetaDataIndexes] as
               | string
               | boolean) === (filter.value || true)
         );
@@ -492,7 +490,7 @@ const visibleDatasets = computed(() => {
       case 'dataProviders':
         datasets = datasets.filter((dataset) => {
           const filtrableValues = dataset[
-            filter.key as tourismMetaDataIndexes
+            filter.key as TourismMetaDataIndexes
           ]! as string[];
           if (filtrableValues?.length) {
             return filtrableValues.find((value) => filter.value === value);
@@ -507,7 +505,7 @@ const visibleDatasets = computed(() => {
             matchPref = false;
           }
           return (
-            (dataset[filter.key as tourismMetaDataIndexes]! as boolean) ===
+            (dataset[filter.key as TourismMetaDataIndexes]! as boolean) ===
             matchPref
           );
         });
@@ -564,9 +562,7 @@ const availableDatasetFilters = computed(() => {
   ];
 
   filters.forEach((filter) => {
-    _inputModels.value[
-      getInputModelId('singleDataset' as tourismMetaDataIndexes, filter.value)
-    ] = false;
+    setInputModelKeyValue('singleDataset', filter.value);
   });
 
   return filters;
@@ -585,12 +581,7 @@ const availableDatasetConfigurations = computed(() => {
   ];
 
   filters.forEach((filter) => {
-    _inputModels.value[
-      getInputModelId(
-        'datasetConfigurations' as tourismMetaDataIndexes,
-        filter.value
-      )
-    ] = false;
+    setInputModelKeyValue('datasetConfigurations', filter.value);
   });
 
   return filters;

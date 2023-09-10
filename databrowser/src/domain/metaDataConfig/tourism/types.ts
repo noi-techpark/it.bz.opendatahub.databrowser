@@ -17,11 +17,11 @@ export interface TourismMetaData {
   recordCount: { open?: number; closed?: number; reduced?: number };
   deprecated?: boolean;
   parent?: TourismMetaData;
-  tags?: string[];
+  tags: string[];
   hasNoMetadata?: boolean;
   dataSpace?: string;
-  categories?: string[];
-  dataProviders?: string[];
+  categories: string[];
+  dataProviders: string[];
   singleDataset?: boolean;
-  datasetConfigurations?: string[];
+  datasetConfigurations: string[];
 }
