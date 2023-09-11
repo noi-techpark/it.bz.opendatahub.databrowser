@@ -4,7 +4,6 @@
 
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
-import { defaultTourismTableQueryParameters as defaultQueryParams } from '../../../domain/datasets/tableView/defaultValues';
 import {
   imageTableCell,
   languageTableCell,
@@ -15,7 +14,6 @@ import {
 } from '../../builder/tourism';
 
 export const accommodationListView: ListViewConfig = {
-  defaultQueryParams,
   elements: [
     imageTableCell(),
     {

@@ -4,10 +4,8 @@
 
 import { QuickViewConfig } from '../../../domain/datasetConfig/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { defaultTourismSingleRecordQueryParameters as defaultQueryParams } from '../../../domain/datasets/tableView/defaultValues';
 
 export const odhActivityPoiQuickView: QuickViewConfig = {
-  defaultQueryParams,
   topGallery: {
     isVisible: true,
     fields: {

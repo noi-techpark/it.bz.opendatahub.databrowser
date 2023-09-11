@@ -4,7 +4,6 @@
 
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
-import { defaultTourismTableQueryParameters as defaultQueryParams } from '../../../domain/datasets/tableView/defaultValues';
 import {
   imageTableCell,
   languageTableCell,
@@ -17,7 +16,6 @@ import {
 } from '../../builder/tourism';
 
 export const odhActivityPoiListView: ListViewConfig = {
-  defaultQueryParams,
   elements: [
     imageTableCell(),
     logoTableCell(),

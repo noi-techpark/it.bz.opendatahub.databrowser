@@ -3,6 +3,10 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { DatasetConfig, DatasetDomain } from '../domain/datasetConfig/types';
+import {
+  defaultTourismSingleRecordQueryParameters,
+  defaultTourismTableQueryParameters,
+} from '../domain/datasets/tableView/defaultValues';
 import { representationConfig, stationTypesConfig } from './mobility';
 import {
   accommodationConfig,
@@ -74,7 +78,47 @@ const datasetConfigs = [
   sourceConfig,
   representationConfig,
   stationTypesConfig,
-];
+].map<DatasetConfig>((config) => ({
+  ...config,
+  views: {
+    ...config.views,
+    table:
+      config.views?.table == null
+        ? undefined
+        : {
+            ...config.views?.table,
+            defaultQueryParams: defaultTourismTableQueryParameters,
+          },
+    detail:
+      config.views?.detail == null
+        ? undefined
+        : {
+            ...config.views?.detail,
+            defaultQueryParams: defaultTourismSingleRecordQueryParameters,
+          },
+    edit:
+      config.views?.edit == null
+        ? undefined
+        : {
+            ...config.views?.edit,
+            defaultQueryParams: defaultTourismSingleRecordQueryParameters,
+          },
+    quick:
+      config.views?.quick == null
+        ? undefined
+        : {
+            ...config.views?.quick,
+            defaultQueryParams: defaultTourismSingleRecordQueryParameters,
+          },
+    raw:
+      config.views?.raw == null
+        ? undefined
+        : {
+            ...config.views?.raw,
+            defaultQueryParams: defaultTourismSingleRecordQueryParameters,
+          },
+  },
+}));
 
 const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {
   return datasetConfigs.reduce<EmbeddedDatasetConfigs>((previous, current) => {
