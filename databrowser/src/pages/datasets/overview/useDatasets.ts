@@ -71,6 +71,11 @@ export const useOtherDatasets = (metaDataDatasets: Ref<TourismMetaData[]>) => {
         sources: ['No information available'],
         apiFilter: {},
         recordCount: {},
+        hasNoMetadata: true,
+        tags: [],
+        categories: [],
+        dataProviders: [],
+        datasetConfigurations: [],
       }))
       .sort((a, b) => a.shortname.localeCompare(b.shortname))
   );

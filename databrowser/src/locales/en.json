@@ -331,7 +331,31 @@
       "listOfAllDatasets": "List of all datasets",
       "loadOtherDatasets": "Loading all other datasets...",
       "otherDatasets": "All other datasets",
-      "showAllEndpoints": "Show all available Endpoints"
+      "showAllEndpoints": "Show all available Endpoints",
+      "datasetFound": "Dataset found",
+      "datasetsFound": "Datasets found",
+      "filter": "Filter",
+      "resetFilters": "Reset Filters",
+      "noMetadataAvailable": "No metadata available",
+      "deprecated": "Deprecated",
+      "searchDataset": "Search Dataset",
+      "dataSpace": "Dataspace",
+      "showFilters": "Show filters",
+      "applyFilters": "Apply filters",
+      "categories": "Categories",
+      "tags": "Tags",
+      "datasetConfigurations": "Dataset configurations",
+      "withConfiguration": "With configuration",
+      "withoutConfiguration": "Without configuration",
+      "accessType": "Access type",
+      "dataProvider": "Data provider",
+      "source": "Source",
+      "dataset": "Dataset",
+      "aggregated": "Aggregated",
+      "single": "Single",
+      "noDatasetFoundWithSelectedFilters": "No dataset were found with the selected filters.",
+      "aggregatedDatasetDesc": "All records with the same data structure combined in one dataset. Consider: in many cases this also leads to a contentwise uniformity within the dataset.",
+      "singleDatasetDesc": "Datasets that have been extracted from aggregated ones, e.g. because they are individual from a content-perspective."
     }
   }
 }
