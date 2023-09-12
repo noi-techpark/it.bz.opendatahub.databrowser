@@ -260,7 +260,7 @@ const mapDatasetsKeyArrayToFilterItems = (
 
   datasets.forEach((dataset) => {
     if (dataset[key] !== undefined) {
-      (dataset[key]! as string[]).forEach((propName) => {
+      (dataset[key] as string[]).forEach((propName) => {
         if (addedProps[propName] !== true) {
           addedProps[propName] = true;
           finalList.push(getFilterSectionItemObject(propName, propName));

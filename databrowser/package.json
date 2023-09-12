@@ -37,7 +37,6 @@
     "vue-router": "^4.2.2"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.197",
     "@types/node": "^20.3.0",
     "@types/ramda": "^0.29.2",
     "@types/uuid": "^9.0.2",
