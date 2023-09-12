@@ -259,7 +259,7 @@ const mapDatasetsKeyArrayToFilterItems = (
   let finalList = [] as FilterSelectItem[];
 
   datasets.forEach((dataset) => {
-    if (dataset[key] !== undefined) {
+    if (dataset[key] != null) {
       (dataset[key] as string[]).forEach((propName) => {
         if (addedProps[propName] !== true) {
           addedProps[propName] = true;
