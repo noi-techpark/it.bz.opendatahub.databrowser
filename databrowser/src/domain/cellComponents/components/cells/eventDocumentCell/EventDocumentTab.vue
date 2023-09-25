@@ -39,6 +39,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               "
             />
           </SubCategoryItem>
+          <SubCategoryItem>
+            <StringCell
+              text="Update language settings"
+              clickable
+              @click="openDialog"
+            />
+          </SubCategoryItem>
         </div>
         <div class="basis-full md:order-3 md:basis-1/3">
           <div class="rounded border">
@@ -108,6 +115,8 @@ import UrlCell from '../UrlCell/UrlCell.vue';
 import { FileEntry } from './types';
 import StringCell from '../stringCell/StringCell.vue';
 
+const emit = defineEmits(['openDialog']);
+
 const props = defineProps<{ items: FileEntry[]; type?: FileType }>();
 
 const { items } = toRefs(props);
@@ -155,6 +164,8 @@ watch([isUploadSuccess, uploadResponse], ([isSuccess, fileUrls]) => {
 });
 
 const changeFile = () => open();
+
+const openDialog = () => emit('openDialog');
 
 const getFileName = (url?: string) =>
   url == null ? url : url.split('/').pop();

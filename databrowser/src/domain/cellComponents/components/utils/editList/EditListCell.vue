@@ -22,6 +22,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <!-- Slot for add visualization (e.g. upload) -->
     <slot v-if="isCurrentAdd" name="add"></slot>
+
+    <slot name="dialog" :items="(dialogItems as any[])"></slot>
   </section>
 </template>
 
@@ -30,6 +32,9 @@ import { computed } from 'vue';
 import { useProvideActions } from './actions/useActions';
 import { useProvideNavigation } from './actions/useNavigation';
 import { useProvideEditMode } from './actions/useEditMode';
+import { FilterLanguage } from '../../../../datasets/language';
+
+import { MultipleFilesLanguages } from './tab/types';
 
 const emit = defineEmits(['update']);
 
@@ -42,11 +47,47 @@ const props = defineProps<{
 // The internal copy is also updated in case the items prop updates
 const itemsInternal = computed(() => (props.items != null ? props.items : []));
 
+const dialogItems = computed(() => {
+  const data = [];
+
+  const supportedLanguages = Object.values(FilterLanguage);
+
+  let index = 0;
+
+  for (const item of (props.items as any[]) || []) {
+    const itemData = [];
+
+    for (const language of supportedLanguages) {
+      itemData.push({
+        documentName: item.documentName || '',
+        language,
+        available: item.language === language,
+      });
+    }
+
+    const extension = item.src ? item.src.match(/\.[^.]*$/) : '';
+
+    index++;
+
+    data.push({
+      name: `File_${index}${extension}`,
+      data: itemData,
+    });
+  }
+
+  return data as MultipleFilesLanguages;
+});
+
+const currentItems = computed(() => {
+  return isCurrentDialog.value ? dialogItems.value : itemsInternal.value;
+});
+
 // Provide navigation to this component and the component's descendants
 const {
   isCurrentAdd,
   isCurrentTab,
   isCurrentTable,
+  isCurrentDialog,
   navigateToTab,
   navigateToTable,
   setActiveTab,
@@ -68,14 +109,15 @@ const editable = computed(() => props.editable === true);
 useProvideEditMode(editable);
 
 onAddItems((items: unknown[]) => {
-  const newItems = [...itemsInternal.value, ...(items ?? [])];
+  // Check items manipulation
+  const newItems = [...currentItems.value, ...(items ?? [])];
   updateItems(newItems);
   setActiveTab(newItems.length - 1);
 });
 
 onDeleteItems((indexes: number[]) => {
   const indexSet = new Set(indexes);
-  const remainingItems = itemsInternal.value.filter(
+  const remainingItems = currentItems.value.filter(
     (item, index) => !indexSet.has(index)
   );
   updateItems(remainingItems);
@@ -90,16 +132,16 @@ onDeleteAllItems(() => {
 });
 
 onDuplicateItem((index: number) => {
-  const duplicatedEntry = isObject(itemsInternal.value[index])
+  const duplicatedEntry = isObject(currentItems.value[index])
     ? // If item to duplicate is an object, create a new object with the same properties
-      { ...(itemsInternal.value[index] as object) }
+      { ...(currentItems.value[index] as object) }
     : // Otherwise return the original value
-      itemsInternal.value[index];
+      currentItems.value[index];
 
   const newItems = [
-    ...itemsInternal.value.slice(0, index + 1),
+    ...currentItems.value.slice(0, index + 1),
     duplicatedEntry,
-    ...itemsInternal.value.slice(index + 1),
+    ...currentItems.value.slice(index + 1),
   ];
 
   updateItems(newItems);
@@ -110,15 +152,52 @@ onDuplicateItem((index: number) => {
 });
 
 onUpdateItem(({ index, item }) => {
-  const items = [...itemsInternal.value];
+  console.log(index, item);
+
+  console.log({ items: currentItems.value });
+
+  const items = [...currentItems.value];
   items[index] = item;
   updateItems(items);
 });
 
 onUpdateItems((items: unknown[]) => {
+  console.log({ items });
+
   emit('update', { prop: 'items', value: items });
 });
 
 const isObject = (o: unknown): o is object =>
   typeof o === 'object' && o !== null;
+
+const formaItemsForLanguageDialog = (items: Record<string, string>[]) => {
+  const data = [];
+
+  const supportedLanguages = Object.values(FilterLanguage);
+
+  let index = 0;
+
+  for (const item of items) {
+    const itemData = [];
+
+    for (const language of supportedLanguages) {
+      itemData.push({
+        documentName: item.documentName || '',
+        language,
+        available: item.language === language,
+      });
+    }
+
+    const extension = item.src ? item.src.match(/\.[^.]*$/) : '';
+
+    index++;
+
+    data.push({
+      name: `File_${index}.${extension}`,
+      data: JSON.parse(JSON.stringify(itemData)),
+    });
+  }
+
+  return data as MultipleFilesLanguages;
+};
 </script>

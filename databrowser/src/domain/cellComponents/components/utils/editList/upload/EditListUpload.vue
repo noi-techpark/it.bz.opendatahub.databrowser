@@ -21,7 +21,9 @@ import { useInjectActionTriggers } from '../actions/useActions';
 import FileUpload from '../../upload/FileUpload.vue';
 import { FileType } from '../../upload/types';
 
-defineProps<{ type: FileType }>();
+const props = defineProps<{ type: FileType; hasLanguageDialog?: boolean }>();
+
+const emit = defineEmits(['openDialog']);
 
 const { navigateToPrevious } = useInjectNavigation();
 
@@ -29,7 +31,14 @@ const { addItems } = useInjectActionTriggers();
 
 const uploadSuccess = (urls: string[]) => {
   const items = urls.map((url) => ({ src: url }));
+
   addItems(items);
+
+  if (props.hasLanguageDialog) {
+    emit('openDialog');
+    return;
+  }
+
   navigateToPrevious();
 };
 </script>

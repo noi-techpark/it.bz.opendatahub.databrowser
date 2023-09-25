@@ -11,7 +11,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :model-value="text"
     @update:model-value="update($event)"
   />
-  <span v-else>{{ text }}</span>
+  <span
+    v-else
+    :class="[clickable ? 'cursor-pointer text-hint-info underline' : '']"
+    >{{ text }}</span
+  >
 </template>
 
 <script setup lang="ts">
@@ -24,6 +28,7 @@ const emit = defineEmits(['update']);
 const props = defineProps<{
   text?: string | boolean | number;
   editable?: boolean;
+  clickable?: boolean;
   readonly?: string | boolean;
 }>();
 
