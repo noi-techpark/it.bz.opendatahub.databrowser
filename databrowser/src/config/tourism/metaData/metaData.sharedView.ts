@@ -30,6 +30,28 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               fields: { text: 'ApiDescription.{language}' },
             },
             {
+              title: 'Dataspace',
+              component: CellComponent.StringCell,
+              class: 'w-60',
+              fields: { text: 'Dataspace' },
+            },
+            {
+              title: 'Category',
+              component: CellComponent.ArrayEditableCell,
+              listFields: {
+                attributeName: 'items',
+                pathToParent: 'Category',
+              },
+            },
+            {
+              title: 'Data Provider',
+              component: CellComponent.ArrayEditableCell,
+              listFields: {
+                attributeName: 'items',
+                pathToParent: 'DataProvider',
+              },
+            },
+            {
               title: 'Deprecated',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'Deprecated' },

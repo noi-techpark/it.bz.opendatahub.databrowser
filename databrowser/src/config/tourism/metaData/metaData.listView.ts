@@ -21,6 +21,26 @@ export const metaDataListView: ListViewConfig = {
       fields: { text: 'ApiDescription.{language}' },
     },
     {
+      title: 'Dataspace',
+      component: CellComponent.StringCell,
+      class: 'w-60',
+      fields: { text: 'Dataspace' },
+    },
+    {
+      title: 'Category',
+      component: CellComponent.ArrayCell,
+      class: 'w-60',
+      fields: { items: 'Category' },
+      params: { separator: ', ' },
+    },
+    {
+      title: 'Data Provider',
+      component: CellComponent.ArrayCell,
+      class: 'w-60',
+      fields: { items: 'DataProvider' },
+      params: { separator: ', ' },
+    },
+    {
       title: 'Count',
       component: CellComponent.JsonCell,
       class: 'w-60',
