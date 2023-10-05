@@ -70,6 +70,8 @@ const {
   updateItems,
 } = useProvideActions();
 
+const isCurrentDialog = computed(() => injectNavigation.isCurrentDialog);
+
 // Use internal copy of items for quicker operations (e.g. sorting)
 // The internal copy is also updated in case the items prop updates
 const itemsInternal = computed(() => (props.items != null ? props.items : []));
@@ -107,9 +109,7 @@ const dialogItems = computed(() => {
 });
 
 const currentItems = computed(() => {
-  return injectNavigation?.isCurrentDialog
-    ? dialogItems.value
-    : itemsInternal.value;
+  return isCurrentDialog.value ? dialogItems.value : itemsInternal.value;
 });
 
 const editable = computed(() => props.editable === true);
