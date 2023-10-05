@@ -30,7 +30,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useProvideActions } from './actions/useActions';
-import { useProvideNavigation } from './actions/useNavigation';
+import {
+  useProvideNavigation,
+  useInjectNavigation,
+} from './actions/useNavigation';
 import { useProvideEditMode } from './actions/useEditMode';
 import { FilterLanguage } from '../../../../datasets/language';
 
@@ -43,6 +46,30 @@ const props = defineProps<{
   editable?: boolean;
 }>();
 
+// Provide navigation to this component and the component's descendants
+const {
+  isCurrentAdd,
+  isCurrentTab,
+  isCurrentTable,
+  navigateToTab,
+  navigateToTable,
+  setActiveTab,
+} = useProvideNavigation();
+
+const injectNavigation = useInjectNavigation();
+
+// Provide action handling to this component and the component's descendants
+const {
+  onAddItems,
+  onDeleteAllItems,
+  onDeleteItems,
+  onDuplicateItem,
+  onUpdateItem,
+  onUpdateItems,
+
+  updateItems,
+} = useProvideActions();
+
 // Use internal copy of items for quicker operations (e.g. sorting)
 // The internal copy is also updated in case the items prop updates
 const itemsInternal = computed(() => (props.items != null ? props.items : []));
@@ -53,13 +80,14 @@ const dialogItems = computed(() => {
   const supportedLanguages = Object.values(FilterLanguage);
 
   let index = 0;
+  console.log(props.items);
 
   for (const item of (props.items as any[]) || []) {
     const itemData = [];
 
     for (const language of supportedLanguages) {
       itemData.push({
-        documentName: item.documentName || '',
+        documentName: item.language === language ? item.documentName : '',
         language,
         available: item.language === language,
       });
@@ -79,31 +107,10 @@ const dialogItems = computed(() => {
 });
 
 const currentItems = computed(() => {
-  return isCurrentDialog.value ? dialogItems.value : itemsInternal.value;
+  return injectNavigation?.isCurrentDialog
+    ? dialogItems.value
+    : itemsInternal.value;
 });
-
-// Provide navigation to this component and the component's descendants
-const {
-  isCurrentAdd,
-  isCurrentTab,
-  isCurrentTable,
-  isCurrentDialog,
-  navigateToTab,
-  navigateToTable,
-  setActiveTab,
-} = useProvideNavigation();
-
-// Provide action handling to this component and the component's descendants
-const {
-  onAddItems,
-  onDeleteAllItems,
-  onDeleteItems,
-  onDuplicateItem,
-  onUpdateItem,
-  onUpdateItems,
-
-  updateItems,
-} = useProvideActions();
 
 const editable = computed(() => props.editable === true);
 useProvideEditMode(editable);
@@ -152,19 +159,24 @@ onDuplicateItem((index: number) => {
 });
 
 onUpdateItem(({ index, item }) => {
-  console.log(index, item);
-
-  console.log({ items: currentItems.value });
-
-  const items = [...currentItems.value];
-  items[index] = item;
-  updateItems(items);
+  if (isCurrentDialog.value) {
+    console.log(index, item);
+    console.log({ items: currentItems.value });
+  } else {
+    const items = [...currentItems.value];
+    items[index] = item;
+    updateItems(items);
+  }
 });
 
 onUpdateItems((items: unknown[]) => {
-  console.log({ items });
+  console.log(isCurrentDialog.value);
 
-  emit('update', { prop: 'items', value: items });
+  if (isCurrentDialog.value) {
+    console.log({ items });
+  } else {
+    emit('update', { prop: 'items', value: items });
+  }
 });
 
 const isObject = (o: unknown): o is object =>
