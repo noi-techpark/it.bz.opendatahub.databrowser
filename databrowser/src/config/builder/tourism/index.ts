@@ -11,6 +11,7 @@ export * from './id';
 export * from './image';
 export * from './language';
 export * from './lastChanges';
+export * from './licenseInfo';
 export * from './location';
 export * from './municipality';
 export * from './odh';
