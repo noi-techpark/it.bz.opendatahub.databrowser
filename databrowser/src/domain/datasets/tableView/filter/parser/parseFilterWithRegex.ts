@@ -61,7 +61,7 @@ import {
 //   - string surrounded by single or double quotes
 //   - undefined for isnull and isnotnull operators
 const filterRegex =
-  /(?<operator>eq|ne|gt|lt|ge|le|isnull|isnotnull|in|nin)\((?<field>\w+(\.(\w+|\[(\*|\d+)?\]))*)(,\s*(?<value>true|false|\d+|\[\]|'(?:[^']|'')*'|"(?:[^"]|"")*"))?\)/g;
+  /(?<operator>eq|ne|gt|lt|ge|le|isnull|isnotnull|in|nin|like|likein)\((?<field>\w+(\.(\w+|\[(\*|\d+)?\]))*)(,\s*(?<value>true|false|\d+|\[\]|'(?:[^']|'')*'|"(?:[^"]|"")*"))?\)/g;
 
 export const parseFilterWithRegex: RawfilterParser = (rawfilter) => {
   // If rawfilter is undefined, return an empty array.

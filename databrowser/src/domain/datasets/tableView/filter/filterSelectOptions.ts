@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { SelectOption } from '../../../../components/select/types';
+import { FilterOption } from './types';
 
-export const filterSelectOptions: SelectOption[] = [
+export const filterSelectOptions: FilterOption[] = [
   {
     label: 'equal to',
     value: 'eq',
@@ -12,6 +12,10 @@ export const filterSelectOptions: SelectOption[] = [
   {
     label: 'not equal to',
     value: 'ne',
+  },
+  {
+    label: 'like',
+    value: 'like',
   },
   {
     label: 'greater than',
@@ -44,5 +48,9 @@ export const filterSelectOptions: SelectOption[] = [
   {
     label: 'not includes',
     value: 'nin',
+  },
+  {
+    label: 'likein',
+    value: 'likein',
   },
 ];

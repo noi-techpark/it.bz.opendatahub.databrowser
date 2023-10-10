@@ -46,6 +46,10 @@ export const useRawfilterHandler = () => {
           return [...prev, `in(${curr.field}.[*],'${curr.value}')`];
         case 'nin':
           return [...prev, `nin(${curr.field}.[*],'${curr.value}')`];
+        case 'like':
+          return [...prev, `like(${curr.field},'${curr.value}')`];
+        case 'likein':
+          return [...prev, `likein(${curr.field}.[*],'${curr.value}')`];
       }
     }, []);
 
