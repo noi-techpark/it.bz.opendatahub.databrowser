@@ -54,7 +54,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </div>
           </CardContainer>
         </div>
-        <div class="flex w-full flex-col gap-4 pt-4 lg:flex-row">
+        <div class="flex w-full flex-col gap-4 pt-4 md:flex-row">
           <ul class="grow basis-0">
             <li class="font-semibold">
               {{ t('footer.columns.relevantLinks.title') }}

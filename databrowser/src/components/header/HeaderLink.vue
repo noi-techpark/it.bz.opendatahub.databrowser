@@ -5,11 +5,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <button :class="classes">
+  <router-link :to="to" :class="classes" class="no-underline">
     <slot></slot>
-  </button>
+  </router-link>
 </template>
 
 <script setup lang="ts">
+import { RouteLocationRaw } from 'vue-router';
 import { classes } from './styles';
+
+defineProps<{
+  to: RouteLocationRaw;
+}>();
 </script>

@@ -34,13 +34,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </div>
     <div class="bg-white">
       <ContentAlignmentX
-        class="m-auto flex flex-col gap-x-20 gap-y-2 px-4 py-2 lg:flex-row 2xl:px-0"
+        class="m-auto flex flex-col gap-x-20 gap-y-2 px-4 py-2 md:flex-row 2xl:px-0"
       >
         <div class="flex items-center">
-          <router-link
+          <InternalLink
             to="/"
-            class="no-underline"
             data-test="link-to-home-page"
+            variant="no-underline"
           >
             <div class="flex">
               <img
@@ -54,18 +54,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 v-html="t('header.toolBadge')"
               ></div>
             </div>
-          </router-link>
+          </InternalLink>
           <IconClose
             v-if="props.isMenuOpen"
-            class="ml-auto lg:hidden"
+            class="ml-auto md:hidden"
             @click="toggleMenu"
           />
-          <IconMenu v-else class="ml-auto lg:hidden" @click="toggleMenu" />
+          <IconMenu v-else class="ml-auto md:hidden" @click="toggleMenu" />
         </div>
 
         <MenuItems
           :class="props.isMenuOpen ? '' : 'hidden'"
-          class="grow border-t border-gray-250 py-4 lg:flex lg:border-0"
+          class="grow border-t border-gray-250 py-4 md:flex md:border-0"
         />
       </ContentAlignmentX>
     </div>
@@ -80,6 +80,7 @@ import ExternalLink from '../components/link/ExternalLink.vue';
 import MenuItems from './menu/MenuItems.vue';
 import IconMenu from '../components/svg/IconMenu.vue';
 import IconClose from '../components/svg/IconClose.vue';
+import InternalLink from '../components/link/InternalLink.vue';
 
 const { t } = useI18n();
 

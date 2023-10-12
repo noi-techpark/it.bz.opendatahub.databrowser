@@ -5,32 +5,49 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div v-if="auth.isAuthenticated" class="flex items-center space-x-4">
-    <MenuCustom>
-      <MenuCustomButton class="rounded" data-test="user-profile-button">
-        <ProfileButton :username="auth.user?.name" />
-      </MenuCustomButton>
-      <MenuCustomItems>
-        <MenuCustomItem
-          type="link"
-          :href="profileUrl"
-          data-test="user-profile-link"
-        >
-          {{ t('auth.profile') }}
-        </MenuCustomItem>
-        <MenuCustomItem
-          type="button"
-          data-test="user-profile-logout"
-          @click="onLogout"
-        >
-          {{ t('auth.logout') }}
-        </MenuCustomItem>
-      </MenuCustomItems>
-    </MenuCustom>
+  <div v-if="auth.isAuthenticated">
+    <!-- Mobile view -->
+    <div class="flex flex-col items-start gap-y-4 md:hidden">
+      <HeaderExternalLink :href="profileUrl" data-test="user-profile-link">
+        {{ t('auth.profile') }}
+      </HeaderExternalLink>
+      <HeaderButton data-test="user-profile-logout" @click="onLogout">
+        {{ t('auth.logout') }}
+      </HeaderButton>
+    </div>
+    <!-- Desktop view -->
+    <PopoverCustom class="hidden md:flex">
+      <template #trigger>
+        <PopoverCustomButton class="rounded focus-visible:outline-offset-2">
+          <ProfileButton :username="auth.user?.name" />
+        </PopoverCustomButton>
+      </template>
+      <template #container>
+        <PopoverCustomPanel class="mt-1 w-56" :has-close-button="false">
+          <ExternalLink
+            :href="profileUrl"
+            data-test="user-profile-link"
+            tone="text"
+            variant="no-underline"
+            class="flex w-full p-4 hover:bg-gray-50"
+          >
+            {{ t('auth.profile') }}
+          </ExternalLink>
+          <PopoverContentDivider />
+          <button
+            class="flex w-full rounded p-4 hover:bg-gray-50 focus-visible:outline-offset-2"
+            data-test="user-profile-logout"
+            @click="onLogout"
+          >
+            {{ t('auth.logout') }}
+          </button>
+        </PopoverCustomPanel>
+      </template>
+    </PopoverCustom>
   </div>
   <div
     v-else
-    class="flex flex-col items-start gap-x-5 gap-y-4 lg:flex-row lg:items-center"
+    class="flex flex-col items-start gap-x-5 gap-y-4 md:flex-row md:items-center"
   >
     <HeaderButton @click="onLogin">{{ t('auth.login') }}</HeaderButton>
     <HeaderButton @click="onRegister">{{ t('auth.register') }}</HeaderButton>
@@ -42,11 +59,13 @@ import { keycloak } from './keycloak';
 import HeaderButton from '../../components/header/HeaderButton.vue';
 import { useAuth } from './store/auth';
 import ProfileButton from './ProfileButton.vue';
-import MenuCustom from '../../components/menu/MenuCustom.vue';
-import MenuCustomButton from '../../components/menu/MenuCustomButton.vue';
-import MenuCustomItem from '../../components/menu/MenuCustomItem.vue';
-import MenuCustomItems from '../../components/menu/MenuCustomItems.vue';
 import { useI18n } from 'vue-i18n';
+import PopoverCustom from '../../components/popover/PopoverCustom.vue';
+import PopoverCustomButton from '../../components/popover/PopoverCustomButton.vue';
+import ExternalLink from '../../components/link/ExternalLink.vue';
+import PopoverCustomPanel from '../../components/popover/PopoverCustomPanel.vue';
+import PopoverContentDivider from '../../components/popover/PopoverContentDivider.vue';
+import HeaderExternalLink from '../../components/header/HeaderExternalLink.vue';
 
 const { t } = useI18n();
 

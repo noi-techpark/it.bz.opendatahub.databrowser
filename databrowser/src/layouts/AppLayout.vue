@@ -6,11 +6,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div class="flex h-screen flex-col overflow-y-auto">
-    <AppHeader :is-menu-open="isMenuOpen" @toggle-menu="toggleMenu" />
+    <AppHeader
+      :is-menu-open="isMenuOpen"
+      class="relative z-20"
+      @toggle-menu="toggleMenu"
+    />
     <slot></slot>
     <AppFooter v-if="showAppFooter" />
     <div
-      class="absolute w-full bg-black/60"
+      class="absolute z-10 w-full bg-black/60"
       :class="isMenuOpen ? 'h-full' : 'h-0'"
     ></div>
   </div>
