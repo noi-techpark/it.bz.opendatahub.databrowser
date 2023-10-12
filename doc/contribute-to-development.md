@@ -26,4 +26,4 @@ The auth information can be accessed in Vue components using the `auth` store, a
 
 ## Further information
 
-Please take a look on the [guildeline](../databrowser/guideline.md) for further information.
+Please take a look on the [guidelines](guideline.md) for further information.
