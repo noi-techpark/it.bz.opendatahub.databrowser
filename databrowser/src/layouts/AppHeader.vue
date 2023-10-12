@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <div class="sticky top-0 z-10 w-full">
     <div class="bg-gray-50">
-      <ContentAlignmentX class="m-auto flex w-full gap-2 px-4 py-2 2xl:px-0">
+      <ContentAlignmentX class="m-auto flex w-full gap-2 px-4 py-2">
         <TagCustom class="text-sm" type="info" text="BETA" />
         <TagCustom
           v-if="envBadge"
@@ -34,7 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </div>
     <div class="bg-white">
       <ContentAlignmentX
-        class="m-auto flex flex-col gap-x-20 gap-y-2 px-4 py-2 md:flex-row 2xl:px-0"
+        class="m-auto flex flex-col gap-x-20 gap-y-2 px-4 py-2 md:flex-row"
       >
         <div class="flex items-center">
           <InternalLink
