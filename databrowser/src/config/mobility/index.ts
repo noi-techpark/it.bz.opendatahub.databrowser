@@ -2,5 +2,24 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-export { representationConfig } from './representation/representation.config';
-export { stationTypesConfig } from './stationTypes/stationTypes.config';
+import { DatasetConfig } from '../../domain/datasetConfig/types';
+import { defaultMobilityTableQueryParameters } from '../../domain/datasets/tableView/defaultValues';
+import { representationConfig } from './representation/representation.config';
+import { stationTypesConfig } from './stationTypes/stationTypes.config';
+
+export const mobilityEmbeddedDatasetConfigs = [
+  representationConfig,
+  stationTypesConfig,
+].map<DatasetConfig>((config) => ({
+  ...config,
+  views: {
+    ...config.views,
+    table:
+      config.views?.table == null
+        ? undefined
+        : {
+            ...config.views?.table,
+            defaultQueryParams: defaultMobilityTableQueryParameters,
+          },
+  },
+}));
