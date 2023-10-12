@@ -48,6 +48,12 @@ module.exports = {
           700: '#494d50',
           900: '#3c4043',
         },
+        pink: {
+          400: '#FA00FF',
+        },
+      },
+      spacing: {
+        default: '80rem',
       },
     },
   },
