@@ -10,6 +10,7 @@ export enum CellComponent {
   ArticleAdditionalInfoCell = 'ArticleAdditionalInfoCell',
   ArticleLinkInfoCell = 'ArticleLinkInfoCell',
   ArticleTypeCell = 'ArticleTypeCell',
+  CustomDataArrayCell = 'CustomDataArrayCell',
   DateCell = 'DateCell',
   EditedDateCell = 'EditedDateCell',
   EditImageGalleryCell = 'EditImageGalleryCell',

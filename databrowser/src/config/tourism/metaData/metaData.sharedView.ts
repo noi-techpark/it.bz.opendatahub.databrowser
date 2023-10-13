@@ -31,24 +31,43 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Dataspace',
-              component: CellComponent.StringCell,
+              component: CellComponent.SelectWithOptionsCell,
               class: 'w-60',
-              fields: { text: 'Dataspace' },
+              fields: {
+                value: 'Dataspace',
+              },
+              params: {
+                showAddNewValue: 'true',
+                showValueAsLabelFallback: 'true',
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=Dataspace.[*]&rawsort=Dataspace.[*]&getasarray=true'
+                ),
+              },
             },
             {
               title: 'Category',
-              component: CellComponent.ArrayEditableCell,
+              component: CellComponent.CustomDataArrayCell,
               listFields: {
-                attributeName: 'items',
+                attributeName: 'listItems',
                 pathToParent: 'Category',
+              },
+              params: {
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=Category.[*]&rawsort=Category.[*]&getasarray=true'
+                ),
               },
             },
             {
               title: 'Data Provider',
-              component: CellComponent.ArrayEditableCell,
+              component: CellComponent.CustomDataArrayCell,
               listFields: {
-                attributeName: 'items',
+                attributeName: 'listItems',
                 pathToParent: 'DataProvider',
+              },
+              params: {
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=DataProvider.[*]&rawsort=DataProvider.[*]&getasarray=true'
+                ),
               },
             },
             {
