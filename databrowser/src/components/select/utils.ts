@@ -9,5 +9,11 @@ export const emptyValueOption = (): SelectOption => ({
   value: undefined,
 });
 
+export const addNewValueOption = (): SelectOption => ({
+  label: '+ ADD NEW',
+  value: '',
+  isAction: true,
+});
+
 export const unknownValueLabel = (value?: SelectValue) =>
   `--- Unknown value (${value}) ---`;

@@ -13,6 +13,7 @@ export interface SelectOption {
   label: string;
   value: string | number | undefined;
   disabled?: boolean;
+  isAction?: boolean;
 }
 
 export type SelectOptionsPlacement = 'bottom' | 'top';

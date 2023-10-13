@@ -65,7 +65,11 @@ import SelectButton from './SelectButton.vue';
 import SelectOptionsBox from './SelectOptionsBox.vue';
 import { randomId } from '../utils/random';
 import { useFloatingUi } from '../utils/useFloatingUi';
-import { emptyValueOption, unknownValueLabel } from './utils';
+import {
+  emptyValueOption,
+  addNewValueOption,
+  unknownValueLabel,
+} from './utils';
 
 const emit = defineEmits(['change']);
 
@@ -81,6 +85,8 @@ const props = withDefaults(
     // - set this number to Infinity to always hide the search
     showSearchWhenAtLeastCountOptions?: number;
     showEmptyValue?: boolean;
+    showAddNewValue?: boolean;
+    showValueAsLabelFallback?: boolean;
     zIndex?: number;
   }>(),
   {
@@ -90,6 +96,8 @@ const props = withDefaults(
     id: randomId(),
     showSearchWhenAtLeastCountOptions: 7,
     showEmptyValue: false,
+    showAddNewValue: false,
+    showValueAsLabelFallback: false,
     zIndex: undefined,
   }
 );
@@ -98,6 +106,8 @@ const {
   value,
   size,
   showEmptyValue,
+  showAddNewValue,
+  showValueAsLabelFallback,
   showSearchWhenAtLeastCountOptions,
 } = toRefs(props);
 
@@ -108,9 +118,19 @@ watch(valueInternal, (v) => emit('change', v));
 
 // Compute internal options array. If showEmptyValue is set,
 // then a "no value" option is added to the front of the list
-const optionsInternal = computed<SelectOption[]>(() =>
-  showEmptyValue.value ? [emptyValueOption(), ...options.value] : options.value
-);
+const optionsInternal = computed<SelectOption[]>(() => {
+  let data = [];
+
+  if (showAddNewValue.value) {
+    data.push(addNewValueOption());
+  }
+
+  if (showEmptyValue.value) {
+    data.push(emptyValueOption());
+  }
+
+  return [...data, ...options.value];
+});
 
 // Compute selected label:
 // - show selected option if such an option exists
@@ -124,6 +144,10 @@ const selectedLabel = computed(() => {
 
   if (selectedOption != null) {
     return selectedOption.label;
+  }
+
+  if (showValueAsLabelFallback.value) {
+    return valueInternal.value as string;
   }
 
   return unknownValueLabel(valueInternal.value);

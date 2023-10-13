@@ -19,11 +19,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <li
         :class="[
           { 'bg-green-500/10': active || selected },
-          { 'text-green-500': selected },
+          { 'text-green-500': selected || option.isAction },
           'relative cursor-pointer select-none py-1 pl-4 pr-8',
         ]"
       >
-        <span :class="[{ 'font-semibold': selected }, 'block']">
+        <span
+          :class="[{ 'font-semibold': selected || option.isAction }, 'block']"
+        >
           {{ option.label }}
         </span>
       </li>
