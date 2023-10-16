@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :text="item.documentName"
           :editable="true"
           @update="
-            updateItem(index, {
+            update(index, {
               documentName: $event.value,
               language: item.language,
             })
@@ -38,20 +38,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import TableHeaderCell from '../../../../../components/table/TableHeaderCell.vue';
-import TableCell from '../../../../../components/table/TableCell.vue';
+import TableHeaderCell from '../../../../../../components/table/TableHeaderCell.vue';
+import TableCell from '../../../../../../components/table/TableCell.vue';
+import StringCell from '../../../cells/stringCell/StringCell.vue';
 
-import EditListDocumentLanguagesTable from '../../utils/editList/table/EditListDocumentLanguagesTable.vue';
-import StringCell from '../stringCell/StringCell.vue';
-import { FileEntry } from './types';
-import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
-import { useProvideEditMode } from '../../utils/editList/actions/useEditMode';
+import EditListDocumentLanguagesTable from './EditListDocumentLanguagesTable.vue';
+import { FileEntry } from '../../../cells/eventDocumentCell/types';
 
-import { ref } from 'vue';
+import { useDialogStore } from './dialogStore';
+import { FileLanguageUpdate } from './types';
 
-const isEditable = ref(true);
+const dialogStore = useDialogStore();
+
 defineProps<{ items: FileEntry[] }>();
-useProvideEditMode(isEditable);
 
-const { updateItem } = useInjectActionTriggers();
+const update = (index: number, value: FileLanguageUpdate) => {
+  dialogStore.updateItem(index, value);
+};
 </script>

@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <TableCustom v-if="hasItems" class="mb-5 overflow-y-auto">
       <colgroup>
         <template v-if="hasItems">
-          <col class="w-24" />
+          <col class="w-16" />
         </template>
 
         <!-- Slot for colgroup -->
@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <CheckboxCustom
                 :model-value="allItemsSelected"
                 class="mr-3"
-                @update:model-value="toggleAllItemsSelected($event)"
+                @update:model-value="toggleAllItemsSelected()"
               />
               <span class="hidden md:inline">Language</span>
             </div>
@@ -39,7 +39,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <template v-if="hasItems">
             <TableCell class="relative">
               <CheckboxCustom
-                :model-value="itemsSelected[index]"
+                :model-value="item.available"
+                :disabled="item.disableAvailabilityChange"
                 :label="labelKey ? item[labelKey] : undefined"
                 @change="toggleSingleItemSelection(index)"
               />
@@ -64,56 +65,41 @@ import TableCell from '../../../../../../components/table/TableCell.vue';
 import CheckboxCustom from '../../../../../../components/checkbox/CheckboxCustom.vue';
 import TableCustom from '../../../../../../components/table/TableCustom.vue';
 import TableHeader from '../../../../../../components/table/TableHeader.vue';
-import { useItemSelection } from './useItemSelection';
-import { useInjectNavigation } from '../actions/useNavigation';
-import { useInjectActionTriggers } from '../actions/useActions';
+
+import { useDialogStore } from './dialogStore';
+import { FileEntryWithLanguageAvailability } from './types';
 
 const props = defineProps<{
-  items: unknown[] | null;
+  items: FileEntryWithLanguageAvailability[];
   hideTabLink?: boolean;
   labelKey?: string;
 }>();
 
-// Inject navigation from an ancestor component
-const { navigateToTab } = useInjectNavigation();
+const dialogStore = useDialogStore();
 
-const itemsInternal = computed({
+const itemsInternal = computed<FileEntryWithLanguageAvailability[]>({
   get: () => (props.items != null ? props.items : []),
-  set: (value) => updateItems(value),
+  set: (value) => console.log(value),
 });
 
 const hasItems = computed(() => itemsInternal.value.length > 0);
 
-const {
-  allItemsSelected,
-  anyItemSelected,
-  itemsSelected,
-  toggleAllItemsSelected,
-  toggleSingleItemSelection,
-} = useItemSelection(itemsInternal);
+const allItemsSelected = computed(() =>
+  itemsInternal.value.every((item) => item.available)
+);
 
-const { deleteItems, duplicateItem, pushItem, updateItems } =
-  useInjectActionTriggers();
+const toggleAllItemsSelected = () => {
+  const valueToSet = !allItemsSelected.value;
 
-const deleteSelectedItems = () => {
-  const indexes = itemsSelected.value.reduce<number[]>(
-    (previous, currentSelected, index) =>
-      currentSelected ? [...previous, index] : [...previous],
-    []
-  );
-  deleteItems(indexes);
+  itemsInternal.value.forEach((_, index) => {
+    toggleSingleItemSelection(index, valueToSet);
+  });
 };
 
-const deleteConfirmIndex = ref<number | undefined>();
-
-const openDeleteSingleItemConfirm = (index: number) =>
-  (deleteConfirmIndex.value = index);
-
-const closeDeleteSingleItemConfirm = () =>
-  (deleteConfirmIndex.value = undefined);
-
-const deleteSingleConfirm = (index: number) => {
-  closeDeleteSingleItemConfirm();
-  deleteItems([index]);
+const toggleSingleItemSelection = (index: number, value?: boolean) => {
+  dialogStore.setAvailableItemLanguage(
+    index,
+    value !== undefined ? value : !itemsInternal.value[index].available
+  );
 };
 </script>

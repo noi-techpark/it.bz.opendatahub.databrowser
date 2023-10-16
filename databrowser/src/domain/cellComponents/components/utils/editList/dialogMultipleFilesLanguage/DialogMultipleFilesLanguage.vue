@@ -27,7 +27,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           </div>
           <div class="mt-4 flex flex-col gap-2 px-4 pb-4">
             <EditListDocumentLanguagesTab
-              :items="items"
+              :items="dialogStore.items"
               class="max-h-[32rem] overflow-y-auto"
             >
               <template #body="{ item }">
@@ -76,30 +76,41 @@ import {
 
 import DialogOverlay from '../../../../../../components/dialog/DialogOverlay.vue';
 import DialogOverlayContainer from '../../../../../../components/dialog/DialogOverlayContainer.vue';
-import EventDocumentInputDialogTable from '../../../cells/eventDocumentCell/EventDocumentInputDialogTable.vue';
-import EditListDocumentLanguagesTab from '../tab/EditListDocumentLanguagesTab.vue';
+import EventDocumentInputDialogTable from './EventDocumentInputDialogTable.vue';
+import EditListDocumentLanguagesTab from './EditListDocumentLanguagesTab.vue';
 import ButtonCustom from '../../../../../../components/button/ButtonCustom.vue';
 import { Variant } from '../../../../../../components/button/types';
-import { useInjectNavigation } from '../actions/useNavigation';
-import { MultipleFilesLanguages } from '../tab/types';
+import { useDialogStore } from './dialogStore';
+import {
+  useEventSaveChanges,
+  useEventDiscardChanges,
+  addItemsInModalAndSave,
+  updateItemsInModalAndSave,
+} from './utils';
 
 const { t } = useI18n();
-const emit = defineEmits(['close']);
+const emit = defineEmits(['save', 'close']);
 
-defineProps<{
+const dialogStore = useDialogStore();
+
+const props = defineProps<{
   isOpen: boolean;
-  items: MultipleFilesLanguages;
+  isAdd?: boolean;
 }>();
 
-const { navigateToPrevious } = useInjectNavigation();
-
 const saveAndNext = () => {
-  console.log('TODO');
+  if (props.isAdd) {
+    addItemsInModalAndSave();
+  } else {
+    updateItemsInModalAndSave();
+  }
+
+  useEventSaveChanges.emit(true);
+  emit('close');
 };
 
 const discardUpdates = () => {
+  useEventDiscardChanges.emit(true);
   emit('close');
-
-  navigateToPrevious();
 };
 </script>

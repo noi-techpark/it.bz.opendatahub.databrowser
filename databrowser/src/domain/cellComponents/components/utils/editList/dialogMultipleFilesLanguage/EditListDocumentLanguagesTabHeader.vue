@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :active="activeTab === index"
           class="w-36 flex-none gap-2"
           :class="[{ 'active-tab': activeTab === index }]"
-          @click="navigateToTab(index)"
+          @click="emit('changeTab', index)"
         >
           {{ item.name }}
         </TabButton>
@@ -30,8 +30,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { ref } from 'vue';
 import TabButton from '../../../../../../components/tab/TabButton.vue';
 
-import { useInjectNavigation } from '../actions/useNavigation';
-
 import { MultipleFilesLanguages } from './types';
 
 defineProps<{
@@ -39,7 +37,7 @@ defineProps<{
   activeTab: number;
 }>();
 
-const { navigateToTab } = useInjectNavigation();
+const emit = defineEmits(['changeTab']);
 
 // Scroll active tab into view in case there are many to many tabs to show
 const tabWrapper = ref();

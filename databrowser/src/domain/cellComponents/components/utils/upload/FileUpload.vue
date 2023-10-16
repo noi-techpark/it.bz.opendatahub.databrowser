@@ -102,6 +102,8 @@ const onDrop = (filesFromDropZone: File[] | null) => {
   uploadFiles(filesFromDropZone);
 };
 
+const fileNames = ref([] as string[]);
+
 const { isOverDropZone } = useDropZone(dropZoneRef, onDrop);
 
 const { files, open } = useFileDialogForType({
@@ -126,12 +128,15 @@ watch(files, (filesFromFileDialog) => {
   }
 
   const filesToUpload = Array.from(filesFromFileDialog);
+  fileNames.value = filesToUpload.map((item) => item.name);
 
   // Trigger file upload
   uploadFiles(filesToUpload);
 });
 
-onUploadSuccess((urls: string[]) => emit('uploadSuccess', urls));
+onUploadSuccess((urls: string[]) =>
+  emit('uploadSuccess', urls, fileNames.value)
+);
 
 onUploadError((message: string) => emit('uploadError', message));
 </script>

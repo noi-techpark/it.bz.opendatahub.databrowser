@@ -91,7 +91,10 @@ import { useEventListener } from '@vueuse/core';
 import AlertError from '../../../components/alert/AlertError.vue';
 import MainAndSubCategories from '../common/MainAndSubCategories.vue';
 import LoadingError from '../../../components/loading/LoadingError.vue';
-
+import {
+  useEventSaveChanges,
+  useEventDiscardChanges,
+} from '../../cellComponents/components/utils/editList/dialogMultipleFilesLanguage/utils';
 const { t } = useI18n();
 
 const showAll = ref(true);
@@ -101,6 +104,18 @@ const auth = useAuth();
 const editStore = useEditStore();
 
 const datasetConfigStore = useDatasetConfigStore();
+
+useEventSaveChanges.on((value: boolean) => {
+  if (value) {
+    saveChanges();
+  }
+});
+
+useEventDiscardChanges.on((value: boolean) => {
+  if (value) {
+    resetAndCleanup();
+  }
+});
 
 const { slug, categories, subcategories, currentCategory } = useCategories();
 

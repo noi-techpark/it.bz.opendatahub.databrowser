@@ -4,13 +4,21 @@
 
 import { FileEntry } from '../../../cells/eventDocumentCell/types';
 
-interface FileEntryWithLanguageAvailability extends FileEntry {
-  available: boolean;
+export interface FileEntryWithLanguageAvailability extends FileEntry {
+  available?: boolean;
+  disableAvailabilityChange?: boolean;
 }
 
 type MultipleFileLanguages = {
-  name: string;
+  name?: string;
+  src?: string;
   data: FileEntryWithLanguageAvailability[];
+};
+
+export type FileLanguageUpdate = {
+  documentName?: string;
+  available?: boolean;
+  language?: string;
 };
 
 export type MultipleFilesLanguages = Array<MultipleFileLanguages>;
