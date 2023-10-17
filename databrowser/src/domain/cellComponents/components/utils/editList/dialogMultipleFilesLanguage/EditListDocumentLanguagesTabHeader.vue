@@ -19,7 +19,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :class="[{ 'active-tab': activeTab === index }]"
           @click="emit('changeTab', index)"
         >
-          {{ item.name }}
+          <span class="block truncate">
+            {{ item.name }}
+          </span>
         </TabButton>
       </div>
     </div>
