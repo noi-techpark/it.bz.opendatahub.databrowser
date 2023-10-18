@@ -99,6 +99,9 @@ const onDrop = (filesFromDropZone: File[] | null) => {
   }
 
   fileTypesNotAccepted.value = undefined;
+
+  fileNames.value = filesFromDropZone.map((item) => item.name);
+
   uploadFiles(filesFromDropZone);
 };
 
