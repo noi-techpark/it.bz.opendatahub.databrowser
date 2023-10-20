@@ -3,15 +3,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed } from 'vue';
-import { PaginationData } from '../../../api';
 import {
   buildAuthInterceptor,
   useBaseAxiosFetch,
 } from '../../../api/client/fetcher/axios';
 import { useSingleDatasetConfig } from './useSingleDatasetConfig';
-
-const buildFallbackRows = (pageSize: number) =>
-  [...Array(pageSize).keys()].map((_, index) => ({ Id: index }));
 
 export const useSingleDatasetLoad = <T = unknown>() => {
   // Resolve view config
@@ -30,6 +26,10 @@ export const useSingleDatasetLoad = <T = unknown>() => {
     quickView,
     isResolving,
     getDataForField,
+    slug,
+    categories,
+    subcategories,
+    currentCategory,
   } = useSingleDatasetConfig();
 
   // Fetch data
@@ -45,6 +45,16 @@ export const useSingleDatasetLoad = <T = unknown>() => {
   const isLoading = computed(() => isResolving.value || isDataLoading.value);
 
   console.log('useSingleDatasetLoad');
+
+  // isNewView.value
+  //   ? {
+  //       isError: ref(false),
+  //       isLoading: ref(false),
+  //       data: ref(),
+  //       error: ref(),
+  //       url: computed(() => datasetConfigStore.currentPath ?? ''),
+  //     }
+  //   : useSingleDatasetLoad();
 
   return {
     data,
@@ -64,5 +74,9 @@ export const useSingleDatasetLoad = <T = unknown>() => {
     error,
     url,
     getDataForField,
+    slug,
+    categories,
+    subcategories,
+    currentCategory,
   };
 };

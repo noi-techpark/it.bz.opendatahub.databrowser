@@ -15,6 +15,7 @@ import registerCellComponents from './domain/cellComponents/plugins/registerCell
 import { setupI18n } from './i18n';
 import './index.css';
 import { router } from './routes';
+import { I18n } from 'vue-i18n';
 
 const isProduction = process.env.NODE_ENV !== 'development';
 
@@ -44,9 +45,17 @@ app.use(VueHotjar, {
   isProduction,
 });
 
-// Add i18n translation
-const i18n = await setupI18n({ locale: 'en', warnHtmlMessage: false });
-app.use(i18n);
+// Load i18n translation asynchronously
+const i18nPromise: Promise<I18n> = setupI18n({
+  locale: 'en',
+  warnHtmlMessage: false,
+});
 
-// Mount the app
-app.mount('#app');
+// Wait for async initialization parts to be ready before mounting the app
+Promise.all([i18nPromise]).then(([i18n]) => {
+  // Use translations
+  app.use(i18n);
+
+  // Mount the app
+  app.mount('#app');
+});

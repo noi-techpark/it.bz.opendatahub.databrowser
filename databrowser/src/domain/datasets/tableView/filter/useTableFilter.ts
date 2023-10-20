@@ -5,19 +5,17 @@
 import { storeToRefs } from 'pinia';
 import { Ref, computed, toRefs, watch } from 'vue';
 import { useToolBoxStore } from '../../toolBox/toolBoxStore';
-import { TableViewColumn, useTableViewColsStore } from '../tableViewColsStore';
+import { useTableViewColsStore } from '../tableViewColsStore';
 import { useRawfilterHandler } from './rawfilterHandler';
 import { useTableFilterStore } from './tableFilterStore';
 import { Filter, FilterOperator, FilterValue, Rawfilter } from './types';
-// import {
-//   TableViewColumn,
-//   useTableViewColumns,
-// } from '../../../datasetConfig/utils';
+import { ListElements } from '../../../datasetConfig/types';
 
-// interface Column {
-//   title: string;
-//   field?: string;
-// }
+type TableViewColumn = ListElements & {
+  title: string;
+  // Defined if there is exactly one field
+  field?: string;
+};
 
 let isValueChange = false;
 

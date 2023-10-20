@@ -75,7 +75,6 @@ import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
 import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 import EditFooter from './EditFooter.vue';
-import { useCategories } from '../category/useCategories';
 import EditToolBox from './toolBox/EditToolBox.vue';
 import { useEditStore } from './store/editStore';
 import { useEditStoreSync } from './useEditStoreSync';
@@ -122,17 +121,17 @@ useEventDiscardChanges.on((value: boolean) => {
   }
 });
 
-const { slug, categories, subcategories, currentCategory } = useCategories();
-
-const { isError, isLoading, data, error, url } = isNewView.value
-  ? {
-      isError: ref(false),
-      isLoading: ref(false),
-      data: ref(),
-      error: ref(),
-      url: computed(() => datasetConfigStore.currentPath ?? ''),
-    }
-  : useSingleDatasetLoad();
+const {
+  isError,
+  isLoading,
+  data,
+  error,
+  url,
+  slug,
+  categories,
+  subcategories,
+  currentCategory,
+} = useSingleDatasetLoad();
 
 const mutation = computed(() => (isNewView.value ? 'create' : 'update'));
 const {

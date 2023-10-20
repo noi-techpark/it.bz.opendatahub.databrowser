@@ -30,6 +30,7 @@ import {
   PropertyConfig,
   ViewKey,
 } from '../types';
+import { findCandidateConfigs } from '../utils';
 import { DatasetConfigSource, SourceResolver } from './types';
 
 type ErrorMessage = string;
@@ -78,14 +79,22 @@ const toGeneratedConfiguration = (
     return parseResult;
   }
 
-  const path = '/' + pathParams.join('/');
-  const resource = parseResult[path];
+  const candidates = findCandidateConfigs(
+    '/' + pathParams.join('/'),
+    parseResult
+  );
 
-  if (resource == null) {
+  if (candidates.length === 0) {
     return `Not able to find a match for path params "${pathParams}" in OpenAPI document for ODH domain ${domain}`;
   }
 
-  return resource;
+  if (candidates.length > 1) {
+    console.debug(
+      `Found ${candidates.length} matches for path params "${pathParams}" in OpenAPI document for ODH domain ${domain}`
+    );
+  }
+
+  return candidates[0].config;
 };
 
 const parse = (
@@ -130,7 +139,8 @@ const parse = (
         const rolesAllowed = mapOperationToRoles(operation);
         datasetConfig.operations[operation] = { rolesAllowed };
 
-        datasetConfig.description.description = httpMethods.summary;
+        datasetConfig.description.description =
+          httpMethods.summary ?? httpMethods[httpMethod]?.summary;
         // End resolve operation
 
         // Begin resolve view
@@ -139,7 +149,11 @@ const parse = (
         }
 
         const viewKey = mapOperationToViewKey(operation);
-        const schema = schemaFromEndpointMethod(operation, openApiOperation);
+        const schema = schemaFromEndpointMethod(
+          domain,
+          operation,
+          openApiOperation
+        );
         const schemaProperties = extractSchemaProperties(schema);
 
         if (viewKey === 'table') {
@@ -186,7 +200,9 @@ const getOrBuildBaseDatasetConfig = (
 } => {
   const pathParams = path.split('/').filter((p) => p.trim().length > 0);
 
-  const isResourceInstancePath = pathParams.at(-1)?.match('{.*}') != null;
+  // Check if the last path param is a resource instance ID
+  const isResourceInstancePath =
+    domain === 'mobility' ? false : pathParams.at(-1)?.match('{.*}') != null;
 
   const resourcePathParams = isResourceInstancePath
     ? pathParams.slice(0, -1)
@@ -269,16 +285,19 @@ const isArraySchema = (schema: any): schema is OpenApi.ArraySchemaObject =>
   schema?.items != null;
 
 const schemaFromEndpointMethod = (
+  domain: DomainWithOpenApiDocument,
   operation: OperationKey,
   endpointMethod: OpenApi.OperationObject
-) => {
+): OpenApi.SchemaObject | undefined => {
   if (operation === 'read' || operation === 'readAll') {
     const responseOk = endpointMethod.responses?.[200] as
       | OpenApi.ResponseObject
       | undefined;
-    return responseOk?.content?.['application/json']?.schema as
+    const schema = responseOk?.content?.['application/json']?.schema as
       | OpenApi.SchemaObject
       | undefined;
+
+    return domain !== 'mobility' ? schema : mobilityDefaultSchema;
   }
   if (operation === 'create' || operation === 'update') {
     const requestBody = endpointMethod.requestBody as
@@ -290,7 +309,9 @@ const schemaFromEndpointMethod = (
   }
 };
 
-const extractSchemaProperties = (schema?: OpenApi.SchemaObject) => {
+const extractSchemaProperties = (
+  schema?: OpenApi.SchemaObject
+): OpenApi.SchemaObject | undefined => {
   if (schema == null) {
     return;
   }
@@ -406,4 +427,37 @@ export const generatedDatasetConfigSource: DatasetConfigSource = {
   source: 'generated',
   resolve: sourceResolver,
   getAllDatasetConfigs,
+};
+
+// This is a default schema for mobility, which is used because the mobility
+// OpenAPI document does not contain any correct schemas. Hopefully, this will
+// be fixed in the future.
+const mobilityDefaultSchema: OpenApi.SchemaObject = {
+  type: 'object',
+  properties: {
+    sname: {
+      type: 'string',
+    },
+    stype: {
+      type: 'string',
+    },
+    scode: {
+      type: 'string',
+    },
+    sorigin: {
+      type: 'string',
+    },
+    sactive: {
+      type: 'boolean',
+    },
+    scoordinate: {
+      type: 'object',
+    },
+    smetadata: {
+      type: 'object',
+    },
+    sparent: {
+      type: 'object',
+    },
+  },
 };

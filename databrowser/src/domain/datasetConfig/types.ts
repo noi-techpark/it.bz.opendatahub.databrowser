@@ -170,3 +170,8 @@ export type DatasetDomains =
   | 'unknown'
   // In case the current URL is not related to datasets
   | 'no-dataset-domain-in-url';
+
+export type CandidateConfig = {
+  rank: number;
+  config: DatasetConfig;
+};
