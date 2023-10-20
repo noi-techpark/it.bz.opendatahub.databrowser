@@ -45,6 +45,7 @@ export const useSingleDatasetLoad = <T = unknown>() => {
 
   const isLoading = computed(() => isResolving.value || isDataLoading.value);
 
+  // Compute subcategories with loading support
   const subcategoriesWithLoadingSupport = computed(() => {
     if (!isLoading.value) {
       return subcategories.value;

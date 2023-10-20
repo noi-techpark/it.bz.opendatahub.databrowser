@@ -41,7 +41,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           v-for="col in cols"
           :key="col.title"
           :class="{ 'mix-blend-multiply': index === selectedRowIndex }"
-          :is-loading="isLoading"
         >
           <ComponentRenderer
             :tag-name="col.component"
@@ -85,7 +84,6 @@ const props = withDefaults(
   defineProps<{
     rows: any[];
     cols: ListElements[];
-    isLoading: boolean;
     showDetail: boolean;
     showEdit: boolean;
     showQuick: boolean;

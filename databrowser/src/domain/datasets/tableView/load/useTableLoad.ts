@@ -10,6 +10,8 @@ import {
   useBaseAxiosFetch,
 } from '../../../api/client/fetcher/axios';
 import { useTableConfig } from './useTableConfig';
+import { ListElements } from '../../../datasetConfig/types';
+import { CellComponent } from '../../../cellComponents/types';
 
 const buildFallbackRows = (pageSize: number) =>
   [...Array(pageSize).keys()].map((_, index) => ({ Id: index }));
@@ -52,8 +54,22 @@ export const useTableLoad = <T = unknown>() => {
     () => data.value?.pagination ?? defaultTablePagination
   );
 
+  // Compute cols with loading support
+  const colsWithLoadingSupport = computed<ListElements[]>(() => {
+    if (!isLoading.value) {
+      return cols.value;
+    }
+
+    return cols.value.map<ListElements>((col) => ({
+      title: col.title,
+      component: CellComponent.LoadingCell,
+      fields: {},
+      class: col.class,
+    }));
+  });
+
   return {
-    cols,
+    cols: colsWithLoadingSupport,
     rows,
     pagination,
     isError,

@@ -14,7 +14,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <TableContent
             :cols="cols"
             :rows="rows"
-            :is-loading="isLoading"
             :show-detail="hasDetailView"
             :show-edit="editRecordSupported"
             :show-quick="hasQuickView"
@@ -42,7 +41,6 @@ const {
   cols,
   rows,
   pagination,
-  isLoading,
   isError,
   error,
   hasDetailView,
