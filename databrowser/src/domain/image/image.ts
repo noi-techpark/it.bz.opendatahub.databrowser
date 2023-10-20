@@ -2,18 +2,24 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-export const resizeImageWidth = (
-  width: number,
-  src?: string,
-  isFullscreen?: boolean
+export const getImageSrc = (
+  src: string | undefined,
+  options?: {
+    resize?: boolean;
+    preferredWidth?: number;
+  }
 ) => {
   if (src == null) {
     return src;
   }
 
-  const resizedImageUrl = width == null ? src : `${src}&width=${width}`;
+  const { resize = false, preferredWidth } = options || {};
 
-  return isFullscreen === true ? src : resizedImageUrl;
+  if (resize && preferredWidth != null) {
+    return `${src}&width=${preferredWidth}`;
+  }
+
+  return src;
 };
 
 interface Image {

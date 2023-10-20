@@ -8,7 +8,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <EditListTab :items="items">
     <template #tabLabel="{ item, index }">
       <img
-        :src="resizeImageWidth(30, (item as ImageGalleryEntry).src)"
+        :src="
+          getImageSrc((item as ImageGalleryEntry).src, {
+            resize: shouldResize(isFullscreen, resizeImages),
+            preferredWidth: 30,
+          })
+        "
         :alt="(item as ImageGalleryEntry).alt"
         class="h-5"
       />
@@ -144,7 +149,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
             <div ref="target" class="flex justify-center">
               <img
-                :src="resizeImageWidth(400, item.src, isFullscreen)"
+                :src="
+                  getImageSrc(item.src, {
+                    resize: shouldResize(isFullscreen, resizeImages),
+                    preferredWidth: 30,
+                  })
+                "
                 :alt="item.alt"
                 :class="{
                   'object-contain': isFullscreen,
@@ -162,7 +172,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { ref, toRefs, watch } from 'vue';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
-import { getResolutionAsText, resizeImageWidth } from '../../../../image';
+import { getImageSrc, getResolutionAsText } from '../../../../image';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useFullscreen } from '@vueuse/core';
 import { useImageUpload } from '../../utils/upload/useUpload';
@@ -181,10 +191,14 @@ import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCel
 import ToggleCell from '../toggleCell/ToggleCell.vue';
 import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
 import { ImageGalleryEntry } from './types';
+import { shouldResize } from './utils';
 
-const props = defineProps<{ items: ImageGalleryEntry[] }>();
+const props = defineProps<{
+  items: ImageGalleryEntry[];
+  resizeImages: boolean;
+}>();
 
-const { items } = toRefs(props);
+const { items, resizeImages } = toRefs(props);
 
 const { activeTab, navigateToAdd } = useInjectNavigation();
 

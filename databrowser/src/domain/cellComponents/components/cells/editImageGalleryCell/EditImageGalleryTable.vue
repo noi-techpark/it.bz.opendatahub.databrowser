@@ -37,7 +37,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             @click="toggle()"
           >
             <img
-              :src="resizeImageWidth(200, item.src, isFullscreen)"
+              :src="
+                getImageSrc(item.src, {
+                  resize: shouldResize(isFullscreen, resizeImages),
+                  preferredWidth: 200,
+                })
+              "
               :alt="item.alt"
               class="object-fit"
             />
@@ -67,14 +72,15 @@ import TableHeaderCell from '../../../../../components/table/TableHeaderCell.vue
 import TableCell from '../../../../../components/table/TableCell.vue';
 import UseFullscreen from '../../../../../components/fullscreen/UseFullscreen.vue';
 import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
-import { resizeImageWidth } from '../../../../image';
+import { getImageSrc } from '../../../../image';
 import EditListTable from '../../utils/editList/table/EditListTable.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { getResolutionAsText } from '../../../../image';
 import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
 import { ImageGalleryEntry } from './types';
+import { shouldResize } from './utils';
 
-defineProps<{ items: ImageGalleryEntry[] }>();
+defineProps<{ items: ImageGalleryEntry[]; resizeImages: boolean }>();
 
 const { navigateToAdd } = useInjectNavigation();
 </script>

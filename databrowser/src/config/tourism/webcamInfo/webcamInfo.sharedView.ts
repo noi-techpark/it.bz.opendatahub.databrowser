@@ -8,12 +8,16 @@ import {
   EditViewConfig,
 } from '../../../domain/datasetConfig/types';
 import {
+  contactCategory,
   dataStatesSubCategory,
   gpsDataCategory,
   idReadOnlyCell,
+  imageGalleryCategory,
+  licenseInfoCategory,
   odhTagCategory,
   shortnameCell,
   sourceSubCategory,
+  textInfoCategory,
 } from '../../builder/tourism';
 
 export const webcamInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -56,43 +60,27 @@ export const webcamInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'Webcam Details',
           properties: [
             {
-              title: 'Name',
-              component: CellComponent.StringCell,
-              fields: { text: 'Webcamname.{language}' },
-            },
-            {
               title: 'Image URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'Webcamurl' },
+              fields: { text: 'WebCamProperties.WebcamUrl' },
             },
             {
               title: 'Stream URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'Streamurl' },
+              fields: { text: 'WebCamProperties.StreamUrl' },
             },
             {
               title: 'Preview URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'Previewurl' },
-            },
-            {
-              title: 'Latitude',
-              component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.position.Latitude' },
-            },
-            {
-              title: 'Longitude',
-              component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.position.Longitude' },
-            },
-            {
-              title: 'Altitude',
-              component: CellComponent.StringCell,
-              fields: { text: 'GpsPoints.position.Altitude' },
+              fields: { text: 'WebCamProperties.PreviewUrl' },
             },
           ],
         },
       ],
     },
+    imageGalleryCategory({ resizeImages: false }),
+    textInfoCategory(),
+    contactCategory(),
+    licenseInfoCategory(),
   ],
 });
