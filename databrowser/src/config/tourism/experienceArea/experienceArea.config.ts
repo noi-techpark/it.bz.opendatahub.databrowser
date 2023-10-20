@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { DatasetConfig } from '../../../domain/datasetConfig/types';
-import { knownDomainsWithOpenApiDocument } from '../../../domain/openApi';
+import { domainWithOpenApiDocument } from '../../../domain/openApi';
 import { experienceAreaOperations } from './experienceArea.operations';
 import { experienceAreaDescription } from './experienceArea.description';
 import { experienceAreaViews } from './experienceArea.views';
@@ -11,7 +11,7 @@ import { experienceAreaRoute } from './experienceArea.route';
 
 export const experienceAreaConfig: DatasetConfig = {
   source: 'embedded',
-  baseUrl: knownDomainsWithOpenApiDocument.tourism.baseUrl,
+  baseUrl: domainWithOpenApiDocument.tourism.baseUrl,
   route: experienceAreaRoute,
   description: experienceAreaDescription,
   views: experienceAreaViews,

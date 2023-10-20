@@ -7,8 +7,6 @@ import {
   defaultTourismTableQueryParameters,
   defaultTourismSingleRecordQueryParameters,
 } from '../../domain/datasets/tableView/defaultValues';
-import { representationConfig } from '../mobility/representation/representation.config';
-import { stationTypesConfig } from '../mobility/stationTypes/stationTypes.config';
 import { accommodationConfig } from './accommodation/accommodation.config';
 import { accommodationTypesConfig } from './accommodationTypes/accommodationTypes.config';
 import { articleConfig } from './article/article.config';
@@ -69,8 +67,6 @@ export const tourismEmbeddedDatasetConfigs = [
   experienceAreaConfig,
   metaDataConfig,
   publishedOnConfig,
-  representationConfig,
-  stationTypesConfig,
 ].map<DatasetConfig>((config) => ({
   ...config,
   views: {

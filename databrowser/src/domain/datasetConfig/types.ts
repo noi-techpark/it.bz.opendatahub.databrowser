@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { SourceType } from './source/types';
-import { KnownDomainsWithOpenApiDocument } from '../openApi/types';
+import { DomainWithOpenApiDocument } from '../openApi/types';
 
 interface BasePropertyConfig {
   title: string;
@@ -165,7 +165,7 @@ export type Operations = NonNullable<DatasetConfig['operations']>;
 export type DatasetDomain = string;
 
 export type DatasetDomains =
-  | KnownDomainsWithOpenApiDocument
+  | DomainWithOpenApiDocument
   // In case there is a URL parameter for the domain, but the domain is not known
   | 'unknown'
   // In case the current URL is not related to datasets

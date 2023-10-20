@@ -6,10 +6,6 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 
 export const stationTypesListView: ListViewConfig = {
-  defaultQueryParams: {
-    offset: '0',
-    limit: '25',
-  },
   elements: [
     {
       title: 'Station name',

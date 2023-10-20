@@ -3,25 +3,22 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { OpenApi, KnownDomainsWithOpenApiDocument } from '../types';
+import { OpenApi, DomainWithOpenApiDocument } from '../types';
 import { initialState } from './initialState';
-import { knownDomainsWithOpenApiDocument } from '../domain';
+import { domainWithOpenApiDocument } from '../domain';
 
 const dynamicSwaggerClientImport = async () =>
   await import('swagger-client').then((exports) => exports.default);
 
 // Internal store for loaded OpenAPI documents. The documents are not stored in the
 // state because they won't change and because they may be several KB in size.
-const documents: Record<
-  KnownDomainsWithOpenApiDocument,
-  OpenApi.Document | null
-> = {
+const documents: Record<DomainWithOpenApiDocument, OpenApi.Document | null> = {
   tourism: null,
   mobility: null,
 };
 
 // Get OpenAPI document for given domain
-export const getOpenApiDocument = (domain: KnownDomainsWithOpenApiDocument) =>
+export const getOpenApiDocument = (domain: DomainWithOpenApiDocument) =>
   documents[domain];
 
 // OpenAPI store
@@ -29,7 +26,7 @@ export const useOpenApi = defineStore('openApi', {
   state: () => initialState,
   actions: {
     async loadDocument(
-      domain: KnownDomainsWithOpenApiDocument
+      domain: DomainWithOpenApiDocument
     ): Promise<OpenApi.Document | null> {
       const documentState = this[domain];
       // If OpenAPI document is already loaded, do nothing
@@ -53,7 +50,7 @@ export const useOpenApi = defineStore('openApi', {
 
       documentState.loading = true;
 
-      const url = knownDomainsWithOpenApiDocument[domain].documentUrl;
+      const url = domainWithOpenApiDocument[domain].documentUrl;
 
       try {
         const SwaggerClient = await dynamicSwaggerClientImport();
@@ -75,7 +72,7 @@ export const useOpenApi = defineStore('openApi', {
 
       return documents[domain];
     },
-    finishDocumentLoad(domain: KnownDomainsWithOpenApiDocument) {
+    finishDocumentLoad(domain: DomainWithOpenApiDocument) {
       const documentState = this[domain];
       documentState.loading = false;
       documentState.loaded = true;

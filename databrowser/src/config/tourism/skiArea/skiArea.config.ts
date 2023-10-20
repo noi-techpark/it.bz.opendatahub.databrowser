@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { DatasetConfig } from '../../../domain/datasetConfig/types';
-import { knownDomainsWithOpenApiDocument } from '../../../domain/openApi';
+import { domainWithOpenApiDocument } from '../../../domain/openApi';
 import { skiAreaDescription } from './skiArea.description';
 import { skiAreaOperations } from './skiArea.operations';
 import { skiAreaViews } from './skiArea.views';
@@ -11,7 +11,7 @@ import { skiAreaRoute } from './skiArea.route';
 
 export const skiAreaConfig: DatasetConfig = {
   source: 'embedded',
-  baseUrl: knownDomainsWithOpenApiDocument.tourism.baseUrl,
+  baseUrl: domainWithOpenApiDocument.tourism.baseUrl,
   route: skiAreaRoute,
   description: skiAreaDescription,
   views: skiAreaViews,

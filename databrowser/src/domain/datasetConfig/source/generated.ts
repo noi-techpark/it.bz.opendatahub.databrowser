@@ -15,19 +15,14 @@ import {
   defaultTourismTableQueryParameters,
 } from '../../datasets/tableView/defaultValues';
 import {
-  knownDomainsWithOpenApiDocument,
+  domainWithOpenApiDocument,
   domainIsKnownToHaveOpenApiDocument,
   useOpenApi,
 } from '../../openApi';
-import {
-  OpenApi,
-  KnownDomainsWithOpenApiDocument,
-  isKnownDomainWithOpenApiDocument,
-} from '../../openApi/types';
+import { OpenApi, DomainWithOpenApiDocument } from '../../openApi/types';
 import {
   DatasetConfig,
   DatasetDomain,
-  DatasetRoute,
   DetailViewConfig,
   ListElements,
   ListViewConfig,
@@ -47,7 +42,7 @@ const isErrorMessage = (o: unknown): o is ErrorMessage =>
   o != null && typeof o === 'string';
 
 const sourceResolver: SourceResolver = async (datasetRoute) => {
-  const { domain } = datasetRoute;
+  const { domain, pathParams } = datasetRoute;
 
   if (!domainIsKnownToHaveOpenApiDocument(domain)) {
     return Promise.reject(
@@ -61,7 +56,11 @@ const sourceResolver: SourceResolver = async (datasetRoute) => {
     return Promise.reject(`No OpenAPI document found for ODH domain ${domain}`);
   }
 
-  const configOrErrorMessage = toGeneratedConfiguration(datasetRoute, document);
+  const configOrErrorMessage = toGeneratedConfiguration(
+    domain,
+    pathParams,
+    document
+  );
 
   return isErrorMessage(configOrErrorMessage)
     ? Promise.reject(configOrErrorMessage)
@@ -69,11 +68,10 @@ const sourceResolver: SourceResolver = async (datasetRoute) => {
 };
 
 const toGeneratedConfiguration = (
-  datasetRoute: DatasetRoute,
+  domain: DomainWithOpenApiDocument,
+  pathParams: string[],
   document: OpenApi.Document
 ): DatasetConfig | ErrorMessage => {
-  const { domain, pathParams } = datasetRoute;
-
   const parseResult = parse(domain, document);
 
   if (isErrorMessage(parseResult)) {
@@ -91,7 +89,7 @@ const toGeneratedConfiguration = (
 };
 
 const parse = (
-  domain: DatasetDomain,
+  domain: DomainWithOpenApiDocument,
   document: OpenApi.Document
 ): Resources | ErrorMessage => {
   // Use first server URL
@@ -103,10 +101,6 @@ const parse = (
   return Object.entries(document.paths).reduce<Resources>(
     (previous, [path, httpMethods]) => {
       if (httpMethods == null) {
-        return previous;
-      }
-
-      if (!isKnownDomainWithOpenApiDocument(domain)) {
         return previous;
       }
 
@@ -181,7 +175,7 @@ const parse = (
 };
 
 const getOrBuildBaseDatasetConfig = (
-  domain: KnownDomainsWithOpenApiDocument,
+  domain: DomainWithOpenApiDocument,
   serverUrl: string,
   path: string,
   knownDatasetConfigs: Resources
@@ -383,7 +377,7 @@ const getAllDatasetConfigs = async (): Promise<
 > => {
   const result: Record<DatasetDomain, DatasetConfig[]> = {};
 
-  for (const domain of Object.keys(knownDomainsWithOpenApiDocument)) {
+  for (const domain of Object.keys(domainWithOpenApiDocument)) {
     const document = await useOpenApi().loadDocument(domain as any);
 
     // If no OpenAPI document could be found, then there are no view configs to return
@@ -400,10 +394,7 @@ const getAllDatasetConfigs = async (): Promise<
       );
     }
 
-    const resources = parse(
-      domain as KnownDomainsWithOpenApiDocument,
-      document
-    );
+    const resources = parse(domain as DomainWithOpenApiDocument, document);
 
     result[domain] = Object.values(resources);
   }

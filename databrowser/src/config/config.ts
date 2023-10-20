@@ -30,6 +30,11 @@ const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {
     mobilityEmbeddedDatasetConfigs
   );
 
+  console.log('#### tourism and mobility', {
+    ...tourismDatasetConfigs,
+    ...mobilityDatasetConfigs,
+  });
+
   return { ...tourismDatasetConfigs, ...mobilityDatasetConfigs };
 };
 
@@ -38,4 +43,33 @@ export const embeddedDatasetConfigs = computeEmbeddedDatasetConfigs();
 export const findEmbeddedDatasetConfig = (
   domain: string,
   path: string
-): DatasetConfig | undefined => embeddedDatasetConfigs[domain]?.[path];
+): DatasetConfig | undefined => {
+  const exactMatch = embeddedDatasetConfigs[domain]?.[path];
+  if (exactMatch != null) {
+    return exactMatch;
+  }
+
+  const configsForDomain = embeddedDatasetConfigs[domain];
+  if (configsForDomain == null) {
+    return undefined;
+  }
+
+  const pathParams = path.split('/').filter((p) => p !== '');
+  const pathParamsLength = pathParams.length;
+  const configs = Object.values(configsForDomain);
+  const candidates = configs.filter(
+    (config) => config.route.pathParams.length === pathParamsLength
+  );
+  const matchingConfig = candidates.find((config) => {
+    const configPathParams = config.route.pathParams;
+    return pathParams.every((param, index) => {
+      return (
+        configPathParams[index] === param ||
+        (configPathParams[index].startsWith('{') &&
+          configPathParams[index].endsWith('}'))
+      );
+    });
+  });
+  console.log('#### matching config', matchingConfig);
+  return matchingConfig;
+};
