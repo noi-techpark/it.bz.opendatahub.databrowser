@@ -18,7 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import PlaceholderImage from '../../../../../components/image/PlaceholderImage.vue';
-import { resizeImageWidth } from '../../../../image';
+import { getImageSrc } from '../../../../image';
 
 const props = withDefaults(
   defineProps<{
@@ -59,7 +59,10 @@ watch(
 
       // If width is a number, than adapt URL
       if (!isNaN(widthAsNumber)) {
-        imgSrc.value = resizeImageWidth(widthAsNumber, src);
+        imgSrc.value = getImageSrc(src, {
+          resize: true,
+          preferredWidth: widthAsNumber,
+        });
       }
     }
   },

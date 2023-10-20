@@ -8,7 +8,9 @@ import {
   PropertyConfig,
 } from '../../../domain/datasetConfig/types';
 
-export const imageGalleryCell = (): PropertyConfig => ({
+export const imageGalleryCell = (
+  { resizeImages } = { resizeImages: true }
+): PropertyConfig => ({
   title: '',
   component: CellComponent.EditImageGalleryCell,
   listFields: {
@@ -29,15 +31,18 @@ export const imageGalleryCell = (): PropertyConfig => ({
       isInGallery: 'IsInGallery',
     },
   },
+  params: { resizeImages: resizeImages + '' },
 });
 
-export const imageGalleryCategory = (): DetailElements => ({
+export const imageGalleryCategory = (
+  { resizeImages } = { resizeImages: true }
+): DetailElements => ({
   name: 'Images',
   slug: 'images',
   subcategories: [
     {
       name: '',
-      properties: [imageGalleryCell()],
+      properties: [imageGalleryCell({ resizeImages })],
     },
   ],
 });

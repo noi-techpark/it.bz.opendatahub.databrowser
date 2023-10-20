@@ -7,10 +7,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <EditListCell :items="images">
     <template #table="{ items }">
-      <EditImageGalleryTable :items="items" />
+      <EditImageGalleryTable
+        :items="items"
+        :resize-images="resizeImagesAsBoolean"
+      />
     </template>
     <template #tab="{ items }">
-      <EditImageGalleryTab :items="items" />
+      <EditImageGalleryTab
+        :items="items"
+        :resize-images="resizeImagesAsBoolean"
+      />
     </template>
     <template #add>
       <EditListUpload type="image" />
@@ -24,6 +30,21 @@ import EditImageGalleryTable from './EditImageGalleryTable.vue';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import EditListUpload from '../../utils/editList/upload/EditListUpload.vue';
 import { ImageGalleryEntry } from './types';
+import { computed } from 'vue';
+import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
 
-defineProps<{ images?: ImageGalleryEntry[] | null }>();
+const props = withDefaults(
+  defineProps<{
+    images?: ImageGalleryEntry[] | null;
+    resizeImages?: string | boolean;
+  }>(),
+  {
+    images: () => [],
+    resizeImages: 'true',
+  }
+);
+
+const resizeImagesAsBoolean = computed(() =>
+  booleanOrStringToBoolean(props.resizeImages)
+);
 </script>
