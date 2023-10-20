@@ -6,16 +6,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <Switch
-    v-model="enabled"
+    v-model="turnedOn"
     class="relative inline-flex h-5 w-10 items-center rounded-full border bg-white"
     :class="switchColorClass"
     :disabled="disabled"
-    @update:model-value="emit('update:modelValue', $event)"
   >
     <span
-      :class="[enabled ? 'translate-x-5' : 'translate-x-1', spanColorClass]"
+      :class="[turnedOn ? 'translate-x-5' : 'translate-x-1', spanColorClass]"
       class="inline-block h-3 w-3 rounded-full transition duration-200 ease-in-out"
-    />
+    ></span>
   </Switch>
 </template>
 
@@ -29,17 +28,21 @@ const props = withDefaults(
   defineProps<{ modelValue?: boolean; disabled?: boolean }>(),
   {
     modelValue: true,
+    disabled: false,
   }
 );
 
-const enabled = computed(() => props.modelValue);
+const turnedOn = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value),
+});
 
 const switchColorClass = computed(() => {
   if (props.disabled === true) {
     return 'border-gray-400';
   }
 
-  return props.modelValue === true ? 'border-green-400' : 'border-red-400';
+  return turnedOn.value === true ? 'border-green-400' : 'border-red-400';
 });
 
 const spanColorClass = computed(() => {
@@ -47,6 +50,6 @@ const spanColorClass = computed(() => {
     return 'bg-gray-400';
   }
 
-  return props.modelValue === true ? 'bg-green-400' : 'bg-red-400';
+  return turnedOn.value === true ? 'bg-green-400' : 'bg-red-400';
 });
 </script>
