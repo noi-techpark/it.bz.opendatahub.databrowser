@@ -52,7 +52,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               :show-all="true"
               :show-edit-hint="true"
               :editable="true"
-              :is-start-or-fetch="isLoading"
             />
             <EditToolBox />
           </div>
@@ -123,7 +122,6 @@ useEventDiscardChanges.on((value: boolean) => {
 
 const {
   isError,
-  isLoading,
   data,
   error,
   url,

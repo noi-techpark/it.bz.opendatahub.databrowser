@@ -8,6 +8,7 @@ import {
   useBaseAxiosFetch,
 } from '../../../api/client/fetcher/axios';
 import { useSingleDatasetConfig } from './useSingleDatasetConfig';
+import { CellComponent } from '../../../cellComponents/types';
 
 export const useSingleDatasetLoad = <T = unknown>() => {
   // Resolve view config
@@ -44,17 +45,20 @@ export const useSingleDatasetLoad = <T = unknown>() => {
 
   const isLoading = computed(() => isResolving.value || isDataLoading.value);
 
-  console.log('useSingleDatasetLoad');
+  const subcategoriesWithLoadingSupport = computed(() => {
+    if (!isLoading.value) {
+      return subcategories.value;
+    }
 
-  // isNewView.value
-  //   ? {
-  //       isError: ref(false),
-  //       isLoading: ref(false),
-  //       data: ref(),
-  //       error: ref(),
-  //       url: computed(() => datasetConfigStore.currentPath ?? ''),
-  //     }
-  //   : useSingleDatasetLoad();
+    return [...Array(5).keys()].map(() => ({
+      name: '',
+      properties: [...Array(5).keys()].map(() => ({
+        title: '',
+        component: CellComponent.LoadingCell,
+        fields: {},
+      })),
+    }));
+  });
 
   return {
     data,
@@ -76,7 +80,7 @@ export const useSingleDatasetLoad = <T = unknown>() => {
     getDataForField,
     slug,
     categories,
-    subcategories,
+    subcategories: subcategoriesWithLoadingSupport,
     currentCategory,
   };
 };

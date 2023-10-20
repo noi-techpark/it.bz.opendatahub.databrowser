@@ -20,7 +20,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :show-all="showAll"
         :show-edit-hint="false"
         :editable="false"
-        :is-start-or-fetch="isLoading"
       />
       <ExportDatasetsToolBox :url="url" />
     </div>
@@ -39,7 +38,6 @@ const showAll = ref(false);
 
 const {
   isError,
-  isLoading,
   data,
   error,
   url,

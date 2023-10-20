@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { PaginationData } from '../../../api';
 import { defaultTablePagination } from '../defaultValues';
 import {
@@ -10,8 +10,6 @@ import {
   useBaseAxiosFetch,
 } from '../../../api/client/fetcher/axios';
 import { useTableConfig } from './useTableConfig';
-import { useAuth } from '../../../auth/store/auth';
-import { storeToRefs } from 'pinia';
 
 const buildFallbackRows = (pageSize: number) =>
   [...Array(pageSize).keys()].map((_, index) => ({ Id: index }));

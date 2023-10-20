@@ -23,9 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <SubCategories
         :data="data"
         :category="currentCategory"
-        :sub-categories="
-          isStartOrFetch ? subCategoriesWhileLoading : subCategories
-        "
+        :sub-categories="subCategories"
         :show-all="showAll"
         :editable="editable"
       />
@@ -34,14 +32,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import MainCategories from '../category/MainCategories.vue';
 import SubCategories from '../category/SubCategories.vue';
 import { Category, SubCategory } from '../category/types';
 import EditHint from '../editView/EditHint.vue';
 import { scrollToTop } from './scrollToPosition';
-import { CellComponent } from '../../cellComponents/types';
 
 defineProps<{
   data: unknown;
@@ -52,19 +49,7 @@ defineProps<{
   showAll: boolean;
   showEditHint: boolean;
   editable: boolean;
-  isStartOrFetch: boolean;
 }>();
-
-const subCategoriesWhileLoading = computed<SubCategory[]>(() =>
-  [...Array(5).keys()].map(() => ({
-    name: '',
-    properties: [...Array(5).keys()].map(() => ({
-      title: '',
-      component: CellComponent.LoadingCell,
-      fields: {},
-    })),
-  }))
-);
 
 // Scroll sub categories to top if main category changes
 const container = ref<HTMLElement | null>(null);
