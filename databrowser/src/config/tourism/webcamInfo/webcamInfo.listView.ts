@@ -6,6 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import {
   gpsDataTableCell,
+  imageTableCell,
   lastChangesTableCell,
   odhActiveTableCell,
   sourceTableCell,
@@ -13,14 +14,7 @@ import {
 
 export const webcamInfoListView: ListViewConfig = {
   elements: [
-    {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      fields: {
-        src: 'Webcamurl',
-      },
-    },
+    imageTableCell(),
     {
       title: 'Webcam Name',
       component: CellComponent.StringCell,
@@ -34,7 +28,7 @@ export const webcamInfoListView: ListViewConfig = {
       component: CellComponent.UrlCell,
       class: 'w-40',
       fields: {
-        text: 'Webcamurl',
+        text: 'WebCamProperties.WebcamUrl',
       },
     },
     gpsDataTableCell(),
