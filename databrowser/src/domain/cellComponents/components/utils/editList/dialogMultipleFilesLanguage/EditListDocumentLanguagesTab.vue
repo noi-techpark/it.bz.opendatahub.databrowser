@@ -26,7 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import EditListDocumentLanguagesTabBody from './EditListDocumentLanguagesTabBody.vue';
 import EditListDocumentLanguagesTabHeader from './EditListDocumentLanguagesTabHeader.vue';
 import { MultipleFilesLanguages } from './types';
