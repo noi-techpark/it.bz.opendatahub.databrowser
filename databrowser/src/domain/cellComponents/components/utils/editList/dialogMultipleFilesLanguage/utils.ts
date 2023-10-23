@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { useEventBus } from '@vueuse/core';
 import { FileEntry } from '../../../cells/eventDocumentCell/types';
 import { useEditStore } from '../../../../../datasets/editView/store/editStore';
