@@ -9,12 +9,11 @@ env:
   NODE_VERSION: 16.x
   PROJECT_NAME: opendatahub-databrowser
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}/opendatahub-databrowser
-  DOCKER_TAG: ${{ github.sha }}
   SERVER_PORT: 1005
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
@@ -27,12 +26,13 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           test-enabled: false
 
-  deploy-test:
-    runs-on: ubuntu-20.04
+  deploy-beta:
+    runs-on: ubuntu-22.04
     if: github.ref == 'refs/heads/development'
     needs: test
-    concurrency: deploy-test
+    concurrency: deploy-beta
     env:
+      DOCKER_TAG: ${{ github.sha }}-beta
       AWS_S3_BUCKET_NAME: "it.bz.opendatahub.databrowser-test"
       VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.testingmachine.eu/auth"
       VITE_APP_KEYCLOAK_REALM: "noi"
@@ -58,7 +58,7 @@ jobs:
         env:
           X_SERVER_PORT: ${{ env.SERVER_PORT }}
           X_DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
-          X_DOCKER_TAG: ${{ env.DOCKER_TAG }}
+          X_DOCKER_TAG: ${{ env.DOCKER_TAG }}-beta
       - name: Build and push images
         uses: noi-techpark/github-actions/docker-build-and-push@v2
         with:
@@ -75,17 +75,75 @@ jobs:
           docker-password: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
           project-name: ${{ env.PROJECT_NAME }}
 
-  deploy-prod:
-    runs-on: ubuntu-20.04
+  deploy-test:
+    runs-on: ubuntu-22.04
     if: github.ref == 'refs/heads/main'
     needs: test
-    concurrency: deploy-prod
+    concurrency: deploy-test
     env:
-      AWS_S3_BUCKET_NAME: "it.bz.opendatahub.databrowser-prod"
+      DOCKER_TAG: ${{ github.sha }}-test
+      AWS_S3_BUCKET_NAME: "it.bz.opendatahub.databrowser-beta"
       VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.com/auth"
       VITE_APP_KEYCLOAK_REALM: "noi"
       VITE_APP_KEYCLOAK_CLIENT_ID: "it.bz.opendatahub.databrowser"
       VITE_APP_KEYCLOAK_REDIRECT_URI: "https://v2-beta.databrowser.opendatahub.com//silent-check-sso.html"
+      VITE_APP_IMAGE_UPLOAD_URL: "https://tourism.opendatahub.com/v1/FileUpload/Image"
+      VITE_APP_FILE_UPLOAD_URL: "https://tourism.opendatahub.com/v1/FileUpload"
+      VITE_APP_ODH_LOOKUP_BASE_URL: "https://tourism.opendatahub.com"
+      VITE_APP_HOTJAR_ID: "3316285"
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Build code
+        uses: noi-techpark/github-actions/npm-build@v2
+        with:
+          working-directory: databrowser
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Sync to S3 bucket
+        uses: noi-techpark/github-actions/aws-s3-bucket-sync@v2
+        with:
+          working-directory: databrowser
+          access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY }}
+          region: ${{ env.AWS_REGION }}
+          s3-bucket-name: ${{ env.AWS_S3_BUCKET_NAME }}
+          folder: ./dist
+      - name: Create .env file
+        uses: noi-techpark/github-actions/env-file@v2
+        with:
+          working-directory: ${{ env.WORKING_DIRECTORY }}
+        env:
+          X_SERVER_PORT: ${{ env.SERVER_PORT }}
+          X_DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
+          X_DOCKER_TAG: ${{ env.DOCKER_TAG }}-test
+      - name: Build and push images
+        uses: noi-techpark/github-actions/docker-build-and-push@v2
+        with:
+          working-directory: infrastructure
+          docker-username: ${{ github.actor }}
+          docker-password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy application
+        uses: noi-techpark/github-actions/docker-deploy@v2
+        with:
+          working-directory: infrastructure/ansible
+          hosts: "prod"
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          docker-username: "noi-techpark-bot"
+          docker-password: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          project-name: ${{ env.PROJECT_NAME }}
+
+  deploy-prod:
+    runs-on: ubuntu-22.04
+    if: github.ref == 'refs/heads/main'
+    needs: test
+    concurrency: deploy-prod
+    env:
+      DOCKER_TAG: ${{ github.sha }}
+      AWS_S3_BUCKET_NAME: "it.bz.opendatahub.databrowser-prod"
+      VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.com/auth"
+      VITE_APP_KEYCLOAK_REALM: "noi"
+      VITE_APP_KEYCLOAK_CLIENT_ID: "it.bz.opendatahub.databrowser"
+      VITE_APP_KEYCLOAK_REDIRECT_URI: "https://databrowser.opendatahub.com/silent-check-sso.html"
       VITE_APP_IMAGE_UPLOAD_URL: "https://tourism.opendatahub.com/v1/FileUpload/Image"
       VITE_APP_FILE_UPLOAD_URL: "https://tourism.opendatahub.com/v1/FileUpload"
       VITE_APP_ODH_LOOKUP_BASE_URL: "https://tourism.opendatahub.com"
