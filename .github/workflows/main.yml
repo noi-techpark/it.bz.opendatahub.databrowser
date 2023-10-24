@@ -26,13 +26,13 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           test-enabled: false
 
-  deploy-beta:
+  deploy-test:
     runs-on: ubuntu-22.04
     if: github.ref == 'refs/heads/development'
     needs: test
-    concurrency: deploy-beta
+    concurrency: deploy-test
     env:
-      DOCKER_TAG: ${{ github.sha }}-beta
+      DOCKER_TAG: ${{ github.sha }}-test
       AWS_S3_BUCKET_NAME: "it.bz.opendatahub.databrowser-test"
       VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.testingmachine.eu/auth"
       VITE_APP_KEYCLOAK_REALM: "noi"
@@ -58,7 +58,7 @@ jobs:
         env:
           X_SERVER_PORT: ${{ env.SERVER_PORT }}
           X_DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
-          X_DOCKER_TAG: ${{ env.DOCKER_TAG }}-beta
+          X_DOCKER_TAG: ${{ env.DOCKER_TAG }}
       - name: Build and push images
         uses: noi-techpark/github-actions/docker-build-and-push@v2
         with:
@@ -75,13 +75,13 @@ jobs:
           docker-password: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
           project-name: ${{ env.PROJECT_NAME }}
 
-  deploy-test:
+  deploy-beta:
     runs-on: ubuntu-22.04
     if: github.ref == 'refs/heads/main'
     needs: test
-    concurrency: deploy-test
+    concurrency: deploy-beta
     env:
-      DOCKER_TAG: ${{ github.sha }}-test
+      DOCKER_TAG: ${{ github.sha }}-beta
       AWS_S3_BUCKET_NAME: "it.bz.opendatahub.databrowser-beta"
       VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.com/auth"
       VITE_APP_KEYCLOAK_REALM: "noi"
@@ -115,7 +115,7 @@ jobs:
         env:
           X_SERVER_PORT: ${{ env.SERVER_PORT }}
           X_DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
-          X_DOCKER_TAG: ${{ env.DOCKER_TAG }}-test
+          X_DOCKER_TAG: ${{ env.DOCKER_TAG }}
       - name: Build and push images
         uses: noi-techpark/github-actions/docker-build-and-push@v2
         with:
@@ -134,7 +134,7 @@ jobs:
 
   deploy-prod:
     runs-on: ubuntu-22.04
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/prod'
     needs: test
     concurrency: deploy-prod
     env:
