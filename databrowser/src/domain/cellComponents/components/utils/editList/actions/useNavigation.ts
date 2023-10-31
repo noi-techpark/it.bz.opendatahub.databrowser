@@ -10,6 +10,7 @@ interface State {
   current: Ref<EditListNavigable>;
   previous: Ref<EditListNavigable>;
   activeTab: Ref<number>;
+  isDialogOpen: Ref<boolean>;
 }
 
 export const useNavigation = () => {
@@ -17,6 +18,7 @@ export const useNavigation = () => {
     current: ref('table'),
     previous: ref('table'),
     activeTab: ref(0),
+    isDialogOpen: ref(false),
   };
 
   const navigateTo = (next: EditListNavigable) => {
@@ -37,6 +39,14 @@ export const useNavigation = () => {
     navigateTo('add');
   };
 
+  const closeDialog = () => {
+    state.isDialogOpen.value = false;
+  };
+
+  const openDialog = () => {
+    state.isDialogOpen.value = true;
+  };
+
   const navigateToPrevious = () => (state.current.value = state.previous.value);
 
   const setActiveTab = (index?: number) => (state.activeTab.value = index ?? 0);
@@ -49,14 +59,19 @@ export const useNavigation = () => {
 
   const isCurrentTable = computed(() => state.current.value === 'table');
 
+  const isCurrentDialog = computed(() => state.isDialogOpen.value);
+
   return {
     activeTab,
     isCurrentAdd,
     isCurrentTab,
     isCurrentTable,
+    isCurrentDialog,
     navigateToAdd,
     navigateToTab,
     navigateToTable,
+    closeDialog,
+    openDialog,
     navigateToPrevious,
     setActiveTab,
   };

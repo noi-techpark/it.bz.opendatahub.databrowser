@@ -22,7 +22,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <UrlCell :text="item.src" :editable="false" />
       </TableCell>
       <TableCell>
-        <StringCell :text="item.language" :editable="false" />
+        <StringCell
+          :text="getCurrentDocumentLanguageAvailability(item)"
+          :editable="false"
+        />
       </TableCell>
       <TableCell>
         <StringCell
@@ -56,6 +59,7 @@ import StringCell from '../stringCell/StringCell.vue';
 import { FileEntry } from './types';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
+import { getCurrentDocumentLanguageAvailability } from '../../utils/editList/dialogMultipleFilesLanguage/utils';
 
 defineProps<{ items: FileEntry[] }>();
 

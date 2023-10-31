@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <EventDocumentTab type="pdf" :items="items" />
     </template>
     <template #add>
-      <EditListUpload type="pdf" />
+      <EditListUpload type="pdf" has-language-dialog />
     </template>
   </EditListCell>
 </template>
@@ -36,10 +36,12 @@ const { useApiParameter } = useApiQuery();
 const updateWithCurrentLanguage = ({ value }: { value?: FileEntry[] }) => {
   const currentLanguage = useApiParameter('language');
 
-  const updatedFiles = value?.map((file) => ({
-    ...file,
-    language: currentLanguage.value,
-  }));
+  const updatedFiles =
+    value?.map((file) => ({
+      ...file,
+      language: currentLanguage.value,
+    })) || [];
+
   emit('update', { prop: 'items', value: updatedFiles });
 };
 </script>

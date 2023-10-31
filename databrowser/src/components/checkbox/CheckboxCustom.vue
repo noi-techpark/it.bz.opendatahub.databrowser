@@ -11,6 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         v-model="checked"
         type="checkbox"
         class="h-5 w-5 cursor-pointer rounded border-gray-400 text-green-700"
+        :disabled="disabled"
         :tabindex="tabbable ? undefined : -1"
       />
       <span v-if="label != null" class="ml-3 font-semibold">{{ label }}</span>
@@ -28,10 +29,12 @@ const props = withDefaults(
     modelValue: boolean;
     label?: string;
     tabbable?: boolean;
+    disabled?: boolean;
   }>(),
   {
     label: undefined,
     tabbable: true,
+    disabled: false,
   }
 );
 
