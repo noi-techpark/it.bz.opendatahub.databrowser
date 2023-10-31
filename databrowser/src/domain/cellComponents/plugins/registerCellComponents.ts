@@ -11,7 +11,7 @@ import ArrayTagsCell from '../components/cells/arrayTagsCell/ArrayTagsCell.vue';
 import ArticleAdditionalInfoCell from '../components/cells/articleAdditionalInfoCell/ArticleAdditionalInfoCell.vue';
 import ArticleLinkInfoCell from '../components/cells/articleLinkInfoCell/ArticleLinkInfoCell.vue';
 import ArticleTypeCell from '../components/cells/articleTypeCell/ArticleTypeCell.vue';
-import CustomDataArrayCell from '../components/cells/CustomDataArrayCell/CustomDataArrayCell.vue';
+import CustomDataArrayCell from '../components/cells/customDataArrayCell/CustomDataArrayCell.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditImageGalleryCell.vue';
