@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
+// import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 
 export const useTableViewColsStore = defineStore('tableViewColsStore', {
   getters: {

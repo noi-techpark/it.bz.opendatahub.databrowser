@@ -20,7 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           />
           <TableFooter :pagination="pagination" />
         </div>
-        <TableToolBox :url="url" :cols="cols" />
+        <TableToolBox :url="apiPath" :cols="cols" />
       </div>
     </template>
   </section>
@@ -46,7 +46,7 @@ const {
   hasDetailView,
   hasQuickView,
   editRecordSupported,
-  url,
+  apiPath,
 } = useTableLoad();
 
 // Store TableView route query in a store for later use e.g. in DetailView

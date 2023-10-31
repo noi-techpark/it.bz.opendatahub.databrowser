@@ -21,6 +21,25 @@ export interface Pagination {
   changePageSize: (value: number) => void;
 }
 
+export interface Pagination2 {
+  totalItems: number;
+  pageCount: number;
+  pageSize: number;
+  currentPage: number;
+  hasPrevious: boolean;
+  hasNext: boolean;
+
+  // goToPage: (callbackFn: (value: number) => void) => (value: number) => void;
+  // changePageSize: (
+  //   callbackFn: (value: number) => void
+  // ) => (value: number) => void;
+}
+
+export interface PaginationWithCallback extends Pagination2 {
+  goToPage: (page: number) => void;
+  changePageSize: (size: number) => void;
+}
+
 export interface PaginationData<T = unknown> {
   items: T[];
   pagination: Pagination;

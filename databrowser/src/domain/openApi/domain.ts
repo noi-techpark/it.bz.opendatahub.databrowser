@@ -21,5 +21,5 @@ export const domainWithOpenApiDocument = {
 const domainKeys = new Set(Object.keys(domainWithOpenApiDocument));
 
 export const domainIsKnownToHaveOpenApiDocument = (
-  s: string
-): s is DomainWithOpenApiDocument => domainKeys.has(s);
+  s: string | undefined | null
+): s is DomainWithOpenApiDocument => s != null && domainKeys.has(s);

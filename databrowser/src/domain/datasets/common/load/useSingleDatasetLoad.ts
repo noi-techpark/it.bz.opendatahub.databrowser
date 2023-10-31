@@ -13,8 +13,7 @@ import { CellComponent } from '../../../cellComponents/types';
 export const useSingleDatasetLoad = <T = unknown>() => {
   // Resolve view config
   const {
-    url,
-    allParams,
+    apiPath,
     addRecordSupported,
     editRecordSupported,
     hasDetailView,
@@ -27,6 +26,8 @@ export const useSingleDatasetLoad = <T = unknown>() => {
     quickView,
     isResolving,
     getDataForField,
+    isEmbeddedSource,
+    isGeneratedSource,
     slug,
     categories,
     subcategories,
@@ -39,7 +40,7 @@ export const useSingleDatasetLoad = <T = unknown>() => {
     error,
     isError,
     isLoading: isDataLoading,
-  } = useBaseAxiosFetch<T | null, T>(url, {
+  } = useBaseAxiosFetch<T | null, T>(apiPath, {
     beforeFetch: buildAuthInterceptor(),
   });
 
@@ -63,7 +64,6 @@ export const useSingleDatasetLoad = <T = unknown>() => {
 
   return {
     data,
-    allParams,
     addRecordSupported,
     editRecordSupported,
     hasDetailView,
@@ -77,8 +77,10 @@ export const useSingleDatasetLoad = <T = unknown>() => {
     isError,
     isLoading,
     error,
-    url,
+    apiPath,
     getDataForField,
+    isEmbeddedSource,
+    isGeneratedSource,
     slug,
     categories,
     subcategories: subcategoriesWithLoadingSupport,

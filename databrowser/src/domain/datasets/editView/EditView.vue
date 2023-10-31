@@ -9,19 +9,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     {{ t('datasets.editView.authorizationChecking') }}
   </template>
   <template v-else>
-    <template v-if="!datasetConfigStore.hasUpdatePermission">
+    <template v-if="!editRecordSupported">
       <AlertError
         :title="'Error!'"
         :content="t('datasets.editView.notAuthorized')"
       />
     </template>
-    <template v-else-if="datasetConfigStore.isSourceGenerated">
+    <template v-else-if="isGeneratedSource">
       <AlertError
         :title="'Error!'"
         :content="t('datasets.editView.notAvailableForGeneratedSource')"
       />
     </template>
-    <template v-else-if="datasetConfigStore.config?.views?.edit == null">
+    <template v-else-if="!hasEditView">
       <AlertError
         :title="'Error!'"
         :content="t('datasets.editView.noEditViewConfigured')"
@@ -72,7 +72,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { useApiMutate } from '../../api';
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '../../auth/store/auth';
-import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 import EditFooter from './EditFooter.vue';
 import EditToolBox from './toolBox/EditToolBox.vue';
 import { useEditStore } from './store/editStore';
@@ -106,8 +105,6 @@ const auth = useAuth();
 
 const editStore = useEditStore();
 
-const datasetConfigStore = useDatasetConfigStore();
-
 useEventSaveChanges.on((value: boolean) => {
   if (value) {
     saveChanges();
@@ -124,11 +121,14 @@ const {
   isError,
   data,
   error,
-  url,
+  apiPath,
   slug,
   categories,
   subcategories,
   currentCategory,
+  hasEditView,
+  editRecordSupported,
+  isGeneratedSource,
 } = useSingleDatasetLoad();
 
 const mutation = computed(() => (isNewView.value ? 'create' : 'update'));
@@ -140,7 +140,7 @@ const {
   mutateError,
   resetMutate,
   mutate,
-} = useApiMutate(url, mutation);
+} = useApiMutate(apiPath, mutation);
 
 // Enhance categories and subcategories with any errors
 const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =

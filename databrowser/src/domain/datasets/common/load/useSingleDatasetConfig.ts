@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { ref, watch } from 'vue';
-import { Router, stringifyQuery, useRouter } from 'vue-router';
-import { computeDatasetConfigForCurrentRoute } from '../../../datasetConfig/datasetConfig';
+import { Router, useRouter } from 'vue-router';
+import { computeDatasetConfigForCurrentRoute } from '../../../datasetConfig/datasetConfigResolver';
 import { useDatasetPermissions } from '../../../datasetConfig/useDatasetPermissions';
 import { Category, SubCategory } from '../../category/types';
 import { DetailElements } from '../../../datasetConfig/types';
@@ -12,30 +12,45 @@ import { useI18n } from 'vue-i18n';
 
 export const useSingleDatasetConfig = () => {
   const {
-    resolvedDatasetConfig,
-    allParams,
+    datasetConfig,
+    apiPath,
     isResolving,
     detailView,
     editView,
     newView,
     quickView,
     getDataForField,
+    hasEditView,
+    hasNewView,
+    hasDetailView,
+    hasQuickView,
+    isEmbeddedSource,
+    isGeneratedSource,
+    isDetailView,
+    isEditView,
+    isNewView,
   } = computeDatasetConfigForCurrentRoute();
 
-  const url = ref<string>();
-  const hasDetailView = ref(false);
-  const hasEditView = ref(false);
-  const hasNewView = ref(false);
-  const hasQuickView = ref(false);
+  // const url = ref<string>();
+  // const hasDetailView = ref(false);
+  // const hasEditView = ref(false);
+  // const hasNewView = ref(false);
+  // const hasQuickView = ref(false);
+
+  // const isSourceEmbedded = ref(false);
+  // const isSourceGenerated = ref(false);
 
   const categories = ref<Category[]>([]);
   const subcategories = ref<SubCategory[]>([]);
   const slug = ref('');
   const currentCategory = ref<Category | undefined>();
 
-  const { addRecordSupported, editRecordSupported } = useDatasetPermissions(
-    resolvedDatasetConfig
-  );
+  const { addRecordSupported, editRecordSupported } = useDatasetPermissions({
+    datasetConfig,
+    hasEditView,
+    hasNewView,
+    isEmbeddedSource,
+  });
 
   const router = useRouter();
   const i18n = useI18n();
@@ -47,32 +62,28 @@ export const useSingleDatasetConfig = () => {
         return;
       }
 
-      hasDetailView.value = resolvedDatasetConfig.value?.hasDetailView ?? false;
-      hasEditView.value = resolvedDatasetConfig.value?.hasEditView ?? false;
-      hasNewView.value = resolvedDatasetConfig.value?.hasNewView ?? false;
-      hasQuickView.value = resolvedDatasetConfig.value?.hasQuickView ?? false;
+      // hasDetailView.value = resolvedDatasetConfig.value?.hasDetailView ?? false;
+      // hasEditView.value = resolvedDatasetConfig.value?.hasEditView ?? false;
+      // hasNewView.value = resolvedDatasetConfig.value?.hasNewView ?? false;
+      // hasQuickView.value = resolvedDatasetConfig.value?.hasQuickView ?? false;
+
+      // isSourceEmbedded.value = datasetConfig.value?.isSourceEmbedded ?? false;
+      // isSourceGenerated.value = datasetConfig.value?.isSourceGenerated ?? false;
 
       // Compute url
-      url.value = computeUrl(
-        resolvedDatasetConfig.value?.currentPath,
-        allParams.value
-      );
+      // url.value = computeUrl(datasetConfig.value?.currentPath, allParams.value);
 
       // Compute categories
-      if (
-        !resolvedDatasetConfig.value?.isDetailView &&
-        !resolvedDatasetConfig.value?.isEditView &&
-        !resolvedDatasetConfig.value?.isNewView
-      ) {
+      if (!isDetailView.value && !isEditView.value && !isNewView.value) {
         slug.value = '';
         currentCategory.value = undefined;
         return;
       }
 
-      const views = resolvedDatasetConfig.value?.config.views;
-      const elements = resolvedDatasetConfig.value?.isNewView
+      const views = datasetConfig.value?.views;
+      const elements = isNewView.value
         ? views?.new?.elements
-        : resolvedDatasetConfig.value?.isDetailView
+        : isDetailView.value
         ? views?.detail?.elements
         : views?.edit?.elements;
 
@@ -89,10 +100,9 @@ export const useSingleDatasetConfig = () => {
       categories.value = elements.map((element) => {
         // If config is generated, use translated name.
         // Otherwise, use name as defined by config
-        const name =
-          resolvedDatasetConfig.value?.source === 'generated'
-            ? i18n.t('datasets.generated.categoryName')
-            : element.name;
+        const name = isGeneratedSource
+          ? i18n.t('datasets.generated.categoryName')
+          : element.name;
 
         const isAnyFieldRequired = hasAnyRequiredField(element);
 
@@ -122,8 +132,7 @@ export const useSingleDatasetConfig = () => {
   );
 
   return {
-    url,
-    allParams,
+    apiPath,
     addRecordSupported,
     editRecordSupported,
     hasDetailView,
@@ -136,6 +145,8 @@ export const useSingleDatasetConfig = () => {
     quickView,
     isResolving,
     getDataForField,
+    isEmbeddedSource,
+    isGeneratedSource,
     slug,
     categories,
     subcategories,
@@ -143,18 +154,18 @@ export const useSingleDatasetConfig = () => {
   };
 };
 
-const computeUrl = (
-  currentPath: string | undefined,
-  allParams: Record<string, string>
-) => {
-  if (currentPath == null) {
-    return undefined;
-  }
+// const computeUrl = (
+//   currentPath: string | undefined,
+//   allParams: Record<string, string>
+// ) => {
+//   if (currentPath == null) {
+//     return undefined;
+//   }
 
-  const queryParams = stringifyQuery(allParams);
+//   const queryParams = stringifyQuery(allParams);
 
-  return currentPath + (queryParams.length > 0 ? '?' + queryParams : '');
-};
+//   return currentPath + (queryParams.length > 0 ? '?' + queryParams : '');
+// };
 
 const handleSlug = (router: Router, elements?: DetailElements[]) => {
   const initialSlug = elements?.[0]?.slug ?? '';

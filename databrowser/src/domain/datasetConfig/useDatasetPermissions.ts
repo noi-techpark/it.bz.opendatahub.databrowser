@@ -5,39 +5,45 @@
 import { Ref, ref, watchEffect } from 'vue';
 import { DatasetConfig } from './types';
 import { useAuth } from '../auth/store/auth';
-import { ResolvedDatasetConfig } from './datasetConfig';
 
-export const useDatasetPermissions = (
-  resolvedDatasetConfig: Ref<ResolvedDatasetConfig | undefined>
-) => {
+interface UseDatasetPermissions {
+  hasNewView: Ref<boolean>;
+  hasEditView: Ref<boolean>;
+  isEmbeddedSource: Ref<boolean>;
+  datasetConfig: Ref<DatasetConfig | undefined>;
+}
+
+export const useDatasetPermissions = ({
+  hasNewView,
+  hasEditView,
+  isEmbeddedSource,
+  datasetConfig,
+}: UseDatasetPermissions) => {
   const addRecordSupported = ref(false);
   const editRecordSupported = ref(false);
   const deleteRecordSupported = ref(false);
 
   watchEffect(() => {
-    if (resolvedDatasetConfig.value == null) {
+    if (datasetConfig.value == null) {
       addRecordSupported.value = false;
       editRecordSupported.value = false;
       deleteRecordSupported.value = false;
       return;
     }
 
-    const { config, isSourceEmbedded, hasNewView, hasEditView } =
-      resolvedDatasetConfig.value;
+    const hasCreatePermission = computeCreatePermission(datasetConfig.value);
 
-    const hasCreatePermission = computeCreatePermission(config);
+    const hasUpdatePermission = computeUpdatePermission(datasetConfig.value);
 
-    const hasUpdatePermission = computeUpdatePermission(config);
-
-    const hasDeletePermission = computeDeletePermission(config);
+    const hasDeletePermission = computeDeletePermission(datasetConfig.value);
 
     addRecordSupported.value =
-      isSourceEmbedded && hasCreatePermission && hasNewView;
+      isEmbeddedSource.value && hasCreatePermission && hasNewView.value;
 
     editRecordSupported.value =
-      isSourceEmbedded && hasUpdatePermission && hasEditView;
+      isEmbeddedSource.value && hasUpdatePermission && hasEditView.value;
 
-    deleteRecordSupported.value = isSourceEmbedded && hasDeletePermission;
+    deleteRecordSupported.value = isEmbeddedSource.value && hasDeletePermission;
   });
   return {
     addRecordSupported,

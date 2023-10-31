@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { SourceType } from './source/types';
+import { DatasetConfigSource } from './loader/types';
 import { DomainWithOpenApiDocument } from '../openApi/types';
 
 interface BasePropertyConfig {
@@ -80,7 +80,7 @@ export interface EditElements {
 export type PathParams = string[];
 
 export interface DatasetRoute {
-  domain: DatasetDomains;
+  domain: DatasetDomain;
   pathParams: PathParams;
   id?: string;
 }
@@ -121,12 +121,20 @@ export type EditViewConfig = EditViewElements & WithDefaultQueryParams;
 export type RawViewConfig = WithDefaultQueryParams;
 export type NewViewConfig = EditViewElements & WithDefaultQueryParams;
 
+export type ViewConfig =
+  | ListViewConfig
+  | DetailViewConfig
+  | EditViewConfig
+  | NewViewConfig
+  | QuickViewConfig
+  | RawViewConfig;
+
 export interface Operation {
   rolesAllowed: string[];
 }
 
 export interface DatasetConfig {
-  source: SourceType;
+  source: DatasetConfigSource;
   baseUrl: string;
   route: DatasetRoute;
   description: DatasetDescription;
@@ -149,27 +157,31 @@ export interface DatasetConfig {
 
 export type ViewKey = keyof Required<DatasetConfig>['views'];
 
-export const View: Record<Uppercase<ViewKey>, ViewKey> = {
-  DETAIL: 'detail',
-  EDIT: 'edit',
-  NEW: 'new',
-  QUICK: 'quick',
-  RAW: 'raw',
-  TABLE: 'table',
-} as const;
+export type ViewValue = Required<DatasetConfig>['views'];
+
+export type ViewFlags = Record<`is${Capitalize<ViewKey>}View`, boolean>;
 
 export type OperationKey = keyof Required<DatasetConfig>['operations'];
 
 export type Operations = NonNullable<DatasetConfig['operations']>;
 
-export type DatasetDomain = string;
+export type Domain = string;
 
-export type DatasetDomains =
+export type DatasetDomain =
   | DomainWithOpenApiDocument
   // In case there is a URL parameter for the domain, but the domain is not known
   | 'unknown'
   // In case the current URL is not related to datasets
   | 'no-dataset-domain-in-url';
+
+export interface DatasetPath {
+  pathParams: string[];
+  pathId?: string;
+}
+
+export interface DatasetLocation extends DatasetPath {
+  domain: DatasetDomain;
+}
 
 export type CandidateConfig = {
   rank: number;

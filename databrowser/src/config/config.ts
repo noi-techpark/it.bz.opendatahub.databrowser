@@ -2,21 +2,18 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DatasetConfig, DatasetDomain } from '../domain/datasetConfig/types';
+import { DatasetConfig, Domain } from '../domain/datasetConfig/types';
 import { mobilityEmbeddedDatasetConfigs } from './mobility';
 import { tourismEmbeddedDatasetConfigs } from './tourism';
 
-type EmbeddedDatasetConfigs = Record<
-  DatasetDomain,
-  Record<string, DatasetConfig>
->;
+type EmbeddedDatasetConfigs = Record<Domain, Record<string, DatasetConfig>>;
 
 const mapDatasetConfigs = (
   datasetConfigs: DatasetConfig[]
 ): EmbeddedDatasetConfigs => {
   return datasetConfigs.reduce<EmbeddedDatasetConfigs>((previous, current) => {
     const configsForDomain = { ...previous[current.route.domain] } ?? {};
-    const path = '/' + current.route.pathParams.join('/');
+    const path = pathParamsToKey(current.route.pathParams);
     configsForDomain[path] = current;
     return { ...previous, [current.route.domain]: configsForDomain };
   }, {});
@@ -42,8 +39,9 @@ export const embeddedDatasetConfigs = computeEmbeddedDatasetConfigs();
 
 export const findEmbeddedDatasetConfig = (
   domain: string,
-  path: string
+  pathParams: string[]
 ): DatasetConfig | undefined => {
+  const path = pathParamsToKey(pathParams);
   const exactMatch = embeddedDatasetConfigs[domain]?.[path];
   if (exactMatch != null) {
     return exactMatch;
@@ -54,10 +52,8 @@ export const findEmbeddedDatasetConfig = (
     return undefined;
   }
 
-  const pathParams = path.split('/').filter((p) => p !== '');
   const pathParamsLength = pathParams.length;
-  const configs = Object.values(configsForDomain);
-  const candidates = configs.filter(
+  const candidates = Object.values(configsForDomain).filter(
     (config) => config.route.pathParams.length === pathParamsLength
   );
   const matchingConfig = candidates.find((config) => {
@@ -73,3 +69,6 @@ export const findEmbeddedDatasetConfig = (
   console.log('#### matching config', matchingConfig);
   return matchingConfig;
 };
+
+const pathParamsToKey = (pathParams: string[]): string =>
+  '/' + pathParams.join('/');

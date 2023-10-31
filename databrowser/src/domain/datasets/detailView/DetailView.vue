@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :show-edit-hint="false"
         :editable="false"
       />
-      <ExportDatasetsToolBox :url="url" />
+      <ExportDatasetsToolBox :url="apiPath" />
     </div>
   </template>
 </template>
@@ -40,7 +40,7 @@ const {
   isError,
   data,
   error,
-  url,
+  apiPath,
   slug,
   categories,
   subcategories,

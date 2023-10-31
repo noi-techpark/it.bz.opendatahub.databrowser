@@ -12,7 +12,7 @@ import {
   mobilityPaginatedMapper,
   tourismPaginatedMapper,
 } from '../../../api';
-import { DatasetDomain } from '../../../datasetConfig/types';
+import { Domain } from '../../../datasetConfig/types';
 
 interface TableSettings<T> {
   dataMapper: DataMapper<T>;
@@ -25,8 +25,8 @@ const defaultDataMapper = <T = unknown>(): PaginationData<T> => ({
   pagination: defaultPagination,
 });
 
-export const computeTableSettings = <T = unknown>(
-  domain: DatasetDomain | undefined,
+export const computePagination = <T = unknown>(
+  domain: Domain | undefined,
   allParams: Record<string, string>
 ): TableSettings<T> => {
   console.warn('computeTableSettings', domain, allParams);

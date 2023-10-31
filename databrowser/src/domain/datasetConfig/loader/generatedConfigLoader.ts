@@ -22,16 +22,19 @@ import {
 import { OpenApi, DomainWithOpenApiDocument } from '../../openApi/types';
 import {
   DatasetConfig,
-  DatasetDomain,
+  Domain,
   DetailViewConfig,
   ListElements,
   ListViewConfig,
   OperationKey,
   PropertyConfig,
-  ViewKey,
 } from '../types';
 import { findCandidateConfigs } from '../utils';
-import { DatasetConfigSource, SourceResolver } from './types';
+import {
+  DatasetConfigLoader,
+  LoadDatasetConfigFn,
+  LoadAllDatasetConfigsFn,
+} from './types';
 
 type ErrorMessage = string;
 
@@ -42,12 +45,10 @@ type Resources = Record<ResourceName, DatasetConfig>;
 const isErrorMessage = (o: unknown): o is ErrorMessage =>
   o != null && typeof o === 'string';
 
-const sourceResolver: SourceResolver = async (datasetRoute) => {
-  const { domain, pathParams } = datasetRoute;
-
+const loadDatasetConfig: LoadDatasetConfigFn = async (domain, pathParams) => {
   if (!domainIsKnownToHaveOpenApiDocument(domain)) {
     return Promise.reject(
-      `ODH domain ${domain} is unknown, not able to generate configuration`
+      `ODH domain ${domain} is unknown, not able to generate dataset config`
     );
   }
 
@@ -57,7 +58,7 @@ const sourceResolver: SourceResolver = async (datasetRoute) => {
     return Promise.reject(`No OpenAPI document found for ODH domain ${domain}`);
   }
 
-  const configOrErrorMessage = toGeneratedConfiguration(
+  const configOrErrorMessage = findGeneratedDatasetConfig(
     domain,
     pathParams,
     document
@@ -68,7 +69,7 @@ const sourceResolver: SourceResolver = async (datasetRoute) => {
     : Promise.resolve(configOrErrorMessage);
 };
 
-const toGeneratedConfiguration = (
+const findGeneratedDatasetConfig = (
   domain: DomainWithOpenApiDocument,
   pathParams: string[],
   document: OpenApi.Document
@@ -79,18 +80,15 @@ const toGeneratedConfiguration = (
     return parseResult;
   }
 
-  const candidates = findCandidateConfigs(
-    '/' + pathParams.join('/'),
-    parseResult
-  );
+  const candidates = findCandidateConfigs(pathParams, parseResult);
 
   if (candidates.length === 0) {
-    return `Not able to find a match for path params "${pathParams}" in OpenAPI document for ODH domain ${domain}`;
+    return `Not able to find a match for path "${pathParams}" in OpenAPI document for ODH domain ${domain}`;
   }
 
   if (candidates.length > 1) {
     console.debug(
-      `Found ${candidates.length} matches for path params "${pathParams}" in OpenAPI document for ODH domain ${domain}`
+      `Found ${candidates.length} matches for path "${pathParams}" in OpenAPI document for ODH domain ${domain}`
     );
   }
 
@@ -148,7 +146,6 @@ const parse = (
           datasetConfig.views = {};
         }
 
-        const viewKey = mapOperationToViewKey(operation);
         const schema = schemaFromEndpointMethod(
           domain,
           operation,
@@ -156,7 +153,7 @@ const parse = (
         );
         const schemaProperties = extractSchemaProperties(schema);
 
-        if (viewKey === 'table') {
+        if (operation === 'readAll') {
           // Handle tourism pagination style result
           if (isWithTourismPagination(schemaProperties)) {
             datasetConfig.views.table = listViewConfigFromProperties(
@@ -172,7 +169,7 @@ const parse = (
             domain === 'tourism'
               ? defaultTourismTableQueryParameters
               : defaultMobilityTableQueryParameters;
-        } else if (viewKey === 'detail') {
+        } else if (operation === 'read') {
           datasetConfig.views.detail =
             detailViewConfigFromProperties(schemaProperties);
         }
@@ -265,19 +262,6 @@ const mapOperationToRoles = (operation: OperationKey): string[] => {
       return ROLE_UPDATE;
     case 'delete':
       return ROLE_DELETE;
-  }
-};
-
-const mapOperationToViewKey = (
-  operation: OperationKey
-): ViewKey | undefined => {
-  switch (operation) {
-    case 'read':
-      return 'detail';
-    case 'readAll':
-      return 'table';
-    case 'update':
-      return 'edit';
   }
 };
 
@@ -393,10 +377,8 @@ const sortByMainOrderAndLocalCompare = (
   return aIndex - bIndex;
 };
 
-const getAllDatasetConfigs = async (): Promise<
-  Record<DatasetDomain, DatasetConfig[]>
-> => {
-  const result: Record<DatasetDomain, DatasetConfig[]> = {};
+const loadAllDatasetConfigs: LoadAllDatasetConfigsFn = async () => {
+  const result: Record<Domain, DatasetConfig[]> = {};
 
   for (const domain of Object.keys(domainWithOpenApiDocument)) {
     const document = await useOpenApi().loadDocument(domain as any);
@@ -421,12 +403,6 @@ const getAllDatasetConfigs = async (): Promise<
   }
 
   return result;
-};
-
-export const generatedDatasetConfigSource: DatasetConfigSource = {
-  source: 'generated',
-  resolve: sourceResolver,
-  getAllDatasetConfigs,
 };
 
 // This is a default schema for mobility, which is used because the mobility
@@ -460,4 +436,10 @@ const mobilityDefaultSchema: OpenApi.SchemaObject = {
       type: 'object',
     },
   },
+};
+
+export const providerForGeneratedDatasetConfig: DatasetConfigLoader = {
+  source: 'generated',
+  loadDatasetConfig,
+  loadAllDatasetConfigs,
 };

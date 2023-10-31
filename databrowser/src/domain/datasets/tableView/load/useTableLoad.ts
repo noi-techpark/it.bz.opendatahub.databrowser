@@ -3,8 +3,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed } from 'vue';
-import { PaginationData } from '../../../api';
-import { defaultTablePagination } from '../defaultValues';
 import {
   buildAuthInterceptor,
   useBaseAxiosFetch,
@@ -19,13 +17,14 @@ const buildFallbackRows = (pageSize: number) =>
 export const useTableLoad = <T = unknown>() => {
   // Resolved table config
   const {
-    url,
+    apiPath,
     cols,
     editRecordSupported,
     hasDetailView,
     hasQuickView,
     isResolving,
-    mapper,
+    extractData,
+    paginationProvider,
   } = useTableConfig<T>();
 
   // Fetch data
@@ -34,9 +33,9 @@ export const useTableLoad = <T = unknown>() => {
     error,
     isError,
     isLoading: isDataLoading,
-  } = useBaseAxiosFetch<PaginationData<T> | null, T>(url, {
+  } = useBaseAxiosFetch<unknown, T>(apiPath, {
     beforeFetch: buildAuthInterceptor(),
-    afterFetch: (ctx) => (ctx.data == null ? null : mapper(ctx.data)),
+    afterFetch: (ctx) => extractData(ctx.data),
   });
 
   const isLoading = computed(() => isResolving.value || isDataLoading.value);
@@ -45,14 +44,15 @@ export const useTableLoad = <T = unknown>() => {
   // show a fallback table with empty rows
   const rows = computed(() =>
     isLoading.value
-      ? buildFallbackRows(data.value?.pagination.pageSize ?? 25)
-      : data.value?.items ?? []
+      ? buildFallbackRows(pagination.value?.pageSize ?? 25)
+      : data.value ?? []
   );
 
   // Handle pagination
-  const pagination = computed(
-    () => data.value?.pagination ?? defaultTablePagination
-  );
+  // const pagination = computed(
+  //   () => data.value?.pagination ?? defaultTablePagination
+  // );
+  const pagination = computed(() => paginationProvider.value?.(data.value));
 
   // Compute cols with loading support
   const colsWithLoadingSupport = computed<ListElements[]>(() => {
@@ -75,7 +75,7 @@ export const useTableLoad = <T = unknown>() => {
     isError,
     isLoading,
     error,
-    url,
+    apiPath,
     editRecordSupported,
     hasDetailView,
     hasQuickView,

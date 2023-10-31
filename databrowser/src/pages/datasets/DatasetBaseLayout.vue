@@ -35,7 +35,7 @@ import AppLayout from '../../layouts/AppLayout.vue';
 import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../../components/content/ContentDivider.vue';
 import DatasetHeader from '../../domain/datasets/header/DatasetHeader.vue';
-import { useDatasetConfigStore } from '../../domain/datasetConfig/datasetConfigStore';
+// import { useDatasetConfigStore } from '../../domain/datasetConfig/datasetConfigStore';
 import AlertError from '../../components/alert/AlertError.vue';
 import { useRoute } from 'vue-router';
 

@@ -71,7 +71,7 @@ import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue
 import TabLink from '../../../components/tab/TabLink.vue';
 import { useI18n } from 'vue-i18n';
 import { usePathsForCurrentRoute } from './usePaths';
-import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
+// import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 import { computed } from 'vue';
 import { useTableViewRouteQueryStore } from '../tableView/tableViewRouteQueryStore';
 import { storeToRefs } from 'pinia';

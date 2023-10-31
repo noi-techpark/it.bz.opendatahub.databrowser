@@ -20,7 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           class="flex-1"
         />
       </ContentAlignmentX>
-      <ExportDatasetsToolBox :url="url" />
+      <ExportDatasetsToolBox :url="apiPath" />
     </div>
   </template>
 </template>
@@ -38,7 +38,7 @@ const VueJsonPretty = defineAsyncComponent(() =>
   import('vue-json-pretty').then((exports) => exports.default)
 );
 
-const { isError, isLoading, data, error, url } = useSingleDatasetLoad();
+const { isError, isLoading, data, error, apiPath } = useSingleDatasetLoad();
 </script>
 
 <style>

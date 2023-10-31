@@ -4,21 +4,32 @@
 
 import { CandidateConfig, DatasetConfig } from './types';
 
+// Apply default values to query params if they are not set
+export const stringifyRouteQueryValues = (
+  query: Record<string, string | null | (string | null)[]>
+): Record<string, string> =>
+  // Remove all keys with null values and convert all values to strings
+  Object.entries(query).reduce<Record<string, string>>((prev, [key, value]) => {
+    if (value == null) {
+      return prev;
+    }
+    return { ...prev, [key]: Array.isArray(value) ? value.join(',') : value };
+  }, {});
+
 /**
- * Find candidate configs for the given path.
+ * Find candidate configs for the given path params.
  *
  * The higher the rank of a candidate, the more specific it is.
  *
- * @param path The path to find candidate configs for. Must start with a slash.
+ * @param pathParams The path params to find candidate configs for, e.g. ['one', 'two']
+ * would give a final path of /one/two.
  * @param configs A record of dataset configs.
  * @returns An array of candidate configs, sorted by rank.
  */
 export const findCandidateConfigs = (
-  path: string,
+  pathParams: string[],
   configs: Record<string, DatasetConfig>
 ): CandidateConfig[] => {
-  const pathParams = path.split('/').slice(1);
-
   const candidates = Object.entries(configs).reduce<
     {
       rank: number;
