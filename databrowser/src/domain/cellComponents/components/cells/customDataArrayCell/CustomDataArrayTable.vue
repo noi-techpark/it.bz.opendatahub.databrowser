@@ -38,7 +38,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue';
+import { toRefs } from 'vue';
 import TableHeaderCell from '../../../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../../../components/table/TableCell.vue';
 import EditListTable from '../../utils/editList/table/EditListTable.vue';
