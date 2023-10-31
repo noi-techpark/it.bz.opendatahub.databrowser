@@ -30,6 +30,47 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               fields: { text: 'ApiDescription.{language}' },
             },
             {
+              title: 'Dataspace',
+              component: CellComponent.SelectWithOptionsCell,
+              class: 'w-60',
+              fields: {
+                value: 'Dataspace',
+              },
+              params: {
+                showAddNewValue: 'true',
+                showValueAsLabelFallback: 'true',
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=Dataspace.[*]&rawsort=Dataspace.[*]&getasarray=true'
+                ),
+              },
+            },
+            {
+              title: 'Category',
+              component: CellComponent.CustomDataArrayCell,
+              listFields: {
+                attributeName: 'listItems',
+                pathToParent: 'Category',
+              },
+              params: {
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=Category.[*]&rawsort=Category.[*]&getasarray=true'
+                ),
+              },
+            },
+            {
+              title: 'Data Provider',
+              component: CellComponent.CustomDataArrayCell,
+              listFields: {
+                attributeName: 'listItems',
+                pathToParent: 'DataProvider',
+              },
+              params: {
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=DataProvider.[*]&rawsort=DataProvider.[*]&getasarray=true'
+                ),
+              },
+            },
+            {
               title: 'Deprecated',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'Deprecated' },
