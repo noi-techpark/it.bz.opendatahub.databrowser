@@ -91,6 +91,7 @@ jobs:
       VITE_APP_FILE_UPLOAD_URL: "https://tourism.opendatahub.com/v1/FileUpload"
       VITE_APP_ODH_LOOKUP_BASE_URL: "https://tourism.opendatahub.com"
       VITE_APP_HOTJAR_ID: "3316285"
+      VITE_APP_ENV_BADGE: "BETA"
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
