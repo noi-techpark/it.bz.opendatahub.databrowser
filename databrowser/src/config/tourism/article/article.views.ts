@@ -3,12 +3,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { articleListView } from './article.listView';
-import { articleNewView } from './article.newView';
 import { articleSharedView } from './article.sharedView';
 
 export const articleViews = {
   table: articleListView,
   detail: articleSharedView(),
   edit: articleSharedView(),
-  new: articleNewView,
+  new: articleSharedView(),
 };
