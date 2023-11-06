@@ -38,7 +38,7 @@ import PopoverContentHeader from '../../../components/popover/PopoverContentHead
 import RadioCustom from '../../../components/radio/RadioCustom.vue';
 import { useI18n } from 'vue-i18n';
 import ThreeDotsPopup from '../../../components/popover/ThreeDotsPopover.vue';
-import { DatasetConfigSource } from '../../datasetConfig/loader/types';
+import { DatasetConfigSource } from '../../datasetConfig/load/types';
 
 const { t } = useI18n();
 

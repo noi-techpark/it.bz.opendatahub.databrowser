@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DatasetConfig } from '../types';
+import { DatasetConfig, PathSegments } from '../types';
 import { DatasetConfigLoader, DatasetConfigSource } from './types';
 import { providerForEmbeddedDatasetConfig } from './loadEmbeddedConfig';
 import { providerForGeneratedDatasetConfig } from './loadGeneratedConfig';
@@ -18,7 +18,7 @@ const datasetConfigProviders: DatasetConfigLoader[] = [
 export const loadDatasetConfig = async (
   preferredSource: DatasetConfigSource,
   domain: string,
-  pathParams: string[]
+  pathSegments: PathSegments
 ): Promise<DatasetConfig> => {
   const providers = findDatasetConfigProviders(preferredSource);
 
@@ -27,7 +27,7 @@ export const loadDatasetConfig = async (
     try {
       const datasetConfig = await provider.loadDatasetConfig(
         domain,
-        pathParams
+        pathSegments
       );
 
       // If there is a valid dataset config, just use that one.
@@ -45,7 +45,7 @@ export const loadDatasetConfig = async (
   }
 
   throw new Error(
-    `No dataset config found for domain ${domain} and path ${pathParams}`
+    `No dataset config found for domain ${domain} and path ${pathSegments}`
   );
 };
 

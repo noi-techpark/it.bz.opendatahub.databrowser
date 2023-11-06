@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { Domain } from '../../datasetConfig/types';
+import { AnyDomain } from '../../datasetConfig/types';
 import { domainIsKnownToHaveOpenApiDocument } from '../../openApi';
 import { ChangePaginationWithQuery, PaginationWithCallback } from './types';
 import { mobilityPaginationProvider } from './provider/mobilityPaginationProvider';
@@ -17,7 +17,7 @@ interface ComputePagination {
 }
 
 export const computePagination = (
-  domain: Domain | undefined,
+  domain: AnyDomain | undefined,
   query: Record<string, string> | undefined,
   changeRouteQuery: ChangePaginationWithQuery
 ): ComputePagination => {
@@ -39,7 +39,7 @@ export const computePagination = (
 };
 
 export const useComputePagination = (
-  domain: MaybeRef<Domain | undefined>,
+  domain: MaybeRef<AnyDomain | undefined>,
   query: MaybeRef<Record<string, string> | undefined>,
   changeRouteQuery: ChangePaginationWithQuery
 ) => {
@@ -51,7 +51,7 @@ export const useComputePagination = (
 };
 
 export const useComputePaginationWithRouter = (
-  domain: MaybeRef<Domain | undefined>,
+  domain: MaybeRef<AnyDomain | undefined>,
   query: MaybeRef<Record<string, string> | undefined>
 ) => {
   const router = useRouter();

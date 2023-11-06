@@ -532,14 +532,15 @@ const visibleDatasets = computed(() => {
           !acceptedValues.includes('without')
         ) {
           datasets = datasets.filter((dataset) => {
-            const datasetPath = dataset.pathParam.join('/');
+            const datasetPath = dataset.pathSegments.join('/');
             if (!datasetPath) {
               return false;
             }
 
             const hasConfig =
               allDatasetConfigs.value.find(
-                (dataset) => dataset.route.pathParams.join('/') === datasetPath
+                (dataset) =>
+                  dataset.route.pathSegments.join('/') === datasetPath
               ) !== undefined;
             return acceptedValues.includes('with') ? hasConfig : !hasConfig;
           });

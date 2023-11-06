@@ -78,11 +78,11 @@ export interface EditElements {
   }[];
 }
 
-export type PathParams = string[];
+export type PathSegments = string[];
 
 export interface DatasetRoute {
   domain: DatasetDomain;
-  pathParams: PathParams;
+  pathSegments: PathSegments;
   id?: string;
 }
 
@@ -166,7 +166,7 @@ export type OperationKey = keyof Required<DatasetConfig>['operations'];
 
 export type Operations = NonNullable<DatasetConfig['operations']>;
 
-export type Domain = string;
+export type AnyDomain = string;
 
 // TODO: rename to DatasetLocationDomain?
 type ResolvedDatasetDomain =

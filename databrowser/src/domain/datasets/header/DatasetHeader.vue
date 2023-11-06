@@ -73,7 +73,7 @@ import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
 import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
 import { storeToRefs } from 'pinia';
 import { useDatasetSourceStore } from '../../datasetConfig/store/datasetSourceStore';
-import { DatasetConfigSource } from '../../datasetConfig/loader/types';
+import { DatasetConfigSource } from '../../datasetConfig/load/types';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 
 const { t } = useI18n();

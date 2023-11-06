@@ -2,21 +2,25 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DatasetConfig, Domain } from '../domain/datasetConfig/types';
+import {
+  DatasetConfig,
+  AnyDomain,
+  PathSegments,
+} from '../domain/datasetConfig/types';
 import { mobilityEmbeddedDatasetConfigs } from './mobility';
 import { tourismEmbeddedDatasetConfigs } from './tourism';
 
-type EmbeddedDatasetConfigs = Record<Domain, Record<string, DatasetConfig>>;
+type EmbeddedDatasetConfigs = Record<AnyDomain, Record<string, DatasetConfig>>;
 
-const pathParamsToKey = (pathParams: string[]): string =>
-  '/' + pathParams.join('/');
+const pathSegmentsToPath = (pathSegments: PathSegments): string =>
+  '/' + pathSegments.join('/');
 
 const mapDatasetConfigs = (
   datasetConfigs: DatasetConfig[]
 ): EmbeddedDatasetConfigs => {
   return datasetConfigs.reduce<EmbeddedDatasetConfigs>((previous, current) => {
     const configsForDomain = { ...previous[current.route.domain] } ?? {};
-    const path = pathParamsToKey(current.route.pathParams);
+    const path = pathSegmentsToPath(current.route.pathSegments);
     configsForDomain[path] = current;
     return { ...previous, [current.route.domain]: configsForDomain };
   }, {});
@@ -42,9 +46,9 @@ export const embeddedDatasetConfigs = computeEmbeddedDatasetConfigs();
 
 export const findEmbeddedDatasetConfig = (
   domain: string,
-  pathParams: string[]
+  pathSegments: PathSegments
 ): DatasetConfig | undefined => {
-  const path = pathParamsToKey(pathParams);
+  const path = pathSegmentsToPath(pathSegments);
   const exactMatch = embeddedDatasetConfigs[domain]?.[path];
   if (exactMatch != null) {
     return exactMatch;
@@ -55,17 +59,17 @@ export const findEmbeddedDatasetConfig = (
     return undefined;
   }
 
-  const pathParamsLength = pathParams.length;
+  const pathSegmentsLength = pathSegments.length;
   const candidates = Object.values(configsForDomain).filter(
-    (config) => config.route.pathParams.length === pathParamsLength
+    (config) => config.route.pathSegments.length === pathSegmentsLength
   );
   const matchingConfig = candidates.find((config) => {
-    const configPathParams = config.route.pathParams;
-    return pathParams.every((param, index) => {
+    const configPathSegments = config.route.pathSegments;
+    return pathSegments.every((param, index) => {
       return (
-        configPathParams[index] === param ||
-        (configPathParams[index].startsWith('{') &&
-          configPathParams[index].endsWith('}'))
+        configPathSegments[index] === param ||
+        (configPathSegments[index].startsWith('{') &&
+          configPathSegments[index].endsWith('}'))
       );
     });
   });

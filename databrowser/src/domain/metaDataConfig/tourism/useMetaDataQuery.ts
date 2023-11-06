@@ -69,7 +69,7 @@ const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
       output: Object.values(dataset.Output ?? {}).join(', '),
       swaggerUrl: dataset.SwaggerUrl,
       access: parseAccess(dataset.ApiAccess),
-      pathParam: dataset.PathParam,
+      pathSegments: dataset.PathParam,
       externalLink: dataset.ApiUrl,
       sources: dataset.Sources ?? [],
       lastUpdated: parseLastUpdated(dataset.LastChange),
@@ -87,7 +87,7 @@ const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
     .sort((a, b) => a?.shortname?.localeCompare(b?.shortname));
 
 const addParentInfo = (datasets: TourismMetaData[]): TourismMetaData[] => {
-  const buildKey = (dataset: TourismMetaData) => dataset.pathParam.join('/');
+  const buildKey = (dataset: TourismMetaData) => dataset.pathSegments.join('/');
   // Build a map of all root-datasets (i.e. not sub-datasets that have no apiFilter set).
   // The key corresponds to the path params of the dataset as string (joined by '/'), the
   // value is the dataset itself. The parent connection is then resolved by path params.

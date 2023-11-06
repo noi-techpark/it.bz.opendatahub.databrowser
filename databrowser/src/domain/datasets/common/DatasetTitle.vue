@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template v-if="dataset.parent != null">
       <InternalLink
         v-if="linkToParent"
-        :to="tableViewPathForId(dataset.parent.pathParam).value"
+        :to="tableViewPathForId(dataset.parent.pathSegments).value"
         class="text-[0.8em] font-normal"
       >
         {{ t('overview.dataset.titleJoiner') }} {{ dataset.parent.shortname }}

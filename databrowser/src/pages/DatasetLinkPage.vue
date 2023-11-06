@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   name: DatasetPage.TABLE,
                   params: {
                     domain: config.route.domain,
-                    pathParams: config.route.pathParams,
+                    pathSegments: config.route.pathSegments,
                   },
                 }"
                 >{{ config.description?.title }}
@@ -56,12 +56,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { DatasetConfig, DatasetDomain } from '../domain/datasetConfig/types';
+import { DatasetConfig } from '../domain/datasetConfig/types';
 import AppLayout from '../layouts/AppLayout.vue';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import { useI18n } from 'vue-i18n';
 import { DatasetPage } from '../routes';
-import { findDatasetConfigProviders } from '../domain/datasetConfig/loader/dispatchingLoader';
+import { findDatasetConfigProviders } from '../domain/datasetConfig/load/datasetConfigLoader';
 
 const { t } = useI18n();
 

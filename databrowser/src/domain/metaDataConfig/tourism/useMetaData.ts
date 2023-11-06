@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed, Ref } from 'vue';
-import { PathParams } from '../../datasetConfig/types';
+import { PathSegments } from '../../datasetConfig/types';
 import { useMetaDataQuery } from './useMetaDataQuery';
 import { stringifyParameter } from '../../api';
 import { useRouter } from 'vue-router';
@@ -15,18 +15,18 @@ type Query = Record<string, string | null | (string | null)[]>;
 // Return the metadata for the current route
 export const useMetaDataForCurrentRoute = () => {
   const { datasetPath } = storeToRefs(useDatasetConfigStore());
-  const pathParams = computed(() => datasetPath.value ?? []);
+  const pathSegments = computed(() => datasetPath.value ?? []);
   const { currentRoute } = useRouter();
   const query = computed(() => currentRoute.value.query);
 
   console.log('useMetaDataForCurrentRoute');
 
-  return useMetaDataForRoute(pathParams, query);
+  return useMetaDataForRoute(pathSegments, query);
 };
 
 // Return the metadata for the route specified by the path params and query
 export const useMetaDataForRoute = (
-  pathParams: Ref<Readonly<PathParams>>,
+  pathSegments: Ref<Readonly<PathSegments>>,
   query: Ref<Query>
 ) => {
   const metaData = useMetaDataQuery();
@@ -34,7 +34,7 @@ export const useMetaDataForRoute = (
   const currentMetaData = computed(() => {
     const candidates = (metaData.data.value ?? [])
       .filter((md) => {
-        if (!pathsMatch(pathParams.value, md.pathParam)) {
+        if (!pathsMatch(pathSegments.value, md.pathSegments)) {
           return false;
         }
 
@@ -57,7 +57,7 @@ export const useMetaDataForRoute = (
   return { currentMetaData };
 };
 
-const pathsMatch = (path1: Readonly<PathParams>, path2: PathParams) =>
+const pathsMatch = (path1: Readonly<PathSegments>, path2: PathSegments) =>
   JSON.stringify(path1).localeCompare(JSON.stringify(path2)) === 0;
 
 const queryToObject = (query: Query) =>

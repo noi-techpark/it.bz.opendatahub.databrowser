@@ -6,5 +6,5 @@ import { DatasetRoute } from '../../../domain/datasetConfig/types';
 
 export const stationTypesRoute: DatasetRoute = {
   domain: 'mobility',
-  pathParams: ['v2', 'flat,node', '{stationTypes}'],
+  pathSegments: ['v2', 'flat,node', '{stationTypes}'],
 };

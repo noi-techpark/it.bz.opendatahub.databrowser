@@ -2,28 +2,28 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { computed, Ref, unref } from 'vue';
+import { computed, MaybeRef, toValue } from 'vue';
 import { RouteLocationNamedRaw, useRouter } from 'vue-router';
 import { DatasetPage } from '../../../routes';
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
 import { useApiParameterStore } from '../../api/service/apiParameterStore';
-// import { apiParameters } from '../../api/service/apiParameterHandler';
+import { PathSegments } from '../../datasetConfig/types';
 
-// TODO: make this file a store
+// TODO: make this file a store?
 
 export const usePaths = () => {
-  const datasetOverviewForId = (id: string | Ref<string>) =>
+  const datasetOverviewForId = (id: MaybeRef<string>) =>
     computed<RouteLocationNamedRaw>(() => ({
       name: 'OverviewDetailPage',
-      params: { id: unref(id) },
+      params: { id: toValue(id) },
     }));
 
-  const tableViewPathForId = (pathParams: string[] | Ref<string[]>) =>
+  const tableViewPathForId = (pathSegments: MaybeRef<PathSegments>) =>
     computed<RouteLocationNamedRaw>(() => ({
       name: DatasetPage.TABLE,
       params: {
         domain: 'tourism',
-        pathParams: unref(pathParams),
+        pathSegments: toValue(pathSegments),
       },
     }));
 
@@ -55,29 +55,29 @@ export const usePathsForCurrentRoute = () => {
     buildPath(DatasetPage.NEW, false)
   );
 
-  const detailViewPathForId = (id: string | Ref<string>) =>
+  const detailViewPathForId = (id: MaybeRef<string>) =>
     computed<RouteLocationNamedRaw>(() =>
-      buildPathForId(DatasetPage.DETAIL, unref(id))
+      buildPathForId(DatasetPage.DETAIL, toValue(id))
     );
-  const quickViewPathForId = (id: string | Ref<string>) =>
+  const quickViewPathForId = (id: MaybeRef<string>) =>
     computed<RouteLocationNamedRaw>(() =>
-      buildPathForId(DatasetPage.QUICK, unref(id))
+      buildPathForId(DatasetPage.QUICK, toValue(id))
     );
-  const rawViewPathForId = (id: string | Ref<string>) =>
+  const rawViewPathForId = (id: MaybeRef<string>) =>
     computed<RouteLocationNamedRaw>(() =>
-      buildPathForId(DatasetPage.RAW, unref(id))
+      buildPathForId(DatasetPage.RAW, toValue(id))
     );
-  const editViewPathForId = (id: string | Ref<string>) =>
+  const editViewPathForId = (id: MaybeRef<string>) =>
     computed<RouteLocationNamedRaw>(() =>
-      buildPathForId(DatasetPage.EDIT, unref(id))
+      buildPathForId(DatasetPage.EDIT, toValue(id))
     );
-  const tableViewPathForId = (id: string | Ref<string>) =>
+  const tableViewPathForId = (id: MaybeRef<string>) =>
     computed<RouteLocationNamedRaw>(() =>
-      buildPathForId(DatasetPage.TABLE, unref(id), false)
+      buildPathForId(DatasetPage.TABLE, toValue(id), false)
     );
-  const newViewPathForId = (id: string | Ref<string>) =>
+  const newViewPathForId = (id: MaybeRef<string>) =>
     computed<RouteLocationNamedRaw>(() =>
-      buildPathForId(DatasetPage.NEW, unref(id), false)
+      buildPathForId(DatasetPage.NEW, toValue(id), false)
     );
 
   return {

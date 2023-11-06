@@ -22,12 +22,13 @@ import {
 import { OpenApi, DomainWithOpenApiDocument } from '../../openApi/types';
 import {
   DatasetConfig,
-  Domain,
+  AnyDomain,
   DetailViewConfig,
   ListElements,
   ListViewConfig,
   OperationKey,
   PropertyConfig,
+  PathSegments,
 } from '../types';
 import { findCandidateConfigs } from '../utils';
 import {
@@ -45,7 +46,7 @@ type Resources = Record<ResourceName, DatasetConfig>;
 const isErrorMessage = (o: unknown): o is ErrorMessage =>
   o != null && typeof o === 'string';
 
-const loadDatasetConfig: LoadDatasetConfigFn = async (domain, pathParams) => {
+const loadDatasetConfig: LoadDatasetConfigFn = async (domain, pathSegments) => {
   if (!domainIsKnownToHaveOpenApiDocument(domain)) {
     return Promise.reject(
       `ODH domain ${domain} is unknown, not able to generate dataset config`
@@ -60,7 +61,7 @@ const loadDatasetConfig: LoadDatasetConfigFn = async (domain, pathParams) => {
 
   const configOrErrorMessage = findGeneratedDatasetConfig(
     domain,
-    pathParams,
+    pathSegments,
     document
   );
 
@@ -71,7 +72,7 @@ const loadDatasetConfig: LoadDatasetConfigFn = async (domain, pathParams) => {
 
 const findGeneratedDatasetConfig = (
   domain: DomainWithOpenApiDocument,
-  pathParams: string[],
+  pathSegments: PathSegments,
   document: OpenApi.Document
 ): DatasetConfig | ErrorMessage => {
   const parseResult = parse(domain, document);
@@ -80,15 +81,15 @@ const findGeneratedDatasetConfig = (
     return parseResult;
   }
 
-  const candidates = findCandidateConfigs(pathParams, parseResult);
+  const candidates = findCandidateConfigs(pathSegments, parseResult);
 
   if (candidates.length === 0) {
-    return `Not able to find a match for path "${pathParams}" in OpenAPI document for ODH domain ${domain}`;
+    return `Not able to find a match for path "${pathSegments}" in OpenAPI document for ODH domain ${domain}`;
   }
 
   if (candidates.length > 1) {
     console.debug(
-      `Found ${candidates.length} matches for path "${pathParams}" in OpenAPI document for ODH domain ${domain}`
+      `Found ${candidates.length} matches for path "${pathSegments}" in OpenAPI document for ODH domain ${domain}`
     );
   }
 
@@ -195,17 +196,17 @@ const getOrBuildBaseDatasetConfig = (
   isResourceInstancePath: boolean;
   resourcePath: string;
 } => {
-  const pathParams = path.split('/').filter((p) => p.trim().length > 0);
+  const pathSegments = path.split('/').filter((p) => p.trim().length > 0);
 
   // Check if the last path param is a resource instance ID
   const isResourceInstancePath =
-    domain === 'mobility' ? false : pathParams.at(-1)?.match('{.*}') != null;
+    domain === 'mobility' ? false : pathSegments.at(-1)?.match('{.*}') != null;
 
-  const resourcePathParams = isResourceInstancePath
-    ? pathParams.slice(0, -1)
-    : pathParams;
+  const resourcePathSegments = isResourceInstancePath
+    ? pathSegments.slice(0, -1)
+    : pathSegments;
 
-  const resourcePath = '/' + resourcePathParams.join('/');
+  const resourcePath = '/' + resourcePathSegments.join('/');
 
   if (knownDatasetConfigs[resourcePath] != null) {
     return {
@@ -221,12 +222,12 @@ const getOrBuildBaseDatasetConfig = (
       source: 'generated',
       route: {
         domain,
-        pathParams: resourcePathParams,
+        pathSegments: resourcePathSegments,
       },
       description: {
         title:
-          resourcePathParams.length > 0
-            ? resourcePathParams.slice(1).join('/')
+          resourcePathSegments.length > 0
+            ? resourcePathSegments.slice(1).join('/')
             : '',
       },
     },
@@ -378,7 +379,7 @@ const sortByMainOrderAndLocalCompare = (
 };
 
 const loadAllDatasetConfigs: LoadAllDatasetConfigsFn = async () => {
-  const result: Record<Domain, DatasetConfig[]> = {};
+  const result: Record<AnyDomain, DatasetConfig[]> = {};
 
   for (const domain of Object.keys(domainWithOpenApiDocument)) {
     const document = await useOpenApi().loadDocument(domain as any);

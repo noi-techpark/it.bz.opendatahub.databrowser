@@ -2,17 +2,17 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DatasetConfig, Domain } from '../types';
+import { DatasetConfig, AnyDomain, PathSegments } from '../types';
 
 export type DatasetConfigSource = 'any' | 'embedded' | 'generated';
 
 export type LoadDatasetConfigFn = (
-  domain: string,
-  pathParams: string[]
+  domain: AnyDomain,
+  pathSegments: PathSegments
 ) => Promise<DatasetConfig>;
 
 export type LoadAllDatasetConfigsFn = () => Promise<
-  Record<Domain, DatasetConfig[]>
+  Record<AnyDomain, DatasetConfig[]>
 >;
 
 export interface DatasetConfigLoader {

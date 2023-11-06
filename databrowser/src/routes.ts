@@ -24,32 +24,32 @@ export const router = createRouter({
       component: () => import('./pages/HomePage.vue'),
     },
     {
-      path: '/dataset/detail/:domain/:pathParams+/:id',
+      path: '/dataset/detail/:domain/:pathSegments+/:id',
       component: () => import('./pages/datasets/DatasetDetailPage.vue'),
       name: DatasetPage.DETAIL,
     },
     {
-      path: '/dataset/edit/:domain/:pathParams+/:id',
+      path: '/dataset/edit/:domain/:pathSegments+/:id',
       component: () => import('./pages/datasets/DatasetEditPage.vue'),
       name: DatasetPage.EDIT,
     },
     {
-      path: '/dataset/new/:domain/:pathParams+',
+      path: '/dataset/new/:domain/:pathSegments+',
       component: () => import('./pages/datasets/DatasetNewPage.vue'),
       name: DatasetPage.NEW,
     },
     {
-      path: '/dataset/quick/:domain/:pathParams+/:id',
+      path: '/dataset/quick/:domain/:pathSegments+/:id',
       component: () => import('./pages/datasets/DatasetQuickPage.vue'),
       name: DatasetPage.QUICK,
     },
     {
-      path: '/dataset/raw/:domain/:pathParams+/:id',
+      path: '/dataset/raw/:domain/:pathSegments+/:id',
       component: () => import('./pages/datasets/DatasetRawPage.vue'),
       name: DatasetPage.RAW,
     },
     {
-      path: '/dataset/table/:domain/:pathParams+',
+      path: '/dataset/table/:domain/:pathSegments+',
       component: () => import('./pages/datasets/DatasetTablePage.vue'),
       name: DatasetPage.TABLE,
     },

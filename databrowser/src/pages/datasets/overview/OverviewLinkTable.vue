@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       name: DatasetPage.TABLE,
       params: {
         domain: 'tourism',
-        pathParams: dataset.pathParam,
+        pathSegments: dataset.pathSegments,
       },
       query: dataset.apiFilter,
     }"

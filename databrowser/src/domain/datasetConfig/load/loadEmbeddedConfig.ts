@@ -6,19 +6,19 @@ import {
   embeddedDatasetConfigs,
   findEmbeddedDatasetConfig,
 } from '../../../config/config';
-import { DatasetConfig, Domain } from '../types';
+import { DatasetConfig, AnyDomain } from '../types';
 import {
   DatasetConfigLoader,
   LoadDatasetConfigFn,
   LoadAllDatasetConfigsFn,
 } from './types';
 
-const loadDatasetConfig: LoadDatasetConfigFn = async (domain, pathParams) => {
-  const config = findEmbeddedDatasetConfig(domain, pathParams);
+const loadDatasetConfig: LoadDatasetConfigFn = async (domain, pathSegments) => {
+  const config = findEmbeddedDatasetConfig(domain, pathSegments);
 
   if (config == null) {
     return Promise.reject(
-      `No embedded dataset config found for domain ${domain} and path ${pathParams}`
+      `No embedded dataset config found for domain ${domain} and path ${pathSegments}`
     );
   }
 
@@ -27,7 +27,7 @@ const loadDatasetConfig: LoadDatasetConfigFn = async (domain, pathParams) => {
 
 const loadAllDatasetConfigs: LoadAllDatasetConfigsFn = async () => {
   return Object.keys(embeddedDatasetConfigs).reduce<
-    Record<Domain, DatasetConfig[]>
+    Record<AnyDomain, DatasetConfig[]>
   >(
     (previous, domain) => ({
       ...previous,
