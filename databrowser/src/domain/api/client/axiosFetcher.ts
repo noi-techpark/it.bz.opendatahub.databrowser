@@ -96,61 +96,51 @@ export const useBaseAxiosFetch = <
   const isFinished = ref(false);
   const urlInternal = ref<string>();
 
-  watchEffect(
-    async () => {
-      // toValue() unwraps potential refs or getters
-      const urlValue = toValue(url);
+  watchEffect(async () => {
+    // toValue() unwraps potential refs or getters
+    const urlValue = toValue(url);
 
-      if (urlValue == null) {
-        console.debug('Fetch url is undefined, not fetching');
-        return;
-      }
-
-      // Reset state before fetching
-      error.value = null;
-      isLoading.value = true;
-      isFinished.value = false;
-
-      // Compute config
-      const config = await beforeFetch({
-        url: urlValue,
-        method,
-        data: payload,
-        headers: {
-          Accept: type,
-        },
-      });
-
-      // Set urlInternal because it may be overridden by beforeFetch
-      urlInternal.value = config.url;
-
-      await axiosInstance
-        .request<ResponseData>(config)
-        .then((response) => {
-          responseData.value = response.data;
-          return response;
-        })
-        .then(afterFetch)
-        .then((responseData) => (data.value = responseData))
-        .catch((err) => {
-          data.value = null;
-          error.value = err;
-          onFetchError(err);
-        })
-        .finally(() => {
-          isLoading.value = false;
-          isFinished.value = true;
-        });
-    },
-    {
-      onTrack(event) {
-        console.log('onTrack', event);
-      },
-      onTrigger(event) {
-        console.log('onTrigger', event);
-      },
+    if (urlValue == null) {
+      console.debug('Fetch url is undefined, not fetching');
+      return;
     }
-  );
+
+    // Reset state before fetching
+    error.value = null;
+    isLoading.value = true;
+    isFinished.value = false;
+
+    // Compute config
+    const config = await beforeFetch({
+      url: urlValue,
+      method,
+      data: payload,
+      headers: {
+        Accept: type,
+      },
+    });
+
+    // Set urlInternal because it may be overridden by beforeFetch
+    urlInternal.value = config.url;
+
+    await axiosInstance
+      .request<ResponseData>(config)
+      .then((response) => {
+        responseData.value = response.data;
+        return response;
+      })
+      .then(afterFetch)
+      .then((responseData) => (data.value = responseData))
+      .catch((err) => {
+        data.value = null;
+        error.value = err;
+        onFetchError(err);
+      })
+      .finally(() => {
+        isLoading.value = false;
+        isFinished.value = true;
+      });
+  });
 
   return {
     data,

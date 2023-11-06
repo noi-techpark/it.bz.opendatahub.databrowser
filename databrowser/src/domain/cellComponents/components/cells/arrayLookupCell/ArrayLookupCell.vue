@@ -9,30 +9,31 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <!-- eslint-disable-next-line vue/no-template-shadow -->
     <template #table="{ items }">
       <ArrayLookupTable
-        v-if="response.isSuccess"
+        v-if="isFinished && !isError"
         :options="options"
         :items="items"
         :unique="enableUniqueValue"
       />
+      <div v-else-if="isFinished && isError" class="flex justify-center">
+        <AlertError
+          :title="`Error fetching data from ${lookupUrl}`"
+          :content="JSON.stringify(error)"
+          class="w-1/2"
+        />
+      </div>
     </template>
   </EditListCell>
 </template>
 
 <script setup lang="ts">
 import { computed, toRefs } from 'vue';
-import { useQuery } from 'vue-query';
-import {
-  // replacePlaceholders,
-  // unifyPagination,
-  // useApiParameterReplacements,
-  useAxiosFetcher,
-} from '../../../../api';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import ArrayLookupTable from './ArrayLookupTable.vue';
-import * as R from 'ramda';
-import { SelectOption } from '../../../../../components/select/types';
-import { useApiParameterStore } from '../../../../api/service/apiParameterStore';
 import { unwrapData } from '../../../../api/dataExtraction/dataExtraction';
+import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
+import { useDatasetConfigStore } from '../../../../datasetConfig/store/datasetConfigStore';
+import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
+import AlertError from '../../../../../components/alert/AlertError.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -48,48 +49,24 @@ const props = withDefaults(
   }
 );
 
-const enableUniqueValue = computed(() => {
-  // if unique is a boolean, return it
-  if (typeof props.unique === 'boolean') {
-    return props.unique;
-  }
-  // if unique is a string, return the boolean value of the string
-  if (typeof props.unique === 'string') {
-    return props.unique.toLocaleLowerCase() === 'true';
-  }
-  return false;
-});
+const enableUniqueValue = computed(() =>
+  booleanOrStringToBoolean(props.unique, false)
+);
 
-const { lookupUrl: queryKey, keySelector, labelSelector } = toRefs(props);
+const { lookupUrl, keySelector, labelSelector } = toRefs(props);
 
-const queryFn = useAxiosFetcher();
-const response = useQuery({ queryKey, queryFn });
+const { getDataForField } = useDatasetConfigStore();
 
-// const replacements = useApiParameterReplacements();
-
-const options = computed<(SelectOption & { url: string })[]>(() => {
-  // const replace = (s: string): string =>
-  //   replacePlaceholders(s, replacements.value);
-  const { replaceWithApiParams } = useApiParameterStore();
-  const keySelectorWithReplacements = replaceWithApiParams(keySelector.value);
-  const labelSelectorWithReplacements = replaceWithApiParams(
-    labelSelector.value
-  );
-
-  if (response.isSuccess.value) {
-    const items = unwrapData(response.data.value?.data);
+const { data, error, isFinished, isError } = useBaseAxiosFetch(lookupUrl, {
+  afterFetch: (ctx) => {
+    const items = unwrapData(ctx.data);
     return items.map((item: any) => ({
-      label: getPropertyValue(item, labelSelectorWithReplacements),
-      value: getPropertyValue(item, keySelectorWithReplacements),
+      label: getDataForField(item, labelSelector.value) as any,
+      value: getDataForField(item, keySelector.value) as any,
       url: item.Url,
     }));
-  }
-  return [];
+  },
 });
 
-const getPropertyValue = (item: unknown, jsonPath: string) => {
-  const path = jsonPath.split('.');
-  const lensePath = R.lensPath(path);
-  return R.view(lensePath, item);
-};
+const options = computed(() => data.value ?? []);
 </script>
