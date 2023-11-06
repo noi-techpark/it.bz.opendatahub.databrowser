@@ -6,17 +6,16 @@ import { computed, Ref } from 'vue';
 import { PathParams } from '../../datasetConfig/types';
 import { useMetaDataQuery } from './useMetaDataQuery';
 import { stringifyParameter } from '../../api';
-// import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 import { useRouter } from 'vue-router';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { storeToRefs } from 'pinia';
 
 type Query = Record<string, string | null | (string | null)[]>;
 
 // Return the metadata for the current route
 export const useMetaDataForCurrentRoute = () => {
-  const datasetConfigStore = useDatasetConfigStore();
-  const pathParams = computed(
-    () => datasetConfigStore.config?.route.pathParams ?? []
-  );
+  const { datasetPath } = storeToRefs(useDatasetConfigStore());
+  const pathParams = computed(() => datasetPath.value ?? []);
   const { currentRoute } = useRouter();
   const query = computed(() => currentRoute.value.query);
 
@@ -27,7 +26,7 @@ export const useMetaDataForCurrentRoute = () => {
 
 // Return the metadata for the route specified by the path params and query
 export const useMetaDataForRoute = (
-  pathParams: Ref<PathParams>,
+  pathParams: Ref<Readonly<PathParams>>,
   query: Ref<Query>
 ) => {
   const metaData = useMetaDataQuery();
@@ -58,7 +57,7 @@ export const useMetaDataForRoute = (
   return { currentMetaData };
 };
 
-const pathsMatch = (path1: PathParams, path2: PathParams) =>
+const pathsMatch = (path1: Readonly<PathParams>, path2: PathParams) =>
   JSON.stringify(path1).localeCompare(JSON.stringify(path2)) === 0;
 
 const queryToObject = (query: Query) =>

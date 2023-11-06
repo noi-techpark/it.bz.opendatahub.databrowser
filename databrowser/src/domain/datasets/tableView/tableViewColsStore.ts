@@ -3,12 +3,16 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
-// import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { ListViewConfig } from '../../datasetConfig/types';
 
 export const useTableViewColsStore = defineStore('tableViewColsStore', {
   getters: {
     cols() {
-      return useDatasetConfigStore().tableView?.elements ?? [];
+      return (
+        (useDatasetConfigStore().view as ListViewConfig | undefined)
+          ?.elements ?? []
+      );
     },
   },
 });

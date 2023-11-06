@@ -38,21 +38,21 @@ import PopoverContentHeader from '../../../components/popover/PopoverContentHead
 import RadioCustom from '../../../components/radio/RadioCustom.vue';
 import { useI18n } from 'vue-i18n';
 import ThreeDotsPopup from '../../../components/popover/ThreeDotsPopover.vue';
-import { SourceType } from '../../datasetConfig/source/types';
+import { DatasetConfigSource } from '../../datasetConfig/loader/types';
 
 const { t } = useI18n();
 
-const props = defineProps<{ picked: SourceType }>();
+const props = defineProps<{ picked: DatasetConfigSource }>();
 const { picked } = toRefs(props);
 
 const emit = defineEmits<{
-  (event: 'pickedChange', source: SourceType): void;
+  (event: 'pickedChange', source: DatasetConfigSource): void;
 }>();
 
 const internalPicked = ref(picked.value);
 watch(picked, () => (internalPicked.value = picked.value));
 
-const changePicked = (value: SourceType) => {
+const changePicked = (value: DatasetConfigSource) => {
   internalPicked.value = value;
   emit('pickedChange', value);
 };

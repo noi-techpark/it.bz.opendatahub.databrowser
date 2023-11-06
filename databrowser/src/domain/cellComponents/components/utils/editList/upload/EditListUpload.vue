@@ -32,12 +32,9 @@ import {
   setDialogItems,
   clearDialogStore,
 } from '../dialogMultipleFilesLanguage/utils';
-import { useApiQuery } from '../../../../../api';
+import { useApiParameterStore } from '../../../../../api/service/apiParameterStore';
 
 const props = defineProps<{ type: FileType; hasLanguageDialog?: boolean }>();
-
-const { useApiParameter } = useApiQuery();
-const currentLanguage = useApiParameter('language');
 
 const { navigateToPrevious } = useInjectNavigation();
 
@@ -56,7 +53,9 @@ const uploadSuccess = (urls: string[], fileNames: string[]) => {
   addItems(items.map((item) => ({ src: item.src })));
 
   if (props.hasLanguageDialog) {
-    setDialogItems(items, currentLanguage.value);
+    const currentLanguage = useApiParameterStore().allApiParams.language;
+
+    setDialogItems(items, currentLanguage);
     dialog.value.isOpen = true;
     return;
   }

@@ -5,7 +5,7 @@
 import { parse } from 'date-fns';
 import { useQuery } from 'vue-query';
 import { withOdhBaseUrl } from '../../../config/utils';
-import { unifyPagination, useAxiosFetcher } from '../../api';
+import { WithTourismPagination, useAxiosFetcher } from '../../api';
 import { TourismMetaData } from './types';
 import { AxiosResponse } from 'axios';
 
@@ -42,20 +42,19 @@ const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
 
 export const useMetaDataQuery = () => {
   const queryKey = metaDataUrl;
-  const queryFn = useAxiosFetcher<OdhTourismMetaData>();
+  const queryFn = useAxiosFetcher<WithTourismPagination<OdhTourismMetaData>>();
   return useQuery({ queryKey, queryFn, select });
 };
 
 const select = (
-  data: AxiosResponse<OdhTourismMetaData, any>
+  data: AxiosResponse<WithTourismPagination<OdhTourismMetaData>, any>
 ): TourismMetaData[] => {
   if (data?.data == null) {
     return [];
   }
-  const paginationData = unifyPagination(data.data, {});
 
   // Map ODH MetaData to internal format
-  const itemsWithoutParentInfo = mapResponse(paginationData.items);
+  const itemsWithoutParentInfo = mapResponse(data.data.Items);
 
   // Add parent information to all sub-datasets
   return addParentInfo(itemsWithoutParentInfo);

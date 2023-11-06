@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DatasetConfig, ViewKey } from './types';
-import { usePropertyMapping } from '../api';
-import { buildFieldReplacer } from './fieldReplacer';
+import { DatasetConfig, ViewKey } from '../types';
+import { usePropertyMapping } from '../../api';
+import { buildFieldReplacer } from '../fieldReplacer';
 import { applyReplacementsToView } from './enhanceView';
 
 const { mapWithIndex } = usePropertyMapping();

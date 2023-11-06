@@ -60,32 +60,33 @@ import { DatasetConfig, DatasetDomain } from '../domain/datasetConfig/types';
 import AppLayout from '../layouts/AppLayout.vue';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import { useI18n } from 'vue-i18n';
-import { getDatasetConfigSources } from '../domain/datasetConfig/resolver';
 import { DatasetPage } from '../routes';
+import { findDatasetConfigProviders } from '../domain/datasetConfig/loader/dispatchingLoader';
 
 const { t } = useI18n();
 
 const isLoading = ref(true);
 
-const configs = ref<Record<DatasetDomain, DatasetConfig[]>>({});
+const configs = ref<Record<string, DatasetConfig[]>>({});
 
-const promises = getDatasetConfigSources('any').map((source) =>
-  source.getAllDatasetConfigs()
+const promises = findDatasetConfigProviders('any').map((source) =>
+  source.loadAllDatasetConfigs()
 );
 
 Promise.all(promises).then((sources) => {
-  const configsByDomain = sources.reduce<
-    Record<DatasetDomain, DatasetConfig[]>
-  >((previous, current) => {
-    Object.keys(current).forEach((domain) => {
-      const domainConfigs = previous[domain];
-      previous[domain] =
-        domainConfigs != null
-          ? [...domainConfigs, ...current[domain]]
-          : [...current[domain]];
-    });
-    return previous;
-  }, {});
+  const configsByDomain = sources.reduce<Record<string, DatasetConfig[]>>(
+    (previous, current) => {
+      Object.keys(current).forEach((domain) => {
+        const domainConfigs = previous[domain];
+        previous[domain] =
+          domainConfigs != null
+            ? [...domainConfigs, ...current[domain]]
+            : [...current[domain]];
+      });
+      return previous;
+    },
+    {}
+  );
 
   Object.values(configsByDomain).forEach((configs) =>
     configs.sort((a, b) => {

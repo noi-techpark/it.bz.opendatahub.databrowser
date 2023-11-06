@@ -28,17 +28,24 @@ export interface Pagination2 {
   currentPage: number;
   hasPrevious: boolean;
   hasNext: boolean;
-
-  // goToPage: (callbackFn: (value: number) => void) => (value: number) => void;
-  // changePageSize: (
-  //   callbackFn: (value: number) => void
-  // ) => (value: number) => void;
 }
 
-export interface PaginationWithCallback extends Pagination2 {
+export interface PaginationCallback {
   goToPage: (page: number) => void;
   changePageSize: (size: number) => void;
 }
+
+export type PaginationWithCallback = Pagination2 & PaginationCallback;
+
+export type PaginationWithCallbackProvider<T = unknown> = (
+  data: T
+) => PaginationWithCallback;
+
+export type ChangePagination<T = unknown> = (input: T) => Promise<unknown>;
+
+export type ChangePaginationWithQuery = ChangePagination<
+  Record<string, string | number>
+>;
 
 export interface PaginationData<T = unknown> {
   items: T[];

@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :show-edit-hint="false"
         :editable="false"
       />
-      <ExportDatasetsToolBox :url="apiPath" />
+      <ExportDatasetsToolBox :url="fullPath" />
     </div>
   </template>
 </template>
@@ -32,7 +32,7 @@ import ExportDatasetsToolBox from '../toolBox/ExportDatasetsToolBox.vue';
 import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
 import MainAndSubCategories from '../common/MainAndSubCategories.vue';
 import LoadingError from '../../../components/loading/LoadingError.vue';
-import { useSingleDatasetLoad } from '../common/load/useSingleDatasetLoad';
+import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
 
 const showAll = ref(false);
 
@@ -40,10 +40,10 @@ const {
   isError,
   data,
   error,
-  apiPath,
+  fullPath,
   slug,
   categories,
   subcategories,
   currentCategory,
-} = useSingleDatasetLoad();
+} = useSingleRecordLoad();
 </script>

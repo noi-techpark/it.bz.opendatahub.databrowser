@@ -12,7 +12,7 @@ export type PropertyConfigWithErrors = PropertyConfig & {
 export interface Category {
   name: string;
   slug: string;
-  to: RouteLocationRaw;
+  // to: RouteLocationRaw;
   subCategories: SubCategory[];
   isAnyFieldRequired?: boolean;
   isAnyFieldError?: boolean;

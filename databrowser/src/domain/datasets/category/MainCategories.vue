@@ -20,7 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         v-for="category in categories"
         :key="category.slug"
         class="px-4 py-1"
-        :to="category.to"
+        :to="categoryRouteLocation(category)"
         :active="slug === category.slug"
         :data-test="`desktop-main-category-${category.slug}`"
         @click="emit('change', category.slug)"
@@ -68,7 +68,12 @@ const setSelectedCategory = (slug: string) => {
   );
 
   if (nextCategory != null) {
-    router.push(nextCategory?.to);
+    router.push(categoryRouteLocation(nextCategory));
   }
 };
+
+const categoryRouteLocation = (category: Category) => ({
+  hash: `#${category.slug}`,
+  query: router.currentRoute.value.query,
+});
 </script>

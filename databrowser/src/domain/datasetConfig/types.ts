@@ -4,6 +4,7 @@
 
 import { DatasetConfigSource } from './loader/types';
 import { DomainWithOpenApiDocument } from '../openApi/types';
+import { MaybeRef } from 'vue';
 
 interface BasePropertyConfig {
   title: string;
@@ -167,23 +168,44 @@ export type Operations = NonNullable<DatasetConfig['operations']>;
 
 export type Domain = string;
 
-export type DatasetDomain =
+// TODO: rename to DatasetLocationDomain?
+type ResolvedDatasetDomain =
   | DomainWithOpenApiDocument
   // In case there is a URL parameter for the domain, but the domain is not known
   | 'unknown'
   // In case the current URL is not related to datasets
   | 'no-dataset-domain-in-url';
+export type DatasetDomain = ResolvedDatasetDomain;
+export type DatasetPath = string[];
+export type DatasetQuery = Record<string, string>;
+export type DatasetId = string;
 
-export interface DatasetPath {
-  pathParams: string[];
-  pathId?: string;
-}
-
-export interface DatasetLocation extends DatasetPath {
-  domain: DatasetDomain;
+export interface DatasetLocation {
+  // datasetDomain: DatasetDomain;
+  datasetPath: DatasetPath;
+  datasetQuery: DatasetQuery;
+  // datasetId?: DatasetId;
+  // The full path including base url, path, query and hash
+  fullPath: string;
 }
 
 export type CandidateConfig = {
   rank: number;
   config: DatasetConfig;
+};
+
+export type RouteDomain = string;
+export type RouteQuery = Record<string, string>;
+export type RoutePath = string[];
+export type RouteId = string;
+
+export interface RouteLocation {
+  routeDomain: RouteDomain;
+  routePath: RoutePath;
+  routeQuery: RouteQuery;
+  routeId?: RouteId;
+}
+
+export type ToMaybeRefs<T = any> = {
+  [K in keyof T]: MaybeRef<T[K]>;
 };

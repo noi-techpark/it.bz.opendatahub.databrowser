@@ -23,7 +23,7 @@ import { computed, toRefs } from 'vue';
 import { useQuery } from 'vue-query';
 import {
   // replacePlaceholders,
-  unifyPagination,
+  // unifyPagination,
   // useApiParameterReplacements,
   useAxiosFetcher,
 } from '../../../../api';
@@ -32,7 +32,7 @@ import ArrayLookupTable from './ArrayLookupTable.vue';
 import * as R from 'ramda';
 import { SelectOption } from '../../../../../components/select/types';
 import { useApiParameterStore } from '../../../../api/service/apiParameterStore';
-import { useRoute } from 'vue-router';
+import { extractListData } from '../../../../api/dataExtraction/dataExtraction';
 
 const props = withDefaults(
   defineProps<{
@@ -77,10 +77,7 @@ const options = computed<(SelectOption & { url: string })[]>(() => {
   );
 
   if (response.isSuccess.value) {
-    const { items } = unifyPagination(
-      response.data.value?.data,
-      useRoute().query
-    );
+    const items = extractListData(response.data.value?.data);
     return items.map((item: any) => ({
       label: getPropertyValue(item, labelSelectorWithReplacements),
       value: getPropertyValue(item, keySelectorWithReplacements),

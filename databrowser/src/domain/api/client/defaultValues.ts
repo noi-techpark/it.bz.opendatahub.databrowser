@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { Pagination } from './types';
+import { Pagination } from '../pagination/types';
 
 export const defaultPagination: Pagination = {
   totalItems: 0,

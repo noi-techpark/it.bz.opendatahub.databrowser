@@ -10,8 +10,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <AlertError :title="'Error!'" :content="error.message" />
     </div>
 
-    <div v-if="datasetConfigStore.isError">
-      <AlertError :title="'Error!'" :content="datasetConfigStore.error" />
+    <div v-if="isError">
+      <AlertError :title="'Error!'" :content="error?.message" />
     </div>
 
     <ContentDivider />
@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <ContentAlignmentX>
           <DatasetHeader />
         </ContentAlignmentX>
-        <template v-if="datasetConfigStore.config != null">
+        <template v-if="hasConfig">
           <slot></slot>
         </template>
       </div>
@@ -30,27 +30,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { onErrorCaptured, ref, watch } from 'vue';
+import { onErrorCaptured } from 'vue';
 import AppLayout from '../../layouts/AppLayout.vue';
 import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../../components/content/ContentDivider.vue';
 import DatasetHeader from '../../domain/datasets/header/DatasetHeader.vue';
-// import { useDatasetConfigStore } from '../../domain/datasetConfig/datasetConfigStore';
 import AlertError from '../../components/alert/AlertError.vue';
-import { useRoute } from 'vue-router';
+import { useDatasetConfigStore } from '../../domain/datasetConfig/store/datasetConfigStore';
+import { storeToRefs } from 'pinia';
 
-const datasetConfigStore = useDatasetConfigStore();
-
-watch(
-  useRoute(),
-  async (route, oldRoute) => {
-    console.log('DatasetBaseLayout route updated', route, oldRoute);
-    datasetConfigStore.changeRoute(route, oldRoute);
-  },
-  { immediate: true }
-);
-
-const error = ref<Error>();
+const { hasConfig, isError, error } = storeToRefs(useDatasetConfigStore());
 
 onErrorCaptured((hook) => {
   console.error('--------ERROR CAPTURED', hook);

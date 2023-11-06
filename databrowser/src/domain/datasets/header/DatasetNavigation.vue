@@ -75,6 +75,7 @@ import { usePathsForCurrentRoute } from './usePaths';
 import { computed } from 'vue';
 import { useTableViewRouteQueryStore } from '../tableView/tableViewRouteQueryStore';
 import { storeToRefs } from 'pinia';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 
 const { t } = useI18n();
 

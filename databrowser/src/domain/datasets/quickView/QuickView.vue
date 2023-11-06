@@ -22,11 +22,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         ></div>
       </div>
       <div
-        v-if="
-          quickView?.topGallery?.isVisible &&
-          imageGallery.length <= 1 &&
-          mainImage
-        "
+        v-if="topGallery?.isVisible && imageGallery.length <= 1 && mainImage"
         class="relative mt-5"
       >
         <img
@@ -47,13 +43,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </PageContent>
 
     <QuickViewFullscreenGallery
-      v-if="quickView?.topGallery?.isVisible && imageGallery.length > 1"
+      v-if="topGallery?.isVisible && imageGallery.length > 1"
       :images="imageGallery"
     />
 
     <PageContent>
       <div
-        v-for="(element, index) in quickView?.elements"
+        v-for="(element, index) in elements"
         :key="index"
         class="mt-3 max-lg:!w-auto lg:mt-6 lg:odd:float-left lg:even:float-right lg:even:ml-8"
         :style="{
@@ -77,24 +73,28 @@ import LoadingError from '../../../components/loading/LoadingError.vue';
 
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-
-import PageContent from '../../../components/content/PageContent.vue';
-import TagCustom from '../../../components/tag/TagCustom.vue';
-import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewFullscreenGallery.vue';
-
-import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
-
 import ComponentRenderer from '../../../components/componentRenderer/ComponentRenderer.vue';
-import { useSingleDatasetLoad } from '../common/load/useSingleDatasetLoad';
+import PageContent from '../../../components/content/PageContent.vue';
+import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewFullscreenGallery.vue';
+import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
+import TagCustom from '../../../components/tag/TagCustom.vue';
 import { usePropertyMapping } from '../../api';
+import { QuickViewConfig } from '../../datasetConfig/types';
+import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
+import { rowId } from '../tableView/utils';
 
 interface GalleryImage {
   ImageUrl: string;
   ImageDesc: Record<string, unknown>;
 }
 
-const { isError, data, error, quickView, getDataForField } =
-  useSingleDatasetLoad<Record<string, unknown>>();
+const { isError, data, error, view, getDataForField } = useSingleRecordLoad();
+const topGallery = computed(
+  () => (view.value as QuickViewConfig | undefined)?.topGallery
+);
+const elements = computed(
+  () => (view.value as QuickViewConfig | undefined)?.elements
+);
 
 const { mapWithIndex } = usePropertyMapping();
 
@@ -108,7 +108,7 @@ const title = computed(
 );
 
 const id = computed(() => {
-  return data.value?.Id;
+  return rowId(data.value as Record<string, unknown>);
 });
 
 const hasImage = computed(() => {
@@ -136,7 +136,7 @@ const mainImage = computed(() => {
 const imageGallery = computed(() => {
   const gallery = getDataForField.value(
     data.value,
-    quickView.value?.topGallery?.fields.gallery as string
+    topGallery.value?.fields.gallery as string
   );
   return (gallery ?? []) as GalleryImage[];
 });

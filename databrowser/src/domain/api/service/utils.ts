@@ -3,16 +3,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { AxiosError } from 'axios';
-import { computed, ref, Ref, watch } from 'vue';
-import { stringifyParameter } from './query';
+import { ref, Ref, watch } from 'vue';
 import { ParameterValue } from './types';
 import * as R from 'ramda';
 import {
   ArrayPropertyConfig,
   ObjectPropertyConfig,
 } from '../../datasetConfig/types';
-import { useApiParameterStore } from './apiParameterStore';
-import { storeToRefs } from 'pinia';
 
 export interface UseAsOptions {
   twoWayBinding?: boolean;

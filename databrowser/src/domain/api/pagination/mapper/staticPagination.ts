@@ -4,7 +4,7 @@
 
 import { Pagination2 } from '../..';
 
-export const defaultPaginationProvider = (): Pagination2 => ({
+export const staticPagination = (): Pagination2 => ({
   totalItems: 0,
   pageCount: 0,
   pageSize: 0,

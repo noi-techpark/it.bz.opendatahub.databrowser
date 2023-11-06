@@ -92,7 +92,7 @@ import {
   useEventSaveChanges,
   useEventDiscardChanges,
 } from '../../cellComponents/components/utils/editList/dialogMultipleFilesLanguage/utils';
-import { useSingleDatasetLoad } from '../common/load/useSingleDatasetLoad';
+import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
 
 const { t } = useI18n();
 
@@ -121,7 +121,7 @@ const {
   isError,
   data,
   error,
-  apiPath,
+  fullPath,
   slug,
   categories,
   subcategories,
@@ -129,7 +129,7 @@ const {
   hasEditView,
   editRecordSupported,
   isGeneratedSource,
-} = useSingleDatasetLoad();
+} = useSingleRecordLoad();
 
 const mutation = computed(() => (isNewView.value ? 'create' : 'update'));
 const {
@@ -140,7 +140,7 @@ const {
   mutateError,
   resetMutate,
   mutate,
-} = useApiMutate(apiPath, mutation);
+} = useApiMutate(fullPath, mutation);
 
 // Enhance categories and subcategories with any errors
 const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =

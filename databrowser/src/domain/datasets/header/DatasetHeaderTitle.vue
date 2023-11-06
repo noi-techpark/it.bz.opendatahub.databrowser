@@ -10,17 +10,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { computed } from 'vue';
-// import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
 import DatasetTitle from '../common/DatasetTitle.vue';
+import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 
-const datasetConfigStore = useDatasetConfigStore();
+const { description } = useDatasetConfigStore();
 const { currentMetaData } = useMetaDataForCurrentRoute();
 
 const datasetTitleInfo = computed(
   () =>
     currentMetaData.value ?? {
-      shortname: datasetConfigStore.config?.description?.title ?? 'Untitled',
+      shortname: description?.title ?? 'Untitled',
     }
 );
 </script>

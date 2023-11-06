@@ -8,6 +8,9 @@ import { tourismEmbeddedDatasetConfigs } from './tourism';
 
 type EmbeddedDatasetConfigs = Record<Domain, Record<string, DatasetConfig>>;
 
+const pathParamsToKey = (pathParams: string[]): string =>
+  '/' + pathParams.join('/');
+
 const mapDatasetConfigs = (
   datasetConfigs: DatasetConfig[]
 ): EmbeddedDatasetConfigs => {
@@ -69,6 +72,3 @@ export const findEmbeddedDatasetConfig = (
   console.log('#### matching config', matchingConfig);
   return matchingConfig;
 };
-
-const pathParamsToKey = (pathParams: string[]): string =>
-  '/' + pathParams.join('/');

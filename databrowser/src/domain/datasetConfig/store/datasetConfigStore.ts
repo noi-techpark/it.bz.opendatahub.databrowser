@@ -3,161 +3,120 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
-import { readonly, ref, watch } from 'vue';
-import { stringifyQuery, useRouter } from 'vue-router';
-import {
-  computeDatasetDomain,
-  computeDatasetPath,
-  computeViewKey,
-} from '../routeConverter';
-import { DatasetDomain, DatasetPath, ViewConfig, ViewKey } from '../types';
+import { computed, readonly, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { useDatasetSourceStore } from './datasetSourceStore';
-import { useDatasetConfig } from '../datasetConfigResolver';
-import { stringifyRouteQueryValues } from '../utils';
-import { DatasetConfigSource } from '../loader/types';
-import { buildFieldReplacer } from '../fieldReplacer';
-import { usePropertyMapping } from '../../api';
-import { applyReplacementsToView } from '../enhanceView';
-import { getDatasetApiUrlInfo } from '../useDatasetApiPath';
-import { getDatasetViewInfo } from '../useDatasetView';
-
-const { mapWithIndex } = usePropertyMapping();
+import { useDatasetConfigResolver } from '../datasetConfigResolver';
+import { useDatasetConfigSourceComputations } from '../source/sourceType';
+import { useComputeViewPresence } from '../view/viewPresence';
+import { useComputeDatasetViewInfo } from '../view/datasetViewInfo';
+import { useComputeDatasetPermission } from '../permission/datasetPermission';
+import { useComputeRouteLocation } from '../location/routeLocation';
+import { useComputeDatasetLocation } from '../location/datasetLocation';
+import { useComputeDatasetReplacement } from '../replacement/datasetReplacement';
 
 export const useDatasetConfigStore = defineStore('datasetConfigStore', () => {
   const router = useRouter();
   const datasetSourceStore = useDatasetSourceStore();
   const { source } = storeToRefs(datasetSourceStore);
 
-  const datasetSource = ref<DatasetConfigSource>();
-  const datasetDomain = ref<DatasetDomain>();
-  const datasetPath = ref<DatasetPath>();
+  const { routeDomain, routePath, routeId, routeQuery } =
+    useComputeRouteLocation(router.currentRoute);
 
-  const viewKey = ref<ViewKey>();
-  const urlQuery = ref<Record<string, string>>();
+  const { isResolving, isError, datasetConfig, error } =
+    useDatasetConfigResolver(source, routeDomain, routePath);
 
-  const view = ref<ViewConfig>();
-  const getDataForField = ref<(data: unknown, name: string) => unknown>();
-  const apiPath = ref<string>();
-
+  // Update source
+  // TODO: maybe better to bring source into this store?
   watch(
-    [router.currentRoute, source],
-    async ([routeValue, sourceValue]) => {
-      // Handle routing changes
-      datasetSource.value = sourceValue;
-      datasetDomain.value = computeDatasetDomain(routeValue.params.domain);
-      datasetPath.value = computeDatasetPath(routeValue);
-      viewKey.value = computeViewKey(routeValue);
-      urlQuery.value = stringifyRouteQueryValues(routeValue.query);
+    datasetConfig,
+    (c) => {
+      if (c != null) {
+        source.value = c.source;
+      }
     },
     { immediate: true }
   );
 
-  const { isResolving, datasetConfig } = useDatasetConfig(
-    datasetSource,
-    datasetDomain,
-    datasetPath.value?.pathParams
-  );
+  // Compute source type
+  const { isEmbeddedSource, isGeneratedSource } =
+    useDatasetConfigSourceComputations(datasetConfig);
 
-  watch(
-    [isResolving],
-    (isResolvingValue) => {
-      // Some sanity checks
-      if (isResolvingValue) {
-        return;
-      }
+  // Compute view presence
+  const {
+    hasTableView,
+    hasDetailView,
+    hasEditView,
+    hasNewView,
+    hasQuickView,
+    hasRawView,
+  } = useComputeViewPresence(datasetConfig);
 
-      if (datasetConfig.value == null) {
-        console.warn('Dataset config is undefined');
-        return;
-      }
+  const routeName = computed(() => router.currentRoute.value.name);
+  const {
+    isTableView,
+    isDetailView,
+    isEditView,
+    isNewView,
+    isQuickView,
+    isRawView,
+    viewKey,
+  } = useComputeDatasetViewInfo(routeName);
 
-      if (viewKey.value == null) {
-        console.warn('View key is undefined');
-        return;
-      }
+  const { datasetPath, datasetQuery, fullPath } = useComputeDatasetLocation({
+    datasetConfig,
+    viewKey,
+    routePath,
+    routeId,
+    routeQuery,
+  });
 
-      if (datasetPath.value == null) {
-        console.warn('Dataset path is undefined');
-        return;
-      }
+  const { view, getDataForField } = useComputeDatasetReplacement({
+    datasetConfig,
+    viewKey,
+    datasetQuery,
+  });
 
-      // Set dataset source in store from resolved dataset config
-      // This is necessary, because the resolved dataset config
-      // might have a different source than the one in the store
-      // (e.g. when a dataset config fallback is used)
-      source.value = datasetConfig.value.source;
-
-      // Compute
-      // - view
-      // - query params (with respect do default query params)
-      // - field replacement function
-      // - api path
-      // const apiQuery = {
-      //   ...(datasetConfig.value.views?.[viewKey.value]?.defaultQueryParams ??
-      //     {}),
-      //   ...urlQuery.value,
-      // };
-
-      // apiPath.value = computeApiPath(
-      //   datasetConfig.value.baseUrl,
-      //   datasetPath.value,
-      //   apiQuery
-      // );
-
-      const urlInfo = getDatasetApiUrlInfo({
-        datasetConfig: datasetConfig.value,
-        viewKey: viewKey.value,
-        datasetPath: datasetPath.value,
-        urlQuery: urlQuery.value ?? {},
-      });
-      apiPath.value = urlInfo.apiPath;
-
-      const viewInfo = getDatasetViewInfo({
-        datasetConfig: datasetConfig.value,
-        viewKey: viewKey.value,
-        apiQuery: urlInfo.apiQuery ?? {},
-      });
-      getDataForField.value = viewInfo.getDataForField;
-      view.value = viewInfo.view;
-      // const { replaceFields } = buildFieldReplacer(urlInfo.apiQuery);
-      // getDataForField.value = (data: unknown, name: string) => {
-      //   const fieldWithReplacements = replaceFields({
-      //     field: name,
-      //   });
-      //   return mapWithIndex(data, fieldWithReplacements).field;
-      // };
-
-      // view.value = applyReplacementsToView(
-      //   viewKey.value,
-      //   datasetConfig.value,
-      //   replaceFields
-      // );
-    },
-    { immediate: true }
-  );
+  const operations = computed(() => datasetConfig.value?.operations);
+  const { addRecordSupported, editRecordSupported, deleteRecordSupported } =
+    useComputeDatasetPermission({
+      hasEditView,
+      hasNewView,
+      isEmbeddedSource,
+      operations,
+    });
 
   return {
     isResolving: readonly(isResolving),
+    isError,
+    error,
+    hasConfig: computed(() => datasetConfig.value != null),
     view: readonly(view),
+    description: computed(() => datasetConfig.value?.description),
     getDataForField: readonly(getDataForField),
-    apiPath: readonly(apiPath),
-    datasetDomain: readonly(datasetDomain),
+    fullPath: readonly(fullPath),
+    datasetQuery: readonly(datasetQuery),
+    datasetDomain: readonly(routeDomain),
+    datasetPath: readonly(datasetPath),
+    isEmbeddedSource: readonly(isEmbeddedSource),
+    isGeneratedSource: readonly(isGeneratedSource),
+    hasTableView: readonly(hasTableView),
+    hasDetailView: readonly(hasDetailView),
+    hasEditView: readonly(hasEditView),
+    hasNewView: readonly(hasNewView),
+    hasQuickView: readonly(hasQuickView),
+    hasRawView: readonly(hasRawView),
+    isTableView: readonly(isTableView),
+    isDetailView: readonly(isDetailView),
+    isEditView: readonly(isEditView),
+    isNewView: readonly(isNewView),
+    isQuickView: readonly(isQuickView),
+    isRawView: readonly(isRawView),
+    addRecordSupported: readonly(addRecordSupported),
+    editRecordSupported: readonly(editRecordSupported),
+    deleteRecordSupported: readonly(deleteRecordSupported),
   };
 });
-
-const computeApiPath = (
-  baseUrl: string,
-  datasetPath: DatasetPath,
-  query: Record<string, string>
-) => {
-  const { pathParams, pathId } = datasetPath;
-
-  const url = `${baseUrl}/${pathParams.join('/')}`;
-  const fullPath = pathId == null ? url : `${url}/${pathId}`;
-
-  const queryString = stringifyQuery(query);
-  return `${fullPath}${queryString.length === 0 ? '' : queryString}`;
-};
 
 // Add support for hot-module-reload
 if (import.meta.hot) {

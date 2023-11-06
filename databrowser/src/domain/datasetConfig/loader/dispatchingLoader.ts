@@ -47,7 +47,7 @@ export const loadDatasetConfig = async (
   throw new Error(`No dataset config found for source`);
 };
 
-const findDatasetConfigProviders = (
+export const findDatasetConfigProviders = (
   source: DatasetConfigSource
 ): DatasetConfigLoader[] => {
   if (source === 'any') {

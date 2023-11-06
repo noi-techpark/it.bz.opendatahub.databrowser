@@ -87,7 +87,8 @@ export const useBaseAxiosFetch = <
   ({} as UseAxiosFetchOptions<ReturnData, ResponseData, RequestData>);
 
   // Need to cast type for data in order to make it work with shallowRef
-  const data = shallowRef(null) as Ref<ReturnData | null>;
+  const data = shallowRef<ReturnData | null>(null);
+  const responseData = shallowRef<ResponseData | null>(null);
   const error = shallowRef<unknown>(null);
   const isLoading = ref(false);
   const isFinished = ref(false);
@@ -122,6 +123,10 @@ export const useBaseAxiosFetch = <
 
     await axiosInstance
       .request<ResponseData>(config)
+      .then((response) => {
+        responseData.value = response.data;
+        return response;
+      })
       .then(afterFetch)
       .then((responseData) => (data.value = responseData))
       .catch((err) => {
@@ -137,6 +142,7 @@ export const useBaseAxiosFetch = <
 
   return {
     data,
+    responseData,
     error,
     isLoading,
     isFinished,

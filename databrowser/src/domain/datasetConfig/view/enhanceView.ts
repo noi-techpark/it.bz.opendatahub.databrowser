@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { FieldsReplacer } from './fieldReplacer';
+import { FieldsReplacer } from '../fieldReplacer';
 import {
   DatasetConfig,
   ListViewConfig,
@@ -12,9 +12,8 @@ import {
   NewViewConfig,
   QuickViewConfig,
   ViewKey,
-  RawViewConfig,
   ViewConfig,
-} from './types';
+} from '../types';
 
 export const applyReplacementsToView = (
   viewKey: ViewKey,

@@ -10,12 +10,12 @@ export {
   useApiUpdate,
   useApiMutate,
 } from './client/useApiMutation';
-export * from './client/mapper';
+// export * from './client/mapper';
 export {
   useAxiosFetcher,
   useAxiosFileDownloader,
 } from './client/fetcher/axios';
-export * from './client/types';
+export * from './pagination/types';
 
 // export { useApiParameterHandler } from './service/apiParameterHandler';
 export { stringifyParameter } from './service/query';
