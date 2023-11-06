@@ -4,8 +4,8 @@
 
 import { DatasetConfig } from '../types';
 import { DatasetConfigLoader, DatasetConfigSource } from './types';
-import { providerForEmbeddedDatasetConfig } from './embeddedConfigLoader';
-import { providerForGeneratedDatasetConfig } from './generatedConfigLoader';
+import { providerForEmbeddedDatasetConfig } from './loadEmbeddedConfig';
+import { providerForGeneratedDatasetConfig } from './loadGeneratedConfig';
 
 const datasetConfigProviders: DatasetConfigLoader[] = [
   providerForEmbeddedDatasetConfig,
@@ -44,7 +44,9 @@ export const loadDatasetConfig = async (
     }
   }
 
-  throw new Error(`No dataset config found for source`);
+  throw new Error(
+    `No dataset config found for domain ${domain} and path ${pathParams}`
+  );
 };
 
 export const findDatasetConfigProviders = (

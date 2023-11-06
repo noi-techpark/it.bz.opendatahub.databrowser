@@ -4,11 +4,28 @@
 
 import { DatasetConfig } from './types';
 import { MaybeRef, ref, toValue, watch } from 'vue';
-import { DatasetConfigSource } from './loader/types';
-import { loadDatasetConfig } from './loader/dispatchingLoader';
+import { DatasetConfigSource } from './load/types';
+import { loadDatasetConfig } from './load/datasetConfigLoader';
 import { toError } from '../utils/errorConverter';
 
-export const useDatasetConfigResolver = (
+export const resolveDatasetConfig = async (
+  preferredSource: DatasetConfigSource | undefined,
+  domain: string | undefined,
+  path: string[] | undefined
+) => {
+  if (preferredSource == null || domain == null || path == null) {
+    console.group('Could not resolve data config: missing parameters');
+    console.debug('Preferred source', preferredSource);
+    console.debug('Domain', domain);
+    console.debug('Path params', path);
+    console.groupEnd();
+    return;
+  }
+
+  return await loadDatasetConfig(preferredSource, domain, path);
+};
+
+export const useResolveDatasetConfig = (
   preferredSource: MaybeRef<DatasetConfigSource | undefined>,
   domain: MaybeRef<string | undefined>,
   path: MaybeRef<string[] | undefined>
@@ -29,24 +46,8 @@ export const useDatasetConfigResolver = (
       isError.value = false;
       error.value = undefined;
 
-      if (
-        preferredSourceValue == null ||
-        domainValue == null ||
-        pathValue == null
-      ) {
-        console.group('Could not resolve data config: missing parameters');
-        console.debug('Preferred source', preferredSourceValue);
-        console.debug('Domain', domainValue);
-        console.debug('Path params', pathValue);
-        console.groupEnd();
-        datasetConfig.value = undefined;
-
-        isResolving.value = false;
-        return;
-      }
-
       try {
-        datasetConfig.value = await loadDatasetConfig(
+        datasetConfig.value = await resolveDatasetConfig(
           preferredSourceValue,
           domainValue,
           pathValue

@@ -10,14 +10,14 @@ import {
   ViewKey,
 } from '../types';
 import { usePropertyMapping } from '../../api';
-import { buildFieldReplacer } from '../fieldReplacer';
+import { buildFieldReplacer } from './fieldReplacer';
 import { applyReplacementsToView } from '../view/enhanceView';
 import { reactiveComputed } from '@vueuse/core';
 import { ToRefs, toRefs, toValue } from 'vue';
 
 const { mapWithIndex } = usePropertyMapping();
 
-interface ComputeDatasetReplacement {
+interface ComputeDatasetConfigReplacement {
   view: ViewConfig | undefined;
   getDataForField: (data: unknown, name: string) => unknown;
 }
@@ -28,11 +28,11 @@ interface ComputeDatasetReplacementParams {
   datasetQuery: DatasetQuery | undefined;
 }
 
-export const computeDatasetReplacement = ({
+export const computeDatasetConfigReplacement = ({
   datasetConfig,
   viewKey,
   datasetQuery,
-}: ComputeDatasetReplacementParams): ComputeDatasetReplacement => {
+}: ComputeDatasetReplacementParams): ComputeDatasetConfigReplacement => {
   const { replaceFields } = buildFieldReplacer(datasetQuery);
   const getDataForField = (data: unknown, name: string) => {
     const fieldWithReplacements = replaceFields({
@@ -56,15 +56,15 @@ export const computeDatasetReplacement = ({
   };
 };
 
-export const useComputeDatasetReplacement = (
+export const useComputeDatasetConfigReplacement = (
   params: ToMaybeRefs<ComputeDatasetReplacementParams>
-): ToRefs<ComputeDatasetReplacement> => {
+): ToRefs<ComputeDatasetConfigReplacement> => {
   const result = reactiveComputed(() => {
     const datasetConfig = toValue(params.datasetConfig);
     const viewKey = toValue(params.viewKey);
     const datasetQuery = toValue(params.datasetQuery);
 
-    return computeDatasetReplacement({
+    return computeDatasetConfigReplacement({
       datasetConfig,
       viewKey,
       datasetQuery,

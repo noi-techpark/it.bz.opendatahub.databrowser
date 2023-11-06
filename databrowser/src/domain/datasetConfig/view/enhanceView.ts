@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { FieldsReplacer } from '../fieldReplacer';
+import { FieldsReplacer } from '../replace/fieldReplacer';
 import {
   DatasetConfig,
   ListViewConfig,

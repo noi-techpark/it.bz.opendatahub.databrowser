@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { DatasetConfigSource } from '../loader/types';
+import { DatasetConfigSource } from '../load/types';
 
 interface State {
   source: DatasetConfigSource;

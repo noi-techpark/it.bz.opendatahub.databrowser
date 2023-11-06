@@ -6,14 +6,14 @@ import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
 import { computed, readonly, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDatasetSourceStore } from './datasetSourceStore';
-import { useDatasetConfigResolver } from '../datasetConfigResolver';
-import { useDatasetConfigSourceComputations } from '../source/sourceType';
+import { useResolveDatasetConfig } from '../datasetConfigResolver';
+import { useDatasetConfigSourceComputations } from '../source/datasetConfigSource';
 import { useComputeViewPresence } from '../view/viewPresence';
 import { useComputeDatasetViewInfo } from '../view/datasetViewInfo';
 import { useComputeDatasetPermission } from '../permission/datasetPermission';
 import { useComputeRouteLocation } from '../location/routeLocation';
 import { useComputeDatasetLocation } from '../location/datasetLocation';
-import { useComputeDatasetReplacement } from '../replacement/datasetReplacement';
+import { useComputeDatasetConfigReplacement } from '../replace/datasetConfigReplacement';
 
 export const useDatasetConfigStore = defineStore('datasetConfigStore', () => {
   const router = useRouter();
@@ -24,7 +24,7 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', () => {
     useComputeRouteLocation(router.currentRoute);
 
   const { isResolving, isError, datasetConfig, error } =
-    useDatasetConfigResolver(source, routeDomain, routePath);
+    useResolveDatasetConfig(source, routeDomain, routePath);
 
   // Update source
   // TODO: maybe better to bring source into this store?
@@ -71,7 +71,7 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', () => {
     routeQuery,
   });
 
-  const { view, getDataForField } = useComputeDatasetReplacement({
+  const { view, getDataForField } = useComputeDatasetConfigReplacement({
     datasetConfig,
     viewKey,
     datasetQuery,

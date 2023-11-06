@@ -99,42 +99,6 @@ export const toErrorString = (error: unknown): string => {
   return JSON.stringify(error);
 };
 
-// export const useApiParameterReplacements = () => {
-//   const { allApiParams } = storeToRefs(useApiParameterStore());
-//   // const { allApiParameters } = useApiParameterHandler();
-
-//   return computed(() => {
-//     console.log('------------allApiParameters', allApiParams.value);
-
-//     return Object.entries(allApiParameters.value).reduce<
-//       Record<string, string>
-//     >(
-//       (previous, [key, value]) => ({
-//         ...previous,
-//         [key]: stringifyParameter(value),
-//       }),
-//       {}
-//     );
-//   });
-// };
-// let counter = 0;
-
-// export const useReplaceWithApiParameters = () => {
-//   // const replacements = useApiParameterReplacements();
-//   // console.log('replacements', JSON.stringify(replacements.value));
-//   // console.log('replacements');
-//   const internalCounter = counter++;
-//   console.log('replacements', internalCounter);
-
-//   const replace = (s: string): string => {
-//     console.log('replacing', internalCounter);
-//     const replacements = useApiParameterStore().allApiParams;
-//     return replacePlaceholders(s, replacements);
-//   };
-
-//   return { replace };
-// };
-
 export const usePropertyMapping = () => {
   // const replacements = useApiParameterReplacements();
 

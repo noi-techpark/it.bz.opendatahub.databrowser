@@ -9,7 +9,7 @@ export type FieldsReplacer = (
 export const buildFieldReplacer = (
   replacements: Record<string, string> = {}
 ): { replaceFields: FieldsReplacer } => {
-  // Replace all placeholders in a string with the corresponding API parameter
+  // Replace all placeholders in a string with the corresponding replacement
   const replaceWithParams = (s: string): string =>
     s.replace(
       /\{([^}]+)\}/g,
