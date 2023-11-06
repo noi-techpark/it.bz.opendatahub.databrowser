@@ -58,6 +58,7 @@ interface UseAxiosFetchOptions<
   afterFetch?: AfterFetchFn<ReturnData, ResponseData>;
   onFetchError?: (ctx: OnFetchErrorContext) => void;
   instance?: AxiosInstance;
+  enabled?: MaybeRef<boolean>;
 }
 
 /**
@@ -85,6 +86,7 @@ export const useBaseAxiosFetch = <
     afterFetch = (ctx) => ctx.data as unknown as ReturnData,
     onFetchError = (ctx) => ctx,
     instance: axiosInstance = axios.create(),
+    enabled,
   } = options ??
   ({} as UseAxiosFetchOptions<ReturnData, ResponseData, RequestData>);
 
@@ -97,6 +99,11 @@ export const useBaseAxiosFetch = <
   const urlInternal = ref<string>();
 
   watchEffect(async () => {
+    // Do nothing if request is not enabled
+    if (toValue(enabled) === false) {
+      return;
+    }
+
     // toValue() unwraps potential refs or getters
     const urlValue = toValue(url);
 
@@ -142,13 +149,17 @@ export const useBaseAxiosFetch = <
       });
   });
 
+  const isError = computed(() => error.value != null);
+  const isSuccess = computed(() => isFinished.value && !isError.value);
+
   return {
     data,
     responseData,
     error,
     isLoading,
     isFinished,
-    isError: computed(() => error.value != null),
+    isSuccess,
+    isError,
     url: urlInternal,
   };
 };

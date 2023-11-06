@@ -41,6 +41,8 @@ interface OdhTourismMetaData {
 const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
 
 export const useMetaDataQuery = () => {
+  console.log('asdasd');
+
   const queryKey = metaDataUrl;
   const queryFn = useAxiosFetcher<WithTourismPagination<OdhTourismMetaData>>();
   return useQuery({ queryKey, queryFn, select });
