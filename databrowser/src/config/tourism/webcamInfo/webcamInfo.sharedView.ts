@@ -37,7 +37,7 @@ export const webcamInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Area Ids',
               component: CellComponent.ArrayCell,
-              fields: {
+              propertyMappings: {
                 items: 'AreaIds',
               },
               params: {
@@ -62,17 +62,17 @@ export const webcamInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'WebCamProperties.WebcamUrl' },
+              propertyMappings: { text: 'WebCamProperties.WebcamUrl' },
             },
             {
               title: 'Stream URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'WebCamProperties.StreamUrl' },
+              propertyMappings: { text: 'WebCamProperties.StreamUrl' },
             },
             {
               title: 'Preview URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'WebCamProperties.PreviewUrl' },
+              propertyMappings: { text: 'WebCamProperties.PreviewUrl' },
             },
           ],
         },

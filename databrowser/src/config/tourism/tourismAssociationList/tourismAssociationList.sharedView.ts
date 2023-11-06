@@ -37,7 +37,7 @@ export const tourismAssociationListSharedView = ():
             {
               title: 'Ski Area Ids',
               component: CellComponent.ArrayCell,
-              fields: {
+              propertyMappings: {
                 items: 'SkiAreaIds',
               },
               params: {

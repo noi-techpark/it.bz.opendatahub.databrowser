@@ -27,11 +27,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <template #container>
         <PopoverCustomPanel v-slot="{ close }">
           <PopoverContentHeader class="pb-0">Sort</PopoverContentHeader>
-          <SortPopoverContent :field="field" />
+          <SortPopoverContent :property-path="propertyPath" />
 
           <PopoverContentHeader class="py-0">Filter</PopoverContentHeader>
           <FilterPopoverContent
-            :field="field"
+            :property-path="propertyPath"
             :title="title"
             @add-filter="close"
           />
@@ -51,23 +51,27 @@ import IconFilter from '../../../components/svg/IconFilter.vue';
 import IconSortAsc from '../../../components/svg/IconSortAsc.vue';
 import IconSortDesc from '../../../components/svg/IconSortDesc.vue';
 import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
-import { useTableFilterForField } from './filter/useTableFilter';
-import { useTableSortForField } from './sort/useTableSort';
+import { useTableFilterForPropertyPath } from './filter/useTableFilter';
+import { useTableSortForPropertyPath } from './sort/useTableSort';
 import SortPopoverContent from './sort/SortPopoverContent.vue';
 import FilterPopoverContent from './filter/FilterPopoverContent.vue';
+import { PropertyPath } from '../../datasetConfig/types';
 
 const props = withDefaults(
   defineProps<{
     title: string;
-    field?: string;
+    propertyPath?: PropertyPath;
   }>(),
-  { field: undefined }
+  { propertyPath: undefined }
 );
 
-const { title, field } = toRefs(props);
+const { title, propertyPath } = toRefs(props);
 
 const { canSort, isCurrentSortAsc, isCurrentSortDesc } =
-  useTableSortForField(field);
+  useTableSortForPropertyPath(propertyPath);
 
-const { canFilter, isFilterActive } = useTableFilterForField(title, field);
+const { canFilter, isFilterActive } = useTableFilterForPropertyPath(
+  title,
+  propertyPath
+);
 </script>

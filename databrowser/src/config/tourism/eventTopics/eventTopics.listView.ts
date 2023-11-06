@@ -13,7 +13,7 @@ export const eventTopicsListView: ListViewConfig = {
       title: 'Bitmask',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         text: 'Bitmask',
       },
     },
@@ -21,7 +21,7 @@ export const eventTopicsListView: ListViewConfig = {
       title: 'Type',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         text: 'Type',
       },
     },
@@ -29,7 +29,7 @@ export const eventTopicsListView: ListViewConfig = {
       title: 'TypeDesc',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         text: 'TypeDesc.{language}',
       },
     },

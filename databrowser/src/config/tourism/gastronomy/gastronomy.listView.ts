@@ -24,11 +24,11 @@ export const gastronomyListView: ListViewConfig = {
       title: 'Tags',
       component: CellComponent.ArrayTagsCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         items: 'CategoryCodes',
       },
       params: {
-        fieldName: 'Shortname',
+        propertyName: 'Shortname',
         separator: ', ',
         max: '3',
       },

@@ -14,7 +14,7 @@ export const relatedcontentCell = (): PropertyConfig => ({
   listFields: {
     attributeName: 'relatedcontent',
     pathToParent: 'RelatedContent',
-    fields: {
+    propertyMappings: {
       id: 'Id',
       type: 'Type',
     },

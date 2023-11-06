@@ -24,7 +24,7 @@ export const odhActivityPoiListView: ListViewConfig = {
       title: 'Categories',
       component: CellComponent.ArrayCell,
       class: 'w-52',
-      fields: {
+      propertyMappings: {
         items: 'AdditionalPoiInfos.{language}.Categories',
       },
       params: {
@@ -36,7 +36,7 @@ export const odhActivityPoiListView: ListViewConfig = {
       title: 'Web-URL',
       component: CellComponent.UrlCell,
       class: 'w-52',
-      fields: { text: 'ContactInfos.{language}.Url' },
+      propertyMappings: { text: 'ContactInfos.{language}.Url' },
     },
     languageTableCell(),
     lastChangesTableCell(),
@@ -45,7 +45,7 @@ export const odhActivityPoiListView: ListViewConfig = {
       title: 'Source state',
       component: CellComponent.StateCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         state: 'Active',
       },
       // filter: {

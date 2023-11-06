@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { Pagination, defaultPagination } from '../../api';
 import { defaultLanguage } from '../language';
 
 export const pageSizeOptions: { value: string; label: string }[] = [
@@ -42,9 +41,4 @@ export const defaultMobilityTablePageNumber = 0;
 export const defaultMobilityTableQueryParameters = {
   limit: defaultPageSize.toString(),
   offset: defaultMobilityTablePageNumber.toString(),
-};
-
-export const defaultTablePagination: Pagination = {
-  ...defaultPagination,
-  pageSize: defaultPageSize,
 };

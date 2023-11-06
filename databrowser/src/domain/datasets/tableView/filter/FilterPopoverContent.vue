@@ -36,24 +36,22 @@ import { Size, Variant } from '../../../../components/button/types';
 import PopoverContent from '../../../../components/popover/PopoverContent.vue';
 import PopoverContentDivider from '../../../../components/popover/PopoverContentDivider.vue';
 import IconDelete from '../../../../components/svg/IconDelete.vue';
-import { useTableFilterForField } from './useTableFilter';
+import { useTableFilterForPropertyPath } from './useTableFilter';
 
 const emit = defineEmits(['addFilter', 'removeFilter']);
 
 const props = withDefaults(
   defineProps<{
     title: string;
-    field?: string;
+    propertyPath?: string;
   }>(),
-  { field: undefined }
+  { propertyPath: undefined }
 );
 
-const { title, field } = toRefs(props);
+const { title, propertyPath } = toRefs(props);
 
-const { isFilterActive, addFilter, removeFilter } = useTableFilterForField(
-  title,
-  field
-);
+const { isFilterActive, addFilter, removeFilter } =
+  useTableFilterForPropertyPath(title, propertyPath);
 
 const addFilterInternal = () => {
   addFilter();

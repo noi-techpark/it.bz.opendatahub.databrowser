@@ -8,7 +8,7 @@ import { PropertyConfig } from '../../../domain/datasetConfig/types';
 export const idCell = (): PropertyConfig => ({
   title: 'ID',
   component: CellComponent.StringCell,
-  fields: { text: 'Id' },
+  propertyMappings: { text: 'Id' },
 });
 
 export const idReadOnlyCell = (): PropertyConfig => ({
@@ -19,7 +19,7 @@ export const idReadOnlyCell = (): PropertyConfig => ({
 export const customIdCell = (): PropertyConfig => ({
   title: 'Custom Id',
   component: CellComponent.StringCell,
-  fields: { text: 'CustomId' },
+  propertyMappings: { text: 'CustomId' },
 });
 
 export const idAndCustomIdCells = (): PropertyConfig[] => [

@@ -8,7 +8,8 @@ import { ParameterValue } from './types';
 import * as R from 'ramda';
 import {
   ArrayPropertyConfig,
-  ObjectPropertyConfig,
+  TargetPropertyName,
+  PropertyMappings,
 } from '../../datasetConfig/types';
 
 export interface UseAsOptions {
@@ -99,32 +100,45 @@ export const toErrorString = (error: unknown): string => {
   return JSON.stringify(error);
 };
 
+export const buildTargetObject = (
+  data: unknown,
+  propertyMappings: PropertyMappings | undefined,
+  params?: Record<string, unknown>
+) => {
+  if (propertyMappings == null) {
+    return { ...params };
+  }
+
+  const extractedFields = mapValuesWithIndex(data, propertyMappings);
+  return { ...extractedFields, ...params };
+};
+
 export const usePropertyMapping = () => {
   // const replacements = useApiParameterReplacements();
 
-  const mapWithIndex = (
-    data: unknown,
-    propertyMapping?: ObjectPropertyConfig['fields'],
-    params?: Record<string, unknown>
-  ) => {
-    if (propertyMapping == null) {
-      return { ...params };
-    }
+  // const mapWithIndex = (
+  //   data: unknown,
+  //   propertyMappings?: PropertyMappings,
+  //   params?: Record<string, unknown>
+  // ) => {
+  //   if (propertyMappings == null) {
+  //     return { ...params };
+  //   }
 
-    const extractedFields = mapValuesWithIndex(
-      data,
-      propertyMapping
-      // replacements.value
-    );
-    return { ...extractedFields, ...params };
-  };
+  //   const extractedFields = mapValuesWithIndex(data, propertyMappings);
+  //   return { ...extractedFields, ...params };
+  // };
 
   const mapListWithIndex = (
     data: unknown,
     propertyMapping: ArrayPropertyConfig['listFields'],
     params?: Record<string, unknown>
   ) => {
-    const { pathToParent, fields, attributeName } = propertyMapping;
+    const {
+      pathToParent,
+      propertyMappings: fields,
+      attributeName,
+    } = propertyMapping;
 
     // Return object has a property whose name is the value of the "attributeName" variable
     // e.g. value of "attributeName" is "abcdefg", then the result object will have a property "abcdefg"
@@ -146,7 +160,7 @@ export const usePropertyMapping = () => {
     // If fields is undefined or empty, then the object defined by parentPath
     // is returned as it is. This is useful e.g. for an array of simple types
     // (strings, numbers or booleans)
-    if (isFieldsEmpty(fields)) {
+    if (isPropertyMappingsEmpty(fields)) {
       return { ...defaultResult, [attributeName]: dataArray };
     }
 
@@ -172,15 +186,16 @@ export const usePropertyMapping = () => {
   // };
 
   return {
-    mapWithIndex,
+    // mapWithIndex,
     mapListWithIndex,
     // mapWithReverseIndex,
   };
 };
 
-export const isFieldsEmpty = (
-  fields?: Record<string, string>
-): fields is undefined => fields == null || Object.keys(fields).length === 0;
+export const isPropertyMappingsEmpty = (
+  propertyMappings?: PropertyMappings
+): propertyMappings is undefined =>
+  propertyMappings == null || Object.keys(propertyMappings).length === 0;
 
 export const replacePlaceholders = (
   s: string,
@@ -198,28 +213,31 @@ export const replacePlaceholders = (
 
 const mapValuesWithIndex = (
   item: unknown,
-  propertyMapping: Record<string, string>
+  propertyMappings: PropertyMappings
   // replacements: Record<string, string>
 ) =>
-  Object.keys(propertyMapping).reduce<Record<string, unknown>>((prev, key) => {
-    const property = propertyMapping[key];
-    // const propertyWithReplacements = replacePlaceholders(
-    //   property,
-    //   replacements
-    // );
-    const path = property.split(/(?<!\\)\./).map((p) => p.replace(/\\/g, ''));
-    const lensePath = R.lensPath(path);
-    const value = R.view(lensePath, item);
-    // console.log('mapValuesWithIndex', {
-    //   propertyWithReplacements,
-    //   key,
-    //   value,
-    //   path,
-    //   item,
-    // });
+  Object.keys(propertyMappings).reduce<Record<TargetPropertyName, unknown>>(
+    (prev, key) => {
+      const property = propertyMappings[key];
+      // const propertyWithReplacements = replacePlaceholders(
+      //   property,
+      //   replacements
+      // );
+      const path = property.split(/(?<!\\)\./).map((p) => p.replace(/\\/g, ''));
+      const lensePath = R.lensPath(path);
+      const value = R.view(lensePath, item);
+      // console.log('mapValuesWithIndex', {
+      //   propertyWithReplacements,
+      //   key,
+      //   value,
+      //   path,
+      //   item,
+      // });
 
-    return { ...prev, [key]: value };
-  }, {});
+      return { ...prev, [key]: value };
+    },
+    {}
+  );
 
 // const mapValuesWithReverseIndex = (
 //   item: Record<string, unknown>,

@@ -7,20 +7,23 @@ import { Ref, computed } from 'vue';
 import { SortState } from './types';
 import { useApiParameterStore } from '../../../api/service/apiParameterStore';
 import { storeToRefs } from 'pinia';
+import { PropertyPath } from '../../../datasetConfig/types';
 
 // This function computes the rawsort value based on the sort field and the sort state.
-const rawsortValue = (sortField: string, sortState: SortState) => {
+const rawsortValue = (propertyPath: PropertyPath, sortState: SortState) => {
   switch (sortState) {
     case 'none':
       return undefined;
     case 'asc':
-      return sortField;
+      return propertyPath;
     case 'desc':
-      return `-${sortField}`;
+      return `-${propertyPath}`;
   }
 };
 
-export const useTableSortForField = (field: Ref<string | undefined>) => {
+export const useTableSortForPropertyPath = (
+  propertyPath: Ref<string | undefined>
+) => {
   // The sortFromUrl property contains the current sort value from the URL (may be undefined).
   // const sortFromUrl = useApiParameterHandler().useApiParameter('rawsort');
   const { currentApiParams } = storeToRefs(useApiParameterStore());
@@ -41,7 +44,7 @@ export const useTableSortForField = (field: Ref<string | undefined>) => {
     // const sortFromUrlAsString = stringifyParameter(sortFromUrl.value);
     const sortField = sortFromUrl.replace(/^-/, '');
 
-    if (field.value !== sortField) {
+    if (propertyPath.value !== sortField) {
       return 'none';
     }
 
@@ -49,7 +52,7 @@ export const useTableSortForField = (field: Ref<string | undefined>) => {
   });
 
   // The canSort property is true if the given field can be sorted.
-  const canSort = computed(() => field.value != null);
+  const canSort = computed(() => propertyPath.value != null);
 
   const isCurrentSortAsc = computed(() => currentSortState.value === 'asc');
 
@@ -57,11 +60,11 @@ export const useTableSortForField = (field: Ref<string | undefined>) => {
 
   // Set the current sort state.
   const setSort = (sortState: SortState) => {
-    if (field.value == null) {
+    if (propertyPath.value == null) {
       return;
     }
 
-    const rawsort = rawsortValue(field.value, sortState);
+    const rawsort = rawsortValue(propertyPath.value, sortState);
     if (rawsort != null) {
       currentApiParams.value['rawsort'] = rawsort;
     } else {

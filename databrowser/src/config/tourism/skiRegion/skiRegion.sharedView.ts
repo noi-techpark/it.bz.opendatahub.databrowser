@@ -34,7 +34,7 @@ export const skiRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Ski region name',
               component: CellComponent.StringCell,
-              fields: { text: 'SkiRegionName.{language}' },
+              propertyMappings: { text: 'SkiRegionName.{language}' },
             },
             ...logoWithMainImageCells(),
           ],

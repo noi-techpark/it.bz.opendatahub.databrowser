@@ -13,7 +13,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <template #header-cols>
       <TableHeaderCell v-for="col in cols" :key="col.title">
-        <SortAndFilterHeader :title="col.title" :field="col.field" />
+        <SortAndFilterHeader
+          :title="col.title"
+          :property-path="col.propertyPath"
+        />
       </TableHeaderCell>
       <TableHeaderCell v-if="showLinkColumn" class="sticky right-0 bg-gray-50">
         {{ t('datasets.listView.colDetail') }}
@@ -44,8 +47,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         >
           <ComponentRenderer
             :tag-name="col.component"
-            :attributes="mapWithIndex(row, col.fields, col.params)"
-            :fields="col.fields"
+            :attributes="
+              buildTargetObject(row, col.propertyMappings, col.params)
+            "
+            :property-mappings="col.propertyMappings"
           />
         </TableCell>
         <TableCell
@@ -70,13 +75,13 @@ import ComponentRenderer from '../../../components/componentRenderer/ComponentRe
 import TableCell from '../../../components/table/TableCell.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
-import { usePropertyMapping } from '../../api';
+import { buildTargetObject } from '../../api';
+import { ListElements } from '../../datasetConfig/types';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
 import TableDataEmpty from './TableDataEmpty.vue';
 import TableLinks from './TableLinks.vue';
 import { useTableRowSelection } from './useTableRowSelection';
 import { rowId } from './utils';
-import { ListElements } from '../../datasetConfig/types';
 
 const { t } = useI18n();
 
@@ -94,8 +99,6 @@ const props = withDefaults(
 );
 
 const { rows, cols } = toRefs(props);
-
-const { mapWithIndex } = usePropertyMapping();
 
 // Table row selection logic
 const { selectedRowIndex, rowClicked, rowDblClicked } =

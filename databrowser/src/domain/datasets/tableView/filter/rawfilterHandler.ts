@@ -30,29 +30,29 @@ export const useRawfilterHandler = () => {
 
       switch (curr.operator) {
         case 'eq':
-          return [...prev, `eq(${curr.field},'${curr.value}')`];
+          return [...prev, `eq(${curr.propertyPath},'${curr.value}')`];
         case 'ne':
-          return [...prev, `ne(${curr.field},'${curr.value}')`];
+          return [...prev, `ne(${curr.propertyPath},'${curr.value}')`];
         case 'gt':
-          return [...prev, `gt(${curr.field},'${curr.value}')`];
+          return [...prev, `gt(${curr.propertyPath},'${curr.value}')`];
         case 'ge':
-          return [...prev, `ge(${curr.field},'${curr.value}')`];
+          return [...prev, `ge(${curr.propertyPath},'${curr.value}')`];
         case 'lt':
-          return [...prev, `lt(${curr.field},'${curr.value}')`];
+          return [...prev, `lt(${curr.propertyPath},'${curr.value}')`];
         case 'le':
-          return [...prev, `le(${curr.field},'${curr.value}')`];
+          return [...prev, `le(${curr.propertyPath},'${curr.value}')`];
         case 'isnull':
-          return [...prev, `isnull(${curr.field})`];
+          return [...prev, `isnull(${curr.propertyPath})`];
         case 'isnotnull':
-          return [...prev, `isnotnull(${curr.field})`];
+          return [...prev, `isnotnull(${curr.propertyPath})`];
         case 'in':
-          return [...prev, `in(${curr.field}.[*],'${curr.value}')`];
+          return [...prev, `in(${curr.propertyPath}.[*],'${curr.value}')`];
         case 'nin':
-          return [...prev, `nin(${curr.field}.[*],'${curr.value}')`];
+          return [...prev, `nin(${curr.propertyPath}.[*],'${curr.value}')`];
         case 'like':
-          return [...prev, `like(${curr.field},'${curr.value}')`];
+          return [...prev, `like(${curr.propertyPath},'${curr.value}')`];
         case 'likein':
-          return [...prev, `likein(${curr.field}.[*],'${curr.value}')`];
+          return [...prev, `likein(${curr.propertyPath}.[*],'${curr.value}')`];
       }
     }, []);
 

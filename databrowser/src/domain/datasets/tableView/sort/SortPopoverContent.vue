@@ -37,14 +37,14 @@ import CheckboxCustom from '../../../../components/checkbox/CheckboxCustom.vue';
 import PopoverContent from '../../../../components/popover/PopoverContent.vue';
 import IconSortAsc from '../../../../components/svg/IconSortAsc.vue';
 import IconSortDesc from '../../../../components/svg/IconSortDesc.vue';
-import { useTableSortForField } from './useTableSort';
+import { useTableSortForPropertyPath } from './useTableSort';
 
-const props = withDefaults(defineProps<{ field?: string }>(), {
-  field: undefined,
+const props = withDefaults(defineProps<{ propertyPath?: string }>(), {
+  propertyPath: undefined,
 });
 
-const { field } = toRefs(props);
+const { propertyPath } = toRefs(props);
 
 const { isCurrentSortAsc, isCurrentSortDesc, setSort } =
-  useTableSortForField(field);
+  useTableSortForPropertyPath(propertyPath);
 </script>

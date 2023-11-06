@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </ToolBoxCardHeader>
       <ToolBoxCardBody
         v-for="(filter, index) in filtersFromStore"
-        :key="`${filter.field}-${index}`"
+        :key="`${filter.propertyPath}-${index}`"
         class="flex flex-col gap-2"
       >
         <button
@@ -49,10 +49,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <div class="flex items-center gap-2">
           <SelectCustom
             :options="filterOptions"
-            :value="filter.field"
+            :value="filter.propertyPath"
             :z-index="30"
             class="basis-1/2"
-            @change="filter.field = $event"
+            @change="filter.propertyPath = $event"
           />
           <SelectCustom
             :options="filterSelectOptions"
@@ -64,7 +64,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
         <InputFilter
           v-if="filter.operator !== 'isnull' && filter.operator !== 'isnotnull'"
-          :id="`filter-${filter.field}`"
+          :id="`filter-${filter.propertyPath}`"
           :model-value="filter.value?.toString()"
           @filter="updateFilterValue(index, filter.operator, $event)"
         />
@@ -140,13 +140,4 @@ const {
   removeFilterByIndex,
   filtersFromStore,
 } = useTableFilter();
-
-// const columns = useTableViewColumns();
-
-// const columnOptions = computed(() =>
-//   tableCols.value.map<SelectOption>((col) => ({
-//     label: col.title,
-//     value: col.field,
-//   }))
-// );
 </script>

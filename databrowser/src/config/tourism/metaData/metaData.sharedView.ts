@@ -27,13 +27,13 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Description',
               component: CellComponent.StringCell,
-              fields: { text: 'ApiDescription.{language}' },
+              propertyMappings: { text: 'ApiDescription.{language}' },
             },
             {
               title: 'Dataspace',
               component: CellComponent.SelectWithOptionsCell,
               class: 'w-60',
-              fields: {
+              propertyMappings: {
                 value: 'Dataspace',
               },
               params: {
@@ -73,12 +73,12 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Deprecated',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'Deprecated' },
+              propertyMappings: { enabled: 'Deprecated' },
             },
             {
               title: 'Base URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'BaseUrl' },
+              propertyMappings: { text: 'BaseUrl' },
             },
             {
               title: 'Path',
@@ -100,13 +100,13 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'API URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'ApiUrl' },
+              propertyMappings: { text: 'ApiUrl' },
               params: { readonly: 'true' },
             },
             {
               title: 'Swagger URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'SwaggerUrl' },
+              propertyMappings: { text: 'SwaggerUrl' },
             },
             {
               title: 'Tags',
@@ -133,7 +133,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Count',
               component: CellComponent.JsonCell,
-              fields: { data: 'RecordCount' },
+              propertyMappings: { data: 'RecordCount' },
               params: { usePreformatted: 'true' },
             },
           ],

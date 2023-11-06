@@ -31,33 +31,33 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Shortname',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              propertyMappings: { text: 'Shortname' },
             },
             {
               title: 'Title',
               component: CellComponent.StringCell,
-              fields: { text: 'EventTitle.{language}' },
+              propertyMappings: { text: 'EventTitle.{language}' },
             },
             {
               title: 'Description',
               component: CellComponent.TextAreaCell,
-              fields: { text: 'EventText.{language}' },
+              propertyMappings: { text: 'EventText.{language}' },
               params: { rows: '4' },
             },
             {
               title: 'Organizer',
               component: CellComponent.StringCell,
-              fields: { text: 'CompanyName' },
+              propertyMappings: { text: 'CompanyName' },
             },
             {
               title: 'External organizer',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'ExternalOrganizer' },
+              propertyMappings: { enabled: 'ExternalOrganizer' },
             },
             {
               title: 'Sold out',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'SoldOut' },
+              propertyMappings: { enabled: 'SoldOut' },
             },
           ],
         },
@@ -82,48 +82,48 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Web-URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'WebAddress' },
+              propertyMappings: { text: 'WebAddress' },
               class: 'break-all',
             },
             {
               title: 'Video-URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'VideoUrl' },
+              propertyMappings: { text: 'VideoUrl' },
               class: 'break-all',
             },
             {
               title: 'Date start',
               component: CellComponent.DateCell,
-              fields: { date: 'StartDate' },
+              propertyMappings: { date: 'StartDate' },
               params: { format: DEFAULT_DATE_TIME_FORMAT, type: 'datetime' },
               required: true,
             },
             {
               title: 'Date end',
               component: CellComponent.DateCell,
-              fields: { date: 'EndDate' },
+              propertyMappings: { date: 'EndDate' },
               params: { format: DEFAULT_DATE_TIME_FORMAT, type: 'datetime' },
               required: true,
             },
             {
               title: 'Room name',
               component: CellComponent.StringCell,
-              fields: { text: 'AnchorVenue' },
+              propertyMappings: { text: 'AnchorVenue' },
             },
             {
               title: 'Age From',
               component: CellComponent.StringCell,
-              fields: { text: 'TypicalAgeRange.AgeFrom' },
+              propertyMappings: { text: 'TypicalAgeRange.AgeFrom' },
             },
             {
               title: 'Age To',
               component: CellComponent.StringCell,
-              fields: { text: 'TypicalAgeRange.AgeTo' },
+              propertyMappings: { text: 'TypicalAgeRange.AgeTo' },
             },
             {
               title: 'Location',
               component: CellComponent.InputReferenceCell,
-              fields: { value: 'EventLocation' },
+              propertyMappings: { value: 'EventLocation' },
               params: {
                 url: withOdhBaseUrl('/v1/EventShortTypes?type=EventLocation'),
                 labelSelector: 'TypeDesc.{language}',
@@ -166,7 +166,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.EditRoomBookedCell,
               listFields: {
                 pathToParent: 'RoomBooked',
-                fields: {
+                propertyMappings: {
                   space: 'Space',
                   spaceDesc: 'SpaceDesc',
                   spaceAbbrev: 'SpaceAbbrev',
@@ -199,7 +199,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Event EBMS Id',
               component: CellComponent.StringCell,
-              fields: { text: 'EventId' },
+              propertyMappings: { text: 'EventId' },
             },
           ],
         },
@@ -209,19 +209,19 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Active',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'ActiveToday' },
+              propertyMappings: { enabled: 'ActiveToday' },
               params: { readonly: 'true' },
             },
             {
               title: 'noi.bz.it Active',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'ActiveWeb' },
+              propertyMappings: { enabled: 'ActiveWeb' },
               params: { readonly: 'true' },
             },
             {
               title: 'NOI Community App Active',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'ActiveCommunityApp' },
+              propertyMappings: { enabled: 'ActiveCommunityApp' },
               params: { readonly: 'true' },
             },
           ],

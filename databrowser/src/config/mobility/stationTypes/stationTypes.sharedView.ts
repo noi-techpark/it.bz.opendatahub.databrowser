@@ -41,7 +41,7 @@ export const stationTypesSharedView = ():
             {
               title: 'Boardings',
               component: CellComponent.ArrayCell,
-              fields: {
+              propertyMappings: {
                 items: 'BoardIds',
               },
               params: {
@@ -56,26 +56,26 @@ export const stationTypesSharedView = ():
             {
               title: 'Room',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'HasApartment' },
+              propertyMappings: { enabled: 'HasApartment' },
             },
             {
               title: 'Gastronomy',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'IsGastronomy' },
+              propertyMappings: { enabled: 'IsGastronomy' },
             },
             {
               title: 'Is Bookable',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'IsBookable' },
+              propertyMappings: { enabled: 'IsBookable' },
             },
             {
               title: 'Features',
               component: CellComponent.ArrayTagsCell,
-              fields: {
+              propertyMappings: {
                 items: 'Features',
               },
               params: {
-                fieldName: 'Name',
+                propertyName: 'Name',
                 separator: ', ',
                 max: '3',
               },
@@ -128,13 +128,13 @@ export const stationTypesSharedView = ():
             {
               title: 'HGV ID',
               component: CellComponent.StringCell,
-              fields: { text: 'HgvId' },
+              propertyMappings: { text: 'HgvId' },
               class: 'break-all',
             },
             {
               title: 'Marketing Group IDs',
               component: CellComponent.ArrayCell,
-              fields: {
+              propertyMappings: {
                 items: 'MarketingGroupIds',
               },
               params: {
@@ -160,12 +160,12 @@ export const stationTypesSharedView = ():
             {
               title: 'Long description',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Longdesc' },
+              propertyMappings: { text: 'AccoDetail.{language}.Longdesc' },
             },
             {
               title: 'Short description',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.ShortDesc' },
+              propertyMappings: { text: 'AccoDetail.{language}.ShortDesc' },
             },
           ],
         },
@@ -183,7 +183,7 @@ export const stationTypesSharedView = ():
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              propertyMappings: { text: 'Shortname' },
             },
           ],
         },

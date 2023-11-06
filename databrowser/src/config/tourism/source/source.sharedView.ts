@@ -25,24 +25,24 @@ export const sourceSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Key',
               component: CellComponent.StringCell,
-              fields: { text: 'Key' },
+              propertyMappings: { text: 'Key' },
               required: true,
             },
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'Name.{language}' },
+              propertyMappings: { text: 'Name.{language}' },
             },
             {
               title: 'Description',
               component: CellComponent.StringCell,
-              fields: { text: 'Description.{language}' },
+              propertyMappings: { text: 'Description.{language}' },
             },
             idReadOnlyCell(),
             {
               title: 'URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'Url' },
+              propertyMappings: { text: 'Url' },
             },
             {
               title: 'Interfaces',

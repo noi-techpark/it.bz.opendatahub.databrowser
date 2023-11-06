@@ -13,7 +13,7 @@ export const accommodationTypesListView: ListViewConfig = {
       title: 'Key',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         text: 'Key',
       },
     },
@@ -21,7 +21,7 @@ export const accommodationTypesListView: ListViewConfig = {
       title: 'Type',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         text: 'Type',
       },
     },
@@ -29,7 +29,7 @@ export const accommodationTypesListView: ListViewConfig = {
       title: 'TypeDesc',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         text: 'TypeDesc.{language}',
       },
     },

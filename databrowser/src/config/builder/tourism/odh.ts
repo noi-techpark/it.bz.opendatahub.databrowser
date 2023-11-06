@@ -14,7 +14,7 @@ export const odhActiveTableCell = (): PropertyConfig => ({
   title: 'Open Data Hub state',
   component: CellComponent.StateCell,
   class: 'w-40',
-  fields: { state: 'OdhActive' },
+  propertyMappings: { state: 'OdhActive' },
 });
 
 export const odhTagCell = (mainentity?: string): PropertyConfig => {
@@ -56,27 +56,27 @@ export const odhTypeDetailElement = (): DetailElements => ({
         {
           title: 'Key',
           component: CellComponent.StringCell,
-          fields: { text: 'Key' },
+          propertyMappings: { text: 'Key' },
         },
         {
           title: 'Type',
           component: CellComponent.StringCell,
-          fields: { text: 'Type' },
+          propertyMappings: { text: 'Type' },
         },
         {
           title: 'TypeDesc',
           component: CellComponent.StringCell,
-          fields: { text: 'TypeDesc.{language}' },
+          propertyMappings: { text: 'TypeDesc.{language}' },
         },
         {
           title: 'Bitmask',
           component: CellComponent.StringCell,
-          fields: { text: 'Bitmask' },
+          propertyMappings: { text: 'Bitmask' },
         },
         {
           title: 'Parent',
           component: CellComponent.StringCell,
-          fields: { text: 'Parent' },
+          propertyMappings: { text: 'Parent' },
         },
       ],
     },

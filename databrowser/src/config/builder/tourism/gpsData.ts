@@ -18,7 +18,7 @@ export const gpsDataCategory = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.GpsPointsCell,
-          fields: {
+          propertyMappings: {
             type: 'GpsPoints.position.Gpstype',
             latitude: 'GpsPoints.position.Latitude',
             longitude: 'GpsPoints.position.Longitude',
@@ -34,7 +34,7 @@ export const gpsDataCategory = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.QuickViewMapView,
-          fields: {
+          propertyMappings: {
             latitude: 'GpsPoints.position.Latitude',
             longitude: 'GpsPoints.position.Longitude',
           },
@@ -48,7 +48,7 @@ export const gpsDataTableCell = (): PropertyConfig => ({
   title: 'GPS Data',
   component: CellComponent.GpsPointsCell,
   class: 'w-48',
-  fields: {
+  propertyMappings: {
     type: 'GpsPoints.position.Gpstype',
     latitude: 'GpsPoints.position.Latitude',
     longitude: 'GpsPoints.position.Longitude',

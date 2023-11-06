@@ -15,7 +15,7 @@ export const licenseInfoCategory = (): DetailElements => ({
         {
           title: 'License',
           component: CellComponent.SelectWithOptionsCell,
-          fields: { value: 'LicenseInfo.License' },
+          propertyMappings: { value: 'LicenseInfo.License' },
           params: {
             value_001: 'CC0',
             label_001: 'CC0',
@@ -28,17 +28,17 @@ export const licenseInfoCategory = (): DetailElements => ({
         {
           title: 'Author',
           component: CellComponent.StringCell,
-          fields: { text: 'LicenseInfo.Author' },
+          propertyMappings: { text: 'LicenseInfo.Author' },
         },
         {
           title: 'License Holder',
           component: CellComponent.UrlCell,
-          fields: { text: 'LicenseInfo.LicenseHolder' },
+          propertyMappings: { text: 'LicenseInfo.LicenseHolder' },
         },
         {
           title: 'Closed Data',
           component: CellComponent.ToggleCell,
-          fields: { enabled: 'LicenseInfo.ClosedData' },
+          propertyMappings: { enabled: 'LicenseInfo.ClosedData' },
         },
       ],
     },

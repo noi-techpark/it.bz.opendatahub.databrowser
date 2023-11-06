@@ -5,7 +5,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import {
   MaybeRef,
-  Ref,
   computed,
   inject,
   ref,
@@ -14,8 +13,9 @@ import {
   watch,
   watchEffect,
 } from 'vue';
-import { useAuth } from '../../../auth/store/auth';
+import { useAuth } from '../../auth/store/auth';
 import { storeToRefs } from 'pinia';
+
 /**
  * Use Axios to build a fetcher function.
  *
@@ -24,6 +24,7 @@ import { storeToRefs } from 'pinia';
  *
  * @returns A function that, when invoked, fetches data from the given URL.
  */
+// TODO: rename to useFetcher? on the other side, many types are from axios
 export const useAxiosFetcher = <T = any, D = any>() => {
   const axios = inject<AxiosInstance>('axios')!;
 
@@ -67,6 +68,7 @@ interface UseAxiosFetchOptions<
  * @param url The url to fetch.
  * @param options The options to use for the fetcher.
  */
+// TODO: maybe rename to useBaseFetch? on the other side, many types are from axios
 export const useBaseAxiosFetch = <
   ReturnData = unknown,
   ResponseData = ReturnData,
@@ -94,51 +96,61 @@ export const useBaseAxiosFetch = <
   const isFinished = ref(false);
   const urlInternal = ref<string>();
 
-  watchEffect(async () => {
-    // toValue() unwraps potential refs or getters
-    const urlValue = toValue(url);
+  watchEffect(
+    async () => {
+      // toValue() unwraps potential refs or getters
+      const urlValue = toValue(url);
 
-    if (urlValue == null) {
-      console.debug('Fetch url is undefined, not fetching');
-      return;
-    }
+      if (urlValue == null) {
+        console.debug('Fetch url is undefined, not fetching');
+        return;
+      }
 
-    // Reset state before fetching
-    error.value = null;
-    isLoading.value = true;
-    isFinished.value = false;
+      // Reset state before fetching
+      error.value = null;
+      isLoading.value = true;
+      isFinished.value = false;
 
-    // Compute config
-    const config = await beforeFetch({
-      url: urlValue,
-      method,
-      data: payload,
-      headers: {
-        Accept: type,
-      },
-    });
-
-    // Set urlInternal because it may be overridden by beforeFetch
-    urlInternal.value = config.url;
-
-    await axiosInstance
-      .request<ResponseData>(config)
-      .then((response) => {
-        responseData.value = response.data;
-        return response;
-      })
-      .then(afterFetch)
-      .then((responseData) => (data.value = responseData))
-      .catch((err) => {
-        data.value = null;
-        error.value = err;
-        onFetchError(err);
-      })
-      .finally(() => {
-        isLoading.value = false;
-        isFinished.value = true;
+      // Compute config
+      const config = await beforeFetch({
+        url: urlValue,
+        method,
+        data: payload,
+        headers: {
+          Accept: type,
+        },
       });
-  });
+
+      // Set urlInternal because it may be overridden by beforeFetch
+      urlInternal.value = config.url;
+
+      await axiosInstance
+        .request<ResponseData>(config)
+        .then((response) => {
+          responseData.value = response.data;
+          return response;
+        })
+        .then(afterFetch)
+        .then((responseData) => (data.value = responseData))
+        .catch((err) => {
+          data.value = null;
+          error.value = err;
+          onFetchError(err);
+        })
+        .finally(() => {
+          isLoading.value = false;
+          isFinished.value = true;
+        });
+    },
+    {
+      onTrack(event) {
+        console.log('onTrack', event);
+      },
+      onTrigger(event) {
+        console.log('onTrigger', event);
+      },
+    }
+  );
 
   return {
     data,
@@ -169,18 +181,16 @@ export const buildAuthInterceptor = <T>(): BeforeFetchFn<T> => {
 
   return async (ctx) => {
     return new Promise((resolve) => {
-      if (ready.value) {
-        addAuthToCtx(ctx, isAuthenticated.value, accessToken.value);
-        resolve(ctx);
-        return;
-      }
-
-      watch(ready, (ready) => {
-        if (ready) {
-          addAuthToCtx(ctx, isAuthenticated.value, accessToken.value);
-          resolve(ctx);
-        }
-      });
+      watch(
+        ready,
+        (ready) => {
+          if (ready) {
+            addAuthToCtx(ctx, isAuthenticated.value, accessToken.value);
+            resolve(ctx);
+          }
+        },
+        { immediate: true }
+      );
     });
   };
 };

@@ -58,8 +58,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       >
         <ComponentRenderer
           :tag-name="element.component"
-          :attributes="mapWithIndex(data, element.fields, element.params)"
-          :fields="element.fields"
+          :attributes="
+            buildTargetObject(data, element.propertyMappings, element.params)
+          "
+          :property-mappings="element.propertyMappings"
           :list-fields="element.listFields"
         />
       </div>
@@ -78,7 +80,7 @@ import PageContent from '../../../components/content/PageContent.vue';
 import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewFullscreenGallery.vue';
 import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
 import TagCustom from '../../../components/tag/TagCustom.vue';
-import { usePropertyMapping } from '../../api';
+import { buildTargetObject } from '../../api';
 import { QuickViewConfig } from '../../datasetConfig/types';
 import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
 import { rowId } from '../tableView/utils';
@@ -95,8 +97,6 @@ const topGallery = computed(
 const elements = computed(
   () => (view.value as QuickViewConfig | undefined)?.elements
 );
-
-const { mapWithIndex } = usePropertyMapping();
 
 const forcePlaceholderImage = ref(false);
 
@@ -136,7 +136,7 @@ const mainImage = computed(() => {
 const imageGallery = computed(() => {
   const gallery = getDataForField.value(
     data.value,
-    topGallery.value?.fields.gallery as string
+    topGallery.value?.propertyMappings.gallery as string
   );
   return (gallery ?? []) as GalleryImage[];
 });

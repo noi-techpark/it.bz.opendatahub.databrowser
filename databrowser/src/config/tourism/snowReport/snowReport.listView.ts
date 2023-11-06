@@ -14,7 +14,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         src: 'SkiMapUrl',
       },
     },
@@ -22,7 +22,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Logo',
       component: CellComponent.ImageCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         src: 'contactlogo',
       },
     },
@@ -30,7 +30,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Name',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      propertyMappings: {
         text: 'Areaname',
       },
     },
@@ -38,7 +38,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Location',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      propertyMappings: {
         text: 'contactcity',
       },
     },
@@ -46,7 +46,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Station Snow Height',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      propertyMappings: {
         text: 'Measuringpoints.0.Shortname',
       },
     },
@@ -54,7 +54,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Snow Height',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      propertyMappings: {
         text: 'Measuringpoints.0.SnowHeight',
       },
     },
@@ -62,7 +62,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Slope km',
       component: CellComponent.StringCell,
       class: 'w-36',
-      fields: {
+      propertyMappings: {
         text: 'SkiAreaSlopeKm',
       },
     },
@@ -70,7 +70,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Source',
       component: CellComponent.StringCell,
       class: 'w-36',
-      fields: {
+      propertyMappings: {
         text: 'lang',
       },
     },
@@ -78,7 +78,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Edited',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         date: 'Measuringpoints.0.LastUpdate',
       },
       params: {
@@ -89,7 +89,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Source',
       component: CellComponent.StringCell,
       class: 'w-36',
-      fields: {
+      propertyMappings: {
         text: 'Measuringpoints.0.Source',
       },
     },

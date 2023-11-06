@@ -12,7 +12,7 @@ export const weatherRealTimeListView: ListViewConfig = {
       title: 'Name (Location)',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      propertyMappings: {
         text: 'name',
       },
     },
@@ -20,7 +20,7 @@ export const weatherRealTimeListView: ListViewConfig = {
       title: 'Altitude',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      propertyMappings: {
         text: 'altitude',
       },
     },
@@ -28,7 +28,7 @@ export const weatherRealTimeListView: ListViewConfig = {
       title: 'Latitude',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      propertyMappings: {
         text: 'latitude',
       },
     },
@@ -36,7 +36,7 @@ export const weatherRealTimeListView: ListViewConfig = {
       title: 'Longitude',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      propertyMappings: {
         text: 'longitude',
       },
     },
@@ -44,7 +44,7 @@ export const weatherRealTimeListView: ListViewConfig = {
       title: 'Last time updated',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         date: 'lastUpdated',
       },
       params: {

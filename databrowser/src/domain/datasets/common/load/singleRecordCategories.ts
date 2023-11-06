@@ -16,7 +16,7 @@ interface ComputeSingleRecordCategories {
   name: string;
   slug: string;
   subCategories: DetailElements['subcategories'];
-  isAnyFieldRequired: boolean;
+  isAnyPropertyRequired: boolean;
 }
 
 export const computeSingleRecordCategories = (
@@ -44,7 +44,7 @@ export const computeSingleRecordCategories = (
     // Otherwise, use name as defined by config
     const name = isGeneratedSource ? fallbackName : element.name;
 
-    const isAnyFieldRequired = hasAnyRequiredField(element);
+    const isAnyPropertyRequired = hasAnyRequiredProperty(element);
 
     return {
       name,
@@ -54,7 +54,7 @@ export const computeSingleRecordCategories = (
       //   query: currentRouteQuery,
       // },
       subCategories: element.subcategories,
-      isAnyFieldRequired,
+      isAnyPropertyRequired,
     };
   });
 };
@@ -67,7 +67,7 @@ export const useComputeSingleRecordCategories = (
     computeSingleRecordCategories(toValue(view), toValue(isGeneratedSource))
   );
 
-const hasAnyRequiredField = (element: DetailElements) =>
+const hasAnyRequiredProperty = (element: DetailElements) =>
   element.subcategories.some((sub) =>
     sub.properties.some((prop) => prop.required === true)
   );

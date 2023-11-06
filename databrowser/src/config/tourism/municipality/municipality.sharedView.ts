@@ -40,14 +40,14 @@ export const municipalitySharedView = ():
             {
               title: 'CAP',
               component: CellComponent.StringCell,
-              fields: {
+              propertyMappings: {
                 text: 'Plz',
               },
             },
             {
               title: 'Inhabitants',
               component: CellComponent.StringCell,
-              fields: {
+              propertyMappings: {
                 text: 'Inhabitants',
               },
             },
@@ -60,26 +60,26 @@ export const municipalitySharedView = ():
             {
               title: 'Siag Id',
               component: CellComponent.StringCell,
-              fields: { text: 'SiagId' },
+              propertyMappings: { text: 'SiagId' },
               class: 'break-all',
             },
             {
               title: 'Tourismverein Id',
               component: CellComponent.StringCell,
-              fields: { text: 'TourismvereinId' },
+              propertyMappings: { text: 'TourismvereinId' },
               class: 'break-all',
             },
             {
               title: 'Istat Number',
               component: CellComponent.StringCell,
-              fields: { text: 'IstatNumber' },
+              propertyMappings: { text: 'IstatNumber' },
               class: 'break-all',
             },
             regionIdCell('RegionId'),
             {
               title: 'HGV id',
               component: CellComponent.StringCell,
-              fields: { text: 'Mapping.hgv.id' },
+              propertyMappings: { text: 'Mapping.hgv.id' },
               class: 'break-all',
             },
           ],

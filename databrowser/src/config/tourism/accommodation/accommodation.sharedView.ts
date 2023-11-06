@@ -39,11 +39,10 @@ export const accommodationSharedView = ():
             accommodationTypeCell(),
             accommodationCategoryCell(),
             {
-              title: 'Boards',
-              component: CellComponent.TagReferenceCell,
-              listFields: {
-                attributeName: 'tags',
-                pathToParent: 'BoardIds',
+              title: 'Boardings',
+              component: CellComponent.ArrayCell,
+              propertyMappings: {
+                items: 'BoardIds',
               },
               params: {
                 keySelector: 'Key',
@@ -59,26 +58,26 @@ export const accommodationSharedView = ():
             {
               title: 'Room',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'HasApartment' },
+              propertyMappings: { enabled: 'HasApartment' },
             },
             {
               title: 'Gastronomy',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'IsGastronomy' },
+              propertyMappings: { enabled: 'IsGastronomy' },
             },
             {
               title: 'Is Bookable',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'IsBookable' },
+              propertyMappings: { enabled: 'IsBookable' },
             },
             {
               title: 'Features',
               component: CellComponent.ArrayTagsCell,
-              fields: {
+              propertyMappings: {
                 items: 'Features',
               },
               params: {
-                fieldName: 'Name',
+                propertyName: 'Name',
                 separator: ', ',
                 max: '3',
               },
@@ -133,13 +132,13 @@ export const accommodationSharedView = ():
             {
               title: 'HGV ID',
               component: CellComponent.StringCell,
-              fields: { text: 'HgvId' },
+              propertyMappings: { text: 'HgvId' },
               class: 'break-all',
             },
             {
               title: 'Marketing Group IDs',
               component: CellComponent.ArrayCell,
-              fields: {
+              propertyMappings: {
                 items: 'MarketingGroupIds',
               },
               params: {
@@ -165,12 +164,12 @@ export const accommodationSharedView = ():
             {
               title: 'Long description',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Longdesc' },
+              propertyMappings: { text: 'AccoDetail.{language}.Longdesc' },
             },
             {
               title: 'Short description',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.ShortDesc' },
+              propertyMappings: { text: 'AccoDetail.{language}.ShortDesc' },
             },
           ],
         },
@@ -188,7 +187,7 @@ export const accommodationSharedView = ():
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              propertyMappings: { text: 'Shortname' },
             },
           ],
         },

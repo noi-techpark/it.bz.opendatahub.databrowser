@@ -31,7 +31,14 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
         shortnameWithLogoAndMainImageSubCategory(),
         {
           name: 'IDs',
-          properties: [idReadOnlyCell()],
+          properties: [
+            idReadOnlyCell(),
+            {
+              title: 'Area Id',
+              component: CellComponent.StringCell,
+              propertyMappings: { text: 'LocationInfo.AreaInfo.Id' },
+            },
+          ],
         },
         dataStatesSubCategory(),
         sourceSubCategory(),
@@ -50,19 +57,19 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date Begin',
               component: CellComponent.DateCell,
-              fields: { date: 'DateBegin' },
+              propertyMappings: { date: 'DateBegin' },
               params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
             {
               title: 'Date End',
               component: CellComponent.DateCell,
-              fields: { date: 'EventDatesEnd' },
+              propertyMappings: { date: 'EventDatesEnd' },
               params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
             {
               title: 'Entrance',
               component: CellComponent.StringCell,
-              fields: { text: 'Entrance' },
+              propertyMappings: { text: 'Entrance' },
             },
           ],
         },
@@ -72,17 +79,17 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Company / Name',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.CompanyName' },
+              propertyMappings: { text: 'ContactInfos.{language}.CompanyName' },
             },
             {
               title: 'Tax Number',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Tax' },
+              propertyMappings: { text: 'ContactInfos.{language}.Tax' },
             },
             {
               title: 'Vat',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Vat' },
+              propertyMappings: { text: 'ContactInfos.{language}.Vat' },
             },
           ],
         },
@@ -92,22 +99,22 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Address',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Address' },
+              propertyMappings: { text: 'ContactInfos.{language}.Address' },
             },
             {
               title: 'Zip Code',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.ZipCode' },
+              propertyMappings: { text: 'ContactInfos.{language}.ZipCode' },
             },
             {
               title: 'Country Name',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.CountryName' },
+              propertyMappings: { text: 'ContactInfos.{language}.CountryName' },
             },
             {
               title: 'Country Code',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.CountryCode' },
+              propertyMappings: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
         },
@@ -117,17 +124,17 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Email',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Email' },
+              propertyMappings: { text: 'ContactInfos.{language}.Email' },
             },
             {
               title: 'Phonenumber',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Phonenumber' },
+              propertyMappings: { text: 'ContactInfos.{language}.Phonenumber' },
             },
             {
               title: 'Url',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Url' },
+              propertyMappings: { text: 'ContactInfos.{language}.Url' },
             },
           ],
         },
@@ -137,12 +144,12 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Single Days',
               component: CellComponent.StringCell,
-              fields: { text: 'EventDate.SingleDays' },
+              propertyMappings: { text: 'EventDate.SingleDays' },
             },
             {
               title: 'Ticket',
               component: CellComponent.StringCell,
-              fields: { text: 'Ticket' },
+              propertyMappings: { text: 'Ticket' },
             },
           ],
         },
@@ -152,12 +159,12 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Event Price',
               component: CellComponent.StringCell,
-              fields: { text: 'EventPrice.0' },
+              propertyMappings: { text: 'EventPrice.0' },
             },
             {
               title: 'Type',
               component: CellComponent.StringCell,
-              fields: { text: 'Type' },
+              propertyMappings: { text: 'Type' },
             },
           ],
         },
@@ -167,36 +174,36 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'MinPersons',
               component: CellComponent.StringCell,
-              fields: { text: 'EventDate.MinPersons' },
+              propertyMappings: { text: 'EventDate.MinPersons' },
             },
             {
               title: 'MaxPersons',
               component: CellComponent.StringCell,
-              fields: { text: 'EventDate.MaxPersons' },
+              propertyMappings: { text: 'EventDate.MaxPersons' },
             },
             {
               title: 'Ranc',
               component: CellComponent.StringCell,
-              fields: { text: 'EventDate.Ranc' },
+              propertyMappings: { text: 'EventDate.Ranc' },
             },
             {
               title: 'SignOn',
               component: CellComponent.StringCell,
-              fields: { text: 'SignOn' },
+              propertyMappings: { text: 'SignOn' },
             },
             {
               title: 'PayMet',
               component: CellComponent.StringCell,
-              fields: { text: 'PayMet' },
+              propertyMappings: { text: 'PayMet' },
             },
             {
               title: 'Topics',
               component: CellComponent.ArrayTagsCell,
-              fields: {
+              propertyMappings: {
                 items: 'Topics',
               },
               params: {
-                fieldName: 'TopicInfo',
+                propertyName: 'TopicInfo',
                 separator: ', ',
                 max: '3',
               },
@@ -219,7 +226,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Area Id',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.AreaInfo.Id' },
+              propertyMappings: { text: 'LocationInfo.AreaInfo.Id' },
             },
           ],
         },
@@ -229,7 +236,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'SmgActive' },
+              propertyMappings: { enabled: 'SmgActive' },
             },
           ],
         },

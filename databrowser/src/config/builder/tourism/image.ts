@@ -16,7 +16,7 @@ export const imageGalleryCell = (
   listFields: {
     attributeName: 'images',
     pathToParent: 'ImageGallery',
-    fields: {
+    propertyMappings: {
       alt: 'ImageAltText.{language}',
       src: 'ImageUrl',
       name: 'ImageName',
@@ -51,7 +51,7 @@ export const imageTableCell = (): PropertyConfig => ({
   title: 'Image',
   component: CellComponent.ImageCell,
   class: 'w-40',
-  fields: {
+  propertyMappings: {
     src: 'ImageGallery.0.ImageUrl',
   },
 });
@@ -59,13 +59,13 @@ export const imageTableCell = (): PropertyConfig => ({
 export const mainImageCell = (): PropertyConfig => ({
   title: 'Main Image',
   component: CellComponent.ImageCell,
-  fields: { src: 'ImageGallery.0.ImageUrl' },
+  propertyMappings: { src: 'ImageGallery.0.ImageUrl' },
 });
 
 export const logoCell = (): PropertyConfig => ({
   title: 'Logo',
   component: CellComponent.ImageEditCell,
-  fields: { src: 'ContactInfos.{language}.LogoUrl' },
+  propertyMappings: { src: 'ContactInfos.{language}.LogoUrl' },
   params: {
     width: '40%',
   },
@@ -75,7 +75,7 @@ export const logoTableCell = (): PropertyConfig => ({
   title: 'Logo',
   component: CellComponent.ImageCell,
   class: 'w-40',
-  fields: { src: 'ContactInfos.{language}.LogoUrl' },
+  propertyMappings: { src: 'ContactInfos.{language}.LogoUrl' },
 });
 
 export const logoWithMainImageCells = (): PropertyConfig[] => [

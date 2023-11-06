@@ -9,13 +9,11 @@ import {
   ViewConfig,
   ViewKey,
 } from '../types';
-import { usePropertyMapping } from '../../api';
+import { buildTargetObject } from '../../api';
 import { buildFieldReplacer } from './fieldReplacer';
 import { applyReplacementsToView } from '../view/enhanceView';
 import { reactiveComputed } from '@vueuse/core';
 import { ToRefs, toRefs, toValue } from 'vue';
-
-const { mapWithIndex } = usePropertyMapping();
 
 interface ComputeDatasetConfigReplacement {
   view: ViewConfig | undefined;
@@ -38,7 +36,7 @@ export const computeDatasetConfigReplacement = ({
     const fieldWithReplacements = replaceFields({
       field: name,
     });
-    return mapWithIndex(data, fieldWithReplacements).field;
+    return buildTargetObject(data, fieldWithReplacements).field;
   };
 
   if (viewKey == null || datasetConfig == null) {

@@ -9,19 +9,19 @@ import { useTableViewColsStore } from '../tableViewColsStore';
 import { useRawfilterHandler } from './rawfilterHandler';
 import { useTableFilterStore } from './tableFilterStore';
 import { Filter, FilterOperator, FilterValue, Rawfilter } from './types';
-import { ListElements } from '../../../datasetConfig/types';
+import { ListElements, PropertyPath } from '../../../datasetConfig/types';
 
 type TableViewColumn = ListElements & {
   title: string;
-  // Defined if there is exactly one field
-  field?: string;
+  // Defined if there is exactly one entry in propertyMappings
+  propertyMapping?: string;
 };
 
 let isValueChange = false;
 
-export const useTableFilterForField = (
+export const useTableFilterForPropertyPath = (
   title: Ref<string>,
-  field: Ref<string | undefined>
+  propertyPath: Ref<PropertyPath | undefined>
 ) => {
   // Access rawfilters from URL
   const { rawfilters, updateRawfilters } = useRawfilterHandler();
@@ -31,8 +31,8 @@ export const useTableFilterForField = (
 
   // Filter store import
   const {
-    addFilterByField,
-    removeFilterByField,
+    addFilterByPropertyPath,
+    removeFilterByPropertyPath,
     setFilters,
     filtersFromStore,
   } = useTableFilterStoreImport();
@@ -40,29 +40,32 @@ export const useTableFilterForField = (
   // Update filters in store from rawfilters (URL)
   addFilterWatcherSingleton(rawfilters, cols, setFilters);
 
-  // Add filter for current field to store and show toolbox
+  // Add filter for current propertyPath to store and show toolbox
   const addFilter = () =>
     wrapFilterMutation(() => {
-      if (field.value != null) {
-        addFilterByField(field.value, title.value);
+      if (propertyPath.value != null) {
+        addFilterByPropertyPath(propertyPath.value, title.value);
         useToolBoxStore().visible = true;
       }
     });
 
   const removeFilter = () =>
     wrapFilterMutation(() => {
-      removeFilterByField(field.value);
+      removeFilterByPropertyPath(propertyPath.value);
       updateRawfilters(filtersFromStore.value);
     });
 
-  // The canFilter property is true if there exists a field for which filtering can be performed.
-  const canFilter = computed(() => field.value != null);
+  // The canFilter property is true if there exists a propertyPath for which filtering can be performed.
+  const canFilter = computed(() => propertyPath.value != null);
 
   const isFilterActive = computed(() => {
-    if (field.value == null) {
+    if (propertyPath.value == null) {
       return false;
     }
-    return rawfilters.value.filter((f) => f.field === field.value).length > 0;
+    return (
+      rawfilters.value.filter((f) => f.propertyPath === propertyPath.value)
+        .length > 0
+    );
   });
 
   return {
@@ -81,7 +84,7 @@ export const useTableFilter = () => {
 
   // Filter store import
   const {
-    addFilterByField,
+    addFilterByPropertyPath,
     removeFilterByIndex,
     setFilters,
     filtersFromStore,
@@ -93,10 +96,13 @@ export const useTableFilter = () => {
   const addEmptyFilter = () =>
     wrapFilterMutation(() => {
       const colsWithoutNull = cols.value.find(
-        (col): col is Required<TableViewColumn> => col.field != null
+        (col): col is Required<TableViewColumn> => col.propertyPath != null
       );
       if (colsWithoutNull != null) {
-        addFilterByField(colsWithoutNull.field, colsWithoutNull.title);
+        addFilterByPropertyPath(
+          colsWithoutNull.propertyPath,
+          colsWithoutNull.title
+        );
       }
     });
 
@@ -137,16 +143,16 @@ export const useTableFilter = () => {
 const useTableFilterStoreImport = () => {
   const tableFilterStore = useTableFilterStore();
   const {
-    addFilterByField,
-    removeFilterByField,
+    addFilterByPropertyPath,
+    removeFilterByPropertyPath,
     removeFilterByIndex,
     setFilters,
   } = tableFilterStore;
   const { filters: filtersFromStore } = toRefs(tableFilterStore);
 
   return {
-    addFilterByField,
-    removeFilterByField,
+    addFilterByPropertyPath,
+    removeFilterByPropertyPath,
     removeFilterByIndex,
     setFilters,
     filtersFromStore,
@@ -174,8 +180,8 @@ const addFilterWatcherSingleton = (
 
       const filtersWithTitles = rawfilters.value.map((filter) => {
         const title =
-          columns.value.find((col) => col.field === filter.field)?.title ??
-          filter.field;
+          columns.value.find((col) => col.propertyPath === filter.propertyPath)
+            ?.title ?? filter.propertyPath;
         return { ...filter, title };
       });
 

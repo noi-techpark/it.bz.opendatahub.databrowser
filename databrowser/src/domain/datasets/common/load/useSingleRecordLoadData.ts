@@ -2,21 +2,20 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { MaybeRef } from 'vue';
+import { MaybeRef, watchEffect } from 'vue';
 import {
   buildAuthInterceptor,
   useBaseAxiosFetch,
-} from '../../../api/client/fetcher/axios';
+} from '../../../api/client/axiosFetcher';
 
 export const useSingleRecordLoadData = (
   fullPath: MaybeRef<string | undefined>
 ) => {
-  useBaseAxiosFetch(fullPath, {
-    beforeFetch: buildAuthInterceptor(),
-  });
   const { data, error, isError, isLoading } = useBaseAxiosFetch(fullPath, {
     beforeFetch: buildAuthInterceptor(),
   });
+
+  watchEffect(() => console.log('fullPath', fullPath));
 
   return {
     data,

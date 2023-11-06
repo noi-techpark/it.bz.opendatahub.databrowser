@@ -18,7 +18,7 @@ import {
 //
 //                 !!!! IMPORTANT !!!!
 //
-// The regex is not perfect, in some cases it matches invalid values like "isnull(field, value)"
+// The regex is not perfect, in some cases it matches invalid values like "isnull(propertyPath, value)"
 // but that kind of rawfilter value causes the backend to fail with a 500 error, so this should
 // not be a huge problem.
 //
@@ -35,22 +35,22 @@ import {
 // ------------------------------------------------------------
 //
 // The regex matches the following:
-// - eq(field, value)
-// - ne(field, value)
-// - gt(field, value)
-// - lt(field, value)
-// - ge(field, value)
-// - le(field, value)
-// - isnull(field)
-// - isnotnull(field)
-// - in(field, value)
-// - nin(field, value)
+// - eq(propertyPath, value)
+// - ne(propertyPath, value)
+// - gt(propertyPath, value)
+// - lt(propertyPath, value)
+// - ge(propertyPath, value)
+// - le(propertyPath, value)
+// - isnull(propertyPath)
+// - isnotnull(propertyPath)
+// - in(propertyPath, value)
+// - nin(propertyPath, value)
 //
 // Where:
 // - operator is one of the above: eq, ne, gt, lt, ge, le, isnull, isnotnull, in, nin
 //
-// - field is a string:
-//   - it can contain dots (.) to target nested fields
+// - propertyPath is a string:
+//   - it can contain dots (.) to define the path to nested properties
 //   - it can contain brackets ([]) -- with optional star ([*]) -- to target all array elements
 //   - it can contain brackets with a number (e.g. [0]) to target a specific array element
 //
@@ -61,7 +61,7 @@ import {
 //   - string surrounded by single or double quotes
 //   - undefined for isnull and isnotnull operators
 const filterRegex =
-  /(?<operator>eq|ne|gt|lt|ge|le|isnull|isnotnull|in|nin|like|likein)\((?<field>\w+(\.(\w+|\[(\*|\d+)?\]))*)(,\s*(?<value>true|false|\d+|\[\]|'(?:[^']|'')*'|"(?:[^"]|"")*"))?\)/g;
+  /(?<operator>eq|ne|gt|lt|ge|le|isnull|isnotnull|in|nin|like|likein)\((?<propertyPath>\w+(\.(\w+|\[(\*|\d+)?\]))*)(,\s*(?<value>true|false|\d+|\[\]|'(?:[^']|'')*'|"(?:[^"]|"")*"))?\)/g;
 
 export const parseFilterWithRegex: RawfilterParser = (rawfilter) => {
   // If rawfilter is undefined, return an empty array.
@@ -76,24 +76,26 @@ export const parseFilterWithRegex: RawfilterParser = (rawfilter) => {
   }
 
   const soho = Array.from(matches, (m) => m.groups)
-    .filter((g) => g != null && g.field != null && isFilterOperator(g.operator))
+    .filter(
+      (g) => g != null && g.propertyPath != null && isFilterOperator(g.operator)
+    )
     .map<Rawfilter>((g) => {
-      const field = convertToField(g!.field);
+      const propertyPath = convertToPropertyPath(g!.propertyPath);
       const operator = g!.operator as FilterOperator;
       const value = convertToValue(g!.value);
 
-      return { field, operator, value };
+      return { propertyPath: propertyPath, operator, value };
     });
 
   return soho;
 };
 
-const convertToField = (field: string) => {
-  // Handle array fields for includes / not includes operators
-  if (field.endsWith('.[*]')) {
-    return field.substring(0, field.length - 4);
+const convertToPropertyPath = (propertyPath: string) => {
+  // Handle array propertyPaths for includes / not includes operators
+  if (propertyPath.endsWith('.[*]')) {
+    return propertyPath.substring(0, propertyPath.length - 4);
   }
-  return field;
+  return propertyPath;
 };
 
 const convertToValue = (value: string | undefined) => {

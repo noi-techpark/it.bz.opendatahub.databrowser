@@ -86,15 +86,15 @@ export const useApplyError = (
       const catWithErrors = categories.value.map((cat) => {
         const hasError = cat.subCategories.some((sub) =>
           sub.properties.some((prop) =>
-            prop.fields == null
+            prop.propertyMappings == null
               ? false
-              : Object.values(prop.fields).some(
+              : Object.values(prop.propertyMappings).some(
                   (value) => err.errors?.[value] != null
                 )
           )
         );
 
-        return hasError ? { ...cat, isAnyFieldError: hasError } : { ...cat };
+        return hasError ? { ...cat, isAnyPropertyError: hasError } : { ...cat };
       });
 
       enhancedMainCategories.value = catWithErrors;
@@ -114,11 +114,11 @@ export const useApplyError = (
 
       const subWithErrors = subcategories.value.map((sub) => {
         const properties = sub.properties.map((prop) => {
-          if (prop.fields == null) {
+          if (prop.propertyMappings == null) {
             return { ...prop };
           }
 
-          const entryKey = Object.values(prop.fields).find(
+          const entryKey = Object.values(prop.propertyMappings).find(
             (value) => err.errors?.[value] != null
           );
 

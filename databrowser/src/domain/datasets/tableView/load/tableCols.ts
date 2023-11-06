@@ -26,7 +26,7 @@ export const computeTableCols = (
   return listView.elements.map<ListElements>((col) => ({
     title: col.title,
     component: CellComponent.LoadingCell,
-    fields: {},
+    propertyMappings: {},
     class: col.class,
   }));
 };

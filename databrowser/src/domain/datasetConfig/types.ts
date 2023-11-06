@@ -15,21 +15,37 @@ interface BasePropertyConfig {
   required?: boolean;
 }
 
+/**
+ * A property path is a string that represents the path to a property.
+ *
+ * For example the path to the property "name" of the object "person" is
+ * "person.name".
+ */
+export type PropertyPath = string;
+
+/**
+ * A mapped property name is a string that represents the name of a property
+ * in the mapped object.
+ */
+export type TargetPropertyName = string;
+
+export type PropertyMappings = Record<TargetPropertyName, PropertyPath>;
+
 export interface ObjectPropertyConfig {
-  fields: Record<string, string>;
+  propertyMappings: PropertyMappings;
   listFields?: never;
 }
 
 export interface BaseListFields {
-  pathToParent: string;
-  // If fields is undefined or empty, then the object defined by parentPath
+  pathToParent: PropertyPath;
+  // If propertyMappings is undefined or empty, then the object defined by parentPath
   // is passed to the component as it is. This is useful e.g. for an array
   // of simple types (strings, number or booleans)
-  fields?: Record<string, string>;
+  propertyMappings?: PropertyMappings;
 }
 
 export interface ArrayPropertyConfig {
-  fields?: never;
+  propertyMappings?: never;
   listFields: BaseListFields & { attributeName: string };
 }
 
@@ -43,8 +59,8 @@ export interface FilterConfig {
 }
 
 export type ListElements = PropertyConfig & {
-  // Any entry from the fields property of the object
-  field?: string;
+  // Any entry from propertyPaths
+  propertyPath?: string;
 };
 
 export interface SubCategoryElement {
@@ -105,7 +121,7 @@ export interface QuickViewPageConfig {
 
 export interface QuickViewTopGallery {
   isVisible: boolean;
-  fields: Record<string, string>;
+  propertyMappings: PropertyMappings;
 }
 export interface EditViewElements {
   elements: EditElements[];

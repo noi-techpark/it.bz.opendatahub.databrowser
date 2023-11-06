@@ -12,20 +12,18 @@ export const sourceListView: ListViewConfig = {
       title: 'Key',
       component: CellComponent.StringCell,
       class: 'w-60',
-      fields: { text: 'Key' },
+      propertyMappings: { text: 'Key' },
     },
     {
       title: 'Name',
       component: CellComponent.StringCell,
-      fields: { text: 'Name.{language}' },
+      propertyMappings: { text: 'Name.{language}' },
     },
     {
       title: 'Interfaces',
       component: CellComponent.ArrayCell,
       class: 'w-60',
-      fields: {
-        items: 'Interfaces',
-      },
+      propertyMappings: { items: 'Interfaces' },
       params: {
         separator: ', ',
       },
@@ -34,7 +32,7 @@ export const sourceListView: ListViewConfig = {
       title: 'Source URL',
       component: CellComponent.UrlCell,
       class: 'w-80',
-      fields: { text: 'Url' },
+      propertyMappings: { text: 'Url' },
     },
     lastChangesTableCell(),
   ],

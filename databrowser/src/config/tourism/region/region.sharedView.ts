@@ -34,7 +34,7 @@ export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Ski area Ids',
               component: CellComponent.ArrayCell,
-              fields: {
+              propertyMappings: {
                 items: 'SkiareaIds',
               },
               params: {
@@ -44,7 +44,7 @@ export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'HGV id',
               component: CellComponent.StringCell,
-              fields: { text: 'Mapping.hgv.id' },
+              propertyMappings: { text: 'Mapping.hgv.id' },
               class: 'break-all',
             },
           ],

@@ -30,7 +30,7 @@ export const isFilterOperator = (value?: string): value is FilterOperator =>
   value != null && FILTER_OPERATORS.includes(value as FilterOperator);
 
 export interface Rawfilter {
-  field: string;
+  propertyPath: string;
   operator: FilterOperator;
   value?: FilterValue;
 }

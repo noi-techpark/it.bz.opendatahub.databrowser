@@ -20,7 +20,7 @@ export const articleListView: ListViewConfig = {
       title: 'Type',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      propertyMappings: {
         text: 'Type',
       },
     },
@@ -28,7 +28,7 @@ export const articleListView: ListViewConfig = {
       title: 'SubType',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      propertyMappings: {
         text: 'SubType',
       },
     },
@@ -36,7 +36,7 @@ export const articleListView: ListViewConfig = {
       title: 'Tags',
       component: CellComponent.ArrayCell,
       class: 'w-40',
-      fields: {
+      propertyMappings: {
         items: 'SmgTags',
       },
       params: {

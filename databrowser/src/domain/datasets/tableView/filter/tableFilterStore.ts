@@ -17,15 +17,17 @@ export const useTableFilterStore = defineStore('tableFilterStore', {
   state: () => initialState,
 
   actions: {
-    addFilterByField(field: string, title: string) {
+    addFilterByPropertyPath(propertyPath: string, title: string) {
       this.filters = [
         ...this.filters,
-        { field, title, operator: 'eq', value: '' },
+        { propertyPath: propertyPath, title, operator: 'eq', value: '' },
       ];
     },
-    removeFilterByField(field?: string) {
-      if (field != null) {
-        this.filters = this.filters.filter((filter) => filter.field !== field);
+    removeFilterByPropertyPath(propertyPath?: string) {
+      if (propertyPath != null) {
+        this.filters = this.filters.filter(
+          (filter) => filter.propertyPath !== propertyPath
+        );
       }
     },
     removeFilterByIndex(index?: number) {

@@ -37,12 +37,12 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Siag ID',
               component: CellComponent.StringCell,
-              fields: { text: 'SiagId' },
+              propertyMappings: { text: 'SiagId' },
             },
             {
               title: 'HGV ID',
               component: CellComponent.StringCell,
-              fields: { text: 'hgv.id' },
+              propertyMappings: { text: 'hgv.id' },
             },
           ],
         },
@@ -54,12 +54,12 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
                 {
                   title: 'Is comune',
                   component: CellComponent.ToggleCell,
-                  fields: { enabled: 'IsComune' },
+                  propertyMappings: { enabled: 'IsComune' },
                 },
                 {
                   title: 'Visible in Search',
                   component: CellComponent.ToggleCell,
-                  fields: { enabled: 'VisibleInSearch' },
+                  propertyMappings: { enabled: 'VisibleInSearch' },
                 },
               ],
             },

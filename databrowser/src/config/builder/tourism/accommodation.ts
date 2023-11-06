@@ -9,7 +9,7 @@ import { withOdhBaseUrl } from '../../utils';
 export const accommodationCategoryCell = (): PropertyConfig => ({
   title: 'Accommodation category',
   component: CellComponent.InputReferenceCell,
-  fields: { value: 'AccoCategoryId' },
+  propertyMappings: { value: 'AccoCategory.Id' },
   params: {
     url: withOdhBaseUrl('/v1/AccommodationTypes?type=Category'),
     labelSelector: 'TypeDesc.{language}',
@@ -21,7 +21,7 @@ export const accommodationCategoryCell = (): PropertyConfig => ({
 export const accommodationTypeCell = (): PropertyConfig => ({
   title: 'Accommodation type',
   component: CellComponent.InputReferenceCell,
-  fields: { value: 'AccoTypeId' },
+  propertyMappings: { value: 'AccoType.Id' },
   params: {
     url: withOdhBaseUrl('/v1/AccommodationTypes?type=Type'),
     labelSelector: 'TypeDesc.{language}',

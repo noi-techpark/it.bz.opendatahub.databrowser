@@ -25,8 +25,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :data-test="`desktop-main-category-${category.slug}`"
         @click="emit('change', category.slug)"
       >
-        <span :class="{ 'text-error': category.isAnyFieldError === true }">
-          {{ computeLabel(category.name, category.isAnyFieldRequired) }}
+        <span :class="{ 'text-error': category.isAnyPropertyError === true }">
+          {{ computeLabel(category.name, category.isAnyPropertyRequired) }}
         </span>
       </PillLink>
     </div>
@@ -50,12 +50,12 @@ const props = defineProps<{
 
 const { categories, slug } = toRefs(props);
 
-const computeLabel = (name: string, isAnyFieldRequired?: boolean) =>
-  name + (isAnyFieldRequired ? ' *' : '');
+const computeLabel = (name: string, isAnyPropertyRequired?: boolean) =>
+  name + (isAnyPropertyRequired ? ' *' : '');
 
 const selectOptions = computed<SelectOption[]>(() =>
   categories.value.map((category) => ({
-    label: computeLabel(category.name, category.isAnyFieldRequired),
+    label: computeLabel(category.name, category.isAnyPropertyRequired),
     value: category.slug,
   }))
 );

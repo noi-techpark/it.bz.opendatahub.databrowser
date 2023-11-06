@@ -16,7 +16,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { toRefs, watch } from 'vue';
-import { BaseListFields } from '../../domain/datasetConfig/types';
+import {
+  BaseListFields,
+  PropertyMappings,
+} from '../../domain/datasetConfig/types';
 import { loadWebComponent } from '../../domain/webComponents/lazyLoadedWebComponent';
 import { isRegisteredWebComponent } from '../../domain/webComponents/webComponentRegistry';
 import { useUpdate } from './useUpdate';
@@ -25,20 +28,20 @@ const props = withDefaults(
   defineProps<{
     tagName: string;
     attributes: Record<string, unknown>;
-    fields?: Record<string, string>;
+    propertyMappings?: PropertyMappings;
     listFields?: BaseListFields;
     editable?: boolean;
   }>(),
   {
     tagName: '',
     attributes: () => ({}),
-    fields: undefined,
+    propertyMappings: undefined,
     listFields: undefined,
     editable: false,
   }
 );
 
-const { tagName, attributes, fields, listFields } = toRefs(props);
+const { tagName, attributes, propertyMappings, listFields } = toRefs(props);
 
 watch(
   () => tagName.value,
@@ -50,5 +53,5 @@ watch(
   { immediate: true }
 );
 
-const update = useUpdate(tagName, fields, listFields);
+const update = useUpdate(tagName, propertyMappings, listFields);
 </script>

@@ -35,7 +35,7 @@ const { cols } = toRefs(props);
 const filterOptions = computed(() =>
   cols.value.map<SelectOption>((col) => ({
     label: col.title,
-    value: col.field,
+    value: col.propertyPath,
   }))
 );
 </script>

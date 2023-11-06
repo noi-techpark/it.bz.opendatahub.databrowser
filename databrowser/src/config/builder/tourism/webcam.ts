@@ -14,7 +14,7 @@ export const webcamCell = (): PropertyConfig => ({
   listFields: {
     attributeName: 'webcams',
     pathToParent: 'Webcam',
-    fields: {
+    propertyMappings: {
       name: 'Webcamname.{language}',
       imageUrl: 'Webcamurl',
       latitude: 'GpsInfo.Latitude',

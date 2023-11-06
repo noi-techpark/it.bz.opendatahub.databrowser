@@ -13,6 +13,7 @@ import {
   QuickViewConfig,
   ViewKey,
   ViewConfig,
+  PropertyMappings,
 } from '../types';
 
 export const applyReplacementsToView = (
@@ -47,17 +48,22 @@ export const applyReplacementsToTableView = (
     return undefined;
   }
 
-  const firstField = (fields?: Record<string, string>) => {
-    const values = Object.values(fields ?? {});
+  const firstPropertyName = (propertyMappings?: PropertyMappings) => {
+    const values = Object.values(propertyMappings ?? {});
     return values.length === 1 ? values[0] : undefined;
   };
 
   const result = {
     ...tableViewConfig,
     elements: tableViewConfig.elements.map<ListElements>((element) => {
-      const fields = replaceFields(element.fields);
-      const field = firstField(fields);
-      return { ...element, fields, field, listFields: undefined };
+      const propertyMappings = replaceFields(element.propertyMappings);
+      const propertyName = firstPropertyName(propertyMappings);
+      return {
+        ...element,
+        propertyMappings: propertyMappings,
+        propertyPath: propertyName,
+        listFields: undefined,
+      };
     }),
   };
 
@@ -83,19 +89,21 @@ export const applyReplacementsToDetailView = (
     subcategories: element.subcategories.map((subcategory) => ({
       ...subcategory,
       properties: subcategory.properties.map((property) => {
-        if (property.fields != null) {
+        if (property.propertyMappings != null) {
           return {
             ...property,
             listFields: undefined,
-            fields: replaceFields(property.fields),
+            propertyMappings: replaceFields(property.propertyMappings),
           };
         } else if (property.listFields != null) {
           return {
             ...property,
-            fields: undefined,
+            propertyMappings: undefined,
             listFields: {
               ...property.listFields,
-              fields: replaceFields(property.listFields.fields),
+              propertyMappings: replaceFields(
+                property.listFields.propertyMappings
+              ),
             },
           };
         }
@@ -123,19 +131,21 @@ export const applyReplacementsToEditView = (
     subcategories: element.subcategories.map((subcategory) => ({
       ...subcategory,
       properties: subcategory.properties.map((property) => {
-        if (property.fields != null) {
+        if (property.propertyMappings != null) {
           return {
             ...property,
             listFields: undefined,
-            fields: replaceFields(property.fields),
+            propertyMappings: replaceFields(property.propertyMappings),
           };
         } else if (property.listFields != null) {
           return {
             ...property,
-            fields: undefined,
+            propertyMappings: undefined,
             listFields: {
               ...property.listFields,
-              fields: replaceFields(property.listFields.fields),
+              propertyMappings: replaceFields(
+                property.listFields.propertyMappings
+              ),
             },
           };
         }
@@ -163,19 +173,21 @@ export const applyReplacementsToNewView = (
     subcategories: element.subcategories.map((subcategory) => ({
       ...subcategory,
       properties: subcategory.properties.map((property) => {
-        if (property.fields != null) {
+        if (property.propertyMappings != null) {
           return {
             ...property,
             listFields: undefined,
-            fields: replaceFields(property.fields),
+            propertyMappings: replaceFields(property.propertyMappings),
           };
         } else if (property.listFields != null) {
           return {
             ...property,
-            fields: undefined,
+            propertyMappings: undefined,
             listFields: {
               ...property.listFields,
-              fields: replaceFields(property.listFields.fields),
+              propertyMappings: replaceFields(
+                property.listFields.propertyMappings
+              ),
             },
           };
         }
@@ -199,19 +211,19 @@ export const applyReplacementsToQuickView = (
   }
 
   const elements = quickViewConfig.elements.map((element) => {
-    if (element.fields != null) {
+    if (element.propertyMappings != null) {
       return {
         ...element,
         listFields: undefined,
-        fields: replaceFields(element.fields),
+        propertyMappings: replaceFields(element.propertyMappings),
       };
     } else if (element.listFields != null) {
       return {
         ...element,
-        fields: undefined,
+        propertyMappings: undefined,
         listFields: {
           ...element.listFields,
-          fields: replaceFields(element.listFields.fields),
+          propertyMappings: replaceFields(element.listFields.propertyMappings),
         },
       };
     }
