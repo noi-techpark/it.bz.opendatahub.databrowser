@@ -39,7 +39,6 @@ import {
 } from '../../../../../components/select/types';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import { useAxiosFetcher } from '../../../../api';
-import { randomId } from '../../../../../components/utils/random';
 import { useQuery } from 'vue-query';
 
 import StringCell from '../stringCell/StringCell.vue';
