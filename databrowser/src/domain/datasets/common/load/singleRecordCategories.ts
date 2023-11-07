@@ -8,6 +8,7 @@ import {
   DetailViewConfig,
   EditViewConfig,
   NewViewConfig,
+  SubCategoryElement,
   ViewConfig,
 } from '../../../datasetConfig/types';
 import { useI18n } from 'vue-i18n';
@@ -15,13 +16,14 @@ import { useI18n } from 'vue-i18n';
 interface ComputeSingleRecordCategories {
   name: string;
   slug: string;
-  subCategories: DetailElements['subcategories'];
+  subCategories: SubCategoryElement[];
   isAnyPropertyRequired: boolean;
 }
 
 export const computeSingleRecordCategories = (
   view: ViewConfig | undefined,
-  isGeneratedSource: boolean
+  isGeneratedSource: boolean,
+  categoryFallbackName = 'All data'
 ): ComputeSingleRecordCategories[] => {
   if (view == null) {
     return [];
@@ -36,23 +38,17 @@ export const computeSingleRecordCategories = (
     return [];
   }
 
-  const fallbackName = useI18n().t('datasets.generated.categoryName');
-
   // Compute categories
   return elements.map((element) => {
     // If config is generated, use fallback name.
     // Otherwise, use name as defined by config
-    const name = isGeneratedSource ? fallbackName : element.name;
+    const name = isGeneratedSource ? categoryFallbackName : element.name;
 
     const isAnyPropertyRequired = hasAnyRequiredProperty(element);
 
     return {
       name,
       slug: element.slug,
-      // to: {
-      //   hash: `#${element.slug}`,
-      //   query: currentRouteQuery,
-      // },
       subCategories: element.subcategories,
       isAnyPropertyRequired,
     };
@@ -62,10 +58,16 @@ export const computeSingleRecordCategories = (
 export const useComputeSingleRecordCategories = (
   view: MaybeRef<ViewConfig | undefined>,
   isGeneratedSource: MaybeRef<boolean>
-) =>
-  computed(() =>
-    computeSingleRecordCategories(toValue(view), toValue(isGeneratedSource))
+) => {
+  const categoryFallbackName = useI18n().t('datasets.generated.categoryName');
+  return computed(() =>
+    computeSingleRecordCategories(
+      toValue(view),
+      toValue(isGeneratedSource),
+      categoryFallbackName
+    )
   );
+};
 
 const hasAnyRequiredProperty = (element: DetailElements) =>
   element.subcategories.some((sub) =>

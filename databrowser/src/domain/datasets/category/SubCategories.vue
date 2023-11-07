@@ -10,16 +10,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       {{ category.name }}
     </h2>
     <div
-      v-for="subcategory in subCategoriesWithValues"
-      :key="keyFromString(subcategory.name)"
+      v-for="(subcategory, subcategoryIndex) in subCategoriesWithValues"
+      :key="toKey(subcategory.name, subcategoryIndex)"
       class="mb-4"
     >
       <h3 class="font-bold">{{ subcategory.name }}</h3>
       <ContentDivider class="my-1" />
       <div class="flex flex-col text-gray-500">
         <SubCategoryItem
-          v-for="property in subcategory.properties"
-          :key="keyFromString(property.title)"
+          v-for="(property, propertyIndex) in subcategory.properties"
+          :key="toKey(property.title, propertyIndex)"
           :title="property.title"
           :tooltip="property.tooltip"
           :required="property.required"
@@ -71,8 +71,7 @@ const subCategoriesWithValues = computed(() =>
   }))
 );
 
-const keyFromString = (str: string) =>
-  str != null && str.length > 0 ? str : '' + Math.random();
+const toKey = (str: string | undefined, index: number) => `${str}_${index}`;
 
 const titleToDataTest = (title: string) => {
   return title.toLowerCase().replaceAll(' ', '-');

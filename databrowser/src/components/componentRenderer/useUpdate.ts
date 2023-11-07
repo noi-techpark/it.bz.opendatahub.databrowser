@@ -137,5 +137,5 @@ const propertyUnknownMessage = (
 ) => {
   const knownProperties =
     propertyMappings == null ? 'none' : JSON.stringify(propertyMappings);
-  return `Got update event from component ${tagName} for property ${prop} but no property with that name could be found (known properties: ${knownProperties})`;
+  return `Got update event from component ${tagName} for property "${prop}" but no property with that name could be found (known properties: ${knownProperties})`;
 };

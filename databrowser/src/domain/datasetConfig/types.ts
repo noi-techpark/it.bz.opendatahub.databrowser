@@ -184,14 +184,12 @@ export type Operations = NonNullable<DatasetConfig['operations']>;
 
 export type AnyDomain = string;
 
-// TODO: rename to DatasetLocationDomain?
-type ResolvedDatasetDomain =
+export type DatasetDomain =
   | DomainWithOpenApiDocument
   // In case there is a URL parameter for the domain, but the domain is not known
   | 'unknown'
   // In case the current URL is not related to datasets
   | 'no-dataset-domain-in-url';
-export type DatasetDomain = ResolvedDatasetDomain;
 export type DatasetPath = string[];
 export type DatasetQuery = Record<string, string>;
 export type DatasetId = string;

@@ -56,31 +56,32 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       />
 
       <!-- Language picker -->
-      <LanguagePicker v-if="showLanguagePicker" />
+      <LanguagePicker
+        v-if="showLanguagePicker"
+        :current-language="datasetQuery?.language"
+      />
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import LanguagePicker from '../../../components/language/LanguagePicker.vue';
-import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
-import { useI18n } from 'vue-i18n';
-import AddRecordButton from './AddRecordButton.vue';
-// import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
-import TagCustom from '../../../components/tag/TagCustom.vue';
-import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
-import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
 import { storeToRefs } from 'pinia';
-import { useDatasetSourceStore } from '../../datasetConfig/store/datasetSourceStore';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import LanguagePicker from '../../../components/language/LanguagePicker.vue';
+import TagCustom from '../../../components/tag/TagCustom.vue';
 import { DatasetConfigSource } from '../../datasetConfig/load/types';
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { useDatasetSourceStore } from '../../datasetConfig/store/datasetSourceStore';
+import AddRecordButton from './AddRecordButton.vue';
+import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
+import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
+import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
 
 const { t } = useI18n();
 
-const { addRecordSupported, datasetDomain, hasConfig } = storeToRefs(
-  useDatasetConfigStore()
-);
+const { addRecordSupported, datasetDomain, hasConfig, datasetQuery } =
+  storeToRefs(useDatasetConfigStore());
 
 const { source } = storeToRefs(useDatasetSourceStore());
 

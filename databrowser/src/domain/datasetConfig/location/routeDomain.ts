@@ -3,17 +3,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { RouteDomain } from '../types';
-import { domainIsKnownToHaveOpenApiDocument } from '../../openApi';
 import { RouteLocationNormalizedLoaded } from 'vue-router';
 
 export const computeRouteDomain = (
   route: RouteLocationNormalizedLoaded
 ): RouteDomain => {
-  const domainCandidate = route.params.domain;
-  if (domainCandidate == null || Array.isArray(domainCandidate)) {
-    return 'no-dataset-domain-in-url';
-  }
-  return domainIsKnownToHaveOpenApiDocument(domainCandidate)
-    ? domainCandidate
-    : 'unknown';
+  const domain = route.params.domain;
+  return Array.isArray(domain) ? domain.join(',') : domain;
 };

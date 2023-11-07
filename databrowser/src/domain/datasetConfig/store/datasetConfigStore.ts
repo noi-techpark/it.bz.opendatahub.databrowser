@@ -63,13 +63,15 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', () => {
     viewKey,
   } = useComputeDatasetViewInfo(routeName);
 
-  const { datasetPath, datasetQuery, fullPath } = useComputeDatasetLocation({
-    datasetConfig,
-    viewKey,
-    routePath,
-    routeId,
-    routeQuery,
-  });
+  const { datasetDomain, datasetPath, datasetQuery, fullPath } =
+    useComputeDatasetLocation({
+      datasetConfig,
+      viewKey,
+      routeDomain,
+      routePath,
+      routeId,
+      routeQuery,
+    });
 
   const { view, getDataForField } = useComputeDatasetConfigReplacement({
     datasetConfig,
@@ -95,9 +97,9 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', () => {
     description: computed(() => datasetConfig.value?.description),
     getDataForField: readonly(getDataForField),
     fullPath: readonly(fullPath),
-    datasetQuery: readonly(datasetQuery),
-    datasetDomain: readonly(routeDomain),
+    datasetDomain: readonly(datasetDomain),
     datasetPath: readonly(datasetPath),
+    datasetQuery: readonly(datasetQuery),
     isEmbeddedSource: readonly(isEmbeddedSource),
     isGeneratedSource: readonly(isGeneratedSource),
     hasTableView: readonly(hasTableView),

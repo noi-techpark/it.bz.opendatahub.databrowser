@@ -42,6 +42,8 @@ export const useResolveDatasetConfig = (
       () => toValue(path),
     ],
     async ([preferredSourceValue, domainValue, pathValue]) => {
+      console.log('Resolving dataset config');
+
       isResolving.value = true;
       isError.value = false;
       error.value = undefined;
