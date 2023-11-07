@@ -11,7 +11,6 @@ import {
   shallowRef,
   toValue,
   watch,
-  watchEffect,
 } from 'vue';
 import { useAuth } from '../../auth/store/auth';
 import { storeToRefs } from 'pinia';
@@ -98,56 +97,59 @@ export const useBaseAxiosFetch = <
   const isFinished = ref(false);
   const urlInternal = ref<string>();
 
-  watchEffect(async () => {
-    // Do nothing if request is not enabled
-    if (toValue(enabled) === false) {
-      return;
-    }
+  watch(
+    [() => toValue(enabled), () => toValue(url)],
+    async ([enabledValue, urlValue]) => {
+      // Do nothing if request is not enabled
+      if (enabledValue === false) {
+        console.log('Fetch is disabled');
 
-    // toValue() unwraps potential refs or getters
-    const urlValue = toValue(url);
+        return;
+      }
 
-    if (urlValue == null) {
-      console.debug('Fetch url is undefined, not fetching');
-      return;
-    }
+      if (urlValue == null) {
+        console.debug('Fetch url is undefined, not fetching');
+        return;
+      }
 
-    // Reset state before fetching
-    error.value = null;
-    isLoading.value = true;
-    isFinished.value = false;
+      // Reset state before fetching
+      error.value = null;
+      isLoading.value = true;
+      isFinished.value = false;
 
-    // Compute config
-    const config = await beforeFetch({
-      url: urlValue,
-      method,
-      data: payload,
-      headers: {
-        Accept: type,
-      },
-    });
-
-    // Set urlInternal because it may be overridden by beforeFetch
-    urlInternal.value = config.url;
-
-    await axiosInstance
-      .request<ResponseData>(config)
-      .then((response) => {
-        responseData.value = response.data;
-        return response;
-      })
-      .then(afterFetch)
-      .then((responseData) => (data.value = responseData))
-      .catch((err) => {
-        data.value = null;
-        error.value = err;
-        onFetchError(err);
-      })
-      .finally(() => {
-        isLoading.value = false;
-        isFinished.value = true;
+      // Compute config
+      const config = await beforeFetch({
+        url: urlValue,
+        method,
+        data: payload,
+        headers: {
+          Accept: type,
+        },
       });
-  });
+
+      // Set urlInternal because it may be overridden by beforeFetch
+      urlInternal.value = config.url;
+
+      await axiosInstance
+        .request<ResponseData>(config)
+        .then((response) => {
+          responseData.value = response.data;
+          return response;
+        })
+        .then(afterFetch)
+        .then((responseData) => (data.value = responseData))
+        .catch((err) => {
+          data.value = null;
+          error.value = err;
+          onFetchError(err);
+        })
+        .finally(() => {
+          isLoading.value = false;
+          isFinished.value = true;
+        });
+    },
+    { immediate: true }
+  );
 
   const isError = computed(() => error.value != null);
   const isSuccess = computed(() => isFinished.value && !isError.value);
