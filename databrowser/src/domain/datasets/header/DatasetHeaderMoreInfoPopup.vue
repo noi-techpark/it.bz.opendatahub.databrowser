@@ -56,10 +56,11 @@ import PopoverCustomPanel from '../../../components/popover/PopoverCustomPanel.v
 import IconInfo from '../../../components/svg/IconInfo.vue';
 import OverviewInfoDataAvailability from '../../../pages/datasets/overview/OverviewInfoDataAvailability.vue';
 import OverviewInfoRecordCount from '../../../pages/datasets/overview/OverviewInfoRecordCount.vue';
-import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
 import { usePaths } from './usePaths';
 import { computeButtonClasses } from '../../../components/button/styles';
 import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
+import { useMetaDataStore } from '../../metaDataConfig/tourism/metaDataStore';
+import { storeToRefs } from 'pinia';
 
 const { t } = useI18n();
 
@@ -70,7 +71,7 @@ const buttonClasses = computeButtonClasses({
 
 console.log('DatasetHeaderMoreInfoPopup');
 
-const { currentMetaData } = useMetaDataForCurrentRoute();
+const { currentMetaData } = storeToRefs(useMetaDataStore());
 
 const { datasetOverviewForId } = usePaths();
 </script>
