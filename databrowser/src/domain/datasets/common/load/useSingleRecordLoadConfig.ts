@@ -3,14 +3,14 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { storeToRefs } from 'pinia';
-import { useDatasetConfigStore } from '../../../datasetConfig/store/datasetConfigStore';
+import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
 import { useNormalizePath } from './normalizedPath';
 
 export const useSingleRecordLoadConfig = () => {
   const {
     isResolving,
     view,
-    getDataForField,
+    extractValueByPath,
     fullPath,
     datasetDomain,
     isEmbeddedSource,
@@ -21,7 +21,7 @@ export const useSingleRecordLoadConfig = () => {
     hasQuickView,
     addRecordSupported,
     editRecordSupported,
-  } = storeToRefs(useDatasetConfigStore());
+  } = storeToRefs(useDatasetInfoStore());
 
   const normalizedPath = useNormalizePath(fullPath, datasetDomain);
 
@@ -36,7 +36,7 @@ export const useSingleRecordLoadConfig = () => {
     hasQuickView,
     view,
     isConfigLoading: isResolving,
-    getDataForField,
+    extractValueByPath,
     isEmbeddedSource,
     isGeneratedSource,
   };

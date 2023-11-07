@@ -36,10 +36,10 @@ import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../../components/content/ContentDivider.vue';
 import DatasetHeader from '../../domain/datasets/header/DatasetHeader.vue';
 import AlertError from '../../components/alert/AlertError.vue';
-import { useDatasetConfigStore } from '../../domain/datasetConfig/store/datasetConfigStore';
+import { useDatasetInfoStore } from '../../domain/datasetConfig/store/datasetInfoStore';
 import { storeToRefs } from 'pinia';
 
-const { hasConfig, isError, error } = storeToRefs(useDatasetConfigStore());
+const { hasConfig, isError, error } = storeToRefs(useDatasetInfoStore());
 
 onErrorCaptured((hook) => {
   console.error('--------ERROR CAPTURED', hook);

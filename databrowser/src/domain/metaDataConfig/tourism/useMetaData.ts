@@ -7,14 +7,14 @@ import { PathSegments } from '../../datasetConfig/types';
 import { useMetaDataQuery } from './useMetaDataQuery';
 import { stringifyParameter } from '../../api';
 import { useRouter } from 'vue-router';
-import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
 import { storeToRefs } from 'pinia';
 
 type Query = Record<string, string | null | (string | null)[]>;
 
 // Return the metadata for the current route
 export const useMetaDataForCurrentRoute = () => {
-  const { datasetPath } = storeToRefs(useDatasetConfigStore());
+  const { datasetPath } = storeToRefs(useDatasetInfoStore());
   const pathSegments = computed(() => datasetPath.value ?? []);
   const { currentRoute } = useRouter();
   const query = computed(() => currentRoute.value.query);

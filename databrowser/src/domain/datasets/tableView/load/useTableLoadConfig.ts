@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { useDatasetConfigStore } from '../../../datasetConfig/store/datasetConfigStore';
+import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
 import { storeToRefs } from 'pinia';
 import { useComputePaginationWithRouter } from '../../../api/pagination/computePagination';
 
@@ -16,7 +16,7 @@ export const useTableLoadConfig = () => {
     datasetDomain,
     datasetQuery,
     editRecordSupported,
-  } = storeToRefs(useDatasetConfigStore());
+  } = storeToRefs(useDatasetInfoStore());
 
   const paginationProvider = useComputePaginationWithRouter(
     datasetDomain,

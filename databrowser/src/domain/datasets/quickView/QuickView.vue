@@ -90,7 +90,8 @@ interface GalleryImage {
   ImageDesc: Record<string, unknown>;
 }
 
-const { isError, data, error, view, getDataForField } = useSingleRecordLoad();
+const { isError, data, error, view, extractValueByPath } =
+  useSingleRecordLoad();
 const topGallery = computed(
   () => (view.value as QuickViewConfig | undefined)?.topGallery
 );
@@ -104,7 +105,7 @@ const { t, locale } = useI18n();
 const currentLocale = locale.value;
 
 const title = computed(
-  () => getDataForField.value(data.value, 'Detail.{language}.Title') ?? '/'
+  () => extractValueByPath.value(data.value, 'Detail.{language}.Title') ?? '/'
 );
 
 const id = computed(() => {
@@ -134,7 +135,7 @@ const mainImage = computed(() => {
 });
 
 const imageGallery = computed(() => {
-  const gallery = getDataForField.value(
+  const gallery = extractValueByPath.value(
     data.value,
     topGallery.value?.propertyMappings.gallery as string
   );
@@ -142,7 +143,7 @@ const imageGallery = computed(() => {
 });
 
 const logoUrl = computed(() =>
-  getDataForField.value(data.value, 'ContactInfos.{language}.LogoUrl')
+  extractValueByPath.value(data.value, 'ContactInfos.{language}.LogoUrl')
 );
 
 const onMainImageError = () => {

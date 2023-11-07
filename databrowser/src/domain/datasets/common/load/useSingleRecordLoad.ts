@@ -23,7 +23,7 @@ export const useSingleRecordLoad = () => {
     hasQuickView,
     view,
     isConfigLoading,
-    getDataForField,
+    extractValueByPath,
     isEmbeddedSource,
     isGeneratedSource,
   } = useSingleRecordLoadConfig();
@@ -68,7 +68,7 @@ export const useSingleRecordLoad = () => {
     isLoading,
     error,
     fullPath,
-    getDataForField,
+    extractValueByPath,
     isEmbeddedSource,
     isGeneratedSource,
     slug,

@@ -7,13 +7,15 @@ import { MaybeRef, ToRefs, toRefs, toValue } from 'vue';
 import { RouteLocationNormalizedLoaded } from 'vue-router';
 import { RouteLocation } from '../types';
 import { computeRouteDomain } from './routeDomain';
+import { computeRouteId } from './routeId';
+import { computeRouteName } from './routeName';
 import { computeRoutePath } from './routePath';
 import { computeRouteQuery } from './routeQuery';
-import { computeRouteId } from './routeId';
 
 export const computeRouteLocation = (
   route: RouteLocationNormalizedLoaded
 ): RouteLocation => ({
+  routeName: computeRouteName(route),
   routeDomain: computeRouteDomain(route),
   routePath: computeRoutePath(route),
   routeQuery: computeRouteQuery(route),

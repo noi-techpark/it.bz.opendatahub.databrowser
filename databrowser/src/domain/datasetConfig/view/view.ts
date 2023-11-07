@@ -2,36 +2,75 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { FieldsReplacer } from '../replace/fieldReplacer';
 import {
   DatasetConfig,
-  ListViewConfig,
-  ListElements,
   DetailViewConfig,
   EditViewConfig,
+  ListElements,
+  ListViewConfig,
   NewViewConfig,
-  QuickViewConfig,
-  ViewKey,
-  ViewConfig,
   PropertyMappings,
+  QuickViewConfig,
+  ToMaybeRefs,
+  ViewConfig,
+  ViewKey,
 } from '../types';
+import { computed, toValue } from 'vue';
+import { PropertyMappingsReplacer } from '../replace/propertyMappingReplacer';
+
+interface ComputeDatasetReplacementParams {
+  datasetConfig: DatasetConfig | undefined;
+  viewKey: ViewKey | undefined;
+  propertyMappingsReplacer: PropertyMappingsReplacer;
+}
+
+export const computeView = ({
+  datasetConfig,
+  viewKey,
+  propertyMappingsReplacer,
+}: ComputeDatasetReplacementParams): ViewConfig | undefined => {
+  if (viewKey == null || datasetConfig == null) {
+    return undefined;
+  }
+
+  return applyReplacementsToView(
+    viewKey,
+    datasetConfig,
+    propertyMappingsReplacer
+  );
+};
+
+export const useComputeView = (
+  params: ToMaybeRefs<ComputeDatasetReplacementParams>
+) =>
+  computed(() => {
+    const datasetConfig = toValue(params.datasetConfig);
+    const viewKey = toValue(params.viewKey);
+    const propertyMappingReplacer = toValue(params.propertyMappingsReplacer);
+
+    return computeView({
+      datasetConfig,
+      viewKey,
+      propertyMappingsReplacer: propertyMappingReplacer,
+    });
+  });
 
 export const applyReplacementsToView = (
   viewKey: ViewKey,
   config: DatasetConfig,
-  replaceFields: FieldsReplacer
+  propertyMappingsReplacer: PropertyMappingsReplacer
 ): ViewConfig | undefined => {
   switch (viewKey) {
     case 'table':
-      return applyReplacementsToTableView(config, replaceFields);
+      return applyReplacementsToTableView(config, propertyMappingsReplacer);
     case 'detail':
-      return applyReplacementsToDetailView(config, replaceFields);
+      return applyReplacementsToDetailView(config, propertyMappingsReplacer);
     case 'edit':
-      return applyReplacementsToEditView(config, replaceFields);
+      return applyReplacementsToEditView(config, propertyMappingsReplacer);
     case 'new':
-      return applyReplacementsToNewView(config, replaceFields);
+      return applyReplacementsToNewView(config, propertyMappingsReplacer);
     case 'quick':
-      return applyReplacementsToQuickView(config, replaceFields);
+      return applyReplacementsToQuickView(config, propertyMappingsReplacer);
     case 'raw':
       return config.views?.raw;
   }
@@ -39,7 +78,7 @@ export const applyReplacementsToView = (
 
 export const applyReplacementsToTableView = (
   config: DatasetConfig,
-  replaceFields: FieldsReplacer
+  propertyMappingsReplacer: PropertyMappingsReplacer
 ): ListViewConfig | undefined => {
   console.log('computeTableView');
 
@@ -56,7 +95,9 @@ export const applyReplacementsToTableView = (
   const result = {
     ...tableViewConfig,
     elements: tableViewConfig.elements.map<ListElements>((element) => {
-      const propertyMappings = replaceFields(element.propertyMappings);
+      const propertyMappings = propertyMappingsReplacer(
+        element.propertyMappings
+      );
       const propertyName = firstPropertyName(propertyMappings);
       return {
         ...element,
@@ -75,7 +116,7 @@ export const applyReplacementsToTableView = (
 
 export const applyReplacementsToDetailView = (
   config: DatasetConfig,
-  replaceFields: FieldsReplacer
+  propertyMappingsReplacer: PropertyMappingsReplacer
 ): DetailViewConfig | undefined => {
   console.log('computeTableView');
 
@@ -93,7 +134,9 @@ export const applyReplacementsToDetailView = (
           return {
             ...property,
             listFields: undefined,
-            propertyMappings: replaceFields(property.propertyMappings),
+            propertyMappings: propertyMappingsReplacer(
+              property.propertyMappings
+            ),
           };
         } else if (property.listFields != null) {
           return {
@@ -101,7 +144,7 @@ export const applyReplacementsToDetailView = (
             propertyMappings: undefined,
             listFields: {
               ...property.listFields,
-              propertyMappings: replaceFields(
+              propertyMappings: propertyMappingsReplacer(
                 property.listFields.propertyMappings
               ),
             },
@@ -117,7 +160,7 @@ export const applyReplacementsToDetailView = (
 
 export const applyReplacementsToEditView = (
   config: DatasetConfig,
-  replaceFields: FieldsReplacer
+  propertyMappingsReplacer: PropertyMappingsReplacer
 ): EditViewConfig | undefined => {
   console.log('computeEditView');
 
@@ -135,7 +178,9 @@ export const applyReplacementsToEditView = (
           return {
             ...property,
             listFields: undefined,
-            propertyMappings: replaceFields(property.propertyMappings),
+            propertyMappings: propertyMappingsReplacer(
+              property.propertyMappings
+            ),
           };
         } else if (property.listFields != null) {
           return {
@@ -143,7 +188,7 @@ export const applyReplacementsToEditView = (
             propertyMappings: undefined,
             listFields: {
               ...property.listFields,
-              propertyMappings: replaceFields(
+              propertyMappings: propertyMappingsReplacer(
                 property.listFields.propertyMappings
               ),
             },
@@ -159,7 +204,7 @@ export const applyReplacementsToEditView = (
 
 export const applyReplacementsToNewView = (
   config: DatasetConfig,
-  replaceFields: FieldsReplacer
+  propertyMappingsReplacer: PropertyMappingsReplacer
 ): NewViewConfig | undefined => {
   console.log('computeEditView');
 
@@ -177,7 +222,9 @@ export const applyReplacementsToNewView = (
           return {
             ...property,
             listFields: undefined,
-            propertyMappings: replaceFields(property.propertyMappings),
+            propertyMappings: propertyMappingsReplacer(
+              property.propertyMappings
+            ),
           };
         } else if (property.listFields != null) {
           return {
@@ -185,7 +232,7 @@ export const applyReplacementsToNewView = (
             propertyMappings: undefined,
             listFields: {
               ...property.listFields,
-              propertyMappings: replaceFields(
+              propertyMappings: propertyMappingsReplacer(
                 property.listFields.propertyMappings
               ),
             },
@@ -201,7 +248,7 @@ export const applyReplacementsToNewView = (
 
 export const applyReplacementsToQuickView = (
   config: DatasetConfig,
-  replaceFields: FieldsReplacer
+  propertyMappingsReplacer: PropertyMappingsReplacer
 ): QuickViewConfig | undefined => {
   console.log('computeQuickView');
 
@@ -215,7 +262,7 @@ export const applyReplacementsToQuickView = (
       return {
         ...element,
         listFields: undefined,
-        propertyMappings: replaceFields(element.propertyMappings),
+        propertyMappings: propertyMappingsReplacer(element.propertyMappings),
       };
     } else if (element.listFields != null) {
       return {
@@ -223,7 +270,9 @@ export const applyReplacementsToQuickView = (
         propertyMappings: undefined,
         listFields: {
           ...element.listFields,
-          propertyMappings: replaceFields(element.listFields.propertyMappings),
+          propertyMappings: propertyMappingsReplacer(
+            element.listFields.propertyMappings
+          ),
         },
       };
     }

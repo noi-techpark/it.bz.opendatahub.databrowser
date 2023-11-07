@@ -29,7 +29,7 @@ import LoadingState from '../../../../../components/loading/LoadingState.vue';
 import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
 import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
 import { unwrapData } from '../../../../api/dataExtraction/dataExtraction';
-import { useDatasetConfigStore } from '../../../../datasetConfig/store/datasetConfigStore';
+import { useDatasetInfoStore } from '../../../../datasetConfig/store/datasetInfoStore';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import ArrayLookupTable from './ArrayLookupTable.vue';
 
@@ -53,7 +53,7 @@ const enableUniqueValue = computed(() =>
 
 const { lookupUrl, keySelector, labelSelector } = toRefs(props);
 
-const { getDataForField } = useDatasetConfigStore();
+const { extractValueByPath } = useDatasetInfoStore();
 
 const { data, error, isLoading, isSuccess, isError } = useBaseAxiosFetch(
   lookupUrl,
@@ -61,8 +61,8 @@ const { data, error, isLoading, isSuccess, isError } = useBaseAxiosFetch(
     afterFetch: (ctx) => {
       const items = unwrapData(ctx.data);
       return items.map((item: any) => ({
-        label: getDataForField(item, labelSelector.value) as any,
-        value: getDataForField(item, keySelector.value) as any,
+        label: extractValueByPath(item, labelSelector.value) as any,
+        value: extractValueByPath(item, keySelector.value) as any,
         url: item.Url,
       }));
     },

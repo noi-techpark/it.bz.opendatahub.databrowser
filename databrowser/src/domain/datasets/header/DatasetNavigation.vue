@@ -71,11 +71,10 @@ import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue
 import TabLink from '../../../components/tab/TabLink.vue';
 import { useI18n } from 'vue-i18n';
 import { usePathsForCurrentRoute } from './usePaths';
-// import { useDatasetConfigStore } from '../../datasetConfig/datasetConfigStore';
 import { computed } from 'vue';
 import { useTableViewRouteQueryStore } from '../tableView/tableViewRouteQueryStore';
 import { storeToRefs } from 'pinia';
-import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
 
 const { t } = useI18n();
 
@@ -88,7 +87,7 @@ const {
   isNewView,
   isQuickView,
   isRawView,
-} = storeToRefs(useDatasetConfigStore());
+} = storeToRefs(useDatasetInfoStore());
 
 const {
   detailViewPath,

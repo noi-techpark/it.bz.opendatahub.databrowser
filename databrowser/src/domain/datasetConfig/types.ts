@@ -20,6 +20,10 @@ interface BasePropertyConfig {
  *
  * For example the path to the property "name" of the object "person" is
  * "person.name".
+ *
+ * A PropertyPath may also contain placeholders for dynamic path parameters,
+ * e.g. for the language. They are denoted by curly braces, e.g.:
+ * "person.{language}.name"
  */
 export type PropertyPath = string;
 
@@ -211,13 +215,15 @@ export type CandidateConfig = {
 export type RouteDomain = string;
 export type RouteQuery = Record<string, string>;
 export type RoutePath = string[];
-export type RouteId = string;
+export type RouteId = string | undefined;
+export type RouteName = string | undefined;
 
 export interface RouteLocation {
   routeDomain: RouteDomain;
   routePath: RoutePath;
   routeQuery: RouteQuery;
-  routeId?: RouteId;
+  routeId: RouteId;
+  routeName: RouteName;
 }
 
 export type ToMaybeRefs<T = any> = {

@@ -12,9 +12,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed } from 'vue';
 import { useMetaDataForCurrentRoute } from '../../metaDataConfig/tourism/useMetaData';
 import DatasetTitle from '../common/DatasetTitle.vue';
-import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
 
-const { description } = useDatasetConfigStore();
+const { description } = useDatasetInfoStore();
 const { currentMetaData } = useMetaDataForCurrentRoute();
 
 const datasetTitleInfo = computed(

@@ -71,7 +71,7 @@ import { useI18n } from 'vue-i18n';
 import LanguagePicker from '../../../components/language/LanguagePicker.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import { DatasetConfigSource } from '../../datasetConfig/load/types';
-import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
+import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
 import { useDatasetSourceStore } from '../../datasetConfig/store/datasetSourceStore';
 import AddRecordButton from './AddRecordButton.vue';
 import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
@@ -81,7 +81,7 @@ import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
 const { t } = useI18n();
 
 const { addRecordSupported, datasetDomain, hasConfig, datasetQuery } =
-  storeToRefs(useDatasetConfigStore());
+  storeToRefs(useDatasetInfoStore());
 
 const { source } = storeToRefs(useDatasetSourceStore());
 
