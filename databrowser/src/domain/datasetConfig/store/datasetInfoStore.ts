@@ -4,7 +4,7 @@
 
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
-import { useDatasetInfo } from '../useDatasetInfo';
+import { useDatasetInfo } from '../datasetInfo';
 import { useDatasetSourceStore } from './datasetSourceStore';
 import { watch } from 'vue';
 

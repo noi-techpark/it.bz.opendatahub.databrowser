@@ -9,7 +9,7 @@ import { useComputeDatasetLocation } from './location/datasetLocation';
 import { useComputeRouteLocation } from './location/routeLocation';
 import { useComputeDatasetPermission } from './permission/datasetPermission';
 import { useComputeView } from './view/view';
-import { useDatasetConfigSourceComputations } from './source/datasetConfigSource';
+import { useDatasetConfigSourceComputations } from './datasetConfigSource';
 import { useComputeViewType } from './view/viewType';
 import { useComputeViewPresence } from './view/viewPresence';
 import { DatasetConfigSource } from './load/types';

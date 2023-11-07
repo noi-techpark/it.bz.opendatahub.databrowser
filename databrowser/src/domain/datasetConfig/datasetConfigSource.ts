@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, ToRefs, toRefs, toValue } from 'vue';
-import { DatasetConfig } from '../types';
+import { DatasetConfig } from './types';
 import { reactiveComputed } from '@vueuse/core';
 
 interface ComputeDatasetConfigSource {
