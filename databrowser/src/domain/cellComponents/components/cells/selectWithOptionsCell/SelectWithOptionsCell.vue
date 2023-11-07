@@ -80,8 +80,8 @@ const isWriteable = useWriteable({ editable, readonly });
 
 const attrs = useAttrs();
 
-const queryKey = url.value ?? randomId();
-const queryFn = useAxiosFetcher();
+const queryKey = url.value ?? '';
+const queryFn = url.value ? useAxiosFetcher() : undefined;
 const { data } = useQuery({
   queryKey,
   queryFn,
