@@ -8,16 +8,16 @@ import {
   isWithMobilityPagination,
 } from '../pagination/types';
 
-export const unwrapData = (data: unknown): unknown[] => {
+export const unwrapData = <T = unknown>(data: unknown): T[] => {
   if (data == null) {
     return [];
   }
 
-  if (isWithTourismPagination(data)) {
+  if (isWithTourismPagination<T>(data)) {
     return data.Items;
-  } else if (isWithArrayPagination(data)) {
+  } else if (isWithArrayPagination<T>(data)) {
     return data;
-  } else if (isWithMobilityPagination(data)) {
+  } else if (isWithMobilityPagination<T>(data)) {
     return data.data;
   }
 

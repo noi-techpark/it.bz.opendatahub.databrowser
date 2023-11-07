@@ -3,11 +3,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { parse } from 'date-fns';
-import { useQuery } from 'vue-query';
 import { withOdhBaseUrl } from '../../../config/utils';
-import { WithTourismPagination, useAxiosFetcher } from '../../api';
+import { WithTourismPagination } from '../../api';
 import { TourismMetaData } from './types';
-import { AxiosResponse } from 'axios';
+import { useBaseAxiosFetch } from '../../api/client/axiosFetcher';
+import { unwrapData } from '../../api/dataExtraction/dataExtraction';
 
 interface ODHTag {
   Id: string;
@@ -41,22 +41,20 @@ interface OdhTourismMetaData {
 const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
 
 export const useMetaDataQuery = () => {
-  console.log('asdasd');
-
-  const queryKey = metaDataUrl;
-  const queryFn = useAxiosFetcher<WithTourismPagination<OdhTourismMetaData>>();
-  return useQuery({ queryKey, queryFn, select });
+  return useBaseAxiosFetch<
+    TourismMetaData[],
+    WithTourismPagination<OdhTourismMetaData>
+  >(metaDataUrl, {
+    afterFetch: (ctx) => {
+      const data = unwrapData<OdhTourismMetaData>(ctx.data);
+      return select(data ?? []);
+    },
+  });
 };
 
-const select = (
-  data: AxiosResponse<WithTourismPagination<OdhTourismMetaData>, any>
-): TourismMetaData[] => {
-  if (data?.data == null) {
-    return [];
-  }
-
+const select = (data: OdhTourismMetaData[]): TourismMetaData[] => {
   // Map ODH MetaData to internal format
-  const itemsWithoutParentInfo = mapResponse(data.data.Items);
+  const itemsWithoutParentInfo = mapResponse(data);
 
   // Add parent information to all sub-datasets
   return addParentInfo(itemsWithoutParentInfo);
