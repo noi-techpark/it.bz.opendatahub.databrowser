@@ -39,23 +39,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref, toRefs, watch } from 'vue';
-import { useQuery } from 'vue-query';
+import { computed, toRefs } from 'vue';
 import AlertError from '../../../../../components/alert/AlertError.vue';
 import { SelectOption } from '../../../../../components/select/types';
 import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
-import { randomId } from '../../../../../components/utils/random';
-import {
-  // replacePlaceholders,
-  // useApiParameterReplacements,
-  useAxiosFetcher,
-} from '../../../../api';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import TagReferenceTable from './TagReferenceTable.vue';
 import * as R from 'ramda';
 import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import { useApiParameterStore } from '../../../../api/service/apiParameterStore';
 import { storeToRefs } from 'pinia';
+import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
+import { useDatasetInfoStore } from '../../../../datasetConfig/store/datasetInfoStore';
 
 const props = withDefaults(
   defineProps<{
@@ -89,42 +83,25 @@ const sortByLabelValue = computed(() =>
   booleanOrStringToBoolean(sortByLabel.value, true)
 );
 
-const keySelectorWithReplacements = ref(keySelector.value ?? '');
-const labelSelectorWithReplacements = ref(labelSelector.value ?? '');
+const { paramsReplacer } = storeToRefs(useDatasetInfoStore());
 
-// const replacements = useApiParameterReplacements();
-// watchEffect(() => {
-//   const replace = (s: string): string =>
-//     replacePlaceholders(s, replacements.value);
-//   keySelectorWithReplacements.value = replace(keySelector.value ?? '');
-//   labelSelectorWithReplacements.value = replace(labelSelector.value ?? '');
-// });
+const keySelectorWithReplacements = computed(() =>
+  paramsReplacer.value(keySelector.value ?? '')
+);
+const labelSelectorWithReplacements = computed(() =>
+  paramsReplacer.value(labelSelector.value ?? '')
+);
 
-const { allApiParams } = storeToRefs(useApiParameterStore());
-const { replaceWithApiParams } = useApiParameterStore();
-
-watch(allApiParams, () => {
-  keySelectorWithReplacements.value = replaceWithApiParams(
-    keySelector.value ?? ''
-  );
-  labelSelectorWithReplacements.value = replaceWithApiParams(
-    labelSelector.value ?? ''
-  );
-});
-
-const queryKey = url.value ?? randomId();
-const queryFn = useAxiosFetcher();
-const { data, isLoading, isSuccess, isError, error } = useQuery({
-  queryKey,
-  queryFn,
-});
+const { data, isLoading, isSuccess, isError, error } = useBaseAxiosFetch(
+  url.value
+);
 
 const options = computed<SelectOption[]>(() => {
-  if (data.value == null || data.value.data == null) {
+  if (data.value == null || data.value == null) {
     return [];
   }
 
-  const responseValue = data.value.data as Record<string, string>[];
+  const responseValue = data.value as Record<string, string>[];
 
   const result = responseValue.map<SelectOption>((item) => {
     const value = getPropertyValue(item, keySelectorWithReplacements.value);

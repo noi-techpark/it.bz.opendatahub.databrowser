@@ -118,5 +118,6 @@ export const useDatasetInfo = (
     addRecordSupported: readonly(addRecordSupported),
     editRecordSupported: readonly(editRecordSupported),
     deleteRecordSupported: readonly(deleteRecordSupported),
+    paramsReplacer: readonly(paramsReplacer),
   };
 };
