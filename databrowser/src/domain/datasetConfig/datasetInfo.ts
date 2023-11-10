@@ -96,7 +96,6 @@ export const useDatasetInfo = (
     hasConfig: computed(() => datasetConfig.value != null),
     view: readonly(view),
     description: computed(() => datasetConfig.value?.description),
-    extractValueByPath: readonly(extractValueByPath),
     fullPath: readonly(fullPath),
     datasetDomain: readonly(datasetDomain),
     datasetPath: readonly(datasetPath),
@@ -119,5 +118,6 @@ export const useDatasetInfo = (
     editRecordSupported: readonly(editRecordSupported),
     deleteRecordSupported: readonly(deleteRecordSupported),
     paramsReplacer: readonly(paramsReplacer),
+    extractValueByPath: readonly(extractValueByPath),
   };
 };

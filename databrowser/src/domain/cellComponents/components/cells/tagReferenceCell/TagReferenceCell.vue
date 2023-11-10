@@ -39,17 +39,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import { computed, toRefs } from 'vue';
 import AlertError from '../../../../../components/alert/AlertError.vue';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
 import { SelectOption } from '../../../../../components/select/types';
 import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
-import EditListCell from '../../utils/editList/EditListCell.vue';
-import TagReferenceTable from './TagReferenceTable.vue';
-import * as R from 'ramda';
-import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import { storeToRefs } from 'pinia';
 import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
 import { useDatasetInfoStore } from '../../../../datasetConfig/store/datasetInfoStore';
+import EditListCell from '../../utils/editList/EditListCell.vue';
+import TagReferenceTable from './TagReferenceTable.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -83,34 +82,30 @@ const sortByLabelValue = computed(() =>
   booleanOrStringToBoolean(sortByLabel.value, true)
 );
 
-const { paramsReplacer } = storeToRefs(useDatasetInfoStore());
+const { extractValueByPath } = storeToRefs(useDatasetInfoStore());
 
-const keySelectorWithReplacements = computed(() =>
-  paramsReplacer.value(keySelector.value ?? '')
-);
-const labelSelectorWithReplacements = computed(() =>
-  paramsReplacer.value(labelSelector.value ?? '')
-);
-
-const { data, isLoading, isSuccess, isError, error } = useBaseAxiosFetch(
-  url.value
-);
+const { data, isLoading, isSuccess, isError, error } =
+  useBaseAxiosFetch<Record<string, string>[]>(url);
 
 const options = computed<SelectOption[]>(() => {
-  if (data.value == null || data.value == null) {
+  if (
+    data.value == null ||
+    data.value == null ||
+    keySelector.value == null ||
+    labelSelector.value == null
+  ) {
     return [];
   }
 
-  const responseValue = data.value as Record<string, string>[];
+  const keySelectorValue = keySelector.value;
+  const labelSelectorValue = labelSelector.value;
 
-  const result = responseValue.map<SelectOption>((item) => {
-    const value = getPropertyValue(item, keySelectorWithReplacements.value);
-    const label = getPropertyValue(item, labelSelectorWithReplacements.value);
+  const result = data.value.map<SelectOption>((item) => {
+    const value = extractValueByPath.value(item, keySelectorValue) as string;
+    const label =
+      (extractValueByPath.value(item, labelSelectorValue) as string) ?? value;
 
-    return {
-      value,
-      label: label ?? value,
-    };
+    return { value, label };
   });
 
   if (sortByLabelValue.value) {
@@ -119,10 +114,4 @@ const options = computed<SelectOption[]>(() => {
 
   return result;
 });
-
-const getPropertyValue = (item: unknown, jsonPath: string) => {
-  const path = jsonPath.split('.');
-  const lensePath = R.lensPath(path);
-  return R.view(lensePath, item);
-};
 </script>
