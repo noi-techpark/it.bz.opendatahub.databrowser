@@ -45,18 +45,34 @@ export const loadDatasetConfig = async (
   }
 
   throw new Error(
-    `No dataset config found for domain ${domain} and path ${pathSegments}`
+    `No dataset config found for domain "${domain}" and path "/${pathSegments.join(
+      '/'
+    )}". Maybe the path is wrong or the dataset config is missing?`
   );
 };
 
 export const findDatasetConfigProviders = (
-  source: DatasetConfigSource
+  preferredSource: DatasetConfigSource
 ): DatasetConfigLoader[] => {
-  if (source === 'any') {
+  // If no preferred source is given, return all providers
+  if (preferredSource === 'any') {
     return datasetConfigProviders;
   }
 
-  const vcs = datasetConfigProviders.find((vcs) => vcs.source === source);
+  // Check if the preferred source is available
+  const sourceFound = datasetConfigProviders.find(
+    ({ source }) => source === preferredSource
+  );
 
-  return vcs == null ? [] : [vcs];
+  // If the preferred source is available, return that one
+  // as first entry in the list
+  if (sourceFound != null) {
+    return [
+      sourceFound,
+      ...datasetConfigProviders.filter((p) => p !== sourceFound),
+    ];
+  }
+
+  // Otherwise return all providers
+  return datasetConfigProviders;
 };
