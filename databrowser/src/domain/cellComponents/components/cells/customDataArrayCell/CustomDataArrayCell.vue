@@ -7,7 +7,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <EditListCell :items="listItems" :editable="editable">
     <template #table="{ items }">
-      {{ url }}
       <AlertError
         v-if="url == null"
         title="Can not display options, no URL defined"

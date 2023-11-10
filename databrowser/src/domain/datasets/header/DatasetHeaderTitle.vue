@@ -21,7 +21,7 @@ const { currentMetaData } = storeToRefs(useMetaDataStore());
 const datasetTitleInfo = computed(
   () =>
     currentMetaData.value ?? {
-      shortname: description.value.title ?? 'Untitled',
+      shortname: description.value?.title ?? 'Untitled',
     }
 );
 </script>

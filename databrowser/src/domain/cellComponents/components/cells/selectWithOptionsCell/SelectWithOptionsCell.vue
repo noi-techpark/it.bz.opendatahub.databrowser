@@ -6,7 +6,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div v-if="isWriteable">
-    {{ url }}
     <SelectCustom
       v-if="isWriteable && !isAddNewValue"
       :options="optionsInternal"
