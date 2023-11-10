@@ -6,6 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div v-if="isWriteable">
+    {{ url }}
     <SelectCustom
       v-if="isWriteable && !isAddNewValue"
       :options="optionsInternal"
@@ -39,12 +40,11 @@ import {
   SelectValue,
 } from '../../../../../components/select/types';
 import { useWriteable } from '../../utils/writeable/useWriteable';
-import { useAxiosFetcher } from '../../../../api';
-import { useQuery } from 'vue-query';
 
 import StringCell from '../stringCell/StringCell.vue';
 import { useEditStore } from '../../../../datasets/editView/store/editStore';
 import { useEventDelete } from '../../../../../components/input/utils';
+import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
 
 const emit = defineEmits(['update']);
 
@@ -94,21 +94,14 @@ useEventDelete.on((eventValue: boolean) => {
   }
 });
 
-const queryKey = url.value ?? '';
-const queryFn = url.value ? useAxiosFetcher() : undefined;
-const { data } = useQuery({
-  queryKey,
-  queryFn,
-});
+const { data } = useBaseAxiosFetch<string[]>(url);
 
 const fetchedOptions = computed<SelectOption[]>(() => {
-  if (data.value == null || data.value.data == null) {
+  if (data.value == null) {
     return [];
   }
 
-  const responseValue = data.value.data as string[];
-
-  return responseValue.map<SelectOption>((item) => ({
+  return data.value.map<SelectOption>((item) => ({
     value: item,
     label: item,
   }));
