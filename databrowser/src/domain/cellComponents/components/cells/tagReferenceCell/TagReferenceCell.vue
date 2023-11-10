@@ -39,16 +39,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
 import { computed, toRefs } from 'vue';
 import AlertError from '../../../../../components/alert/AlertError.vue';
 import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import { SelectOption } from '../../../../../components/select/types';
 import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
-import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
-import { useDatasetInfoStore } from '../../../../datasetConfig/store/datasetInfoStore';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import TagReferenceTable from './TagReferenceTable.vue';
+import { useRemoteSelectOptions } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
 
 const props = withDefaults(
   defineProps<{
@@ -78,40 +75,6 @@ const uniqueValue = computed(() =>
   booleanOrStringToBoolean(unique.value, true)
 );
 
-const sortByLabelValue = computed(() =>
-  booleanOrStringToBoolean(sortByLabel.value, true)
-);
-
-const { extractValueByPath } = storeToRefs(useDatasetInfoStore());
-
-const { data, isLoading, isSuccess, isError, error } =
-  useBaseAxiosFetch<Record<string, string>[]>(url);
-
-const options = computed<SelectOption[]>(() => {
-  if (
-    data.value == null ||
-    data.value == null ||
-    keySelector.value == null ||
-    labelSelector.value == null
-  ) {
-    return [];
-  }
-
-  const keySelectorValue = keySelector.value;
-  const labelSelectorValue = labelSelector.value;
-
-  const result = data.value.map<SelectOption>((item) => {
-    const value = extractValueByPath.value(item, keySelectorValue) as string;
-    const label =
-      (extractValueByPath.value(item, labelSelectorValue) as string) ?? value;
-
-    return { value, label };
-  });
-
-  if (sortByLabelValue.value) {
-    result.sort((a, b) => a.label?.localeCompare(b.label));
-  }
-
-  return result;
-});
+const { isLoading, isSuccess, isError, error, options } =
+  useRemoteSelectOptions(url, keySelector, labelSelector, sortByLabel);
 </script>
