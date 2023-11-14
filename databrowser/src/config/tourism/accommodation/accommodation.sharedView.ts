@@ -85,7 +85,7 @@ export const accommodationSharedView = ():
             {
               title: 'Special Features',
               component: CellComponent.TagReferenceCell,
-              listFields: {
+              arrayMapping: {
                 attributeName: 'tags',
                 pathToParent: 'SpecialFeaturesIds',
               },
@@ -100,7 +100,7 @@ export const accommodationSharedView = ():
             {
               title: 'Badges',
               component: CellComponent.TagReferenceCell,
-              listFields: {
+              arrayMapping: {
                 attributeName: 'tags',
                 pathToParent: 'BadgeIds',
               },
@@ -113,7 +113,7 @@ export const accommodationSharedView = ():
             {
               title: 'Themes',
               component: CellComponent.TagReferenceCell,
-              listFields: {
+              arrayMapping: {
                 attributeName: 'tags',
                 pathToParent: 'ThemeIds',
               },

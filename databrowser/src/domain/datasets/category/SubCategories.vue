@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :tag-name="property.component"
             :attributes="property.value"
             :object-mapping="property.objectMapping"
-            :list-fields="property.listFields"
+            :array-mapping="property.arrayMapping"
             :class="property.class"
             :editable="editable"
           />

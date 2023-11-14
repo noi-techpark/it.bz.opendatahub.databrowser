@@ -24,7 +24,7 @@ export const odhTagCell = (mainentity?: string): PropertyConfig => {
   return {
     title: 'Open Data Hub Tags',
     component: CellComponent.TagReferenceCell,
-    listFields: {
+    arrayMapping: {
       attributeName: 'items',
       pathToParent: 'SmgTags',
     },

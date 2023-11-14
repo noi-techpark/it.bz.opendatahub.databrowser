@@ -41,7 +41,7 @@ export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Room Details',
               component: CellComponent.EditRoomVenueCell,
-              listFields: {
+              arrayMapping: {
                 pathToParent: 'RoomDetails',
                 objectMapping: {
                   Shortname: 'Shortname',

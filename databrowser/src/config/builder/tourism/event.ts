@@ -11,7 +11,7 @@ import {
 export const eventDocumentCell = (): PropertyConfig => ({
   title: 'PDFs',
   component: CellComponent.EventDocumentCell,
-  listFields: {
+  arrayMapping: {
     attributeName: 'files',
     pathToParent: 'Documents.{language}',
     objectMapping: {

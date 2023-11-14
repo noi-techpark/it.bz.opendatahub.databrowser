@@ -13,7 +13,7 @@ export const imageGalleryCell = (
 ): PropertyConfig => ({
   title: '',
   component: CellComponent.EditImageGalleryCell,
-  listFields: {
+  arrayMapping: {
     attributeName: 'images',
     pathToParent: 'ImageGallery',
     objectMapping: {

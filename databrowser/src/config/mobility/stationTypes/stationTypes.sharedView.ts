@@ -83,7 +83,7 @@ export const stationTypesSharedView = ():
             {
               title: 'Special Features',
               component: CellComponent.TagReferenceCell,
-              listFields: {
+              arrayMapping: {
                 attributeName: 'tags',
                 pathToParent: 'SpecialFeaturesIds',
               },
@@ -96,7 +96,7 @@ export const stationTypesSharedView = ():
             {
               title: 'Badges',
               component: CellComponent.TagReferenceCell,
-              listFields: {
+              arrayMapping: {
                 attributeName: 'tags',
                 pathToParent: 'BadgeIds',
               },
@@ -109,7 +109,7 @@ export const stationTypesSharedView = ():
             {
               title: 'Themes',
               component: CellComponent.TagReferenceCell,
-              listFields: {
+              arrayMapping: {
                 attributeName: 'tags',
                 pathToParent: 'ThemeIds',
               },

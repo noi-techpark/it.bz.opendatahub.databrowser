@@ -6,10 +6,7 @@ import { useDebounceFn } from '@vueuse/core';
 import * as R from 'ramda';
 import { Ref } from 'vue';
 import { isObjectMappingEmpty } from '../../domain/api';
-import {
-  BaseListFields,
-  ObjectMapping,
-} from '../../domain/datasetConfig/types';
+import { ArrayMapping, ObjectMapping } from '../../domain/datasetConfig/types';
 import { useEditStore } from '../../domain/datasets/editView/store/editStore';
 import { EditData } from '../../domain/datasets/editView/store/initialState';
 import {
@@ -20,7 +17,7 @@ import {
 export const useUpdate = (
   tagName: Ref<string>,
   objectMapping: Ref<ObjectMapping | undefined>,
-  listFields: Ref<BaseListFields | undefined>
+  arrayMapping: Ref<ArrayMapping | undefined>
 ) => {
   const editStore = useEditStore();
 
@@ -50,7 +47,7 @@ export const useUpdate = (
 
   const computeListValueUpdates = (
     updates: PropertyValue[],
-    { pathToParent, objectMapping }: BaseListFields
+    { pathToParent, objectMapping }: ArrayMapping
   ) => {
     // If object mappings is undefined or empty, then the data consists
     // of an array of simple types (strings, number or booleans). We can
@@ -120,10 +117,10 @@ export const useUpdate = (
       editStore.updateProperties(objectValueUpdates);
     }
 
-    if (listFields.value != null) {
+    if (arrayMapping.value != null) {
       const listValueUpdates = computeListValueUpdates(
         updates,
-        listFields.value
+        arrayMapping.value
       );
       editStore.updateProperties(listValueUpdates);
     }

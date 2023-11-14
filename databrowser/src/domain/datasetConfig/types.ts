@@ -37,10 +37,13 @@ export type ObjectMapping = Record<TargetPropertyName, PropertyPath>;
 
 export interface ObjectPropertyConfig {
   objectMapping: ObjectMapping;
-  listFields?: never;
+  arrayMapping?: never;
 }
 
-export interface BaseListFields {
+export interface ArrayMapping {
+  // Namer of the target attribute / property
+  attributeName: string;
+  // Path to the parent object
   pathToParent: PropertyPath;
   // If objectMapping is undefined or empty, then the object defined by parentPath
   // is passed to the component as it is. This is useful e.g. for an array
@@ -50,7 +53,7 @@ export interface BaseListFields {
 
 export interface ArrayPropertyConfig {
   objectMapping?: never;
-  listFields: BaseListFields & { attributeName: string };
+  arrayMapping: ArrayMapping;
 }
 
 export type PropertyConfig = (ObjectPropertyConfig | ArrayPropertyConfig) &

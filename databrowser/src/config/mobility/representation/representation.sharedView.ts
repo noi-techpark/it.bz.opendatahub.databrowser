@@ -28,7 +28,7 @@ export const representationSharedView = ():
             {
               title: 'Details',
               component: CellComponent.EditRoomVenueCell,
-              listFields: {
+              arrayMapping: {
                 pathToParent: 'data',
                 objectMapping: {
                   Shortname: 'sname',

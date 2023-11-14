@@ -3,15 +3,15 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { AxiosError } from 'axios';
-import { ref, Ref, watch } from 'vue';
-import { ParameterValue } from './types';
 import * as R from 'ramda';
+import { ref, Ref, watch } from 'vue';
 import {
-  ArrayPropertyConfig,
-  TargetPropertyName,
+  ArrayMapping,
   ObjectMapping,
   PropertyConfig,
+  TargetPropertyName,
 } from '../../datasetConfig/types';
+import { ParameterValue } from './types';
 
 export interface UseAsOptions {
   twoWayBinding?: boolean;
@@ -114,7 +114,7 @@ export const buildTargetFromMapping = (
 ) =>
   propertyConfig.objectMapping != null
     ? buildTargetFromObjectMapping(data, propertyConfig.objectMapping, params)
-    : buildTargetFromArrayMapping(data, propertyConfig.listFields, params);
+    : buildTargetFromArrayMapping(data, propertyConfig.arrayMapping, params);
 
 export const buildTargetFromObjectMapping = (
   data: unknown,
@@ -138,10 +138,10 @@ export const buildTargetFromObjectMapping = (
 
 export const buildTargetFromArrayMapping = (
   data: unknown,
-  listFields: ArrayPropertyConfig['listFields'],
+  arrayMapping: ArrayMapping,
   params?: Record<string, unknown>
 ) => {
-  const { pathToParent, objectMapping, attributeName } = listFields;
+  const { pathToParent, objectMapping, attributeName } = arrayMapping;
 
   // Return object has a property whose name is the value of the "attributeName" variable
   // e.g. value of "attributeName" is "abcdefg", then the result object will have a property "abcdefg"

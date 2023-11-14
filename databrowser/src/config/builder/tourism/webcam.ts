@@ -11,7 +11,7 @@ import {
 export const webcamCell = (): PropertyConfig => ({
   title: '',
   component: CellComponent.WebcamCell,
-  listFields: {
+  arrayMapping: {
     attributeName: 'webcams',
     pathToParent: 'Webcam',
     objectMapping: {

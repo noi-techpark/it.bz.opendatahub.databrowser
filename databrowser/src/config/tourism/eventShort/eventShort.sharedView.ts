@@ -134,7 +134,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Technology Fields',
               component: CellComponent.TagReferenceCell,
-              listFields: {
+              arrayMapping: {
                 attributeName: 'tags',
                 pathToParent: 'TechnologyFields',
               },
@@ -150,7 +150,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Tagging Fields',
               component: CellComponent.TagReferenceCell,
-              listFields: {
+              arrayMapping: {
                 attributeName: 'tags',
                 pathToParent: 'CustomTagging',
               },
@@ -164,7 +164,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Room Management',
               component: CellComponent.EditRoomBookedCell,
-              listFields: {
+              arrayMapping: {
                 pathToParent: 'RoomBooked',
                 objectMapping: {
                   space: 'Space',

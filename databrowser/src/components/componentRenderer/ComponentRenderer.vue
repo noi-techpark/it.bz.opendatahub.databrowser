@@ -16,10 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { toRefs, watch } from 'vue';
-import {
-  BaseListFields,
-  ObjectMapping,
-} from '../../domain/datasetConfig/types';
+import { ArrayMapping, ObjectMapping } from '../../domain/datasetConfig/types';
 import { loadWebComponent } from '../../domain/webComponents/lazyLoadedWebComponent';
 import { isRegisteredWebComponent } from '../../domain/webComponents/webComponentRegistry';
 import { useUpdate } from './useUpdate';
@@ -29,19 +26,19 @@ const props = withDefaults(
     tagName: string;
     attributes: Record<string, unknown>;
     objectMapping?: ObjectMapping;
-    listFields?: BaseListFields;
+    arrayMapping?: ArrayMapping;
     editable?: boolean;
   }>(),
   {
     tagName: '',
     attributes: () => ({}),
     objectMapping: undefined,
-    listFields: undefined,
+    arrayMapping: undefined,
     editable: false,
   }
 );
 
-const { tagName, attributes, objectMapping, listFields } = toRefs(props);
+const { tagName, attributes, objectMapping, arrayMapping } = toRefs(props);
 
 watch(
   () => tagName.value,
@@ -53,5 +50,5 @@ watch(
   { immediate: true }
 );
 
-const update = useUpdate(tagName, objectMapping, listFields);
+const update = useUpdate(tagName, objectMapping, arrayMapping);
 </script>

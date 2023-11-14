@@ -11,7 +11,7 @@ import {
 export const seasonCell = (): PropertyConfig => ({
   title: 'Seasons',
   component: CellComponent.OperationScheduleCell,
-  listFields: {
+  arrayMapping: {
     pathToParent: 'OperationSchedule',
     attributeName: 'operationSchedules',
     objectMapping: {

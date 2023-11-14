@@ -66,7 +66,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             )
           "
           :object-mapping="element.objectMapping"
-          :list-fields="element.listFields"
+          :array-mapping="element.arrayMapping"
         />
       </div>
       <div class="clear-both mb-4" />

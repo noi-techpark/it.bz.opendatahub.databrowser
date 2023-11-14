@@ -124,7 +124,7 @@ export const applyReplacementsToTableView = (
         ...element,
         objectMapping,
         propertyPath,
-        listFields: undefined,
+        arrayMapping: undefined,
       };
     }),
   };
@@ -241,17 +241,19 @@ const replaceMappings = (
   if (property.objectMapping != null) {
     return {
       ...property,
-      listFields: undefined,
+      arrayMapping: undefined,
       objectMapping: propertyPathReplacer(property.objectMapping),
     };
-  } else if (property.listFields != null) {
+  } else if (property.arrayMapping != null) {
     return {
       ...property,
       objectMapping: undefined,
-      listFields: {
-        ...property.listFields,
-        pathToParent: paramsReplacer(property.listFields.pathToParent),
-        objectMapping: propertyPathReplacer(property.listFields.objectMapping),
+      arrayMapping: {
+        ...property.arrayMapping,
+        pathToParent: paramsReplacer(property.arrayMapping.pathToParent),
+        objectMapping: propertyPathReplacer(
+          property.arrayMapping.objectMapping
+        ),
       },
     };
   }
