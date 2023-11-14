@@ -9,6 +9,6 @@ export const languageTableCell = (): PropertyConfig => ({
   title: 'Languages',
   component: CellComponent.ArrayCell,
   class: 'w-40',
-  propertyMappings: { items: 'HasLanguage' },
+  objectMappings: { items: 'HasLanguage' },
   params: { separator: ', ' },
 });

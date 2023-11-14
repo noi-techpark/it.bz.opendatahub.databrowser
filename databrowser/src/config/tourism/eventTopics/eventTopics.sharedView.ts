@@ -23,7 +23,7 @@ export const eventTopicsSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Type',
               component: CellComponent.StringCell,
               class: 'w-40',
-              propertyMappings: {
+              objectMappings: {
                 text: 'Type',
               },
             },
@@ -31,7 +31,7 @@ export const eventTopicsSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'TypeDesc',
               component: CellComponent.StringCell,
               class: 'w-40',
-              propertyMappings: {
+              objectMappings: {
                 text: 'TypeDesc.{language}',
               },
             },
@@ -39,7 +39,7 @@ export const eventTopicsSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Bitmask',
               component: CellComponent.StringCell,
               class: 'w-40',
-              propertyMappings: {
+              objectMappings: {
                 text: 'Bitmask',
               },
             },
@@ -47,7 +47,7 @@ export const eventTopicsSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Parent',
               component: CellComponent.StringCell,
               class: 'w-40',
-              propertyMappings: {
+              objectMappings: {
                 text: 'Parent',
               },
             },

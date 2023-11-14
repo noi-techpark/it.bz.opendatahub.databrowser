@@ -30,7 +30,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <ComponentRenderer
             :tag-name="property.component"
             :attributes="property.value"
-            :property-mappings="property.propertyMappings"
+            :object-mappings="property.objectMappings"
             :list-fields="property.listFields"
             :class="property.class"
             :editable="editable"

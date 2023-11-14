@@ -28,28 +28,28 @@ interface BasePropertyConfig {
 export type PropertyPath = string;
 
 /**
- * A mapped property name is a string that represents the name of a property
+ * A target property name is a string that represents the name of a property
  * in the mapped object.
  */
 export type TargetPropertyName = string;
 
-export type PropertyMappings = Record<TargetPropertyName, PropertyPath>;
+export type ObjectMappings = Record<TargetPropertyName, PropertyPath>;
 
 export interface ObjectPropertyConfig {
-  propertyMappings: PropertyMappings;
+  objectMappings: ObjectMappings;
   listFields?: never;
 }
 
 export interface BaseListFields {
   pathToParent: PropertyPath;
-  // If propertyMappings is undefined or empty, then the object defined by parentPath
+  // If objectMappings is undefined or empty, then the object defined by parentPath
   // is passed to the component as it is. This is useful e.g. for an array
   // of simple types (strings, number or booleans)
-  propertyMappings?: PropertyMappings;
+  objectMappings?: ObjectMappings;
 }
 
 export interface ArrayPropertyConfig {
-  propertyMappings?: never;
+  objectMappings?: never;
   listFields: BaseListFields & { attributeName: string };
 }
 
@@ -125,7 +125,7 @@ export interface QuickViewPageConfig {
 
 export interface QuickViewTopGallery {
   isVisible: boolean;
-  propertyMappings: PropertyMappings;
+  objectMappings: ObjectMappings;
 }
 export interface EditViewElements {
   elements: EditElements[];

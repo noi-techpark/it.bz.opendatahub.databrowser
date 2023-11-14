@@ -24,7 +24,7 @@ export const gastronomyListView: ListViewConfig = {
       title: 'Tags',
       component: CellComponent.ArrayTagsCell,
       class: 'w-40',
-      propertyMappings: {
+      objectMappings: {
         items: 'CategoryCodes',
       },
       params: {

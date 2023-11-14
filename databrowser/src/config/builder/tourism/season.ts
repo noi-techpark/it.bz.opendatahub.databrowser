@@ -14,7 +14,7 @@ export const seasonCell = (): PropertyConfig => ({
   listFields: {
     pathToParent: 'OperationSchedule',
     attributeName: 'operationSchedules',
-    propertyMappings: {
+    objectMappings: {
       name: 'OperationscheduleName.{language}',
       start: 'Start',
       stop: 'Stop',

@@ -20,7 +20,7 @@ export const lastChangesCell = (
   return {
     title: 'Last Changes',
     component: CellComponent.EditedDateCell,
-    propertyMappings: { date: 'LastChange' },
+    objectMappings: { date: 'LastChange' },
     params,
   };
 };
@@ -29,6 +29,6 @@ export const lastChangesTableCell = (): PropertyConfig => ({
   title: 'Edited',
   component: CellComponent.EditedDateCell,
   class: 'w-48',
-  propertyMappings: { date: 'LastChange' },
+  objectMappings: { date: 'LastChange' },
   params: { format: DEFAULT_DATE_TIME_FORMAT },
 });

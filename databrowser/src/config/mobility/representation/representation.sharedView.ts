@@ -22,7 +22,7 @@ export const representationSharedView = ():
             {
               title: 'JSON',
               component: CellComponent.JsonCell,
-              propertyMappings: { data: 'data' },
+              objectMappings: { data: 'data' },
               params: { usePreformatted: 'true' },
             },
             {
@@ -30,7 +30,7 @@ export const representationSharedView = ():
               component: CellComponent.EditRoomVenueCell,
               listFields: {
                 pathToParent: 'data',
-                propertyMappings: {
+                objectMappings: {
                   Shortname: 'sname',
                   Indoor: 'sactive',
                   SquareMeters: 'sorigin',

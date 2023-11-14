@@ -58,7 +58,7 @@ Let's take a look at table view configuration of the `Article` dataset as an exa
   title: 'SubType',
   component: CellComponent.StringCell,
   class: 'w-48',
-  propertyMappings: {
+  objectMappings: {
     text: 'SubType',
   },
 },
@@ -66,7 +66,7 @@ Let's take a look at table view configuration of the `Article` dataset as an exa
   title: 'Tags',
   component: CellComponent.ArrayCell,
   class: 'w-40',
-  propertyMappings: {
+  objectMappings: {
     items: 'SmgTags',
   },
   params: {
@@ -84,7 +84,7 @@ The last two with the appropriate generalized builder and the first two without.
 - title (type: string): this is the title of column, shown in the table header
 - component (type: string): this is the name of the component that should render parts of a dataset. Components must be registered before they can be used in a configuration, see [Vue Components](./vue-components.md) and [Web Components](./web-components.md) on how to create and register new components
 - class (type: string): additional CSS classes that should be applied to the table column. This is useful e.g. to define the width of a column
-- propertyMappings (type: Record<TargetPropertyName, PropertyPath>): this property defines how data from the API is mapped to Data Browser components. The `PropertyPath` defines the path to a property inside the API data. The `TargetPropertyName` defines the attribute name under which that property content is provided to the Data Browser component. For the first entry we see that the value of property `SubType` of the `Article` dataset should be handed over to the `CellComponent.StringCell` component as attribute named `text`.
+- objectMappings (type: Record<TargetPropertyName, PropertyPath>): this property defines how data from the API is mapped to Data Browser components. The `PropertyPath` defines the path to a property inside the API data. The `TargetPropertyName` defines the attribute name under which that property content is provided to the Data Browser component. For the first entry we see that the value of property `SubType` of the `Article` dataset should be handed over to the `CellComponent.StringCell` component as attribute named `text`.
   For the second entry we see that the items of the array `SmgTags` should be passed to the component as attribute `items`. If you take a look at the [ArrayCell component](../../databrowser/src/domain/cellComponents/components/cells/arrayCell/ArrayCell.vue) you will see that that component expects the attributes (properties in Vue) `items`. Using this mechanism it is possible to decouple dataset property names from component attributes.
 - There is another optional property that can be used in the table view definition, called `params` (type: Record<string, string>). That property can be used to provide static data to a component, e.g. the `separator` for the [ArrayCell component](../../databrowser/src/domain/cellComponents/components/cells/arrayCell/ArrayCell.vue) that is used to join data.
 

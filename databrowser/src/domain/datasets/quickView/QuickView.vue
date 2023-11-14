@@ -59,9 +59,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <ComponentRenderer
           :tag-name="element.component"
           :attributes="
-            buildTargetObject(data, element.propertyMappings, element.params)
+            buildTargetFromObjectMapping(
+              data,
+              element.objectMappings,
+              element.params
+            )
           "
-          :property-mappings="element.propertyMappings"
+          :property-mappings="element.objectMappings"
           :list-fields="element.listFields"
         />
       </div>
@@ -80,7 +84,7 @@ import PageContent from '../../../components/content/PageContent.vue';
 import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewFullscreenGallery.vue';
 import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
 import TagCustom from '../../../components/tag/TagCustom.vue';
-import { buildTargetObject } from '../../api';
+import { buildTargetFromObjectMapping } from '../../api';
 import { QuickViewConfig } from '../../datasetConfig/types';
 import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
 import { rowId } from '../tableView/utils';
@@ -137,7 +141,7 @@ const mainImage = computed(() => {
 const imageGallery = computed(() => {
   const gallery = extractValueByPath.value(
     data.value,
-    topGallery.value?.propertyMappings.gallery as string
+    topGallery.value?.objectMappings.gallery as string
   );
   return (gallery ?? []) as GalleryImage[];
 });

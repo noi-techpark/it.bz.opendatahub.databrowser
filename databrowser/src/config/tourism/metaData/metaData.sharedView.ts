@@ -27,13 +27,13 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Description',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'ApiDescription.{language}' },
+              objectMappings: { text: 'ApiDescription.{language}' },
             },
             {
               title: 'Dataspace',
               component: CellComponent.SelectWithOptionsCell,
               class: 'w-60',
-              propertyMappings: {
+              objectMappings: {
                 value: 'Dataspace',
               },
               params: {
@@ -73,12 +73,12 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Deprecated',
               component: CellComponent.ToggleCell,
-              propertyMappings: { enabled: 'Deprecated' },
+              objectMappings: { enabled: 'Deprecated' },
             },
             {
               title: 'Base URL',
               component: CellComponent.UrlCell,
-              propertyMappings: { text: 'BaseUrl' },
+              objectMappings: { text: 'BaseUrl' },
             },
             {
               title: 'Path',
@@ -100,13 +100,13 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'API URL',
               component: CellComponent.UrlCell,
-              propertyMappings: { text: 'ApiUrl' },
+              objectMappings: { text: 'ApiUrl' },
               params: { readonly: 'true' },
             },
             {
               title: 'Swagger URL',
               component: CellComponent.UrlCell,
-              propertyMappings: { text: 'SwaggerUrl' },
+              objectMappings: { text: 'SwaggerUrl' },
             },
             {
               title: 'Tags',
@@ -133,7 +133,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Count',
               component: CellComponent.JsonCell,
-              propertyMappings: { data: 'RecordCount' },
+              objectMappings: { data: 'RecordCount' },
               params: { usePreformatted: 'true' },
             },
           ],

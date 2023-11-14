@@ -43,7 +43,7 @@ export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.EditRoomVenueCell,
               listFields: {
                 pathToParent: 'RoomDetails',
-                propertyMappings: {
+                objectMappings: {
                   Shortname: 'Shortname',
                   Indoor: 'Indoor',
                   SquareMeters: 'SquareMeters',

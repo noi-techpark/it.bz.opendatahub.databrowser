@@ -21,13 +21,13 @@ export const venueListView: ListViewConfig = {
       title: 'Category',
       component: CellComponent.StringCell,
       class: 'w-60',
-      propertyMappings: { text: 'VenueCategory.0.VenueCode' },
+      objectMappings: { text: 'VenueCategory.0.VenueCode' },
     },
     {
       title: 'Location',
       component: CellComponent.StringCell,
       class: 'w-40',
-      propertyMappings: {
+      objectMappings: {
         text: 'LocationInfo.MunicipalityInfo.Name.{language}',
       },
     },

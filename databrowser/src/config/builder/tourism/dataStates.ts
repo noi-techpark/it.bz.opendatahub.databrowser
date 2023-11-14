@@ -26,12 +26,12 @@ export const dataStatesSubCategory = (
       {
         title: 'Active on Source',
         component: CellComponent.ToggleCell,
-        propertyMappings: { enabled: 'Active' },
+        objectMappings: { enabled: 'Active' },
       },
       {
         title: 'Active on Open Data Hub',
         component: CellComponent.ToggleCell,
-        propertyMappings: { enabled: 'SmgActive' },
+        objectMappings: { enabled: 'SmgActive' },
       },
     ],
   };
@@ -40,7 +40,7 @@ export const dataStatesSubCategory = (
     dataStates.properties.push({
       title: 'Visible in Search',
       component: CellComponent.ToggleCell,
-      propertyMappings: { enabled: 'VisibleInSearch' },
+      objectMappings: { enabled: 'VisibleInSearch' },
     });
   }
 

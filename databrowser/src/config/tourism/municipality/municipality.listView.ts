@@ -20,7 +20,7 @@ export const municipalityListView: ListViewConfig = {
       title: 'CAP',
       component: CellComponent.StringCell,
       class: 'w-48',
-      propertyMappings: {
+      objectMappings: {
         text: 'Plz',
       },
     },

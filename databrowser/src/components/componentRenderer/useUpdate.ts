@@ -13,32 +13,34 @@ import {
 import * as R from 'ramda';
 import {
   BaseListFields,
-  PropertyMappings,
+  ObjectMappings,
 } from '../../domain/datasetConfig/types';
-import { isPropertyMappingsEmpty } from '../../domain/api';
+import { isObjectMappingsEmpty } from '../../domain/api';
 import { useReplaceWithApiParamsStore } from '../../domain/api/service/replaceWithApiParamsStore';
+import { useDatasetInfoStore } from '../../domain/datasetConfig/store/datasetInfoStore';
 
 export const useUpdate = (
   tagName: Ref<string>,
-  propertyMappings: Ref<PropertyMappings | undefined>,
+  objectMappings: Ref<ObjectMappings | undefined>,
   listFields: Ref<BaseListFields | undefined>
 ) => {
   const { replace } = useReplaceWithApiParamsStore();
+  const { paramsReplacer } = useDatasetInfoStore();
   const editStore = useEditStore();
 
   const computeObjectValueUpdates = (
     updates: PropertyValue[],
-    propertyMappings: PropertyMappings
+    objectMappings: ObjectMappings
   ) => {
     return updates
       .map(({ prop, value }) => {
-        const targetPropertyName = propertyMappings[prop];
+        const targetPropertyName = paramsReplacer(objectMappings[prop]);
 
         if (targetPropertyName == null) {
           const message = propertyUnknownMessage(
             prop,
             tagName.value,
-            propertyMappings
+            objectMappings
           );
           console.error(message);
           return;
@@ -71,7 +73,7 @@ export const useUpdate = (
     // If fields is undefined or empty, then the data consist of an
     // array of simple types (strings, number or booleans). We can
     // return it as it is
-    if (isPropertyMappingsEmpty(listFieldsValue.propertyMappings)) {
+    if (isObjectMappingsEmpty(listFieldsValue.objectMappings)) {
       return {
         prop: pathToParentWithReplacements,
         value: dataArray,
@@ -91,7 +93,7 @@ export const useUpdate = (
           // Get property name, e.g. ImageTitle.{language}
           // listFieldsValue.fields can not be undefined,
           // because we checked it at the top of computeListFieldsUpdates
-          const propertyName = listFieldsValue.propertyMappings![key];
+          const propertyName = listFieldsValue.objectMappings![key];
           // Replace dynamic parts, e.g. if language === 'en', then ImageTitle.{language} becomes ImageTitle.en
           const propertyNameWithReplacements = replace(propertyName);
           const path = propertyNameWithReplacements.split('.');
@@ -112,10 +114,10 @@ export const useUpdate = (
   return useDebounceFn((update: PropertyUpdate) => {
     const updates = Array.isArray(update) ? update : [update];
 
-    if (propertyMappings.value != null) {
+    if (objectMappings.value != null) {
       const objectValueUpdates = computeObjectValueUpdates(
         updates,
-        propertyMappings.value
+        objectMappings.value
       );
       editStore.updateProperties(objectValueUpdates);
     }
@@ -133,9 +135,9 @@ export const useUpdate = (
 const propertyUnknownMessage = (
   prop: string,
   tagName: string,
-  propertyMappings: PropertyMappings
+  objectMappings: ObjectMappings
 ) => {
   const knownProperties =
-    propertyMappings == null ? 'none' : JSON.stringify(propertyMappings);
+    objectMappings == null ? 'none' : JSON.stringify(objectMappings);
   return `Got update event from component ${tagName} for property "${prop}" but no property with that name could be found (known properties: ${knownProperties})`;
 };

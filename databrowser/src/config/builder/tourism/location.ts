@@ -19,7 +19,7 @@ export const locationCategory = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.InputReferenceCell,
-          propertyMappings: { value: 'LocationInfo.RegionInfo.Id' },
+          objectMappings: { value: 'LocationInfo.RegionInfo.Id' },
           params: {
             url: withOdhBaseUrl('/v1/Location?type=reg&showall=true'),
             labelSelector: 'name.{language}',
@@ -29,7 +29,7 @@ export const locationCategory = (): DetailElements => ({
         {
           title: 'Region ID',
           component: CellComponent.StringCell,
-          propertyMappings: { text: 'LocationInfo.RegionInfo.Id' },
+          objectMappings: { text: 'LocationInfo.RegionInfo.Id' },
           params: { readonly: 'true' },
           class: 'break-all',
         },
@@ -41,7 +41,7 @@ export const locationCategory = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.InputReferenceCell,
-          propertyMappings: { value: 'LocationInfo.TvInfo.Id' },
+          objectMappings: { value: 'LocationInfo.TvInfo.Id' },
           params: {
             url: withOdhBaseUrl('/v1/Location?type=tvs&showall=true'),
             labelSelector: 'name.{language}',
@@ -51,7 +51,7 @@ export const locationCategory = (): DetailElements => ({
         {
           title: 'Tourism Assocciation ID',
           component: CellComponent.StringCell,
-          propertyMappings: { text: 'LocationInfo.TvInfo.Id' },
+          objectMappings: { text: 'LocationInfo.TvInfo.Id' },
           params: { readonly: 'true' },
           class: 'break-all',
         },
@@ -63,7 +63,7 @@ export const locationCategory = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.InputReferenceCell,
-          propertyMappings: { value: 'LocationInfo.MunicipalityInfo.Id' },
+          objectMappings: { value: 'LocationInfo.MunicipalityInfo.Id' },
           params: {
             url: withOdhBaseUrl('/v1/Location?type=mun&showall=true'),
             labelSelector: 'name.{language}',
@@ -73,7 +73,7 @@ export const locationCategory = (): DetailElements => ({
         {
           title: 'Municipality ID',
           component: CellComponent.StringCell,
-          propertyMappings: { text: 'LocationInfo.MunicipalityInfo.Id' },
+          objectMappings: { text: 'LocationInfo.MunicipalityInfo.Id' },
           params: { readonly: 'true' },
           class: 'break-all',
         },
@@ -85,7 +85,7 @@ export const locationCategory = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.InputReferenceCell,
-          propertyMappings: { value: 'LocationInfo.DistrictInfo.Id' },
+          objectMappings: { value: 'LocationInfo.DistrictInfo.Id' },
           params: {
             url: withOdhBaseUrl('/v1/Location?type=fra&showall=true'),
             labelSelector: 'name.{language}',
@@ -95,7 +95,7 @@ export const locationCategory = (): DetailElements => ({
         {
           title: 'District ID',
           component: CellComponent.StringCell,
-          propertyMappings: { text: 'LocationInfo.DistrictInfo.Id' },
+          objectMappings: { text: 'LocationInfo.DistrictInfo.Id' },
           params: { readonly: 'true' },
           class: 'break-all',
         },
@@ -114,7 +114,7 @@ export const locationCategoryDistrict = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.InputReferenceCell,
-          propertyMappings: { value: 'Region.Id' },
+          objectMappings: { value: 'Region.Id' },
           params: {
             url: withOdhBaseUrl('/v1/Location?type=reg&showall=true'),
             labelSelector: 'name.{language}.',
@@ -124,7 +124,7 @@ export const locationCategoryDistrict = (): DetailElements => ({
         {
           title: ' Region ID',
           component: CellComponent.StringCell,
-          propertyMappings: { text: 'Region.Id' },
+          objectMappings: { text: 'Region.Id' },
           params: { readonly: 'true' },
           class: 'break-all',
         },
@@ -136,7 +136,7 @@ export const locationCategoryDistrict = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.InputReferenceCell,
-          propertyMappings: { value: 'Tourismassociation.Id' },
+          objectMappings: { value: 'Tourismassociation.Id' },
           params: {
             url: withOdhBaseUrl('/v1/Location?type=tvs&showall=true'),
             labelSelector: 'name.{language}',
@@ -147,7 +147,7 @@ export const locationCategoryDistrict = (): DetailElements => ({
         {
           title: 'Tourism Assocciation ID',
           component: CellComponent.StringCell,
-          propertyMappings: { text: 'Tourismassociation.Id' },
+          objectMappings: { text: 'Tourismassociation.Id' },
           params: { readonly: 'true' },
           class: 'break-all',
         },
@@ -159,7 +159,7 @@ export const locationCategoryDistrict = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.InputReferenceCell,
-          propertyMappings: { value: 'Municipality.Id' },
+          objectMappings: { value: 'Municipality.Id' },
           params: {
             url: withOdhBaseUrl('/v1/Location?type=mun&showall=true'),
             labelSelector: 'name.{language}',
@@ -169,7 +169,7 @@ export const locationCategoryDistrict = (): DetailElements => ({
         {
           title: 'Municipality ID',
           component: CellComponent.StringCell,
-          propertyMappings: { text: 'Municipality.Id' },
+          objectMappings: { text: 'Municipality.Id' },
           params: { readonly: 'true' },
           class: 'break-all',
         },
@@ -183,12 +183,12 @@ export const locationTableCells = (): PropertyConfig[] => [
     title: 'Region',
     component: CellComponent.StringCell,
     class: 'w-52',
-    propertyMappings: { text: 'LocationInfo.RegionInfo.Name.{language}' },
+    objectMappings: { text: 'LocationInfo.RegionInfo.Name.{language}' },
   },
   {
     title: 'Municipality',
     component: CellComponent.StringCell,
     class: 'w-52',
-    propertyMappings: { text: 'LocationInfo.MunicipalityInfo.Name.{language}' },
+    objectMappings: { text: 'LocationInfo.MunicipalityInfo.Name.{language}' },
   },
 ];

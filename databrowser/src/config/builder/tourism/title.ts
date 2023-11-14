@@ -9,5 +9,5 @@ export const titleTableCell = (): PropertyConfig => ({
   title: 'Title',
   component: CellComponent.StringCell,
   class: 'w-60',
-  propertyMappings: { text: 'Detail.{language}.Title' },
+  objectMappings: { text: 'Detail.{language}.Title' },
 });

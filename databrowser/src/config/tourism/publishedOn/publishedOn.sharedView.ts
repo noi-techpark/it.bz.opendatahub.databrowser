@@ -25,19 +25,19 @@ export const publishedOnSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Key',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'Key' },
+              objectMappings: { text: 'Key' },
               required: true,
             },
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'Name.{language}' },
+              objectMappings: { text: 'Name.{language}' },
             },
             idReadOnlyCell(),
             {
               title: 'Publisher URL',
               component: CellComponent.UrlCell,
-              propertyMappings: { text: 'Url' },
+              objectMappings: { text: 'Url' },
             },
             lastChangesCell(),
           ],

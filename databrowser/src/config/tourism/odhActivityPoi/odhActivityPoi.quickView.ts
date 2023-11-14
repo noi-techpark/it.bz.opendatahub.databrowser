@@ -8,14 +8,14 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 export const odhActivityPoiQuickView: QuickViewConfig = {
   topGallery: {
     isVisible: true,
-    propertyMappings: {
+    objectMappings: {
       gallery: 'ImageGallery',
     },
   },
   elements: [
     {
       component: CellComponent.QuickViewTextInfoCard,
-      propertyMappings: {
+      objectMappings: {
         header: 'Detail.{language}.Header',
         subHeader: 'Detail.{language}.SubHeader',
         introText: 'Detail.{language}.IntroText',
@@ -23,7 +23,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     },
     {
       component: CellComponent.QuickViewContactsCard,
-      propertyMappings: {
+      objectMappings: {
         companyName: 'ContactInfos.{language}.CompanyName',
         givenName: 'ContactInfos.{language}.Givenname',
         surname: 'ContactInfos.{language}.Surname',
@@ -38,13 +38,13 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     },
     {
       component: CellComponent.QuickViewWebcamsView,
-      propertyMappings: {
+      objectMappings: {
         webcamsMediaItems: 'Webcam',
       },
     },
     {
       component: CellComponent.QuickViewMapView,
-      propertyMappings: {
+      objectMappings: {
         latitude: 'GpsPoints.position.Latitude',
         longitude: 'GpsPoints.position.Longitude',
       },
@@ -54,7 +54,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
       listFields: {
         pathToParent: 'OperationSchedule',
         attributeName: 'operationSchedules',
-        propertyMappings: {
+        objectMappings: {
           name: 'OperationscheduleName.{language}',
           start: 'Start',
           stop: 'Stop',
@@ -65,7 +65,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     },
     {
       component: CellComponent.QuickViewRecordInfoView,
-      propertyMappings: {
+      objectMappings: {
         lastUpdate: '_Meta.LastUpdate',
         active: 'Active',
         odhActive: 'OdhActive',

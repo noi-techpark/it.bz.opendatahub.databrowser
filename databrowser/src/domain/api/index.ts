@@ -6,11 +6,10 @@ export { useAxiosFileDownloader } from './client/axiosFetcher';
 export * from './pagination/types';
 export { stringifyParameter } from './service/query';
 export {
-  buildTargetObject,
-  isPropertyMappingsEmpty,
-  replacePlaceholders,
+  buildTargetFromArrayMapping,
+  buildTargetFromObjectMapping,
+  isObjectMappingsEmpty,
   useAsList,
   useAsSet,
-  usePropertyMapping,
 } from './service/utils';
 export * from './service/types';

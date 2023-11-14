@@ -14,9 +14,9 @@ import { useComputeViewType } from './view/viewType';
 import { useComputeViewPresence } from './view/viewPresence';
 import { DatasetConfigSource } from './load/types';
 import { useComputeViewKey } from './view/viewKey';
-import { useValueByPathExtractor } from './extract/valueExtractor';
+import { useValueExtractor } from './extract/valueExtractor';
 import { useParamsReplacer } from './replace/paramsReplacer';
-import { usePropertyMappingReplacer } from './replace/propertyMappingReplacer';
+import { usePropertyPathReplacer } from './replace/propertyPathReplacer';
 
 export const useDatasetInfo = (
   route: Ref<RouteLocationNormalizedLoaded>,
@@ -50,13 +50,13 @@ export const useDatasetInfo = (
 
   // Build params replacement facility
   const paramsReplacer = useParamsReplacer(datasetQuery);
-  const propertyMappingsReplacer = usePropertyMappingReplacer(paramsReplacer);
-  const extractValueByPath = useValueByPathExtractor(propertyMappingsReplacer);
+  const propertyPathReplacer = usePropertyPathReplacer(paramsReplacer);
+  const extractValueByPath = useValueExtractor(paramsReplacer);
 
   const view = useComputeView({
     datasetConfig,
     viewKey,
-    propertyMappingsReplacer,
+    propertyPathReplacer,
   });
 
   // Compute view type

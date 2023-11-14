@@ -22,29 +22,29 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'Areaname' },
+              objectMappings: { text: 'Areaname' },
             },
             idReadOnlyCell(),
             {
               title: 'RID',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'RID' },
+              objectMappings: { text: 'RID' },
             },
             {
               title: 'Ski Region',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'Skiregion' },
+              objectMappings: { text: 'Skiregion' },
             },
             {
               title: 'Logo',
               component: CellComponent.ImageEditCell,
-              propertyMappings: { src: 'contactlogo' },
+              objectMappings: { src: 'contactlogo' },
               params: { width: '200' },
             },
             {
               title: 'Ski Map',
               component: CellComponent.ImageEditCell,
-              propertyMappings: {
+              objectMappings: {
                 src: 'SkiMapUrl',
               },
               params: {
@@ -65,12 +65,12 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Shortname',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'Measuringpoints.0.Shortname' },
+              objectMappings: { text: 'Measuringpoints.0.Shortname' },
             },
             {
               title: 'Last Update',
               component: CellComponent.DateCell,
-              propertyMappings: { date: 'Measuringpoints.0.LastUpdate' },
+              objectMappings: { date: 'Measuringpoints.0.LastUpdate' },
               params: {
                 type: 'datetime',
                 format: DEFAULT_DATE_TIME_FORMAT,
@@ -80,22 +80,22 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Snow Height',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'Measuringpoints.0.SnowHeight' },
+              objectMappings: { text: 'Measuringpoints.0.SnowHeight' },
             },
             {
               title: 'New Snow Height',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'Measuringpoints.0.newSnowHeight' },
+              objectMappings: { text: 'Measuringpoints.0.newSnowHeight' },
             },
             {
               title: 'Temperature',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'Measuringpoints.0.Temperature' },
+              objectMappings: { text: 'Measuringpoints.0.Temperature' },
             },
             {
               title: 'Last Snow Date',
               component: CellComponent.DateCell,
-              propertyMappings: { date: 'Measuringpoints.0.LastSnowDate' },
+              objectMappings: { date: 'Measuringpoints.0.LastSnowDate' },
               params: {
                 format: DEFAULT_DATE_TIME_FORMAT,
               },
@@ -103,7 +103,7 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Weather Observation',
               component: CellComponent.ArrayCell,
-              propertyMappings: {
+              objectMappings: {
                 items: 'Measuringpoints.WeatherObservation',
               },
               params: {
@@ -124,7 +124,7 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Webcam-Url',
               component: CellComponent.ArrayCell,
-              propertyMappings: {
+              objectMappings: {
                 items: 'WebcamUrl',
               },
               params: {
@@ -145,22 +145,22 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Total Skilift',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'totalskilift' },
+              objectMappings: { text: 'totalskilift' },
             },
             {
               title: 'Open Skilift',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'openskilift' },
+              objectMappings: { text: 'openskilift' },
             },
             {
               title: 'Total Skilift km',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'totalskiliftkm' },
+              objectMappings: { text: 'totalskiliftkm' },
             },
             {
               title: 'Open Skilift km',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'openskiliftkm' },
+              objectMappings: { text: 'openskiliftkm' },
             },
           ],
         },
@@ -176,27 +176,27 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Ski Area slope km',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'SkiAreaSlopeKm' },
+              objectMappings: { text: 'SkiAreaSlopeKm' },
             },
             {
               title: 'Total Ski slopes',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'totalskislopes' },
+              objectMappings: { text: 'totalskislopes' },
             },
             {
               title: 'Open Ski slopes',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'openskislopes' },
+              objectMappings: { text: 'openskislopes' },
             },
             {
               title: 'Total Ski slopes km',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'totalskislopeskm' },
+              objectMappings: { text: 'totalskislopeskm' },
             },
             {
               title: 'Open Ski slopes km',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'openskislopeskm' },
+              objectMappings: { text: 'openskislopeskm' },
             },
           ],
         },
@@ -212,22 +212,22 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Total tracks',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'totaltracks' },
+              objectMappings: { text: 'totaltracks' },
             },
             {
               title: 'Open tracks',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'opentracks' },
+              objectMappings: { text: 'opentracks' },
             },
             {
               title: 'Total tracks km',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'totaltrackskm' },
+              objectMappings: { text: 'totaltrackskm' },
             },
             {
               title: 'Open tracks km',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'opentrackskm' },
+              objectMappings: { text: 'opentrackskm' },
             },
           ],
         },
@@ -243,22 +243,22 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Total slides',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'totalslides' },
+              objectMappings: { text: 'totalslides' },
             },
             {
               title: 'Open slides',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'opentslides' },
+              objectMappings: { text: 'opentslides' },
             },
             {
               title: 'Total slides km',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'totalslideskm' },
+              objectMappings: { text: 'totalslideskm' },
             },
             {
               title: 'Open slides km',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'openslidesskm' },
+              objectMappings: { text: 'openslidesskm' },
             },
           ],
         },
@@ -274,12 +274,12 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Total ice skating',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'totaliceskating' },
+              objectMappings: { text: 'totaliceskating' },
             },
             {
               title: 'Open ice skating',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'openiceskating' },
+              objectMappings: { text: 'openiceskating' },
             },
           ],
         },
@@ -295,7 +295,7 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Name/Company Name/AreaName',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'Areaname' },
+              objectMappings: { text: 'Areaname' },
             },
           ],
         },
@@ -305,27 +305,27 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Street and House No',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'contactadress' },
+              objectMappings: { text: 'contactadress' },
             },
             {
               title: 'ZIP-Code',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'contactcap' },
+              objectMappings: { text: 'contactcap' },
             },
             {
               title: 'City',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'contactcity' },
+              objectMappings: { text: 'contactcity' },
             },
             {
               title: 'GPS North',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'contactgpsnorth' },
+              objectMappings: { text: 'contactgpsnorth' },
             },
             {
               title: 'GPS East',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'contactgpseast' },
+              objectMappings: { text: 'contactgpseast' },
             },
           ],
         },
@@ -335,17 +335,17 @@ export const snowReportSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'E-Mail',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'contactmail' },
+              objectMappings: { text: 'contactmail' },
             },
             {
               title: 'Phone Number',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'contacttel' },
+              objectMappings: { text: 'contacttel' },
             },
             {
               title: 'Web-URL',
               component: CellComponent.UrlCell,
-              propertyMappings: { text: 'contactweburl' },
+              objectMappings: { text: 'contactweburl' },
             },
           ],
         },

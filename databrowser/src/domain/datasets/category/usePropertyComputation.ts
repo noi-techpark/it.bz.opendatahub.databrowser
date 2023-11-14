@@ -2,7 +2,10 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { buildTargetObject, usePropertyMapping } from '../../api';
+import {
+  buildTargetFromArrayMapping,
+  buildTargetFromObjectMapping,
+} from '../../api';
 import { CellComponent } from '../../cellComponents/types';
 import { PropertyConfig } from '../../datasetConfig/types';
 import { PropertyConfigWithErrors } from './types';
@@ -13,8 +16,6 @@ type PropertyConfigWithValue = PropertyConfigWithErrors & {
 };
 
 export const usePropertyComputation = () => {
-  const { mapListWithIndex } = usePropertyMapping();
-
   const computeProperties = (
     data: unknown,
     properties: PropertyConfig[],
@@ -28,9 +29,9 @@ export const usePropertyComputation = () => {
 
         // Use replacements (e.g. for language) to extract correct data from value
         const value =
-          property.propertyMappings != null
-            ? buildTargetObject(data, property.propertyMappings)
-            : mapListWithIndex(data, property.listFields);
+          property.objectMappings != null
+            ? buildTargetFromObjectMapping(data, property.objectMappings)
+            : buildTargetFromArrayMapping(data, property.listFields);
 
         return { ...property, value };
       }

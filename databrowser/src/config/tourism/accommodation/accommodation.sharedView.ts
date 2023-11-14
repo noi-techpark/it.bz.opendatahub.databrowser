@@ -41,7 +41,7 @@ export const accommodationSharedView = ():
             {
               title: 'Boardings',
               component: CellComponent.ArrayCell,
-              propertyMappings: {
+              objectMappings: {
                 items: 'BoardIds',
               },
               params: {
@@ -58,22 +58,22 @@ export const accommodationSharedView = ():
             {
               title: 'Room',
               component: CellComponent.ToggleCell,
-              propertyMappings: { enabled: 'HasApartment' },
+              objectMappings: { enabled: 'HasApartment' },
             },
             {
               title: 'Gastronomy',
               component: CellComponent.ToggleCell,
-              propertyMappings: { enabled: 'IsGastronomy' },
+              objectMappings: { enabled: 'IsGastronomy' },
             },
             {
               title: 'Is Bookable',
               component: CellComponent.ToggleCell,
-              propertyMappings: { enabled: 'IsBookable' },
+              objectMappings: { enabled: 'IsBookable' },
             },
             {
               title: 'Features',
               component: CellComponent.ArrayTagsCell,
-              propertyMappings: {
+              objectMappings: {
                 items: 'Features',
               },
               params: {
@@ -132,13 +132,13 @@ export const accommodationSharedView = ():
             {
               title: 'HGV ID',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'HgvId' },
+              objectMappings: { text: 'HgvId' },
               class: 'break-all',
             },
             {
               title: 'Marketing Group IDs',
               component: CellComponent.ArrayCell,
-              propertyMappings: {
+              objectMappings: {
                 items: 'MarketingGroupIds',
               },
               params: {
@@ -164,12 +164,12 @@ export const accommodationSharedView = ():
             {
               title: 'Long description',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'AccoDetail.{language}.Longdesc' },
+              objectMappings: { text: 'AccoDetail.{language}.Longdesc' },
             },
             {
               title: 'Short description',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'AccoDetail.{language}.ShortDesc' },
+              objectMappings: { text: 'AccoDetail.{language}.ShortDesc' },
             },
           ],
         },
@@ -187,7 +187,7 @@ export const accommodationSharedView = ():
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'Shortname' },
+              objectMappings: { text: 'Shortname' },
             },
           ],
         },

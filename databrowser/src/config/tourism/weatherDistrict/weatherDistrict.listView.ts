@@ -12,7 +12,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',
-      propertyMappings: {
+      objectMappings: {
         src: 'BezirksForecast.0.WeatherImgUrl',
       },
     },
@@ -23,7 +23,7 @@ export const weatherDistrictListView: ListViewConfig = {
       params: {
         format: DEFAULT_DATE_FORMAT,
       },
-      propertyMappings: {
+      objectMappings: {
         date: 'BezirksForecast.0.date',
       },
     },
@@ -31,7 +31,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'District name',
       component: CellComponent.StringCell,
       class: 'w-48',
-      propertyMappings: {
+      objectMappings: {
         text: 'DistrictName',
       },
     },
@@ -39,7 +39,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Weather description',
       component: CellComponent.StringCell,
       class: 'w-48',
-      propertyMappings: {
+      objectMappings: {
         text: 'BezirksForecast.0.WeatherDesc',
       },
     },
@@ -47,7 +47,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Max Temperature',
       component: CellComponent.StringCell,
       class: 'w-36',
-      propertyMappings: {
+      objectMappings: {
         text: 'BezirksForecast.0.MaxTemp',
       },
     },
@@ -55,7 +55,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Min Temperature',
       component: CellComponent.StringCell,
       class: 'w-36',
-      propertyMappings: {
+      objectMappings: {
         text: 'BezirksForecast.0.MinTemp',
       },
     },
@@ -63,7 +63,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Last updated',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
-      propertyMappings: {
+      objectMappings: {
         date: 'date',
       },
       params: {
@@ -74,7 +74,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Source',
       component: CellComponent.UrlCell,
       class: 'w-36',
-      propertyMappings: {
+      objectMappings: {
         text: 'LicenseInfo.LicenseHolder',
       },
     },

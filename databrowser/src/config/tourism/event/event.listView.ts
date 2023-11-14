@@ -23,20 +23,20 @@ export const eventListView: ListViewConfig = {
       component: CellComponent.EditedDateCell,
       class: 'w-48',
       params: { format: DEFAULT_DATE_TIME_FORMAT },
-      propertyMappings: { date: 'DateBegin' },
+      objectMappings: { date: 'DateBegin' },
     },
     {
       title: 'Date end',
       component: CellComponent.EditedDateCell,
       class: 'w-48',
       params: { format: DEFAULT_DATE_TIME_FORMAT },
-      propertyMappings: { date: 'DateEnd' },
+      objectMappings: { date: 'DateEnd' },
     },
     {
       title: 'Price',
       component: CellComponent.StringCell,
       class: 'w-32',
-      propertyMappings: {
+      objectMappings: {
         text: 'EventPrice.Price',
       },
     },
@@ -44,7 +44,7 @@ export const eventListView: ListViewConfig = {
       title: 'Event Organizer',
       component: CellComponent.StringCell,
       class: 'w-48',
-      propertyMappings: {
+      objectMappings: {
         text: 'OrganizerInfos.{language}.CompanyName',
       },
     },
@@ -52,7 +52,7 @@ export const eventListView: ListViewConfig = {
       title: 'Location',
       component: CellComponent.StringCell,
       class: 'w-48',
-      propertyMappings: {
+      objectMappings: {
         text: 'LocationInfo.DistrictInfo.Name.en',
       },
     },
@@ -63,7 +63,7 @@ export const eventListView: ListViewConfig = {
       title: 'Source state',
       component: CellComponent.StateCell,
       class: 'w-40',
-      propertyMappings: {
+      objectMappings: {
         state: 'Active',
       },
       // filter: {

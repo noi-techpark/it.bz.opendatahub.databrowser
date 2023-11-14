@@ -48,9 +48,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <ComponentRenderer
             :tag-name="col.component"
             :attributes="
-              buildTargetObject(row, col.propertyMappings, col.params)
+              buildTargetFromObjectMapping(row, col.objectMappings, col.params)
             "
-            :property-mappings="col.propertyMappings"
+            :property-mappings="col.objectMappings"
           />
         </TableCell>
         <TableCell
@@ -75,7 +75,7 @@ import ComponentRenderer from '../../../components/componentRenderer/ComponentRe
 import TableCell from '../../../components/table/TableCell.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
-import { buildTargetObject } from '../../api';
+import { buildTargetFromObjectMapping } from '../../api';
 import { ListElements } from '../../datasetConfig/types';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
 import TableDataEmpty from './TableDataEmpty.vue';

@@ -14,7 +14,7 @@ export const sourceSubCategory = (): SubCategoryElement => ({
     {
       title: 'Source',
       component: CellComponent.StringCell,
-      propertyMappings: { text: 'Source' },
+      objectMappings: { text: 'Source' },
     },
   ],
 });
@@ -23,7 +23,7 @@ export const sourceTableCell = (): PropertyConfig => ({
   title: 'Source',
   component: CellComponent.StringCell,
   class: 'w-36',
-  propertyMappings: { text: 'Source' },
+  objectMappings: { text: 'Source' },
 });
 
 export const sourceWithInsertsSubCategory = (
