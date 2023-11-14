@@ -19,6 +19,7 @@ export const useSingleRecordLoadConfig = () => {
     hasNewView,
     hasDetailView,
     hasQuickView,
+    isNewView,
     addRecordSupported,
     editRecordSupported,
   } = storeToRefs(useDatasetInfoStore());
@@ -34,6 +35,7 @@ export const useSingleRecordLoadConfig = () => {
     hasEditView,
     hasNewView,
     hasQuickView,
+    isNewView,
     view,
     isConfigLoading: isResolving,
     extractValueByPath,

@@ -6,21 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <router-view></router-view>
-  <VueQueryDevTools />
 </template>
-
-<script setup lang="ts">
-import { useQueryProvider } from 'vue-query';
-import { VueQueryDevTools } from 'vue-query/devtools';
-
-useQueryProvider({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-</script>
 
 <style>
 @font-face {

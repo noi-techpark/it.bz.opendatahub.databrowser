@@ -77,7 +77,7 @@ import EditToolBox from './toolBox/EditToolBox.vue';
 import { useEditStore } from './store/editStore';
 import { useEditStoreSync } from './useEditStoreSync';
 import { useApplyError } from './useApplyError';
-import { computed, ref, toRefs, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { DatasetPage } from '../../../routes';
 import DiscardChangesDialog from './dialogs/DiscardChangesDialog.vue';
@@ -95,9 +95,6 @@ import {
 import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
 
 const { t } = useI18n();
-
-const props = defineProps<{ isNewView: boolean }>();
-const { isNewView } = toRefs(props);
 
 const showAll = ref(true);
 
@@ -129,6 +126,7 @@ const {
   hasEditView,
   editRecordSupported,
   isGeneratedSource,
+  isNewView,
 } = useSingleRecordLoad();
 
 const mutation = computed(() => (isNewView.value ? 'create' : 'update'));
@@ -138,7 +136,6 @@ const {
   isMutateError,
   mutateData,
   mutateError,
-  resetMutate,
   mutate,
 } = useApiMutate(fullPath, mutation);
 
@@ -156,7 +153,6 @@ const saveChanges = () => storeSync.mutate();
 const resetAndCleanup = () => {
   storeSync.reset();
   cleanErrors();
-  resetMutate.value();
 };
 
 const dialogsStore = useDialogsStore();
@@ -183,7 +179,7 @@ watch(
       // At the moment there are at least two different forms of response
       // when a new record is created. The first one is from the EventShort
       // dataset, the second comes from the Article dataset
-      const id = mutateData.value?.data.id ?? mutateData.value?.data.Value.id;
+      const id = mutateData.value?.id ?? mutateData.value?.Value.id;
       if (id != null) {
         router.push({
           name: DatasetPage.DETAIL,

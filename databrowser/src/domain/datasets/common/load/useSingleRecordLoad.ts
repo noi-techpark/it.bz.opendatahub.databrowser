@@ -21,6 +21,7 @@ export const useSingleRecordLoad = () => {
     hasEditView,
     hasNewView,
     hasQuickView,
+    isNewView,
     view,
     isConfigLoading,
     extractValueByPath,
@@ -29,8 +30,10 @@ export const useSingleRecordLoad = () => {
   } = useSingleRecordLoadConfig();
 
   // Load single record data
-  const { data, error, isError, isDataLoading } =
-    useSingleRecordLoadData(normalizedPath);
+  const { data, error, isError, isDataLoading } = useSingleRecordLoadData(
+    normalizedPath,
+    isNewView
+  );
 
   // Compute loading state
   const isLoading = computed(
@@ -63,6 +66,7 @@ export const useSingleRecordLoad = () => {
     hasEditView,
     hasNewView,
     hasQuickView,
+    isNewView,
     view,
     isError,
     isLoading,
