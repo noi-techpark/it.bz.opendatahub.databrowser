@@ -15,22 +15,6 @@ import {
 import { useAuth } from '../../auth/store/auth';
 import { storeToRefs } from 'pinia';
 
-/**
- * Use Axios to build a fetcher function.
- *
- * Note that this function uses Vue3 inject to get the axios instance. Please
- * make sure that axios can be injected with the 'axios' key.
- *
- * @returns A function that, when invoked, fetches data from the given URL.
- */
-// TODO: rename to useFetcher? on the other side, many types are from axios
-export const useAxiosFetcher = <T = any, D = any>() => {
-  const axios = inject<AxiosInstance>('axios')!;
-
-  return async ({ queryKey: [url] }: any): Promise<AxiosResponse<T, D>> =>
-    await axios.get(url);
-};
-
 type BeforeFetchFn<T = unknown> = (
   config: AxiosRequestConfig<T>
 ) => Promise<AxiosRequestConfig<T>> | AxiosRequestConfig<T>;
@@ -50,8 +34,8 @@ interface UseAxiosFetchOptions<
   ResponseData = ReturnData,
   RequestData = unknown
 > {
-  method?: 'get' | 'post' | 'put' | 'patch' | 'delete';
-  payload?: RequestData;
+  method?: MaybeRef<'get' | 'post' | 'put' | 'patch' | 'delete'>;
+  payload?: MaybeRef<RequestData | undefined>;
   type?: string;
   beforeFetch?: BeforeFetchFn<RequestData>;
   afterFetch?: AfterFetchFn<ReturnData, ResponseData>;
@@ -59,6 +43,36 @@ interface UseAxiosFetchOptions<
   instance?: AxiosInstance;
   enabled?: MaybeRef<boolean>;
 }
+
+export const useBaseAxiosMutate = <
+  ReturnData = unknown,
+  ResponseData = ReturnData,
+  RequestData = unknown
+>(
+  url: MaybeRef<string | undefined>,
+  options?: Omit<
+    UseAxiosFetchOptions<ReturnData, ResponseData, RequestData>,
+    'enabled'
+  >
+) => {
+  const enabled = ref(false);
+  const payload = ref<RequestData>();
+
+  const mutate = (requestData: RequestData) => {
+    payload.value = requestData;
+    enabled.value = true;
+  };
+
+  const result = useBaseAxiosFetch<ReturnData, ResponseData, RequestData>(url, {
+    ...options,
+    enabled,
+    payload,
+  });
+
+  watch(result.isFinished, () => (enabled.value = false), { immediate: true });
+
+  return { ...result, mutate };
+};
 
 /**
  * Base data fetcher using axios.
@@ -98,8 +112,8 @@ export const useBaseAxiosFetch = <
   const urlInternal = ref<string>();
 
   watch(
-    [() => toValue(enabled), () => toValue(url)],
-    async ([enabledValue, urlValue]) => {
+    [() => toValue(enabled), () => toValue(url), () => toValue(method)],
+    async ([enabledValue, urlValue, methodValue]) => {
       // Do nothing if request is not enabled
       if (enabledValue === false) {
         console.log('Fetch is disabled');
@@ -120,8 +134,8 @@ export const useBaseAxiosFetch = <
       // Compute config
       const config = await beforeFetch({
         url: urlValue,
-        method,
-        data: payload,
+        method: methodValue,
+        data: toValue(payload),
         headers: {
           Accept: type,
         },
@@ -215,9 +229,4 @@ export const useAxiosFileDownloader = () => {
       link.remove();
     },
   };
-};
-
-export const fetchWithAxios = async (url: string) => {
-  const axios = inject<AxiosInstance>('axios')!;
-  await axios.get(url);
 };

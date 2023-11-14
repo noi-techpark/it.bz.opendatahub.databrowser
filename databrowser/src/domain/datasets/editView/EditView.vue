@@ -69,30 +69,30 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script lang="ts" setup>
-import { useApiMutate } from '../../api';
+import { useEventListener } from '@vueuse/core';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useAuth } from '../../auth/store/auth';
-import EditFooter from './EditFooter.vue';
-import EditToolBox from './toolBox/EditToolBox.vue';
-import { useEditStore } from './store/editStore';
-import { useEditStoreSync } from './useEditStoreSync';
-import { useApplyError } from './useApplyError';
-import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import AlertError from '../../../components/alert/AlertError.vue';
+import LoadingError from '../../../components/loading/LoadingError.vue';
 import { DatasetPage } from '../../../routes';
+import { useAuth } from '../../auth/store/auth';
+import {
+  useEventDiscardChanges,
+  useEventSaveChanges,
+} from '../../cellComponents/components/utils/editList/dialogMultipleFilesLanguage/utils';
+import MainAndSubCategories from '../common/MainAndSubCategories.vue';
+import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
+import { useSingleRecordMutateData } from '../common/load/useSingleRecordMutateData';
+import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
+import EditFooter from './EditFooter.vue';
 import DiscardChangesDialog from './dialogs/DiscardChangesDialog.vue';
 import LeaveSectionDialog from './dialogs/LeaveSectionDialog.vue';
-import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
 import { useDialogsStore } from './dialogs/dialogsStore';
-import { useEventListener } from '@vueuse/core';
-import AlertError from '../../../components/alert/AlertError.vue';
-import MainAndSubCategories from '../common/MainAndSubCategories.vue';
-import LoadingError from '../../../components/loading/LoadingError.vue';
-import {
-  useEventSaveChanges,
-  useEventDiscardChanges,
-} from '../../cellComponents/components/utils/editList/dialogMultipleFilesLanguage/utils';
-import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
+import { useEditStore } from './store/editStore';
+import EditToolBox from './toolBox/EditToolBox.vue';
+import { useApplyError } from './useApplyError';
+import { useEditStoreSync } from './useEditStoreSync';
 
 const { t } = useI18n();
 
@@ -129,7 +129,6 @@ const {
   isNewView,
 } = useSingleRecordLoad();
 
-const mutation = computed(() => (isNewView.value ? 'create' : 'update'));
 const {
   isMutateSuccess,
   isMutateLoading,
@@ -137,7 +136,7 @@ const {
   mutateData,
   mutateError,
   mutate,
-} = useApiMutate(fullPath, mutation);
+} = useSingleRecordMutateData(fullPath, isNewView);
 
 // Enhance categories and subcategories with any errors
 const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =
