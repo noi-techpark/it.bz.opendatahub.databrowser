@@ -89,7 +89,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
@@ -101,7 +100,6 @@ import { SelectOption } from '../../../../components/select/types';
 import IconClose from '../../../../components/svg/IconClose.vue';
 import IconDelete from '../../../../components/svg/IconDelete.vue';
 import TagCustom from '../../../../components/tag/TagCustom.vue';
-import { useApiParameterStore } from '../../../api/service/apiParameterStore';
 import ToolBoxCard from '../../toolBox/ToolBoxCard.vue';
 import ToolBoxCardBody from '../../toolBox/ToolBoxCardBody.vue';
 import ToolBoxCardHeader from '../../toolBox/ToolBoxCardHeader.vue';
@@ -111,26 +109,30 @@ import { filterSelectOptions } from '../filter/filterSelectOptions';
 import { useTableFilter } from '../filter/useTableFilter';
 import InfoFilter from './InfoFilter.vue';
 import InfoSearch from './InfoSearch.vue';
+import { useRouter } from 'vue-router';
+import { stringifyParameter } from '../../../api';
 
 const { t } = useI18n();
 
 defineProps<{ filterOptions: SelectOption[] }>();
-// const { tableCols } = toRefs(props);
 
-// const { updateApiParameterValue, useApiParameter } = useApiParameterHandler();
-const { currentApiParams } = storeToRefs(useApiParameterStore());
+const router = useRouter();
 
-const searchFilter = currentApiParams.value['searchfilter'];
-const searchFilterAsString = computed(() => searchFilter ?? '');
+const searchFilterAsString = computed(() =>
+  stringifyParameter(router.currentRoute.value.query.searchfilter)
+);
 
 const search = (term: string) => {
   const value = term === '' ? undefined : term;
+
+  const query = { ...router.currentRoute.value.query };
   if (value != null) {
-    currentApiParams.value['searchfilter'] = value;
+    query['searchfilter'] = value;
   } else {
-    delete currentApiParams.value['searchfilter'];
+    delete query['searchfilter'];
   }
-  // currentApiParams.value['searchfilter'] = value;
+
+  router.push({ ...router.currentRoute.value, query });
 };
 
 const {

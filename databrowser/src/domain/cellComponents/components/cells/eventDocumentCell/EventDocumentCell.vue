@@ -24,15 +24,18 @@ import EventDocumentTable from './EventDocumentTable.vue';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import EditListUpload from '../../utils/editList/upload/EditListUpload.vue';
 import { FileEntry } from './types';
-import { useApiParameterStore } from '../../../../api/service/apiParameterStore';
+import { storeToRefs } from 'pinia';
+import { useDatasetInfoStore } from '../../../../datasetConfig/store/datasetInfoStore';
 
 const emit = defineEmits(['update']);
 
 defineProps<{ files?: FileEntry[] }>();
 
+const { datasetQuery } = storeToRefs(useDatasetInfoStore());
+
 // Set current language for each file
 const updateWithCurrentLanguage = ({ value }: { value?: FileEntry[] }) => {
-  const currentLanguage = useApiParameterStore().allApiParams.language;
+  const currentLanguage = datasetQuery.value?.language;
 
   const updatedFiles =
     value?.map((file) => ({

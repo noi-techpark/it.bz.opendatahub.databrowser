@@ -27,11 +27,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed, toRefs } from 'vue';
 import LoadingState from '../../../../../components/loading/LoadingState.vue';
 import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
-import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
-import { unwrapData } from '../../../../api/dataExtraction/dataExtraction';
 import { useDatasetInfoStore } from '../../../../datasetConfig/store/datasetInfoStore';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import ArrayLookupTable from './ArrayLookupTable.vue';
+import { useRemoteSelectOptions } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
+import { RemoteOptionsMapper } from '../../utils/remoteSelectOptions/types';
+import { SelectOption } from '../../../../../components/select/types';
 
 const props = withDefaults(
   defineProps<{
@@ -53,21 +54,27 @@ const enableUniqueValue = computed(() =>
 
 const { lookupUrl, keySelector, labelSelector } = toRefs(props);
 
-const { extractValueByPath } = useDatasetInfoStore();
+const optionMapper: RemoteOptionsMapper<SelectOption & { url: string }> = (
+  data,
+  keySelector,
+  labelSelector
+) => {
+  const { extractValueByPath } = useDatasetInfoStore();
 
-const { data, error, isLoading, isSuccess, isError } = useBaseAxiosFetch(
-  lookupUrl,
-  {
-    afterFetch: (ctx) => {
-      const items = unwrapData(ctx.data);
-      return items.map((item: any) => ({
-        label: extractValueByPath(item, labelSelector.value) as any,
-        value: extractValueByPath(item, keySelector.value) as any,
-        url: item.Url,
-      }));
-    },
-  }
-);
+  return data.map((item: any) => {
+    const value = extractValueByPath(item, keySelector) as string;
+    const label = (extractValueByPath(item, labelSelector) as string) ?? value;
+    const url = item.Url;
+    return { value, label, url };
+  });
+};
 
-const options = computed(() => data.value ?? []);
+const { options, error, isLoading, isSuccess, isError } =
+  useRemoteSelectOptions(
+    lookupUrl,
+    keySelector,
+    labelSelector,
+    true,
+    optionMapper
+  );
 </script>

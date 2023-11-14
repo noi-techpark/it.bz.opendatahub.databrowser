@@ -5,10 +5,10 @@
 import { computed, MaybeRef, toValue } from 'vue';
 import { RouteLocationNamedRaw, useRouter } from 'vue-router';
 import { DatasetPage } from '../../../routes';
-import { useApiParameterStore } from '../../api/service/apiParameterStore';
 import { PathSegments } from '../../datasetConfig/types';
 import { useMetaDataStore } from '../../metaDataConfig/tourism/metaDataStore';
 import { storeToRefs } from 'pinia';
+import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
 
 // TODO: make this file a store?
 
@@ -99,6 +99,7 @@ export const usePathsForCurrentRoute = () => {
 
 const initPathBuilder = () => {
   const { currentMetaData } = storeToRefs(useMetaDataStore());
+  const { datasetQuery } = storeToRefs(useDatasetInfoStore());
   const router = useRouter();
 
   const buildPath = (
@@ -108,7 +109,7 @@ const initPathBuilder = () => {
     name: name,
     query: {
       ...currentMetaData.value?.apiFilter,
-      language: useApiParameterStore().allApiParams.language,
+      language: datasetQuery.value?.language,
     },
     hash: preserveHash ? router.currentRoute.value.hash : undefined,
   });

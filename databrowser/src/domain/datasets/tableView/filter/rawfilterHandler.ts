@@ -3,19 +3,19 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed } from 'vue';
-// import { stringifyParameter, useApiParameterHandler } from '../../../api';
 import { parseFilterWithRegex } from './parser/parseFilterWithRegex';
 import { Rawfilter } from './types';
 import { storeToRefs } from 'pinia';
-import { useApiParameterStore } from '../../../api/service/apiParameterStore';
+import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
+import { useRouter } from 'vue-router';
 
 export const useRawfilterHandler = () => {
-  // const { updateApiParameterValue, useApiParameter } = useApiParameterHandler();
-  // const currentRawfilter = useApiParameter('rawfilter');
-  const { currentApiParams } = storeToRefs(useApiParameterStore());
+  const { datasetQuery } = storeToRefs(useDatasetInfoStore());
+
+  const router = useRouter();
 
   const rawfilters = computed<Rawfilter[]>(() =>
-    parseRawfilter(currentApiParams.value.rawfilter)
+    parseRawfilter(datasetQuery.value?.rawfilter)
   );
 
   const updateRawfilters = (updatedFilters: Rawfilter[]) => {
@@ -56,15 +56,15 @@ export const useRawfilterHandler = () => {
       }
     }, []);
 
-    // const rawfilter =
-    //   filterValues.length > 0 ? `and(${filterValues.join(',')})` : undefined;
-    // updateApiParameterValue('rawfilter', rawfilter);
+    const query = { ...router.currentRoute.value.query };
 
     if (filterValues.length > 0) {
-      currentApiParams.value['rawfilter'] = `and(${filterValues.join(',')})`;
+      query['rawfilter'] = `and(${filterValues.join(',')})`;
     } else {
-      delete currentApiParams.value['rawfilter'];
+      delete query['rawfilter'];
     }
+
+    router.push({ ...router.currentRoute.value, query });
   };
 
   return { rawfilters, updateRawfilters };

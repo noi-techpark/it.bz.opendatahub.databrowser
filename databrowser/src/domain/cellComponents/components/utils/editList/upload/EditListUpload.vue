@@ -32,7 +32,8 @@ import {
   setDialogItems,
   clearDialogStore,
 } from '../dialogMultipleFilesLanguage/utils';
-import { useApiParameterStore } from '../../../../../api/service/apiParameterStore';
+import { storeToRefs } from 'pinia';
+import { useDatasetInfoStore } from '../../../../../datasetConfig/store/datasetInfoStore';
 
 const props = defineProps<{ type: FileType; hasLanguageDialog?: boolean }>();
 
@@ -41,6 +42,8 @@ const { navigateToPrevious } = useInjectNavigation();
 const { addItems } = useInjectActionTriggers();
 
 const dialog = ref({ isOpen: false });
+
+const { datasetQuery } = storeToRefs(useDatasetInfoStore());
 
 const uploadSuccess = (urls: string[], fileNames: string[]) => {
   const items = urls.map((url, index) => {
@@ -53,7 +56,7 @@ const uploadSuccess = (urls: string[], fileNames: string[]) => {
   addItems(items.map((item) => ({ src: item.src })));
 
   if (props.hasLanguageDialog) {
-    const currentLanguage = useApiParameterStore().allApiParams.language;
+    const currentLanguage = datasetQuery.value?.language;
 
     setDialogItems(items, currentLanguage);
     dialog.value.isOpen = true;
