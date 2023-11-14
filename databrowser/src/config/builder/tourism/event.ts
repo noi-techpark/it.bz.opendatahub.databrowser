@@ -12,7 +12,7 @@ export const eventDocumentCell = (): PropertyConfig => ({
   title: 'PDFs',
   component: CellComponent.EventDocumentCell,
   arrayMapping: {
-    attributeName: 'files',
+    targetPropertyName: 'files',
     pathToParent: 'Documents.{language}',
     objectMapping: {
       src: 'DocumentURL',

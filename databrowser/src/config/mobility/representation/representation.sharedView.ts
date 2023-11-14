@@ -37,7 +37,7 @@ export const representationSharedView = ():
                   Capacity: 'stype',
                   SetupType: 'scode',
                 },
-                attributeName: 'roomVenue',
+                targetPropertyName: 'roomVenue',
               },
             },
           ],

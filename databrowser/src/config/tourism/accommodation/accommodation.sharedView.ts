@@ -86,7 +86,7 @@ export const accommodationSharedView = ():
               title: 'Special Features',
               component: CellComponent.TagReferenceCell,
               arrayMapping: {
-                attributeName: 'tags',
+                targetPropertyName: 'tags',
                 pathToParent: 'SpecialFeaturesIds',
               },
               params: {
@@ -101,7 +101,7 @@ export const accommodationSharedView = ():
               title: 'Badges',
               component: CellComponent.TagReferenceCell,
               arrayMapping: {
-                attributeName: 'tags',
+                targetPropertyName: 'tags',
                 pathToParent: 'BadgeIds',
               },
               params: {
@@ -114,7 +114,7 @@ export const accommodationSharedView = ():
               title: 'Themes',
               component: CellComponent.TagReferenceCell,
               arrayMapping: {
-                attributeName: 'tags',
+                targetPropertyName: 'tags',
                 pathToParent: 'ThemeIds',
               },
               params: {

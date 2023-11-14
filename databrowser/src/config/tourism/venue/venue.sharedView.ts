@@ -50,7 +50,7 @@ export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
                   Capacity: 'VenueSetup.0.Capacity',
                   SetupType: 'VenueSetup.0.VenueCode',
                 },
-                attributeName: 'roomVenue',
+                targetPropertyName: 'roomVenue',
               },
             },
           ],

@@ -76,7 +76,7 @@ export const experienceAreaSharedView = ():
               title: 'Districts',
               component: CellComponent.TagReferenceCell,
               arrayMapping: {
-                attributeName: 'tags',
+                targetPropertyName: 'tags',
                 pathToParent: 'DistrictIds',
               },
               params: {

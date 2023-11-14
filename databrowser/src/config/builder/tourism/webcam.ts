@@ -12,7 +12,7 @@ export const webcamCell = (): PropertyConfig => ({
   title: '',
   component: CellComponent.WebcamCell,
   arrayMapping: {
-    attributeName: 'webcams',
+    targetPropertyName: 'webcams',
     pathToParent: 'Webcam',
     objectMapping: {
       name: 'Webcamname.{language}',

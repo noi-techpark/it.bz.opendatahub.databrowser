@@ -13,7 +13,7 @@ export const seasonCell = (): PropertyConfig => ({
   component: CellComponent.OperationScheduleCell,
   arrayMapping: {
     pathToParent: 'OperationSchedule',
-    attributeName: 'operationSchedules',
+    targetPropertyName: 'operationSchedules',
     objectMapping: {
       name: 'OperationscheduleName.{language}',
       start: 'Start',

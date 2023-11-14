@@ -41,8 +41,8 @@ export interface ObjectPropertyConfig {
 }
 
 export interface ArrayMapping {
-  // Namer of the target attribute / property
-  attributeName: string;
+  // Name of the target attribute / property
+  targetPropertyName: string;
   // Path to the parent object
   pathToParent: PropertyPath;
   // If objectMapping is undefined or empty, then the object defined by parentPath

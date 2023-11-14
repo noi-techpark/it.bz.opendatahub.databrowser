@@ -84,7 +84,7 @@ export const stationTypesSharedView = ():
               title: 'Special Features',
               component: CellComponent.TagReferenceCell,
               arrayMapping: {
-                attributeName: 'tags',
+                targetPropertyName: 'tags',
                 pathToParent: 'SpecialFeaturesIds',
               },
               params: {
@@ -97,7 +97,7 @@ export const stationTypesSharedView = ():
               title: 'Badges',
               component: CellComponent.TagReferenceCell,
               arrayMapping: {
-                attributeName: 'tags',
+                targetPropertyName: 'tags',
                 pathToParent: 'BadgeIds',
               },
               params: {
@@ -110,7 +110,7 @@ export const stationTypesSharedView = ():
               title: 'Themes',
               component: CellComponent.TagReferenceCell,
               arrayMapping: {
-                attributeName: 'tags',
+                targetPropertyName: 'tags',
                 pathToParent: 'ThemeIds',
               },
               params: {

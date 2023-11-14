@@ -14,7 +14,7 @@ export const imageGalleryCell = (
   title: '',
   component: CellComponent.EditImageGalleryCell,
   arrayMapping: {
-    attributeName: 'images',
+    targetPropertyName: 'images',
     pathToParent: 'ImageGallery',
     objectMapping: {
       alt: 'ImageAltText.{language}',

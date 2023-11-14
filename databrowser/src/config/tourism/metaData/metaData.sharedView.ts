@@ -48,7 +48,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Category',
               component: CellComponent.CustomDataArrayCell,
               arrayMapping: {
-                attributeName: 'listItems',
+                targetPropertyName: 'listItems',
                 pathToParent: 'Category',
               },
               params: {
@@ -61,7 +61,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Data Provider',
               component: CellComponent.CustomDataArrayCell,
               arrayMapping: {
-                attributeName: 'listItems',
+                targetPropertyName: 'listItems',
                 pathToParent: 'DataProvider',
               },
               params: {
@@ -84,7 +84,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Path',
               component: CellComponent.ArrayEditableCell,
               arrayMapping: {
-                attributeName: 'items',
+                targetPropertyName: 'items',
                 pathToParent: 'PathParam',
               },
               required: true,
@@ -93,7 +93,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Filter',
               component: CellComponent.ArrayEditableCell,
               arrayMapping: {
-                attributeName: 'items',
+                targetPropertyName: 'items',
                 pathToParent: 'ApiFilter',
               },
             },
@@ -112,7 +112,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Tags',
               component: CellComponent.TagReferenceCell,
               arrayMapping: {
-                attributeName: 'tags',
+                targetPropertyName: 'tags',
                 pathToParent: 'OdhTagIds',
               },
               params: {

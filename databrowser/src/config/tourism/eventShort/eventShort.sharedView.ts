@@ -135,7 +135,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Technology Fields',
               component: CellComponent.TagReferenceCell,
               arrayMapping: {
-                attributeName: 'tags',
+                targetPropertyName: 'tags',
                 pathToParent: 'TechnologyFields',
               },
               params: {
@@ -151,7 +151,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Tagging Fields',
               component: CellComponent.TagReferenceCell,
               arrayMapping: {
-                attributeName: 'tags',
+                targetPropertyName: 'tags',
                 pathToParent: 'CustomTagging',
               },
               params: {
@@ -179,7 +179,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
                   endDateUTC: 'EndDateUTC',
                   spaceDescRoomMapping: 'SpaceDescRoomMapping',
                 },
-                attributeName: 'roomBooked',
+                targetPropertyName: 'roomBooked',
               },
             },
           ],

@@ -53,7 +53,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
       component: CellComponent.QuickViewOpeningHoursView,
       arrayMapping: {
         pathToParent: 'OperationSchedule',
-        attributeName: 'operationSchedules',
+        targetPropertyName: 'operationSchedules',
         objectMapping: {
           name: 'OperationscheduleName.{language}',
           start: 'Start',
