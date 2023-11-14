@@ -316,7 +316,7 @@ const listViewConfigFromProperties = (
       return {
         title: name,
         component: CellComponent.TypeBasedCell,
-        objectMappings: {
+        objectMapping: {
           data: name,
         },
         class: 'w-60 leading-3',
@@ -335,7 +335,7 @@ const detailViewConfigFromProperties = (
       return {
         title: name,
         component: CellComponent.TypeBasedCell,
-        objectMappings: {
+        objectMapping: {
           data: name,
         },
       };

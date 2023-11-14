@@ -13,7 +13,7 @@ export const odhActivityPoiTypesListView: ListViewConfig = {
       title: 'Key',
       component: CellComponent.StringCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         text: 'Key',
       },
     },
@@ -21,7 +21,7 @@ export const odhActivityPoiTypesListView: ListViewConfig = {
       title: 'Type',
       component: CellComponent.StringCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         text: 'Type',
       },
     },
@@ -29,7 +29,7 @@ export const odhActivityPoiTypesListView: ListViewConfig = {
       title: 'TypeDesc',
       component: CellComponent.StringCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         text: 'TypeDesc.{language}',
       },
     },

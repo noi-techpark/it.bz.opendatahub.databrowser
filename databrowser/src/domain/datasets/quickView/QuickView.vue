@@ -61,11 +61,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :attributes="
             buildTargetFromObjectMapping(
               data,
-              element.objectMappings,
+              element.objectMapping,
               element.params
             )
           "
-          :property-mappings="element.objectMappings"
+          :object-mapping="element.objectMapping"
           :list-fields="element.listFields"
         />
       </div>
@@ -141,7 +141,7 @@ const mainImage = computed(() => {
 const imageGallery = computed(() => {
   const gallery = extractValueByPath.value(
     data.value,
-    topGallery.value?.objectMappings.gallery as string
+    topGallery.value?.objectMapping.gallery as string
   );
   return (gallery ?? []) as GalleryImage[];
 });

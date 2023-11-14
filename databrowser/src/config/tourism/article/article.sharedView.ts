@@ -52,7 +52,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.ArticleAdditionalInfoCell,
-              objectMappings: {
+              objectMapping: {
                 infos: 'AdditionalArticleInfos.{language}.Elements',
               },
             },
@@ -70,7 +70,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.ArticleLinkInfoCell,
-              objectMappings: {
+              objectMapping: {
                 links: 'ArticleLinkInfo.{language}.Elements',
               },
             },
@@ -89,12 +89,12 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Highlight',
               component: CellComponent.ToggleCell,
-              objectMappings: { enabled: 'Highlight' },
+              objectMapping: { enabled: 'Highlight' },
             },
             {
               title: '',
               component: CellComponent.ArticleTypeCell,
-              objectMappings: {
+              objectMapping: {
                 type: 'Type',
                 subType: 'SubType',
               },
@@ -107,13 +107,13 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Article Date',
               component: CellComponent.DateCell,
-              objectMappings: { date: 'ArticleDate' },
+              objectMapping: { date: 'ArticleDate' },
               params: { format: DEFAULT_DATE_FORMAT },
             },
             {
               title: 'Article Date To',
               component: CellComponent.DateCell,
-              objectMappings: { date: 'ArticleDateTo' },
+              objectMapping: { date: 'ArticleDateTo' },
               params: { format: DEFAULT_DATE_FORMAT },
             },
           ],
@@ -130,7 +130,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'License',
               component: CellComponent.SelectWithOptionsCell,
-              objectMappings: { value: 'LicenseInfo.License' },
+              objectMapping: { value: 'LicenseInfo.License' },
               params: {
                 value_001: 'CC0',
                 label_001: 'CC0',
@@ -143,17 +143,17 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Author',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'LicenseInfo.Author' },
+              objectMapping: { text: 'LicenseInfo.Author' },
             },
             {
               title: 'License Holder',
               component: CellComponent.UrlCell,
-              objectMappings: { text: 'LicenseInfo.LicenseHolder' },
+              objectMapping: { text: 'LicenseInfo.LicenseHolder' },
             },
             {
               title: 'Closed Data',
               component: CellComponent.ToggleCell,
-              objectMappings: { enabled: 'LicenseInfo.ClosedData' },
+              objectMapping: { enabled: 'LicenseInfo.ClosedData' },
             },
           ],
         },

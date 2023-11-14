@@ -8,14 +8,14 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 export const odhActivityPoiQuickView: QuickViewConfig = {
   topGallery: {
     isVisible: true,
-    objectMappings: {
+    objectMapping: {
       gallery: 'ImageGallery',
     },
   },
   elements: [
     {
       component: CellComponent.QuickViewTextInfoCard,
-      objectMappings: {
+      objectMapping: {
         header: 'Detail.{language}.Header',
         subHeader: 'Detail.{language}.SubHeader',
         introText: 'Detail.{language}.IntroText',
@@ -23,7 +23,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     },
     {
       component: CellComponent.QuickViewContactsCard,
-      objectMappings: {
+      objectMapping: {
         companyName: 'ContactInfos.{language}.CompanyName',
         givenName: 'ContactInfos.{language}.Givenname',
         surname: 'ContactInfos.{language}.Surname',
@@ -38,13 +38,13 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     },
     {
       component: CellComponent.QuickViewWebcamsView,
-      objectMappings: {
+      objectMapping: {
         webcamsMediaItems: 'Webcam',
       },
     },
     {
       component: CellComponent.QuickViewMapView,
-      objectMappings: {
+      objectMapping: {
         latitude: 'GpsPoints.position.Latitude',
         longitude: 'GpsPoints.position.Longitude',
       },
@@ -54,7 +54,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
       listFields: {
         pathToParent: 'OperationSchedule',
         attributeName: 'operationSchedules',
-        objectMappings: {
+        objectMapping: {
           name: 'OperationscheduleName.{language}',
           start: 'Start',
           stop: 'Stop',
@@ -65,7 +65,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     },
     {
       component: CellComponent.QuickViewRecordInfoView,
-      objectMappings: {
+      objectMapping: {
         lastUpdate: '_Meta.LastUpdate',
         active: 'Active',
         odhActive: 'OdhActive',

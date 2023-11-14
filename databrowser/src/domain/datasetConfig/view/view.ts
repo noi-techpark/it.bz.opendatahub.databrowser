@@ -9,7 +9,7 @@ import {
   ListElements,
   ListViewConfig,
   NewViewConfig,
-  ObjectMappings,
+  ObjectMapping,
   PropertyConfig,
   QuickViewConfig,
   ToMaybeRefs,
@@ -110,20 +110,20 @@ export const applyReplacementsToTableView = (
     return undefined;
   }
 
-  const firstPropertyName = (objectMappings?: ObjectMappings) => {
-    const values = Object.values(objectMappings ?? {});
+  const firstPropertyName = (objectMapping?: ObjectMapping) => {
+    const values = Object.values(objectMapping ?? {});
     return values.length === 1 ? values[0] : undefined;
   };
 
   const result = {
     ...tableViewConfig,
     elements: tableViewConfig.elements.map<ListElements>((element) => {
-      const objectMappings = propertyPathReplacer(element.objectMappings);
-      const propertyName = firstPropertyName(objectMappings);
+      const objectMapping = propertyPathReplacer(element.objectMapping);
+      const propertyPath = firstPropertyName(objectMapping);
       return {
         ...element,
-        objectMappings: objectMappings,
-        propertyPath: propertyName,
+        objectMapping,
+        propertyPath,
         listFields: undefined,
       };
     }),
@@ -238,22 +238,20 @@ const replaceMappings = (
   paramsReplacer: ParamsReplacer,
   propertyPathReplacer: PropertyPathReplacer
 ) => {
-  if (property.objectMappings != null) {
+  if (property.objectMapping != null) {
     return {
       ...property,
       listFields: undefined,
-      objectMappings: propertyPathReplacer(property.objectMappings),
+      objectMapping: propertyPathReplacer(property.objectMapping),
     };
   } else if (property.listFields != null) {
     return {
       ...property,
-      objectMappings: undefined,
+      objectMapping: undefined,
       listFields: {
         ...property.listFields,
         pathToParent: paramsReplacer(property.listFields.pathToParent),
-        objectMappings: propertyPathReplacer(
-          property.listFields.objectMappings
-        ),
+        objectMapping: propertyPathReplacer(property.listFields.objectMapping),
       },
     };
   }

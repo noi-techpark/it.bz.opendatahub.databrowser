@@ -36,7 +36,7 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Ski region name',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'SkiRegionName.{language}' },
+              objectMapping: { text: 'SkiRegionName.{language}' },
             },
             ...logoWithMainImageCells(),
           ],
@@ -48,13 +48,13 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'SkiRegionId',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'SkiRegionId' },
+              objectMapping: { text: 'SkiRegionId' },
               class: 'break-all',
             },
             {
               title: 'Area Ids',
               component: CellComponent.ArrayCell,
-              objectMappings: {
+              objectMapping: {
                 items: 'AreaId',
               },
               params: {
@@ -69,22 +69,22 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Total slope Km',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'TotalSlopeKm' },
+              objectMapping: { text: 'TotalSlopeKm' },
             },
             {
               title: 'Slope Km Blue',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'SlopeKmBlue' },
+              objectMapping: { text: 'SlopeKmBlue' },
             },
             {
               title: 'Slope Km Black',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'SlopeKmBlack' },
+              objectMapping: { text: 'SlopeKmBlack' },
             },
             {
               title: 'Slope Km Red',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'SlopeKmRed' },
+              objectMapping: { text: 'SlopeKmRed' },
             },
           ],
         },
@@ -94,12 +94,12 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Altimeters From',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'AltitudeFrom' },
+              objectMapping: { text: 'AltitudeFrom' },
             },
             {
               title: 'Altimeters To',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'AltitudeTo' },
+              objectMapping: { text: 'AltitudeTo' },
             },
           ],
         },
@@ -109,7 +109,7 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Ski map',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'SkiAreaMapURL',
               },
             },

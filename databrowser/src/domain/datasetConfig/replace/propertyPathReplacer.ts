@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import { ObjectMappings } from '../types';
+import { ObjectMapping } from '../types';
 import { PropertyPathReplacer } from './types';
 
 // Builder function to create a function that replaces all (dynamic) path params in
@@ -13,12 +13,12 @@ export const buildPropertyPathReplacer = (
 ): PropertyPathReplacer => {
   // Utility function to replace all (dynamic) path params in a object mapping
   // with the corresponding replacements
-  return (objectMappings?: ObjectMappings) => {
-    if (objectMappings == null) {
+  return (objectMapping?: ObjectMapping) => {
+    if (objectMapping == null) {
       return {};
     }
 
-    return Object.entries(objectMappings).reduce<ObjectMappings>(
+    return Object.entries(objectMapping).reduce<ObjectMapping>(
       (prev, [targetPropertyName, propertyPath]) => ({
         ...prev,
         [targetPropertyName]: paramsReplacer(propertyPath),

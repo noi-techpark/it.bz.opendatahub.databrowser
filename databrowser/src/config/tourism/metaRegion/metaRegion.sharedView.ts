@@ -37,7 +37,7 @@ export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Tourismverein ID',
               component: CellComponent.ArrayCell,
               class: 'w-40',
-              objectMappings: {
+              objectMapping: {
                 items: 'TourismvereinIds',
               },
               params: {
@@ -47,7 +47,7 @@ export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Region Ids',
               component: CellComponent.ArrayCell,
-              objectMappings: {
+              objectMapping: {
                 items: 'RegionIds',
               },
               params: {
@@ -57,7 +57,7 @@ export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'District Ids',
               component: CellComponent.ArrayCell,
-              objectMappings: {
+              objectMapping: {
                 items: 'DistrictIds',
               },
               params: {

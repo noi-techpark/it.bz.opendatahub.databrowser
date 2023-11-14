@@ -15,42 +15,42 @@ export const textInfoCategory = (): DetailElements => ({
         {
           title: 'Meta Title',
           component: CellComponent.StringCell,
-          objectMappings: {
+          objectMapping: {
             text: 'Detail.{language}.MetaTitle',
           },
         },
         {
           title: 'Meta Description',
           component: CellComponent.StringCell,
-          objectMappings: {
+          objectMapping: {
             text: 'Detail.{language}.MetaDesc',
           },
         },
         {
           title: 'Title',
           component: CellComponent.StringCell,
-          objectMappings: {
+          objectMapping: {
             text: 'Detail.{language}.Title',
           },
         },
         {
           title: 'Header',
           component: CellComponent.StringCell,
-          objectMappings: {
+          objectMapping: {
             text: 'Detail.{language}.Header',
           },
         },
         {
           title: 'SubHeader',
           component: CellComponent.TextAreaCell,
-          objectMappings: {
+          objectMapping: {
             text: 'Detail.{language}.SubHeader',
           },
         },
         {
           title: 'Intro Text',
           component: CellComponent.TextAreaCell,
-          objectMappings: {
+          objectMapping: {
             text: 'Detail.{language}.IntroText',
           },
           params: { rows: '4' },
@@ -58,14 +58,14 @@ export const textInfoCategory = (): DetailElements => ({
         {
           title: 'Base Text',
           component: CellComponent.HtmlCell,
-          objectMappings: {
+          objectMapping: {
             html: 'Detail.{language}.BaseText',
           },
         },
         {
           title: 'Additional Text',
           component: CellComponent.TextAreaCell,
-          objectMappings: {
+          objectMapping: {
             text: 'Detail.{language}.AdditionalText',
           },
           params: { rows: '4' },
@@ -73,7 +73,7 @@ export const textInfoCategory = (): DetailElements => ({
         {
           title: 'Get There Text',
           component: CellComponent.TextAreaCell,
-          objectMappings: {
+          objectMapping: {
             text: 'Detail.{language}.GetThereText',
           },
           params: { rows: '4' },

@@ -12,7 +12,7 @@ export const weatherListView: ListViewConfig = {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         src: 'Conditions.0.WeatherImgurl',
       },
     },
@@ -20,7 +20,7 @@ export const weatherListView: ListViewConfig = {
       title: 'Evolution Title',
       component: CellComponent.StringCell,
       class: 'w-48',
-      objectMappings: {
+      objectMapping: {
         text: 'evolutiontitle',
       },
     },
@@ -28,7 +28,7 @@ export const weatherListView: ListViewConfig = {
       title: 'Evolution',
       component: CellComponent.StringCell,
       class: 'w-48',
-      objectMappings: {
+      objectMapping: {
         text: 'evolution',
       },
     },
@@ -36,7 +36,7 @@ export const weatherListView: ListViewConfig = {
       title: 'Condition Title',
       component: CellComponent.StringCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         text: 'Conditions.0.Title',
       },
     },
@@ -44,7 +44,7 @@ export const weatherListView: ListViewConfig = {
       title: 'Conditions',
       component: CellComponent.StringCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         text: 'Conditions.0.WeatherCondition',
       },
     },
@@ -52,7 +52,7 @@ export const weatherListView: ListViewConfig = {
       title: 'Temperatures',
       component: CellComponent.StringCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         text: 'Conditions.0.Temperatures',
       },
     },
@@ -60,7 +60,7 @@ export const weatherListView: ListViewConfig = {
       title: 'Languages',
       component: CellComponent.StringCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         text: 'language',
       },
     },
@@ -68,7 +68,7 @@ export const weatherListView: ListViewConfig = {
       title: 'Edited',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         date: 'Conditions.0.date',
       },
       params: {
@@ -79,7 +79,7 @@ export const weatherListView: ListViewConfig = {
       title: 'Source',
       component: CellComponent.UrlCell,
       class: 'w-36',
-      objectMappings: {
+      objectMapping: {
         text: 'LicenseInfo.LicenseHolder',
       },
     },

@@ -31,7 +31,7 @@ export const measuringPointSharedView = ():
             {
               title: 'Owner ID',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'OwnerId' },
+              objectMapping: { text: 'OwnerId' },
             },
           ],
         },
@@ -48,12 +48,12 @@ export const measuringPointSharedView = ():
             {
               title: 'TV info',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'LocationInfo.TvInfo.Name.{language}' },
+              objectMapping: { text: 'LocationInfo.TvInfo.Name.{language}' },
             },
             {
               title: 'Region info',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'LocationInfo.RegionInfo.Name.{language}',
               },
             },
@@ -72,22 +72,22 @@ export const measuringPointSharedView = ():
             {
               title: 'Snow height',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'SnowHeight' },
+              objectMapping: { text: 'SnowHeight' },
             },
             {
               title: 'New snow height',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'newSnowHeight' },
+              objectMapping: { text: 'newSnowHeight' },
             },
             {
               title: 'Temperature',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Temperature' },
+              objectMapping: { text: 'Temperature' },
             },
             {
               title: 'Last snow date',
               component: CellComponent.DateCell,
-              objectMappings: { date: 'LastSnowDate' },
+              objectMapping: { date: 'LastSnowDate' },
               params: { format: DEFAULT_DATE_FORMAT },
             },
           ],

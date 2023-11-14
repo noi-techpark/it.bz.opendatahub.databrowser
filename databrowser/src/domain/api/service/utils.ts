@@ -9,7 +9,7 @@ import * as R from 'ramda';
 import {
   ArrayPropertyConfig,
   TargetPropertyName,
-  ObjectMappings,
+  ObjectMapping,
   PropertyConfig,
 } from '../../datasetConfig/types';
 
@@ -112,23 +112,23 @@ export const buildTargetFromMapping = (
   propertyConfig: PropertyConfig,
   params?: Record<string, unknown>
 ) =>
-  propertyConfig.objectMappings != null
-    ? buildTargetFromObjectMapping(data, propertyConfig.objectMappings, params)
+  propertyConfig.objectMapping != null
+    ? buildTargetFromObjectMapping(data, propertyConfig.objectMapping, params)
     : buildTargetFromArrayMapping(data, propertyConfig.listFields, params);
 
 export const buildTargetFromObjectMapping = (
   data: unknown,
-  objectMappings: ObjectMappings | undefined,
+  objectMapping: ObjectMapping | undefined,
   params?: Record<string, unknown>
 ) => {
-  if (objectMappings == null) {
+  if (objectMapping == null) {
     return { ...params };
   }
 
-  const extractedFields = Object.keys(objectMappings).reduce<
+  const extractedFields = Object.keys(objectMapping).reduce<
     Record<TargetPropertyName, unknown>
   >((prev, key) => {
-    const property = objectMappings[key];
+    const property = objectMapping[key];
     const value = extractValueByPath(data, property);
     return { ...prev, [key]: value };
   }, {});
@@ -141,7 +141,7 @@ export const buildTargetFromArrayMapping = (
   listFields: ArrayPropertyConfig['listFields'],
   params?: Record<string, unknown>
 ) => {
-  const { pathToParent, objectMappings, attributeName } = listFields;
+  const { pathToParent, objectMapping, attributeName } = listFields;
 
   // Return object has a property whose name is the value of the "attributeName" variable
   // e.g. value of "attributeName" is "abcdefg", then the result object will have a property "abcdefg"
@@ -158,19 +158,19 @@ export const buildTargetFromArrayMapping = (
   // If object mapping is undefined or empty, then the object defined by parentPath
   // is returned as it is. This is useful e.g. for an array of simple types
   // (strings, numbers or booleans)
-  if (isObjectMappingsEmpty(objectMappings)) {
+  if (isObjectMappingEmpty(objectMapping)) {
     return { ...defaultResult, [attributeName]: dataArray };
   }
 
   // For each entry in the array, build target objects as defined by the object mapping
   const arrayOfTargetObjects = dataArray.map((item) => {
-    return buildTargetFromObjectMapping(item, objectMappings);
+    return buildTargetFromObjectMapping(item, objectMapping);
   });
 
   return { ...defaultResult, [attributeName]: arrayOfTargetObjects };
 };
 
-export const isObjectMappingsEmpty = (
-  objectMappings?: ObjectMappings
-): objectMappings is undefined =>
-  objectMappings == null || Object.keys(objectMappings).length === 0;
+export const isObjectMappingEmpty = (
+  objectMapping?: ObjectMapping
+): objectMapping is undefined =>
+  objectMapping == null || Object.keys(objectMapping).length === 0;

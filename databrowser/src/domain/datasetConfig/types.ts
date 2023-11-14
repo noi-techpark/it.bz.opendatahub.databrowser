@@ -33,23 +33,23 @@ export type PropertyPath = string;
  */
 export type TargetPropertyName = string;
 
-export type ObjectMappings = Record<TargetPropertyName, PropertyPath>;
+export type ObjectMapping = Record<TargetPropertyName, PropertyPath>;
 
 export interface ObjectPropertyConfig {
-  objectMappings: ObjectMappings;
+  objectMapping: ObjectMapping;
   listFields?: never;
 }
 
 export interface BaseListFields {
   pathToParent: PropertyPath;
-  // If objectMappings is undefined or empty, then the object defined by parentPath
+  // If objectMapping is undefined or empty, then the object defined by parentPath
   // is passed to the component as it is. This is useful e.g. for an array
   // of simple types (strings, number or booleans)
-  objectMappings?: ObjectMappings;
+  objectMapping?: ObjectMapping;
 }
 
 export interface ArrayPropertyConfig {
-  objectMappings?: never;
+  objectMapping?: never;
   listFields: BaseListFields & { attributeName: string };
 }
 
@@ -63,7 +63,7 @@ export interface FilterConfig {
 }
 
 export type ListElements = PropertyConfig & {
-  // Any entry from propertyPaths
+  // Any entry from object mappings
   propertyPath?: string;
 };
 
@@ -125,7 +125,7 @@ export interface QuickViewPageConfig {
 
 export interface QuickViewTopGallery {
   isVisible: boolean;
-  objectMappings: ObjectMappings;
+  objectMapping: ObjectMapping;
 }
 export interface EditViewElements {
   elements: EditElements[];

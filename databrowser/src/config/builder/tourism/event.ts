@@ -14,7 +14,7 @@ export const eventDocumentCell = (): PropertyConfig => ({
   listFields: {
     attributeName: 'files',
     pathToParent: 'Documents.{language}',
-    objectMappings: {
+    objectMapping: {
       src: 'DocumentURL',
       language: 'Language',
       documentName: 'DocumentName',

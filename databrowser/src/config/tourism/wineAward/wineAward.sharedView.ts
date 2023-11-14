@@ -34,7 +34,7 @@ export const wineAwardSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Company Id',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'CompanyId' },
+              objectMapping: { text: 'CompanyId' },
               class: 'break-all',
             },
           ],
@@ -55,17 +55,17 @@ export const wineAwardSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Vintage',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Vintage' },
+              objectMapping: { text: 'Vintage' },
             },
             {
               title: 'Awardyear',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Awardyear' },
+              objectMapping: { text: 'Awardyear' },
             },
             {
               title: 'Awards',
               component: CellComponent.ArrayCell,
-              objectMappings: {
+              objectMapping: {
                 items: 'Awards',
               },
               params: {

@@ -19,7 +19,7 @@ export const webcamInfoListView: ListViewConfig = {
       title: 'Webcam Name',
       component: CellComponent.StringCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         text: 'Webcamname.{language}',
       },
     },
@@ -27,7 +27,7 @@ export const webcamInfoListView: ListViewConfig = {
       title: 'Webcam URL',
       component: CellComponent.UrlCell,
       class: 'w-40',
-      objectMappings: {
+      objectMapping: {
         text: 'WebCamProperties.WebcamUrl',
       },
     },

@@ -48,7 +48,7 @@ import ImageCell from '../imageCell/ImageCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
 import StringTemplateCell from '../stringTemplateCell/StringTemplateCell.vue';
 import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
-import { ObjectMappings } from '../../../../datasetConfig/types';
+import { ObjectMapping } from '../../../../datasetConfig/types';
 
 /**
  * All fields except "images" are expected to be json paths that can be resolved by
@@ -78,9 +78,9 @@ const { images, ...listPropertyMappingsAsRef } = toRefs(props);
 const resolvedImages: ComputedRef<ImageGalleryCellProps[]> = computed(() => {
   // Compute property mappings for image, e.g. where to find the "src" information
   // in the "image" objects.
-  const objectMappings = Object.entries(
+  const objectMapping = Object.entries(
     listPropertyMappingsAsRef
-  ).reduce<ObjectMappings>(
+  ).reduce<ObjectMapping>(
     (previous: ImageGalleryEntry, [key, value]) =>
       value?.value == null ? previous : { ...previous, [key]: value.value },
     {}
@@ -88,7 +88,7 @@ const resolvedImages: ComputedRef<ImageGalleryCellProps[]> = computed(() => {
 
   return (
     images?.value?.map((image) =>
-      buildTargetFromObjectMapping(image, objectMappings)
+      buildTargetFromObjectMapping(image, objectMapping)
     ) ?? []
   );
 });

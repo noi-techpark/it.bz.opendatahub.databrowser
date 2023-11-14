@@ -13,8 +13,8 @@ import { ListElements, PropertyPath } from '../../../datasetConfig/types';
 
 type TableViewColumn = ListElements & {
   title: string;
-  // Defined if there is exactly one entry in objectMappings
-  objectMapping?: string;
+  // Defined if there is exactly one entry in objectMapping
+  propertyPath?: string;
 };
 
 let isValueChange = false;

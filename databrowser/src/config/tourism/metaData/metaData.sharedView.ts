@@ -27,13 +27,13 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Description',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'ApiDescription.{language}' },
+              objectMapping: { text: 'ApiDescription.{language}' },
             },
             {
               title: 'Dataspace',
               component: CellComponent.SelectWithOptionsCell,
               class: 'w-60',
-              objectMappings: {
+              objectMapping: {
                 value: 'Dataspace',
               },
               params: {
@@ -73,12 +73,12 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Deprecated',
               component: CellComponent.ToggleCell,
-              objectMappings: { enabled: 'Deprecated' },
+              objectMapping: { enabled: 'Deprecated' },
             },
             {
               title: 'Base URL',
               component: CellComponent.UrlCell,
-              objectMappings: { text: 'BaseUrl' },
+              objectMapping: { text: 'BaseUrl' },
             },
             {
               title: 'Path',
@@ -100,13 +100,13 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'API URL',
               component: CellComponent.UrlCell,
-              objectMappings: { text: 'ApiUrl' },
+              objectMapping: { text: 'ApiUrl' },
               params: { readonly: 'true' },
             },
             {
               title: 'Swagger URL',
               component: CellComponent.UrlCell,
-              objectMappings: { text: 'SwaggerUrl' },
+              objectMapping: { text: 'SwaggerUrl' },
             },
             {
               title: 'Tags',
@@ -133,7 +133,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Count',
               component: CellComponent.JsonCell,
-              objectMappings: { data: 'RecordCount' },
+              objectMapping: { data: 'RecordCount' },
               params: { usePreformatted: 'true' },
             },
           ],

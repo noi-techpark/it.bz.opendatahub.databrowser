@@ -20,7 +20,7 @@ export const accommodationListView: ListViewConfig = {
       title: 'Title',
       component: CellComponent.StringCell,
       class: 'w-48',
-      objectMappings: {
+      objectMapping: {
         text: 'AccoDetail.{language}.Name',
       },
     },
@@ -28,7 +28,7 @@ export const accommodationListView: ListViewConfig = {
       title: 'Accommodation Type',
       component: CellComponent.StringCell,
       class: 'w-48',
-      objectMappings: {
+      objectMapping: {
         text: 'AccoTypeId',
       },
     },
@@ -36,7 +36,7 @@ export const accommodationListView: ListViewConfig = {
       title: 'Category',
       component: CellComponent.StringCell,
       class: 'w-48',
-      objectMappings: {
+      objectMapping: {
         text: 'AccoCategoryId',
       },
     },

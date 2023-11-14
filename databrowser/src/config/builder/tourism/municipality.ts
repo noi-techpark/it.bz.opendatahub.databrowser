@@ -9,7 +9,7 @@ import { withOdhBaseUrl } from '../../utils';
 export const municipalityIdCell = (text: string): PropertyConfig => ({
   title: 'Municipality',
   component: CellComponent.InputReferenceCell,
-  objectMappings: { value: text },
+  objectMapping: { value: text },
   params: {
     url: withOdhBaseUrl('/v1/Municipality?removenullvalues=false'),
     labelSelector: 'Detail.en.Title',

@@ -5,10 +5,10 @@
 import { useDebounceFn } from '@vueuse/core';
 import * as R from 'ramda';
 import { Ref } from 'vue';
-import { isObjectMappingsEmpty } from '../../domain/api';
+import { isObjectMappingEmpty } from '../../domain/api';
 import {
   BaseListFields,
-  ObjectMappings,
+  ObjectMapping,
 } from '../../domain/datasetConfig/types';
 import { useEditStore } from '../../domain/datasets/editView/store/editStore';
 import { EditData } from '../../domain/datasets/editView/store/initialState';
@@ -19,23 +19,23 @@ import {
 
 export const useUpdate = (
   tagName: Ref<string>,
-  objectMappings: Ref<ObjectMappings | undefined>,
+  objectMapping: Ref<ObjectMapping | undefined>,
   listFields: Ref<BaseListFields | undefined>
 ) => {
   const editStore = useEditStore();
 
   const computeObjectValueUpdates = (
     updates: PropertyValue[],
-    objectMappings: ObjectMappings
+    objectMapping: ObjectMapping
   ) => {
     return updates
       .map(({ prop, value }) => {
         // Get property name, e.g. Shortname
-        const targetPropertyName = objectMappings[prop];
+        const targetPropertyName = objectMapping[prop];
 
         // If target property is unknown, log error and return undefined
         if (targetPropertyName == null) {
-          logUnknownProperty(prop, tagName.value, objectMappings);
+          logUnknownProperty(prop, tagName.value, objectMapping);
           return;
         }
 
@@ -50,12 +50,12 @@ export const useUpdate = (
 
   const computeListValueUpdates = (
     updates: PropertyValue[],
-    { pathToParent, objectMappings }: BaseListFields
+    { pathToParent, objectMapping }: BaseListFields
   ) => {
     // If object mappings is undefined or empty, then the data consists
     // of an array of simple types (strings, number or booleans). We can
     // return it as it is
-    if (isObjectMappingsEmpty(objectMappings)) {
+    if (isObjectMappingEmpty(objectMapping)) {
       return {
         prop: pathToParent,
         value: updates[0].value,
@@ -83,11 +83,11 @@ export const useUpdate = (
       return Object.entries(entry).reduce<Record<string, unknown>>(
         (prev, [key, value]) => {
           // Get property name, e.g. ImageTitle.en
-          const targetPropertyName = objectMappings[key];
+          const targetPropertyName = objectMapping[key];
 
           // If target property is unknown, log error and return previous value
           if (targetPropertyName == null) {
-            logUnknownProperty(key, tagName.value, objectMappings);
+            logUnknownProperty(key, tagName.value, objectMapping);
             return prev;
           }
 
@@ -112,10 +112,10 @@ export const useUpdate = (
   return useDebounceFn((update: PropertyUpdate) => {
     const updates = Array.isArray(update) ? update : [update];
 
-    if (objectMappings.value != null) {
+    if (objectMapping.value != null) {
       const objectValueUpdates = computeObjectValueUpdates(
         updates,
-        objectMappings.value
+        objectMapping.value
       );
       editStore.updateProperties(objectValueUpdates);
     }
@@ -133,10 +133,10 @@ export const useUpdate = (
 const logUnknownProperty = (
   prop: string,
   tagName: string,
-  objectMappings: ObjectMappings
+  objectMapping: ObjectMapping
 ) => {
   const knownProperties =
-    objectMappings == null ? 'none' : JSON.stringify(objectMappings);
+    objectMapping == null ? 'none' : JSON.stringify(objectMapping);
   const message = `Got update event from component ${tagName} for property "${prop}" but no property with that name could be found (known properties: ${knownProperties})`;
   console.log(message);
 };

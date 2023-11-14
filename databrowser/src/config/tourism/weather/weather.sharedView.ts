@@ -21,7 +21,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'date',
               },
               params: {
@@ -31,14 +31,14 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Evolution Title',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'evolutiontitle',
               },
             },
             {
               title: 'Evolution',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'evolution',
               },
             },
@@ -56,7 +56,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Conditions.0.date',
               },
               params: {
@@ -66,7 +66,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Conditions.0.WeatherImgurl',
               },
               params: {
@@ -76,70 +76,70 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Title',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Conditions.0.Title',
               },
             },
             {
               title: 'Weather Condition',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Conditions.0.WeatherCondition',
               },
             },
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Conditions.0.Weatherdesc',
               },
             },
             {
               title: 'Temperatures',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Conditions.0.Temperatures',
               },
             },
             {
               title: 'Temperature Max',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Conditions.0.TempMaxmax',
               },
             },
             {
               title: 'Temperature MaxMin',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Conditions.0.TempMaxmin',
               },
             },
             {
               title: 'Temperature MinMax',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Conditions.0.TempMinmax',
               },
             },
             {
               title: 'Temperature Min',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Conditions.0.TempMinmin',
               },
             },
             {
               title: 'Reliability in %',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Conditions.0.Reliability',
               },
             },
             {
               title: 'Bulletin Status',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Conditions.0.bulletinStatus',
               },
             },
@@ -157,7 +157,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Forecast.0.date',
               },
               params: {
@@ -167,7 +167,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Forecast.0.WeatherImgurl',
               },
               params: {
@@ -177,42 +177,42 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Forecast.0.Weatherdesc',
               },
             },
             {
               title: 'Weather Code',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Forecast.0.Weathercode',
               },
             },
             {
               title: 'Temperature Max',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Forecast.0.TempMaxmax',
               },
             },
             {
               title: 'Temperature MaxMin',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Forecast.0.TempMaxmin',
               },
             },
             {
               title: 'Temperature MinMax',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Forecast.0.TempMinmin',
               },
             },
             {
               title: 'Reliability in %',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Forecast.0.Reliability',
               },
             },
@@ -230,7 +230,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Mountain.0.date',
               },
               params: {
@@ -240,7 +240,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Mountain.0.MountainImgurl',
               },
               params: {
@@ -251,27 +251,27 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Title',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Title' },
+              objectMapping: { text: 'Mountain.0.Title' },
             },
             {
               title: 'Conditions',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Conditions' },
+              objectMapping: { text: 'Mountain.0.Conditions' },
             },
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Weatherdesc' },
+              objectMapping: { text: 'Mountain.0.Weatherdesc' },
             },
             {
               title: 'Zerolimit',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Zerolimit' },
+              objectMapping: { text: 'Mountain.0.Zerolimit' },
             },
             {
               title: 'Reliability in %',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Reliability' },
+              objectMapping: { text: 'Mountain.0.Reliability' },
             },
           ],
         },
@@ -281,7 +281,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Mountain.0.date',
               },
               params: {
@@ -291,7 +291,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Mountain.0.Northimgurl',
               },
               params: {
@@ -301,12 +301,12 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'North Code',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Northcode' },
+              objectMapping: { text: 'Mountain.0.Northcode' },
             },
             {
               title: 'North Description',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Northdesc' },
+              objectMapping: { text: 'Mountain.0.Northdesc' },
             },
           ],
         },
@@ -316,7 +316,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Mountain.0.date',
               },
               params: {
@@ -326,7 +326,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Mountain.0.Southimgurl',
               },
               params: {
@@ -336,12 +336,12 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'South Code',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Southcode' },
+              objectMapping: { text: 'Mountain.0.Southcode' },
             },
             {
               title: 'South Description',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Southdesc' },
+              objectMapping: { text: 'Mountain.0.Southdesc' },
             },
           ],
         },
@@ -351,7 +351,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Mountain.0.date',
               },
               params: {
@@ -361,22 +361,22 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Sunrise',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Sunrise' },
+              objectMapping: { text: 'Mountain.0.Sunrise' },
             },
             {
               title: 'Sunset',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Sunset' },
+              objectMapping: { text: 'Mountain.0.Sunset' },
             },
             {
               title: 'Moonrise',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Moonrise' },
+              objectMapping: { text: 'Mountain.0.Moonrise' },
             },
             {
               title: 'Moonset',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Moonset' },
+              objectMapping: { text: 'Mountain.0.Moonset' },
             },
           ],
         },
@@ -386,7 +386,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Mountain.0.date',
               },
               params: {
@@ -396,22 +396,22 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Temp1000',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Temp1000' },
+              objectMapping: { text: 'Mountain.0.Temp1000' },
             },
             {
               title: 'Temp2000',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Temp2000' },
+              objectMapping: { text: 'Mountain.0.Temp2000' },
             },
             {
               title: 'Temp3000',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Temp3000' },
+              objectMapping: { text: 'Mountain.0.Temp3000' },
             },
             {
               title: 'Temp4000',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Temp4000' },
+              objectMapping: { text: 'Mountain.0.Temp4000' },
             },
           ],
         },
@@ -421,7 +421,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Mountain.0.date',
               },
               params: {
@@ -431,7 +431,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Mountain.0.WindImgurl',
               },
               params: {
@@ -441,17 +441,17 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Wind Code',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Windcode' },
+              objectMapping: { text: 'Mountain.0.Windcode' },
             },
             {
               title: 'Wind Description',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Winddesc' },
+              objectMapping: { text: 'Mountain.0.Winddesc' },
             },
             {
               title: 'Snow Limit',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Mountain.0.Snowlimit.0' },
+              objectMapping: { text: 'Mountain.0.Snowlimit.0' },
             },
           ],
         },
@@ -467,7 +467,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Stationdata.3.date',
               },
               params: {
@@ -477,7 +477,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Stationdata.2.WeatherImgUrl',
               },
               params: {
@@ -487,35 +487,35 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'City Name',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.2.CityName',
               },
             },
             {
               title: 'Weather Code',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.2.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.2.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.2.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.2.MinTemp',
               },
             },
@@ -533,7 +533,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Stationdata.1.date',
               },
               params: {
@@ -543,7 +543,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Stationdata.1.WeatherImgUrl',
               },
               params: {
@@ -553,35 +553,35 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'City Name',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.1.CityName',
               },
             },
             {
               title: 'Weather Code',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.1.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.1.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.1.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.1.MinTemp',
               },
             },
@@ -599,7 +599,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Stationdata.4.date',
               },
               params: {
@@ -609,7 +609,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Stationdata.4.WeatherImgUrl',
               },
               params: {
@@ -619,35 +619,35 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'City Name',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.4.CityName',
               },
             },
             {
               title: 'Weather Code',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.4.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.4.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.4.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.4.MinTemp',
               },
             },
@@ -665,7 +665,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Stationdata.5.date',
               },
               params: {
@@ -675,7 +675,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Stationdata.5.WeatherImgUrl',
               },
               params: {
@@ -685,35 +685,35 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'City Name',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.5.CityName',
               },
             },
             {
               title: 'Weather Code',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.5.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.5.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.5.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.5.MinTemp',
               },
             },
@@ -731,7 +731,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Stationdata.3.date',
               },
               params: {
@@ -741,7 +741,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Stationdata.3.WeatherImgUrl',
               },
               params: {
@@ -751,35 +751,35 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'City Name',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.3.CityName',
               },
             },
             {
               title: 'Weather Code',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.3.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.3.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.3.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.3.MinTemp',
               },
             },
@@ -797,7 +797,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.DateCell,
-              objectMappings: {
+              objectMapping: {
                 date: 'Stationdata.0.date',
               },
               params: {
@@ -807,7 +807,7 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image',
               component: CellComponent.ImageEditCell,
-              objectMappings: {
+              objectMapping: {
                 src: 'Stationdata.0.WeatherImgUrl',
               },
               params: {
@@ -817,35 +817,35 @@ export const weatherSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'City Name',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.0.CityName',
               },
             },
             {
               title: 'Weather Code',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.0.WeatherCode',
               },
             },
             {
               title: 'Weather Description',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.0.WeatherDesc',
               },
             },
             {
               title: 'Max Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.0.MaxTemp',
               },
             },
             {
               title: 'Min Temperature',
               component: CellComponent.StringCell,
-              objectMappings: {
+              objectMapping: {
                 text: 'Stationdata.0.MinTemp',
               },
             },

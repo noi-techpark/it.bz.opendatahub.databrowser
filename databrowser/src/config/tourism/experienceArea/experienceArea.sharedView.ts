@@ -40,7 +40,7 @@ export const experienceAreaSharedView = ():
             {
               title: 'Tourism Associations IDs',
               component: CellComponent.ArrayCell,
-              objectMappings: {
+              objectMapping: {
                 items: 'TourismvereinIds',
               },
               params: {
@@ -50,7 +50,7 @@ export const experienceAreaSharedView = ():
             {
               title: 'District IDs',
               component: CellComponent.ArrayCell,
-              objectMappings: {
+              objectMapping: {
                 items: 'DistrictIds',
               },
               params: {

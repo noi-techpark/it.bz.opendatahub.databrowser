@@ -5,7 +5,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { ApiParams } from './types';
-import { ObjectMappings } from '../../datasetConfig/types';
+import { ObjectMapping } from '../../datasetConfig/types';
 
 export const useApiParameterStore = defineStore('apiParameterStore', () => {
   const currentApiParams = ref<ApiParams>({});
@@ -48,10 +48,10 @@ export const useApiParameterStore = defineStore('apiParameterStore', () => {
 
   // Utility function to replace all placeholders in an object with the
   // corresponding API parameter
-  const replaceDynamicSegments = (objectMappings?: ObjectMappings) => {
-    return objectMappings == null
+  const replaceDynamicSegments = (objectMapping?: ObjectMapping) => {
+    return objectMapping == null
       ? {}
-      : Object.entries(objectMappings).reduce<Record<string, string>>(
+      : Object.entries(objectMapping).reduce<Record<string, string>>(
           (prev, [key, value]) => ({
             ...prev,
             [key]: replaceWithApiParams(value),

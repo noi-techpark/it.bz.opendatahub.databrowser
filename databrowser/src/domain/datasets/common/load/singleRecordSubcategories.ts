@@ -23,7 +23,7 @@ export const computeSingleRecordSubcategories = (
     properties: [...Array(propertiesCount).keys()].map(() => ({
       title: '',
       component: CellComponent.LoadingCell,
-      objectMappings: {},
+      objectMapping: {},
     })),
   }));
 };

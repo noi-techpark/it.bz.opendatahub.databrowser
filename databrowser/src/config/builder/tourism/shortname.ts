@@ -14,7 +14,7 @@ export const shortnameCell = (options?: {
 }): PropertyConfig => ({
   title: 'Shortname',
   component: CellComponent.StringCell,
-  objectMappings: { text: 'Shortname' },
+  objectMapping: { text: 'Shortname' },
   required: options?.required === true ? true : undefined,
 });
 

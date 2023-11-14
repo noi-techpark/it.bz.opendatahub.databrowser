@@ -38,12 +38,12 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
             {
               title: 'Max Seating Capacity',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'MaxSeatingCapacity' },
+              objectMapping: { text: 'MaxSeatingCapacity' },
             },
             {
               title: 'Category',
               component: CellComponent.ArrayTagsCell,
-              objectMappings: {
+              objectMapping: {
                 items: 'CategoryCodes',
               },
               params: {
@@ -55,7 +55,7 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
             {
               title: 'Facilities',
               component: CellComponent.ArrayTagsCell,
-              objectMappings: {
+              objectMapping: {
                 items: 'Facilities',
               },
               params: {
@@ -73,19 +73,19 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
             {
               title: 'Area ID',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'LocationInfo.AreaInfo.Id' },
+              objectMapping: { text: 'LocationInfo.AreaInfo.Id' },
               class: 'break-all',
             },
             {
               title: 'Accommodation ID',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'AccommodationId' },
+              objectMapping: { text: 'AccommodationId' },
               class: 'break-all',
             },
             {
               title: 'Marketing group ID',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'MarketinggroupId' },
+              objectMapping: { text: 'MarketinggroupId' },
               class: 'break-all',
             },
           ],

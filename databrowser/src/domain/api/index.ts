@@ -10,7 +10,7 @@ export {
   buildTargetFromArrayMapping,
   buildTargetFromMapping,
   buildTargetFromObjectMapping,
-  isObjectMappingsEmpty,
+  isObjectMappingEmpty,
   useAsList,
   useAsSet,
 } from './service/utils';

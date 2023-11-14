@@ -31,13 +31,13 @@ export const publishedOnSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Name.{language}' },
+              objectMapping: { text: 'Name.{language}' },
             },
             idReadOnlyCell(),
             {
               title: 'Publisher URL',
               component: CellComponent.UrlCell,
-              objectMappings: { text: 'Url' },
+              objectMapping: { text: 'Url' },
             },
             lastChangesCell(),
           ],

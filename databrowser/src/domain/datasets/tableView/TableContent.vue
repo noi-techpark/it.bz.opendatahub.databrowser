@@ -48,9 +48,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <ComponentRenderer
             :tag-name="col.component"
             :attributes="
-              buildTargetFromObjectMapping(row, col.objectMappings, col.params)
+              buildTargetFromObjectMapping(row, col.objectMapping, col.params)
             "
-            :property-mappings="col.objectMappings"
+            :object-mapping="col.objectMapping"
           />
         </TableCell>
         <TableCell
