@@ -10,6 +10,7 @@ import {
   ArrayPropertyConfig,
   TargetPropertyName,
   ObjectMappings,
+  PropertyConfig,
 } from '../../datasetConfig/types';
 
 export interface UseAsOptions {
@@ -106,6 +107,15 @@ export const extractValueByPath = (data: unknown, path: string) => {
   return R.view(lensePath, data);
 };
 
+export const buildTargetFromMapping = (
+  data: unknown,
+  propertyConfig: PropertyConfig,
+  params?: Record<string, unknown>
+) =>
+  propertyConfig.objectMappings != null
+    ? buildTargetFromObjectMapping(data, propertyConfig.objectMappings, params)
+    : buildTargetFromArrayMapping(data, propertyConfig.listFields, params);
+
 export const buildTargetFromObjectMapping = (
   data: unknown,
   objectMappings: ObjectMappings | undefined,
@@ -128,10 +138,10 @@ export const buildTargetFromObjectMapping = (
 
 export const buildTargetFromArrayMapping = (
   data: unknown,
-  propertyMapping: ArrayPropertyConfig['listFields'],
+  listFields: ArrayPropertyConfig['listFields'],
   params?: Record<string, unknown>
 ) => {
-  const { pathToParent, objectMappings, attributeName } = propertyMapping;
+  const { pathToParent, objectMappings, attributeName } = listFields;
 
   // Return object has a property whose name is the value of the "attributeName" variable
   // e.g. value of "attributeName" is "abcdefg", then the result object will have a property "abcdefg"
@@ -153,11 +163,11 @@ export const buildTargetFromArrayMapping = (
   }
 
   // For each entry in the array, build target objects as defined by the object mapping
-  const listOfExtractedFields = dataArray.map((item) => {
+  const arrayOfTargetObjects = dataArray.map((item) => {
     return buildTargetFromObjectMapping(item, objectMappings);
   });
 
-  return { ...defaultResult, [attributeName]: listOfExtractedFields };
+  return { ...defaultResult, [attributeName]: arrayOfTargetObjects };
 };
 
 export const isObjectMappingsEmpty = (

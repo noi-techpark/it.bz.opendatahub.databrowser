@@ -56,6 +56,7 @@ export const useDatasetInfo = (
   const view = useComputeView({
     datasetConfig,
     viewKey,
+    paramsReplacer,
     propertyPathReplacer,
   });
 

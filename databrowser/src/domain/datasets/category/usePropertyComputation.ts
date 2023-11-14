@@ -2,10 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {
-  buildTargetFromArrayMapping,
-  buildTargetFromObjectMapping,
-} from '../../api';
+import { buildTargetFromMapping } from '../../api';
 import { CellComponent } from '../../cellComponents/types';
 import { PropertyConfig } from '../../datasetConfig/types';
 import { PropertyConfigWithErrors } from './types';
@@ -25,14 +22,7 @@ export const usePropertyComputation = () => {
     // Add data to properties such that it can be used in the render component
     const propertiesWithValue: PropertyConfigWithValue[] = properties.map(
       (property) => {
-        console.log('JADDA');
-
-        // Use replacements (e.g. for language) to extract correct data from value
-        const value =
-          property.objectMappings != null
-            ? buildTargetFromObjectMapping(data, property.objectMappings)
-            : buildTargetFromArrayMapping(data, property.listFields);
-
+        const value = buildTargetFromMapping(data, property);
         return { ...property, value };
       }
     );

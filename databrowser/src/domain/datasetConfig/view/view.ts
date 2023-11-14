@@ -10,30 +10,38 @@ import {
   ListViewConfig,
   NewViewConfig,
   ObjectMappings,
+  PropertyConfig,
   QuickViewConfig,
   ToMaybeRefs,
   ViewConfig,
   ViewKey,
 } from '../types';
 import { computed, toValue } from 'vue';
-import { PropertyPathReplacer } from '../replace/types';
+import { ParamsReplacer, PropertyPathReplacer } from '../replace/types';
 
 interface ComputeDatasetReplacementParams {
   datasetConfig: DatasetConfig | undefined;
   viewKey: ViewKey | undefined;
+  paramsReplacer: ParamsReplacer;
   propertyPathReplacer: PropertyPathReplacer;
 }
 
 export const computeView = ({
   datasetConfig,
   viewKey,
+  paramsReplacer,
   propertyPathReplacer,
 }: ComputeDatasetReplacementParams): ViewConfig | undefined => {
   if (viewKey == null || datasetConfig == null) {
     return undefined;
   }
 
-  return applyReplacementsToView(viewKey, datasetConfig, propertyPathReplacer);
+  return applyReplacementsToView(
+    viewKey,
+    datasetConfig,
+    paramsReplacer,
+    propertyPathReplacer
+  );
 };
 
 export const useComputeView = (
@@ -42,11 +50,13 @@ export const useComputeView = (
   computed(() => {
     const datasetConfig = toValue(params.datasetConfig);
     const viewKey = toValue(params.viewKey);
+    const paramsReplacer = toValue(params.paramsReplacer);
     const propertyPathReplacer = toValue(params.propertyPathReplacer);
 
     return computeView({
       datasetConfig,
       viewKey,
+      paramsReplacer,
       propertyPathReplacer,
     });
   });
@@ -54,19 +64,36 @@ export const useComputeView = (
 export const applyReplacementsToView = (
   viewKey: ViewKey,
   config: DatasetConfig,
+  paramsReplacer: ParamsReplacer,
   propertyPathReplacer: PropertyPathReplacer
 ): ViewConfig | undefined => {
   switch (viewKey) {
     case 'table':
       return applyReplacementsToTableView(config, propertyPathReplacer);
     case 'detail':
-      return applyReplacementsToDetailView(config, propertyPathReplacer);
+      return applyReplacementsToDetailView(
+        config,
+        paramsReplacer,
+        propertyPathReplacer
+      );
     case 'edit':
-      return applyReplacementsToEditView(config, propertyPathReplacer);
+      return applyReplacementsToEditView(
+        config,
+        paramsReplacer,
+        propertyPathReplacer
+      );
     case 'new':
-      return applyReplacementsToNewView(config, propertyPathReplacer);
+      return applyReplacementsToNewView(
+        config,
+        paramsReplacer,
+        propertyPathReplacer
+      );
     case 'quick':
-      return applyReplacementsToQuickView(config, propertyPathReplacer);
+      return applyReplacementsToQuickView(
+        config,
+        paramsReplacer,
+        propertyPathReplacer
+      );
     case 'raw':
       return config.views?.raw;
   }
@@ -110,9 +137,10 @@ export const applyReplacementsToTableView = (
 
 export const applyReplacementsToDetailView = (
   config: DatasetConfig,
+  paramsReplacer: ParamsReplacer,
   propertyPathReplacer: PropertyPathReplacer
 ): DetailViewConfig | undefined => {
-  console.log('computeTableView');
+  console.log('computeDetailView');
 
   const detailViewConfig = config.views?.detail;
   if (detailViewConfig == null) {
@@ -123,27 +151,9 @@ export const applyReplacementsToDetailView = (
     ...element,
     subcategories: element.subcategories.map((subcategory) => ({
       ...subcategory,
-      properties: subcategory.properties.map((property) => {
-        if (property.objectMappings != null) {
-          return {
-            ...property,
-            listFields: undefined,
-            objectMappings: propertyPathReplacer(property.objectMappings),
-          };
-        } else if (property.listFields != null) {
-          return {
-            ...property,
-            objectMappings: undefined,
-            listFields: {
-              ...property.listFields,
-              objectMappings: propertyPathReplacer(
-                property.listFields.objectMappings
-              ),
-            },
-          };
-        }
-        return property;
-      }),
+      properties: subcategory.properties.map((property) =>
+        replaceMappings(property, paramsReplacer, propertyPathReplacer)
+      ),
     })),
   }));
 
@@ -152,6 +162,7 @@ export const applyReplacementsToDetailView = (
 
 export const applyReplacementsToEditView = (
   config: DatasetConfig,
+  paramsReplacer: ParamsReplacer,
   propertyPathReplacer: PropertyPathReplacer
 ): EditViewConfig | undefined => {
   console.log('computeEditView');
@@ -165,27 +176,9 @@ export const applyReplacementsToEditView = (
     ...element,
     subcategories: element.subcategories.map((subcategory) => ({
       ...subcategory,
-      properties: subcategory.properties.map((property) => {
-        if (property.objectMappings != null) {
-          return {
-            ...property,
-            listFields: undefined,
-            objectMappings: propertyPathReplacer(property.objectMappings),
-          };
-        } else if (property.listFields != null) {
-          return {
-            ...property,
-            objectMappings: undefined,
-            listFields: {
-              ...property.listFields,
-              objectMappings: propertyPathReplacer(
-                property.listFields.objectMappings
-              ),
-            },
-          };
-        }
-        return property;
-      }),
+      properties: subcategory.properties.map((property) =>
+        replaceMappings(property, paramsReplacer, propertyPathReplacer)
+      ),
     })),
   }));
 
@@ -194,9 +187,10 @@ export const applyReplacementsToEditView = (
 
 export const applyReplacementsToNewView = (
   config: DatasetConfig,
+  paramsReplacer: ParamsReplacer,
   propertyPathReplacer: PropertyPathReplacer
 ): NewViewConfig | undefined => {
-  console.log('computeEditView');
+  console.log('computeNewView');
 
   const newViewConfig = config.views?.new;
   if (newViewConfig == null) {
@@ -207,27 +201,9 @@ export const applyReplacementsToNewView = (
     ...element,
     subcategories: element.subcategories.map((subcategory) => ({
       ...subcategory,
-      properties: subcategory.properties.map((property) => {
-        if (property.objectMappings != null) {
-          return {
-            ...property,
-            listFields: undefined,
-            objectMappings: propertyPathReplacer(property.objectMappings),
-          };
-        } else if (property.listFields != null) {
-          return {
-            ...property,
-            objectMappings: undefined,
-            listFields: {
-              ...property.listFields,
-              objectMappings: propertyPathReplacer(
-                property.listFields.objectMappings
-              ),
-            },
-          };
-        }
-        return property;
-      }),
+      properties: subcategory.properties.map((property) =>
+        replaceMappings(property, paramsReplacer, propertyPathReplacer)
+      ),
     })),
   }));
 
@@ -236,6 +212,7 @@ export const applyReplacementsToNewView = (
 
 export const applyReplacementsToQuickView = (
   config: DatasetConfig,
+  paramsReplacer: ParamsReplacer,
   propertyPathReplacer: PropertyPathReplacer
 ): QuickViewConfig | undefined => {
   console.log('computeQuickView');
@@ -245,28 +222,40 @@ export const applyReplacementsToQuickView = (
     return;
   }
 
-  const elements = quickViewConfig.elements.map((element) => {
-    if (element.objectMappings != null) {
-      return {
-        ...element,
-        listFields: undefined,
-        objectMappings: propertyPathReplacer(element.objectMappings),
-      };
-    } else if (element.listFields != null) {
-      return {
-        ...element,
-        objectMappings: undefined,
-        listFields: {
-          ...element.listFields,
-          objectMappings: propertyPathReplacer(
-            element.listFields.objectMappings
-          ),
-        },
-      };
-    }
-
-    return { ...element };
-  });
+  const elements = quickViewConfig.elements.map((element) =>
+    replaceMappings(
+      element as PropertyConfig,
+      paramsReplacer,
+      propertyPathReplacer
+    )
+  );
 
   return { ...quickViewConfig, elements };
+};
+
+const replaceMappings = (
+  property: PropertyConfig,
+  paramsReplacer: ParamsReplacer,
+  propertyPathReplacer: PropertyPathReplacer
+) => {
+  if (property.objectMappings != null) {
+    return {
+      ...property,
+      listFields: undefined,
+      objectMappings: propertyPathReplacer(property.objectMappings),
+    };
+  } else if (property.listFields != null) {
+    return {
+      ...property,
+      objectMappings: undefined,
+      listFields: {
+        ...property.listFields,
+        pathToParent: paramsReplacer(property.listFields.pathToParent),
+        objectMappings: propertyPathReplacer(
+          property.listFields.objectMappings
+        ),
+      },
+    };
+  }
+  return property;
 };
