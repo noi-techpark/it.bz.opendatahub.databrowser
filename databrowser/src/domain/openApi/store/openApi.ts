@@ -6,6 +6,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import { OpenApi, DomainWithOpenApiDocument } from '../types';
 import { initialState } from './initialState';
 import { domainWithOpenApiDocument } from '../domain';
+import { toError } from '../../utils/convertError';
 
 const dynamicSwaggerClientImport = async () =>
   await import('swagger-client').then((exports) => exports.default);
@@ -59,13 +60,7 @@ export const useOpenApi = defineStore('openApi', {
         };
         documents[domain] = response.spec;
       } catch (err) {
-        if (typeof err === 'string') {
-          documentState.error = new Error(err);
-        } else if (err instanceof Error) {
-          documentState.error = err;
-        } else {
-          documentState.error = new Error('No error information available');
-        }
+        documentState.error = toError(err);
       }
 
       this.finishDocumentLoad(domain);

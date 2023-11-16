@@ -26,13 +26,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed, toRefs } from 'vue';
 import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
 import { useDatasetInfoStore } from '../../../../datasetConfig/store/datasetInfoStore';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import ArrayLookupTable from './ArrayLookupTable.vue';
 import { useRemoteSelectOptions } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
 import { RemoteOptionsMapper } from '../../utils/remoteSelectOptions/types';
 import { SelectOption } from '../../../../../components/select/types';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 const props = withDefaults(
   defineProps<{

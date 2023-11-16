@@ -31,14 +31,13 @@ export const useTableSortForPropertyPath = (
   // current sort field. It is 'asc' if the URL contains the sort field without a leading '-'
   // and 'desc' if the URL contains the sort field with a leading '-'.
   const currentSortState = computed(() => {
-    const sortFromUrl = datasetQuery.value?.rawsort;
+    const sortFromUrl = datasetQuery.value?.stringParts['rawsort'];
     // If the no sort is set in the URL, the current sort state is 'none'.
     if (sortFromUrl == null) {
       return 'none';
     }
 
     // Convert the sort value from the URL to a string
-    // const sortFromUrlAsString = stringifyParameter(sortFromUrl.value);
     const sortField = sortFromUrl.replace(/^-/, '');
 
     if (propertyPath.value !== sortField) {

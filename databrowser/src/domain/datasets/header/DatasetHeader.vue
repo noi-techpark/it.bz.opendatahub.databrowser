@@ -58,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <!-- Language picker -->
       <LanguagePicker
         v-if="showLanguagePicker"
-        :current-language="datasetQuery?.language"
+        :current-language="datasetQuery?.stringParts.language"
       />
     </div>
   </header>

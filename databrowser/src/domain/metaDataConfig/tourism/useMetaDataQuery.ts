@@ -6,7 +6,7 @@ import { parse } from 'date-fns';
 import { withOdhBaseUrl } from '../../../config/utils';
 import { WithTourismPagination } from '../../api';
 import { TourismMetaData } from './types';
-import { useBaseAxiosFetch } from '../../api/client/axiosFetcher';
+import { useBaseAxiosFetch } from '../../api';
 import { unwrapData } from '../../api/dataExtraction/dataExtraction';
 
 interface ODHTag {

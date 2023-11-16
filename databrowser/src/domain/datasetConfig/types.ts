@@ -198,8 +198,13 @@ export type DatasetDomain =
   // In case the current URL is not related to datasets
   | 'no-dataset-domain-in-url';
 export type DatasetPath = string[];
-export type DatasetQuery = Record<string, string>;
 export type DatasetId = string;
+export interface DatasetQuery {
+  rawParts: Record<string, string | null | (string | null)[]>;
+  stringParts: Record<string, string>;
+  defaultParts: Record<string, string>;
+  asString: string;
+}
 
 export interface DatasetLocation {
   // datasetDomain: DatasetDomain;
@@ -215,8 +220,8 @@ export type CandidateConfig = {
   config: DatasetConfig;
 };
 
-export type RouteDomain = string;
-export type RouteQuery = Record<string, string>;
+export type RouteDomain = string | undefined;
+export type RouteQuery = Record<string, string | null | (string | null)[]>;
 export type RoutePath = string[];
 export type RouteId = string | undefined;
 export type RouteName = string | undefined;

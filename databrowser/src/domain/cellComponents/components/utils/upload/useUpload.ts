@@ -4,8 +4,9 @@
 
 import { computed, inject, readonly, Ref, ref } from 'vue';
 import { createEventHook } from '@vueuse/core';
-import { AxiosError, AxiosInstance } from 'axios';
+import { AxiosInstance } from 'axios';
 import { FileType } from './types';
+import { toErrorMessage } from '../../../../utils/convertError';
 
 const imageUploadUrl = import.meta.env.VITE_APP_IMAGE_UPLOAD_URL;
 const fileUploadUrl = import.meta.env.VITE_APP_FILE_UPLOAD_URL;
@@ -77,7 +78,7 @@ export const useUpload = (url: Ref<string>) => {
       uploadSuccessEventHook.trigger(uploadResponse.value);
     } catch (error) {
       isUploadError.value = true;
-      const errorMessage = extractErrorMessage(error);
+      const errorMessage = toErrorMessage(error);
       uploadError.value = errorMessage;
       uploadErrorEventHook.trigger(uploadError.value);
     } finally {
@@ -97,23 +98,4 @@ export const useUpload = (url: Ref<string>) => {
     onUploadSuccess: uploadSuccessEventHook.on,
     onUploadError: uploadErrorEventHook.on,
   };
-};
-
-const extractErrorMessage = (error: unknown): string => {
-  if (typeof error === 'string') {
-    return error;
-  }
-  if (error instanceof AxiosError) {
-    const { request, response } = error;
-    if (response) {
-      const data = response.data != null ? response.data : 'unknown';
-      return `Error (status ${
-        response.status
-      }), response data: ${JSON.stringify(data)}`;
-    } else if (request) {
-      return `Error, no response, request: ${JSON.stringify(request)}`;
-    }
-    return `Error, message: ${error.message}`;
-  }
-  return `Error, details: ${JSON.stringify(error)})`;
 };

@@ -4,7 +4,7 @@
 
 import { MaybeRef, computed, toValue } from 'vue';
 import { ParamsReplacer } from '../replace/types';
-import { extractValueByPath } from '../../api/service/utils';
+import { extractValueByPath } from '../../api/utils';
 
 export type DataExtractor = (data: unknown, path: string) => unknown;
 

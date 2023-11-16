@@ -109,7 +109,7 @@ const initPathBuilder = () => {
     name: name,
     query: {
       ...currentMetaData.value?.apiFilter,
-      language: datasetQuery.value?.language,
+      language: datasetQuery.value?.stringParts.language,
     },
     hash: preserveHash ? router.currentRoute.value.hash : undefined,
   });

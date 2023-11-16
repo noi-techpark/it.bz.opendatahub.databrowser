@@ -15,7 +15,7 @@ import { useComputeViewPresence } from './view/viewPresence';
 import { DatasetConfigSource } from './load/types';
 import { useComputeViewKey } from './view/viewKey';
 import { useValueExtractor } from './extract/valueExtractor';
-import { useParamsReplacer } from './replace/paramsReplacer';
+import { useParamsReplacerFromDatasetQuery } from './replace/paramsReplacer';
 import { usePropertyPathReplacer } from './replace/propertyPathReplacer';
 
 export const useDatasetInfo = (
@@ -49,7 +49,7 @@ export const useDatasetInfo = (
     });
 
   // Build params replacement facility
-  const paramsReplacer = useParamsReplacer(datasetQuery);
+  const paramsReplacer = useParamsReplacerFromDatasetQuery(datasetQuery);
   const propertyPathReplacer = usePropertyPathReplacer(paramsReplacer);
   const extractValueByPath = useValueExtractor(paramsReplacer);
 

@@ -8,7 +8,6 @@ import { useEditStore } from '../../../../../datasets/editView/store/editStore';
 import { FileEntryWithLanguageAvailability, FileLanguageUpdate } from './types';
 import { useDialogStore } from './dialogStore';
 import { FilterLanguage } from '../../../../../datasets/language';
-import { ParameterValue } from '../../../../../api/service/types';
 
 export const useEventSaveChanges = useEventBus<boolean>('saveChanges');
 export const useEventDiscardChanges = useEventBus<boolean>('discardChanges');
@@ -160,7 +159,7 @@ export const toggleAllItemsSelected = (value: boolean) => {
 
 export const setDialogItems = (
   items: any[],
-  currentLanguage?: ParameterValue
+  currentLanguage: string | undefined
 ) => {
   const dialogStore = useDialogStore();
 

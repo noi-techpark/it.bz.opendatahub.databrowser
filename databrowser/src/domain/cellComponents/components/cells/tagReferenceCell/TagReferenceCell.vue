@@ -42,10 +42,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed, toRefs } from 'vue';
 import AlertError from '../../../../../components/alert/AlertError.vue';
 import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import TagReferenceTable from './TagReferenceTable.vue';
 import { useRemoteSelectOptions } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 const props = withDefaults(
   defineProps<{

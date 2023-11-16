@@ -56,7 +56,7 @@ const uploadSuccess = (urls: string[], fileNames: string[]) => {
   addItems(items.map((item) => ({ src: item.src })));
 
   if (props.hasLanguageDialog) {
-    const currentLanguage = datasetQuery.value?.language;
+    const currentLanguage = datasetQuery.value?.stringParts.language;
 
     setDialogItems(items, currentLanguage);
     dialog.value.isOpen = true;

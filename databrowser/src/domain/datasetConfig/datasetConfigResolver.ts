@@ -6,7 +6,7 @@ import { DatasetConfig } from './types';
 import { MaybeRef, ref, toValue, watch } from 'vue';
 import { DatasetConfigSource } from './load/types';
 import { loadDatasetConfig } from './load/datasetConfigLoader';
-import { toError } from '../utils/errorConverter';
+import { toError } from '../utils/convertError';
 
 export const resolveDatasetConfig = async (
   preferredSource: DatasetConfigSource | undefined,

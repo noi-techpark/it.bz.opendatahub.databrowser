@@ -3,10 +3,10 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, Ref, computed, toValue } from 'vue';
-import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
+import { useBaseAxiosFetch } from '../../../../api';
 import { useDatasetInfoStore } from '../../../../datasetConfig/store/datasetInfoStore';
 import { SelectOption } from '../../../../../components/select/types';
-import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 import { unwrapData } from '../../../../api/dataExtraction/dataExtraction';
 import { RemoteOptionsMapper } from './types';
 

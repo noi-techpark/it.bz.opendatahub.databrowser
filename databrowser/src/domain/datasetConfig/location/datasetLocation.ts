@@ -7,15 +7,16 @@ import {
   DatasetDomain,
   DatasetPath,
   DatasetQuery,
+  RouteDomain,
   RouteId,
   RoutePath,
   RouteQuery,
   ToMaybeRefs,
 } from '../types';
 import { DatasetConfig, ViewKey } from '../types';
-import { stringifyQuery } from 'vue-router';
 import { reactiveComputed } from '@vueuse/core';
 import { domainIsKnownToHaveOpenApiDocument } from '../../openApi';
+import { stringifyRouteQuery } from '../../utils/route';
 
 interface ComputeDatasetLocation {
   datasetDomain: DatasetDomain | undefined;
@@ -27,10 +28,10 @@ interface ComputeDatasetLocation {
 interface ComputeDatasetLocationParams {
   datasetConfig: DatasetConfig | undefined;
   viewKey: ViewKey | undefined;
-  routeDomain: string | undefined;
-  routePath: RoutePath | undefined;
-  routeId: RouteId | undefined;
-  routeQuery: RouteQuery | undefined;
+  routeDomain: RouteDomain;
+  routePath: RoutePath;
+  routeId: RouteId;
+  routeQuery: RouteQuery;
 }
 
 export const computeDatasetLocation = ({
@@ -41,7 +42,7 @@ export const computeDatasetLocation = ({
   routeId,
   routeQuery,
 }: ComputeDatasetLocationParams): ComputeDatasetLocation => {
-  if (datasetConfig == null || viewKey == null || routePath == null) {
+  if (datasetConfig == null || viewKey == null) {
     return {
       datasetDomain: undefined,
       datasetPath: undefined,
@@ -52,22 +53,22 @@ export const computeDatasetLocation = ({
 
   const datasetDomain = computeDatasetDomain(routeDomain);
 
-  const query = {
-    ...(datasetConfig.views?.[viewKey]?.defaultQueryParams ?? {}),
-    ...(routeQuery ?? {}),
-  };
+  const datasetQuery = computeDatasetQuery(
+    routeQuery,
+    datasetConfig.views?.[viewKey]?.defaultQueryParams
+  );
 
   const fullPath = computeFullPath(
     datasetConfig.baseUrl,
     routePath,
     routeId,
-    query
+    datasetQuery.asString
   );
 
   return {
     datasetDomain,
     datasetPath: routePath,
-    datasetQuery: query,
+    datasetQuery,
     fullPath,
   };
 };
@@ -99,7 +100,7 @@ export const useComputeDatasetLocation = (
 const computeDatasetDomain = (
   routeDomain: string | undefined
 ): DatasetDomain => {
-  if (routeDomain == null || Array.isArray(routeDomain)) {
+  if (routeDomain == null) {
     return 'no-dataset-domain-in-url';
   }
   return domainIsKnownToHaveOpenApiDocument(routeDomain)
@@ -107,15 +108,29 @@ const computeDatasetDomain = (
     : 'unknown';
 };
 
+const computeDatasetQuery = (
+  routeQuery: RouteQuery,
+  defaultValues: Record<string, string> | undefined
+): DatasetQuery => {
+  const defaultParts = defaultValues ?? {};
+  const rawParts = { ...routeQuery, ...defaultParts };
+  const { asString, stringParts } = stringifyRouteQuery(rawParts);
+
+  return {
+    rawParts,
+    asString,
+    stringParts,
+    defaultParts,
+  };
+};
+
 const computeFullPath = (
   baseUrl: string,
   routePath: RoutePath,
   routeId: RouteId | undefined,
-  routeQuery: RouteQuery
+  queryString: string
 ) => {
   const url = `${baseUrl}/${routePath.join('/')}`;
   const fullPath = routeId == null ? url : `${url}/${routeId}`;
-
-  const queryString = stringifyQuery(routeQuery);
   return `${fullPath}${queryString.length === 0 ? '' : '?' + queryString}`;
 };

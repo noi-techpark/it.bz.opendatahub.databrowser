@@ -15,7 +15,7 @@ export const useRawfilterHandler = () => {
   const router = useRouter();
 
   const rawfilters = computed<Rawfilter[]>(() =>
-    parseRawfilter(datasetQuery.value?.rawfilter)
+    parseRawfilter(datasetQuery.value?.stringParts['rawfilter'])
   );
 
   const updateRawfilters = (updatedFilters: Rawfilter[]) => {

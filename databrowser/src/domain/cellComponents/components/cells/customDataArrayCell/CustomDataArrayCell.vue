@@ -34,7 +34,7 @@ import { SelectOption } from '../../../../../components/select/types';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import CustomDataArrayTable from './CustomDataArrayTable.vue';
 import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
+import { useBaseAxiosFetch } from '../../../../api';
 
 const props = withDefaults(
   defineProps<{

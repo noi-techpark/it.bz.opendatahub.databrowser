@@ -7,13 +7,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <AlertError
     title="Error while loading data"
-    :content="toErrorString(error)"
+    :content="toErrorMessage(error)"
   />
 </template>
 
 <script setup lang="ts">
+import { toErrorMessage } from '../../domain/utils/convertError';
 import AlertError from '../alert/AlertError.vue';
-import { toErrorString } from '../../domain/api/service/utils';
 
 defineProps<{ error: unknown }>();
 </script>

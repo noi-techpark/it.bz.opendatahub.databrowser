@@ -43,7 +43,7 @@ import { useWriteable } from '../../utils/writeable/useWriteable';
 import StringCell from '../stringCell/StringCell.vue';
 import { useEditStore } from '../../../../datasets/editView/store/editStore';
 import { useEventDelete } from '../../../../../components/input/utils';
-import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
+import { useBaseAxiosFetch } from '../../../../api';
 
 const emit = defineEmits(['update']);
 

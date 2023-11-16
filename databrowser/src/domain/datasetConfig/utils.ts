@@ -4,18 +4,6 @@
 
 import { CandidateConfig, DatasetConfig, PathSegments } from './types';
 
-// Apply default values to query params if they are not set
-export const stringifyRouteQueryValues = (
-  query: Record<string, string | null | (string | null)[]>
-): Record<string, string> =>
-  // Remove all keys with null values and convert all values to strings
-  Object.entries(query).reduce<Record<string, string>>((prev, [key, value]) => {
-    if (value == null) {
-      return prev;
-    }
-    return { ...prev, [key]: Array.isArray(value) ? value.join(',') : value };
-  }, {});
-
 /**
  * Find candidate configs for the given path params.
  *

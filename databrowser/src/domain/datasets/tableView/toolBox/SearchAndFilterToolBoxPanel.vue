@@ -110,7 +110,7 @@ import { useTableFilter } from '../filter/useTableFilter';
 import InfoFilter from './InfoFilter.vue';
 import InfoSearch from './InfoSearch.vue';
 import { useRouter } from 'vue-router';
-import { stringifyParameter } from '../../../api';
+import { stringifyRouteQueryValue } from '../../../utils/route';
 
 const { t } = useI18n();
 
@@ -119,7 +119,7 @@ defineProps<{ filterOptions: SelectOption[] }>();
 const router = useRouter();
 
 const searchFilterAsString = computed(() =>
-  stringifyParameter(router.currentRoute.value.query.searchfilter)
+  stringifyRouteQueryValue(router.currentRoute.value.query.searchfilter)
 );
 
 const search = (term: string) => {

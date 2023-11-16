@@ -3,10 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import {
-  buildAuthInterceptor,
-  useBaseAxiosFetch,
-} from '../../../api/client/axiosFetcher';
+import { buildAuthInterceptor, useBaseAxiosFetch } from '../../../api';
 
 export const useSingleRecordLoadData = (
   normalizedPath: MaybeRef<string | undefined>,

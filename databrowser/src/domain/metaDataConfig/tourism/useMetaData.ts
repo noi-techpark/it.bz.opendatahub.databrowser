@@ -2,19 +2,18 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { computed, Ref } from 'vue';
+import { computed, DeepReadonly, Ref } from 'vue';
 import {
   DatasetPath,
   DatasetQuery,
   PathSegments,
 } from '../../datasetConfig/types';
 import { useMetaDataQuery } from './useMetaDataQuery';
-import { stringifyParameter } from '../../api';
 
 // Return the metadata for the route specified by the path params and query
 export const useMetaDataForRoute = (
   datasetPath: Ref<Readonly<DatasetPath> | undefined>,
-  datasetQuery: Ref<Readonly<DatasetQuery> | undefined>
+  datasetQuery: Ref<DeepReadonly<DatasetQuery> | undefined>
 ) => {
   const metaData = useMetaDataQuery();
 
@@ -29,9 +28,10 @@ export const useMetaDataForRoute = (
           return false;
         }
 
-        const queryAsObject =
-          datasetQuery.value == null ? {} : queryToObject(datasetQuery.value);
-        return filterContainedInQuery(md.apiFilter ?? {}, queryAsObject);
+        return filterContainedInQuery(
+          md.apiFilter,
+          datasetQuery.value?.stringParts
+        );
       })
       // There may be more than one candidate, for example if the query contains
       // a filter that is not present in the API filter (e.g. language). In that
@@ -52,16 +52,14 @@ export const useMetaDataForRoute = (
 const pathsMatch = (path1: Readonly<PathSegments>, path2: PathSegments) =>
   JSON.stringify(path1).localeCompare(JSON.stringify(path2)) === 0;
 
-const queryToObject = (datasetQuery: DatasetQuery) =>
-  Object.entries(datasetQuery).reduce<Record<string, string>>(
-    (prev, [key, value]) => ({ ...prev, [key]: stringifyParameter(value) }),
-    {}
-  );
-
 const filterContainedInQuery = (
-  apiFilter: Record<string, string>,
-  query: Record<string, string>
+  apiFilter: Record<string, string> | undefined,
+  query: Record<string, string> | undefined
 ) => {
+  if (apiFilter == null || query == null) {
+    return false;
+  }
+
   const apiFilterKeys = Object.keys(apiFilter);
   const queryKeys = Object.keys(query);
 

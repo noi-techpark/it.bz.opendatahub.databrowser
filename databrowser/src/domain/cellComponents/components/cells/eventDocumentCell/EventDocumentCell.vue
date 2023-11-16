@@ -35,7 +35,7 @@ const { datasetQuery } = storeToRefs(useDatasetInfoStore());
 
 // Set current language for each file
 const updateWithCurrentLanguage = ({ value }: { value?: FileEntry[] }) => {
-  const currentLanguage = datasetQuery.value?.language;
+  const currentLanguage = datasetQuery.value?.stringParts.language;
 
   const updatedFiles =
     value?.map((file) => ({

@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { stringToNumberOrUseDefault } from '../../service/query';
+import { stringToNumber } from '../../../utils/convertType';
 import { arrayPagination } from '../mapper/arrayPagination';
 import { staticPagination } from '../mapper/staticPagination';
 import { tourismPagination } from '../mapper/tourismPagination';
@@ -20,21 +20,21 @@ export const tourismPaginationProvider = <T>(
 ): PaginationWithCallbackProvider<T> => {
   return (data: T) => {
     if (isWithTourismPagination<T>(data)) {
-      const pageSize = stringToNumberOrUseDefault(query?.pagesize, 0);
+      const pageSize = stringToNumber(query?.pagesize, 0);
       const pagination = tourismPagination<T>(data, { pageSize });
       return { ...pagination, ...tourismPaginationCallback(changePagination) };
     }
 
     if (isWithArrayPagination<T>(data)) {
-      const pageSize = stringToNumberOrUseDefault(query?.pagesize, 0);
-      const currentPage = stringToNumberOrUseDefault(query?.pagenumber, 0);
+      const pageSize = stringToNumber(query?.pagesize, 0);
+      const currentPage = stringToNumber(query?.pagenumber, 0);
       const pagination = arrayPagination<T>(data, { pageSize, currentPage });
       return { ...pagination, ...tourismPaginationCallback(changePagination) };
     }
 
     console.log('data', data);
 
-    const pageSize = stringToNumberOrUseDefault(query?.pagesize, 0);
+    const pageSize = stringToNumber(query?.pagesize, 0);
     const pagination = { ...staticPagination(), pageSize };
     return { ...pagination, ...tourismPaginationCallback(changePagination) };
   };

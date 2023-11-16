@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed, Ref } from 'vue';
-import { useBaseAxiosFetch } from '../../../../api/client/axiosFetcher';
+import { useBaseAxiosFetch } from '../../../../api';
 import { unwrapData } from '../../../../api/dataExtraction/dataExtraction';
 
 type ArticleSubTypes = string[];

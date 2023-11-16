@@ -12,7 +12,7 @@ import {
   toValue,
   watch,
 } from 'vue';
-import { useAuth } from '../../auth/store/auth';
+import { useAuth } from '../auth/store/auth';
 import { storeToRefs } from 'pinia';
 
 type BeforeFetchFn<T = unknown> = (

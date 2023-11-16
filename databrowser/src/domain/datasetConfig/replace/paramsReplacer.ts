@@ -4,6 +4,7 @@
 
 import { MaybeRef, computed, toValue } from 'vue';
 import { ParamsReplacer } from './types';
+import { DatasetQuery } from '../types';
 
 // Builder function to create a function that replaces all (dynamic) params
 // in a string with the corresponding replacement. The parts to be replaced
@@ -21,3 +22,7 @@ export const buildParamsReplacer =
 export const useParamsReplacer = (
   replacements: MaybeRef<Record<string, string> | undefined>
 ) => computed(() => buildParamsReplacer(toValue(replacements)));
+
+export const useParamsReplacerFromDatasetQuery = (
+  datasetQuery: MaybeRef<DatasetQuery | undefined>
+) => computed(() => buildParamsReplacer(toValue(datasetQuery)?.stringParts));

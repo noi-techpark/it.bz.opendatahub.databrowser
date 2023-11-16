@@ -3,10 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef } from 'vue';
-import {
-  buildAuthInterceptor,
-  useBaseAxiosFetch,
-} from '../../../api/client/axiosFetcher';
+import { buildAuthInterceptor, useBaseAxiosFetch } from '../../../api';
 import { unwrapData } from '../../../api/dataExtraction/dataExtraction';
 
 export const useLoadTableData = (fullPath: MaybeRef<string | undefined>) => {
