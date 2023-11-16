@@ -5,17 +5,13 @@
 import { computed } from 'vue';
 import { parseFilterWithRegex } from './parser/parseFilterWithRegex';
 import { Rawfilter } from './types';
-import { storeToRefs } from 'pinia';
-import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
-import { useRouter } from 'vue-router';
+import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
 
 export const useRawfilterHandler = () => {
-  const { datasetQuery } = storeToRefs(useDatasetInfoStore());
-
-  const router = useRouter();
+  const { getQueryValue, setQueryValue } = useDatasetQueryStore();
 
   const rawfilters = computed<Rawfilter[]>(() =>
-    parseRawfilter(datasetQuery.value?.stringParts['rawfilter'])
+    parseRawfilter(getQueryValue('rawfilter'))
   );
 
   const updateRawfilters = (updatedFilters: Rawfilter[]) => {
@@ -56,15 +52,10 @@ export const useRawfilterHandler = () => {
       }
     }, []);
 
-    const query = { ...router.currentRoute.value.query };
+    const rawfilter =
+      filterValues.length > 0 ? `and(${filterValues.join(',')})` : undefined;
 
-    if (filterValues.length > 0) {
-      query['rawfilter'] = `and(${filterValues.join(',')})`;
-    } else {
-      delete query['rawfilter'];
-    }
-
-    router.push({ ...router.currentRoute.value, query });
+    setQueryValue('rawfilter', rawfilter);
   };
 
   return { rawfilters, updateRawfilters };

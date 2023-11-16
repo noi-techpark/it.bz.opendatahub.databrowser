@@ -109,30 +109,19 @@ import { filterSelectOptions } from '../filter/filterSelectOptions';
 import { useTableFilter } from '../filter/useTableFilter';
 import InfoFilter from './InfoFilter.vue';
 import InfoSearch from './InfoSearch.vue';
-import { useRouter } from 'vue-router';
-import { stringifyRouteQueryValue } from '../../../utils/route';
+import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
 
 const { t } = useI18n();
 
 defineProps<{ filterOptions: SelectOption[] }>();
 
-const router = useRouter();
+const { getQueryValue, setQueryValue } = useDatasetQueryStore();
 
-const searchFilterAsString = computed(() =>
-  stringifyRouteQueryValue(router.currentRoute.value.query.searchfilter)
-);
+const searchFilterAsString = computed(() => getQueryValue('searchfilter'));
 
 const search = (term: string) => {
   const value = term === '' ? undefined : term;
-
-  const query = { ...router.currentRoute.value.query };
-  if (value != null) {
-    query['searchfilter'] = value;
-  } else {
-    delete query['searchfilter'];
-  }
-
-  router.push({ ...router.currentRoute.value, query });
+  setQueryValue('searchfilter', value);
 };
 
 const {

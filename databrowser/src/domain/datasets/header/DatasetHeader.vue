@@ -58,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <!-- Language picker -->
       <LanguagePicker
         v-if="showLanguagePicker"
-        :current-language="datasetQuery?.stringParts.language"
+        :current-language="getQueryValue('language')"
       />
     </div>
   </header>
@@ -77,11 +77,15 @@ import AddRecordButton from './AddRecordButton.vue';
 import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
 import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
 import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
+import { useDatasetQueryStore } from '../../datasetConfig/store/datasetQueryStore';
 
 const { t } = useI18n();
 
-const { addRecordSupported, datasetDomain, hasConfig, datasetQuery } =
-  storeToRefs(useDatasetInfoStore());
+const { addRecordSupported, datasetDomain, hasConfig } = storeToRefs(
+  useDatasetInfoStore()
+);
+
+const { getQueryValue } = useDatasetQueryStore();
 
 const { source } = storeToRefs(useDatasetSourceStore());
 

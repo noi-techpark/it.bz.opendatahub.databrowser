@@ -129,9 +129,6 @@ export const applyReplacementsToTableView = (
     }),
   };
 
-  console.timeEnd('datasetConfig table view config');
-  console.groupEnd();
-
   return result;
 };
 

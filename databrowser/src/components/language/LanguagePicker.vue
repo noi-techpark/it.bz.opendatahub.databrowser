@@ -44,9 +44,12 @@ import ButtonLink from '../button/ButtonLink.vue';
 import SelectCustom from '../select/SelectCustom.vue';
 import { SelectSize } from '../select/types';
 
-const props = withDefaults(defineProps<{ currentLanguage?: string }>(), {
-  currentLanguage: defaultLanguage,
-});
+const props = withDefaults(
+  defineProps<{ currentLanguage: string | null | undefined }>(),
+  {
+    currentLanguage: defaultLanguage,
+  }
+);
 
 const supportedLanguages = Object.values(FilterLanguage);
 

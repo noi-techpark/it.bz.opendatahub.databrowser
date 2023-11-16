@@ -4,10 +4,8 @@
 
 import { Ref, computed } from 'vue';
 import { SortState } from './types';
-import { storeToRefs } from 'pinia';
 import { PropertyPath } from '../../../datasetConfig/types';
-import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
-import { useRouter } from 'vue-router';
+import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
 
 // This function computes the rawsort value based on the sort field and the sort state.
 const rawsortValue = (propertyPath: PropertyPath, sortState: SortState) => {
@@ -24,14 +22,14 @@ const rawsortValue = (propertyPath: PropertyPath, sortState: SortState) => {
 export const useTableSortForPropertyPath = (
   propertyPath: Ref<string | undefined>
 ) => {
-  const { datasetQuery } = storeToRefs(useDatasetInfoStore());
+  const { getQueryValue, setQueryValue } = useDatasetQueryStore();
 
   // The currentSortState property contains the current sort state for the given field.
   // It is 'none' if the URL contains no sort information or the the given field is not the
   // current sort field. It is 'asc' if the URL contains the sort field without a leading '-'
   // and 'desc' if the URL contains the sort field with a leading '-'.
   const currentSortState = computed(() => {
-    const sortFromUrl = datasetQuery.value?.stringParts['rawsort'];
+    const sortFromUrl = getQueryValue('rawsort');
     // If the no sort is set in the URL, the current sort state is 'none'.
     if (sortFromUrl == null) {
       return 'none';
@@ -54,8 +52,6 @@ export const useTableSortForPropertyPath = (
 
   const isCurrentSortDesc = computed(() => currentSortState.value === 'desc');
 
-  const router = useRouter();
-
   // Set the current sort state.
   const setSort = (sortState: SortState) => {
     if (propertyPath.value == null) {
@@ -64,15 +60,7 @@ export const useTableSortForPropertyPath = (
 
     const rawsort = rawsortValue(propertyPath.value, sortState);
 
-    const query = { ...router.currentRoute.value.query };
-
-    if (rawsort != null) {
-      query['rawsort'] = rawsort;
-    } else {
-      delete query['rawsort'];
-    }
-
-    router.push({ ...router.currentRoute.value, query });
+    setQueryValue('rawsort', rawsort);
   };
 
   return {

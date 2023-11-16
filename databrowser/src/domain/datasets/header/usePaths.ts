@@ -8,7 +8,7 @@ import { DatasetPage } from '../../../routes';
 import { PathSegments } from '../../datasetConfig/types';
 import { useMetaDataStore } from '../../metaDataConfig/tourism/metaDataStore';
 import { storeToRefs } from 'pinia';
-import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
+import { useDatasetQueryStore } from '../../datasetConfig/store/datasetQueryStore';
 
 // TODO: make this file a store?
 
@@ -99,7 +99,7 @@ export const usePathsForCurrentRoute = () => {
 
 const initPathBuilder = () => {
   const { currentMetaData } = storeToRefs(useMetaDataStore());
-  const { datasetQuery } = storeToRefs(useDatasetInfoStore());
+  const { getQueryValue } = useDatasetQueryStore();
   const router = useRouter();
 
   const buildPath = (
@@ -109,7 +109,7 @@ const initPathBuilder = () => {
     name: name,
     query: {
       ...currentMetaData.value?.apiFilter,
-      language: datasetQuery.value?.stringParts.language,
+      language: getQueryValue('language'),
     },
     hash: preserveHash ? router.currentRoute.value.hash : undefined,
   });
