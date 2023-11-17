@@ -58,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <!-- Language picker -->
       <LanguagePicker
         v-if="showLanguagePicker"
-        :current-language="getQueryValue('language')"
+        :current-language="currentLanguage"
       />
     </div>
   </header>
@@ -85,7 +85,7 @@ const { addRecordSupported, datasetDomain, hasConfig } = storeToRefs(
   useDatasetInfoStore()
 );
 
-const { getQueryValue } = useDatasetQueryStore();
+const currentLanguage = useDatasetQueryStore().handle('language');
 
 const { source } = storeToRefs(useDatasetSourceStore());
 

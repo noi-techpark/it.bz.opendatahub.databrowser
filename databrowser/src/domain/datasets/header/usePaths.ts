@@ -99,7 +99,7 @@ export const usePathsForCurrentRoute = () => {
 
 const initPathBuilder = () => {
   const { currentMetaData } = storeToRefs(useMetaDataStore());
-  const { getQueryValue } = useDatasetQueryStore();
+  const currentLanguage = useDatasetQueryStore().handle('language');
   const router = useRouter();
 
   const buildPath = (
@@ -109,7 +109,7 @@ const initPathBuilder = () => {
     name: name,
     query: {
       ...currentMetaData.value?.apiFilter,
-      language: getQueryValue('language'),
+      language: currentLanguage.value,
     },
     hash: preserveHash ? router.currentRoute.value.hash : undefined,
   });

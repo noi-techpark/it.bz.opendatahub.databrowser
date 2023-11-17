@@ -30,7 +30,7 @@ export const useMetaDataForRoute = (
 
         return filterContainedInQuery(
           md.apiFilter,
-          datasetQuery.value?.stringParts
+          datasetQuery.value?.stringified
         );
       })
       // There may be more than one candidate, for example if the query contains

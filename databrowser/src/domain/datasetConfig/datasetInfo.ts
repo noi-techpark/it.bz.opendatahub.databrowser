@@ -15,7 +15,7 @@ import { useComputeViewPresence } from './view/viewPresence';
 import { DatasetConfigSource } from './load/types';
 import { useComputeViewKey } from './view/viewKey';
 import { useValueExtractor } from './extract/valueExtractor';
-import { useParamsReplacerFromDatasetQuery } from './replace/paramsReplacer';
+import { useParamsReplacer } from './replace/paramsReplacer';
 import { usePropertyPathReplacer } from './replace/propertyPathReplacer';
 
 export const useDatasetInfo = (
@@ -48,8 +48,10 @@ export const useDatasetInfo = (
       routeQuery,
     });
 
+  const stringifiedQuery = computed(() => datasetQuery.value?.stringified);
+
   // Build params replacement facility
-  const paramsReplacer = useParamsReplacerFromDatasetQuery(datasetQuery);
+  const paramsReplacer = useParamsReplacer(stringifiedQuery);
   const propertyPathReplacer = usePropertyPathReplacer(paramsReplacer);
   const extractValueByPath = useValueExtractor(paramsReplacer);
 

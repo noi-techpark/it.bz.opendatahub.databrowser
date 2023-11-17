@@ -30,12 +30,10 @@ const emit = defineEmits(['update']);
 
 defineProps<{ files?: FileEntry[] }>();
 
-const { getQueryValue } = useDatasetQueryStore();
+const currentLanguage = useDatasetQueryStore().handle('language');
 
 // Set current language for each file
 const updateWithCurrentLanguage = ({ value }: { value?: FileEntry[] }) => {
-  const currentLanguage = getQueryValue('language');
-
   const updatedFiles =
     value?.map((file) => ({
       ...file,

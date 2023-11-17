@@ -16,7 +16,7 @@ import {
 import { DatasetConfig, ViewKey } from '../types';
 import { reactiveComputed } from '@vueuse/core';
 import { domainIsKnownToHaveOpenApiDocument } from '../../openApi';
-import { stringifyRouteQuery } from '../../utils/route';
+import { stringifyRouteQuery, uriEncodeRouteQuery } from '../../utils/route';
 
 interface ComputeDatasetLocation {
   datasetDomain: DatasetDomain | undefined;
@@ -58,11 +58,13 @@ export const computeDatasetLocation = ({
     datasetConfig.views?.[viewKey]?.defaultQueryParams
   );
 
+  const uriEncodedQuery = uriEncodeRouteQuery(datasetQuery.raw);
+
   const fullPath = computeFullPath(
     datasetConfig.baseUrl,
     routePath,
     routeId,
-    datasetQuery.asString
+    uriEncodedQuery
   );
 
   return {
@@ -112,15 +114,16 @@ const computeDatasetQuery = (
   routeQuery: RouteQuery,
   defaultValues: Record<string, string> | undefined
 ): DatasetQuery => {
-  const defaultParts = defaultValues ?? {};
-  const rawParts = { ...routeQuery, ...defaultParts };
-  const { asString, stringParts } = stringifyRouteQuery(rawParts);
+  const def = defaultValues ?? {};
+  const raw = { ...def, ...routeQuery };
+  // The array serialization depends on the current dataset domain and
+  // should be configurable in the future
+  const stringified = stringifyRouteQuery(raw);
 
   return {
-    rawParts,
-    asString,
-    stringParts,
-    defaultParts,
+    raw,
+    stringified,
+    default: def,
   };
 };
 
@@ -128,9 +131,11 @@ const computeFullPath = (
   baseUrl: string,
   routePath: RoutePath,
   routeId: RouteId | undefined,
-  queryString: string
+  uriEncodedQuery: string
 ) => {
   const url = `${baseUrl}/${routePath.join('/')}`;
   const fullPath = routeId == null ? url : `${url}/${routeId}`;
-  return `${fullPath}${queryString.length === 0 ? '' : '?' + queryString}`;
+  return `${fullPath}${
+    uriEncodedQuery.length === 0 ? '' : '?' + uriEncodedQuery
+  }`;
 };

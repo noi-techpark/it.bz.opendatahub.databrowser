@@ -42,7 +42,7 @@ const { addItems } = useInjectActionTriggers();
 
 const dialog = ref({ isOpen: false });
 
-const { getQueryValue } = useDatasetQueryStore();
+const currentLanguage = useDatasetQueryStore().handle('language');
 
 const uploadSuccess = (urls: string[], fileNames: string[]) => {
   const items = urls.map((url, index) => {
@@ -55,9 +55,7 @@ const uploadSuccess = (urls: string[], fileNames: string[]) => {
   addItems(items.map((item) => ({ src: item.src })));
 
   if (props.hasLanguageDialog) {
-    const currentLanguage = getQueryValue('language');
-
-    setDialogItems(items, currentLanguage);
+    setDialogItems(items, currentLanguage.value);
     dialog.value.isOpen = true;
     return;
   }

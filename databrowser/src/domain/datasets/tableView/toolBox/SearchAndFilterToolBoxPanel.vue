@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <ToolBoxCardBody>
         <InputSearch
           id="search-dataset"
-          :model-value="searchFilterAsString"
+          :model-value="searchfilter"
           @search="search"
         />
       </ToolBoxCardBody>
@@ -89,7 +89,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../components/button/types';
@@ -115,13 +114,11 @@ const { t } = useI18n();
 
 defineProps<{ filterOptions: SelectOption[] }>();
 
-const { getQueryValue, setQueryValue } = useDatasetQueryStore();
-
-const searchFilterAsString = computed(() => getQueryValue('searchfilter'));
+const searchfilter = useDatasetQueryStore().handle('searchfilter');
 
 const search = (term: string) => {
   const value = term === '' ? undefined : term;
-  setQueryValue('searchfilter', value);
+  searchfilter.value = value;
 };
 
 const {

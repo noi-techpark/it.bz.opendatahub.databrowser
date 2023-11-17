@@ -8,10 +8,10 @@ import { Rawfilter } from './types';
 import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
 
 export const useRawfilterHandler = () => {
-  const { getQueryValue, setQueryValue } = useDatasetQueryStore();
+  const rawfilter = useDatasetQueryStore().handle('rawfilter');
 
   const rawfilters = computed<Rawfilter[]>(() =>
-    parseRawfilter(getQueryValue('rawfilter'))
+    parseRawfilter(rawfilter.value)
   );
 
   const updateRawfilters = (updatedFilters: Rawfilter[]) => {
@@ -52,10 +52,8 @@ export const useRawfilterHandler = () => {
       }
     }, []);
 
-    const rawfilter =
+    rawfilter.value =
       filterValues.length > 0 ? `and(${filterValues.join(',')})` : undefined;
-
-    setQueryValue('rawfilter', rawfilter);
   };
 
   return { rawfilters, updateRawfilters };

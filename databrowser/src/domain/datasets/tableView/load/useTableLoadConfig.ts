@@ -19,11 +19,11 @@ export const useTableLoadConfig = () => {
     editRecordSupported,
   } = storeToRefs(useDatasetInfoStore());
 
-  const query = computed(() => datasetQuery.value?.stringParts);
+  const stringifiedQuery = computed(() => datasetQuery.value?.stringified);
 
   const paginationProvider = useComputePaginationWithRouter(
     datasetDomain,
-    query
+    stringifiedQuery
   );
 
   return {

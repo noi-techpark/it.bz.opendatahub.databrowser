@@ -22,14 +22,14 @@ const rawsortValue = (propertyPath: PropertyPath, sortState: SortState) => {
 export const useTableSortForPropertyPath = (
   propertyPath: Ref<string | undefined>
 ) => {
-  const { getQueryValue, setQueryValue } = useDatasetQueryStore();
+  const rawsort = useDatasetQueryStore().handle('rawsort');
 
   // The currentSortState property contains the current sort state for the given field.
   // It is 'none' if the URL contains no sort information or the the given field is not the
   // current sort field. It is 'asc' if the URL contains the sort field without a leading '-'
   // and 'desc' if the URL contains the sort field with a leading '-'.
   const currentSortState = computed(() => {
-    const sortFromUrl = getQueryValue('rawsort');
+    const sortFromUrl = rawsort.value;
     // If the no sort is set in the URL, the current sort state is 'none'.
     if (sortFromUrl == null) {
       return 'none';
@@ -58,9 +58,7 @@ export const useTableSortForPropertyPath = (
       return;
     }
 
-    const rawsort = rawsortValue(propertyPath.value, sortState);
-
-    setQueryValue('rawsort', rawsort);
+    rawsort.value = rawsortValue(propertyPath.value, sortState);
   };
 
   return {

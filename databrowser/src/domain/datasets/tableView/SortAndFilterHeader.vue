@@ -7,7 +7,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <div class="flex items-center justify-between">
     {{ title }}
-    <PopoverCustom v-if="canSort || canFilter">
+    <div v-if="!canSort && !canFilter">
+      <IconStrokedArrowDown class="h-5 w-5 stroke-current" />
+    </div>
+    <PopoverCustom v-else>
       <template #trigger>
         <PopoverCustomButton
           v-slot="{ open }"

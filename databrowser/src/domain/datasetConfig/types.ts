@@ -200,10 +200,9 @@ export type DatasetDomain =
 export type DatasetPath = string[];
 export type DatasetId = string;
 export interface DatasetQuery {
-  rawParts: Record<string, string | null | (string | null)[]>;
-  stringParts: Record<string, string>;
-  defaultParts: Record<string, string>;
-  asString: string;
+  raw: Record<string, string | null | (string | null)[]>;
+  stringified: Record<string, string>;
+  default: Record<string, string>;
 }
 
 export interface DatasetLocation {
