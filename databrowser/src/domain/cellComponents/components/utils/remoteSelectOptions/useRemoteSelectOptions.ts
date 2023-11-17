@@ -70,8 +70,6 @@ export const useRemoteSelectOptions = <T extends SelectOption = SelectOption>(
       result.sort((a, b) => a.label?.localeCompare(b.label));
     }
 
-    console.log('options', result);
-
     return result;
   });
 
