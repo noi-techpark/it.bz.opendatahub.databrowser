@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { DatasetConfig } from './types';
-import { MaybeRef, ref, toValue, watch } from 'vue';
+import { MaybeRef, computed, ref, toValue, watch } from 'vue';
 import { DatasetConfigSource } from './load/types';
 import { loadDatasetConfig } from './load/datasetConfigLoader';
 import { toError } from '../utils/convertError';
@@ -35,13 +35,19 @@ export const useResolveDatasetConfig = (
   const isError = ref(false);
   const error = ref<Error>();
 
+  // Convert path to string for comparison in the watcher below.
+  // The reason to do this is that the path is an array and therefore
+  // a reference type. This means that the watcher triggers also when
+  // the content of the array stays the same, but the reference changes,
+  // which may happen e.g. when the route changes and the path array
+  // is recreated. Since we are only interested in the content of the
+  // array, we convert it to a string and use the string as the value
+  // to compare in the watcher.
+  const pathAsString = computed(() => toValue(path)?.join('/'));
+
   watch(
-    [
-      () => toValue(preferredSource),
-      () => toValue(domain),
-      () => toValue(path),
-    ],
-    async ([preferredSourceValue, domainValue, pathValue]) => {
+    [() => toValue(preferredSource), () => toValue(domain), pathAsString],
+    async ([preferredSourceValue, domainValue]) => {
       console.log('Resolving dataset config');
 
       isResolving.value = true;
@@ -49,6 +55,7 @@ export const useResolveDatasetConfig = (
       error.value = undefined;
 
       try {
+        const pathValue = toValue(path);
         datasetConfig.value = await resolveDatasetConfig(
           preferredSourceValue,
           domainValue,
