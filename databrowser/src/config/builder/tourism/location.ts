@@ -22,9 +22,9 @@ export const locationCategory = (): DetailElements => ({
           fields: { value: 'LocationInfo.RegionInfo.Id' },
           params: {
             url: withOdhBaseUrl(
-              '/v1/Location?language=en&type=null&showall=true'
+              '/v1/Location?type=reg&showall=true'
             ),
-            labelSelector: 'name',
+            labelSelector: 'name.{language}',
             keySelector: 'id',
           },
         },
@@ -46,9 +46,9 @@ export const locationCategory = (): DetailElements => ({
           fields: { value: 'LocationInfo.TvInfo.Id' },
           params: {
             url: withOdhBaseUrl(
-              '/v1/Location?language=en&type=null&showall=true'
+              '/v1/Location?type=tvs&showall=true'
             ),
-            labelSelector: 'name',
+            labelSelector: 'name.{language}',
             keySelector: 'id',
           },
         },
@@ -69,9 +69,9 @@ export const locationCategory = (): DetailElements => ({
           component: CellComponent.InputReferenceCell,
           fields: { value: 'LocationInfo.MunicipalityInfo.Id' },
           params: {
-            url: withOdhBaseUrl('/v1/Municipality?removenullvalues=false'),
-            labelSelector: 'Detail.en.Title',
-            keySelector: 'Id',
+            url: withOdhBaseUrl('/v1/Location?type=mun&showall=true'),
+            labelSelector: 'name.{language}',
+            keySelector: 'id',
           },
         },
         {
@@ -91,15 +91,37 @@ export const locationCategory = (): DetailElements => ({
           component: CellComponent.InputReferenceCell,
           fields: { value: 'LocationInfo.DistrictInfo.Id' },
           params: {
-            url: withOdhBaseUrl('/v1/District?removenullvalues=false'),
-            labelSelector: 'Detail.en.Title',
-            keySelector: 'Id',
+            url: withOdhBaseUrl('/v1/Location?type=fra&showall=true'),
+            labelSelector: 'name.{language}',
+            keySelector: 'id',
           },
         },
         {
           title: 'District ID',
           component: CellComponent.StringCell,
           fields: { text: 'LocationInfo.DistrictInfo.Id' },
+          params: { readonly: 'true' },
+          class: 'break-all',
+        },
+      ],
+    },
+    {
+      name: 'Area',
+      properties: [
+        {
+          title: '',
+          component: CellComponent.InputReferenceCell,
+          fields: { value: 'LocationInfo.AreaInfo.Id' },
+          params: {
+            url: withOdhBaseUrl('/v1/Area?fields=Id,Detail&active=true'),
+            labelSelector: 'Detail.{language}.Title',
+            keySelector: 'Id',
+          },
+        },
+        {
+          title: 'Area ID',
+          component: CellComponent.StringCell,
+          fields: { text: 'LocationInfo.AreaInfo.Id' },
           params: { readonly: 'true' },
           class: 'break-all',
         },
@@ -121,9 +143,9 @@ export const locationCategoryDistrict = (): DetailElements => ({
           fields: { value: 'Region.Id' },
           params: {
             url: withOdhBaseUrl(
-              '/v1/Location?language=en&type=null&showall=true'
+              '/v1/Location?type=reg&showall=true'
             ),
-            labelSelector: 'name',
+            labelSelector: 'name.{language}.',
             keySelector: 'id',
           },
         },
@@ -145,9 +167,9 @@ export const locationCategoryDistrict = (): DetailElements => ({
           fields: { value: 'Tourismassociation.Id' },
           params: {
             url: withOdhBaseUrl(
-              '/v1/Location?language=en&type=null&showall=true'
+              '/v1/Location?type=tvs&showall=true'
             ),
-            labelSelector: 'name',
+            labelSelector: 'name.{language}',
             keySelector: 'id',
           },
           required: true,
@@ -169,9 +191,9 @@ export const locationCategoryDistrict = (): DetailElements => ({
           component: CellComponent.InputReferenceCell,
           fields: { value: 'Municipality.Id' },
           params: {
-            url: withOdhBaseUrl('/v1/Municipality?removenullvalues=false'),
-            labelSelector: 'Detail.en.Title',
-            keySelector: 'Id',
+            url: withOdhBaseUrl('/v1/Location?type=mun&showall=true'),
+            labelSelector: 'name.{language}',
+            keySelector: 'id',
           },
         },
         {
