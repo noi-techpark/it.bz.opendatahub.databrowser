@@ -5,11 +5,9 @@ on:
   pull_request:
 
 env:
-  AWS_REGION: "eu-west-1"
   NODE_VERSION: 16.x
   PROJECT_NAME: opendatahub-databrowser
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}/opendatahub-databrowser
-  SERVER_PORT: 1005
 
 jobs:
   test:
@@ -32,8 +30,8 @@ jobs:
     needs: test
     concurrency: deploy-test
     env:
+      SERVER_PORT: 1005
       DOCKER_TAG: ${{ github.sha }}-test
-      AWS_S3_BUCKET_NAME: "it.bz.opendatahub.databrowser-test"
       VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.testingmachine.eu/auth"
       VITE_APP_KEYCLOAK_REALM: "noi"
       VITE_APP_KEYCLOAK_CLIENT_ID: "it.bz.opendatahub.databrowser"
@@ -81,12 +79,12 @@ jobs:
     needs: test
     concurrency: deploy-beta
     env:
+      SERVER_PORT: 1005
       DOCKER_TAG: ${{ github.sha }}-beta
-      AWS_S3_BUCKET_NAME: "it.bz.opendatahub.databrowser-beta"
       VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.com/auth"
       VITE_APP_KEYCLOAK_REALM: "noi"
       VITE_APP_KEYCLOAK_CLIENT_ID: "it.bz.opendatahub.databrowser"
-      VITE_APP_KEYCLOAK_REDIRECT_URI: "https://v2-beta.databrowser.opendatahub.com//silent-check-sso.html"
+      VITE_APP_KEYCLOAK_REDIRECT_URI: "https://v2-beta.databrowser.opendatahub.com/silent-check-sso.html"
       VITE_APP_IMAGE_UPLOAD_URL: "https://tourism.opendatahub.com/v1/FileUpload/Image"
       VITE_APP_FILE_UPLOAD_URL: "https://tourism.opendatahub.com/v1/FileUpload"
       VITE_APP_ODH_LOOKUP_BASE_URL: "https://tourism.opendatahub.com"
@@ -100,15 +98,6 @@ jobs:
         with:
           working-directory: databrowser
           node-version: ${{ env.NODE_VERSION }}
-      - name: Sync to S3 bucket
-        uses: noi-techpark/github-actions/aws-s3-bucket-sync@v2
-        with:
-          working-directory: databrowser
-          access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_ID }}
-          secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY }}
-          region: ${{ env.AWS_REGION }}
-          s3-bucket-name: ${{ env.AWS_S3_BUCKET_NAME }}
-          folder: ./dist
       - name: Create .env file
         uses: noi-techpark/github-actions/env-file@v2
         with:
@@ -139,8 +128,8 @@ jobs:
     needs: test
     concurrency: deploy-prod
     env:
+      SERVER_PORT: 1006
       DOCKER_TAG: ${{ github.sha }}
-      AWS_S3_BUCKET_NAME: "it.bz.opendatahub.databrowser-prod"
       VITE_APP_KEYCLOAK_URL: "https://auth.opendatahub.com/auth"
       VITE_APP_KEYCLOAK_REALM: "noi"
       VITE_APP_KEYCLOAK_CLIENT_ID: "it.bz.opendatahub.databrowser"
@@ -157,15 +146,6 @@ jobs:
         with:
           working-directory: databrowser
           node-version: ${{ env.NODE_VERSION }}
-      - name: Sync to S3 bucket
-        uses: noi-techpark/github-actions/aws-s3-bucket-sync@v2
-        with:
-          working-directory: databrowser
-          access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_ID }}
-          secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY }}
-          region: ${{ env.AWS_REGION }}
-          s3-bucket-name: ${{ env.AWS_S3_BUCKET_NAME }}
-          folder: ./dist
       - name: Create .env file
         uses: noi-techpark/github-actions/env-file@v2
         with:
