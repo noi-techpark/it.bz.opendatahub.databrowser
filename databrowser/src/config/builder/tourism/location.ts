@@ -21,9 +21,7 @@ export const locationCategory = (): DetailElements => ({
           component: CellComponent.InputReferenceCell,
           fields: { value: 'LocationInfo.RegionInfo.Id' },
           params: {
-            url: withOdhBaseUrl(
-              '/v1/Location?type=reg&showall=true'
-            ),
+            url: withOdhBaseUrl('/v1/Location?type=reg&showall=true'),
             labelSelector: 'name.{language}',
             keySelector: 'id',
           },
@@ -45,9 +43,7 @@ export const locationCategory = (): DetailElements => ({
           component: CellComponent.InputReferenceCell,
           fields: { value: 'LocationInfo.TvInfo.Id' },
           params: {
-            url: withOdhBaseUrl(
-              '/v1/Location?type=tvs&showall=true'
-            ),
+            url: withOdhBaseUrl('/v1/Location?type=tvs&showall=true'),
             labelSelector: 'name.{language}',
             keySelector: 'id',
           },
@@ -142,9 +138,7 @@ export const locationCategoryDistrict = (): DetailElements => ({
           component: CellComponent.InputReferenceCell,
           fields: { value: 'Region.Id' },
           params: {
-            url: withOdhBaseUrl(
-              '/v1/Location?type=reg&showall=true'
-            ),
+            url: withOdhBaseUrl('/v1/Location?type=reg&showall=true'),
             labelSelector: 'name.{language}.',
             keySelector: 'id',
           },
@@ -166,9 +160,7 @@ export const locationCategoryDistrict = (): DetailElements => ({
           component: CellComponent.InputReferenceCell,
           fields: { value: 'Tourismassociation.Id' },
           params: {
-            url: withOdhBaseUrl(
-              '/v1/Location?type=tvs&showall=true'
-            ),
+            url: withOdhBaseUrl('/v1/Location?type=tvs&showall=true'),
             labelSelector: 'name.{language}',
             keySelector: 'id',
           },
