@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <TagCustom
           v-if="envBadge"
           class="text-sm"
-          type="pink"
+          :type="envBadge == 'BETA' ? 'pink' : 'info'"
           :text="envBadge"
         />
         <div class="flex grow" />
@@ -92,6 +92,7 @@ const emit = defineEmits<{
 }>();
 
 const envBadge = import.meta.env.VITE_APP_ENV_BADGE;
+const envBadgeColor = import.meta.env.VITE_APP_ENV_BADGE_COLOR;
 
 function toggleMenu() {
   emit('toggleMenu', !props.isMenuOpen);
