@@ -45,14 +45,12 @@ import StringCell from '../../../cells/stringCell/StringCell.vue';
 import EditListDocumentLanguagesTable from './EditListDocumentLanguagesTable.vue';
 import { FileEntry } from '../../../cells/eventDocumentCell/types';
 
-import { useDialogStore } from './dialogStore';
+import { updateItem } from './utils';
 import { FileLanguageUpdate } from './types';
-
-const dialogStore = useDialogStore();
 
 defineProps<{ items: FileEntry[] }>();
 
 const update = (index: number, value: FileLanguageUpdate) => {
-  dialogStore.updateItem(index, value);
+  updateItem(index, value);
 };
 </script>

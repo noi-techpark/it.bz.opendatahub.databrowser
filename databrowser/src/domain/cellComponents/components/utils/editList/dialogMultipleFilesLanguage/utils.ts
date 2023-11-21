@@ -5,7 +5,7 @@
 import { useEventBus } from '@vueuse/core';
 import { FileEntry } from '../../../cells/eventDocumentCell/types';
 import { useEditStore } from '../../../../../datasets/editView/store/editStore';
-import { FileEntryWithLanguageAvailability } from './types';
+import { FileEntryWithLanguageAvailability, FileLanguageUpdate } from './types';
 import { useDialogStore } from './dialogStore';
 import { FilterLanguage } from '../../../../../datasets/language';
 import { ParameterValue } from '../../../../../api/service/types';
@@ -29,23 +29,60 @@ export const getCurrentDocumentLanguageAvailability = (item: FileEntry) => {
   return foundLanguages.join(', ');
 };
 
+export const getCurrentItemToSave = () => {
+  const dialogStore = useDialogStore();
+
+  const currentItem = dialogStore.items[dialogStore.activeTab];
+
+  return {
+    ...currentItem,
+    data: currentItem.data.filter(
+      (item) => item.available && Boolean(item.documentName)
+    ),
+  };
+};
+
+export const getCurrentItemDelete = () => {
+  const dialogStore = useDialogStore();
+
+  const currentItem = dialogStore.items[dialogStore.activeTab];
+
+  return {
+    ...currentItem,
+    data: currentItem.data.filter(
+      (item) => !item.available || !item.documentName
+    ),
+  };
+};
+
 export const setDataForDocumentEdit = (item: FileEntry) => {
   const { Documents } = JSON.parse(useEditStore().currentAsJson);
 
   const dialogStore = useDialogStore();
   const dialogData = [] as FileEntryWithLanguageAvailability[];
 
+  const supportedLanguages = Object.values(FilterLanguage);
+
+  for (const language of supportedLanguages) {
+    dialogData.push({
+      documentName: '',
+      language,
+      available: false,
+    });
+  }
+
   for (const lang in Documents) {
     const currentLanguageDocuments = Documents[lang];
     for (const currentDocument of currentLanguageDocuments) {
-      if (currentDocument.DocumentURL === item.src) {
-        dialogData.push({
-          documentName: currentDocument.DocumentName,
-          language: lang,
-          // FIXME
-          available: true,
-        });
-      }
+      const index = dialogData.findIndex((item) => item.language === lang);
+      dialogData[index] = {
+        ...dialogData[index],
+        documentName: currentDocument.DocumentName,
+        language: lang,
+        available:
+          currentDocument.DocumentURL === item.src &&
+          Boolean(currentDocument.DocumentName),
+      };
     }
   }
 
@@ -61,6 +98,22 @@ export const setDataForDocumentEdit = (item: FileEntry) => {
 export const clearDialogStore = () => {
   const dialogStore = useDialogStore();
   dialogStore.setItems([]);
+};
+
+export const updateItem = (index: number, value: FileLanguageUpdate) => {
+  const dialogStore = useDialogStore();
+
+  const currentItem = dialogStore.items[dialogStore.activeTab].data[index];
+
+  if (currentItem.documentName && !value.documentName) {
+    value.available = false;
+  }
+
+  if (!currentItem.documentName && value.documentName) {
+    value.available = true;
+  }
+
+  dialogStore.updateItem(index, value);
 };
 
 export const setDialogItems = (
@@ -98,26 +151,45 @@ export const setDialogItems = (
 export const updateItemsInModalAndSave = () => {
   const editStore = useEditStore();
   const currentState = JSON.parse(editStore.currentAsJson);
-  const dialogStore = useDialogStore();
-  const items = dialogStore.items;
+  const itemInModalToSave = getCurrentItemToSave();
+  const itemInModalToDelete = getCurrentItemDelete();
 
   const { Documents } = currentState;
 
-  for (const lang in Documents) {
-    const currentLanguageDocuments = Documents[lang];
-    for (const currentDocument of currentLanguageDocuments) {
-      const sameDocumentInModal = items.find(
-        (item) => item.src === currentDocument.DocumentURL
-      );
-      if (!sameDocumentInModal) continue;
+  for (const documentInModal of itemInModalToDelete.data) {
+    const keyLangDocuments = documentInModal.language as keyof typeof Documents;
+    const currentDocumentData = Documents[keyLangDocuments] || [];
 
-      const itemToUpdate = sameDocumentInModal.data.find(
-        (item) => item.language === lang
-      );
+    const currentSavedDocumentIndex = currentDocumentData.find(
+      (item: any) => item.DocumentURL === itemInModalToSave.src
+    );
 
-      if (!itemToUpdate) continue;
+    if (currentSavedDocumentIndex) {
+      Documents[keyLangDocuments].splice(currentSavedDocumentIndex, 1);
+    }
+  }
 
-      currentDocument.DocumentName = itemToUpdate.documentName;
+  for (const documentInModal of itemInModalToSave.data) {
+    const keyLangDocuments = documentInModal.language as keyof typeof Documents;
+    let currentDocumentData = Documents[keyLangDocuments];
+
+    if (!currentDocumentData) {
+      currentDocumentData = [];
+      Documents[keyLangDocuments] = currentDocumentData;
+    }
+
+    const currentSavedDocument = currentDocumentData.find(
+      (item: any) => item.DocumentURL === itemInModalToSave.src
+    );
+
+    if (currentSavedDocument) {
+      currentSavedDocument.DocumentName = documentInModal.documentName;
+    } else {
+      currentDocumentData.push({
+        DocumentName: documentInModal.documentName,
+        DocumentURL: itemInModalToSave.src,
+        Language: documentInModal.language,
+      });
     }
   }
 
