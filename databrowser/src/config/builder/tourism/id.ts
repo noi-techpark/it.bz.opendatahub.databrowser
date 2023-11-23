@@ -16,13 +16,13 @@ export const idReadOnlyCell = (): PropertyConfig => ({
   params: { readonly: 'true' },
 });
 
-export const customIdCell = (): PropertyConfig => ({
-  title: 'Custom Id',
-  component: CellComponent.StringCell,
-  fields: { text: 'CustomId' },
-});
+// export const customIdCell = (): PropertyConfig => ({
+//   title: 'Custom Id',
+//   component: CellComponent.StringCell,
+//   fields: { text: 'CustomId' },
+// });
 
 export const idAndCustomIdCells = (): PropertyConfig[] => [
   idReadOnlyCell(),
-  customIdCell(),
+  //customIdCell(),
 ];
