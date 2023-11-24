@@ -2,13 +2,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-export enum PaginationType {
-  TOURISM = 'tourism',
-  MOBILITY = 'mobility',
-  ARRAY = 'array',
-  UNKNOWN = 'array',
-}
-
 export interface Pagination {
   totalItems: number;
   pageCount: number;
@@ -16,54 +9,21 @@ export interface Pagination {
   currentPage: number;
   hasPrevious: boolean;
   hasNext: boolean;
-
-  goToPage: (value: number) => void;
-  changePageSize: (value: number) => void;
-}
-
-export interface Pagination2 {
-  totalItems: number;
-  pageCount: number;
-  pageSize: number;
-  currentPage: number;
-  hasPrevious: boolean;
-  hasNext: boolean;
-}
-
-export interface PaginationCallback {
-  goToPage: (page: number) => void;
-  changePageSize: (size: number) => void;
-}
-
-export type PaginationWithCallback = Pagination2 & PaginationCallback;
-
-export type PaginationWithCallbackProvider<T = unknown> = (
-  data: T
-) => PaginationWithCallback;
-
-export type ChangePagination<T = unknown> = (input: T) => Promise<unknown>;
-
-export type ChangePaginationWithQuery = ChangePagination<
-  Record<string, string | number>
->;
-
-export interface PaginationData<T = unknown> {
-  items: T[];
-  pagination: Pagination;
+  hasPagination: boolean;
 }
 
 export interface WithTourismPagination<T = unknown> {
   CurrentPage: number;
   TotalResults: number;
   TotalPages: number;
+  PreviousPage: string | null | undefined;
+  NextPage: string | null | undefined;
   Items: T[];
 }
 
 export const isWithTourismPagination = <T = unknown>(
   data: unknown
 ): data is WithTourismPagination<T> => {
-  // console.log('isWithTourismPagination2q', data);
-
   return (
     data != null &&
     (data as WithTourismPagination).TotalResults != null &&

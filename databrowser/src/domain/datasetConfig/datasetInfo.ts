@@ -93,7 +93,7 @@ export const useDatasetInfo = (
     });
 
   return {
-    isResolving: readonly(isResolving),
+    isLoading: readonly(isResolving),
     isError: readonly(isError),
     error: readonly(error),
     hasConfig: computed(() => datasetConfig.value != null),

@@ -5,29 +5,58 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="flex items-center justify-end bg-gray-50 py-2 text-xs">
-    <span class="mr-3 block">{{ t('datasets.listView.linesPerPage') }}</span>
+  <div
+    class="flex items-center justify-end bg-gray-50 py-2 text-xs"
+    :class="{ 'animate-pulse': isLoading }"
+  >
+    <span class="mr-3 block">
+      {{ t('datasets.listView.linesPerPage') }}
+    </span>
     <SelectCustom
       id="dataset-table-page-size"
       class="mr-6 w-16"
-      :options="pageSizeOptions"
+      :options="options"
       :value="pagination.pageSize.toString()"
+      :show-value-as-label-fallback="true"
       :size="SelectSize.sm"
-      @change="pagination.changePageSize($event)"
+      @change="navigation.changePageSize($event)"
     />
-    <Paginator id="dataset-table-paginator" :pagination="pagination" />
+    <Paginator
+      v-if="isLoading || pagination.hasPagination"
+      id="dataset-table-paginator"
+      :pagination="pagination"
+      :navigation="navigation"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import SelectCustom from '../../../components/select/SelectCustom.vue';
 import Paginator from '../../../components/paginator/Paginator.vue';
-import { Pagination } from '../../api';
 import { useI18n } from 'vue-i18n';
 import { pageSizeOptions } from './defaultValues';
 import { SelectSize } from '../../../components/select/types';
+import { usePaginationStore } from '../../data/pagination/usePaginationStore';
+import { useNavigationStore } from '../../data/navigation/useNavigationStore';
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 
 const { t } = useI18n();
 
-defineProps<{ pagination: Pagination }>();
+const { pagination, isLoading } = storeToRefs(usePaginationStore());
+const { navigation } = storeToRefs(useNavigationStore());
+
+const options = computed(() => {
+  if (pagination.value.hasPagination) {
+    return pageSizeOptions;
+  }
+  // If there is no pagination, show the total number of items
+  // as the select only option.
+  return [
+    {
+      value: pagination.value.totalItems.toString(),
+      label: pagination.value.totalItems.toString(),
+    },
+  ];
+});
 </script>

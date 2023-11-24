@@ -18,7 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :show-edit="editRecordSupported"
             :show-quick="hasQuickView"
           />
-          <TableFooter :pagination="pagination" />
+          <TableFooter />
         </div>
         <TableToolBox :url="fullPath" :cols="cols" />
       </div>
@@ -40,7 +40,6 @@ import TableFilterHint from './filter/TableFilterHint.vue';
 const {
   cols,
   rows,
-  pagination,
   isError,
   error,
   hasDetailView,

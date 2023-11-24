@@ -2,13 +2,14 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { Pagination2 } from '../..';
+import { Pagination } from './types';
 
-export const staticPagination = (): Pagination2 => ({
+export const emptyPagination = (): Pagination => ({
   totalItems: 0,
   pageCount: 0,
-  pageSize: 0,
+  pageSize: 25,
   currentPage: 1,
   hasPrevious: false,
   hasNext: false,
+  hasPagination: false,
 });

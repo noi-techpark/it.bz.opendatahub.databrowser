@@ -3,10 +3,10 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {
-  isWithTourismPagination,
   isWithArrayPagination,
   isWithMobilityPagination,
-} from '../pagination/types';
+  isWithTourismPagination,
+} from '../../data/pagination/types';
 
 export const unwrapData = <T = unknown>(data: unknown): T[] => {
   if (data == null) {

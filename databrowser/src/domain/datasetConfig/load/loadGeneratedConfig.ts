@@ -8,8 +8,8 @@ import {
   ROLE_READ,
   ROLE_UPDATE,
 } from '../../../config/tourism/roles';
-import { isWithTourismPagination } from '../../api';
 import { CellComponent } from '../../cellComponents/types';
+import { isWithTourismPagination } from '../../data/pagination/types';
 import {
   defaultMobilityTableQueryParameters,
   defaultTourismTableQueryParameters,

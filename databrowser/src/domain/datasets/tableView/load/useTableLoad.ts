@@ -6,7 +6,8 @@ import { computed } from 'vue';
 import { useTableLoadConfig } from './useTableLoadConfig';
 import { useTableCols } from './tableCols';
 import { useTableRows } from './tableRows';
-import { useLoadTableData } from './useTableLoadData';
+import { useDataStore } from '../../../data/load/useDataStore';
+import { storeToRefs } from 'pinia';
 
 export const useTableLoad = () => {
   // Load table config
@@ -17,35 +18,32 @@ export const useTableLoad = () => {
     hasDetailView,
     hasQuickView,
     isConfigLoading,
-    paginationProvider,
   } = useTableLoadConfig();
 
   // Load table data
-  const { data, responseData, error, isError, isDataLoading } =
-    useLoadTableData(fullPath);
+  const {
+    isLoading: isDataLoading,
+    isError,
+    error,
+    data,
+  } = storeToRefs(useDataStore());
 
   // Compute loading state
   const isLoading = computed(
     () => isConfigLoading.value || isDataLoading.value
   );
 
-  // Compute pagination
-  const pagination = computed(() =>
-    paginationProvider.compute.value(responseData.value)
-  );
-
   // Compute table cols
   const cols = useTableCols(isLoading, view);
 
   // Compute table rows
-  const rows = useTableRows(isLoading, pagination, data, responseData);
+  const rows = useTableRows(isLoading, data);
 
   return {
     isLoading,
     cols,
     rows,
     fullPath,
-    pagination,
     editRecordSupported,
     hasDetailView,
     hasQuickView,

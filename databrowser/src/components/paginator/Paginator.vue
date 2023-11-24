@@ -15,7 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :class="[pagination.hasPrevious ? 'text-green-500' : 'text-gray-400']"
       :disabled="!pagination.hasPrevious"
       :data-test="`${id}-previous-page`"
-      @click="paginateTo(pagination.currentPage - 1)"
+      @click="navigation.goToPage(pagination.currentPage - 1)"
     >
       <IconStrokedArrowDown class="h-5 w-5 rotate-90 stroke-current" />
     </button>
@@ -26,14 +26,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         v-model="inputPageValue"
         class="border-r-none h-6 w-12 rounded rounded-r-none border-y border-l px-2 focus:border-green-500"
         :data-test="`${id}-page-input`"
-        @keyup.enter="paginateTo(inputPageValue)"
+        @keyup.enter="navigation.goToPage(inputPageValue)"
       />
       <ButtonCustom
         :id="`${id}-paginate-to`"
         size="xs"
         class="h-6 w-9 rounded-l-none"
         :data-test="`${id}-paginate-to`"
-        @click="paginateTo(inputPageValue)"
+        @click="navigation.goToPage(inputPageValue)"
       >
         {{ t('datasets.listView.go') }}
       </ButtonCustom>
@@ -46,7 +46,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :class="[pagination.hasNext ? 'text-green-500' : 'text-gray-400']"
       :disabled="!pagination.hasNext"
       :data-test="`${id}-next-page`"
-      @click="paginateTo(pagination.currentPage + 1)"
+      @click="navigation.goToPage(pagination.currentPage + 1)"
     >
       <IconStrokedArrowDown class="h-5 w-5 -rotate-90 stroke-current" />
     </button>
@@ -55,30 +55,26 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { Pagination } from '../../domain/api';
 import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
 import { useI18n } from 'vue-i18n';
+import { Pagination } from '../../domain/data/pagination/types';
+import { NavigationCallback } from '../../domain/data/navigation/types';
 
 const { t } = useI18n();
 
-const props = defineProps<{ pagination: Pagination; id: string }>();
+const props = defineProps<{
+  pagination: Pagination;
+  navigation: NavigationCallback;
+  id: string;
+}>();
 
 const inputPageValue = ref(props.pagination.currentPage);
-const goToPage = ref(props.pagination.goToPage);
 
 watch(
   () => props.pagination,
-  (pagination) => {
-    inputPageValue.value = pagination.currentPage;
-    goToPage.value = pagination.goToPage;
-  }
+  (pagination) => (inputPageValue.value = pagination.currentPage)
 );
-
-const paginateTo = (value: string | number) => {
-  const numberValue = typeof value === 'string' ? parseInt(value, 10) : value;
-  goToPage.value(numberValue);
-};
 
 const pageOfManyLabel = computed(() =>
   props.pagination.pageCount === Infinity

@@ -8,7 +8,7 @@ import { useNormalizePath } from './normalizedPath';
 
 export const useSingleRecordLoadConfig = () => {
   const {
-    isResolving,
+    isLoading: isConfigLoading,
     view,
     extractValueByPath,
     fullPath,
@@ -37,7 +37,7 @@ export const useSingleRecordLoadConfig = () => {
     hasQuickView,
     isNewView,
     view,
-    isConfigLoading: isResolving,
+    isConfigLoading,
     extractValueByPath,
     isEmbeddedSource,
     isGeneratedSource,

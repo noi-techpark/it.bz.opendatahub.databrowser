@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { WithMobilityPagination, Pagination2 } from '../types';
+import { Pagination, WithMobilityPagination } from './types';
 
-export const mobilityPagination = <T>(
-  data: WithMobilityPagination<T>
-): Pagination2 => {
+export const mobilityPagination = (
+  data: WithMobilityPagination
+): Pagination => {
   // Arbitrary number, because there is no way to
   // know the total number of items in mobility API
   const totalItems = Infinity;
@@ -24,5 +24,6 @@ export const mobilityPagination = <T>(
     currentPage,
     hasPrevious,
     hasNext,
+    hasPagination: hasPrevious || hasNext,
   };
 };
