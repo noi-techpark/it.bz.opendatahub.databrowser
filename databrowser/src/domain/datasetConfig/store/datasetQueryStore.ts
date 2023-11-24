@@ -46,8 +46,9 @@ export const useDatasetQueryStore = defineStore('datasetRoutingStore', () => {
         if (queryHandlers.value[name] == null) {
           const query = { ...router.currentRoute.value.query, [name]: value };
           router.push({ query });
+        } else {
+          queryHandlers.value[name].value = value;
         }
-        queryHandlers.value[name].value = value;
       },
     });
 
