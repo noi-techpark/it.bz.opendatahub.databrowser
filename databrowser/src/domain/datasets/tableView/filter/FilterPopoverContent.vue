@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <PopoverContent class="pt-2">
     <ButtonCustom
-      class="w-full p-2"
+      class="w-full min-w-[20em] p-2"
       :size="Size.xs"
       :variant="Variant.ghost"
       @click="addFilterInternal"
@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <PopoverContentDivider v-if="isFilterActive" />
   <PopoverContent v-if="isFilterActive" class="flex justify-center">
     <ButtonCustom
-      class="flex items-center gap-2 p-2"
+      class="flex min-w-[20em] items-center gap-2 p-2"
       :size="Size.xs"
       :variant="Variant.ghost"
       @click="removeFilter"

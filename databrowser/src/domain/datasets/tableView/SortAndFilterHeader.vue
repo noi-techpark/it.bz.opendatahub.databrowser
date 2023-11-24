@@ -29,15 +29,23 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </template>
       <template #container>
         <PopoverCustomPanel v-slot="{ close }">
-          <PopoverContentHeader class="pb-0">Sort</PopoverContentHeader>
-          <SortPopoverContent :property-path="propertyPath" />
+          <template v-if="canSort">
+            <PopoverContentHeader class="pb-0">Sort</PopoverContentHeader>
+            <SortPopoverContent :property-path="propertyPath" />
+          </template>
 
-          <PopoverContentHeader class="py-0">Filter</PopoverContentHeader>
-          <FilterPopoverContent
-            :property-path="propertyPath"
-            :title="title"
-            @add-filter="close"
-          />
+          <template v-if="canFilter">
+            <PopoverContentHeader
+              :class="[{ 'py-0': canSort, 'pb-0': !canSort }]"
+            >
+              Filter
+            </PopoverContentHeader>
+            <FilterPopoverContent
+              :property-path="propertyPath"
+              :title="title"
+              @add-filter="close"
+            />
+          </template>
         </PopoverCustomPanel>
       </template>
     </PopoverCustom>

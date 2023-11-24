@@ -6,6 +6,8 @@ import { Ref, computed } from 'vue';
 import { SortState } from './types';
 import { PropertyPath } from '../../../datasetConfig/types';
 import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
+import { storeToRefs } from 'pinia';
+import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
 
 // This function computes the rawsort value based on the sort field and the sort state.
 const rawsortValue = (propertyPath: PropertyPath, sortState: SortState) => {
@@ -22,6 +24,8 @@ const rawsortValue = (propertyPath: PropertyPath, sortState: SortState) => {
 export const useTableSortForPropertyPath = (
   propertyPath: Ref<string | undefined>
 ) => {
+  const { datasetDomain } = storeToRefs(useDatasetInfoStore());
+
   const rawsort = useDatasetQueryStore().handle('rawsort');
 
   // The currentSortState property contains the current sort state for the given field.
@@ -46,7 +50,9 @@ export const useTableSortForPropertyPath = (
   });
 
   // The canSort property is true if the given field can be sorted.
-  const canSort = computed(() => propertyPath.value != null);
+  const canSort = computed(
+    () => datasetDomain.value !== 'mobility' && propertyPath.value != null
+  );
 
   const isCurrentSortAsc = computed(() => currentSortState.value === 'asc');
 
