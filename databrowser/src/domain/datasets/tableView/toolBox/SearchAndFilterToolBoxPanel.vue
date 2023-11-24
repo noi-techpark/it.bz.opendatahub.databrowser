@@ -34,6 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
         <ResetAllFilters @reset-all-filters="removeAllFilters" />
       </ToolBoxCardHeader>
+
       <ToolBoxCardBody
         v-for="(filter, index) in filtersFromStore"
         :key="`${filter.propertyPath}-${index}`"
@@ -49,6 +50,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <div class="flex items-center gap-2">
           <SelectCustom
             :options="filterOptions"
+            :show-value-as-label-fallback="true"
             :value="filter.propertyPath"
             :z-index="30"
             class="basis-1/2"
@@ -104,11 +106,17 @@ import ToolBoxCardBody from '../../toolBox/ToolBoxCardBody.vue';
 import ToolBoxCardHeader from '../../toolBox/ToolBoxCardHeader.vue';
 import ToolBoxPanel from '../../toolBox/ToolBoxPanel.vue';
 import ResetAllFilters from '../filter/ResetAllFilters.vue';
-import { filterSelectOptions } from '../filter/filterSelectOptions';
+import {
+  mobilityFilterSelectOptions,
+  tourismFilterSelectOptions,
+} from '../filter/filterSelectOptions';
 import { useTableFilter } from '../filter/useTableFilter';
 import InfoFilter from './InfoFilter.vue';
 import InfoSearch from './InfoSearch.vue';
 import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
+import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
 
 const { t } = useI18n();
 
@@ -128,4 +136,15 @@ const {
   removeFilterByIndex,
   filtersFromStore,
 } = useTableFilter();
+
+const { datasetDomain } = storeToRefs(useDatasetInfoStore());
+const filterSelectOptions = computed(() => {
+  if (datasetDomain.value === 'tourism') {
+    return tourismFilterSelectOptions;
+  }
+  if (datasetDomain.value === 'mobility') {
+    return mobilityFilterSelectOptions;
+  }
+  return [];
+});
 </script>

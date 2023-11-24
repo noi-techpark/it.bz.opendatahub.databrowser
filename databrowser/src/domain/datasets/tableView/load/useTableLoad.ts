@@ -37,7 +37,7 @@ export const useTableLoad = () => {
   const cols = useTableCols(isLoading, view);
 
   // Compute table rows
-  const rows = useTableRows(isLoading, data);
+  const rows = useTableRows(isDataLoading, data);
 
   return {
     isLoading,

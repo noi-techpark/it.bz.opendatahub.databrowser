@@ -6,23 +6,23 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <section class="flex flex-1 flex-col justify-start overflow-y-auto">
-    <LoadingError v-if="isError" :error="error" />
-    <template v-else>
-      <TableFilterHint />
-      <div class="flex h-full overflow-y-auto">
-        <div class="flex flex-1 flex-col overflow-y-auto">
-          <TableContent
-            :cols="cols"
-            :rows="rows"
-            :show-detail="hasDetailView"
-            :show-edit="editRecordSupported"
-            :show-quick="hasQuickView"
-          />
-          <TableFooter />
-        </div>
-        <TableToolBox :url="fullPath" :cols="cols" />
+    <TableFilterHint />
+    <div class="flex h-full overflow-y-auto">
+      <div v-if="isError" class="flex flex-1">
+        <LoadingError :error="error" />
       </div>
-    </template>
+      <div v-else class="flex flex-1 flex-col overflow-y-auto">
+        <TableContent
+          :cols="cols"
+          :rows="rows"
+          :show-detail="hasDetailView"
+          :show-edit="editRecordSupported"
+          :show-quick="hasQuickView"
+        />
+        <TableFooter />
+      </div>
+      <TableToolBox :url="fullPath" :cols="cols" />
+    </div>
   </section>
 </template>
 

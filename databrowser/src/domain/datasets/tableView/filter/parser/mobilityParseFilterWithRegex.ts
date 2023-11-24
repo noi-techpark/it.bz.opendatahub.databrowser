@@ -9,20 +9,13 @@ import {
   isFilterOperator,
 } from '../types';
 
-// This regex is used to parse the rawfilter parameter from the url.
-//
-// See https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter
-// for more information about the rawfilter parameter.
+// This regex is used to parse the where parameter from the Mobility API URL.
 //
 // ------------------------------------------------------------
 //
 //                 !!!! IMPORTANT !!!!
 //
-// The regex is not perfect, in some cases it matches invalid values like "isnull(propertyPath, value)"
-// but that kind of rawfilter value causes the backend to fail with a 500 error, so this should
-// not be a huge problem.
-//
-// Another drawback of the regex is that it does not support deep nested and / or conditions.
+// The regex is not perfect, e.g. it does not support deep nested and / or conditions.
 // Since this kind of nested filters are out of scope for the MVP, we can live with this.
 //
 // The backend uses a full CFG parser. Implementing the parser in the frontend as regex was a
@@ -35,35 +28,48 @@ import {
 // ------------------------------------------------------------
 //
 // The regex matches the following:
-// - eq(propertyPath, value)
-// - ne(propertyPath, value)
-// - gt(propertyPath, value)
-// - lt(propertyPath, value)
-// - ge(propertyPath, value)
-// - le(propertyPath, value)
-// - isnull(propertyPath)
-// - isnotnull(propertyPath)
-// - in(propertyPath, value)
-// - nin(propertyPath, value)
+// - propertyPath.eq.value
+// - propertyPath.neq.value
+// - propertyPath.gt.value
+// - propertyPath.lt.value
+// - propertyPath.gteq.value
+// - propertyPath.lteq.value
+// - propertyPath.re.value
+// - propertyPath.ire.value
+// - propertyPath.nre.value
+// - propertyPath.nire.value
+// - propertyPath.in.(value1,value2,...)
+// - propertyPath.nin.(value1,value2,...)
+// - propertyPath.bbi.(bounding box, e.g 11,46,12,47,4326 where the ordering inside the list is left-x, left-y, right-x, right-y and SRID (optional))
+// - propertyPath.bbc.(bounding box, e.g 11,46,12,47,4326 where the ordering inside the list is left-x, left-y, right-x, right-y and SRID (optional))
 //
 // Where:
-// - operator is one of the above: eq, ne, gt, lt, ge, le, isnull, isnotnull, in, nin
+// - operator is one of the above: eq, neq, gt, lt, gteq, lteq, re, ire, nre, nire, in, nin, bbi, bbc
+//   - eq: equal
+//   - neq: not equal
+//   - gt: greater than
+//   - lt: lower than
+//   - gteq: greater than or equal
+//   - lteq: lower than or equal
+//   - re: regular expression
+//   - ire: case insensitive regular expression
+//   - nre: negated regular expression
+//   - nire: negated case insensitive regular expression
+//   - in: in list
+//   - nin: not in list
+//   - bbi: bounding box intersects
+//   - bbc: bounding box contains
 //
-// - propertyPath is a string:
-//   - it can contain dots (.) to define the path to nested properties
-//   - it can contain brackets ([]) -- with optional star ([*]) -- to target all array elements
-//   - it can contain brackets with a number (e.g. [0]) to target a specific array element
+// - propertyPath is a string, that must not contain the dot (.) character
 //
 // - value is:
 //   - boolean
 //   - number
-//   - empty brackets ([])
-//   - string surrounded by single or double quotes
-//   - undefined for isnull and isnotnull operators
+//   - string surrounded by double quotes
 const filterRegex =
-  /(?<operator>eq|ne|gt|lt|ge|le|isnull|isnotnull|in|nin|like|likein)\((?<propertyPath>\w+(\.(\w+|\[(\*|\d+)?\]))*)(,\s*(?<value>true|false|\d+|\[\]|'(?:[^']|'')*'|"(?:[^"]|"")*"))?\)/g;
+  /(?<propertyPath>\w+)\.(?<operator>eq|neq|gt|lt|gteq|lteq|re|ire|nre|nire|in|nin|bbi|bbc)\.(?<value>true|false|\d+|"\w*"|\([\w.,]*\))/g;
 
-export const parseFilterWithRegex: RawfilterParser = (rawfilter) => {
+export const mobilityParseFilterWithRegex: RawfilterParser = (rawfilter) => {
   // If rawfilter is undefined, return an empty array.
   if (rawfilter == undefined) {
     return [];
@@ -91,10 +97,6 @@ export const parseFilterWithRegex: RawfilterParser = (rawfilter) => {
 };
 
 const convertToPropertyPath = (propertyPath: string) => {
-  // Handle array propertyPaths for includes / not includes operators
-  if (propertyPath.endsWith('.[*]')) {
-    return propertyPath.substring(0, propertyPath.length - 4);
-  }
   return propertyPath;
 };
 
@@ -103,14 +105,12 @@ const convertToValue = (value: string | undefined) => {
     return true;
   } else if (value === 'false') {
     return false;
-  } else if (value === '[]') {
-    return [];
   } else if (value === undefined) {
     return undefined;
-  } else if (value.match(/^'(.*)'$/)) {
-    return value.replace(/^'(.*)'$/, '$1');
-  } else if (value.match(/^"(.*)"$/)) {
-    return value.replace(/^"(.*)"$/, '$1');
+  } else if (value.match(/^"\w*"$/)) {
+    return value.replace(/^"(\w*)"$/, '$1');
+  } else if (value.match(/^\([\w.,]*\)$/)) {
+    return value.replace(/^\(([\w.,]*)\)$/, '$1');
   } else if (value.match(/^\d+$/)) {
     return Number(value);
   } else {

@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { FilterOption } from './types';
+import { MobilityFilterOption, TourismFilterOption } from './types';
 
-export const filterSelectOptions: FilterOption[] = [
+export const tourismFilterSelectOptions: TourismFilterOption[] = [
   {
     label: 'equal to',
     value: 'eq',
@@ -52,5 +52,64 @@ export const filterSelectOptions: FilterOption[] = [
   {
     label: 'likein',
     value: 'likein',
+  },
+];
+
+export const mobilityFilterSelectOptions: MobilityFilterOption[] = [
+  {
+    label: 'equal to',
+    value: 'eq',
+  },
+  {
+    label: 'not equal to',
+    value: 'neq',
+  },
+  {
+    label: 'greater than',
+    value: 'gt',
+  },
+  {
+    label: 'greater or equal',
+    value: 'gteq',
+  },
+  {
+    label: 'less than',
+    value: 'lt',
+  },
+  {
+    label: 'less or equal',
+    value: 'lteq',
+  },
+  {
+    label: 'includes',
+    value: 'in',
+  },
+  {
+    label: 'not includes',
+    value: 'nin',
+  },
+  {
+    label: 'regular expression',
+    value: 're',
+  },
+  {
+    label: 'insensitive regular expression',
+    value: 'ire',
+  },
+  {
+    label: 'negated regular expression',
+    value: 'nre',
+  },
+  {
+    label: 'negated insensitive regular expression',
+    value: 'nire',
+  },
+  {
+    label: 'bounding box intersection',
+    value: 'bbi',
+  },
+  {
+    label: 'bounding box containing',
+    value: 'bbc',
   },
 ];

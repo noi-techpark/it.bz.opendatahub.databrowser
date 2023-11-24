@@ -110,11 +110,7 @@ export const computeDatasetRouteLocations = (
   const recordId = computeRecordId(datasetDomain, record);
 
   const singleRecordParams =
-    datasetDomain === 'tourism'
-      ? { ...params, id: recordId }
-      : record.scode == null
-      ? { ...params, id: recordId }
-      : params;
+    datasetDomain === 'tourism' ? { ...params, id: recordId } : params;
 
   const singleRecordQuery =
     datasetDomain === 'tourism'

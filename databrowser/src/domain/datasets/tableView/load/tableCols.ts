@@ -19,15 +19,9 @@ export const computeTableCols = (
   }
 
   const listView = view as ListViewConfig;
-  if (!isLoading) {
-    return listView.elements;
-  }
-
-  return listView.elements.map<ListElements>((col) => ({
-    title: col.title,
-    component: CellComponent.LoadingCell,
-    objectMapping: {},
-    class: col.class,
+  return listView.elements.map<ListElements>((element) => ({
+    ...element,
+    component: isLoading ? CellComponent.LoadingCell : element.component,
   }));
 };
 
