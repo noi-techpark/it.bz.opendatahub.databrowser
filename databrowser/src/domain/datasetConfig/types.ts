@@ -25,6 +25,8 @@ interface BasePropertyConfig {
  * e.g. for the language. They are denoted by curly braces, e.g.:
  * "person.{language}.name"
  */
+// TODO: should this rather be a string array? That would make it easier to
+// parse and handle the path
 export type PropertyPath = string;
 
 /**

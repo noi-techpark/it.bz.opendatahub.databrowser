@@ -23,19 +23,19 @@ export const representationListView: ListViewConfig = {
       title: 'Stations',
       component: CellComponent.UrlCell,
       class: 'w-80',
-      objectMapping: { text: 'self.stations' },
+      objectMapping: { text: 'self\\.stations' },
     },
     {
       title: 'Datatypes',
       component: CellComponent.UrlCell,
       class: 'w-80',
-      objectMapping: { text: 'self.stations+datatypes' },
+      objectMapping: { text: 'self\\.stations+datatypes' },
     },
     {
       title: 'Measurements',
       component: CellComponent.UrlCell,
       class: 'w-80',
-      objectMapping: { text: 'self.stations+datatypes+measurements' },
+      objectMapping: { text: 'self\\.stations+datatypes+measurements' },
     },
   ],
 };

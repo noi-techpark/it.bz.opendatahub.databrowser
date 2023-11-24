@@ -30,8 +30,9 @@ export const useNavigationCallback = (
       case 'mobility': {
         return mobilityNavigation();
       }
+      default: {
+        return emptyNavigation();
+      }
     }
-
-    return emptyNavigation();
   });
 };

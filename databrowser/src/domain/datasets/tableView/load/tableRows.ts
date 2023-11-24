@@ -4,17 +4,13 @@
 
 import { MaybeRef, computed, toValue } from 'vue';
 
-const buildFallbackRows = (pageSize: number) =>
-  [...Array(pageSize).keys()].map((_, index) => ({ Id: index }));
-
 export const computeTableRows = (
   isLoading: boolean,
   data: unknown[] | null
 ) => {
-  // If there are no items yet (e.g. because of initial load),
-  // show a fallback table with empty rows
+  // While loading show a table with empty rows
   if (isLoading) {
-    return buildFallbackRows(25);
+    return Array(25);
   }
 
   // If the data is null / undefined (e.g. because of an error),

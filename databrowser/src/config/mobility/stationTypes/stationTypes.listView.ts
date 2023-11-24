@@ -14,6 +14,12 @@ export const stationTypesListView: ListViewConfig = {
       objectMapping: { text: 'sname' },
     },
     {
+      title: 'Station code',
+      component: CellComponent.StringCell,
+      class: 'w-60',
+      objectMapping: { text: 'scode' },
+    },
+    {
       title: 'Station type',
       component: CellComponent.StringCell,
       class: 'w-40',

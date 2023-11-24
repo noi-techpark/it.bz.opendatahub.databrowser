@@ -5,22 +5,28 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <ButtonLink
+  <component
+    :is="buttonType"
     :to="to"
     variant="ghost"
     size="xs"
     class="flex h-10 w-11 flex-col items-center p-1"
+    :disabled="disabled"
   >
     <slot></slot>
-  </ButtonLink>
+  </component>
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
+import ButtonCustom from '../../../components/button/ButtonCustom.vue';
 
-const props = defineProps<{ to: RouteLocationRaw }>();
+const props = defineProps<{ to?: RouteLocationRaw }>();
 
 const { to } = toRefs(props);
+
+const buttonType = computed(() => (to?.value ? ButtonLink : ButtonCustom));
+const disabled = computed(() => to?.value == null);
 </script>

@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </tr>
       <tr
         v-for="(row, index) in rows"
-        :key="rowId(row, index.toString())"
+        :key="rowId(datasetDomain, row, index.toString())"
         :class="{ 'bg-green-400/10': index === selectedRowIndex }"
         @click="rowClicked(index)"
         @dblclick="rowDblClicked(row)"
@@ -82,6 +82,8 @@ import TableDataEmpty from './TableDataEmpty.vue';
 import TableLinks from './TableLinks.vue';
 import { useTableRowSelection } from './useTableRowSelection';
 import { rowId } from './utils';
+import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
+import { storeToRefs } from 'pinia';
 
 const { t } = useI18n();
 
@@ -107,6 +109,8 @@ const { selectedRowIndex, rowClicked, rowDblClicked } =
 const showLinkColumn = computed(
   () => props.showDetail || props.showEdit || props.showQuick
 );
+
+const { datasetDomain } = storeToRefs(useDatasetInfoStore());
 
 let updateStart = 0;
 

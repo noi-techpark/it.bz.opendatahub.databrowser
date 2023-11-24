@@ -7,22 +7,56 @@ import { useRouter } from 'vue-router';
 import { useDatasetInfo } from '../datasetInfo';
 import { useDatasetSourceStore } from './datasetSourceStore';
 import { watch } from 'vue';
+import { useComputeRouteLocation } from '../location/routeLocation';
 
 export const useDatasetInfoStore = defineStore('datasetInfoStore', () => {
-  const { currentRoute } = useRouter();
+  const router = useRouter();
+  const { currentRoute } = router;
+
+  const routeLocation = useComputeRouteLocation(currentRoute);
   const { source } = storeToRefs(useDatasetSourceStore());
-  const datasetInfo = useDatasetInfo(currentRoute, source);
+  const datasetInfo = useDatasetInfo(routeLocation, source);
 
   // Update dataset config source, because it may change after the dataset info
   // has been computed (e.g. if a fallback config is used)
   watch(
-    () => datasetInfo,
-    ({ isEmbeddedSource, isGeneratedSource }) => {
+    datasetInfo.isLoading,
+    (isLoading) => {
+      if (isLoading) {
+        return;
+      }
+
+      const { isEmbeddedSource, isGeneratedSource } = datasetInfo;
       if (isEmbeddedSource.value) {
         source.value = 'embedded';
       } else if (isGeneratedSource.value) {
         source.value = 'generated';
       }
+    },
+    { immediate: true }
+  );
+
+  // Remove default values from query params. This is a pure esthetical
+  // function, to avoid showing default values in the URL.
+  watch(
+    datasetInfo.datasetQuery,
+    (datasetQuery) => {
+      const defaultQueryValues = datasetQuery?.default;
+      if (defaultQueryValues == null) {
+        return;
+      }
+
+      const routeQuery = { ...currentRoute.value.query };
+
+      // Remove default values from query params
+      Object.entries(defaultQueryValues).forEach(([key, value]) => {
+        if (routeQuery[key] === value) {
+          delete routeQuery[key];
+        }
+      });
+
+      // Update route
+      router.replace({ query: routeQuery });
     },
     { immediate: true }
   );

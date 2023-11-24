@@ -2,6 +2,9 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import { computeRecordId } from '../../data/navigation/useNavigationUrls';
+import { DatasetDomain } from '../../datasetConfig/types';
+
 /**
  * Extract row id from raw object.
  * If the object has an Id property, then return that. Otherwise, if the object
@@ -12,5 +15,8 @@
  * @param defaultId The default id to return if no id is found.
  * @returns The id of the row.
  */
-export const rowId = (row: { Id?: string; id?: string }, defaultId?: string) =>
-  row.Id ?? row.id ?? defaultId;
+export const rowId = (
+  datasetDomain: DatasetDomain | undefined,
+  record: any,
+  defaultId?: string
+) => computeRecordId(datasetDomain, record) ?? defaultId;

@@ -2,29 +2,30 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { Ref, computed, readonly, ref } from 'vue';
-import { RouteLocationNormalizedLoaded } from 'vue-router';
+import { MaybeRef, ToRefs, computed, readonly, ref, toValue } from 'vue';
 import { useResolveDatasetConfig } from './datasetConfigResolver';
-import { useComputeDatasetLocation } from './location/datasetLocation';
-import { useComputeRouteLocation } from './location/routeLocation';
-import { useComputeDatasetPermission } from './permission/datasetPermission';
-import { useComputeView } from './view/view';
 import { useDatasetConfigSourceComputations } from './datasetConfigSource';
-import { useComputeViewType } from './view/viewType';
-import { useComputeViewPresence } from './view/viewPresence';
-import { DatasetConfigSource } from './load/types';
-import { useComputeViewKey } from './view/viewKey';
 import { useValueExtractor } from './extract/valueExtractor';
+import { DatasetConfigSource } from './load/types';
+import { useComputeDatasetLocation } from './location/datasetLocation';
+import { useComputeDatasetPermission } from './permission/datasetPermission';
 import { useParamsReplacer } from './replace/paramsReplacer';
 import { usePropertyPathReplacer } from './replace/propertyPathReplacer';
+import { RouteLocation } from './types';
+import { useComputeView } from './view/view';
+import { useComputeViewKey } from './view/viewKey';
+import { useComputeViewPresence } from './view/viewPresence';
+import { useComputeViewType } from './view/viewType';
 
 export const useDatasetInfo = (
-  route: Ref<RouteLocationNormalizedLoaded>,
-  preferredSource = ref<DatasetConfigSource>('any')
+  routeLocation: MaybeRef<ToRefs<RouteLocation>>,
+  preferredSource: MaybeRef<DatasetConfigSource> = ref<DatasetConfigSource>(
+    'any'
+  )
 ) => {
   // Compute route location info
   const { routeName, routeDomain, routePath, routeId, routeQuery } =
-    useComputeRouteLocation(route);
+    toValue(routeLocation);
 
   // Resolve dataset config
   const { isResolving, isError, datasetConfig, error } =

@@ -10,8 +10,17 @@ import {
   TargetPropertyName,
 } from '../datasetConfig/types';
 
+// Split path by "." but not if the "." is escaped by a backslash
+// This is useful for paths like "self.stations+datatypes+measurements"
+// in the mobility domain, where the "." is not always a separator but
+// sometimes part of the property name, e.g. "self.stations+datatypes"
+const regexPathSplit = /(?<!\\)\./;
+const regexDoubleSlashes = /\\/g;
+
 export const extractValueByPath = (data: unknown, path: string) => {
-  const pathAsArray = path.split('.');
+  const pathAsArray = path
+    .split(regexPathSplit)
+    .map((p) => p.replace(regexDoubleSlashes, ''));
   const lensePath = R.lensPath(pathAsArray);
   return R.view(lensePath, data);
 };
