@@ -29,16 +29,37 @@ export const getCurrentDocumentLanguageAvailability = (item: FileEntry) => {
   return foundLanguages.join(', ');
 };
 
+export const setIgnoreDelete = (value: boolean) => {
+  const dialogStore = useDialogStore();
+
+  dialogStore.setIgnoreDelete(value);
+};
+
+export const removeAllCurrentItemNames = () => {
+  const dialogStore = useDialogStore();
+
+  const items = dialogStore.items;
+  for (const item of items) {
+    for (const documentData of item.data) {
+      documentData.documentName = '';
+    }
+  }
+
+  dialogStore.setItems(items);
+};
+
 export const getCurrentItemToSave = () => {
   const dialogStore = useDialogStore();
 
   const currentItem = dialogStore.items[dialogStore.activeTab];
 
+  if (dialogStore.ignoreDelete) {
+    return { data: [] };
+  }
+
   return {
     ...currentItem,
-    data: currentItem.data.filter(
-      (item) => item.available && Boolean(item.documentName)
-    ),
+    data: currentItem.data.filter((item) => item.available),
   };
 };
 
@@ -47,11 +68,20 @@ export const getCurrentItemDelete = () => {
 
   const currentItem = dialogStore.items[dialogStore.activeTab];
 
+  // if (dialogStore.ignoreDelete) {
+  //   const currentLanguageDocuments = Documents[lang];
+  //   for (const currentDocument of currentLanguageDocuments) {
+  //     if (Object.prototype.hasOwnProperty.call(Documents, key)) {
+  //       const element = Documents[key];
+  //     }
+  //   }
+  //   const supportedLanguages = [];
+  //   return { data: [] };
+  // }
+
   return {
     ...currentItem,
-    data: currentItem.data.filter(
-      (item) => !item.available || !item.documentName
-    ),
+    data: currentItem.data.filter((item) => !item.available),
   };
 };
 
