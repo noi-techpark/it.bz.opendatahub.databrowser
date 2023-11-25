@@ -8,45 +8,45 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div class="grid grid-cols-2 gap-2">
     <DetailsLink
       v-if="showQuick"
-      :to="quickLink?.route"
+      :to="quickLocation"
       :title="t('datasets.listView.viewLinks.quick.title')"
       data-test="dataset-quick-link"
     >
       <IconLayer class="grow stroke-current" />
-      <span class="text-3xs uppercase">{{
-        t('datasets.listView.viewLinks.quick.short')
-      }}</span>
+      <span class="text-3xs uppercase">
+        {{ t('datasets.listView.viewLinks.quick.short') }}
+      </span>
     </DetailsLink>
     <DetailsLink
-      :to="detailLink?.route"
+      :to="detailLocation"
       :title="t('datasets.listView.viewLinks.detail.title')"
       data-test="dataset-detail-link"
     >
       <IconEye class="grow stroke-current" />
-      <span class="text-3xs uppercase">{{
-        t('datasets.listView.viewLinks.detail.short')
-      }}</span>
+      <span class="text-3xs uppercase">
+        {{ t('datasets.listView.viewLinks.detail.short') }}
+      </span>
     </DetailsLink>
     <DetailsLink
       v-if="showEdit"
-      :to="editLink?.route"
+      :to="editLocation"
       :title="t('datasets.listView.viewLinks.edit.title')"
       data-test="dataset-edit-link"
     >
       <IconEdit class="grow stroke-current" />
-      <span class="text-3xs uppercase">{{
-        t('datasets.listView.viewLinks.edit.short')
-      }}</span>
+      <span class="text-3xs uppercase">
+        {{ t('datasets.listView.viewLinks.edit.short') }}
+      </span>
     </DetailsLink>
     <DetailsLink
-      :to="rawLink?.route"
+      :to="rawLocation"
       :title="t('datasets.listView.viewLinks.raw.title')"
       data-test="dataset-raw-link"
     >
       <IconCode class="grow stroke-current" />
-      <span class="text-3xs uppercase">{{
-        t('datasets.listView.viewLinks.raw.short')
-      }}</span>
+      <span class="text-3xs uppercase">
+        {{ t('datasets.listView.viewLinks.raw.short') }}
+      </span>
     </DetailsLink>
   </div>
 </template>
@@ -58,10 +58,10 @@ import IconLayer from '../../../components/svg/IconLayer.vue';
 import IconEdit from '../../../components/svg/IconEdit.vue';
 import IconCode from '../../../components/svg/IconCode.vue';
 import IconEye from '../../../components/svg/IconEye.vue';
-import { useDatasetRouteLinks } from '../../data/navigation/useNavigationUrls';
 import { storeToRefs } from 'pinia';
 import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
 import { toRefs } from 'vue';
+import { useSingleRecordLocations } from '../location/datasetLocation';
 
 const { t } = useI18n();
 
@@ -76,10 +76,7 @@ const { row } = toRefs(props);
 const { datasetDomain, datasetPath, datasetQuery } = storeToRefs(
   useDatasetInfoStore()
 );
-const { detailLink, editLink, rawLink, quickLink } = useDatasetRouteLinks(
-  datasetDomain,
-  datasetPath,
-  datasetQuery,
-  row
-);
+
+const { detailLocation, editLocation, rawLocation, quickLocation } =
+  useSingleRecordLocations(datasetDomain, datasetPath, datasetQuery, row);
 </script>

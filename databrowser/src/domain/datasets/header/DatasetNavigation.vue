@@ -24,41 +24,43 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </ButtonLink>
 
         <TabLink
-          v-if="isNewView"
+          v-if="isNewView && newLocation"
           :label="t('datasets.navigation.newView')"
-          :to="newViewPath"
+          :to="newLocation"
           :active="true"
           data-test="new-view-link"
         ></TabLink>
 
         <TabLink
-          v-if="!isNewView && hasQuickView"
+          v-if="!isNewView && hasQuickView && quickLocation"
           :label="t('datasets.navigation.quickView')"
-          :to="quickViewPath"
+          :to="quickLocation"
           :active="isQuickView"
           data-test="quick-view-link"
         />
-        <!-- <TabLink
-          v-if="!isNewView && hasDetailView"
+        <TabLink
+          v-if="!isNewView && hasDetailView && detailLocation"
           :label="t('datasets.navigation.detailView')"
-          :to="detailViewPath"
+          :to="detailLocation"
           :active="isDetailView"
           data-test="detail-view-link"
-        /> -->
-        <!-- <TabLink
-          v-if="!isNewView && editRecordSupported"
+        />
+        <TabLink
+          v-if="
+            !isNewView && hasEditView && editRecordSupported && editLocation
+          "
           :label="t('datasets.navigation.editView')"
-          :to="editViewPath"
+          :to="editLocation"
           :active="isEditView"
           data-test="edit-view-link"
-        /> -->
-        <!-- <TabLink
-          v-if="!isNewView"
+        />
+        <TabLink
+          v-if="!isNewView && rawLocation"
           :label="t('datasets.navigation.rawView')"
-          :to="rawViewPath"
+          :to="rawLocation"
           :active="isRawView"
           data-test="raw-view-link"
-        /> -->
+        />
       </ContentAlignmentX>
     </div>
   </div>
@@ -70,44 +72,52 @@ import ButtonLink from '../../../components/button/ButtonLink.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import TabLink from '../../../components/tab/TabLink.vue';
 import { useI18n } from 'vue-i18n';
-import { usePathsForCurrentRoute } from './usePaths';
 import { computed } from 'vue';
 import { useTableViewRouteQueryStore } from '../tableView/tableViewRouteQueryStore';
 import { storeToRefs } from 'pinia';
 import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
+import { useDatasetLocations } from '../location/datasetLocation';
+import { useDataStore } from '../../data/load/useDataStore';
 
 const { t } = useI18n();
 
 const {
-  editRecordSupported,
   hasDetailView,
+  hasEditView,
   hasQuickView,
   isDetailView,
   isEditView,
   isNewView,
-  isQuickView,
   isRawView,
+  isQuickView,
+  editRecordSupported,
+  datasetDomain,
+  datasetPath,
+  datasetQuery,
 } = storeToRefs(useDatasetInfoStore());
 
+const { data } = storeToRefs(useDataStore());
+
 const {
-  detailViewPath,
-  quickViewPath,
-  rawViewPath,
-  editViewPath,
-  tableViewPath,
-  newViewPath,
-} = usePathsForCurrentRoute();
+  tableLocation,
+  detailLocation,
+  editLocation,
+  newLocation,
+  rawLocation,
+  quickLocation,
+} = useDatasetLocations(datasetDomain, datasetPath, datasetQuery, data);
 
 // Combine query params from TableView with ones from the current route.
 // This is needed to keep the query params when switching between DetailView
 // and TableView.
 const { routeQuery } = useTableViewRouteQueryStore();
 const combinedTableViewPath = computed(() => {
+  const tableLocationValue = tableLocation?.value ?? {};
   return {
-    ...tableViewPath.value,
+    ...tableLocationValue,
     query: {
       ...routeQuery,
-      ...tableViewPath.value.query,
+      ...(tableLocationValue.query ?? {}),
     },
   };
 });

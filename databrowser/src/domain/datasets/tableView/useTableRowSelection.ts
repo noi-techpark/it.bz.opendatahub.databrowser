@@ -4,11 +4,15 @@
 
 import { Ref, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { usePathsForCurrentRoute } from '../header/usePaths';
-import { rowId } from './utils';
+import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
+import { storeToRefs } from 'pinia';
+import { DatasetPath, DatasetQuery } from '../../datasetConfig/types';
+import { computeDatasetLocations } from '../location/datasetLocation';
 
 export const useTableRowSelection = (rows: Ref<unknown[]>) => {
-  const { detailViewPathForId } = usePathsForCurrentRoute();
+  const { datasetDomain, datasetPath, datasetQuery } = storeToRefs(
+    useDatasetInfoStore()
+  );
 
   // Handle row selection
   const selectedRowIndex = ref<number | undefined>();
@@ -17,14 +21,15 @@ export const useTableRowSelection = (rows: Ref<unknown[]>) => {
   // Handle double click
   const router = useRouter();
   const rowDblClicked = (row: unknown) => {
-    if (row == null) {
-      return;
+    const { detailLocation } = computeDatasetLocations(
+      datasetDomain.value,
+      datasetPath.value as DatasetPath,
+      datasetQuery.value?.raw as DatasetQuery['raw'],
+      row
+    );
+    if (detailLocation != null) {
+      router.push(detailLocation);
     }
-    const id = rowId(row);
-    if (id == null) {
-      return;
-    }
-    router.push(detailViewPathForId(id).value);
   };
 
   // Watch changes in rows array and reset selectedRowIndex

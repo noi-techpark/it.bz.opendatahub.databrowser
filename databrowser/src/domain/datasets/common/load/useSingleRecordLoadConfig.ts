@@ -41,5 +41,6 @@ export const useSingleRecordLoadConfig = () => {
     extractValueByPath,
     isEmbeddedSource,
     isGeneratedSource,
+    datasetDomain,
   };
 };

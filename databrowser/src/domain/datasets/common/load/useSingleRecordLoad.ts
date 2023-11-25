@@ -27,6 +27,7 @@ export const useSingleRecordLoad = () => {
     extractValueByPath,
     isEmbeddedSource,
     isGeneratedSource,
+    datasetDomain,
   } = useSingleRecordLoadConfig();
 
   // Load single record data
@@ -79,5 +80,6 @@ export const useSingleRecordLoad = () => {
     categories,
     subcategories,
     currentCategory,
+    datasetDomain,
   };
 };

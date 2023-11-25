@@ -7,15 +7,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <ButtonLink
     :size="Size.xm2col"
-    :to="{
-      name: DatasetPage.TABLE,
-      params: {
-        domain: dataset.dataSpace,
-        pathSegments: dataset.pathSegments,
-      },
-      query: dataset.apiFilter,
-    }"
+    :to="tableLocation"
     :data-test="`dataset-table-link-${dataset.id}`"
+    :disabled="tableLocation == null"
   >
     <IconTable />
     {{ t('overview.cardItem.accessTableView') }}
@@ -28,9 +22,21 @@ import ButtonLink from '../../../components/button/ButtonLink.vue';
 import { Size } from '../../../components/button/types';
 import IconTable from '../../../components/svg/IconTable.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
-import { DatasetPage } from '../../../routes';
+import { computed, toRefs } from 'vue';
+import { computeTableLocation } from '../../../domain/datasets/location/datasetLocation';
 
 const { t } = useI18n();
 
-defineProps<{ dataset: TourismMetaData }>();
+const props = defineProps<{ dataset: TourismMetaData }>();
+const { dataset } = toRefs(props);
+
+const tableLocation = computed(() => {
+  if (dataset.value == null || dataset.value.dataSpace == null) {
+    return;
+  }
+
+  const { dataSpace, pathSegments, apiFilter } = dataset.value;
+
+  return computeTableLocation(dataSpace, pathSegments, apiFilter);
+});
 </script>

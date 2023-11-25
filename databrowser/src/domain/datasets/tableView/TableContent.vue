@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </tr>
       <tr
         v-for="(row, index) in rows"
-        :key="rowId(datasetDomain, row, index.toString())"
+        :key="computeRecordId(datasetDomain, row) ?? index"
         :class="{ 'bg-green-400/10': index === selectedRowIndex }"
         @click="rowClicked(index)"
         @dblclick="rowDblClicked(row)"
@@ -81,9 +81,9 @@ import SortAndFilterHeader from './SortAndFilterHeader.vue';
 import TableDataEmpty from './TableDataEmpty.vue';
 import TableLinks from './TableLinks.vue';
 import { useTableRowSelection } from './useTableRowSelection';
-import { rowId } from './utils';
 import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
 import { storeToRefs } from 'pinia';
+import { computeRecordId } from '../../data/utils';
 
 const { t } = useI18n();
 

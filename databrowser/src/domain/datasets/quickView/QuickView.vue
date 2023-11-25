@@ -85,16 +85,16 @@ import QuickViewFullscreenGallery from '../../../components/quickview/QuickViewF
 import { getValueOfLocale } from '../../../components/quickview/QuickViewUtils';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import { buildTargetFromObjectMapping } from '../../api';
+import { computeRecordId } from '../../data/utils';
 import { QuickViewConfig } from '../../datasetConfig/types';
 import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
-import { rowId } from '../tableView/utils';
 
 interface GalleryImage {
   ImageUrl: string;
   ImageDesc: Record<string, unknown>;
 }
 
-const { isError, data, error, view, extractValueByPath } =
+const { isError, data, error, view, extractValueByPath, datasetDomain } =
   useSingleRecordLoad();
 const topGallery = computed(
   () => (view.value as QuickViewConfig | undefined)?.topGallery
@@ -113,7 +113,7 @@ const title = computed(
 );
 
 const id = computed(() => {
-  return rowId(data.value as Record<string, unknown>);
+  return computeRecordId(datasetDomain.value, data.value);
 });
 
 const hasImage = computed(() => {
