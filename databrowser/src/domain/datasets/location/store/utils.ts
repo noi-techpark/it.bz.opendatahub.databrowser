@@ -9,6 +9,19 @@ import {
   DatasetPath,
   DatasetQuery,
 } from '../../../datasetConfig/types';
+import { unwrapData } from '../../../api/dataExtraction/dataExtraction';
+
+const computeSingleRecordData = (
+  datasetDomain: DatasetDomain | undefined,
+  record: any
+) => {
+  if (datasetDomain !== 'mobility') {
+    return record;
+  }
+
+  const unwrappedData = unwrapData(record);
+  return Array.isArray(unwrappedData) ? unwrappedData[0] : unwrappedData;
+};
 
 export const updateDatasetLocationStore = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
@@ -30,11 +43,18 @@ export const updateDatasetLocationStore = (
       datasetQueryValue,
       recordValue,
     ]) => {
+      // Mobility API single record result needs special treatment
+      // because it returns an array of records instead of a single record
+      const singleRecordData = computeSingleRecordData(
+        datasetDomainValue,
+        recordValue
+      );
+
       store.updateLocation(
         datasetDomainValue,
         datasetPathValue as DatasetPath,
         datasetQueryValue?.raw as DatasetQuery['raw'],
-        recordValue
+        singleRecordData
       );
     },
     { immediate: true }

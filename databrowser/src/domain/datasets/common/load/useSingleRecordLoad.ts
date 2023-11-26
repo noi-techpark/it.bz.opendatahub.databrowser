@@ -15,7 +15,6 @@ export const useSingleRecordLoad = () => {
   // Load single record config
   const {
     fullPath,
-    normalizedPath,
     addRecordSupported,
     editRecordSupported,
     hasDetailView,
@@ -35,7 +34,8 @@ export const useSingleRecordLoad = () => {
 
   // Load single record data
   const { data, error, isError, isDataLoading } = useSingleRecordLoadData(
-    normalizedPath,
+    datasetDomain,
+    fullPath,
     isNewView
   );
 

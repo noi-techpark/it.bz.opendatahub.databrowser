@@ -5,6 +5,7 @@
 import { ToRefs, toRefs, toValue } from 'vue';
 import {
   DatasetDomain,
+  DatasetId,
   DatasetPath,
   DatasetQuery,
   RouteDomain,
@@ -16,12 +17,14 @@ import {
 import { DatasetConfig, ViewKey } from '../types';
 import { reactiveComputed } from '@vueuse/core';
 import { domainIsKnownToHaveOpenApiDocument } from '../../openApi';
-import { stringifyRouteQuery, uriEncodeRouteQuery } from '../../utils/route';
+import { stringifyRouteQuery } from '../../utils/route';
+import { computeApiFullUrl } from '../../datasets/location/apiLocation';
 
 interface ComputeDatasetLocation {
   datasetDomain: DatasetDomain | undefined;
   datasetPath: DatasetPath | undefined;
   datasetQuery: DatasetQuery | undefined;
+  datasetId: DatasetId | undefined;
   fullPath: string | undefined;
 }
 
@@ -47,6 +50,7 @@ export const computeDatasetLocation = ({
       datasetDomain: undefined,
       datasetPath: undefined,
       datasetQuery: undefined,
+      datasetId: undefined,
       fullPath: undefined,
     };
   }
@@ -58,19 +62,18 @@ export const computeDatasetLocation = ({
     datasetConfig.views?.[viewKey]?.defaultQueryParams
   );
 
-  const uriEncodedQuery = uriEncodeRouteQuery(datasetQuery.raw);
-
-  const fullPath = computeFullPath(
-    datasetConfig.baseUrl,
+  const fullPath = computeApiFullUrl(
+    datasetDomain,
     routePath,
     routeId,
-    uriEncodedQuery
+    datasetQuery
   );
 
   return {
     datasetDomain,
     datasetPath: routePath,
     datasetQuery,
+    datasetId: routeId,
     fullPath,
   };
 };
@@ -125,17 +128,4 @@ const computeDatasetQuery = (
     stringified,
     default: def,
   };
-};
-
-const computeFullPath = (
-  baseUrl: string,
-  routePath: RoutePath,
-  routeId: RouteId | undefined,
-  uriEncodedQuery: string
-) => {
-  const url = `${baseUrl}/${routePath.join('/')}`;
-  const fullPath = routeId == null ? url : `${url}/${routeId}`;
-  return `${fullPath}${
-    uriEncodedQuery.length === 0 ? '' : '?' + uriEncodedQuery
-  }`;
 };

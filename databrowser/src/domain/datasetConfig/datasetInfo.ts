@@ -39,7 +39,7 @@ export const useDatasetInfo = (
   const viewKey = useComputeViewKey(routeName);
 
   // Compute dataset location info
-  const { datasetDomain, datasetPath, datasetQuery, fullPath } =
+  const { datasetDomain, datasetPath, datasetQuery, datasetId, fullPath } =
     useComputeDatasetLocation({
       datasetConfig,
       viewKey,
@@ -104,6 +104,7 @@ export const useDatasetInfo = (
     datasetDomain: readonly(datasetDomain),
     datasetPath: readonly(datasetPath),
     datasetQuery: readonly(datasetQuery),
+    datasetId: readonly(datasetId),
     isEmbeddedSource: readonly(isEmbeddedSource),
     isGeneratedSource: readonly(isGeneratedSource),
     hasTableView: readonly(hasTableView),

@@ -4,7 +4,6 @@
 
 import { storeToRefs } from 'pinia';
 import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
-import { useNormalizePath } from './normalizedPath';
 
 export const useSingleRecordLoadConfig = () => {
   const {
@@ -26,11 +25,8 @@ export const useSingleRecordLoadConfig = () => {
     editRecordSupported,
   } = storeToRefs(useDatasetInfoStore());
 
-  const normalizedPath = useNormalizePath(fullPath, datasetDomain);
-
   return {
     fullPath,
-    normalizedPath,
     addRecordSupported,
     editRecordSupported,
     hasDetailView,

@@ -44,20 +44,17 @@ export const computeSingleRecordLocations = (
     return {};
   }
 
-  const params = { domain, pathSegments };
-
-  const singleRecordParams =
-    domain === 'tourism' ? { ...params, id } : { ...params, id: '*' };
+  const params = { domain, pathSegments, id };
 
   const singleRecordQuery: Record<string, string | (string | null)[] | null> =
     domain === 'tourism'
       ? {
           language: query.language === defaultLanguage ? null : query.language,
         }
-      : { where: `and(scode.eq."${id}")` };
+      : {};
 
   const singleRecordLocation = {
-    params: singleRecordParams,
+    params,
     query: singleRecordQuery,
   };
 
