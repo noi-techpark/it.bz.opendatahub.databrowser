@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <ToolBoxPanel>
-    <ToolBoxCard>
+    <ToolBoxCard v-if="datasetDomain === 'tourism'">
       <ToolBoxCardHeader>
         <div class="flex items-center gap-2">
           {{
