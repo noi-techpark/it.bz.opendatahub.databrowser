@@ -20,7 +20,7 @@ export const computeRouteId = (
   const id = route.params.id;
   // We expect a string or undefined, anything else is not compatible
   // with the RouteId type and further processing.
-  if (id == null || Array.isArray(id)) {
+  if (id === null || Array.isArray(id)) {
     console.debug('The route ID is not a string or undefined', id);
     return undefined;
   }

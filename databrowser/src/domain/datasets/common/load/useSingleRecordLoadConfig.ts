@@ -13,6 +13,8 @@ export const useSingleRecordLoadConfig = () => {
     extractValueByPath,
     fullPath,
     datasetDomain,
+    datasetPath,
+    datasetQuery,
     isEmbeddedSource,
     isGeneratedSource,
     hasEditView,
@@ -42,5 +44,7 @@ export const useSingleRecordLoadConfig = () => {
     isEmbeddedSource,
     isGeneratedSource,
     datasetDomain,
+    datasetPath,
+    datasetQuery,
   };
 };

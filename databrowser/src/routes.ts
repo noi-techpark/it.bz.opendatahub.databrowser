@@ -24,12 +24,12 @@ export const router = createRouter({
       component: () => import('./pages/HomePage.vue'),
     },
     {
-      path: '/dataset/detail/:domain/:pathSegments+/:id?',
+      path: '/dataset/detail/:domain/:pathSegments+/:id',
       component: () => import('./pages/datasets/DatasetDetailPage.vue'),
       name: DatasetPage.DETAIL,
     },
     {
-      path: '/dataset/edit/:domain/:pathSegments+/:id?',
+      path: '/dataset/edit/:domain/:pathSegments+/:id',
       component: () => import('./pages/datasets/DatasetEditPage.vue'),
       name: DatasetPage.EDIT,
     },
@@ -39,12 +39,12 @@ export const router = createRouter({
       name: DatasetPage.NEW,
     },
     {
-      path: '/dataset/quick/:domain/:pathSegments+/:id?',
+      path: '/dataset/quick/:domain/:pathSegments+/:id',
       component: () => import('./pages/datasets/DatasetQuickPage.vue'),
       name: DatasetPage.QUICK,
     },
     {
-      path: '/dataset/raw/:domain/:pathSegments+/:id?',
+      path: '/dataset/raw/:domain/:pathSegments+/:id',
       component: () => import('./pages/datasets/DatasetRawPage.vue'),
       name: DatasetPage.RAW,
     },

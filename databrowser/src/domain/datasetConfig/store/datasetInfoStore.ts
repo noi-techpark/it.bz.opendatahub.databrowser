@@ -48,15 +48,19 @@ export const useDatasetInfoStore = defineStore('datasetInfoStore', () => {
 
       const routeQuery = { ...currentRoute.value.query };
 
+      let routeQueryChanged = false;
       // Remove default values from query params
       Object.entries(defaultQueryValues).forEach(([key, value]) => {
         if (routeQuery[key] === value) {
           delete routeQuery[key];
+          routeQueryChanged = true;
         }
       });
 
       // Update route
-      router.replace({ query: routeQuery });
+      if (routeQueryChanged) {
+        router.replace({ query: routeQuery });
+      }
     },
     { immediate: true }
   );

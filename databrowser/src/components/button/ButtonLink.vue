@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <component
     :is="renderAsSpan ? 'span' : 'router-link'"
     :to="to"
-    :class="[className, { 'pointer-events-none opacity-50': renderAsSpan }]"
+    :class="[className]"
     button-link
   >
     <slot></slot>

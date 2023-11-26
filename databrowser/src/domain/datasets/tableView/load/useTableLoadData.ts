@@ -6,20 +6,20 @@ import { MaybeRef } from 'vue';
 import { buildAuthInterceptor, useBaseAxiosFetch } from '../../../api';
 import { unwrapData } from '../../../api/dataExtraction/dataExtraction';
 
-export const useLoadTableData = (fullPath: MaybeRef<string | undefined>) => {
-  const { data, responseData, isError, error, isLoading } = useBaseAxiosFetch(
+export const useTableLoadData = (fullPath: MaybeRef<string | undefined>) => {
+  const { data, error, isError, isLoading, responseData } = useBaseAxiosFetch(
     fullPath,
     {
       beforeFetch: buildAuthInterceptor(),
-      afterFetch: (ctx) => unwrapData(ctx.data),
+      afterFetch: (ctx) => unwrapData<unknown[]>(ctx.data),
     }
   );
 
   return {
-    isDataLoading: isLoading,
     data,
-    responseData,
-    isError,
     error,
+    isError,
+    isDataLoading: isLoading,
+    responseData,
   };
 };

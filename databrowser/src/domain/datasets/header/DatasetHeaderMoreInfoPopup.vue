@@ -69,8 +69,6 @@ const buttonClasses = computeButtonClasses({
   variant: Variant.ghost,
 });
 
-console.log('DatasetHeaderMoreInfoPopup');
-
 const { currentMetaData } = storeToRefs(useMetaDataStore());
 
 const { datasetOverviewForId } = usePaths();

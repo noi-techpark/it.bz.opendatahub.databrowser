@@ -9,6 +9,7 @@ import { useSingleRecordLoadData } from './useSingleRecordLoadData';
 import { useComputeSingleRecordSlugWithRouter } from './singleRecordSlug';
 import { useComputeSingleRecordCategories } from './singleRecordCategories';
 import { useComputeSingleRecordCurrentCategory } from './singleRecordCurrentCategories';
+import { updateDatasetLocationStore } from '../../location/store/utils';
 
 export const useSingleRecordLoad = () => {
   // Load single record config
@@ -28,6 +29,8 @@ export const useSingleRecordLoad = () => {
     isEmbeddedSource,
     isGeneratedSource,
     datasetDomain,
+    datasetPath,
+    datasetQuery,
   } = useSingleRecordLoadConfig();
 
   // Load single record data
@@ -35,6 +38,8 @@ export const useSingleRecordLoad = () => {
     normalizedPath,
     isNewView
   );
+
+  updateDatasetLocationStore(datasetDomain, datasetPath, datasetQuery, data);
 
   // Compute loading state
   const isLoading = computed(

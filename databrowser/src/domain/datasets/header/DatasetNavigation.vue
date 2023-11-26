@@ -24,38 +24,35 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </ButtonLink>
 
         <TabLink
-          v-if="isNewView && newLocation"
+          v-if="isNewView"
           :label="t('datasets.navigation.newView')"
           :to="newLocation"
           :active="true"
           data-test="new-view-link"
         ></TabLink>
-
         <TabLink
-          v-if="!isNewView && hasQuickView && quickLocation"
+          v-if="!isNewView && hasQuickView"
           :label="t('datasets.navigation.quickView')"
           :to="quickLocation"
           :active="isQuickView"
           data-test="quick-view-link"
         />
         <TabLink
-          v-if="!isNewView && hasDetailView && detailLocation"
+          v-if="!isNewView && hasDetailView"
           :label="t('datasets.navigation.detailView')"
           :to="detailLocation"
           :active="isDetailView"
           data-test="detail-view-link"
         />
         <TabLink
-          v-if="
-            !isNewView && hasEditView && editRecordSupported && editLocation
-          "
+          v-if="!isNewView && hasEditView && editRecordSupported"
           :label="t('datasets.navigation.editView')"
           :to="editLocation"
           :active="isEditView"
           data-test="edit-view-link"
         />
         <TabLink
-          v-if="!isNewView && rawLocation"
+          v-if="!isNewView"
           :label="t('datasets.navigation.rawView')"
           :to="rawLocation"
           :active="isRawView"
@@ -76,8 +73,7 @@ import { computed } from 'vue';
 import { useTableViewRouteQueryStore } from '../tableView/tableViewRouteQueryStore';
 import { storeToRefs } from 'pinia';
 import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
-import { useDatasetLocations } from '../location/datasetLocation';
-import { useDataStore } from '../../data/load/useDataStore';
+import { useDatasetLocationStore } from '../location/store/useDatasetLocationStore';
 
 const { t } = useI18n();
 
@@ -91,12 +87,7 @@ const {
   isRawView,
   isQuickView,
   editRecordSupported,
-  datasetDomain,
-  datasetPath,
-  datasetQuery,
 } = storeToRefs(useDatasetInfoStore());
-
-const { data } = storeToRefs(useDataStore());
 
 const {
   tableLocation,
@@ -105,7 +96,7 @@ const {
   newLocation,
   rawLocation,
   quickLocation,
-} = useDatasetLocations(datasetDomain, datasetPath, datasetQuery, data);
+} = storeToRefs(useDatasetLocationStore());
 
 // Combine query params from TableView with ones from the current route.
 // This is needed to keep the query params when switching between DetailView

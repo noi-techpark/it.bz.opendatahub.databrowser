@@ -13,6 +13,7 @@ export const useTableLoadConfig = () => {
     hasDetailView,
     hasQuickView,
     datasetDomain,
+    datasetPath,
     datasetQuery,
     editRecordSupported,
   } = storeToRefs(useDatasetInfoStore());
@@ -20,6 +21,7 @@ export const useTableLoadConfig = () => {
   return {
     datasetDomain,
     datasetQuery,
+    datasetPath,
     isConfigLoading: isLoading,
     view,
     fullPath,

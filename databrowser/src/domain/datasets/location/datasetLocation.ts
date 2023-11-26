@@ -12,6 +12,7 @@ import {
 import { DatasetLocations, DatasetLocationRoute } from './types';
 import { DeepReadonly, MaybeRef, computed, toRefs, toValue } from 'vue';
 import { reactiveComputed } from '@vueuse/core';
+import { defaultLanguage } from '../language';
 
 export const computeTableLocation = (
   domain: string | undefined,
@@ -22,7 +23,7 @@ export const computeTableLocation = (
   if (domain == null || pathSegments == null) {
     return {};
   }
-  return { params: { domain, pathSegments }, query };
+  return { params: { domain, pathSegments }, query, name: DatasetPage.TABLE };
 };
 
 export const computeSingleRecordLocations = (
@@ -45,12 +46,15 @@ export const computeSingleRecordLocations = (
 
   const params = { domain, pathSegments };
 
-  const singleRecordParams = domain === 'tourism' ? { ...params, id } : params;
+  const singleRecordParams =
+    domain === 'tourism' ? { ...params, id } : { ...params, id: '*' };
 
   const singleRecordQuery: Record<string, string | (string | null)[] | null> =
     domain === 'tourism'
-      ? { language: query.language }
-      : { where: `scode.eq.${id}` };
+      ? {
+          language: query.language === defaultLanguage ? null : query.language,
+        }
+      : { where: `and(scode.eq."${id}")` };
 
   const singleRecordLocation = {
     params: singleRecordParams,

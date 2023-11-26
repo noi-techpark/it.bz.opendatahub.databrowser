@@ -8,19 +8,18 @@ import {
   isWithTourismPagination,
 } from '../../data/pagination/types';
 
-export const unwrapData = <T = unknown>(data: unknown): T[] => {
+export const unwrapData = <T>(data: unknown): T => {
   if (data == null) {
-    return [];
+    return [] as T;
   }
 
   if (isWithTourismPagination<T>(data)) {
-    return data.Items;
+    return data.Items as T;
   } else if (isWithArrayPagination<T>(data)) {
-    return data;
+    return data as T;
   } else if (isWithMobilityPagination<T>(data)) {
-    return data.data;
+    return data.data as T;
   }
 
-  console.error(`Unknown data shape, returning empty array`);
-  return [];
+  return data as T;
 };

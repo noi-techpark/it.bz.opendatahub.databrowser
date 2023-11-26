@@ -46,7 +46,7 @@ export const useMetaDataQuery = () => {
     WithTourismPagination<OdhTourismMetaData>
   >(metaDataUrl, {
     afterFetch: (ctx) => {
-      const data = unwrapData<OdhTourismMetaData>(ctx.data);
+      const data = unwrapData<OdhTourismMetaData[]>(ctx.data);
       return select(data ?? []);
     },
   });

@@ -6,8 +6,9 @@ import { computed } from 'vue';
 import { useTableLoadConfig } from './useTableLoadConfig';
 import { useTableCols } from './tableCols';
 import { useTableRows } from './tableRows';
-import { useDataStore } from '../../../data/load/useDataStore';
-import { storeToRefs } from 'pinia';
+import { usePagination } from '../../../data/pagination/usePagination';
+import { updateDatasetLocationStore } from '../../location/store/utils';
+import { useTableLoadData } from './useTableLoadData';
 
 export const useTableLoad = () => {
   // Load table config
@@ -18,15 +19,16 @@ export const useTableLoad = () => {
     hasDetailView,
     hasQuickView,
     isConfigLoading,
+    datasetDomain,
+    datasetPath,
+    datasetQuery,
   } = useTableLoadConfig();
 
   // Load table data
-  const {
-    isLoading: isDataLoading,
-    isError,
-    error,
-    data,
-  } = storeToRefs(useDataStore());
+  const { isDataLoading, isError, error, data, responseData } =
+    useTableLoadData(fullPath);
+
+  updateDatasetLocationStore(datasetDomain, datasetPath, datasetQuery, data);
 
   // Compute loading state
   const isLoading = computed(
@@ -39,10 +41,14 @@ export const useTableLoad = () => {
   // Compute table rows
   const rows = useTableRows(isDataLoading, data);
 
+  // Compute pagination
+  const pagination = usePagination(datasetDomain, datasetQuery, responseData);
+
   return {
     isLoading,
     cols,
     rows,
+    pagination,
     fullPath,
     editRecordSupported,
     hasDetailView,

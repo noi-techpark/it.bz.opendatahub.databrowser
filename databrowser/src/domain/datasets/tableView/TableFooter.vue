@@ -5,10 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div
-    class="flex items-center justify-end bg-gray-50 py-2 text-xs"
-    :class="{ 'animate-pulse': isLoading }"
-  >
+  <div class="flex items-center justify-end bg-gray-50 py-2 text-xs">
     <span class="mr-3 block">
       {{ t('datasets.listView.linesPerPage') }}
     </span>
@@ -22,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       @change="navigation.changePageSize($event)"
     />
     <Paginator
-      v-if="isLoading || pagination.hasPagination"
+      v-if="pagination.hasPagination"
       id="dataset-table-paginator"
       :pagination="pagination"
       :navigation="navigation"
@@ -36,14 +33,17 @@ import Paginator from '../../../components/paginator/Paginator.vue';
 import { useI18n } from 'vue-i18n';
 import { pageSizeOptions } from './defaultValues';
 import { SelectSize } from '../../../components/select/types';
-import { usePaginationStore } from '../../data/pagination/usePaginationStore';
 import { useNavigationStore } from '../../data/navigation/useNavigationStore';
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
+import { computed, toRefs } from 'vue';
+import { Pagination } from '../../data/pagination/types';
 
 const { t } = useI18n();
 
-const { pagination, isLoading } = storeToRefs(usePaginationStore());
+const props = defineProps<{ pagination: Pagination }>();
+
+const { pagination } = toRefs(props);
+
 const { navigation } = storeToRefs(useNavigationStore());
 
 const options = computed(() => {

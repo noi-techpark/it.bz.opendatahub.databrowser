@@ -18,7 +18,7 @@ import { useTabClasses } from './useTabClasses';
 
 const props = defineProps<{
   label: string;
-  to: RouteLocationRaw;
+  to?: RouteLocationRaw;
   active?: boolean;
 }>();
 
