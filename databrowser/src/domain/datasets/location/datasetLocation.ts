@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import { reactiveComputed } from '@vueuse/core';
+import { MaybeRef, computed, toRefs, toValue } from 'vue';
 import { DatasetPage } from '../../../routes';
 import { computeRecordId } from '../../data/utils';
 import {
@@ -9,10 +11,8 @@ import {
   DatasetPath,
   DatasetQuery,
 } from '../../datasetConfig/types';
-import { DatasetLocations, DatasetLocationRoute } from './types';
-import { DeepReadonly, MaybeRef, computed, toRefs, toValue } from 'vue';
-import { reactiveComputed } from '@vueuse/core';
 import { defaultLanguage } from '../language';
+import { DatasetLocationRoute, DatasetLocations } from './types';
 
 export const computeTableLocation = (
   domain: string | undefined,
@@ -79,8 +79,8 @@ export const computeDatasetLocations = (
 
 export const useTableLocation = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
-  datasetPath: MaybeRef<DeepReadonly<DatasetPath | undefined>>,
-  datasetQuery: MaybeRef<DeepReadonly<DatasetQuery | undefined>>
+  datasetPath: MaybeRef<DatasetPath | undefined>,
+  datasetQuery: MaybeRef<DatasetQuery | undefined>
 ) => {
   return computed(() =>
     computeTableLocation(
@@ -93,8 +93,8 @@ export const useTableLocation = (
 
 export const useSingleRecordLocations = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
-  datasetPath: MaybeRef<DeepReadonly<DatasetPath | undefined>>,
-  datasetQuery: MaybeRef<DeepReadonly<DatasetQuery | undefined>>,
+  datasetPath: MaybeRef<DatasetPath | undefined>,
+  datasetQuery: MaybeRef<DatasetQuery | undefined>,
   record?: MaybeRef<any>
 ) => {
   const result = reactiveComputed(() =>
@@ -111,8 +111,8 @@ export const useSingleRecordLocations = (
 
 export const useDatasetLocations = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
-  datasetPath: MaybeRef<DeepReadonly<DatasetPath | undefined>>,
-  datasetQuery: MaybeRef<DeepReadonly<DatasetQuery | undefined>>,
+  datasetPath: MaybeRef<DatasetPath | undefined>,
+  datasetQuery: MaybeRef<DatasetQuery | undefined>,
   record?: MaybeRef<any>
 ) => {
   const result = reactiveComputed<DatasetLocations>(() =>

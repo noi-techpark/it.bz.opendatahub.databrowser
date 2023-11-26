@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { computed, DeepReadonly, Ref } from 'vue';
+import { computed, Ref } from 'vue';
 import {
   DatasetPath,
   DatasetQuery,
@@ -12,8 +12,8 @@ import { useMetaDataQuery } from './useMetaDataQuery';
 
 // Return the metadata for the route specified by the path params and query
 export const useMetaDataForRoute = (
-  datasetPath: Ref<Readonly<DatasetPath> | undefined>,
-  datasetQuery: Ref<DeepReadonly<DatasetQuery> | undefined>
+  datasetPath: Ref<DatasetPath | undefined>,
+  datasetQuery: Ref<DatasetQuery | undefined>
 ) => {
   const metaData = useMetaDataQuery();
 
@@ -49,7 +49,7 @@ export const useMetaDataForRoute = (
   return { currentMetaData };
 };
 
-const pathsMatch = (path1: Readonly<PathSegments>, path2: PathSegments) =>
+const pathsMatch = (path1: PathSegments, path2: PathSegments) =>
   JSON.stringify(path1).localeCompare(JSON.stringify(path2)) === 0;
 
 const filterContainedInQuery = (

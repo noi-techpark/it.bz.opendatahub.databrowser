@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DeepReadonly, MaybeRef, Ref, computed, toValue } from 'vue';
+import { MaybeRef, Ref, computed, toValue } from 'vue';
 import { DatasetDomain, DatasetQuery } from '../../datasetConfig/types';
 import { arrayPagination } from './arrayPagination';
 import { emptyPagination } from './emptyPagination';
@@ -53,7 +53,7 @@ export const computePagination = (
 
 export const usePagination = (
   domain: MaybeRef<DatasetDomain | undefined>,
-  query: MaybeRef<DeepReadonly<DatasetQuery> | undefined>,
+  query: MaybeRef<DatasetQuery | undefined>,
   data: MaybeRef<unknown | undefined>
 ): Ref<Pagination> => {
   return computed<Pagination>(() => {

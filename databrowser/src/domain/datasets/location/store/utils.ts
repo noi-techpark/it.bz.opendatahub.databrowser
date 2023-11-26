@@ -2,14 +2,14 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DeepReadonly, MaybeRef, toValue, watch } from 'vue';
-import { useDatasetLocationStore } from './useDatasetLocationStore';
+import { MaybeRef, toValue, watch } from 'vue';
+import { unwrapData } from '../../../api/dataExtraction/dataExtraction';
 import {
   DatasetDomain,
   DatasetPath,
   DatasetQuery,
 } from '../../../datasetConfig/types';
-import { unwrapData } from '../../../api/dataExtraction/dataExtraction';
+import { useDatasetLocationStore } from './useDatasetLocationStore';
 
 const computeSingleRecordData = (
   datasetDomain: DatasetDomain | undefined,
@@ -25,8 +25,8 @@ const computeSingleRecordData = (
 
 export const updateDatasetLocationStore = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
-  datasetPath: MaybeRef<DeepReadonly<DatasetPath | undefined>>,
-  datasetQuery: MaybeRef<DeepReadonly<DatasetQuery | undefined>>,
+  datasetPath: MaybeRef<DatasetPath | undefined>,
+  datasetQuery: MaybeRef<DatasetQuery | undefined>,
   record?: MaybeRef<any>
 ) => {
   const store = useDatasetLocationStore();

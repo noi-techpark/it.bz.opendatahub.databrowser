@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { MaybeRef, ToRefs, computed, readonly, ref, toValue } from 'vue';
+import { MaybeRef, ToRefs, computed, ref, toValue } from 'vue';
 import { useResolveDatasetConfig } from './datasetConfigResolver';
 import { useDatasetConfigSourceComputations } from './datasetConfigSource';
 import { useValueExtractor } from './extract/valueExtractor';
@@ -94,35 +94,35 @@ export const useDatasetInfo = (
     });
 
   return {
-    isLoading: readonly(isResolving),
-    isError: readonly(isError),
-    error: readonly(error),
+    isLoading: isResolving,
+    isError,
+    error,
     hasConfig: computed(() => datasetConfig.value != null),
-    view: readonly(view),
+    view,
     description: computed(() => datasetConfig.value?.description),
-    fullPath: readonly(fullPath),
-    datasetDomain: readonly(datasetDomain),
-    datasetPath: readonly(datasetPath),
-    datasetQuery: readonly(datasetQuery),
-    datasetId: readonly(datasetId),
-    isEmbeddedSource: readonly(isEmbeddedSource),
-    isGeneratedSource: readonly(isGeneratedSource),
-    hasTableView: readonly(hasTableView),
-    hasDetailView: readonly(hasDetailView),
-    hasEditView: readonly(hasEditView),
-    hasNewView: readonly(hasNewView),
-    hasQuickView: readonly(hasQuickView),
-    hasRawView: readonly(hasRawView),
-    isTableView: readonly(isTableView),
-    isDetailView: readonly(isDetailView),
-    isEditView: readonly(isEditView),
-    isNewView: readonly(isNewView),
-    isQuickView: readonly(isQuickView),
-    isRawView: readonly(isRawView),
-    addRecordSupported: readonly(addRecordSupported),
-    editRecordSupported: readonly(editRecordSupported),
-    deleteRecordSupported: readonly(deleteRecordSupported),
-    paramsReplacer: readonly(paramsReplacer),
-    extractValueByPath: readonly(extractValueByPath),
+    fullPath,
+    datasetDomain,
+    datasetPath,
+    datasetQuery,
+    datasetId,
+    isEmbeddedSource,
+    isGeneratedSource,
+    hasTableView,
+    hasDetailView,
+    hasEditView,
+    hasNewView,
+    hasQuickView,
+    hasRawView,
+    isTableView,
+    isDetailView,
+    isEditView,
+    isNewView,
+    isQuickView,
+    isRawView,
+    addRecordSupported,
+    editRecordSupported,
+    deleteRecordSupported,
+    paramsReplacer,
+    extractValueByPath,
   };
 };

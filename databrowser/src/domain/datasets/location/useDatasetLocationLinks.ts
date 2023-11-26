@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { reactiveComputed } from '@vueuse/core';
-import { DeepReadonly, MaybeRef, toRefs, toValue } from 'vue';
+import { MaybeRef, toRefs, toValue } from 'vue';
 import { RouteLocationRaw, Router, useRouter } from 'vue-router';
 import {
   DatasetDomain,
@@ -29,8 +29,8 @@ const toRouteLink = (
 
 export const useDatasetRouteLinks = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
-  datasetPath: MaybeRef<DeepReadonly<DatasetPath | undefined>>,
-  datasetQuery: MaybeRef<DeepReadonly<DatasetQuery | undefined>>,
+  datasetPath: MaybeRef<DatasetPath | undefined>,
+  datasetQuery: MaybeRef<DatasetQuery | undefined>,
   record?: MaybeRef<any>
 ) => {
   const router = useRouter();
