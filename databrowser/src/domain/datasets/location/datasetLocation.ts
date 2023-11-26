@@ -47,10 +47,8 @@ export const computeSingleRecordLocations = (
   const params = { domain, pathSegments, id };
 
   const singleRecordQuery: Record<string, string | (string | null)[] | null> =
-    domain === 'tourism'
-      ? {
-          language: query.language === defaultLanguage ? null : query.language,
-        }
+    domain === 'tourism' && query.language !== defaultLanguage
+      ? { language: query.language }
       : {};
 
   const singleRecordLocation = {

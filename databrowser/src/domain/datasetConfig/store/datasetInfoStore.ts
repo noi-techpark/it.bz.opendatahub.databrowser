@@ -59,7 +59,7 @@ export const useDatasetInfoStore = defineStore('datasetInfoStore', () => {
 
       // Update route
       if (routeQueryChanged) {
-        router.replace({ query: routeQuery });
+        setTimeout(() => router.replace({ query: routeQuery }));
       }
     },
     { immediate: true }
