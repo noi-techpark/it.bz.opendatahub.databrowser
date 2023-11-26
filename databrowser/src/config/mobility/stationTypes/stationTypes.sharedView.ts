@@ -23,6 +23,7 @@ export const stationTypesSharedView = ():
               title: 'JSON',
               component: CellComponent.JsonCell,
               objectMapping: { data: 'data' },
+              params: { usePreformatted: 'true' },
             },
           ],
         },
