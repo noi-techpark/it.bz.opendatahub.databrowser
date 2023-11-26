@@ -14,6 +14,7 @@ import {
 } from 'vue';
 import { useAuth } from '../auth/store/auth';
 import { storeToRefs } from 'pinia';
+import { useDatasetInfoStore } from '../datasetConfig/store/datasetInfoStore';
 
 type BeforeFetchFn<T = unknown> = (
   config: AxiosRequestConfig<T>
@@ -194,21 +195,28 @@ export const buildAuthInterceptor = <T>(): BeforeFetchFn<T> => {
     }
   };
 
+  const { datasetDomain } = storeToRefs(useDatasetInfoStore());
   const { ready, isAuthenticated, accessToken } = storeToRefs(useAuth());
 
   return async (ctx) => {
-    return new Promise((resolve) => {
-      watch(
-        ready,
-        (ready) => {
-          if (ready) {
-            addAuthToCtx(ctx, isAuthenticated.value, accessToken.value);
-            resolve(ctx);
-          }
-        },
-        { immediate: true }
-      );
-    });
+    // At the moment, only tourism domain auth is supported.
+    // For all other domains, we don't add auth information.
+    if (datasetDomain.value === 'tourism') {
+      return new Promise((resolve) => {
+        watch(
+          ready,
+          (ready) => {
+            if (ready) {
+              addAuthToCtx(ctx, isAuthenticated.value, accessToken.value);
+              resolve(ctx);
+            }
+          },
+          { immediate: true }
+        );
+      });
+    }
+
+    return Promise.resolve(ctx);
   };
 };
 
