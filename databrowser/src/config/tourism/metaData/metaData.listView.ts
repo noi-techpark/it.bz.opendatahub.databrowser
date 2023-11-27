@@ -4,10 +4,11 @@
 
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
-import { lastChangesTableCell } from '../../builder/tourism';
+import { imageTableCell, lastChangesTableCell } from '../../builder/tourism';
 
 export const metaDataListView: ListViewConfig = {
   elements: [
+    imageTableCell(),
     {
       title: 'Shortname',
       component: CellComponent.StringCell,

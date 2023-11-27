@@ -348,6 +348,9 @@
         "accessFull": "Full access",
         "availability": "Availability of data"
       },
+      "dataSpace": {
+        "unknown": "Unknown"
+      },
       "recordCount": {
         "availableRecords": "Available records",
         "closed": "closed",
