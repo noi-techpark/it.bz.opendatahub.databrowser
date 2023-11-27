@@ -100,7 +100,7 @@
         "confirmDeselectAllLanguages": {
           "title": "You deselected all languages",
           "description": "How do you want to proceed with the uploaded document and the document names?",
-          "buttonDeleteDocAndNames": "You deselected all languages",
+          "buttonDeleteDocAndNames": "Delete the document and its names",
           "buttonKeepDocDeleteNames": "Keep document, delete its names",
           "buttonCancel": "Cancel"
         }

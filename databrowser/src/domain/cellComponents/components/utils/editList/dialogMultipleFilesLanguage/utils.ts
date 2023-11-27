@@ -51,10 +51,14 @@ export const removeAllCurrentItemNames = () => {
 export const getCurrentItemToSave = () => {
   const dialogStore = useDialogStore();
 
-  const currentItem = dialogStore.items[dialogStore.activeTab];
+  const currentItem = dialogStore.ignoreDelete
+    ? dialogStore.originalItems[dialogStore.activeTab]
+    : dialogStore.items[dialogStore.activeTab];
 
   if (dialogStore.ignoreDelete) {
-    return { data: [] };
+    for (const item of currentItem.data) {
+      item.documentName = '';
+    }
   }
 
   return {
@@ -66,18 +70,9 @@ export const getCurrentItemToSave = () => {
 export const getCurrentItemDelete = () => {
   const dialogStore = useDialogStore();
 
-  const currentItem = dialogStore.items[dialogStore.activeTab];
-
-  // if (dialogStore.ignoreDelete) {
-  //   const currentLanguageDocuments = Documents[lang];
-  //   for (const currentDocument of currentLanguageDocuments) {
-  //     if (Object.prototype.hasOwnProperty.call(Documents, key)) {
-  //       const element = Documents[key];
-  //     }
-  //   }
-  //   const supportedLanguages = [];
-  //   return { data: [] };
-  // }
+  const currentItem = dialogStore.ignoreDelete
+    ? dialogStore.originalItems[dialogStore.activeTab]
+    : dialogStore.items[dialogStore.activeTab];
 
   return {
     ...currentItem,
@@ -109,20 +104,22 @@ export const setDataForDocumentEdit = (item: FileEntry) => {
         ...dialogData[index],
         documentName: currentDocument.DocumentName,
         language: lang,
-        available:
-          currentDocument.DocumentURL === item.src &&
-          Boolean(currentDocument.DocumentName),
+        available: currentDocument.DocumentURL === item.src,
       };
     }
   }
 
-  dialogStore.setItems([
+  const data = [
     {
       name: item.src,
       src: item.src,
       data: dialogData,
     },
-  ]);
+  ];
+
+  dialogStore.setItems(data);
+
+  dialogStore.setOriginalItems(data);
 };
 
 export const clearDialogStore = () => {
@@ -144,6 +141,21 @@ export const updateItem = (index: number, value: FileLanguageUpdate) => {
   }
 
   dialogStore.updateItem(index, value);
+};
+
+export const toggleAllItemsSelected = (value: boolean) => {
+  const dialogStore = useDialogStore();
+
+  const items = dialogStore.items;
+  for (const item of items) {
+    for (const documentData of item.data) {
+      if (!documentData.disableAvailabilityChange) {
+        documentData.available = value;
+      }
+    }
+  }
+
+  dialogStore.setItems(items);
 };
 
 export const setDialogItems = (
@@ -176,6 +188,7 @@ export const setDialogItems = (
   }
 
   dialogStore.setItems(data);
+  dialogStore.setOriginalItems(data);
 };
 
 export const updateItemsInModalAndSave = () => {

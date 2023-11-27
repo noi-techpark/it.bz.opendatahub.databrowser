@@ -156,8 +156,6 @@ const deleteDocAndNames = () => {
 };
 
 const keepDocDeleteNames = () => {
-  console.log('delete');
-
   setIgnoreDelete(true);
 
   removeAllCurrentItemNames();
