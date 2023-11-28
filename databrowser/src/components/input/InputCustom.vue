@@ -5,7 +5,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="relative flex items-center gap-3">
+  <div
+    class="relative"
+    :class="[
+      hasLabelTop
+        ? 'flex flex-col items-start gap-1'
+        : 'flex items-center gap-3',
+      disabled ? 'pointer-events-none opacity-50' : '',
+    ]"
+  >
     <label v-if="hasLabel" :for="id">{{ label }}</label>
     <input
       :id="id"
@@ -14,6 +22,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       class="rounded border border-gray-400 p-2 text-black focus:border-green-500"
       :class="inputClasses"
       :placeholder="placeholder"
+      :disabled="disabled"
       :type="type"
     />
     <span v-if="label != null" class="ml-3 font-semibold"></span>
@@ -41,6 +50,8 @@ const props = defineProps<{
   placeholder?: string;
   inputClasses?: string;
   focus?: boolean;
+  hasLabelTop?: boolean;
+  disabled?: boolean;
   type?: 'text' | 'date' | 'datetime-local' | 'time' | 'search';
 }>();
 

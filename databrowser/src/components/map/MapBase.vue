@@ -9,8 +9,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     ref="map"
     :zoom="zoom"
     :center="center"
-    :style="{ height }"
+    :style="{ height, cursor: enableSetMarker ? 'crosshair' : undefined }"
     :use-global-leaflet="false"
+    @ready="onMapReady"
   >
     <l-tile-layer
       url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -35,6 +36,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { defineAsyncComponent } from 'vue';
 import { PointExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+
+const emit = defineEmits(['mapClick']);
 
 const LMap = defineAsyncComponent(() =>
   import('@vue-leaflet/vue-leaflet').then((exports) => exports.LMap)
@@ -63,15 +66,25 @@ withDefaults(
     markers: Array<Marker>;
     zoom?: number;
     height?: string;
+    enableSetMarker?: boolean;
   }>(),
   {
     center: () => [40, 40],
     markers: () => [],
     zoom: 8,
     height: '400px',
+    enableSetMarker: false,
   }
 );
 
 const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+const onMapReady = (map: any) => {
+  map.on('click', onMapClick);
+};
+
+const onMapClick = async (event: any) => {
+  emit('mapClick', event);
+};
 </script>
