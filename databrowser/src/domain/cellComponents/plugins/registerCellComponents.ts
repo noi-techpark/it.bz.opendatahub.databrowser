@@ -50,6 +50,7 @@ import QuickViewMapView from '../../../components/quickview/QuickViewMapView.vue
 import QuickViewOpeningHoursView from '../../../components/quickview/QuickViewOpeningHoursView.vue';
 import QuickViewRecordInfoView from '../../../components/quickview/QuickViewRecordInfoView.vue';
 
+import GpsPointMap from '../../../components/map/GpsPointMap.vue';
 import { CellComponent, FilterComponent } from '../types';
 
 export default {
@@ -72,6 +73,7 @@ export default {
     app.component(CellComponent.EditRoomVenueCell, EditRoomVenueCell);
     app.component(CellComponent.EventDocumentCell, EventDocumentCell);
     app.component(CellComponent.GpsPointsCell, GpsPointsCell);
+    app.component(CellComponent.GpsPointMap, GpsPointMap);
     app.component(CellComponent.HtmlCell, HtmlCell);
     app.component(CellComponent.InputReferenceCell, InputReferenceCell);
     app.component(CellComponent.ImageCell, ImageCell);

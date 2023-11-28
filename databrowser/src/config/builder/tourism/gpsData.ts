@@ -33,10 +33,13 @@ export const gpsDataCategory = (): DetailElements => ({
       properties: [
         {
           title: '',
-          component: CellComponent.QuickViewMapView,
+          component: CellComponent.GpsPointMap,
           fields: {
             latitude: 'GpsPoints.position.Latitude',
             longitude: 'GpsPoints.position.Longitude',
+            altitude: 'GpsPoints.position.Altitude',
+            unitMeasureAltitude: 'GpsPoints.position.AltitudeUnitofMeasure',
+            gpsType: 'GpsPoints.position.Gpstype',
           },
         },
       ],
