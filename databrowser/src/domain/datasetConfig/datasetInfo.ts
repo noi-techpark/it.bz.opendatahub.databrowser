@@ -9,8 +9,8 @@ import { useValueExtractor } from './extract/valueExtractor';
 import { DatasetConfigSource } from './load/types';
 import { useComputeDatasetLocation } from './location/datasetLocation';
 import { useComputeDatasetPermission } from './permission/datasetPermission';
-import { useParamsReplacer } from './replace/paramsReplacer';
-import { usePropertyPathReplacer } from './replace/propertyPathReplacer';
+import { useStringReplacer } from './replace/stringReplacer';
+import { useObjectValueReplacer } from './replace/objectValueReplacer';
 import { RouteLocation } from './types';
 import { useComputeView } from './view/view';
 import { useComputeViewKey } from './view/viewKey';
@@ -52,15 +52,15 @@ export const useDatasetInfo = (
   const stringifiedQuery = computed(() => datasetQuery.value?.stringified);
 
   // Build params replacement facility
-  const paramsReplacer = useParamsReplacer(stringifiedQuery);
-  const propertyPathReplacer = usePropertyPathReplacer(paramsReplacer);
-  const extractValueByPath = useValueExtractor(paramsReplacer);
+  const stringReplacer = useStringReplacer(stringifiedQuery);
+  const objectValueReplacer = useObjectValueReplacer(stringReplacer);
+  const extractValueByPath = useValueExtractor(stringReplacer);
 
   const view = useComputeView({
     datasetConfig,
     viewKey,
-    paramsReplacer,
-    propertyPathReplacer,
+    stringReplacer,
+    objectValueReplacer,
   });
 
   // Compute view type
@@ -122,7 +122,6 @@ export const useDatasetInfo = (
     addRecordSupported,
     editRecordSupported,
     deleteRecordSupported,
-    paramsReplacer,
     extractValueByPath,
   };
 };

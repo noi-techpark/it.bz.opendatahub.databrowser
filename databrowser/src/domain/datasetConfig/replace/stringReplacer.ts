@@ -3,21 +3,21 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import { ParamsReplacer } from './types';
+import { StringReplacer } from './types';
 
 // Builder function to create a function that replaces all (dynamic) params
 // in a string with the corresponding replacement. The parts to be replaced
 // are denoted by curly braces, e.g. "person.{language}.name".
 // For example, a string "person.{language}.name" with the replacement {language: 'de'}
 // will be replaced with "person.de.name".
-export const buildParamsReplacer =
-  (replacements: Record<string, string> = {}): ParamsReplacer =>
+export const buildStringReplacer =
+  (replacements: Record<string, string> = {}): StringReplacer =>
   (s) =>
     s.replace(
       /\{([^}]+)\}/g,
       (wtf, paramName) => replacements[paramName] ?? wtf
     );
 
-export const useParamsReplacer = (
+export const useStringReplacer = (
   replacements: MaybeRef<Record<string, string> | undefined>
-) => computed(() => buildParamsReplacer(toValue(replacements)));
+) => computed(() => buildStringReplacer(toValue(replacements)));

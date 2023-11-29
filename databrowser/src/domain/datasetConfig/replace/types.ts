@@ -2,13 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { ObjectMapping } from '../types';
+export type StringReplacer = (s: string) => string;
 
-export type ParamsReplacer = (s: string) => string;
-
-export type PropertyPathReplacer = (
-  objectMapping?: ObjectMapping
-) => ObjectMapping;
-
-export type PathParam = string;
-export type Replacement = string;
+export type ObjectValueReplacer = (
+  object?: Record<string, string>
+) => Record<string, string>;

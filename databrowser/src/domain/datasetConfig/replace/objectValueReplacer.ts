@@ -4,13 +4,13 @@
 
 import { MaybeRef, computed, toValue } from 'vue';
 import { ObjectMapping } from '../types';
-import { PropertyPathReplacer } from './types';
+import { ObjectValueReplacer } from './types';
 
 // Builder function to create a function that replaces all (dynamic) path params in
-// property mapping objects with the corresponding replacement
-export const buildPropertyPathReplacer = (
-  paramsReplacer: (s: string) => string
-): PropertyPathReplacer => {
+// object values with the corresponding replacement
+export const buildObjectValueReplacer = (
+  stringReplacer: (s: string) => string
+): ObjectValueReplacer => {
   // Utility function to replace all (dynamic) path params in a object mapping
   // with the corresponding replacements
   return (objectMapping?: ObjectMapping) => {
@@ -21,13 +21,13 @@ export const buildPropertyPathReplacer = (
     return Object.entries(objectMapping).reduce<ObjectMapping>(
       (prev, [targetPropertyName, propertyPath]) => ({
         ...prev,
-        [targetPropertyName]: paramsReplacer(propertyPath),
+        [targetPropertyName]: stringReplacer(propertyPath),
       }),
       {}
     );
   };
 };
 
-export const usePropertyPathReplacer = (
-  paramsReplacer: MaybeRef<(s: string) => string>
-) => computed(() => buildPropertyPathReplacer(toValue(paramsReplacer)));
+export const useObjectValueReplacer = (
+  stringReplacer: MaybeRef<(s: string) => string>
+) => computed(() => buildObjectValueReplacer(toValue(stringReplacer)));
