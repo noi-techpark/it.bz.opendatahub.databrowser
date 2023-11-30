@@ -26,7 +26,7 @@ export const computeDatasetPermission = ({
   isEmbeddedSource,
   operations,
 }: ComputeDatasetPermissionParams): ComputeDatasetPermission => {
-  if (operations == null) {
+  if (operations == null || isEmbeddedSource === false) {
     return {
       addRecordSupported: false,
       editRecordSupported: false,
@@ -38,11 +38,9 @@ export const computeDatasetPermission = ({
   const hasUpdatePermission = computeUpdatePermission(operations);
   const hasDeletePermission = computeDeletePermission(operations);
 
-  const addRecordSupported =
-    isEmbeddedSource && hasCreatePermission && hasNewView;
-  const editRecordSupported =
-    isEmbeddedSource && hasUpdatePermission && hasEditView;
-  const deleteRecordSupported = isEmbeddedSource && hasDeletePermission;
+  const addRecordSupported = hasCreatePermission && hasNewView;
+  const editRecordSupported = hasUpdatePermission && hasEditView;
+  const deleteRecordSupported = hasDeletePermission;
 
   return { addRecordSupported, editRecordSupported, deleteRecordSupported };
 };
