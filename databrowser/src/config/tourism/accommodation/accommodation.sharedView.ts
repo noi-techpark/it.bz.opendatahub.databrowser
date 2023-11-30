@@ -169,7 +169,7 @@ export const accommodationSharedView = ():
             {
               title: 'Short description',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'AccoDetail.{language}.ShortDesc' },
+              objectMapping: { text: 'AccoDetail.{language}.Shortdesc' },
             },
           ],
         },
