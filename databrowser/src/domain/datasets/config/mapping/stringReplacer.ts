@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import { StringReplacer } from '../types';
+import { StringReplacer } from '../../view/types';
 
 // Builder function to create a function that replaces all (dynamic) params
 // in a string with the corresponding replacement. The parts to be replaced

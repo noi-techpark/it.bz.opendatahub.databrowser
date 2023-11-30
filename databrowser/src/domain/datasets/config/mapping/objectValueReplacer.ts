@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import { ObjectMapping } from '../../config/types';
-import { ObjectValueReplacer } from '../types';
+import { ObjectMapping } from '../types';
+import { ObjectValueReplacer } from '../../view/types';
 
 // Builder function to create a function that replaces all (dynamic) path params in
 // object values with the corresponding replacement

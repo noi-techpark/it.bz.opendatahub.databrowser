@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import { ObjectValueReplacer, StringReplacer } from '../types';
+import { ObjectValueReplacer, StringReplacer } from '../../types';
 import {
   DetailViewConfig,
   EditViewConfig,
@@ -16,7 +16,7 @@ import {
   ViewConfig,
   ViewKey,
   ViewValue,
-} from '../../config/types';
+} from '../../../config/types';
 
 export const computeDynamicParamsReplacement = (
   views: ViewValue | undefined,

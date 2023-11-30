@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import { extractValueByPath } from '../../../api/utils';
-import { StringReplacer } from '../types';
+import { extractValueByPath } from './utils';
+import { StringReplacer } from '../../view/types';
 
 export type DataExtractor = (data: unknown, path: string) => unknown;
 

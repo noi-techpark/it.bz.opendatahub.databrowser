@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { buildTargetFromMapping } from '../../../api';
 import { CellComponent } from '../../../cellComponents/types';
+import { buildTargetFromMapping } from '../../config/mapping/utils';
 import { PropertyConfig } from '../../config/types';
 import { PropertyConfigWithErrors } from './types';
 

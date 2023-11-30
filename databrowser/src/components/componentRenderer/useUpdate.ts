@@ -5,7 +5,7 @@
 import { useDebounceFn } from '@vueuse/core';
 import * as R from 'ramda';
 import { Ref } from 'vue';
-import { isObjectMappingEmpty } from '../../domain/api';
+import { isObjectMappingEmpty } from '../../domain/datasets/config/mapping/utils';
 import {
   ArrayMapping,
   ObjectMapping,

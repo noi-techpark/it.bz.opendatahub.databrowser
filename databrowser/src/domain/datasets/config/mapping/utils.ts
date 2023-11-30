@@ -8,7 +8,7 @@ import {
   ObjectMapping,
   PropertyConfig,
   TargetPropertyName,
-} from '../datasets/config/types';
+} from '../types';
 
 // Split path by "." but not if the "." is escaped by a backslash
 // This is useful for paths like "self.stations+datatypes+measurements"

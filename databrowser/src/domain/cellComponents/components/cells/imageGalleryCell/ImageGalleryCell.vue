@@ -43,7 +43,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { computed, ComputedRef, toRefs } from 'vue';
-import { buildTargetFromObjectMapping } from '../../../../api';
+import { buildTargetFromObjectMapping } from '../../../../datasets/config/mapping/utils';
 import { ObjectMapping } from '../../../../datasets/config/types';
 import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
 import ImageCell from '../imageCell/ImageCell.vue';

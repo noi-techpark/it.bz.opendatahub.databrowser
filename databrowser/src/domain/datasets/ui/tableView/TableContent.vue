@@ -75,9 +75,9 @@ import ComponentRenderer from '../../../../components/componentRenderer/Componen
 import TableCell from '../../../../components/table/TableCell.vue';
 import TableHeaderCell from '../../../../components/table/TableHeaderCell.vue';
 import TableWithStickyHeader from '../../../../components/table/TableWithStickyHeader.vue';
-import { buildTargetFromObjectMapping } from '../../../api';
 import { computeRecordId } from '../../../data/utils';
 import { DatasetDomain, ListElements } from '../../../datasets/config/types';
+import { buildTargetFromObjectMapping } from '../../config/mapping/utils';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
 import TableDataEmpty from './TableDataEmpty.vue';
 import TableLinks from './TableLinks.vue';

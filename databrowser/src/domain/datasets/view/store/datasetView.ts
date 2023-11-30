@@ -5,7 +5,7 @@
 import { MaybeRef } from 'vue';
 import { ObjectValueReplacer, StringReplacer } from '../types';
 import { ViewKey, ViewValue } from '../../config/types';
-import { useDynamicParamsReplacement } from '../modifiers/dynamicParamsReplacement';
+import { useDynamicParamsReplacement } from '../modifiers/dynamicParams/dynamicParamsReplacement';
 import { useComputeViewPresence } from '../viewPresence';
 import { useComputeViewType } from '../viewType';
 

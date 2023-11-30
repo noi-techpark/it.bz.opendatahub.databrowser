@@ -5,9 +5,9 @@
 import { MaybeRef, ToRefs, computed, ref, toValue } from 'vue';
 import { DatasetConfigSource, RouteLocation } from '../types';
 import { useComputeDatasetLocation } from '../../location/datasetLocation';
-import { useValueExtractor } from '../../view/extract/valueExtractor';
-import { useObjectValueReplacer } from '../../view/replace/objectValueReplacer';
-import { useStringReplacer } from '../../view/replace/stringReplacer';
+import { useValueExtractor } from '../mapping/valueExtractor';
+import { useObjectValueReplacer } from '../mapping/objectValueReplacer';
+import { useStringReplacer } from '../mapping/stringReplacer';
 import { useComputeViewKey } from '../../view/viewKey';
 import { useResolveDatasetConfig } from '../load/datasetConfigResolver';
 import { useDatasetConfigSourceComputations } from '../datasetConfigSource';

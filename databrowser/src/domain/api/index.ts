@@ -8,9 +8,3 @@ export {
   useBaseAxiosMutate,
   useAxiosFileDownloader,
 } from './axiosFetcher';
-export {
-  buildTargetFromArrayMapping,
-  buildTargetFromMapping,
-  buildTargetFromObjectMapping,
-  isObjectMappingEmpty,
-} from './utils';
