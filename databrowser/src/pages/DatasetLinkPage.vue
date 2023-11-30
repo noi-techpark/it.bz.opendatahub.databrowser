@@ -56,12 +56,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
+import { findDatasetConfigProviders } from '../domain/datasets/config/load/datasetConfigLoader';
 import { DatasetConfig } from '../domain/datasets/config/types';
 import AppLayout from '../layouts/AppLayout.vue';
-import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
-import { useI18n } from 'vue-i18n';
 import { DatasetPage } from '../routes';
-import { findDatasetConfigProviders } from '../domain/datasets/load/datasetConfigLoader';
 
 const { t } = useI18n();
 
