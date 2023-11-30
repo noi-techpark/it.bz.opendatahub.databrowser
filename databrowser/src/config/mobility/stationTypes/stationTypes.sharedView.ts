@@ -153,5 +153,186 @@ export const stationTypesSharedView = ():
         },
       ],
     },
+    {
+      name: 'Measurements',
+      slug: 'measurements',
+      subcategories: [
+        {
+          name: 'Measurement Details',
+          properties: [
+            {
+              title: 'tdescription',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.tdescription',
+              },
+            },
+            {
+              title: 'tname',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.tname',
+              },
+            },
+            {
+              title: 'ttype',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.ttype',
+              },
+            },
+            {
+              title: 'tunit',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.tunit',
+              },
+            },
+            {
+              title: 'tmetadata',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.tmetadata',
+              },
+            },
+          ],
+        },
+        {
+          name: 'Values',
+          properties: [
+            {
+              title: 'mvalue',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.mvalue',
+              },
+            },
+            {
+              title: 'mvalidtime',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.mvalidtime',
+              },
+            },
+            {
+              title: 'mperiod',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.mperiod',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Parent station',
+      slug: 'parent-station',
+      subcategories: [
+        {
+          name: 'General data',
+          properties: [
+            {
+              title: 'pname',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.pname',
+              },
+            },
+            {
+              title: 'pcode',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.pcode',
+              },
+            },
+            {
+              title: 'ptype',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.ptype',
+              },
+            },
+          ],
+        },
+        {
+          name: 'Datastates',
+          properties: [
+            {
+              title: 'pavailable',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.pavailable',
+              },
+            },
+            {
+              title: 'pactive',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.pactive',
+              },
+            },
+          ],
+        },
+        {
+          name: 'Source and provenance',
+          properties: [
+            {
+              title: 'porigin',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.porigin',
+              },
+            },
+          ],
+        },
+        {
+          name: 'Metadata',
+          properties: [
+            {
+              title: 'pmetadata',
+              component: CellComponent.JsonCell,
+              objectMapping: {
+                data: 'data.0.pmetadata',
+              },
+              params: { usePreformatted: 'true' },
+            },
+          ],
+        },
+        {
+          name: 'GPS Data',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.GpsPointsCell,
+              objectMapping: {
+                latitude: 'data.0.pcoordinate.y',
+                longitude: 'data.0.pcoordinate.x',
+              },
+            },
+            {
+              title: 'srid',
+              component: CellComponent.StringCell,
+              objectMapping: {
+                text: 'data.0.pcoordinate.srid',
+              },
+            },
+          ],
+        },
+        {
+          name: 'Map',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.QuickViewMapView,
+              objectMapping: {
+                latitude: 'data.0.pcoordinate.y',
+                longitude: 'data.0.pcoordinate.x',
+              },
+            },
+          ],
+        },
+      ],
+    },
   ],
 });
