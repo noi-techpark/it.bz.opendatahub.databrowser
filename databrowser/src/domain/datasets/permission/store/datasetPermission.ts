@@ -69,18 +69,27 @@ export const useComputeDatasetPermission = (
 
 const computeCreatePermission = (operations?: Operations) => {
   const auth = useAuth();
+  if (auth.ready === false) {
+    return false;
+  }
   const roles = operations?.create?.rolesAllowed;
   return roles != null ? auth.hasAnyRole(roles) : false;
 };
 
 const computeUpdatePermission = (operations?: Operations) => {
   const auth = useAuth();
+  if (auth.ready === false) {
+    return false;
+  }
   const roles = operations?.update?.rolesAllowed;
   return roles != null ? auth.hasAnyRole(roles) : false;
 };
 
 const computeDeletePermission = (operations?: Operations) => {
   const auth = useAuth();
+  if (auth.ready === false) {
+    return false;
+  }
   const roles = operations?.delete?.rolesAllowed;
   return roles != null ? auth.hasAnyRole(roles) : false;
 };

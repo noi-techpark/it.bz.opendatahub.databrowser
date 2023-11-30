@@ -94,6 +94,7 @@ import EditToolBox from './toolBox/EditToolBox.vue';
 import { useApplyError } from './useApplyError';
 import { useEditStoreSync } from './useEditStoreSync';
 import { useDatasetPermissionStore } from '../permission/store/datasetPermissionStore';
+import { storeToRefs } from 'pinia';
 
 const { t } = useI18n();
 
@@ -101,7 +102,7 @@ const showAll = ref(true);
 
 const auth = useAuth();
 
-const editRecordSupported = useDatasetPermissionStore().editRecordSupported;
+const { editRecordSupported } = storeToRefs(useDatasetPermissionStore());
 
 const editStore = useEditStore();
 
