@@ -2,17 +2,17 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { computed } from 'vue';
-import { tourismParseFilterWithRegex } from './parser/tourismParseFilterWithRegex';
-import { mobilityParseFilterWithRegex } from './parser/mobilityParseFilterWithRegex';
-import { Rawfilter } from './types';
-import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
 import { storeToRefs } from 'pinia';
-import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
+import { computed } from 'vue';
+import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
 import { DatasetDomain } from '../../../datasetConfig/types';
+import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
+import { mobilityParseFilterWithRegex } from './parser/mobilityParseFilterWithRegex';
+import { tourismParseFilterWithRegex } from './parser/tourismParseFilterWithRegex';
+import { Rawfilter } from './types';
 
 export const useRawfilterHandler = () => {
-  const { datasetDomain } = storeToRefs(useDatasetInfoStore());
+  const { datasetDomain } = storeToRefs(useDatasetBaseInfoStore());
 
   const rawFilter = useDatasetQueryStore().handle('rawfilter');
   const whereFilter = useDatasetQueryStore().handle('where');

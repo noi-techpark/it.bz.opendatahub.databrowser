@@ -52,16 +52,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import DetailsLink from './DetailsLink.vue';
-import IconLayer from '../../../components/svg/IconLayer.vue';
-import IconEdit from '../../../components/svg/IconEdit.vue';
-import IconCode from '../../../components/svg/IconCode.vue';
-import IconEye from '../../../components/svg/IconEye.vue';
 import { storeToRefs } from 'pinia';
-import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
 import { toRefs } from 'vue';
+import { useI18n } from 'vue-i18n';
+import IconCode from '../../../components/svg/IconCode.vue';
+import IconEdit from '../../../components/svg/IconEdit.vue';
+import IconEye from '../../../components/svg/IconEye.vue';
+import IconLayer from '../../../components/svg/IconLayer.vue';
+import { useDatasetBaseInfoStore } from '../config/store/datasetBaseInfoStore';
 import { useSingleRecordLocations } from '../location/datasetLocation';
+import DetailsLink from './DetailsLink.vue';
 
 const { t } = useI18n();
 
@@ -74,7 +74,7 @@ const props = defineProps<{
 const { row } = toRefs(props);
 
 const { datasetDomain, datasetPath, datasetQuery } = storeToRefs(
-  useDatasetInfoStore()
+  useDatasetBaseInfoStore()
 );
 
 const { detailLocation, editLocation, rawLocation, quickLocation } =

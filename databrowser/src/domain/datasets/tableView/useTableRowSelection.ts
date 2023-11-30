@@ -2,16 +2,16 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import { storeToRefs } from 'pinia';
 import { Ref, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
-import { storeToRefs } from 'pinia';
 import { DatasetPath, DatasetQuery } from '../../datasetConfig/types';
+import { useDatasetBaseInfoStore } from '../config/store/datasetBaseInfoStore';
 import { computeDatasetLocations } from '../location/datasetLocation';
 
 export const useTableRowSelection = (rows: Ref<unknown[]>) => {
   const { datasetDomain, datasetPath, datasetQuery } = storeToRefs(
-    useDatasetInfoStore()
+    useDatasetBaseInfoStore()
   );
 
   // Handle row selection

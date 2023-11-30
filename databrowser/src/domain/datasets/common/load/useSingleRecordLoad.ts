@@ -2,35 +2,28 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { computed } from 'vue';
-import { useSingleRecordLoadConfig } from './useSingleRecordLoadConfig';
-import { useSingleRecordSubcategories } from './singleRecordSubcategories';
-import { useSingleRecordLoadData } from './useSingleRecordLoadData';
-import { useComputeSingleRecordSlugWithRouter } from './singleRecordSlug';
+import { computed, toRefs } from 'vue';
+import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
+import { updateDatasetLocationStore } from '../../location/store/utils';
+import { useDatasetViewStore } from '../../view/store/datasetViewStore';
 import { useComputeSingleRecordCategories } from './singleRecordCategories';
 import { useComputeSingleRecordCurrentCategory } from './singleRecordCurrentCategories';
-import { updateDatasetLocationStore } from '../../location/store/utils';
+import { useComputeSingleRecordSlugWithRouter } from './singleRecordSlug';
+import { useSingleRecordSubcategories } from './singleRecordSubcategories';
+import { useSingleRecordLoadData } from './useSingleRecordLoadData';
 
 export const useSingleRecordLoad = () => {
-  // Load single record config
   const {
-    fullPath,
-    addRecordSupported,
-    editRecordSupported,
-    hasDetailView,
-    hasEditView,
-    hasNewView,
-    hasQuickView,
-    isNewView,
-    view,
-    isConfigLoading,
-    extractValueByPath,
-    isEmbeddedSource,
-    isGeneratedSource,
+    isLoading: isConfigLoading,
     datasetDomain,
     datasetPath,
     datasetQuery,
-  } = useSingleRecordLoadConfig();
+    fullPath,
+    isGeneratedSource,
+    extractValueByPath,
+  } = toRefs(useDatasetBaseInfoStore());
+
+  const { view, isNewView, hasEditView } = toRefs(useDatasetViewStore());
 
   // Load single record data
   const { data, error, isError, isDataLoading } = useSingleRecordLoadData(
@@ -66,12 +59,12 @@ export const useSingleRecordLoad = () => {
 
   return {
     data,
-    addRecordSupported,
-    editRecordSupported,
-    hasDetailView,
+    // addRecordSupported,
+    // editRecordSupported,
+    // hasDetailView,
     hasEditView,
-    hasNewView,
-    hasQuickView,
+    // hasNewView,
+    // hasQuickView,
     isNewView,
     view,
     isError,
@@ -79,7 +72,7 @@ export const useSingleRecordLoad = () => {
     error,
     fullPath,
     extractValueByPath,
-    isEmbeddedSource,
+    // isEmbeddedSource,
     isGeneratedSource,
     slug,
     categories,

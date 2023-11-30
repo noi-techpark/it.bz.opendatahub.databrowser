@@ -76,13 +76,11 @@ import TableCell from '../../../components/table/TableCell.vue';
 import TableHeaderCell from '../../../components/table/TableHeaderCell.vue';
 import TableWithStickyHeader from '../../../components/table/TableWithStickyHeader.vue';
 import { buildTargetFromObjectMapping } from '../../api';
-import { ListElements } from '../../datasetConfig/types';
+import { DatasetDomain, ListElements } from '../../datasetConfig/types';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
 import TableDataEmpty from './TableDataEmpty.vue';
 import TableLinks from './TableLinks.vue';
 import { useTableRowSelection } from './useTableRowSelection';
-import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
-import { storeToRefs } from 'pinia';
 import { computeRecordId } from '../../data/utils';
 
 const { t } = useI18n();
@@ -94,6 +92,7 @@ const props = withDefaults(
     showDetail: boolean;
     showEdit: boolean;
     showQuick: boolean;
+    datasetDomain: DatasetDomain | undefined;
   }>(),
   {
     rows: () => [],
@@ -109,8 +108,6 @@ const { selectedRowIndex, rowClicked, rowDblClicked } =
 const showLinkColumn = computed(
   () => props.showDetail || props.showEdit || props.showQuick
 );
-
-const { datasetDomain } = storeToRefs(useDatasetInfoStore());
 
 let updateStart = 0;
 

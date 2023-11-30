@@ -9,13 +9,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import DatasetTitle from '../common/DatasetTitle.vue';
-import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
-import { useMetaDataStore } from '../../metaDataConfig/tourism/metaDataStore';
 import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
+import { useMetaDataStore } from '../../metaDataConfig/tourism/metaDataStore';
+import DatasetTitle from '../common/DatasetTitle.vue';
+import { useDatasetBaseInfoStore } from '../config/store/datasetBaseInfoStore';
 
-const { description } = storeToRefs(useDatasetInfoStore());
+const { description } = storeToRefs(useDatasetBaseInfoStore());
 const { currentMetaData } = storeToRefs(useMetaDataStore());
 
 const datasetTitleInfo = computed(

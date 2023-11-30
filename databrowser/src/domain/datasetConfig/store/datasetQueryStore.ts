@@ -5,10 +5,10 @@
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
 import { Ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useDatasetInfoStore } from './datasetInfoStore';
+import { useDatasetBaseInfoStore } from '../../datasets/config/store/datasetBaseInfoStore';
 
 export const useDatasetQueryStore = defineStore('datasetRoutingStore', () => {
-  const { datasetQuery } = storeToRefs(useDatasetInfoStore());
+  const { datasetQuery } = storeToRefs(useDatasetBaseInfoStore());
   const router = useRouter();
 
   const buildQueryHandler = (name: string) =>

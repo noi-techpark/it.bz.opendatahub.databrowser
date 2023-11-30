@@ -71,19 +71,20 @@ import { useI18n } from 'vue-i18n';
 import LanguagePicker from '../../../components/language/LanguagePicker.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import { DatasetConfigSource } from '../../datasetConfig/load/types';
-import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
+import { useDatasetQueryStore } from '../../datasetConfig/store/datasetQueryStore';
 import { useDatasetSourceStore } from '../../datasetConfig/store/datasetSourceStore';
+import { useDatasetBaseInfoStore } from '../config/store/datasetBaseInfoStore';
 import AddRecordButton from './AddRecordButton.vue';
 import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
 import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
 import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
-import { useDatasetQueryStore } from '../../datasetConfig/store/datasetQueryStore';
+import { useDatasetPermissionStore } from '../permission/store/datasetPermissionStore';
 
 const { t } = useI18n();
 
-const { addRecordSupported, datasetDomain, hasConfig } = storeToRefs(
-  useDatasetInfoStore()
-);
+const { datasetDomain, hasConfig } = storeToRefs(useDatasetBaseInfoStore());
+
+const { addRecordSupported } = storeToRefs(useDatasetPermissionStore());
 
 const currentLanguage = useDatasetQueryStore().handle('language');
 

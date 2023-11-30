@@ -18,7 +18,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :show-detail="hasDetailView"
           :show-edit="editRecordSupported"
           :show-quick="hasQuickView"
+          :dataset-domain="datasetDomain"
         />
+        <!-- :show-detail="hasDetailView"
+          :show-edit="editRecordSupported"
+          :show-quick="hasQuickView" -->
         <TableFooter :pagination="pagination" />
       </div>
       <TableToolBox :url="fullPath" :cols="cols" />
@@ -47,6 +51,7 @@ const {
   hasQuickView,
   editRecordSupported,
   fullPath,
+  datasetDomain,
 } = useTableLoad();
 
 // Store TableView route query in a store for later use e.g. in DetailView

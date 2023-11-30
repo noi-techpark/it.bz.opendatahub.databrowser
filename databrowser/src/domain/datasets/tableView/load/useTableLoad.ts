@@ -2,27 +2,26 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
-import { useTableLoadConfig } from './useTableLoadConfig';
+import { usePagination } from '../../../data/pagination/usePagination';
+import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
+import { updateDatasetLocationStore } from '../../location/store/utils';
+import { useDatasetViewStore } from '../../view/store/datasetViewStore';
 import { useTableCols } from './tableCols';
 import { useTableRows } from './tableRows';
-import { usePagination } from '../../../data/pagination/usePagination';
-import { updateDatasetLocationStore } from '../../location/store/utils';
 import { useTableLoadData } from './useTableLoadData';
+import { useDatasetPermissionStore } from '../../permission/store/datasetPermissionStore';
 
 export const useTableLoad = () => {
-  // Load table config
+  // Use base dataset info
   const {
-    fullPath,
-    view,
-    editRecordSupported,
-    hasDetailView,
-    hasQuickView,
-    isConfigLoading,
+    isLoading: isConfigLoading,
     datasetDomain,
     datasetPath,
     datasetQuery,
-  } = useTableLoadConfig();
+    fullPath,
+  } = storeToRefs(useDatasetBaseInfoStore());
 
   // Load table data
   const { isDataLoading, isError, error, data, responseData } =
@@ -35,6 +34,11 @@ export const useTableLoad = () => {
     () => isConfigLoading.value || isDataLoading.value
   );
 
+  // Use view info
+  const { view, hasDetailView, hasQuickView } = storeToRefs(
+    useDatasetViewStore()
+  );
+
   // Compute table cols
   const cols = useTableCols(isLoading, view);
 
@@ -44,16 +48,20 @@ export const useTableLoad = () => {
   // Compute pagination
   const pagination = usePagination(datasetDomain, datasetQuery, responseData);
 
+  // Use permissions
+  const { editRecordSupported } = storeToRefs(useDatasetPermissionStore());
+
   return {
     isLoading,
     cols,
     rows,
     pagination,
+    datasetDomain,
     fullPath,
-    editRecordSupported,
-    hasDetailView,
-    hasQuickView,
     isError,
     error,
+    hasDetailView,
+    hasQuickView,
+    editRecordSupported,
   };
 };

@@ -93,13 +93,7 @@ export interface EditElements {
   slug: string;
   subcategories: {
     name: string;
-    properties: (PropertyConfig & {
-      reference?: {
-        url: string;
-        labelSelector: string;
-        keySelector: string;
-      };
-    })[];
+    properties: PropertyConfig[];
   }[];
 }
 

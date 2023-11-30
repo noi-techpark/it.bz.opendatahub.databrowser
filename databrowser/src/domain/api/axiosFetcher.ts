@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { storeToRefs } from 'pinia';
 import {
   MaybeRef,
   computed,
@@ -13,8 +14,7 @@ import {
   watch,
 } from 'vue';
 import { useAuth } from '../auth/store/auth';
-import { storeToRefs } from 'pinia';
-import { useDatasetInfoStore } from '../datasetConfig/store/datasetInfoStore';
+import { useDatasetBaseInfoStore } from '../datasets/config/store/datasetBaseInfoStore';
 
 type BeforeFetchFn<T = unknown> = (
   config: AxiosRequestConfig<T>
@@ -195,7 +195,7 @@ export const buildAuthInterceptor = <T>(): BeforeFetchFn<T> => {
     }
   };
 
-  const { datasetDomain } = storeToRefs(useDatasetInfoStore());
+  const { datasetDomain } = storeToRefs(useDatasetBaseInfoStore());
   const { ready, isAuthenticated, accessToken } = storeToRefs(useAuth());
 
   return async (ctx) => {

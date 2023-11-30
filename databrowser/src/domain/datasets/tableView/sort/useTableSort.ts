@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { Ref, computed } from 'vue';
-import { SortState } from './types';
-import { PropertyPath } from '../../../datasetConfig/types';
-import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
 import { storeToRefs } from 'pinia';
-import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
+import { Ref, computed } from 'vue';
+import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
+import { PropertyPath } from '../../../datasetConfig/types';
+import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
+import { SortState } from './types';
 
 // This function computes the rawsort value based on the sort field and the sort state.
 const rawsortValue = (propertyPath: PropertyPath, sortState: SortState) => {
@@ -24,7 +24,7 @@ const rawsortValue = (propertyPath: PropertyPath, sortState: SortState) => {
 export const useTableSortForPropertyPath = (
   propertyPath: Ref<string | undefined>
 ) => {
-  const { datasetDomain } = storeToRefs(useDatasetInfoStore());
+  const { datasetDomain } = storeToRefs(useDatasetBaseInfoStore());
 
   const rawsort = useDatasetQueryStore().handle('rawsort');
 

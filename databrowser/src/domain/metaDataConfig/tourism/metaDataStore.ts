@@ -3,11 +3,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
-import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
+import { useDatasetBaseInfoStore } from '../../datasets/config/store/datasetBaseInfoStore';
 import { useMetaDataForRoute } from './useMetaData';
 
 export const useMetaDataStore = defineStore('metaDataStore', () => {
-  const { datasetPath, datasetQuery } = storeToRefs(useDatasetInfoStore());
+  const { datasetPath, datasetQuery } = storeToRefs(useDatasetBaseInfoStore());
   return useMetaDataForRoute(datasetPath, datasetQuery);
 });
 

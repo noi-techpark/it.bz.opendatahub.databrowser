@@ -64,16 +64,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script lang="ts" setup>
-import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
+import IconStrokedArrowDown from '../../../components/svg/IconStrokedArrowDown.vue';
 import TabLink from '../../../components/tab/TabLink.vue';
-import { useI18n } from 'vue-i18n';
-import { computed } from 'vue';
-import { useTableViewRouteQueryStore } from '../tableView/tableViewRouteQueryStore';
-import { storeToRefs } from 'pinia';
-import { useDatasetInfoStore } from '../../datasetConfig/store/datasetInfoStore';
 import { useDatasetLocationStore } from '../location/store/useDatasetLocationStore';
+import { useDatasetPermissionStore } from '../permission/store/datasetPermissionStore';
+import { useTableViewRouteQueryStore } from '../tableView/tableViewRouteQueryStore';
+import { useDatasetViewStore } from '../view/store/datasetViewStore';
 
 const { t } = useI18n();
 
@@ -86,8 +87,9 @@ const {
   isNewView,
   isRawView,
   isQuickView,
-  editRecordSupported,
-} = storeToRefs(useDatasetInfoStore());
+} = storeToRefs(useDatasetViewStore());
+
+const { editRecordSupported } = storeToRefs(useDatasetPermissionStore());
 
 const {
   tableLocation,

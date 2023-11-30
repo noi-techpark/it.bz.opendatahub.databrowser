@@ -3,11 +3,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, Ref, computed, toValue } from 'vue';
-import { useBaseAxiosFetch } from '../../../../api';
-import { useDatasetInfoStore } from '../../../../datasetConfig/store/datasetInfoStore';
 import { SelectOption } from '../../../../../components/select/types';
-import { booleanOrStringToBoolean } from '../../../../utils/convertType';
+import { useBaseAxiosFetch } from '../../../../api';
 import { unwrapData } from '../../../../api/dataExtraction/dataExtraction';
+import { useDatasetBaseInfoStore } from '../../../../datasets/config/store/datasetBaseInfoStore';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 import { RemoteOptionsMapper } from './types';
 
 export const defaultOptionsMapper: RemoteOptionsMapper = (
@@ -15,7 +15,7 @@ export const defaultOptionsMapper: RemoteOptionsMapper = (
   keySelector,
   labelSelector
 ) => {
-  const { extractValueByPath } = useDatasetInfoStore();
+  const { extractValueByPath } = useDatasetBaseInfoStore();
 
   return data.map((item) => {
     const value = extractValueByPath(item, keySelector) as string;

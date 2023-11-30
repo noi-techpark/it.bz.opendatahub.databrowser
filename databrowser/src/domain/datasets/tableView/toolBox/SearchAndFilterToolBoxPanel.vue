@@ -91,6 +91,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../components/button/types';
@@ -101,6 +103,8 @@ import { SelectOption } from '../../../../components/select/types';
 import IconClose from '../../../../components/svg/IconClose.vue';
 import IconDelete from '../../../../components/svg/IconDelete.vue';
 import TagCustom from '../../../../components/tag/TagCustom.vue';
+import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
+import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
 import ToolBoxCard from '../../toolBox/ToolBoxCard.vue';
 import ToolBoxCardBody from '../../toolBox/ToolBoxCardBody.vue';
 import ToolBoxCardHeader from '../../toolBox/ToolBoxCardHeader.vue';
@@ -113,10 +117,6 @@ import {
 import { useTableFilter } from '../filter/useTableFilter';
 import InfoFilter from './InfoFilter.vue';
 import InfoSearch from './InfoSearch.vue';
-import { useDatasetQueryStore } from '../../../datasetConfig/store/datasetQueryStore';
-import { computed } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useDatasetInfoStore } from '../../../datasetConfig/store/datasetInfoStore';
 
 const { t } = useI18n();
 
@@ -137,7 +137,7 @@ const {
   filtersFromStore,
 } = useTableFilter();
 
-const { datasetDomain } = storeToRefs(useDatasetInfoStore());
+const { datasetDomain } = storeToRefs(useDatasetBaseInfoStore());
 const filterSelectOptions = computed(() => {
   if (datasetDomain.value === 'tourism') {
     return tourismFilterSelectOptions;
