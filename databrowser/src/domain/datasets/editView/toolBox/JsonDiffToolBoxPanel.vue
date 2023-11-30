@@ -5,27 +5,29 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <UseFullscreen
-    v-slot="{ toggle, isFullscreen }"
-    class="flex flex-col items-center justify-center md:items-stretch"
-  >
-    <button @click="toggle">Toggle fullscreen</button>
-    <ToolBoxPanel
-      class="overflow-auto border-transparent bg-green-500 pl-2"
-      :class="{ 'bg-red-500': !editStore.isEqual }"
+  <ToolBoxPanel>
+    <UseFullscreen
+      v-slot="{ toggle, isFullscreen }"
+      class="flex flex-col items-center justify-center md:items-stretch"
     >
-      <div :class="{ 'h-[30rem] w-default': !isFullscreen }">
-        <VueDiff
-          :mode="'split'"
-          :theme="'dark'"
-          :language="'json'"
-          :prev="editStore.initialAsJson ?? ''"
-          :current="editStore.currentAsJson ?? ''"
-          :input-delay="10"
-        />
+      <button @click="toggle">Toggle fullscreen</button>
+      <div
+        class="overflow-auto border-transparent bg-green-500 pl-2"
+        :class="{ 'bg-red-500': !editStore.isEqual }"
+      >
+        <div :class="{ 'h-[30rem] w-default': !isFullscreen }">
+          <VueDiff
+            :mode="'split'"
+            :theme="'dark'"
+            :language="'json'"
+            :prev="editStore.initialAsJson ?? ''"
+            :current="editStore.currentAsJson ?? ''"
+            :input-delay="10"
+          />
+        </div>
       </div>
-    </ToolBoxPanel>
-  </UseFullscreen>
+    </UseFullscreen>
+  </ToolBoxPanel>
 </template>
 
 <script setup lang="ts">
