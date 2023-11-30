@@ -8,7 +8,7 @@ import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import { SelectOption } from '../../../components/select/types';
 import { useI18n } from 'vue-i18n';
 import { DatasetConfig } from '../../../domain/datasets/config/types';
-import { providerForGeneratedDatasetConfig } from '../../../domain/datasets/load/loadGeneratedConfig';
+import { providerForGeneratedDatasetConfig } from '../../../domain/datasets/config/load/loadGeneratedConfig';
 
 export const useMetaDataDatasets = () => {
   const { t } = useI18n();

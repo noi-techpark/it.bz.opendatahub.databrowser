@@ -71,7 +71,6 @@ import { useI18n } from 'vue-i18n';
 import LanguagePicker from '../../../../components/language/LanguagePicker.vue';
 import TagCustom from '../../../../components/tag/TagCustom.vue';
 import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
-import { useDatasetSourceStore } from '../../config/store/datasetSourceStore';
 import { DatasetConfigSource } from '../../config/types';
 import { useDatasetQueryStore } from '../../location/store/datasetQueryStore';
 import { useDatasetPermissionStore } from '../../permission/store/datasetPermissionStore';
@@ -82,13 +81,13 @@ import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
 
 const { t } = useI18n();
 
-const { datasetDomain, hasConfig } = storeToRefs(useDatasetBaseInfoStore());
+const { datasetDomain, hasConfig, source } = storeToRefs(
+  useDatasetBaseInfoStore()
+);
 
 const { addRecordSupported } = storeToRefs(useDatasetPermissionStore());
 
 const currentLanguage = useDatasetQueryStore().handle('language');
-
-const { source } = storeToRefs(useDatasetSourceStore());
 
 const changeSource = (value: DatasetConfigSource) => {
   source.value = value;

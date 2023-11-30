@@ -5,11 +5,7 @@
 import { DatasetConfigLoader } from './types';
 import { providerForEmbeddedDatasetConfig } from './loadEmbeddedConfig';
 import { providerForGeneratedDatasetConfig } from './loadGeneratedConfig';
-import {
-  PathSegments,
-  DatasetConfig,
-  DatasetConfigSource,
-} from '../config/types';
+import { PathSegments, DatasetConfig, DatasetConfigSource } from '../types';
 
 const datasetConfigProviders: DatasetConfigLoader[] = [
   providerForEmbeddedDatasetConfig,

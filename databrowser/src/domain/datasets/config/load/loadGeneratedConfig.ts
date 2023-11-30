@@ -7,15 +7,15 @@ import {
   ROLE_DELETE,
   ROLE_READ,
   ROLE_UPDATE,
-} from '../../../config/tourism/roles';
-import { CellComponent } from '../../cellComponents/types';
-import { isWithTourismPagination } from '../../data/pagination/types';
+} from '../../../../config/tourism/roles';
+import { CellComponent } from '../../../cellComponents/types';
+import { isWithTourismPagination } from '../../../data/pagination/types';
 import {
   domainIsKnownToHaveOpenApiDocument,
   domainWithOpenApiDocument,
   useOpenApi,
-} from '../../openApi';
-import { DomainWithOpenApiDocument, OpenApi } from '../../openApi/types';
+} from '../../../openApi';
+import { DomainWithOpenApiDocument, OpenApi } from '../../../openApi/types';
 import {
   AnyDomain,
   DatasetConfig,
@@ -25,12 +25,12 @@ import {
   OperationKey,
   PathSegments,
   PropertyConfig,
-} from '../config/types';
-import { findCandidateConfigs } from '../config/utils';
+} from '../types';
+import { findCandidateConfigs } from '../utils';
 import {
   defaultMobilityTableQueryParameters,
   defaultTourismTableQueryParameters,
-} from '../ui/tableView/defaultValues';
+} from '../../ui/tableView/defaultValues';
 import {
   DatasetConfigLoader,
   LoadAllDatasetConfigsFn,

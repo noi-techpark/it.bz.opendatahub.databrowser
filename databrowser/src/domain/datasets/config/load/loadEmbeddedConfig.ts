@@ -5,8 +5,8 @@
 import {
   embeddedDatasetConfigs,
   findEmbeddedDatasetConfig,
-} from '../../../config/config';
-import { AnyDomain, DatasetConfig } from '../config/types';
+} from '../../../../config/config';
+import { AnyDomain, DatasetConfig } from '../types';
 import {
   DatasetConfigLoader,
   LoadDatasetConfigFn,

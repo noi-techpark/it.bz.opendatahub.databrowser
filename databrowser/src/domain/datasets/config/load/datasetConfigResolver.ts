@@ -3,9 +3,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, ref, toValue, watch } from 'vue';
-import { loadDatasetConfig } from '../load/datasetConfigLoader';
-import { toError } from '../../utils/convertError';
-import { DatasetConfig, DatasetConfigSource } from './types';
+import { loadDatasetConfig } from './datasetConfigLoader';
+import { toError } from '../../../utils/convertError';
+import { DatasetConfig, DatasetConfigSource } from '../types';
 
 export const resolveDatasetConfig = async (
   preferredSource: DatasetConfigSource | undefined,

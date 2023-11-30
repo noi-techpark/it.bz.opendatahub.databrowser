@@ -9,7 +9,7 @@ import { useValueExtractor } from '../../view/extract/valueExtractor';
 import { useObjectValueReplacer } from '../../view/replace/objectValueReplacer';
 import { useStringReplacer } from '../../view/replace/stringReplacer';
 import { useComputeViewKey } from '../../view/viewKey';
-import { useResolveDatasetConfig } from '../datasetConfigResolver';
+import { useResolveDatasetConfig } from '../load/datasetConfigResolver';
 import { useDatasetConfigSourceComputations } from '../datasetConfigSource';
 
 export const useDatasetBaseInfo = (
@@ -54,6 +54,7 @@ export const useDatasetBaseInfo = (
     isLoading: isResolving,
     isError,
     error,
+    source: computed(() => datasetConfig.value?.source),
     datasetDomain,
     datasetPath,
     datasetQuery,

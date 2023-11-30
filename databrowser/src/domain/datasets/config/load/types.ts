@@ -7,7 +7,7 @@ import {
   PathSegments,
   DatasetConfig,
   DatasetConfigSource,
-} from '../config/types';
+} from '../types';
 
 export type LoadDatasetConfigFn = (
   domain: AnyDomain,
