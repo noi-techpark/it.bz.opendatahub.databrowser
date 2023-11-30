@@ -40,14 +40,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <TabLink
           v-if="!isNewView && hasDetailView"
           :label="t('datasets.navigation.detailView')"
-          :to="detailLocation"
+          :to="{ ...detailLocation, hash }"
           :active="isDetailView"
           data-test="detail-view-link"
         />
         <TabLink
           v-if="!isNewView && hasEditView && editRecordSupported"
           :label="t('datasets.navigation.editView')"
-          :to="editLocation"
+          :to="{ ...editLocation, hash }"
           :active="isEditView"
           data-test="edit-view-link"
         />
@@ -75,6 +75,7 @@ import { useDatasetLocationStore } from '../location/store/useDatasetLocationSto
 import { useDatasetPermissionStore } from '../permission/store/datasetPermissionStore';
 import { useTableViewRouteQueryStore } from '../tableView/tableViewRouteQueryStore';
 import { useDatasetViewStore } from '../view/store/datasetViewStore';
+import { useRouter } from 'vue-router';
 
 const { t } = useI18n();
 
@@ -99,6 +100,8 @@ const {
   rawLocation,
   quickLocation,
 } = storeToRefs(useDatasetLocationStore());
+
+const hash = computed(() => useRouter().currentRoute.value.hash);
 
 // Combine query params from TableView with ones from the current route.
 // This is needed to keep the query params when switching between DetailView
