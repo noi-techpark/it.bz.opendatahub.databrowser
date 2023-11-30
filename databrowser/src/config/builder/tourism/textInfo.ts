@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { DetailElements } from '../../../domain/datasetConfig/types';
+import { DetailElements } from '../../../domain/datasets/config/types';
 
 export const textInfoCategory = (): DetailElements => ({
   name: 'Text information',

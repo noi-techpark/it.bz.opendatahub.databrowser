@@ -3,11 +3,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef } from 'vue';
-import {
-  ObjectValueReplacer,
-  StringReplacer,
-} from '../../../datasetConfig/replace/types';
-import { ViewKey, ViewValue } from '../../../datasetConfig/types';
+import { ObjectValueReplacer, StringReplacer } from '../types';
+import { ViewKey, ViewValue } from '../../config/types';
 import { useDynamicParamsReplacement } from '../modifiers/dynamicParamsReplacement';
 import { useComputeViewPresence } from '../viewPresence';
 import { useComputeViewType } from '../viewType';

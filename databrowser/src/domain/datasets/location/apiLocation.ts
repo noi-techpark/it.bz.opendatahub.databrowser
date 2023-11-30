@@ -8,7 +8,7 @@ import {
   DatasetId,
   DatasetPath,
   DatasetQuery,
-} from '../../datasetConfig/types';
+} from '../config/types';
 import {
   domainIsKnownToHaveOpenApiDocument,
   domainWithOpenApiDocument,

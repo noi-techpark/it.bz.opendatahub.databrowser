@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { createRouter, createWebHistory } from 'vue-router';
-import { ViewKey } from './domain/datasetConfig/types';
+import { ViewKey } from './domain/datasets/config/types';
 
 export const DatasetPage: Record<Uppercase<ViewKey>, string> = {
   DETAIL: 'DatasetDetailPage',

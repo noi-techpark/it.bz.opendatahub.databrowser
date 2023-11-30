@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DatasetConfig } from '../../../domain/datasetConfig/types';
+import { DatasetConfig } from '../../../domain/datasets/config/types';
 import { domainWithOpenApiDocument } from '../../../domain/openApi';
 import { skiAreaDescription } from './skiArea.description';
 import { skiAreaOperations } from './skiArea.operations';

@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DatasetConfig } from '../../domain/datasetConfig/types';
+import { DatasetConfig } from '../../domain/datasets/config/types';
 import {
-  defaultTourismTableQueryParameters,
   defaultTourismSingleRecordQueryParameters,
-} from '../../domain/datasets/tableView/defaultValues';
+  defaultTourismTableQueryParameters,
+} from '../../domain/datasets/ui/tableView/defaultValues';
 import { accommodationConfig } from './accommodation/accommodation.config';
 import { accommodationTypesConfig } from './accommodationTypes/accommodationTypes.config';
 import { articleConfig } from './article/article.config';

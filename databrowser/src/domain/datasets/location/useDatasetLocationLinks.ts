@@ -5,12 +5,8 @@
 import { reactiveComputed } from '@vueuse/core';
 import { MaybeRef, toRefs, toValue } from 'vue';
 import { RouteLocationRaw, Router, useRouter } from 'vue-router';
-import {
-  DatasetDomain,
-  DatasetPath,
-  DatasetQuery,
-} from '../../datasetConfig/types';
-import { computeDatasetLocations } from './datasetLocation';
+import { DatasetDomain, DatasetPath, DatasetQuery } from '../config/types';
+import { computeDatasetViewLocations } from './datasetViewLocation';
 import { DatasetLocationRouteLink } from './types';
 
 const toRouteLink = (
@@ -36,7 +32,7 @@ export const useDatasetRouteLinks = (
   const router = useRouter();
 
   const result = reactiveComputed(() => {
-    const locations = computeDatasetLocations(
+    const locations = computeDatasetViewLocations(
       toValue(datasetDomain),
       toValue(datasetPath) as DatasetPath,
       toValue(datasetQuery)?.raw as DatasetQuery['raw'],

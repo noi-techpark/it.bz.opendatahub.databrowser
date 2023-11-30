@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { idReadOnlyCell } from '../../builder/tourism';
 

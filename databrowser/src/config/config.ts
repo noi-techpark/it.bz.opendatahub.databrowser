@@ -6,7 +6,7 @@ import {
   DatasetConfig,
   AnyDomain,
   PathSegments,
-} from '../domain/datasetConfig/types';
+} from '../domain/datasets/config/types';
 import { mobilityEmbeddedDatasetConfigs } from './mobility';
 import { tourismEmbeddedDatasetConfigs } from './tourism';
 

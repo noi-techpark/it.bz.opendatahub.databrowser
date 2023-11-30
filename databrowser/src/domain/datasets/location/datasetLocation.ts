@@ -2,127 +2,130 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { reactiveComputed } from '@vueuse/core';
-import { MaybeRef, computed, toRefs, toValue } from 'vue';
-import { DatasetPage } from '../../../routes';
-import { computeRecordId } from '../../data/utils';
+import { ToRefs, toRefs, toValue } from 'vue';
 import {
   DatasetDomain,
+  DatasetId,
   DatasetPath,
   DatasetQuery,
-} from '../../datasetConfig/types';
-import { defaultLanguage } from '../language';
-import { DatasetLocationRoute, DatasetLocations } from './types';
+  RouteDomain,
+  RouteId,
+  RoutePath,
+  RouteQuery,
+  ToMaybeRefs,
+} from '../config/types';
+import { DatasetConfig, ViewKey } from '../config/types';
+import { reactiveComputed } from '@vueuse/core';
+import { domainIsKnownToHaveOpenApiDocument } from '../../openApi';
+import { stringifyRouteQuery } from '../../utils/route';
+import { computeApiFullUrl } from './apiLocation';
 
-export const computeTableLocation = (
-  domain: string | undefined,
-  pathSegments: DatasetPath | undefined,
-  query: DatasetQuery['raw'] | undefined = {}
-): DatasetLocationRoute => {
-  // Check if it is possible to compute the locations at all
-  if (domain == null || pathSegments == null) {
-    return {};
+interface ComputeDatasetLocation {
+  datasetDomain: DatasetDomain | undefined;
+  datasetPath: DatasetPath | undefined;
+  datasetQuery: DatasetQuery | undefined;
+  datasetId: DatasetId | undefined;
+  fullPath: string | undefined;
+}
+
+interface ComputeDatasetLocationParams {
+  datasetConfig: DatasetConfig | undefined;
+  viewKey: ViewKey | undefined;
+  routeDomain: RouteDomain;
+  routePath: RoutePath;
+  routeId: RouteId;
+  routeQuery: RouteQuery;
+}
+
+export const computeDatasetLocation = ({
+  datasetConfig,
+  viewKey,
+  routeDomain,
+  routePath,
+  routeId,
+  routeQuery,
+}: ComputeDatasetLocationParams): ComputeDatasetLocation => {
+  if (datasetConfig == null || viewKey == null) {
+    return {
+      datasetDomain: undefined,
+      datasetPath: undefined,
+      datasetQuery: undefined,
+      datasetId: undefined,
+      fullPath: undefined,
+    };
   }
-  return { params: { domain, pathSegments }, query, name: DatasetPage.TABLE };
-};
 
-export const computeSingleRecordLocations = (
-  domain: string | undefined,
-  pathSegments: DatasetPath | undefined,
-  query: DatasetQuery['raw'] | undefined = {},
-  record?: any
-): Omit<DatasetLocations, 'tableLocation'> => {
-  // Check if it is possible to compute the locations at all
-  if (domain == null || pathSegments == null) {
-    return {};
-  }
+  const datasetDomain = computeDatasetDomain(routeDomain);
 
-  const id = computeRecordId(domain, record);
+  const datasetQuery = computeDatasetQuery(
+    routeQuery,
+    datasetConfig.views?.[viewKey]?.defaultQueryParams
+  );
 
-  // Check if it is possible to compute the locations at all
-  if (id == null) {
-    return {};
-  }
-
-  const params = { domain, pathSegments, id };
-
-  const singleRecordQuery: Record<string, string | (string | null)[] | null> =
-    domain === 'tourism' && query.language !== defaultLanguage
-      ? { language: query.language }
-      : {};
-
-  const singleRecordLocation = {
-    params,
-    query: singleRecordQuery,
-  };
+  const fullPath = computeApiFullUrl(
+    datasetDomain,
+    routePath,
+    routeId,
+    datasetQuery
+  );
 
   return {
-    detailLocation: { ...singleRecordLocation, name: DatasetPage.DETAIL },
-    editLocation: { ...singleRecordLocation, name: DatasetPage.EDIT },
-    newLocation: { ...params, name: DatasetPage.NEW },
-    rawLocation: { ...singleRecordLocation, name: DatasetPage.RAW },
-    quickLocation: { ...singleRecordLocation, name: DatasetPage.QUICK },
+    datasetDomain,
+    datasetPath: routePath,
+    datasetQuery,
+    datasetId: routeId,
+    fullPath,
   };
 };
 
-export const computeDatasetLocations = (
-  domain: string | undefined,
-  pathSegments: DatasetPath | undefined,
-  query: DatasetQuery['raw'] | undefined = {},
-  record?: any
-): DatasetLocations => {
-  return {
-    tableLocation: computeTableLocation(domain, pathSegments, query),
-    ...computeSingleRecordLocations(domain, pathSegments, query, record),
-  };
-};
+export const useComputeDatasetLocation = (
+  params: ToMaybeRefs<ComputeDatasetLocationParams>
+): ToRefs<ComputeDatasetLocation> => {
+  const result = reactiveComputed(() => {
+    const datasetConfig = toValue(params.datasetConfig);
+    const viewKey = toValue(params.viewKey);
+    const routeDomain = toValue(params.routeDomain);
+    const routePath = toValue(params.routePath);
+    const routeId = toValue(params.routeId);
+    const routeQuery = toValue(params.routeQuery);
 
-export const useTableLocation = (
-  datasetDomain: MaybeRef<DatasetDomain | undefined>,
-  datasetPath: MaybeRef<DatasetPath | undefined>,
-  datasetQuery: MaybeRef<DatasetQuery | undefined>
-) => {
-  return computed(() =>
-    computeTableLocation(
-      toValue(datasetDomain),
-      toValue(datasetPath) as DatasetPath,
-      toValue(datasetQuery)?.raw as DatasetQuery['raw']
-    )
-  );
-};
-
-export const useSingleRecordLocations = (
-  datasetDomain: MaybeRef<DatasetDomain | undefined>,
-  datasetPath: MaybeRef<DatasetPath | undefined>,
-  datasetQuery: MaybeRef<DatasetQuery | undefined>,
-  record?: MaybeRef<any>
-) => {
-  const result = reactiveComputed(() =>
-    computeSingleRecordLocations(
-      toValue(datasetDomain),
-      toValue(datasetPath) as DatasetPath,
-      toValue(datasetQuery)?.raw as DatasetQuery['raw'],
-      toValue(record)
-    )
-  );
+    return computeDatasetLocation({
+      datasetConfig,
+      viewKey,
+      routeDomain,
+      routePath,
+      routeId,
+      routeQuery,
+    });
+  });
 
   return toRefs(result);
 };
 
-export const useDatasetLocations = (
-  datasetDomain: MaybeRef<DatasetDomain | undefined>,
-  datasetPath: MaybeRef<DatasetPath | undefined>,
-  datasetQuery: MaybeRef<DatasetQuery | undefined>,
-  record?: MaybeRef<any>
-) => {
-  const result = reactiveComputed<DatasetLocations>(() =>
-    computeDatasetLocations(
-      toValue(datasetDomain),
-      toValue(datasetPath) as DatasetPath,
-      toValue(datasetQuery)?.raw as DatasetQuery['raw'],
-      toValue(record)
-    )
-  );
+const computeDatasetDomain = (
+  routeDomain: string | undefined
+): DatasetDomain => {
+  if (routeDomain == null) {
+    return 'no-dataset-domain-in-url';
+  }
+  return domainIsKnownToHaveOpenApiDocument(routeDomain)
+    ? routeDomain
+    : 'unknown';
+};
 
-  return toRefs(result);
+const computeDatasetQuery = (
+  routeQuery: RouteQuery,
+  defaultValues: Record<string, string> | undefined
+): DatasetQuery => {
+  const def = defaultValues ?? {};
+  const raw = { ...def, ...routeQuery };
+  // The array serialization depends on the current dataset domain and
+  // should be configurable in the future
+  const stringified = stringifyRouteQuery(raw);
+
+  return {
+    raw,
+    stringified,
+    default: def,
+  };
 };

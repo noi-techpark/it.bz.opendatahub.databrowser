@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, Ref, computed, toValue } from 'vue';
-import { DatasetDomain, DatasetQuery } from '../../datasetConfig/types';
+import { DatasetDomain, DatasetQuery } from '../../datasets/config/types';
 import { arrayPagination } from './arrayPagination';
 import { emptyPagination } from './emptyPagination';
 import { mobilityPagination } from './mobilityPagination';

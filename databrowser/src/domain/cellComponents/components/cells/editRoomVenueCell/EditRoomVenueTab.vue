@@ -87,13 +87,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import EditListTab from '../../utils/editList/tab/EditListTab.vue';
-import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import IconCopy from '../../../../../components/svg/IconCopy.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
+import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
+import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import StringCell from '../stringCell/StringCell.vue';
 import { RoomVenueEntry } from './types';
 

@@ -11,6 +11,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import EditView from '../../domain/datasets/ui/editView/EditView.vue';
 import SingleDatasetLayout from './SingleDatasetLayout.vue';
-import EditView from '../../domain/datasets/editView/EditView.vue';
 </script>

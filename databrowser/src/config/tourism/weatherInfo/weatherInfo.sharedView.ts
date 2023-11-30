@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import { shortnameCell } from '../../builder/tourism';
 import { DEFAULT_DATE_FORMAT } from '../../utils';
 

@@ -7,7 +7,7 @@ import {
   DatasetPath,
   DatasetQuery,
   PathSegments,
-} from '../../datasetConfig/types';
+} from '../../datasets/config/types';
 import { useMetaDataQuery } from './useMetaDataQuery';
 
 // Return the metadata for the route specified by the path params and query

@@ -4,7 +4,7 @@
 
 import { reactiveComputed } from '@vueuse/core';
 import { MaybeRef, ToRefs, toRefs, toValue } from 'vue';
-import { ViewKey } from '../../datasetConfig/types';
+import { ViewKey } from '../config/types';
 
 interface ComputeViewType {
   isTableView: boolean;

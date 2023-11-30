@@ -16,7 +16,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { toRefs, watch } from 'vue';
-import { ArrayMapping, ObjectMapping } from '../../domain/datasetConfig/types';
+import {
+  ArrayMapping,
+  ObjectMapping,
+} from '../../domain/datasets/config/types';
 import { loadWebComponent } from '../../domain/webComponents/lazyLoadedWebComponent';
 import { isRegisteredWebComponent } from '../../domain/webComponents/webComponentRegistry';
 import { useUpdate } from './useUpdate';

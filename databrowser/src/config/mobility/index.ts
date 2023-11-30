@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DatasetConfig } from '../../domain/datasetConfig/types';
-import { defaultMobilityTableQueryParameters } from '../../domain/datasets/tableView/defaultValues';
+import { DatasetConfig } from '../../domain/datasets/config/types';
+import { defaultMobilityTableQueryParameters } from '../../domain/datasets/ui/tableView/defaultValues';
 import { representationConfig } from './representation/representation.config';
 import { stationTypesConfig } from './stationTypes/stationTypes.config';
 

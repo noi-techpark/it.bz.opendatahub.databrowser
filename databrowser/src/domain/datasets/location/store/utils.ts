@@ -4,11 +4,7 @@
 
 import { MaybeRef, toValue, watch } from 'vue';
 import { unwrapData } from '../../../api/dataExtraction/dataExtraction';
-import {
-  DatasetDomain,
-  DatasetPath,
-  DatasetQuery,
-} from '../../../datasetConfig/types';
+import { DatasetDomain, DatasetPath, DatasetQuery } from '../../config/types';
 import { useDatasetLocationStore } from './useDatasetLocationStore';
 
 const computeSingleRecordData = (

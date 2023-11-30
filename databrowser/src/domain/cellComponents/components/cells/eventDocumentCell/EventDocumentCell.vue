@@ -19,12 +19,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import EventDocumentTab from './EventDocumentTab.vue';
-import EventDocumentTable from './EventDocumentTable.vue';
+import { useDatasetQueryStore } from '../../../../datasets/location/store/datasetQueryStore';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import EditListUpload from '../../utils/editList/upload/EditListUpload.vue';
+import EventDocumentTab from './EventDocumentTab.vue';
+import EventDocumentTable from './EventDocumentTable.vue';
 import { FileEntry } from './types';
-import { useDatasetQueryStore } from '../../../../datasetConfig/store/datasetQueryStore';
 
 const emit = defineEmits(['update']);
 

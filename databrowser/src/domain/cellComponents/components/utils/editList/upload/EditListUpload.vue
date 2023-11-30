@@ -20,19 +20,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import EditListBackButton from '../EditListBackButton.vue';
-import EditListHeader from '../header/EditListHeader.vue';
-import { useInjectNavigation } from '../actions/useNavigation';
-import { useInjectActionTriggers } from '../actions/useActions';
 import FileUpload from '../../upload/FileUpload.vue';
 import { FileType } from '../../upload/types';
+import EditListBackButton from '../EditListBackButton.vue';
+import { useInjectActionTriggers } from '../actions/useActions';
+import { useInjectNavigation } from '../actions/useNavigation';
+import EditListHeader from '../header/EditListHeader.vue';
 
+import { useDatasetQueryStore } from '../../../../../datasets/location/store/datasetQueryStore';
 import DialogMultipleFilesLanguage from '../dialogMultipleFilesLanguage/DialogMultipleFilesLanguage.vue';
 import {
-  setDialogItems,
   clearDialogStore,
+  setDialogItems,
 } from '../dialogMultipleFilesLanguage/utils';
-import { useDatasetQueryStore } from '../../../../../datasetConfig/store/datasetQueryStore';
 
 const props = defineProps<{ type: FileType; hasLanguageDialog?: boolean }>();
 

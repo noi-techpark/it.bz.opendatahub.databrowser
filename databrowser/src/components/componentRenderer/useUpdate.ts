@@ -6,13 +6,16 @@ import { useDebounceFn } from '@vueuse/core';
 import * as R from 'ramda';
 import { Ref } from 'vue';
 import { isObjectMappingEmpty } from '../../domain/api';
-import { ArrayMapping, ObjectMapping } from '../../domain/datasetConfig/types';
-import { useEditStore } from '../../domain/datasets/editView/store/editStore';
-import { EditData } from '../../domain/datasets/editView/store/initialState';
+import {
+  ArrayMapping,
+  ObjectMapping,
+} from '../../domain/datasets/config/types';
+import { useEditStore } from '../../domain/datasets/ui/editView/store/editStore';
+import { EditData } from '../../domain/datasets/ui/editView/store/initialState';
 import {
   PropertyUpdate,
   PropertyValue,
-} from '../../domain/datasets/editView/store/types';
+} from '../../domain/datasets/ui/editView/store/types';
 
 export const useUpdate = (
   tagName: Ref<string>,

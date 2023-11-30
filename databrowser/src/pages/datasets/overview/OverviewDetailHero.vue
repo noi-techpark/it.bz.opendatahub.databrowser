@@ -24,15 +24,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 import HeroContainer from '../../../components/hero/HeroContainer.vue';
-import HeroTitle from '../../../components/hero/HeroTitle.vue';
 import HeroSubTitle from '../../../components/hero/HeroSubTitle.vue';
+import HeroTitle from '../../../components/hero/HeroTitle.vue';
+import DatasetTitle from '../../../domain/datasets/ui/common/DatasetTitle.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
-import DatasetTitle from '../../../domain/datasets/common/DatasetTitle.vue';
-import OverviewInfoSources from './OverviewInfoSources.vue';
 import OverviewInfoDataAvailability from './OverviewInfoDataAvailability.vue';
 import OverviewInfoRecordCount from './OverviewInfoRecordCount.vue';
-import { useI18n } from 'vue-i18n';
+import OverviewInfoSources from './OverviewInfoSources.vue';
 import OverviewToListLink from './OverviewToListLink.vue';
 
 const { t } = useI18n();

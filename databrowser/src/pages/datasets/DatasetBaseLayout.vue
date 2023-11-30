@@ -32,7 +32,7 @@ import AlertError from '../../components/alert/AlertError.vue';
 import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../../components/content/ContentDivider.vue';
 import { useDatasetBaseInfoStore } from '../../domain/datasets/config/store/datasetBaseInfoStore';
-import DatasetHeader from '../../domain/datasets/header/DatasetHeader.vue';
+import DatasetHeader from '../../domain/datasets/ui/header/DatasetHeader.vue';
 import AppLayout from '../../layouts/AppLayout.vue';
 
 const { hasConfig, isError, error } = storeToRefs(useDatasetBaseInfoStore());

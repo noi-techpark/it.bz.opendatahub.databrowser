@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import { languageTableCell } from '../../builder/tourism';
 import { DEFAULT_DATE_FORMAT } from '../../utils';
 

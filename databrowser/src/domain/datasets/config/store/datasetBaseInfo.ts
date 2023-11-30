@@ -3,15 +3,14 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, ToRefs, computed, ref, toValue } from 'vue';
-import { useResolveDatasetConfig } from '../../../datasetConfig/datasetConfigResolver';
-import { useDatasetConfigSourceComputations } from '../../../datasetConfig/datasetConfigSource';
-import { DatasetConfigSource } from '../../../datasetConfig/load/types';
-import { useComputeDatasetLocation } from '../../../datasetConfig/location/datasetLocation';
-import { RouteLocation } from '../../../datasetConfig/types';
-import { useComputeViewKey } from '../../../datasetConfig/view/viewKey';
-import { useStringReplacer } from '../../../datasetConfig/replace/stringReplacer';
-import { useObjectValueReplacer } from '../../../datasetConfig/replace/objectValueReplacer';
-import { useValueExtractor } from '../../../datasetConfig/extract/valueExtractor';
+import { DatasetConfigSource, RouteLocation } from '../types';
+import { useComputeDatasetLocation } from '../../location/datasetLocation';
+import { useValueExtractor } from '../../view/extract/valueExtractor';
+import { useObjectValueReplacer } from '../../view/replace/objectValueReplacer';
+import { useStringReplacer } from '../../view/replace/stringReplacer';
+import { useComputeViewKey } from '../../view/viewKey';
+import { useResolveDatasetConfig } from '../datasetConfigResolver';
+import { useDatasetConfigSourceComputations } from '../datasetConfigSource';
 
 export const useDatasetBaseInfo = (
   routeLocation: MaybeRef<ToRefs<RouteLocation>>,

@@ -4,7 +4,7 @@
 
 import { reactiveComputed } from '@vueuse/core';
 import { MaybeRef, ToRefs, toRefs, toValue } from 'vue';
-import { ViewValue } from '../../datasetConfig/types';
+import { ViewValue } from '../config/types';
 
 interface ComputeViewPresence {
   hasTableView: boolean;

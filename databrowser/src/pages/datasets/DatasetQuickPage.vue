@@ -11,6 +11,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import QuickView from '../../domain/datasets/quickView/QuickView.vue';
+import QuickView from '../../domain/datasets/ui/quickView/QuickView.vue';
 import SingleDatasetLayout from './SingleDatasetLayout.vue';
 </script>

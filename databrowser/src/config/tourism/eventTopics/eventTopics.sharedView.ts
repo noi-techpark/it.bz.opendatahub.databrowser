@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import { idReadOnlyCell } from '../../builder/tourism';
 
 export const eventTopicsSharedView = (): DetailViewConfig | EditViewConfig => ({

@@ -1,0 +1,204 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<template>
+  <template v-if="!auth.ready">
+    {{ t('datasets.editView.authorizationChecking') }}
+  </template>
+  <template v-else>
+    <template v-if="!editRecordSupported">
+      <AlertError
+        :title="'Error!'"
+        :content="t('datasets.editView.notAuthorized')"
+      />
+    </template>
+    <template v-else-if="isGeneratedSource">
+      <AlertError
+        :title="'Error!'"
+        :content="t('datasets.editView.notAvailableForGeneratedSource')"
+      />
+    </template>
+    <template v-else-if="!hasEditView">
+      <AlertError
+        :title="'Error!'"
+        :content="t('datasets.editView.noEditViewConfigured')"
+      />
+    </template>
+    <template v-else>
+      <LoadingError v-if="isError" :error="error" />
+      <LoadingError v-else-if="isMutateError" :error="mutateError" />
+      <template v-else>
+        <DiscardChangesDialog @discard="resetAndCleanup" />
+        <LeaveSectionDialog
+          :is-save-success="isMutateSuccess"
+          @save-changes="saveChanges"
+        />
+        <div class="flex h-screen flex-col justify-between overflow-auto">
+          <ShowEmptyFields v-model="showAll" :disabled="true" />
+          <div
+            class="flex grow md:overflow-y-auto"
+            :class="[{ 'pointer-events-none opacity-50': isMutateLoading }]"
+          >
+            <MainAndSubCategories
+              class="md:border-r"
+              :data="editStore.current"
+              :categories="enhancedMainCategories"
+              :sub-categories="enhancedSubcategories"
+              :current-category="currentCategory"
+              :slug="slug"
+              :show-all="true"
+              :show-edit-hint="true"
+              :editable="true"
+            />
+            <EditToolBox />
+          </div>
+          <EditFooter
+            class="transition-all"
+            :is-saving="isMutateLoading"
+            :class="{ hidden: editStore.isEqual }"
+            @cancel="tryToDiscardChanges"
+            @save="saveChanges"
+          />
+        </div>
+      </template>
+    </template>
+  </template>
+</template>
+
+<script lang="ts" setup>
+import { useEventListener } from '@vueuse/core';
+import { storeToRefs } from 'pinia';
+import { ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
+import AlertError from '../../../../components/alert/AlertError.vue';
+import LoadingError from '../../../../components/loading/LoadingError.vue';
+import { DatasetPage } from '../../../../routes';
+import { useAuth } from '../../../auth/store/auth';
+import {
+  useEventDiscardChanges,
+  useEventSaveChanges,
+} from '../../../cellComponents/components/utils/editList/dialogMultipleFilesLanguage/utils';
+import { useDatasetPermissionStore } from '../../permission/store/datasetPermissionStore';
+import MainAndSubCategories from '../common/MainAndSubCategories.vue';
+import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
+import { useSingleRecordMutateData } from '../common/load/useSingleRecordMutateData';
+import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
+import EditFooter from './EditFooter.vue';
+import DiscardChangesDialog from './dialogs/DiscardChangesDialog.vue';
+import LeaveSectionDialog from './dialogs/LeaveSectionDialog.vue';
+import { useDialogsStore } from './dialogs/dialogsStore';
+import { useEditStore } from './store/editStore';
+import EditToolBox from './toolBox/EditToolBox.vue';
+import { useApplyError } from './useApplyError';
+import { useEditStoreSync } from './useEditStoreSync';
+
+const { t } = useI18n();
+
+const showAll = ref(true);
+
+const auth = useAuth();
+
+const { editRecordSupported } = storeToRefs(useDatasetPermissionStore());
+
+const editStore = useEditStore();
+
+useEventSaveChanges.on((value: boolean) => {
+  if (value) {
+    saveChanges();
+  }
+});
+
+useEventDiscardChanges.on((value: boolean) => {
+  if (value) {
+    resetAndCleanup();
+  }
+});
+
+const {
+  isError,
+  data,
+  error,
+  fullPath,
+  slug,
+  categories,
+  subcategories,
+  currentCategory,
+  hasEditView,
+  isGeneratedSource,
+  isNewView,
+} = useSingleRecordLoad();
+
+const {
+  isMutateSuccess,
+  isMutateLoading,
+  isMutateError,
+  mutateData,
+  mutateError,
+  mutate,
+} = useSingleRecordMutateData(fullPath, isNewView);
+
+// Enhance categories and subcategories with any errors
+const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =
+  useApplyError(categories, subcategories, mutateError);
+
+// Sync data to edit store
+const storeSync = useEditStoreSync(data, isMutateSuccess, mutate);
+
+// Triggers request and sync editStore
+const saveChanges = () => storeSync.mutate();
+
+// Reset store and cleanup errors
+const resetAndCleanup = () => {
+  storeSync.reset();
+  cleanErrors();
+};
+
+const dialogsStore = useDialogsStore();
+
+// Cancel callback
+const tryToDiscardChanges = () => {
+  if (editStore.isEqual) {
+    // If there are no changes, just clean everything up
+    resetAndCleanup();
+  } else if (!dialogsStore.isAnyDialogOpen) {
+    // If there are changes and no dialog is visible, then show
+    // dialog to decide if discard changes or not
+    dialogsStore.discardChangesDialogVisible = true;
+  }
+};
+
+// If create mutation was successful,
+// redirect to detail page of new record
+const router = useRouter();
+watch(
+  () => isMutateSuccess.value,
+  (success) => {
+    if (isNewView.value && success) {
+      // At the moment there are at least two different forms of response
+      // when a new record is created. The first one is from the EventShort
+      // dataset, the second comes from the Article dataset
+      const id = mutateData.value?.id ?? mutateData.value?.Value.id;
+      if (id != null) {
+        router.push({
+          name: DatasetPage.DETAIL,
+          params: { id },
+        });
+      }
+    }
+  },
+  { immediate: true }
+);
+
+// Listen for window close / reload event and let the user know
+// if there are unsaved changes
+useEventListener(window, 'beforeunload', (evt) => {
+  if (!editStore.isEqual) {
+    evt.returnValue = 'Do you really want to close?';
+    return evt.returnValue;
+  }
+});
+</script>

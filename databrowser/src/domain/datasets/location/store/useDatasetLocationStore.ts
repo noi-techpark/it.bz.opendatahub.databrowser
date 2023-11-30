@@ -5,12 +5,8 @@
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { ref } from 'vue';
 import { DatasetLocationRoute } from '../types';
-import {
-  DatasetDomain,
-  DatasetPath,
-  DatasetQuery,
-} from '../../../datasetConfig/types';
-import { computeDatasetLocations } from '../datasetLocation';
+import { DatasetDomain, DatasetPath, DatasetQuery } from '../../config/types';
+import { computeDatasetViewLocations } from '../datasetViewLocation';
 
 export const useDatasetLocationStore = defineStore(
   'datasetLocationStore',
@@ -28,7 +24,7 @@ export const useDatasetLocationStore = defineStore(
       datasetQuery: DatasetQuery['raw'] | undefined = {},
       record?: any
     ) => {
-      const locations = computeDatasetLocations(
+      const locations = computeDatasetViewLocations(
         datasetDomain,
         datasetPath,
         datasetQuery,

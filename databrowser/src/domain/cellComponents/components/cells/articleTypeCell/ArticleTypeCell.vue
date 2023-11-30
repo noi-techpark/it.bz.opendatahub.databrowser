@@ -41,12 +41,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed, toRefs } from 'vue';
 import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
+import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import { useArticleTypeSelection } from './useArticleTypeSelection';
 import { useFetchArticleTypes } from './useFetchArticleTypes';
-import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 const emit = defineEmits(['update']);
 

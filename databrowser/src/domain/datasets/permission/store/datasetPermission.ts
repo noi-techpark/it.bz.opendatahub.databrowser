@@ -4,7 +4,7 @@
 
 import { ToRefs, toRefs, toValue } from 'vue';
 import { reactiveComputed } from '@vueuse/core';
-import { Operations, ToMaybeRefs } from '../../../datasetConfig/types';
+import { Operations, ToMaybeRefs } from '../../config/types';
 import { useAuth } from '../../../auth/store/auth';
 
 interface ComputeDatasetPermission {

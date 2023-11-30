@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { QuickViewConfig } from '../../../domain/datasetConfig/types';
+import { QuickViewConfig } from '../../../domain/datasets/config/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 
 export const odhActivityPoiQuickView: QuickViewConfig = {

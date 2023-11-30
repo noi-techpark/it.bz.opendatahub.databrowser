@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { PropertyConfig } from '../../../domain/datasetConfig/types';
+import { PropertyConfig } from '../../../domain/datasets/config/types';
 import { withOdhBaseUrl } from '../../utils';
 
 export const accommodationCategoryCell = (): PropertyConfig => ({

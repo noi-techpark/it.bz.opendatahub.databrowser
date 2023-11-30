@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   PropertyConfig,
   SubCategoryElement,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import { lastChangesCell } from './lastChanges';
 import { publishedOnCell } from './publishedOn';
 

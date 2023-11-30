@@ -4,9 +4,9 @@
 
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
+import { useComputeRouteLocation } from '../../location/routeLocation';
 import { useDatasetBaseInfo } from './datasetBaseInfo';
-import { useComputeRouteLocation } from '../../../datasetConfig/location/routeLocation';
-import { useDatasetSourceStore } from '../../../datasetConfig/store/datasetSourceStore';
+import { useDatasetSourceStore } from './datasetSourceStore';
 
 export const useDatasetBaseInfoStore = defineStore(
   'datasetBaseInfoStore',

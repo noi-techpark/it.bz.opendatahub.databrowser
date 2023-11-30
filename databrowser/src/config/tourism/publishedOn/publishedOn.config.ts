@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { domainWithOpenApiDocument } from '../../../domain/openApi';
-import { DatasetConfig } from '../../../domain/datasetConfig/types';
+import { DatasetConfig } from '../../../domain/datasets/config/types';
 import { publishedOnDescription } from './publishedOn.description';
 import { publishedOnOperations } from './publishedOn.operations';
 import { publishedOnRoute } from './publishedOn.route';

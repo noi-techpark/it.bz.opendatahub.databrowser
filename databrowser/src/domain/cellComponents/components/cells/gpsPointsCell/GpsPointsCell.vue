@@ -30,8 +30,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
 import StringCell from '../stringCell/StringCell.vue';
-import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 
 const props = defineProps<{
   type?: string;

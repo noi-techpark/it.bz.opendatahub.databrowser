@@ -3,11 +3,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { useEventBus } from '@vueuse/core';
-import { FileEntry } from '../../../cells/eventDocumentCell/types';
-import { useEditStore } from '../../../../../datasets/editView/store/editStore';
-import { FileEntryWithLanguageAvailability, FileLanguageUpdate } from './types';
-import { useDialogStore } from './dialogStore';
 import { FilterLanguage } from '../../../../../datasets/language';
+import { useEditStore } from '../../../../../datasets/ui/editView/store/editStore';
+import { FileEntry } from '../../../cells/eventDocumentCell/types';
+import { useDialogStore } from './dialogStore';
+import { FileEntryWithLanguageAvailability, FileLanguageUpdate } from './types';
 
 export const useEventSaveChanges = useEventBus<boolean>('saveChanges');
 export const useEventDiscardChanges = useEventBus<boolean>('discardChanges');

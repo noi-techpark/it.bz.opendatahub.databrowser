@@ -23,7 +23,7 @@ import { Size } from '../../../components/button/types';
 import IconTable from '../../../components/svg/IconTable.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import { computed, toRefs } from 'vue';
-import { computeTableLocation } from '../../../domain/datasets/location/datasetLocation';
+import { computeTableLocation } from '../../../domain/datasets/location/datasetViewLocation';
 
 const { t } = useI18n();
 

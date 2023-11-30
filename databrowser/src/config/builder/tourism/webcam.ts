@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailElements,
   PropertyConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 
 export const webcamCell = (): PropertyConfig => ({
   title: '',

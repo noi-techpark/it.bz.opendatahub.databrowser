@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { useDatasetQueryStore } from '../../datasetConfig/store/datasetQueryStore';
+import { useDatasetQueryStore } from '../../datasets/location/store/datasetQueryStore';
 import { NavigationCallback } from './types';
 
 export const tourismNavigation = (): NavigationCallback => {

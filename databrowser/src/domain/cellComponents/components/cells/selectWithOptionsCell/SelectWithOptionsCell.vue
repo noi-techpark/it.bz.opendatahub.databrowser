@@ -31,19 +31,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, useAttrs, computed, watch } from 'vue';
-import { useMapper } from './mapper';
+import { computed, ref, toRefs, useAttrs, watch } from 'vue';
+import { useEventDelete } from '../../../../../components/input/utils';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import {
   SelectOption,
   SelectValue,
 } from '../../../../../components/select/types';
-import { useWriteable } from '../../utils/writeable/useWriteable';
-
-import StringCell from '../stringCell/StringCell.vue';
-import { useEditStore } from '../../../../datasets/editView/store/editStore';
-import { useEventDelete } from '../../../../../components/input/utils';
 import { useBaseAxiosFetch } from '../../../../api';
+import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
+import { useWriteable } from '../../utils/writeable/useWriteable';
+import StringCell from '../stringCell/StringCell.vue';
+import { useMapper } from './mapper';
 
 const emit = defineEmits(['update']);
 
