@@ -5,9 +5,10 @@
 import { storeToRefs } from 'pinia';
 import { Ref, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { RecordId } from '../../../data/types';
 import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
 import { DatasetPath, DatasetQuery } from '../../config/types';
-import { computeDatasetViewLocations } from '../../location/datasetViewLocation';
+import { computeSingleRecordLocations } from '../../location/datasetViewLocation';
 
 export const useTableRowSelection = (rows: Ref<unknown[]>) => {
   const { datasetDomain, datasetPath, datasetQuery } = storeToRefs(
@@ -20,12 +21,12 @@ export const useTableRowSelection = (rows: Ref<unknown[]>) => {
 
   // Handle double click
   const router = useRouter();
-  const rowDblClicked = (row: unknown) => {
-    const { detailLocation } = computeDatasetViewLocations(
+  const rowDblClicked = (recordId: RecordId) => {
+    const { detailLocation } = computeSingleRecordLocations(
       datasetDomain.value,
       datasetPath.value as DatasetPath,
       datasetQuery.value?.raw as DatasetQuery['raw'],
-      row
+      recordId
     );
     if (detailLocation != null) {
       router.push(detailLocation);

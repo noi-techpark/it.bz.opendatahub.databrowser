@@ -59,6 +59,7 @@ import IconCode from '../../../../components/svg/IconCode.vue';
 import IconEdit from '../../../../components/svg/IconEdit.vue';
 import IconEye from '../../../../components/svg/IconEye.vue';
 import IconLayer from '../../../../components/svg/IconLayer.vue';
+import { RecordId } from '../../../data/types';
 import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
 import { useSingleRecordLocations } from '../../location/datasetViewLocation';
 import DetailsLink from './DetailsLink.vue';
@@ -66,17 +67,17 @@ import DetailsLink from './DetailsLink.vue';
 const { t } = useI18n();
 
 const props = defineProps<{
-  row: unknown;
+  recordId: RecordId;
   showEdit: boolean;
   showQuick: boolean;
 }>();
 
-const { row } = toRefs(props);
+const { recordId } = toRefs(props);
 
 const { datasetDomain, datasetPath, datasetQuery } = storeToRefs(
   useDatasetBaseInfoStore()
 );
 
 const { detailLocation, editLocation, rawLocation, quickLocation } =
-  useSingleRecordLocations(datasetDomain, datasetPath, datasetQuery, row);
+  useSingleRecordLocations(datasetDomain, datasetPath, datasetQuery, recordId);
 </script>

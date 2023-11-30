@@ -11,6 +11,7 @@ import { useDatasetPermissionStore } from '../../../permission/store/datasetPerm
 import { useDatasetViewStore } from '../../../view/store/datasetViewStore';
 import { useTableCols } from './tableCols';
 import { useTableRows } from './tableRows';
+import { useHandleDataLoading } from './useHandleDataLoading';
 import { useTableLoadData } from './useTableLoadData';
 
 export const useTableLoad = () => {
@@ -42,8 +43,11 @@ export const useTableLoad = () => {
   // Compute table cols
   const cols = useTableCols(isLoading, view);
 
-  // Compute table rows
-  const rows = useTableRows(isDataLoading, data);
+  // Handle data loading, e.g. create empty rows while loading
+  const dataInternal = useHandleDataLoading(isDataLoading, data);
+
+  // Compute table row ids and values
+  const rows = useTableRows(datasetDomain, cols, dataInternal);
 
   // Compute pagination
   const pagination = usePagination(datasetDomain, datasetQuery, responseData);

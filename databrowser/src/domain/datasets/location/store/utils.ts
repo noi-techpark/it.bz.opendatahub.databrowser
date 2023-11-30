@@ -4,6 +4,7 @@
 
 import { MaybeRef, toValue, watch } from 'vue';
 import { unwrapData } from '../../../api/dataExtraction/dataExtraction';
+import { computeRecordId } from '../../../data/utils';
 import { DatasetDomain, DatasetPath, DatasetQuery } from '../../config/types';
 import { useDatasetLocationStore } from './useDatasetLocationStore';
 
@@ -46,11 +47,14 @@ export const updateDatasetLocationStore = (
         recordValue
       );
 
+      // Get id from record
+      const recordId = computeRecordId(datasetDomainValue, singleRecordData);
+
       store.updateLocation(
         datasetDomainValue,
         datasetPathValue as DatasetPath,
         datasetQueryValue?.raw as DatasetQuery['raw'],
-        singleRecordData
+        recordId
       );
     },
     { immediate: true }

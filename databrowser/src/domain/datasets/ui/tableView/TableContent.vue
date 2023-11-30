@@ -34,22 +34,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </TableCell>
       </tr>
       <tr
-        v-for="(row, index) in rows"
-        :key="computeRecordId(datasetDomain, row) ?? index"
-        :class="{ 'bg-green-400/10': index === selectedRowIndex }"
-        @click="rowClicked(index)"
-        @dblclick="rowDblClicked(row)"
+        v-for="({ recordId, values }, rowIndex) in rows"
+        :key="recordId ?? rowIndex"
+        :class="{ 'bg-green-400/10': rowIndex === selectedRowIndex }"
+        @click="rowClicked(rowIndex)"
+        @dblclick="rowDblClicked(recordId)"
       >
         <TableCell
-          v-for="col in cols"
+          v-for="(col, colIndex) in cols"
           :key="col.title"
-          :class="{ 'mix-blend-multiply': index === selectedRowIndex }"
+          :class="{ 'mix-blend-multiply': rowIndex === selectedRowIndex }"
         >
           <ComponentRenderer
             :tag-name="col.component"
-            :attributes="
-              buildTargetFromObjectMapping(row, col.objectMapping, col.params)
-            "
+            :attributes="values[colIndex]"
             :object-mapping="col.objectMapping"
           />
         </TableCell>
@@ -58,7 +56,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           class="sticky right-0 bg-white shadow-table-static-col"
         >
           <TableLinks
-            :row="row"
+            :record-id="recordId"
             :show-edit="showEdit"
             :show-quick="showQuick"
           />
@@ -75,28 +73,25 @@ import ComponentRenderer from '../../../../components/componentRenderer/Componen
 import TableCell from '../../../../components/table/TableCell.vue';
 import TableHeaderCell from '../../../../components/table/TableHeaderCell.vue';
 import TableWithStickyHeader from '../../../../components/table/TableWithStickyHeader.vue';
-import { computeRecordId } from '../../../data/utils';
 import { DatasetDomain, ListElements } from '../../../datasets/config/types';
-import { buildTargetFromObjectMapping } from '../../config/mapping/utils';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
 import TableDataEmpty from './TableDataEmpty.vue';
 import TableLinks from './TableLinks.vue';
+import { RecordValues } from './load/types';
 import { useTableRowSelection } from './useTableRowSelection';
 
 const { t } = useI18n();
 
 const props = withDefaults(
   defineProps<{
-    rows: any[];
+    rows: RecordValues[];
     cols: ListElements[];
     showDetail: boolean;
     showEdit: boolean;
     showQuick: boolean;
     datasetDomain: DatasetDomain | undefined;
   }>(),
-  {
-    rows: () => [],
-  }
+  {}
 );
 
 const { rows, cols } = toRefs(props);

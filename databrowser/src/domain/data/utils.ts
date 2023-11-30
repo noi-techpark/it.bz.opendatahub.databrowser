@@ -2,20 +2,27 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-export const computeRecordId = (domain: string | undefined, record?: any) => {
+import { RecordId } from './types';
+
+export const computeRecordId = (
+  domain: string | undefined,
+  record?: any
+): RecordId => {
   if (record == null || Array.isArray(record)) {
     return undefined;
   }
 
   switch (domain) {
     case 'tourism': {
-      return record.id ?? record.Id;
+      return idToString(record.id ?? record.Id);
     }
     case 'mobility': {
-      return record.scode ?? record.id;
+      return idToString(record.scode ?? record.id);
     }
     default: {
-      return record.id;
+      return idToString(record.id);
     }
   }
 };
+
+const idToString = (id: unknown) => (id == null ? undefined : id.toString());
