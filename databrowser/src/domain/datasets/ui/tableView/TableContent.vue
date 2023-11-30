@@ -108,10 +108,17 @@ let updateStart = 0;
 
 onBeforeUpdate(() => {
   updateStart = Date.now();
-  console.log('----------onBeforeUpdate-------------');
+  console.log(
+    '----------onBeforeUpdate-------------',
+    JSON.parse(JSON.stringify(props))
+  );
 });
 
 onUpdated(() => {
-  console.log('----------onUpdate-------------', Date.now() - updateStart);
+  console.log(
+    '----------onUpdate-------------',
+    Date.now() - updateStart,
+    JSON.parse(JSON.stringify(props))
+  );
 });
 </script>
