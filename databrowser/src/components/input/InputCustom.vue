@@ -28,7 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       class="absolute right-0 flex h-full w-10 items-center justify-center"
     >
       <div
-        class="border border-red-500 rounded-full cursor-pointer"
+        class="cursor-pointer rounded-full border border-red-500"
         @click="onDelete()"
       >
         <IconClose class="h-5 w-5 text-red-500" />
