@@ -55,6 +55,11 @@ export const useDatasetConfigStore = defineStore('datasetConfigStore', {
       const roles = this.config?.operations?.update?.rolesAllowed;
       return roles != null ? auth.hasAnyRole(roles) : false;
     },
+    hasDeletePermission(): boolean {
+      const auth = useAuth();
+      const roles = this.config?.operations?.delete?.rolesAllowed;
+      return roles != null ? auth.hasAnyRole(roles) : false;
+    },
   },
   actions: {
     clear() {

@@ -13,8 +13,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <div class="flex flex-1 flex-col overflow-y-auto">
           <TableContent
             :render-elements="renderElements"
-            :rows="rows"
+            :rows="internalRows"
             :show-edit="showEdit"
+            :show-delete="showDelete"
             :show-quick="showQuick"
           />
           <TableFooter
@@ -31,7 +32,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+import { watch, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import LoadingError from '../../../components/loading/LoadingError.vue';
 import TableContent from './TableContent.vue';
@@ -40,6 +41,7 @@ import { useTableViewRouteQueryStore } from './tableViewRouteQueryStore';
 import TableToolBox from './toolBox/TableToolBox.vue';
 import { useTableViewLoading } from './useTableViewLoading';
 import TableFilterHint from './filter/TableFilterHint.vue';
+import { rowId, useEventDelete } from './utils';
 
 const {
   error,
@@ -49,15 +51,30 @@ const {
   renderElements,
   rows,
   showEdit,
+  showDelete,
   showQuick,
   url,
   changePage,
   changePageSize,
 } = useTableViewLoading();
 
+const deletedRows = ref([] as Array<string | undefined>);
+
+const internalRows = computed(() => {
+  return rows.value.filter(
+    (item: any) => !deletedRows.value.includes(rowId(item))
+  );
+});
+
 // Store TableView route query in a store for later use e.g. in DetailView
 // to keep the query params when switching between DetailView and TableView.
 const { currentRoute } = useRouter();
 const { setRouteQuery } = useTableViewRouteQueryStore();
 watch(currentRoute, ({ query }) => setRouteQuery(query), { immediate: true });
+
+useEventDelete.on((value) => {
+  if (value) {
+    deletedRows.value.push(value);
+  }
+});
 </script>

@@ -229,6 +229,10 @@
         "raw": {
           "short": "Raw",
           "title": "Raw view"
+        },
+        "delete": {
+          "short": "Delete",
+          "title": "Delete view"
         }
       }
     },

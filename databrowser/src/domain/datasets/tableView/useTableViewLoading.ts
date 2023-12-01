@@ -94,6 +94,12 @@ export const useTableViewLoading = () => {
       !datasetConfigStore.isSourceGenerated
   );
 
+  const showDelete = computed(
+    () =>
+      datasetConfigStore.hasDeletePermission &&
+      !datasetConfigStore.isSourceGenerated
+  );
+
   const showQuick = computed(() => datasetConfigStore.hasQuickView);
 
   return {
@@ -104,6 +110,7 @@ export const useTableViewLoading = () => {
     renderElements,
     rows,
     showEdit,
+    showDelete,
     showQuick,
     url,
     changePage,
