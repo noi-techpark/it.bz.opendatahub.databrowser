@@ -103,7 +103,9 @@ export const accommodationSharedView = ():
               params: {
                 keySelector: 'Key',
                 labelSelector: 'TypeDesc.{language}',
-                url: withOdhBaseUrl('/v1/AccommodationTypes?type=SpecialFeature'),
+                url: withOdhBaseUrl(
+                  '/v1/AccommodationTypes?type=SpecialFeature'
+                ),
               },
             },
             {
