@@ -16,6 +16,7 @@ import {
   shortnameWithLogoAndMainImageSubCategory,
   sourceSubCategory,
   textInfoCategory,
+  licenseInfoCategory,
   idReadOnlyCell,
   locationCategory,
 } from '../../builder/tourism';
@@ -30,14 +31,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
         shortnameWithLogoAndMainImageSubCategory(),
         {
           name: 'IDs',
-          properties: [
-            idReadOnlyCell(),
-            {
-              title: 'Area Id',
-              component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.AreaInfo.Id' },
-            },
-          ],
+          properties: [idReadOnlyCell()],
         },
         dataStatesSubCategory(),
         sourceSubCategory(),
@@ -214,5 +208,32 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
     locationCategory(),
     gpsDataCategory(),
     odhTagCategory('event'),
+    licenseInfoCategory(),
+    {
+      name: 'Other',
+      slug: 'other',
+      subcategories: [
+        {
+          name: 'Various Ids',
+          properties: [
+            {
+              title: 'Area Id',
+              component: CellComponent.StringCell,
+              fields: { text: 'LocationInfo.AreaInfo.Id' },
+            },
+          ],
+        },
+        {
+          name: 'Deprecated',
+          properties: [
+            {
+              title: 'Active on Open Data Hub',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'SmgActive' },
+            },
+          ],
+        },
+      ],
+    },
   ],
 });

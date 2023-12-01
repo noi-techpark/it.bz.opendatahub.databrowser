@@ -11,7 +11,7 @@ import {
   contactCategory,
   dataStatesSubCategory,
   gpsDataCategory,
-  idAndCustomIdCells,
+  idReadOnlyCell,
   imageGalleryCategory,
   licenseInfoCategory,
   locationCategory,
@@ -49,7 +49,7 @@ export const odhActivityPoiSharedView = ():
         },
         {
           name: 'IDs',
-          properties: [...idAndCustomIdCells()],
+          properties: [idReadOnlyCell()],
         },
         dataStatesSubCategory(),
         sourceWithInsertsSubCategory([
