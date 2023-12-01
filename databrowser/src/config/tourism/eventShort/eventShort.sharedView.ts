@@ -13,6 +13,7 @@ import {
   imageGalleryCategory,
   licenseInfoCategory,
   lastChangesCell,
+  sourceSubCategory,
 } from '../../builder/tourism';
 import { publishedOnCell } from '../../builder/tourism/publishedOn';
 import { withOdhBaseUrl } from '../../utils';
@@ -27,6 +28,11 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: 'General data',
           properties: [
+            {
+              title: 'Shortname',
+              component: CellComponent.StringCell,
+              fields: { text: 'Shortname' },
+            },
             {
               title: 'Title',
               component: CellComponent.StringCell,
@@ -63,6 +69,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'Data states',
           properties: [lastChangesCell(), publishedOnCell()],
         },
+        sourceSubCategory(),
       ],
     },
     {
@@ -190,9 +197,9 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'Various Ids',
           properties: [
             {
-              title: 'Area Id',
+              title: 'Event EBMS Id',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.AreaInfo.Id' },
+              fields: { text: 'EventId' },
             },
           ],
         },
@@ -203,16 +210,19 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Active',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'ActiveToday' },
+              params: { readonly: 'true' },
             },
             {
               title: 'noi.bz.it Active',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'ActiveWeb' },
+              params: { readonly: 'true' },
             },
             {
               title: 'NOI Community App Active',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'ActiveCommunityApp' },
+              params: { readonly: 'true' },
             },
           ],
         },
