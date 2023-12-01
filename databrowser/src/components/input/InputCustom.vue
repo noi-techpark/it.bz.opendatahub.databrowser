@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       ref="inputRef"
       v-model="text"
       class="rounded border border-gray-400 p-2 text-black focus:border-green-500"
-      :class="inputClasses"
+      :class="[inputClasses, deletable ? 'pr-10' : '']"
       :placeholder="placeholder"
       :type="type"
     />
@@ -23,6 +23,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     >
       <IconSearch class="h-5 w-5 text-green-400" />
     </div>
+    <div
+      v-if="deletable"
+      class="absolute right-0 flex h-full w-10 items-center justify-center"
+    >
+      <div
+        class="border border-red-500 rounded-full cursor-pointer"
+        @click="onDelete()"
+      >
+        <IconClose class="h-5 w-5 text-red-500" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,6 +41,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed, onMounted, ref } from 'vue';
 import { randomId } from '../utils/random';
 import IconSearch from '../svg/IconSearch.vue';
+import IconClose from '../svg/IconClose.vue';
+
+import { useEventDelete } from './utils';
 
 const id = randomId();
 
@@ -41,6 +55,7 @@ const props = defineProps<{
   placeholder?: string;
   inputClasses?: string;
   focus?: boolean;
+  deletable?: boolean;
   type?: 'text' | 'date' | 'datetime-local' | 'time' | 'search';
 }>();
 
@@ -57,6 +72,11 @@ const text = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
+
+const onDelete = () => {
+  text.value = '';
+  useEventDelete.emit(true);
+};
 </script>
 
 <style scoped>
