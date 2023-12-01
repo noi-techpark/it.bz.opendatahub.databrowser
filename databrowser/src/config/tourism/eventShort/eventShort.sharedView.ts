@@ -115,19 +115,13 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Location',
-              component: CellComponent.SelectWithOptionsCell,
+              component: CellComponent.InputReferenceCell,
               fields: { value: 'EventLocation' },
               params: {
-                value_001: 'NOI',
-                label_001: 'NOI',
-                value_002: 'EC',
-                label_002: 'Eurac',
-                value_003: 'VV',
-                label_003: 'Virtual Village',
-                value_004: 'OUT',
-                label_004: 'Other',
+                url: withOdhBaseUrl('/v1/EventShortTypes?type=EventLocation'),
+                labelSelector: 'TypeDesc.{language}',
+                keySelector: 'Key',
               },
-              class: 'mb-8',
               required: true,
             },
             {
