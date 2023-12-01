@@ -21,7 +21,6 @@ import {
   shortnameCell,
   sourceWithInsertsSubCategory,
   textInfoCategory,
-  webcamCategory,
 } from '../../builder/tourism';
 import { relatedcontentCategory } from '../../builder/tourism/relatedcontent';
 import { withOdhBaseUrl } from '../../utils';
@@ -262,25 +261,6 @@ export const odhActivityPoiSharedView = ():
               component: CellComponent.TextAreaCell,
               fields: { enabled: 'AdditionalPoiInfos.{language}.Novelty' },
             },
-            {
-              title: 'Categories',
-              component: CellComponent.ArrayEditableCell,
-              listFields: {
-                attributeName: 'items',
-                pathToParent: 'AdditionalPoiInfos.{language}.Categories',
-              },
-              required: false,
-            },
-            // {
-            //   title: 'Categories',
-            //   component: CellComponent.InputReferenceCell,
-            //   fields: { value: 'AdditionalPoiInfos.{language}.Categories' },
-            //   params: {
-            //     url: withOdhBaseUrl('/v1/ODHTag?displayascategory=true&mainentity=odhactivitypoi'),
-            //     labelSelector: 'TagName.{language}',
-            //     keySelector: 'Id',
-            //   },
-            // },
           ],
         },
         {
@@ -317,7 +297,7 @@ export const odhActivityPoiSharedView = ():
         },
       ],
     },
-    webcamCategory(),
+    //webcamCategory(),
     relatedcontentCategory(),
     licenseInfoCategory(),
     {
@@ -418,6 +398,20 @@ export const odhActivityPoiSharedView = ():
               title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
               fields: { enabled: 'SmgActive' },
+            },
+          ],
+        },
+        {
+          name: 'Auto generated',
+          properties: [
+            {
+              title: 'Categories',
+              component: CellComponent.ArrayEditableCell,
+              listFields: {
+                attributeName: 'items',
+                pathToParent: 'AdditionalPoiInfos.{language}.Categories',
+              },
+              required: false,
             },
           ],
         },
