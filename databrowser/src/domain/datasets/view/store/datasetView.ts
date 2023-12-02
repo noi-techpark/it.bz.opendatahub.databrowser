@@ -4,18 +4,20 @@
 
 import { MaybeRef } from 'vue';
 import { ObjectValueReplacer, StringReplacer } from '../types';
-import { ViewKey, ViewValue } from '../../config/types';
+import { DatasetDomain, ViewKey, ViewValue } from '../../config/types';
 import { useDynamicParamsReplacement } from '../modifiers/dynamicParams/dynamicParamsReplacement';
 import { useComputeViewPresence } from '../viewPresence';
 import { useComputeViewType } from '../viewType';
 
 export const useDatasetView = (
+  datasetDomain: MaybeRef<DatasetDomain | undefined>,
   views: MaybeRef<ViewValue | undefined>,
   viewKey: MaybeRef<ViewKey | undefined>,
   stringReplacer: MaybeRef<StringReplacer>,
   objectValueReplacer: MaybeRef<ObjectValueReplacer>
 ) => {
-  const view = useDynamicParamsReplacement(
+  const viewWithReplacements = useDynamicParamsReplacement(
+    datasetDomain,
     views,
     viewKey,
     stringReplacer,
@@ -43,7 +45,7 @@ export const useDatasetView = (
   } = useComputeViewPresence(views);
 
   return {
-    view,
+    view: viewWithReplacements,
     isTableView,
     isDetailView,
     isEditView,

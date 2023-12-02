@@ -21,11 +21,16 @@ export const useDatasetViewStore = defineStore('datasetViewStore', () => {
   // In our case we are sure that all properties are present (in the store
   // itself they are refs / computed values), so it is not an issue.
   // See also: https://github.com/vuejs/pinia/blob/v2/packages/pinia/src/storeToRefs.ts
-  const { baseViews, viewKey, stringReplacer, objectValueReplacer } = toRefs(
-    useDatasetBaseInfoStore()
-  );
+  const {
+    datasetDomain,
+    baseViews,
+    viewKey,
+    stringReplacer,
+    objectValueReplacer,
+  } = toRefs(useDatasetBaseInfoStore());
 
   return useDatasetView(
+    datasetDomain,
     baseViews,
     viewKey,
     stringReplacer,

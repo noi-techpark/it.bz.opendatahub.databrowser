@@ -5,6 +5,7 @@
 import { MaybeRef, computed, toValue } from 'vue';
 import { ObjectValueReplacer, StringReplacer } from '../../types';
 import {
+  DatasetDomain,
   DetailViewConfig,
   EditViewConfig,
   ListElements,
@@ -19,13 +20,18 @@ import {
 } from '../../../config/types';
 
 export const computeDynamicParamsReplacement = (
+  datasetDomain: DatasetDomain | undefined,
   views: ViewValue | undefined,
   viewKey: ViewKey | undefined,
   stringReplacer: StringReplacer,
   objectValueReplacer: ObjectValueReplacer
 ): ViewConfig | undefined => {
-  if (views == null || viewKey == null) {
+  if (datasetDomain == null || views == null || viewKey == null) {
     return undefined;
+  }
+
+  if (datasetDomain !== 'tourism') {
+    return views[viewKey];
   }
 
   switch (viewKey) {
@@ -62,6 +68,7 @@ export const computeDynamicParamsReplacement = (
 };
 
 export const useDynamicParamsReplacement = (
+  datasetDomain: MaybeRef<DatasetDomain | undefined>,
   views: MaybeRef<ViewValue | undefined>,
   viewKey: MaybeRef<ViewKey | undefined>,
   stringReplacer: MaybeRef<StringReplacer>,
@@ -69,6 +76,7 @@ export const useDynamicParamsReplacement = (
 ) =>
   computed(() =>
     computeDynamicParamsReplacement(
+      toValue(datasetDomain),
       toValue(views),
       toValue(viewKey),
       toValue(stringReplacer),
