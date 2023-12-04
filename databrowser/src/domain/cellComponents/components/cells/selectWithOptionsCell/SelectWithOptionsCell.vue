@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :options="optionsInternal"
       :value="value"
       :show-empty-value="showEmptyValue"
-      :show-add-new-value="showAddNewValue"
+      :show-add-new-value="booleanShowAddNewValue"
       :show-value-as-label-fallback="showValueAsLabelFallback"
       :show-search-when-at-least-count-options="
         showSearchWhenAtLeastCountOptions
@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       @change="change"
     />
     <StringCell
-      v-else-if="isWriteable && isAddNewValue && showAddNewValue"
+      v-else-if="isWriteable && isAddNewValue && booleanShowAddNewValue"
       v-model="newItemValue"
       focus
       :editable="editable"
@@ -43,6 +43,7 @@ import { useQuery } from 'vue-query';
 
 import StringCell from '../stringCell/StringCell.vue';
 import { useEditStore } from '../../../../datasets/editView/store/editStore';
+import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
 
 const emit = defineEmits(['update']);
 
@@ -53,7 +54,7 @@ const props = withDefaults(
     value?: SelectValue;
     url?: string;
     showEmptyValue?: boolean;
-    showAddNewValue?: boolean;
+    showAddNewValue?: boolean | string;
     showValueAsLabelFallback?: boolean;
     showSearchWhenAtLeastCountOptions?: number;
     editable?: boolean;
@@ -72,8 +73,20 @@ const props = withDefaults(
   }
 );
 
-const { options, value, url, showEmptyValue, editable, readonly } =
-  toRefs(props);
+const {
+  options,
+  value,
+  url,
+  showEmptyValue,
+  editable,
+  readonly,
+  showAddNewValue,
+} = toRefs(props);
+
+const booleanShowAddNewValue = booleanOrStringToBoolean(
+  showAddNewValue.value,
+  false
+);
 
 const isWriteable = useWriteable({ editable, readonly });
 
@@ -81,17 +94,24 @@ const attrs = useAttrs();
 
 const queryKey = url.value ?? '';
 const queryFn = url.value ? useAxiosFetcher() : undefined;
-const { data } = useQuery({
-  queryKey,
-  queryFn,
-});
+
+const queryRes = queryFn
+  ? useQuery({
+      queryKey,
+      queryFn,
+    })
+  : null;
 
 const fetchedOptions = computed<SelectOption[]>(() => {
-  if (data.value == null || data.value.data == null) {
+  if (
+    !queryRes ||
+    queryRes.data.value == null ||
+    queryRes.data.value.data == null
+  ) {
     return [];
   }
 
-  const responseValue = data.value.data as string[];
+  const responseValue = queryRes.data.value.data as string[];
 
   return responseValue.map<SelectOption>((item) => ({
     value: item,
