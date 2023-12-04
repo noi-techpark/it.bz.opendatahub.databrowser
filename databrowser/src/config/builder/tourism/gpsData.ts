@@ -9,37 +9,18 @@ import {
 } from '../../../domain/datasetConfig/types';
 
 export const gpsDataCategory = (): DetailElements => ({
-  name: 'GPS Data',
+  name: 'GPS',
   slug: 'gps-data',
   subcategories: [
     {
-      name: 'GPS Data',
+      name: 'GPS Points',
       properties: [
         {
           title: '',
-          component: CellComponent.GpsPointsCell,
-          fields: {
-            type: 'GpsPoints.position.Gpstype',
-            latitude: 'GpsPoints.position.Latitude',
-            longitude: 'GpsPoints.position.Longitude',
-            altitude: 'GpsPoints.position.Altitude',
-            altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
-          },
-        },
-      ],
-    },
-    {
-      name: 'Map',
-      properties: [
-        {
-          title: '',
-          component: CellComponent.GpsPointMap,
-          fields: {
-            latitude: 'GpsPoints.position.Latitude',
-            longitude: 'GpsPoints.position.Longitude',
-            altitude: 'GpsPoints.position.Altitude',
-            unitMeasureAltitude: 'GpsPoints.position.AltitudeUnitofMeasure',
-            gpsType: 'GpsPoints.position.Gpstype',
+          component: CellComponent.EditGpsInfoCell,
+          listFields: {
+            attributeName: 'gpsInfo',
+            pathToParent: 'GpsInfo',
           },
         },
       ],

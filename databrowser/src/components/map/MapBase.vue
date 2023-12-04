@@ -11,6 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :center="center"
     :style="{ height, cursor: enableSetMarker ? 'crosshair' : undefined }"
     :use-global-leaflet="false"
+    :class="{ 'hide-controls': hideControls }"
     @ready="onMapReady"
   >
     <l-tile-layer
@@ -28,6 +29,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       "
       :lat-lng="[marker.position.lat, marker.position.lng]"
       class="marker"
+      :style="{
+        width: '10px',
+      }"
     ></l-marker>
   </l-map>
 </template>
@@ -35,6 +39,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script lang="ts" setup>
 import { defineAsyncComponent } from 'vue';
 import { PointExpression } from 'leaflet';
+import { Marker } from './types';
+
 import 'leaflet/dist/leaflet.css';
 
 const emit = defineEmits(['mapClick']);
@@ -51,15 +57,6 @@ const LMarker = defineAsyncComponent(() =>
   import('@vue-leaflet/vue-leaflet').then((exports) => exports.LMarker)
 );
 
-interface Marker {
-  position: Position;
-}
-
-interface Position {
-  lat: number;
-  lng: number;
-}
-
 withDefaults(
   defineProps<{
     center?: PointExpression;
@@ -67,6 +64,7 @@ withDefaults(
     zoom?: number;
     height?: string;
     enableSetMarker?: boolean;
+    hideControls?: boolean;
   }>(),
   {
     center: () => [40, 40],
@@ -74,6 +72,7 @@ withDefaults(
     zoom: 8,
     height: '400px',
     enableSetMarker: false,
+    hideControls: false,
   }
 );
 
@@ -88,3 +87,9 @@ const onMapClick = async (event: any) => {
   emit('mapClick', event);
 };
 </script>
+
+<style scoped>
+.hide-controls :deep(.leaflet-control-container) {
+  @apply hidden;
+}
+</style>

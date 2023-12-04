@@ -9,8 +9,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div class="flex flex-col gap-3">
       <SelectWithLabelVue
         :label="t('datasets.editView.map.gpsType')"
-        :value="props.gpsType"
-        :options="[{ label: props.gpsType, value: props.gpsType }]"
+        :value="position.gpsType"
+        :options="gpsTypeOptions"
         class="w-full md:w-64"
       />
       <InputCustom
@@ -33,6 +33,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         type="text"
         input-classes="w-full md:w-64"
         has-label-top
+        @input="emit('newPosition', position)"
       />
       <InputCustom
         v-model="position.unitMeasureAltitude"
@@ -99,6 +100,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               :center="map.center"
               :markers="map.markers"
               :enable-set-marker="enableSetMarker"
+              :zoom="12"
               :height="isFullscreen ? '100%' : '400px'"
               @map-click="onMapClick"
             />
@@ -121,6 +123,7 @@ import IconParser from '../utils/IconParser.vue';
 
 import InputCustom from '../input/InputCustom.vue';
 import SelectWithLabelVue from '../select/SelectWithLabel.vue';
+import { PointPosition } from './types';
 
 const { t } = useI18n();
 
@@ -135,29 +138,25 @@ const position = ref({
   altitude: '' as string | number | undefined,
   unitMeasureAltitude: '' as string | number | undefined,
   gpsType: '' as string | undefined,
-});
+} as PointPosition);
 
-const props = withDefaults(
-  defineProps<{
-    latitude?: string | number;
-    longitude?: string | number;
-    altitude?: string | number;
-    unitMeasureAltitude?: string | number;
-    gpsType?: string;
-  }>(),
-  {
-    latitude: undefined,
-    longitude: undefined,
-    altitude: undefined,
-    unitMeasureAltitude: undefined,
-    gpsType: undefined,
-  }
-);
+interface MapPointPosition extends PointPosition {
+  fallbackCenter?: PointExpression;
+}
+
+const props = withDefaults(defineProps<MapPointPosition>(), {
+  latitude: undefined,
+  longitude: undefined,
+  altitude: undefined,
+  unitMeasureAltitude: undefined,
+  gpsType: undefined,
+  fallbackCenter: undefined,
+});
 
 const map = computed(() => {
   if (position.value.longitude == null || position.value.latitude == null) {
     return {
-      center: undefined,
+      center: props.fallbackCenter || undefined,
       markers: [],
     };
   }
@@ -175,12 +174,20 @@ const iconsActive = computed(() => {
   return enableSetMarker.value ? ['IconPencil'] : [];
 });
 
+const gpsTypeOptions = computed(() => {
+  if (props.gpsType) {
+    return [{ label: props.gpsType || '', value: props.gpsType }];
+  }
+
+  return [{ label: 'Position', value: 'Position' }];
+});
+
 onMounted(() => {
   position.value.latitude = props.latitude;
   position.value.longitude = props.longitude;
   position.value.altitude = props.altitude;
-  position.value.unitMeasureAltitude = props.unitMeasureAltitude;
-  position.value.gpsType = props.gpsType;
+  position.value.unitMeasureAltitude = props.unitMeasureAltitude || 'm';
+  position.value.gpsType = props.gpsType || gpsTypeOptions.value[0].value;
 });
 
 const onMapClick = (location: any) => {
@@ -230,4 +237,6 @@ const hideTooltip = () => {
 const toggleFullScreen = () => {
   isFullscreen.value = !isFullscreen.value;
 };
+
+defineExpose({ toggleEditMode });
 </script>
