@@ -11,8 +11,12 @@ import {
   eventDocumentCategory,
   idReadOnlyCell,
   imageGalleryCategory,
+  licenseInfoCategory,
+  lastChangesCell,
+  sourceSubCategory,
 } from '../../builder/tourism';
 import { publishedOnCell } from '../../builder/tourism/publishedOn';
+import { withOdhBaseUrl } from '../../utils';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -24,6 +28,11 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: 'General data',
           properties: [
+            {
+              title: 'Shortname',
+              component: CellComponent.StringCell,
+              fields: { text: 'Shortname' },
+            },
             {
               title: 'Title',
               component: CellComponent.StringCell,
@@ -58,25 +67,9 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
         {
           name: 'Data states',
-          properties: [
-            {
-              title: 'Active',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'ActiveToday' },
-            },
-            {
-              title: 'noi.bz.it Active',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'ActiveWeb' },
-            },
-            {
-              title: 'NOI Community App Active',
-              component: CellComponent.ToggleCell,
-              fields: { enabled: 'ActiveCommunityApp' },
-            },
-            publishedOnCell(),
-          ],
+          properties: [lastChangesCell(), publishedOnCell()],
         },
+        sourceSubCategory(),
       ],
     },
     {
@@ -129,70 +122,44 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Location',
-              component: CellComponent.SelectWithOptionsCell,
+              component: CellComponent.InputReferenceCell,
               fields: { value: 'EventLocation' },
               params: {
-                value_001: 'NOI',
-                label_001: 'NOI',
-                value_002: 'EC',
-                label_002: 'Eurac',
-                value_003: 'VV',
-                label_003: 'Virtual Village',
-                value_004: 'OUT',
-                label_004: 'Other',
+                url: withOdhBaseUrl('/v1/EventShortTypes?type=EventLocation'),
+                labelSelector: 'TypeDesc.{language}',
+                keySelector: 'Key',
               },
-              class: 'mb-8',
               required: true,
             },
             {
               title: 'Technology Fields',
-              component: CellComponent.TagCell,
+              component: CellComponent.TagReferenceCell,
               listFields: {
                 attributeName: 'tags',
                 pathToParent: 'TechnologyFields',
               },
               params: {
-                value_001: 'Automotive/Automation',
-                label_001: 'Automotive/Automation',
-                value_002: 'Digital',
-                label_002: 'Digital',
-                value_003: 'Food',
-                label_003: 'Food & Health',
-                value_004: 'Green',
-                label_004: 'Green',
+                url: withOdhBaseUrl(
+                  '/v1/EventShortTypes?type=TechnologyFields'
+                ),
+                labelSelector: 'TypeDesc.{language}',
+                keySelector: 'Key',
                 unique: 'true',
               },
-              class: 'mb-8',
             },
             {
               title: 'Tagging Fields',
-              component: CellComponent.TagCell,
+              component: CellComponent.TagReferenceCell,
               listFields: {
                 attributeName: 'tags',
                 pathToParent: 'CustomTagging',
               },
               params: {
-                value_001: 'Arts&Culture',
-                label_001: 'Arts&Culture',
-                value_002: 'Square',
-                label_002: 'Square',
-                value_003: 'Camp4Company',
-                label_003: 'Camp4Company',
-                value_004: 'MiniNOI',
-                label_004: 'MiniNOI',
-                value_005: 'Out of the Lab',
-                label_005: 'Out of the Lab',
-                value_006: 'Summer at NOI',
-                label_006: 'Summer at NOI',
-                value_007: 'Public',
-                label_007: 'Public',
-                value_008: 'NOI Community',
-                label_008: 'NOI Community',
-                value_009: 'Balboa x NOI Into Action',
-                label_009: 'Balboa x NOI Into Action',
+                url: withOdhBaseUrl('/v1/EventShortTypes?type=CustomTagging'),
+                labelSelector: 'TypeDesc.{language}',
+                keySelector: 'Key',
                 unique: 'true',
               },
-              class: 'mb-8',
             },
             {
               title: 'Room Management',
@@ -221,40 +188,41 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
     },
     imageGalleryCategory(),
     eventDocumentCategory(),
+    licenseInfoCategory(),
     {
-      name: 'License',
-      slug: 'license',
+      name: 'Other',
+      slug: 'other',
       subcategories: [
         {
-          name: '',
+          name: 'Various Ids',
           properties: [
             {
-              title: 'License',
-              component: CellComponent.SelectWithOptionsCell,
-              fields: { value: 'LicenseInfo.License' },
-              params: {
-                value_001: 'CC0',
-                label_001: 'CC0',
-                value_002: 'CC-BY',
-                label_002: 'CC-BY',
-                value_003: 'Closed',
-                label_003: 'Closed',
-              },
-            },
-            {
-              title: 'Author',
+              title: 'Event EBMS Id',
               component: CellComponent.StringCell,
-              fields: { text: 'LicenseInfo.Author' },
+              fields: { text: 'EventId' },
             },
+          ],
+        },
+        {
+          name: 'Deprecated',
+          properties: [
             {
-              title: 'License Holder',
-              component: CellComponent.UrlCell,
-              fields: { text: 'LicenseInfo.LicenseHolder' },
-            },
-            {
-              title: 'Closed Data',
+              title: 'Active',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'LicenseInfo.ClosedData' },
+              fields: { enabled: 'ActiveToday' },
+              params: { readonly: 'true' },
+            },
+            {
+              title: 'noi.bz.it Active',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'ActiveWeb' },
+              params: { readonly: 'true' },
+            },
+            {
+              title: 'NOI Community App Active',
+              component: CellComponent.ToggleCell,
+              fields: { enabled: 'ActiveCommunityApp' },
+              params: { readonly: 'true' },
             },
           ],
         },
