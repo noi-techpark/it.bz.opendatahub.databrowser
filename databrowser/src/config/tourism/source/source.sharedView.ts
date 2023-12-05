@@ -13,7 +13,7 @@ import {
   licenseInfoCategory,
 } from '../../builder/tourism';
 
-export const publishedOnSharedView = (): DetailViewConfig | EditViewConfig => ({
+export const sourceSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
     {
       name: 'Main data',
@@ -33,11 +33,25 @@ export const publishedOnSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.StringCell,
               fields: { text: 'Name.{language}' },
             },
+            {
+              title: 'Description',
+              component: CellComponent.StringCell,
+              fields: { text: 'Description.{language}' },
+            },
             idReadOnlyCell(),
             {
-              title: 'Publisher URL',
+              title: 'URL',
               component: CellComponent.UrlCell,
               fields: { text: 'Url' },
+            },
+            {
+              title: 'Interfaces',
+              component: CellComponent.ArrayEditableCell,
+              listFields: {
+                attributeName: 'items',
+                pathToParent: 'Interfaces',
+              },
+              required: false,
             },
             lastChangesCell(),
           ],

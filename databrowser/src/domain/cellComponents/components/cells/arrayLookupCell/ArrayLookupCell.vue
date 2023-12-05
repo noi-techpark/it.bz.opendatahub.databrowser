@@ -76,7 +76,7 @@ const options = computed<(SelectOption & { url: string })[]>(() => {
     return items.map((item: any) => ({
       label: getPropertyValue(item, labelSelectorWithReplacements),
       value: getPropertyValue(item, keySelectorWithReplacements),
-      url: item.PublisherUrl,
+      url: item.Url,
     }));
   }
   return [];
