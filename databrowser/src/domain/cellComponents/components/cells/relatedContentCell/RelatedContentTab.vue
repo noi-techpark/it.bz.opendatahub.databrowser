@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <div class="basis-full md:order-1 md:basis-1/3">
           <SubCategoryItem title="Id">
             <StringCell
-              :text="item.name"
+              :text="item.id"
               :editable="editable"
               @input="updateItem(index, { name: $event.target.value })"
             />
