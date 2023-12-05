@@ -10,7 +10,7 @@ import {
 import {
   idReadOnlyCell,
   lastChangesCell,
-  shortnameCell,
+  licenseInfoCategory,
 } from '../../builder/tourism';
 
 export const publishedOnSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -23,21 +23,27 @@ export const publishedOnSharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'General data',
           properties: [
             {
+              title: 'Key',
+              component: CellComponent.StringCell,
+              fields: { text: 'Key' },
+              required: true,
+            },
+            {
               title: 'Name',
               component: CellComponent.StringCell,
               fields: { text: 'Name.{language}' },
             },
-            shortnameCell(),
             idReadOnlyCell(),
             {
               title: 'Publisher URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'PublisherUrl' },
+              fields: { text: 'Url' },
             },
             lastChangesCell(),
           ],
         },
       ],
     },
+    licenseInfoCategory(),
   ],
 });

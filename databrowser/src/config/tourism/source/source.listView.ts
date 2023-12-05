@@ -4,17 +4,21 @@
 
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
-import { lastChangesTableCell, shortnameCell } from '../../builder/tourism';
+import { lastChangesTableCell } from '../../builder/tourism';
 
 export const sourceListView: ListViewConfig = {
   elements: [
     {
-      title: 'Name',
+      title: 'Key',
       component: CellComponent.StringCell,
       class: 'w-60',
+      fields: { text: 'Key' },
+    },
+    {
+      title: 'Name',
+      component: CellComponent.StringCell,
       fields: { text: 'Name.{language}' },
     },
-    shortnameCell(),
     {
       title: 'Source URL',
       component: CellComponent.UrlCell,

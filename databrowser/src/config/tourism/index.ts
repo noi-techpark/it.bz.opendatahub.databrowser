@@ -30,3 +30,4 @@ export { eventConfig } from './event/event.config';
 export { experienceAreaConfig } from './experienceArea/experienceArea.config';
 export { metaDataConfig } from './metaData/metaData.config';
 export { publishedOnConfig } from './publishedOn/publishedOn.config';
+export { sourceConfig } from './source/source.config';
