@@ -101,29 +101,6 @@ export const locationCategory = (): DetailElements => ({
         },
       ],
     },
-    //Areas not needed
-    // {
-    //   name: 'Area',
-    //   properties: [
-    //     {
-    //       title: '',
-    //       component: CellComponent.InputReferenceCell,
-    //       fields: { value: 'LocationInfo.AreaInfo.Id' },
-    //       params: {
-    //         url: withOdhBaseUrl('/v1/Area?fields=Id,Detail&active=true'),
-    //         labelSelector: 'Detail.{language}.Title',
-    //         keySelector: 'Id',
-    //       },
-    //     },
-    //     {
-    //       title: 'Area ID',
-    //       component: CellComponent.StringCell,
-    //       fields: { text: 'LocationInfo.AreaInfo.Id' },
-    //       params: { readonly: 'true' },
-    //       class: 'break-all',
-    //     },
-    //   ],
-    // },
   ],
 });
 

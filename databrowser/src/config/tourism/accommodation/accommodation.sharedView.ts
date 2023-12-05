@@ -51,16 +51,6 @@ export const accommodationSharedView = ():
                 url: withOdhBaseUrl('/v1/AccommodationTypes?type=Board'),
               },
             },
-            // {
-            //   title: 'Boardings',
-            //   component: CellComponent.ArrayCell,
-            //   fields: {
-            //     items: 'BoardIds',
-            //   },
-            //   params: {
-            //     separator: ', ',
-            //   },
-            // },
           ],
         },
         {
