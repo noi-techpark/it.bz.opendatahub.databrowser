@@ -20,6 +20,17 @@ export const sourceListView: ListViewConfig = {
       fields: { text: 'Name.{language}' },
     },
     {
+      title: 'Interfaces',
+      component: CellComponent.ArrayCell,
+      class: 'w-60',
+      fields: {
+        items: 'Interfaces',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
+    {
       title: 'Source URL',
       component: CellComponent.UrlCell,
       class: 'w-80',
