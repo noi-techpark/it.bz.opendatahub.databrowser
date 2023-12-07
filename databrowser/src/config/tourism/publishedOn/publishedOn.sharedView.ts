@@ -25,7 +25,7 @@ export const publishedOnSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Key',
               component: CellComponent.StringCell,
-              objectMappings: { text: 'Key' },
+              objectMapping: { text: 'Key' },
               required: true,
             },
             {

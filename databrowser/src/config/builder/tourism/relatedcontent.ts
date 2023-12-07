@@ -6,15 +6,15 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailElements,
   PropertyConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 
 export const relatedcontentCell = (): PropertyConfig => ({
   title: '',
   component: CellComponent.RelatedContentCell,
-  listFields: {
-    attributeName: 'relatedcontent',
+  arrayMapping: {
+    targetPropertyName: 'relatedcontent',
     pathToParent: 'RelatedContent',
-    propertyMappings: {
+    objectMapping: {
       id: 'Id',
       type: 'Type',
     },

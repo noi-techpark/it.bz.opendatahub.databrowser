@@ -169,8 +169,8 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Exposition',
               component: CellComponent.ArrayEditableCell,
-              listFields: {
-                attributeName: 'items',
+              arrayMapping: {
+                targetPropertyName: 'items',
                 pathToParent: 'Exposition',
               },
               required: false,
@@ -340,8 +340,8 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Area IDs',
               component: CellComponent.ArrayEditableCell,
-              listFields: {
-                attributeName: 'items',
+              arrayMapping: {
+                targetPropertyName: 'items',
                 pathToParent: 'AreaId',
               },
               required: false,
@@ -411,8 +411,8 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Categories',
               component: CellComponent.ArrayEditableCell,
-              listFields: {
-                attributeName: 'items',
+              arrayMapping: {
+                targetPropertyName: 'items',
                 pathToParent: 'AdditionalPoiInfos.{language}.Categories',
               },
             },

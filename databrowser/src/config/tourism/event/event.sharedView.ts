@@ -226,7 +226,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Area Id',
               component: CellComponent.StringCell,
-              propertyMappings: { text: 'LocationInfo.AreaInfo.Id' },
+              objectMapping: { text: 'LocationInfo.AreaInfo.Id' },
             },
           ],
         },
@@ -236,7 +236,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
-              propertyMappings: { enabled: 'SmgActive' },
+              objectMapping: { enabled: 'SmgActive' },
             },
           ],
         },
