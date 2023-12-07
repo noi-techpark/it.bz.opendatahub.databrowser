@@ -77,8 +77,15 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Base URL',
-              component: CellComponent.UrlCell,
-              objectMapping: { text: 'BaseUrl' },
+              component: CellComponent.SelectWithOptionsCell,
+              objectMapping: { value: 'BaseUrl' },
+              params: {
+                showAddNewValue: 'true',
+                showValueAsLabelFallback: 'true',
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=BaseUrl.[*]&rawsort=BaseUrl.[*]&getasarray=true'
+                ),
+              },
             },
             {
               title: 'Path',
