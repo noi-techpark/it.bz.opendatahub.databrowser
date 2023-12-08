@@ -5,13 +5,25 @@
 import { DomainWithOpenApiDocument } from '../../openApi/types';
 import { MaybeRef } from 'vue';
 
-interface BasePropertyConfig {
+export interface Deprecation {
+  pathToDeprecation: string;
+  description: string;
+}
+
+export interface DeprecationInfo {
+  propertyPath: PropertyPath;
+  deprecations: Deprecation[];
+}
+
+export interface BasePropertyConfig {
   title: string;
   component: string;
   params?: Record<string, string>;
   class?: string;
   tooltip?: string;
   required?: boolean;
+  deprecationInfo?: DeprecationInfo[];
+  nullable?: boolean;
 }
 
 /**
@@ -90,10 +102,7 @@ export type QuickViewElements = Omit<
 export interface EditElements {
   name: string;
   slug: string;
-  subcategories: {
-    name: string;
-    properties: PropertyConfig[];
-  }[];
+  subcategories: SubCategoryElement[];
 }
 
 export type PathSegments = string[];

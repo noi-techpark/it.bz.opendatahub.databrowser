@@ -70,6 +70,6 @@ export const useComputeSingleRecordCategories = (
 };
 
 const hasAnyRequiredProperty = (element: DetailElements) =>
-  element.subcategories.some((sub) =>
+  element.subcategories?.some((sub) =>
     sub.properties.some((prop) => prop.required === true)
   );

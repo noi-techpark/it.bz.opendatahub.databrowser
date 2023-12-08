@@ -38,11 +38,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed } from 'vue';
 import IconInfo from '../../../../components/svg/IconInfo.vue';
+import { DeprecationInfo } from '../../config/types';
 
 const props = defineProps<{
   title?: string;
   tooltip?: string;
   required?: boolean;
+  deprecationInfo?: DeprecationInfo[];
   errors?: string[];
   hasEmptyValue?: boolean;
 }>();

@@ -23,6 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :title="property.title"
           :tooltip="property.tooltip"
           :required="property.required"
+          :deprecation-info="property.deprecationInfo"
           :errors="property.errors"
           :has-empty-value="property.empty"
           :data-test="`subcategory-item-${titleToDataTest(property.title)}`"

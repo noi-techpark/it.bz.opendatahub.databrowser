@@ -28,11 +28,11 @@ export const useOpenApi = defineStore('openApi', {
   actions: {
     async loadDocument(
       domain: DomainWithOpenApiDocument
-    ): Promise<OpenApi.Document | null> {
+    ): Promise<OpenApi.Document> {
       const documentState = this[domain];
       // If OpenAPI document is already loaded, do nothing
       if (documentState.loaded) {
-        return Promise.resolve(documents[domain]);
+        return Promise.resolve(documents[domain]!);
       }
 
       // OpenAPI documents should be loaded only once.
@@ -43,7 +43,7 @@ export const useOpenApi = defineStore('openApi', {
           const unsubscribe = this.$onAction(({ name, args }) => {
             if (name === 'finishDocumentLoad' && args[0] === domain) {
               unsubscribe();
-              resolve(documents[domain]);
+              resolve(documents[domain]!);
             }
           });
         });
@@ -59,13 +59,13 @@ export const useOpenApi = defineStore('openApi', {
           spec: OpenApi.Document;
         };
         documents[domain] = response.spec;
+        return Promise.resolve(documents[domain]!);
       } catch (err) {
         documentState.error = toError(err);
+        return Promise.reject(documentState.error);
+      } finally {
+        this.finishDocumentLoad(domain);
       }
-
-      this.finishDocumentLoad(domain);
-
-      return documents[domain];
     },
     finishDocumentLoad(domain: DomainWithOpenApiDocument) {
       const documentState = this[domain];
