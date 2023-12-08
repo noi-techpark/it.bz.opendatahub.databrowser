@@ -2,11 +2,12 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { computed, inject, readonly, Ref, ref } from 'vue';
 import { createEventHook } from '@vueuse/core';
 import { AxiosInstance } from 'axios';
-import { FileType } from './types';
+import { computed, inject, readonly, Ref, ref } from 'vue';
+import { wrapAxiosFetchWithAuth } from '../../../../api/axiosFetcher';
 import { toErrorMessage } from '../../../../utils/convertError';
+import { FileType } from './types';
 
 const imageUploadUrl = import.meta.env.VITE_APP_IMAGE_UPLOAD_URL;
 const fileUploadUrl = import.meta.env.VITE_APP_FILE_UPLOAD_URL;
@@ -24,7 +25,7 @@ export const useUploadForType = (type: Ref<FileType>) => {
 };
 
 export const useUpload = (url: Ref<string>) => {
-  const axios = inject<AxiosInstance>('axios')!;
+  const axiosInstance = inject<AxiosInstance>('axios')!;
 
   const uploading = ref(false);
   const uploadAbortController = ref(new AbortController());
@@ -56,6 +57,7 @@ export const useUpload = (url: Ref<string>) => {
     };
 
     try {
+      const axios = await wrapAxiosFetchWithAuth(axiosInstance);
       const response = await axios.post<string | string[]>(
         url.value,
         formData,

@@ -220,12 +220,24 @@ export const buildAuthInterceptor = <T>(): BeforeFetchFn<T> => {
   };
 };
 
+export const wrapAxiosFetchWithAuth = async (axiosInstance: AxiosInstance) => {
+  const authInfo = await buildAuthInterceptor();
+  // Create new axios instance because we add an interceptor
+  // that should be used only for this request
+  // Note that due to a bug in axios, we need to cast the instance
+  const axios = (axiosInstance as any).create() as AxiosInstance;
+  axios.interceptors.request.use(authInfo);
+  return axios;
+};
+
 export const useAxiosFileDownloader = () => {
-  const axios = inject<AxiosInstance>('axios')!;
+  const axiosInstance = inject<AxiosInstance>('axios')!;
 
   return {
     download: async (url: string) => {
+      const axios = await wrapAxiosFetchWithAuth(axiosInstance);
       const response = await axios.get(url);
+
       const blob = new Blob([JSON.stringify(response.data, null, 2)], {
         type: 'application/json',
       });
