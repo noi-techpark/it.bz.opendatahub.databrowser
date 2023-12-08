@@ -99,13 +99,3 @@ export const stringifyRouteQuery = (
     {}
   );
 };
-
-/**
- * Converts a route query object as provided by vue-query to a URI encoded string.
- *
- * @param query The query object to stringify.
- * @returns The URI encoded string representation of the query.
- */
-export const uriEncodeRouteQuery = (
-  query: Record<string, string | null | (string | null)[]>
-) => stringifyQuery(query as Record<string, string | null | (string | null)[]>);
