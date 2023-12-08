@@ -5,7 +5,7 @@
 import { MaybeRef, Ref, computed, toValue } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
 import { useBaseAxiosFetch } from '../../../../api';
-import { unwrapData } from '../../../../api/dataExtraction/dataExtraction';
+import { unwrapData } from '../../../../api/dataExtraction';
 import { useDatasetBaseInfoStore } from '../../../../datasets/config/store/datasetBaseInfoStore';
 import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 import { RemoteOptionsMapper } from './types';

@@ -4,7 +4,7 @@
 
 import { computed, Ref } from 'vue';
 import { useBaseAxiosFetch } from '../../../../api';
-import { unwrapData } from '../../../../api/dataExtraction/dataExtraction';
+import { unwrapData } from '../../../../api/dataExtraction';
 
 type ArticleSubTypes = string[];
 type ArticleTypes = Record<string, ArticleSubTypes>;

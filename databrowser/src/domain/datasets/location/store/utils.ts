@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, toValue, watch } from 'vue';
-import { unwrapData } from '../../../api/dataExtraction/dataExtraction';
+import { unwrapData } from '../../../api/dataExtraction';
 import { computeRecordId } from '../../../data/utils';
 import { DatasetDomain, DatasetPath, DatasetQuery } from '../../config/types';
 import { useDatasetLocationStore } from './useDatasetLocationStore';

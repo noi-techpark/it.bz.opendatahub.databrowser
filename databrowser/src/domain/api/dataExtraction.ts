@@ -6,7 +6,7 @@ import {
   isWithArrayPagination,
   isWithMobilityPagination,
   isWithTourismPagination,
-} from '../../data/pagination/types';
+} from '../data/pagination/types';
 
 export const unwrapData = <T>(data: unknown): T => {
   if (data == null) {

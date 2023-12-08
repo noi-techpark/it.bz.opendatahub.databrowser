@@ -4,7 +4,7 @@
 
 import { MaybeRef } from 'vue';
 import { buildAuthInterceptor, useBaseAxiosFetch } from '../../../../api';
-import { unwrapData } from '../../../../api/dataExtraction/dataExtraction';
+import { unwrapData } from '../../../../api/dataExtraction';
 
 export const useTableLoadData = (fullPath: MaybeRef<string | undefined>) => {
   const { data, error, isError, isLoading, responseData } = useBaseAxiosFetch(
