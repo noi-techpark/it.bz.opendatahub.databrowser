@@ -5,7 +5,7 @@
 import { parse } from 'date-fns';
 import { withOdhBaseUrl } from '../../../config/utils';
 import { TourismMetaData } from './types';
-import { useBaseAxiosFetch } from '../../api';
+import { useBaseAxiosFetch } from '../../api/axiosFetcher';
 import { unwrapData } from '../../api/dataExtraction';
 import { WithTourismPagination } from '../../data/pagination/types';
 

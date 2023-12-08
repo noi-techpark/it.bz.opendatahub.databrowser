@@ -38,7 +38,7 @@ import {
   SelectOption,
   SelectValue,
 } from '../../../../../components/select/types';
-import { useBaseAxiosFetch } from '../../../../api';
+import { useBaseAxiosFetch } from '../../../../api/axiosFetcher';
 import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import StringCell from '../stringCell/StringCell.vue';
