@@ -2,10 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import axios from 'axios';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
-import VueAxios from 'vue-axios';
 import CookieConsent from 'vue-cookieconsent';
 import VueHotjar from 'vue-hotjar-next';
 import App from './App.vue';
@@ -16,6 +14,7 @@ import { setupI18n } from './i18n';
 import './index.css';
 import { router } from './routes';
 import { I18n } from 'vue-i18n';
+import { VueQueryPlugin } from '@tanstack/vue-query';
 
 const isProduction = process.env.NODE_ENV !== 'development';
 
@@ -29,9 +28,8 @@ app.use(router);
 // Add pinia store
 app.use(createPinia());
 
-// Add axios and provide it as injectable property (see https://www.npmjs.com/package/vue-axios)
-app.use(VueAxios, axios);
-app.provide('axios', app.config.globalProperties.axios);
+// Add TanStack query client (see https://tanstack.com/query/latest)
+app.use(VueQueryPlugin);
 
 // Register Vue cell render components globally for dynamic rendering
 app.use(registerCellComponents);

@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import { MaybeRef, computed, toValue } from 'vue';
 import {
   isWithArrayPagination,
   isWithMobilityPagination,
@@ -23,3 +24,6 @@ export const unwrapData = <T>(data: unknown): T => {
 
   return data as T;
 };
+
+export const useUnwrapData = <T>(data: MaybeRef<unknown>) =>
+  computed(() => unwrapData<T>(toValue(data)));

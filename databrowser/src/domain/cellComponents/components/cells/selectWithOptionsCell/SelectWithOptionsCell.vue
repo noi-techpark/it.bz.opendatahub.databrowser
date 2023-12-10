@@ -38,11 +38,12 @@ import {
   SelectOption,
   SelectValue,
 } from '../../../../../components/select/types';
-import { useBaseAxiosFetch } from '../../../../api/axiosFetcher';
+import { selectAddNewValue } from '../../../../../components/select/utils';
 import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import StringCell from '../stringCell/StringCell.vue';
 import { useMapper } from './mapper';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 const emit = defineEmits(['update']);
 
@@ -51,10 +52,9 @@ const props = withDefaults(
     // If options is set, they will be used, otherwise the options from the attributes will be used
     options?: SelectOption[];
     value?: SelectValue;
-    url?: string;
     showEmptyValue?: boolean;
-    showAddNewValue?: boolean;
-    showValueAsLabelFallback?: boolean;
+    showAddNewValue?: boolean | string;
+    showValueAsLabelFallback?: boolean | string;
     showSearchWhenAtLeastCountOptions?: number;
     editable?: boolean;
     readonly?: string | boolean;
@@ -62,7 +62,6 @@ const props = withDefaults(
   {
     options: undefined,
     value: undefined,
-    url: undefined,
     showEmptyValue: false,
     showAddNewValue: false,
     showValueAsLabelFallback: false,
@@ -74,8 +73,17 @@ const props = withDefaults(
 
 const editStore = useEditStore();
 
-const { options, value, url, showEmptyValue, editable, readonly } =
-  toRefs(props);
+const { options, value, showEmptyValue, editable } = toRefs(props);
+
+const showAddNewValue = computed(() =>
+  booleanOrStringToBoolean(props.showAddNewValue)
+);
+
+const showValueAsLabelFallback = computed(() =>
+  booleanOrStringToBoolean(props.showValueAsLabelFallback)
+);
+
+const readonly = computed(() => booleanOrStringToBoolean(props.readonly));
 
 const isWriteable = useWriteable({ editable, readonly });
 
@@ -92,23 +100,8 @@ useEventDelete.on((eventValue: boolean) => {
   }
 });
 
-const { data } = useBaseAxiosFetch<string[]>(url);
-
-const fetchedOptions = computed<SelectOption[]>(() => {
-  if (data.value == null) {
-    return [];
-  }
-
-  return data.value.map<SelectOption>((item) => ({
-    value: item,
-    label: item,
-  }));
-});
-
 const optionsInternal = computed<SelectOption[]>(() => {
-  return fetchedOptions.value.length
-    ? fetchedOptions.value
-    : useMapper(options, ref(attrs)).optionsInternal.value;
+  return useMapper(options, ref(attrs)).optionsInternal.value;
 });
 
 watch(
@@ -130,7 +123,7 @@ watch(
 );
 
 const change = (value: string) => {
-  isAddNewValue.value = !value;
+  isAddNewValue.value = value === selectAddNewValue;
   onUpdate(value);
 };
 const onUpdate = (value: string) => {

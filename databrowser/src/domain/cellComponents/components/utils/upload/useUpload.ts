@@ -3,9 +3,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { createEventHook } from '@vueuse/core';
-import { AxiosInstance } from 'axios';
-import { computed, inject, readonly, Ref, ref } from 'vue';
-import { wrapAxiosFetchWithAuth } from '../../../../api/axiosFetcher';
+import axios from 'axios';
+import { computed, readonly, Ref, ref } from 'vue';
+import { wrapAxiosFetchWithAuth } from '../../../../api/apiAuth';
 import { toErrorMessage } from '../../../../utils/convertError';
 import { FileType } from './types';
 
@@ -25,8 +25,6 @@ export const useUploadForType = (type: Ref<FileType>) => {
 };
 
 export const useUpload = (url: Ref<string>) => {
-  const axiosInstance = inject<AxiosInstance>('axios')!;
-
   const uploading = ref(false);
   const uploadAbortController = ref(new AbortController());
   const uploadProgress = ref(0);
@@ -57,8 +55,8 @@ export const useUpload = (url: Ref<string>) => {
     };
 
     try {
-      const axios = await wrapAxiosFetchWithAuth(axiosInstance);
-      const response = await axios.post<string | string[]>(
+      const axiosInstance = await wrapAxiosFetchWithAuth(axios);
+      const response = await axiosInstance.post<string | string[]>(
         url.value,
         formData,
         {

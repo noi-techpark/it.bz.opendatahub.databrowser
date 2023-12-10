@@ -4,8 +4,7 @@
 
 import { MaybeRef, Ref, computed, toValue } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
-import { useBaseAxiosFetch } from '../../../../api/axiosFetcher';
-import { unwrapData } from '../../../../api/dataExtraction';
+import { useApiRead } from '../../../../api/useApi';
 import { useDatasetBaseInfoStore } from '../../../../datasets/config/store/datasetBaseInfoStore';
 import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 import { RemoteOptionsMapper } from './types';
@@ -37,11 +36,8 @@ export const useRemoteSelectOptions = <T extends SelectOption = SelectOption>(
   error: Ref<unknown>;
   options: Ref<T[]>;
 } => {
-  const { data, isLoading, isSuccess, isError, error } = useBaseAxiosFetch<
-    Record<string, string>[]
-  >(url, {
-    afterFetch: (ctx) => unwrapData(ctx.data),
-  });
+  const { data, isLoading, isSuccess, isError, error } =
+    useApiRead<Record<string, string>[]>(url);
 
   const options = computed(() => {
     const keySelectorValue = toValue(keySelector);

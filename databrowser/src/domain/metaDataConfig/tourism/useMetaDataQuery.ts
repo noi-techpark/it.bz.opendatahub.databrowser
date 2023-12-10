@@ -5,7 +5,7 @@
 import { parse } from 'date-fns';
 import { withOdhBaseUrl } from '../../../config/utils';
 import { TourismMetaData } from './types';
-import { useBaseAxiosFetch } from '../../api/axiosFetcher';
+import { useApiRead } from '../../api/useApi';
 import { unwrapData } from '../../api/dataExtraction';
 import { WithTourismPagination } from '../../data/pagination/types';
 
@@ -41,20 +41,17 @@ interface OdhTourismMetaData {
 const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
 
 export const useMetaDataQuery = () => {
-  return useBaseAxiosFetch<
-    TourismMetaData[],
-    WithTourismPagination<OdhTourismMetaData>
-  >(metaDataUrl, {
-    afterFetch: (ctx) => {
-      const data = unwrapData<OdhTourismMetaData[]>(ctx.data);
-      return select(data ?? []);
-    },
-  });
+  return useApiRead(metaDataUrl, { select });
 };
 
-const select = (data: OdhTourismMetaData[]): TourismMetaData[] => {
+const select = (
+  data: WithTourismPagination<OdhTourismMetaData[]>
+): TourismMetaData[] => {
+  // Unwrap data from pagination
+  const unwrappedData = unwrapData<OdhTourismMetaData[]>(data);
+
   // Map ODH MetaData to internal format
-  const itemsWithoutParentInfo = mapResponse(data);
+  const itemsWithoutParentInfo = mapResponse(unwrappedData);
 
   // Add parent information to all sub-datasets
   return addParentInfo(itemsWithoutParentInfo);

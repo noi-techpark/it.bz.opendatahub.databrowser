@@ -4,14 +4,12 @@
 
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
-import { usePagination } from '../../../../data/pagination/usePagination';
 import { useDatasetBaseInfoStore } from '../../../config/store/datasetBaseInfoStore';
 import { updateDatasetLocationStore } from '../../../location/store/utils';
 import { useDatasetPermissionStore } from '../../../permission/store/datasetPermissionStore';
 import { useDatasetViewStore } from '../../../view/store/datasetViewStore';
 import { useTableCols } from './tableCols';
 import { useTableRows } from './tableRows';
-import { useHandleDataLoading } from './useHandleDataLoading';
 import { useTableLoadData } from './useTableLoadData';
 
 export const useTableLoad = () => {
@@ -25,8 +23,11 @@ export const useTableLoad = () => {
   } = storeToRefs(useDatasetBaseInfoStore());
 
   // Load table data
-  const { isDataLoading, isError, error, data, responseData } =
-    useTableLoadData(fullPath);
+  const { isDataLoading, isError, error, data, pagination } = useTableLoadData(
+    datasetDomain,
+    datasetQuery,
+    fullPath
+  );
 
   updateDatasetLocationStore(datasetDomain, datasetPath, datasetQuery, data);
 
@@ -43,14 +44,8 @@ export const useTableLoad = () => {
   // Compute table cols
   const cols = useTableCols(isLoading, view);
 
-  // Handle data loading, e.g. create empty rows while loading
-  const dataInternal = useHandleDataLoading(isDataLoading, data);
-
   // Compute table row ids and values
-  const rows = useTableRows(datasetDomain, cols, dataInternal);
-
-  // Compute pagination
-  const pagination = usePagination(datasetDomain, datasetQuery, responseData);
+  const rows = useTableRows(datasetDomain, cols, data);
 
   // Use permissions
   const { editRecordSupported } = storeToRefs(useDatasetPermissionStore());

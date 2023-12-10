@@ -73,7 +73,7 @@ import IconCheck from '../../../../components/svg/IconCheck.vue';
 import IconCopy from '../../../../components/svg/IconCopy.vue';
 import IconDownload from '../../../../components/svg/IconDownload.vue';
 import IconLink from '../../../../components/svg/IconLink.vue';
-import { useAxiosFileDownloader } from '../../../api/axiosFetcher';
+import { useAxiosFileDownloader } from '../../../api/useApi';
 import ToolBoxCard from './ToolBoxCard.vue';
 import ToolBoxCardBody from './ToolBoxCardBody.vue';
 import ToolBoxCardHeader from './ToolBoxCardHeader.vue';

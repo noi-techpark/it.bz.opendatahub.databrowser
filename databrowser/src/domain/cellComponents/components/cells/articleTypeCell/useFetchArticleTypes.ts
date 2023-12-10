@@ -3,8 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed, Ref } from 'vue';
-import { useBaseAxiosFetch } from '../../../../api/axiosFetcher';
-import { unwrapData } from '../../../../api/dataExtraction';
+import { useApiRead } from '../../../../api/useApi';
 
 type ArticleSubTypes = string[];
 type ArticleTypes = Record<string, ArticleSubTypes>;
@@ -28,13 +27,9 @@ export const useFetchArticleTypes = (
   lookupUrl: Ref<string | undefined>,
   isWritable: Ref<boolean>
 ) => {
-  const { data, error, isLoading, isSuccess, isError } = useBaseAxiosFetch(
-    lookupUrl,
-    {
-      afterFetch: (ctx) => unwrapData(ctx.data),
-      enabled: isWritable,
-    }
-  );
+  const { data, error, isLoading, isSuccess, isError } = useApiRead(lookupUrl, {
+    enabled: isWritable,
+  });
 
   const articleTypesHierarchy = computed(() => {
     if (!isSuccess.value) {

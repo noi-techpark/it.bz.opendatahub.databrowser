@@ -3,10 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import {
-  buildAuthInterceptor,
-  useBaseAxiosFetch,
-} from '../../../../api/axiosFetcher';
+import { useApiRead } from '../../../../api/useApi';
 import { DatasetDomain } from '../../../config/types';
 import { useNormalizePath } from './normalizedPath';
 
@@ -20,13 +17,10 @@ export const useSingleRecordLoadData = (
   // Don't fetch data if we are in a new view
   const enabled = computed(() => !toValue(isNewView));
 
-  const { data, error, isError, isLoading } = useBaseAxiosFetch(
-    normalizedPath,
-    {
-      beforeFetch: buildAuthInterceptor(),
-      enabled,
-    }
-  );
+  const { data, error, isError, isLoading } = useApiRead(normalizedPath, {
+    withAuth: true,
+    enabled,
+  });
 
   return {
     data,

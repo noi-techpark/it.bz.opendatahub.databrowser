@@ -30,11 +30,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed, toRefs } from 'vue';
 import AlertError from '../../../../../components/alert/AlertError.vue';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
 import { SelectOption } from '../../../../../components/select/types';
+import { useApiRead } from '../../../../api/useApi';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import CustomDataArrayTable from './CustomDataArrayTable.vue';
-import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import { useBaseAxiosFetch } from '../../../../api/axiosFetcher';
 
 const props = withDefaults(
   defineProps<{
@@ -52,7 +52,7 @@ const props = withDefaults(
 const { listItems, url, editable } = toRefs(props);
 
 const { data, isLoading, isSuccess, isError, error } =
-  useBaseAxiosFetch<string[]>(url);
+  useApiRead<string[]>(url);
 
 const options = computed<SelectOption[]>(() => {
   if (data.value == null) {

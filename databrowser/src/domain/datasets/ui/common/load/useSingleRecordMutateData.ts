@@ -3,10 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import {
-  buildAuthInterceptor,
-  useBaseAxiosMutate,
-} from '../../../../api/axiosFetcher';
+import { useApiMutate } from '../../../../api/useApi';
 
 export const useSingleRecordMutateData = (
   fullPath: MaybeRef<string | undefined>,
@@ -14,16 +11,15 @@ export const useSingleRecordMutateData = (
 ) => {
   const method = computed(() => (toValue(isNewView) ? 'post' : 'put'));
 
-  const { data, error, isLoading, isError, isSuccess, mutate } =
-    useBaseAxiosMutate<any>(fullPath, {
-      method,
-      beforeFetch: buildAuthInterceptor(),
-    });
+  const { data, error, isError, isSuccess, isPending, mutate } = useApiMutate(
+    fullPath,
+    { method }
+  );
 
   return {
     mutateData: data,
     mutateError: error,
-    isMutateLoading: isLoading,
+    isMutateLoading: isPending,
     isMutateError: isError,
     isMutateSuccess: isSuccess,
     mutate,
