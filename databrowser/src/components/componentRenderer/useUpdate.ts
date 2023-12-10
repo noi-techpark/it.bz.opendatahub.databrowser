@@ -48,7 +48,7 @@ export const useUpdate = (
       .filter((entry): entry is PropertyValue => entry != null);
   };
 
-  const computeListValueUpdates = (
+  const computeArrayValueUpdates = (
     updates: PropertyValue[],
     { pathToParent, objectMapping }: ArrayMapping
   ) => {
@@ -107,8 +107,6 @@ export const useUpdate = (
     };
   };
 
-  // TODO: take a look at immutable data (immer) and see if it can be used here
-  // see https://vuejs.org/guide/extras/reactivity-in-depth.html#immutable-data
   return useDebounceFn((update: PropertyUpdate) => {
     const updates = Array.isArray(update) ? update : [update];
 
@@ -121,7 +119,7 @@ export const useUpdate = (
     }
 
     if (arrayMapping.value != null) {
-      const listValueUpdates = computeListValueUpdates(
+      const listValueUpdates = computeArrayValueUpdates(
         updates,
         arrayMapping.value
       );
