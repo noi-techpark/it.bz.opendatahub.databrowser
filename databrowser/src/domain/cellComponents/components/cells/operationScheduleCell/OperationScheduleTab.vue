@@ -364,8 +364,6 @@ const updateOperationScheduleTime = (
 
   item.operationScheduleTimes = result;
 
-  console.log(item);
-
   updateItem(itemIndex, { ...item });
 };
 

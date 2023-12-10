@@ -88,8 +88,6 @@ export const applyReplacementsToTableView = (
   views: ViewValue,
   objectValueReplacer: ObjectValueReplacer
 ): ListViewConfig | undefined => {
-  console.log('computeTableView');
-
   const tableViewConfig = views.table;
   if (tableViewConfig == null) {
     return undefined;
@@ -122,8 +120,6 @@ export const applyReplacementsToDetailView = (
   stringReplacer: StringReplacer,
   objectValueReplacer: ObjectValueReplacer
 ): DetailViewConfig | undefined => {
-  console.log('computeDetailView');
-
   const detailViewConfig = views?.detail;
   if (detailViewConfig == null) {
     return;
@@ -147,8 +143,6 @@ export const applyReplacementsToEditView = (
   stringReplacer: StringReplacer,
   objectValueReplacer: ObjectValueReplacer
 ): EditViewConfig | undefined => {
-  console.log('computeEditView');
-
   const editViewConfig = views?.edit;
   if (editViewConfig == null) {
     return;
@@ -172,8 +166,6 @@ export const applyReplacementsToNewView = (
   stringReplacer: StringReplacer,
   objectValueReplacer: ObjectValueReplacer
 ): NewViewConfig | undefined => {
-  console.log('computeNewView');
-
   const newViewConfig = views?.new;
   if (newViewConfig == null) {
     return;
@@ -197,8 +189,6 @@ export const applyReplacementsToQuickView = (
   stringReplacer: StringReplacer,
   objectValueReplacer: ObjectValueReplacer
 ): QuickViewConfig | undefined => {
-  console.log('computeQuickView');
-
   const quickViewConfig = views?.quick;
   if (quickViewConfig == null) {
     return;

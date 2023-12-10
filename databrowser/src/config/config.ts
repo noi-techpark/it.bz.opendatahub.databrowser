@@ -34,11 +34,6 @@ const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {
     mobilityEmbeddedDatasetConfigs
   );
 
-  console.log('#### tourism and mobility', {
-    ...tourismDatasetConfigs,
-    ...mobilityDatasetConfigs,
-  });
-
   return { ...tourismDatasetConfigs, ...mobilityDatasetConfigs };
 };
 
@@ -73,6 +68,4 @@ export const findEmbeddedDatasetConfig = (
       );
     });
   });
-  console.log('#### matching config', matchingConfig);
-  return matchingConfig;
 };

@@ -67,7 +67,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUpdate, onUpdated, toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ComponentRenderer from '../../../../components/componentRenderer/ComponentRenderer.vue';
 import TableCell from '../../../../components/table/TableCell.vue';
@@ -103,22 +103,4 @@ const { selectedRowIndex, rowClicked, rowDblClicked } =
 const showLinkColumn = computed(
   () => props.showDetail || props.showEdit || props.showQuick
 );
-
-let updateStart = 0;
-
-onBeforeUpdate(() => {
-  updateStart = Date.now();
-  console.log(
-    '----------onBeforeUpdate-------------',
-    JSON.parse(JSON.stringify(props))
-  );
-});
-
-onUpdated(() => {
-  console.log(
-    '----------onUpdate-------------',
-    Date.now() - updateStart,
-    JSON.parse(JSON.stringify(props))
-  );
-});
 </script>
