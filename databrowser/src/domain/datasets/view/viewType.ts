@@ -4,7 +4,7 @@
 
 import { reactiveComputed } from '@vueuse/core';
 import { MaybeRef, ToRefs, toRefs, toValue } from 'vue';
-import { ViewKey } from '../config/types';
+import { ViewConfigWithType } from './types';
 
 interface ComputeViewType {
   isTableView: boolean;
@@ -16,18 +16,18 @@ interface ComputeViewType {
 }
 
 export const computeViewType = (
-  viewKey: ViewKey | undefined
+  view: ViewConfigWithType | undefined
 ): ComputeViewType => ({
-  isTableView: viewKey === 'table',
-  isDetailView: viewKey === 'detail',
-  isEditView: viewKey === 'edit',
-  isNewView: viewKey === 'new',
-  isQuickView: viewKey === 'quick',
-  isRawView: viewKey === 'raw',
+  isTableView: view?.type === 'table',
+  isDetailView: view?.type === 'detail',
+  isEditView: view?.type === 'edit',
+  isNewView: view?.type === 'new',
+  isQuickView: view?.type === 'quick',
+  isRawView: view?.type === 'raw',
 });
 
 export const useComputeViewType = (
-  viewKey: MaybeRef<ViewKey | undefined>
+  viewKey: MaybeRef<ViewConfigWithType | undefined>
 ): ToRefs<ComputeViewType> => {
   const result = reactiveComputed(() => computeViewType(toValue(viewKey)));
 

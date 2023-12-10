@@ -4,22 +4,18 @@
 
 import { MaybeRef, computed, toValue } from 'vue';
 import { CellComponent } from '../../../../cellComponents/types';
-import {
-  ListElements,
-  ListViewConfig,
-  ViewConfig,
-} from '../../../config/types';
+import { ListElements } from '../../../config/types';
+import { ViewConfigWithType, isTableViewConfig } from '../../../view/types';
 
 export const computeTableCols = (
   isLoading: boolean,
-  view: ViewConfig | undefined
+  view: ViewConfigWithType | undefined
 ) => {
-  if (view == null) {
+  if (!isTableViewConfig(view)) {
     return [];
   }
 
-  const listView = view as ListViewConfig;
-  return listView.elements.map<ListElements>((element) => ({
+  return view.elements.map<ListElements>((element) => ({
     ...element,
     component: isLoading ? CellComponent.LoadingCell : element.component,
   }));
@@ -27,5 +23,8 @@ export const computeTableCols = (
 
 export const useTableCols = (
   isLoading: MaybeRef<boolean>,
-  view: MaybeRef<ViewConfig | undefined>
-) => computed(() => computeTableCols(toValue(isLoading), toValue(view)));
+  view: MaybeRef<ViewConfigWithType | undefined>
+) =>
+  computed(() => {
+    return computeTableCols(toValue(isLoading), toValue(view));
+  });

@@ -2,10 +2,13 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { useRouter } from 'vue-router';
-import { DetailViewConfig, ViewConfig } from '../../../config/types';
-import { MaybeRef, toRefs, toValue, watchEffect } from 'vue';
 import { reactiveComputed } from '@vueuse/core';
+import { MaybeRef, toRefs, toValue, watchEffect } from 'vue';
+import { useRouter } from 'vue-router';
+import {
+  ViewConfigWithType,
+  isSingleRecordViewConfig,
+} from '../../../view/types';
 
 interface ComputeSingleRecordSlug {
   slug: string;
@@ -13,10 +16,13 @@ interface ComputeSingleRecordSlug {
 }
 
 export const computeSingleRecordSlug = (
-  view: ViewConfig | undefined,
+  view: ViewConfigWithType | undefined,
   currentRouteHash: string | undefined
 ): ComputeSingleRecordSlug => {
-  const elements = (view as DetailViewConfig)?.elements;
+  if (!isSingleRecordViewConfig(view)) {
+    return { slug: '', isSlugValid: false };
+  }
+  const elements = view.elements;
 
   const initialSlug = elements?.[0]?.slug ?? '';
 
@@ -40,7 +46,7 @@ export const computeSingleRecordSlug = (
 };
 
 export const useComputeSingleRecordSlug = (
-  view: MaybeRef<ViewConfig | undefined>,
+  view: MaybeRef<ViewConfigWithType | undefined>,
   currentRouteHash: MaybeRef<string | undefined>
 ) => {
   const result = reactiveComputed(() =>
@@ -51,7 +57,7 @@ export const useComputeSingleRecordSlug = (
 };
 
 export const useComputeSingleRecordSlugWithRouter = (
-  view: MaybeRef<ViewConfig | undefined>
+  view: MaybeRef<ViewConfigWithType | undefined>
 ) => {
   const router = useRouter();
 

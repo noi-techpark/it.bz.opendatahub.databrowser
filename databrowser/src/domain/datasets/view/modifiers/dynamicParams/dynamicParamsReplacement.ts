@@ -3,104 +3,97 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import { ObjectValueReplacer, StringReplacer } from '../../types';
 import {
   DatasetDomain,
-  DetailViewConfig,
-  EditViewConfig,
   ListElements,
-  ListViewConfig,
-  NewViewConfig,
   ObjectMapping,
   PropertyConfig,
-  QuickViewConfig,
-  ViewConfig,
-  ViewKey,
-  ViewValue,
 } from '../../../config/types';
+import {
+  DetailViewConfigWithType,
+  EditViewConfigWithType,
+  ListViewConfigWithType,
+  NewViewConfigWithType,
+  ObjectValueReplacer,
+  QuickViewConfigWithType,
+  StringReplacer,
+  ViewConfigWithType,
+} from '../../types';
 
 export const computeDynamicParamsReplacement = (
   datasetDomain: DatasetDomain | undefined,
-  views: ViewValue | undefined,
-  viewKey: ViewKey | undefined,
+  view: ViewConfigWithType | undefined,
   stringReplacer: StringReplacer,
   objectValueReplacer: ObjectValueReplacer
-): ViewConfig | undefined => {
-  if (datasetDomain == null || views == null || viewKey == null) {
+): ViewConfigWithType | undefined => {
+  if (datasetDomain == null || view == null) {
     return undefined;
   }
 
   if (datasetDomain !== 'tourism') {
-    return views[viewKey];
+    return view;
   }
 
-  switch (viewKey) {
+  switch (view.type) {
     case 'table': {
-      return applyReplacementsToTableView(views, objectValueReplacer);
+      return applyReplacementsToTableView(view, objectValueReplacer);
     }
     case 'detail':
       return applyReplacementsToDetailView(
-        views,
+        view,
         stringReplacer,
         objectValueReplacer
       );
     case 'edit':
       return applyReplacementsToEditView(
-        views,
+        view,
         stringReplacer,
         objectValueReplacer
       );
     case 'new':
       return applyReplacementsToNewView(
-        views,
+        view,
         stringReplacer,
         objectValueReplacer
       );
     case 'quick':
       return applyReplacementsToQuickView(
-        views,
+        view,
         stringReplacer,
         objectValueReplacer
       );
     case 'raw':
-      return views.raw;
+      return view;
   }
 };
 
 export const useDynamicParamsReplacement = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
-  views: MaybeRef<ViewValue | undefined>,
-  viewKey: MaybeRef<ViewKey | undefined>,
+  view: MaybeRef<ViewConfigWithType | undefined>,
   stringReplacer: MaybeRef<StringReplacer>,
   objectValueReplacer: MaybeRef<ObjectValueReplacer>
 ) =>
   computed(() =>
     computeDynamicParamsReplacement(
       toValue(datasetDomain),
-      toValue(views),
-      toValue(viewKey),
+      toValue(view),
       toValue(stringReplacer),
       toValue(objectValueReplacer)
     )
   );
 
 export const applyReplacementsToTableView = (
-  views: ViewValue,
+  view: ListViewConfigWithType,
   objectValueReplacer: ObjectValueReplacer
-): ListViewConfig | undefined => {
-  const tableViewConfig = views.table;
-  if (tableViewConfig == null) {
-    return undefined;
-  }
-
+): ListViewConfigWithType | undefined => {
   const firstPropertyName = (objectMapping?: ObjectMapping) => {
     const values = Object.values(objectMapping ?? {});
     return values.length === 1 ? values[0] : undefined;
   };
 
   const result = {
-    ...tableViewConfig,
-    elements: tableViewConfig.elements.map<ListElements>((element) => {
+    ...view,
+    elements: view.elements.map<ListElements>((element) => {
       const objectMapping = objectValueReplacer(element.objectMapping);
       const propertyPath = firstPropertyName(objectMapping);
       return {
@@ -116,16 +109,11 @@ export const applyReplacementsToTableView = (
 };
 
 export const applyReplacementsToDetailView = (
-  views: ViewValue,
+  view: DetailViewConfigWithType,
   stringReplacer: StringReplacer,
   objectValueReplacer: ObjectValueReplacer
-): DetailViewConfig | undefined => {
-  const detailViewConfig = views?.detail;
-  if (detailViewConfig == null) {
-    return;
-  }
-
-  const elements = detailViewConfig.elements.map((element) => ({
+): DetailViewConfigWithType | undefined => {
+  const elements = view.elements.map((element) => ({
     ...element,
     subcategories: element.subcategories.map((subcategory) => ({
       ...subcategory,
@@ -135,20 +123,15 @@ export const applyReplacementsToDetailView = (
     })),
   }));
 
-  return { ...detailViewConfig, elements };
+  return { ...view, elements };
 };
 
 export const applyReplacementsToEditView = (
-  views: ViewValue,
+  view: EditViewConfigWithType,
   stringReplacer: StringReplacer,
   objectValueReplacer: ObjectValueReplacer
-): EditViewConfig | undefined => {
-  const editViewConfig = views?.edit;
-  if (editViewConfig == null) {
-    return;
-  }
-
-  const elements = editViewConfig.elements.map((element) => ({
+): EditViewConfigWithType | undefined => {
+  const elements = view.elements.map((element) => ({
     ...element,
     subcategories: element.subcategories.map((subcategory) => ({
       ...subcategory,
@@ -158,20 +141,15 @@ export const applyReplacementsToEditView = (
     })),
   }));
 
-  return { ...editViewConfig, elements };
+  return { ...view, elements };
 };
 
 export const applyReplacementsToNewView = (
-  views: ViewValue,
+  view: NewViewConfigWithType,
   stringReplacer: StringReplacer,
   objectValueReplacer: ObjectValueReplacer
-): NewViewConfig | undefined => {
-  const newViewConfig = views?.new;
-  if (newViewConfig == null) {
-    return;
-  }
-
-  const elements = newViewConfig.elements.map((element) => ({
+): NewViewConfigWithType | undefined => {
+  const elements = view.elements.map((element) => ({
     ...element,
     subcategories: element.subcategories.map((subcategory) => ({
       ...subcategory,
@@ -181,20 +159,15 @@ export const applyReplacementsToNewView = (
     })),
   }));
 
-  return { ...newViewConfig, elements };
+  return { ...view, elements };
 };
 
 export const applyReplacementsToQuickView = (
-  views: ViewValue,
+  view: QuickViewConfigWithType,
   stringReplacer: StringReplacer,
   objectValueReplacer: ObjectValueReplacer
-): QuickViewConfig | undefined => {
-  const quickViewConfig = views?.quick;
-  if (quickViewConfig == null) {
-    return;
-  }
-
-  const elements = quickViewConfig.elements.map((element) =>
+): QuickViewConfigWithType | undefined => {
+  const elements = view.elements.map((element) =>
     replaceMappings(
       element as PropertyConfig,
       stringReplacer,
@@ -202,7 +175,7 @@ export const applyReplacementsToQuickView = (
     )
   );
 
-  return { ...quickViewConfig, elements };
+  return { ...view, elements };
 };
 
 const replaceMappings = (

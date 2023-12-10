@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef } from 'vue';
-import { ObjectValueReplacer, StringReplacer } from '../types';
 import {
   DatasetDomain,
   DatasetPath,
@@ -11,24 +10,28 @@ import {
   ViewValue,
 } from '../../config/types';
 import { useDynamicParamsReplacement } from '../modifiers/dynamicParams/dynamicParamsReplacement';
+import { useOpenApiEnhancements } from '../modifiers/openApiEnhancements/openApiEnhancements';
+import { ObjectValueReplacer, StringReplacer } from '../types';
 import { useComputeViewPresence } from '../viewPresence';
 import { useComputeViewType } from '../viewType';
-import { useOpenApiEnhancements } from '../modifiers/openApiEnhancements/openApiEnhancements';
+import { useExtractView } from '../modifiers/extractView/ViewKey';
 
 export const useDatasetView = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
   datasetPath: MaybeRef<DatasetPath | undefined>,
-  views: MaybeRef<ViewValue | undefined>,
+  baseViews: MaybeRef<ViewValue | undefined>,
   viewKey: MaybeRef<ViewKey | undefined>,
   stringReplacer: MaybeRef<StringReplacer>,
   objectValueReplacer: MaybeRef<ObjectValueReplacer>
 ) => {
+  // Extract current view from dataset config
+  const viewFromDatasetConfig = useExtractView(baseViews, viewKey);
+
   // Compute view with dynamic params replacement, e.g. replace Details.{language}.title
   // with Details.it.title if the current language is "it".
   const viewWithReplacements = useDynamicParamsReplacement(
     datasetDomain,
-    views,
-    viewKey,
+    viewFromDatasetConfig,
     stringReplacer,
     objectValueReplacer
   );
@@ -37,7 +40,6 @@ export const useDatasetView = (
   const viewWithOpenApiEnhancements = useOpenApiEnhancements(
     datasetDomain,
     datasetPath,
-    viewKey,
     viewWithReplacements
   );
 
@@ -49,7 +51,7 @@ export const useDatasetView = (
     isNewView,
     isQuickView,
     isRawView,
-  } = useComputeViewType(viewKey);
+  } = useComputeViewType(viewFromDatasetConfig);
 
   // Compute which views are present in the dataset config
   const {
@@ -59,7 +61,7 @@ export const useDatasetView = (
     hasNewView,
     hasQuickView,
     hasRawView,
-  } = useComputeViewPresence(views);
+  } = useComputeViewPresence(baseViews);
 
   return {
     view: viewWithOpenApiEnhancements,

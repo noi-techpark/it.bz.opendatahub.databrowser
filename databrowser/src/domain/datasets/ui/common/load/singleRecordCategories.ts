@@ -3,15 +3,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import {
-  DetailElements,
-  DetailViewConfig,
-  EditViewConfig,
-  NewViewConfig,
-  SubCategoryElement,
-  ViewConfig,
-} from '../../../config/types';
 import { useI18n } from 'vue-i18n';
+import { DetailElements, SubCategoryElement } from '../../../config/types';
+import {
+  ViewConfigWithType,
+  isSingleRecordViewConfig,
+} from '../../../view/types';
 
 interface ComputeSingleRecordCategories {
   name: string;
@@ -21,16 +18,15 @@ interface ComputeSingleRecordCategories {
 }
 
 export const computeSingleRecordCategories = (
-  view: ViewConfig | undefined,
+  view: ViewConfigWithType | undefined,
   isGeneratedSource: boolean,
   categoryFallbackName = 'All data'
 ): ComputeSingleRecordCategories[] => {
-  if (view == null) {
+  if (!isSingleRecordViewConfig(view)) {
     return [];
   }
 
-  const elements = (view as DetailViewConfig | EditViewConfig | NewViewConfig)
-    ?.elements;
+  const elements = view.elements;
 
   // There are cases where there are no elements, e.g,
   // if permissions change. Do nothing in that case
@@ -56,7 +52,7 @@ export const computeSingleRecordCategories = (
 };
 
 export const useComputeSingleRecordCategories = (
-  view: MaybeRef<ViewConfig | undefined>,
+  view: MaybeRef<ViewConfigWithType | undefined>,
   isGeneratedSource: MaybeRef<boolean>
 ) => {
   const categoryFallbackName = useI18n().t('datasets.generated.categoryName');

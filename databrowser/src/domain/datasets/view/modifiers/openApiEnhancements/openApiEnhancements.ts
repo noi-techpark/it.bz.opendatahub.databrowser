@@ -2,31 +2,27 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { MaybeRef, ref, toValue, watchEffect } from 'vue';
+import { MaybeRef, Ref, ref, toValue, watchEffect } from 'vue';
 import {
   domainIsKnownToHaveOpenApiDocument,
   useOpenApi,
 } from '../../../../openApi';
-import {
-  DatasetDomain,
-  DatasetPath,
-  ViewConfig,
-  ViewKey,
-} from '../../../config/types';
+import { DatasetDomain, DatasetPath } from '../../../config/types';
+import { ViewConfigWithType } from '../../types';
 import { computeViewWithOpenApiEnhancements } from './computeDeprecationAndRequired';
 
 export const useOpenApiEnhancements = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
   datasetPath: MaybeRef<DatasetPath | undefined>,
-  viewKey: MaybeRef<ViewKey | undefined>,
-  view: MaybeRef<ViewConfig | undefined>
-) => {
-  const viewWithOpenApiEnhancements = ref(toValue(view));
+  view: MaybeRef<ViewConfigWithType | undefined>
+): Ref<ViewConfigWithType | undefined> => {
+  const viewWithOpenApiEnhancements = ref<ViewConfigWithType | undefined>(
+    toValue(view)
+  );
 
   watchEffect(async () => {
     const datasetDomainValue = toValue(datasetDomain);
     const datasetPathValue = toValue(datasetPath);
-    const viewKeyValue = toValue(viewKey);
     const viewValue = toValue(view);
 
     // Assign the original view value to the reactive viewWithOpenApiEnhancements
@@ -38,8 +34,7 @@ export const useOpenApiEnhancements = (
     if (
       datasetDomainValue == null ||
       datasetPathValue == null ||
-      viewValue == null ||
-      viewKeyValue == null
+      viewValue == null
     ) {
       return;
     }
@@ -60,7 +55,6 @@ export const useOpenApiEnhancements = (
           doc,
           datasetDomainValue,
           datasetPathValue,
-          viewKeyValue,
           viewValue
         );
         viewWithOpenApiEnhancements.value = view;

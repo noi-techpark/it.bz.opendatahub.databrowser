@@ -9,44 +9,50 @@ import {
   DatasetPath,
   Deprecation,
   DeprecationInfo,
-  DetailViewConfig,
-  ListViewConfig,
   ObjectMapping,
   PropertyConfig,
   SubCategoryElement,
-  ViewConfig,
-  ViewKey,
 } from '../../../config/types';
+import {
+  ListViewConfigWithType,
+  QuickViewConfigWithType,
+  SingleRecordViewConfigWithType,
+  ViewConfigWithType,
+} from '../../types';
 import { getSchema, getSchemasForPath } from './openApiUtils';
 
 export const computeViewWithOpenApiEnhancements = (
   doc: OpenAPIV3.Document,
   domain: DomainWithOpenApiDocument,
   datasetPath: DatasetPath,
-  viewKey: ViewKey,
-  view: ViewConfig
-): ViewConfig => {
-  const schema = getSchema(doc, domain, datasetPath, viewKey);
+  view: ViewConfigWithType
+): ViewConfigWithType => {
+  const schema = getSchema(doc, domain, datasetPath, view.type);
 
   if (schema == null) {
     console.log(
-      `No schema found in OpenAPI spec for domain ${domain}, path ${datasetPath} and view ${viewKey}.`
+      `No schema found in OpenAPI spec for domain ${domain}, path ${datasetPath} and view ${view.type}.`
     );
     return view;
   }
 
-  if (viewKey === 'table') {
-    return computeTableView(schema, view as ListViewConfig);
+  switch (view.type) {
+    case 'table':
+      return computeTableView(schema, view);
+    case 'quick':
+      return computeQuickView(schema, view);
+    case 'raw':
+      return view;
+    default:
+      return computeSingleRecordView(schema, view);
   }
-
-  return computeSingleRecordView(schema, view as DetailViewConfig);
 };
 
 const computeTableView = (
   schema: OpenAPIV3.SchemaObject,
-  view: ListViewConfig
+  view: ListViewConfigWithType
 ) => {
-  return view.elements.reduce<ListViewConfig>(
+  return view.elements.reduce<ListViewConfigWithType>(
     (prev, element) => {
       return {
         ...prev,
@@ -60,15 +66,15 @@ const computeTableView = (
         ],
       };
     },
-    { elements: [] }
+    { elements: [], type: 'table' }
   );
 };
 
 const computeSingleRecordView = (
   schema: OpenAPIV3.SchemaObject,
-  view: DetailViewConfig
-) => {
-  return view.elements.reduce<DetailViewConfig>(
+  view: SingleRecordViewConfigWithType
+): ViewConfigWithType => {
+  return view.elements.reduce<SingleRecordViewConfigWithType>(
     (prev, element) => {
       const subcategories = element.subcategories?.map<SubCategoryElement>(
         (subcategory) => {
@@ -100,7 +106,20 @@ const computeSingleRecordView = (
         ],
       };
     },
-    { elements: [] }
+    { elements: [], type: view.type }
+  );
+};
+
+const computeQuickView = (
+  schema: OpenAPIV3.SchemaObject,
+  view: QuickViewConfigWithType
+): QuickViewConfigWithType => {
+  return view.elements.reduce<QuickViewConfigWithType>(
+    (prev, element) => ({
+      ...prev,
+      ...getDeprecationAndRequired(schema, element),
+    }),
+    { elements: [], type: view.type }
   );
 };
 

@@ -119,13 +119,25 @@ export interface DatasetDescription {
   description?: string;
 }
 
-export interface TableViewElements {
+export interface BaseViewConfig {
+  defaultQueryParams?: Record<string, string>;
+}
+
+export interface ListViewConfig extends BaseViewConfig {
   elements: ListElements[];
 }
-export interface DetailViewElements {
+export interface DetailViewConfig extends BaseViewConfig {
   elements: DetailElements[];
 }
-export interface QuickViewPageConfig {
+export interface EditViewConfig extends BaseViewConfig {
+  elements: EditElements[];
+}
+export interface NewViewConfig extends BaseViewConfig {
+  elements: EditElements[];
+}
+export interface RawViewConfig extends BaseViewConfig {}
+
+export interface QuickViewConfig extends BaseViewConfig {
   topGallery?: QuickViewTopGallery;
   elements: QuickViewElements[];
 }
@@ -134,20 +146,6 @@ export interface QuickViewTopGallery {
   isVisible: boolean;
   objectMapping: ObjectMapping;
 }
-export interface EditViewElements {
-  elements: EditElements[];
-}
-
-export type WithDefaultQueryParams = {
-  defaultQueryParams?: Record<string, string>;
-};
-
-export type ListViewConfig = TableViewElements & WithDefaultQueryParams;
-export type DetailViewConfig = DetailViewElements & WithDefaultQueryParams;
-export type QuickViewConfig = QuickViewPageConfig & WithDefaultQueryParams;
-export type EditViewConfig = EditViewElements & WithDefaultQueryParams;
-export type RawViewConfig = WithDefaultQueryParams;
-export type NewViewConfig = EditViewElements & WithDefaultQueryParams;
 
 export type ViewConfig =
   | ListViewConfig
