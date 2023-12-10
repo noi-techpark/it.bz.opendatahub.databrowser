@@ -4,10 +4,10 @@
 
 import { MaybeRef, computed, toValue } from 'vue';
 import {
+  isWithTourismPagination,
   isWithArrayPagination,
   isWithMobilityPagination,
-  isWithTourismPagination,
-} from '../data/pagination/types';
+} from '../datasets/pagination/types';
 
 export const unwrapData = <T>(data: unknown): T => {
   if (data == null) {

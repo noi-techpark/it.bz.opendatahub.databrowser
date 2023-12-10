@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, Ref, computed, toValue } from 'vue';
-import { DatasetDomain } from '../../datasets/config/types';
+import { DatasetDomain } from '../config/types';
 import { emptyNavigation } from './emptyNavigation';
 import { mobilityNavigation } from './mobilityNavigation';
 import { tourismNavigation } from './tourismNavigation';

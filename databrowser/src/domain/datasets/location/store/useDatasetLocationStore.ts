@@ -4,7 +4,7 @@
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { ref } from 'vue';
-import { RecordId } from '../../../data/types';
+import { RecordId } from '../../types';
 import { DatasetDomain, DatasetPath, DatasetQuery } from '../../config/types';
 import { computeDatasetViewLocations } from '../datasetViewLocation';
 import { DatasetLocationRoute } from '../types';

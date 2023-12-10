@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { RecordId } from '../../../../data/types';
+import { RecordId } from '../../../types';
 
 export interface RecordValues {
   recordId: RecordId;

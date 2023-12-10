@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
-import { useDatasetBaseInfoStore } from '../../datasets/config/store/datasetBaseInfoStore';
+import { useDatasetBaseInfoStore } from '../config/store/datasetBaseInfoStore';
 import { useNavigationCallback } from './useNavigation';
 
 export const useNavigationStore = defineStore('navigationStore', () => {

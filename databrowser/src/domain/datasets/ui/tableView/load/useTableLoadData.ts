@@ -5,9 +5,9 @@
 import { MaybeRef, toValue } from 'vue';
 import { useApiRead } from '../../../../api/useApi';
 import { useUnwrapData } from '../../../../api/dataExtraction';
-import { usePagination } from '../../../../data/pagination/usePagination';
 import { DatasetDomain, DatasetQuery } from '../../../config/types';
 import { useHandleDataLoading } from './useHandleDataLoading';
+import { usePagination } from '../../../pagination/usePagination';
 
 export const useTableLoadData = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,

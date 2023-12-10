@@ -54,11 +54,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
-import ButtonCustom from '../button/ButtonCustom.vue';
 import { useI18n } from 'vue-i18n';
-import { Pagination } from '../../domain/data/pagination/types';
-import { NavigationCallback } from '../../domain/data/navigation/types';
+import { NavigationCallback } from '../../domain/datasets/navigation/types';
+import { Pagination } from '../../domain/datasets/pagination/types';
+import ButtonCustom from '../button/ButtonCustom.vue';
+import IconStrokedArrowDown from '../svg/IconStrokedArrowDown.vue';
 
 const { t } = useI18n();
 

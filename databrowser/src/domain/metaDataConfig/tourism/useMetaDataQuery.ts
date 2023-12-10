@@ -4,10 +4,10 @@
 
 import { parse } from 'date-fns';
 import { withOdhBaseUrl } from '../../../config/utils';
-import { TourismMetaData } from './types';
-import { useApiRead } from '../../api/useApi';
 import { unwrapData } from '../../api/dataExtraction';
-import { WithTourismPagination } from '../../data/pagination/types';
+import { useApiRead } from '../../api/useApi';
+import { WithTourismPagination } from '../../datasets/pagination/types';
+import { TourismMetaData } from './types';
 
 interface ODHTag {
   Id: string;

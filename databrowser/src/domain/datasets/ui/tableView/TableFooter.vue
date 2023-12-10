@@ -34,8 +34,8 @@ import { useI18n } from 'vue-i18n';
 import Paginator from '../../../../components/paginator/Paginator.vue';
 import SelectCustom from '../../../../components/select/SelectCustom.vue';
 import { SelectSize } from '../../../../components/select/types';
-import { useNavigationStore } from '../../../data/navigation/useNavigationStore';
-import { Pagination } from '../../../data/pagination/types';
+import { useNavigationStore } from '../../../datasets/navigation/useNavigationStore';
+import { Pagination } from '../../../datasets/pagination/types';
 import { pageSizeOptions } from './defaultValues';
 
 const { t } = useI18n();

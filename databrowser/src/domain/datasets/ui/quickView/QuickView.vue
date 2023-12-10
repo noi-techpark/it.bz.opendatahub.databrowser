@@ -84,8 +84,8 @@ import PageContent from '../../../../components/content/PageContent.vue';
 import QuickViewFullscreenGallery from '../../../../components/quickview/QuickViewFullscreenGallery.vue';
 import { getValueOfLocale } from '../../../../components/quickview/QuickViewUtils';
 import TagCustom from '../../../../components/tag/TagCustom.vue';
-import { computeRecordId } from '../../../data/utils';
 import { QuickViewConfig } from '../../../datasets/config/types';
+import { computeRecordId } from '../../../datasets/utils';
 import { buildTargetFromObjectMapping } from '../../config/mapping/utils';
 import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
 

@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { MaybeRef, computed, toValue } from 'vue';
-import { computeRecordId } from '../../../../data/utils';
+import { computeRecordId } from '../../../utils';
 import { buildTargetFromObjectMapping } from '../../../config/mapping/utils';
 import { DatasetDomain, ListElements } from '../../../config/types';
 import { RecordValues } from './types';

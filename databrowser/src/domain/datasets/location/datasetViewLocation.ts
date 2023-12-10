@@ -5,7 +5,7 @@
 import { reactiveComputed } from '@vueuse/core';
 import { MaybeRef, computed, toRefs, toValue } from 'vue';
 import { DatasetPage } from '../../../routes';
-import { RecordId } from '../../data/types';
+import { RecordId } from '../types';
 import { DatasetDomain, DatasetPath, DatasetQuery } from '../config/types';
 import { defaultLanguage } from '../language';
 import { DatasetLocationRoute, DatasetLocations } from './types';

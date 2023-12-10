@@ -9,7 +9,6 @@ import {
   ROLE_UPDATE,
 } from '../../../../config/tourism/roles';
 import { CellComponent } from '../../../cellComponents/types';
-import { isWithTourismPagination } from '../../../data/pagination/types';
 import {
   domainIsKnownToHaveOpenApiDocument,
   domainWithOpenApiDocument,
@@ -36,6 +35,7 @@ import {
   LoadAllDatasetConfigsFn,
   LoadDatasetConfigFn,
 } from './types';
+import { isWithTourismPagination } from '../../pagination/types';
 
 type ErrorMessage = string;
 

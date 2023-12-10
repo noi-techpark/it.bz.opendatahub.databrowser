@@ -4,7 +4,7 @@
 
 import { MaybeRef, toValue, watch } from 'vue';
 import { unwrapData } from '../../../api/dataExtraction';
-import { computeRecordId } from '../../../data/utils';
+import { computeRecordId } from '../../utils';
 import { DatasetDomain, DatasetPath, DatasetQuery } from '../../config/types';
 import { useDatasetLocationStore } from './useDatasetLocationStore';
 

@@ -59,7 +59,7 @@ import IconCode from '../../../../components/svg/IconCode.vue';
 import IconEdit from '../../../../components/svg/IconEdit.vue';
 import IconEye from '../../../../components/svg/IconEye.vue';
 import IconLayer from '../../../../components/svg/IconLayer.vue';
-import { RecordId } from '../../../data/types';
+import { RecordId } from '../../../datasets/types';
 import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
 import { useSingleRecordLocations } from '../../location/datasetViewLocation';
 import DetailsLink from './DetailsLink.vue';

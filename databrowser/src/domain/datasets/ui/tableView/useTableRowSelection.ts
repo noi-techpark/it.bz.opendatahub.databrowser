@@ -5,7 +5,7 @@
 import { storeToRefs } from 'pinia';
 import { Ref, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { RecordId } from '../../../data/types';
+import { RecordId } from '../../types';
 import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
 import { DatasetPath, DatasetQuery } from '../../config/types';
 import { computeSingleRecordLocations } from '../../location/datasetViewLocation';
