@@ -68,7 +68,7 @@ const setSelectedCategory = (slug: string) => {
   );
 
   if (nextCategory != null) {
-    router.push(categoryRouteLocation(nextCategory));
+    router.replace(categoryRouteLocation(nextCategory));
   }
 };
 
