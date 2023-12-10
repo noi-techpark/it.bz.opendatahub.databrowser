@@ -14,8 +14,6 @@ export const DatasetPage: Record<Uppercase<ViewKey>, string> = {
   TABLE: 'DatasetTablePage',
 } as const;
 
-// TODO: remove unused paths and associated pages
-
 export const router = createRouter({
   history: createWebHistory(),
   routes: [
