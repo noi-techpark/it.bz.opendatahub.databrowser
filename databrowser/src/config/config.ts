@@ -59,11 +59,11 @@ export const findEmbeddedDatasetConfig = (
     return undefined;
   }
 
-  const pathSegmentsLength = pathSegments.length;
   const candidates = Object.values(configsForDomain).filter(
-    (config) => config.route.pathSegments.length === pathSegmentsLength
+    (config) => config.route.pathSegments.length === pathSegments.length
   );
-  const matchingConfig = candidates.find((config) => {
+
+  return candidates.find((config) => {
     const configPathSegments = config.route.pathSegments;
     return pathSegments.every((param, index) => {
       return (

@@ -4,15 +4,90 @@
 
 import { AxiosError } from 'axios';
 import { computed, ref, Ref, watch } from 'vue';
-import { Category, SubCategory } from '../category/types';
 import { toError } from '../../../utils/convertError';
+import {
+  Category,
+  PropertyConfigWithErrors,
+  SubCategory,
+} from '../category/types';
 
 export const useApplyError = (
   categories: Ref<Category[]>,
   subcategories: Ref<SubCategory[]>,
   mutateError: Ref<Error | null>
 ) => {
-  const responseErrors = computed<{
+  // Compute responseErrors from mutateError
+  const responseErrors = useResponseErrors(mutateError);
+
+  // Compute if any category has an error.If a category has an error,
+  // it is marked with isAnyPropertyError: true
+  const enhancedMainCategories = ref<Category[]>([]);
+  watch(
+    () => [responseErrors.value, categories.value],
+    () => {
+      const err = responseErrors.value;
+
+      if (err == null) {
+        enhancedMainCategories.value = categories.value;
+        return;
+      }
+
+      const catWithErrors = categories.value.map((cat) => {
+        const hasError = cat.subCategories?.some(({ properties }) =>
+          properties.some((prop) => hasAnyPropertyError(prop, err.errors))
+        );
+
+        return hasError ? { ...cat, isAnyPropertyError: hasError } : { ...cat };
+      });
+
+      enhancedMainCategories.value = catWithErrors;
+    },
+    { immediate: true }
+  );
+
+  // Compute if any property in the current sub-category list has an error. If a property has an error,
+  // it is enhanced with errors: string[], where the error messages are stored.
+  const enhancedSubcategories = ref<SubCategory[]>([]);
+  watch(
+    () => [responseErrors.value, subcategories.value],
+    () => {
+      const err = responseErrors.value;
+
+      if (err == null) {
+        enhancedSubcategories.value = subcategories.value;
+        return;
+      }
+
+      const subWithErrors = subcategories.value.map((sub) => {
+        const properties = sub.properties.map((prop) =>
+          addErrorsToProperty(prop, err.errors)
+        );
+
+        return { ...sub, properties };
+      });
+
+      enhancedSubcategories.value = subWithErrors;
+    },
+    { immediate: true }
+  );
+
+  // Clean errors by resetting values to default
+  const cleanErrors = () => {
+    enhancedMainCategories.value = categories.value;
+    enhancedSubcategories.value = subcategories.value;
+  };
+
+  return {
+    enhancedMainCategories,
+    enhancedSubcategories,
+    responseErrors,
+    cleanErrors,
+  };
+};
+
+// Compute responseErrors from mutateError
+const useResponseErrors = (mutateError: Ref<Error | null>) => {
+  return computed<{
     title: string;
     errors?: Record<string, string[]>;
   } | null>(() => {
@@ -65,85 +140,97 @@ export const useApplyError = (
 
     return { title: err.message };
   });
+};
 
-  // Use refs and watchers to compute enhancedMainCategories, enhancedSubcategories
-  // such that it is possible to clean the errors if necessary
+// Check if a property has an error
+const hasAnyPropertyError = (
+  property: PropertyConfigWithErrors,
+  errors: Record<string, string[]> | undefined
+) => {
+  if (errors == null) {
+    return false;
+  }
 
-  const enhancedMainCategories = ref<Category[]>([]);
-  const enhancedSubcategories = ref<SubCategory[]>([]);
-
-  watch(
-    () => [responseErrors.value, categories.value],
-    () => {
-      const err = responseErrors.value;
-
-      if (err == null) {
-        enhancedMainCategories.value = categories.value;
-        return;
-      }
-
-      const catWithErrors = categories.value.map((cat) => {
-        const hasError = cat.subCategories?.some((sub) =>
-          sub.properties.some((prop) =>
-            prop.objectMapping == null
-              ? false
-              : Object.values(prop.objectMapping).some(
-                  (value) => err.errors?.[value] != null
-                )
-          )
-        );
-
-        return hasError ? { ...cat, isAnyPropertyError: hasError } : { ...cat };
-      });
-
-      enhancedMainCategories.value = catWithErrors;
-    },
-    { immediate: true }
+  const isObjectMappingError = hasObjectMappingError(
+    property.objectMapping,
+    errors
   );
 
-  watch(
-    () => [responseErrors.value, subcategories.value],
-    () => {
-      const err = responseErrors.value;
-
-      if (err == null) {
-        enhancedSubcategories.value = subcategories.value;
-        return;
-      }
-
-      const subWithErrors = subcategories.value.map((sub) => {
-        const properties = sub.properties.map((prop) => {
-          if (prop.objectMapping == null) {
-            return { ...prop };
-          }
-
-          const entryKey = Object.values(prop.objectMapping).find(
-            (value) => err.errors?.[value] != null
-          );
-
-          return entryKey == undefined
-            ? { ...prop }
-            : { ...prop, errors: err.errors?.[entryKey] };
-        });
-
-        return { ...sub, properties };
-      });
-
-      enhancedSubcategories.value = subWithErrors;
-    },
-    { immediate: true }
+  const isArrayMappingError = hasArrayMappingError(
+    property.arrayMapping,
+    errors
   );
 
-  // Clean errors by resetting values to default
-  const cleanErrors = () => {
-    enhancedMainCategories.value = categories.value;
-    enhancedSubcategories.value = subcategories.value;
-  };
+  return isObjectMappingError || isArrayMappingError;
+};
 
-  return {
-    enhancedMainCategories,
-    enhancedSubcategories,
-    responseErrors,
-    cleanErrors,
-  };
+// Add errors to a property
+const addErrorsToProperty = (
+  property: PropertyConfigWithErrors,
+  errors: Record<string, string[]> | undefined
+) => {
+  if (errors == null) {
+    return property;
+  }
+
+  if (property.objectMapping != null) {
+    const objectMappingErrorKey = findObjectMappingError(
+      property.objectMapping,
+      errors
+    );
+
+    return objectMappingErrorKey == undefined
+      ? { ...property }
+      : { ...property, errors: errors?.[objectMappingErrorKey] };
+  }
+  if (property.arrayMapping != null) {
+    const pathToParent = property.arrayMapping.pathToParent;
+
+    const isArrayMappingError = hasArrayMappingError(
+      property.arrayMapping,
+      errors
+    );
+
+    return !isArrayMappingError
+      ? { ...property }
+      : {
+          ...property,
+          errors: errors?.[pathToParent],
+        };
+  }
+  return property;
+};
+
+const findObjectMappingError = (
+  objectMapping: Record<string, string> | undefined,
+  errors: Record<string, string[]>
+) => {
+  if (objectMapping == null || errors == null) {
+    return undefined;
+  }
+  return Object.values(objectMapping ?? {}).find(
+    (value) => errors[value] != null
+  );
+};
+
+const hasObjectMappingError = (
+  objectMapping: Record<string, string> | undefined,
+  errors: Record<string, string[]>
+) => {
+  if (objectMapping == null || errors == null) {
+    return false;
+  }
+  return findObjectMappingError(objectMapping, errors) != null;
+};
+
+const hasArrayMappingError = (
+  arrayMapping: { pathToParent: string } | undefined,
+  errors: Record<string, string[]>
+) => {
+  if (arrayMapping == null || errors == null) {
+    return false;
+  }
+  return Object.keys(errors ?? {}).some(
+    (key) => arrayMapping.pathToParent === key
+  );
 };
