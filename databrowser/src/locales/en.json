@@ -7,7 +7,8 @@
   },
   "contact": {
     "email": "help{'@'}opendatahub.com",
-    "emailInfo": "info{'@'}opendatahub.com"
+    "emailInfo": "info{'@'}opendatahub.com",
+    "emailSupport": "support{'@'}opendatahub.com"
   },
   "header": {
     "logo": "Open Data Hub - Logo",
@@ -69,6 +70,14 @@
     }
   },
   "datasets": {
+    "error": {
+      "load": {
+        "title": "Error while loading data"
+      },
+      "save": {
+        "title": "Error while saving data"
+      }
+    },
     "detailView": {
       "showEmptyFields": "Show empty fields"
     },

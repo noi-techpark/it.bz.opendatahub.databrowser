@@ -5,14 +5,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <AlertError :title="t('datasets.editView.error.load.title')">
-    <slot></slot>
-  </AlertError>
+  <a :href="t('contact.emailSupport')">{{ t('contact.emailSupport') }}</a>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import AlertError from '../alert/AlertError.vue';
 
 const { t } = useI18n();
 </script>

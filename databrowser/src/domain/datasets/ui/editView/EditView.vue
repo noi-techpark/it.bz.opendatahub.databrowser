@@ -10,32 +10,23 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   </template>
   <template v-else>
     <template v-if="!editRecordSupported">
-      <AlertError
-        :title="'Error!'"
-        :content="t('datasets.editView.notAuthorized')"
-      />
+      <AlertError :title="'Error!'">
+        {{ t('datasets.editView.notAuthorized') }}
+      </AlertError>
     </template>
     <template v-else-if="isGeneratedSource">
-      <AlertError
-        :title="'Error!'"
-        :content="t('datasets.editView.notAvailableForGeneratedSource')"
-      />
+      <AlertError :title="'Error!'">
+        {{ t('datasets.editView.notAvailableForGeneratedSource') }}
+      </AlertError>
     </template>
     <template v-else-if="!hasEditView">
-      <AlertError
-        :title="'Error!'"
-        :content="t('datasets.editView.noEditViewConfigured')"
-      />
+      <AlertError :title="'Error!'">
+        {{ t('datasets.editView.noEditViewConfigured') }}
+      </AlertError>
     </template>
     <template v-else>
       <LoadingError v-if="isError" :error="error" />
-      <template v-if="isMutateError">
-        <LoadingError
-          v-for="(responseError, key) in responseErrors?.errors"
-          :key="key"
-          :error="responseError[0]"
-        />
-      </template>
+      <EditSaveError v-if="isMutateError" :response-errors="responseErrors" />
       <template v-if="!isError">
         <DiscardChangesDialog @discard="resetAndCleanup" />
         <LeaveSectionDialog
@@ -94,6 +85,7 @@ import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
 import { useSingleRecordMutateData } from '../common/load/useSingleRecordMutateData';
 import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
 import EditFooter from './EditFooter.vue';
+import EditSaveError from './EditSaveError.vue';
 import DiscardChangesDialog from './dialogs/DiscardChangesDialog.vue';
 import LeaveSectionDialog from './dialogs/LeaveSectionDialog.vue';
 import { useDialogsStore } from './dialogs/dialogsStore';

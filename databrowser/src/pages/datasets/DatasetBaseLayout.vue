@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <AppLayout :show-app-footer="false">
     <div v-if="isError">
-      <AlertError :title="'Error!'" :content="error?.message" />
+      <AlertError :title="'Error!'">{{ error?.message }}</AlertError>
     </div>
 
     <ContentDivider />

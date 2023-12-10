@@ -12,8 +12,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <AlertError
       v-if="fileTypesNotAccepted != null"
       :title="fileTypesNotAccepted.title"
-      :content="fileTypesNotAccepted.content"
-    />
+    >
+      {{ fileTypesNotAccepted.content }}
+    </AlertError>
     <div
       ref="dropZoneRef"
       class="flex h-24 w-full items-center justify-center rounded border-2 border-dashed"

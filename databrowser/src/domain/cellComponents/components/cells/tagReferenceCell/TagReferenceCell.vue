@@ -10,18 +10,24 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <AlertError
         v-if="url == null"
         title="Can not display tags, no URL defined"
-        content="This seems to be a configuration problem. Please contact support@opendatahub.com"
-      />
+      >
+        This seems to be a configuration problem. Please contact
+        <ContactSupportLink />
+      </AlertError>
       <AlertError
         v-else-if="keySelector == null"
         title="Can not display tags, no key selector defined"
-        content="This seems to be a configuration problem. Please contact support@opendatahub.com"
-      />
+      >
+        This seems to be a configuration problem. Please contact
+        <ContactSupportLink />
+      </AlertError>
       <AlertError
         v-else-if="labelSelector == null"
         title="Can not display tags, no label selector defined"
-        content="This seems to be a configuration problem. Please contact support@opendatahub.com"
-      />
+      >
+        This seems to be a configuration problem. Please contact
+        <ContactSupportLink />
+      </AlertError>
 
       <LoadingState
         :is-loading="isLoading"
@@ -46,6 +52,7 @@ import EditListCell from '../../utils/editList/EditListCell.vue';
 import TagReferenceTable from './TagReferenceTable.vue';
 import { useRemoteSelectOptions } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
 import { booleanOrStringToBoolean } from '../../../../utils/convertType';
+import ContactSupportLink from '../../../../../components/contact/ContactSupportLink.vue';
 
 const props = withDefaults(
   defineProps<{

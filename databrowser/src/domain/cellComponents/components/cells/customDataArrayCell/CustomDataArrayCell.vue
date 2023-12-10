@@ -10,8 +10,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <AlertError
         v-if="url == null"
         title="Can not display options, no URL defined"
-        content="This seems to be a configuration problem. Please contact support@opendatahub.com"
-      />
+      >
+        This seems to be a configuration problem. Please contact
+        <ContactSupportLink />
+      </AlertError>
 
       <LoadingState
         :is-loading="isLoading"
@@ -35,6 +37,7 @@ import { SelectOption } from '../../../../../components/select/types';
 import { useApiRead } from '../../../../api/useApi';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import CustomDataArrayTable from './CustomDataArrayTable.vue';
+import ContactSupportLink from '../../../../../components/contact/ContactSupportLink.vue';
 
 const props = withDefaults(
   defineProps<{
