@@ -2,8 +2,11 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import { reactiveComputed } from '@vueuse/core';
 import { ToRefs, toRefs, toValue } from 'vue';
+import { domainIsKnownToHaveOpenApiDocument } from '../../openApi';
 import {
+  DatasetConfig,
   DatasetDomain,
   DatasetId,
   DatasetPath,
@@ -13,12 +16,10 @@ import {
   RoutePath,
   RouteQuery,
   ToMaybeRefs,
+  ViewKey,
 } from '../config/types';
-import { DatasetConfig, ViewKey } from '../config/types';
-import { reactiveComputed } from '@vueuse/core';
-import { domainIsKnownToHaveOpenApiDocument } from '../../openApi';
-import { stringifyRouteQuery } from '../../utils/route';
 import { computeApiFullUrl } from './apiLocation';
+import { stringifyRouteQuery } from './stringifyQuery';
 
 interface ComputeDatasetLocation {
   datasetDomain: DatasetDomain | undefined;
