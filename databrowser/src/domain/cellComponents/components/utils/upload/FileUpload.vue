@@ -45,7 +45,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { toRefs, useDropZone } from '@vueuse/core';
-import { useUploadForType } from './useUpload';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import ProgressBar from '../../../../../components/progress/ProgressBar.vue';
 import { FileType } from './types';
@@ -54,6 +53,7 @@ import {
   useFileDialogForType,
 } from './useFileDialogForType';
 import AlertError from '../../../../../components/alert/AlertError.vue';
+import { useUploadForType } from '../../../../api/useUpload';
 
 const emit = defineEmits(['uploadSuccess', 'uploadError']);
 

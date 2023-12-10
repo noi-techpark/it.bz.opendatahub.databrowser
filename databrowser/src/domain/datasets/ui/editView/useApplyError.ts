@@ -5,14 +5,18 @@
 import { AxiosError } from 'axios';
 import { computed, ref, Ref, watch } from 'vue';
 import { Category, SubCategory } from '../category/types';
+import { toError } from '../../../utils/convertError';
 
 export const useApplyError = (
   categories: Ref<Category[]>,
   subcategories: Ref<SubCategory[]>,
-  mutateError: Ref<any>
+  mutateError: Ref<Error | null>
 ) => {
-  const responseErrors = computed(() => {
-    const err = mutateError.value;
+  const responseErrors = computed<{
+    title: string;
+    errors?: Record<string, string[]>;
+  } | null>(() => {
+    const err = toError(mutateError.value);
 
     if (err == null) {
       return null;
@@ -57,14 +61,9 @@ export const useApplyError = (
         title: err.message,
         errors,
       };
-    } else if (err instanceof Error) {
-      return {
-        title: err.message,
-      };
     }
-    return {
-      title: err as string,
-    };
+
+    return { title: err.message };
   });
 
   // Use refs and watchers to compute enhancedMainCategories, enhancedSubcategories
@@ -84,7 +83,7 @@ export const useApplyError = (
       }
 
       const catWithErrors = categories.value.map((cat) => {
-        const hasError = cat.subCategories.some((sub) =>
+        const hasError = cat.subCategories?.some((sub) =>
           sub.properties.some((prop) =>
             prop.objectMapping == null
               ? false
@@ -144,6 +143,7 @@ export const useApplyError = (
   return {
     enhancedMainCategories,
     enhancedSubcategories,
+    responseErrors,
     cleanErrors,
   };
 };

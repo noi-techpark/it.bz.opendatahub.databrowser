@@ -5,9 +5,9 @@
 import { createEventHook } from '@vueuse/core';
 import axios from 'axios';
 import { computed, readonly, Ref, ref } from 'vue';
-import { wrapAxiosFetchWithAuth } from '../../../../api/apiAuth';
-import { toErrorMessage } from '../../../../utils/convertError';
-import { FileType } from './types';
+import { FileType } from '../cellComponents/components/utils/upload/types';
+import { toError } from '../utils/convertError';
+import { wrapAxiosFetchWithAuth } from './apiAuth';
 
 const imageUploadUrl = import.meta.env.VITE_APP_IMAGE_UPLOAD_URL;
 const fileUploadUrl = import.meta.env.VITE_APP_FILE_UPLOAD_URL;
@@ -78,7 +78,7 @@ export const useUpload = (url: Ref<string>) => {
       uploadSuccessEventHook.trigger(uploadResponse.value);
     } catch (error) {
       isUploadError.value = true;
-      const errorMessage = toErrorMessage(error);
+      const errorMessage = toError(error).message;
       uploadError.value = errorMessage;
       uploadErrorEventHook.trigger(uploadError.value);
     } finally {

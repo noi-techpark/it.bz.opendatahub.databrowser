@@ -73,7 +73,7 @@ import IconCheck from '../../../../components/svg/IconCheck.vue';
 import IconCopy from '../../../../components/svg/IconCopy.vue';
 import IconDownload from '../../../../components/svg/IconDownload.vue';
 import IconLink from '../../../../components/svg/IconLink.vue';
-import { useAxiosFileDownloader } from '../../../api/useApi';
+import { useDownload } from '../../../api/useDownload';
 import ToolBoxCard from './ToolBoxCard.vue';
 import ToolBoxCardBody from './ToolBoxCardBody.vue';
 import ToolBoxCardHeader from './ToolBoxCardHeader.vue';
@@ -92,7 +92,7 @@ const { copy: copyUrl, copied: copiedUrl } = useClipboard({
   source: url.value,
 });
 
-const fileDownloader = useAxiosFileDownloader();
+const fileDownloader = useDownload();
 const downloadData = async () => {
   if (hasUrl.value) {
     await fileDownloader.download(url.value!);

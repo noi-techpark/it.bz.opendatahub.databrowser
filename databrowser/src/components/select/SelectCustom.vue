@@ -147,7 +147,7 @@ const selectedLabel = computed(() => {
   }
 
   if (showValueAsLabelFallback.value) {
-    return valueInternal.value as string;
+    return (valueInternal.value as string) ?? '';
   }
 
   return unknownValueLabel(valueInternal.value);

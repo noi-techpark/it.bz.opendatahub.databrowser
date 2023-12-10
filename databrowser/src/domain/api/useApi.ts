@@ -42,36 +42,17 @@ export const useApiMutate = (
     method: MaybeRef<'post' | 'put' | 'patch' | 'delete'>;
   }
 ) => {
-  const result = useMutation({
-    mutationFn: async (requestData: unknown) => {
-      const axiosInstance = await axiosWithMaybeAuth(true);
-      return axiosInstance
-        .request({
-          url: toValue(url),
-          method: toValue(options?.method),
-          data: requestData,
-        })
-        .then((response) => response.data);
-    },
-  });
-  return result;
-};
-
-export const useAxiosFileDownloader = () => {
-  return {
-    download: async (url: string) => {
-      const axios = await axiosWithMaybeAuth(true);
-      const response = await axios.get(url);
-
-      const blob = new Blob([JSON.stringify(response.data, null, 2)], {
-        type: 'application/json',
-      });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'dataset.json';
-      link.click();
-      URL.revokeObjectURL(link.href);
-      link.remove();
-    },
+  // Create mutation function using axios
+  const mutationFn = async (requestData: unknown) => {
+    const axiosInstance = await axiosWithMaybeAuth(true);
+    return axiosInstance
+      .request({
+        url: toValue(url),
+        method: toValue(options?.method),
+        data: requestData,
+      })
+      .then((response) => response.data);
   };
+
+  return useMutation({ mutationFn });
 };

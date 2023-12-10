@@ -115,6 +115,7 @@ import IconCopy from '../../../../../components/svg/IconCopy.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import IconDownload from '../../../../../components/svg/IconDownload.vue';
 import IconUpload from '../../../../../components/svg/IconUpload.vue';
+import { useImageUpload } from '../../../../api/useUpload';
 import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
@@ -130,10 +131,10 @@ import { downloadFile } from '../../utils/editList/download/fileDownload';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import { FileType } from '../../utils/upload/types';
 import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
-import { useImageUpload } from '../../utils/upload/useUpload';
 import UrlCell from '../UrlCell/UrlCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
 import { FileEntry } from './types';
+
 const props = defineProps<{ items: FileEntry[]; type?: FileType }>();
 
 const { items } = toRefs(props);

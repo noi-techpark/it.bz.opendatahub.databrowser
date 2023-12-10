@@ -177,6 +177,7 @@ import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import IconDownload from '../../../../../components/svg/IconDownload.vue';
 import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
 import IconUpload from '../../../../../components/svg/IconUpload.vue';
+import { useImageUpload } from '../../../../api/useUpload';
 import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
 import { getImageSrc, getResolutionAsText } from '../../../../image';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
@@ -186,7 +187,6 @@ import { useInjectNavigation } from '../../utils/editList/actions/useNavigation'
 import { downloadFile } from '../../utils/editList/download/fileDownload';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
-import { useImageUpload } from '../../utils/upload/useUpload';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
 import ToggleCell from '../toggleCell/ToggleCell.vue';

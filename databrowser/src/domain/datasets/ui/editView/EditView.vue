@@ -29,8 +29,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
     <template v-else>
       <LoadingError v-if="isError" :error="error" />
-      <LoadingError v-else-if="isMutateError" :error="mutateError" />
-      <template v-else>
+      <template v-if="isMutateError">
+        <LoadingError
+          v-for="(responseError, key) in responseErrors?.errors"
+          :key="key"
+          :error="responseError[0]"
+        />
+      </template>
+      <template v-if="!isError">
         <DiscardChangesDialog @discard="resetAndCleanup" />
         <LeaveSectionDialog
           :is-save-success="isMutateSuccess"
@@ -133,17 +139,21 @@ const {
 } = useSingleRecordLoad();
 
 const {
+  mutateData,
+  mutateError,
   isMutateSuccess,
   isMutateLoading,
   isMutateError,
-  mutateData,
-  mutateError,
   mutate,
 } = useSingleRecordMutateData(fullPath, isNewView);
 
 // Enhance categories and subcategories with any errors
-const { enhancedMainCategories, enhancedSubcategories, cleanErrors } =
-  useApplyError(categories, subcategories, mutateError);
+const {
+  enhancedMainCategories,
+  enhancedSubcategories,
+  responseErrors,
+  cleanErrors,
+} = useApplyError(categories, subcategories, mutateError);
 
 // Sync data to edit store
 const storeSync = useEditStoreSync(data, isMutateSuccess, mutate);
