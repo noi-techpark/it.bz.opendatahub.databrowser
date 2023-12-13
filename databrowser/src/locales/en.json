@@ -91,11 +91,18 @@
           "description": "The changes you made have not been saved. By switching to another section your changes will be lost!",
           "title": "Unsaved Data!"
         },
-        "multilpleFilesLanguage": {
+        "multipleFilesLanguage": {
           "buttonSaveAndNext": "Save & next",
           "buttonDiscardChanges": "Discard changes",
           "title": "Choose language",
           "description": "Which language would you like to assign the uploaded document to?"
+        },
+        "confirmDeselectAllLanguages": {
+          "title": "You deselected all languages",
+          "description": "How do you want to proceed with the uploaded document and the document names?",
+          "buttonDeleteDocAndNames": "Delete the document and its names",
+          "buttonKeepDocDeleteNames": "Keep document, delete its names",
+          "buttonCancel": "Cancel"
         }
       },
       "footer": {
