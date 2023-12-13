@@ -23,6 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       v-model="newItemValue"
       focus
       :editable="editable"
+      :deletable="true"
       @update="onUpdate($event.value)"
     />
   </div>
@@ -43,6 +44,7 @@ import { useQuery } from 'vue-query';
 
 import StringCell from '../stringCell/StringCell.vue';
 import { useEditStore } from '../../../../datasets/editView/store/editStore';
+import { useEventDelete } from '../../../../../components/input/utils';
 
 const emit = defineEmits(['update']);
 
@@ -72,12 +74,25 @@ const props = withDefaults(
   }
 );
 
+const editStore = useEditStore();
+
 const { options, value, url, showEmptyValue, editable, readonly } =
   toRefs(props);
 
 const isWriteable = useWriteable({ editable, readonly });
 
 const attrs = useAttrs();
+
+const isAddNewValue = ref(false);
+const newItemValue = ref('');
+const originalValue = ref(value.value);
+
+useEventDelete.on((eventValue: boolean) => {
+  if (eventValue) {
+    change(originalValue.value as string);
+    isAddNewValue.value = false;
+  }
+});
 
 const queryKey = url.value ?? '';
 const queryFn = url.value ? useAxiosFetcher() : undefined;
@@ -105,16 +120,20 @@ const optionsInternal = computed<SelectOption[]>(() => {
     : useMapper(options, ref(attrs)).optionsInternal.value;
 });
 
-const isAddNewValue = ref(false);
-const newItemValue = ref('');
-
-const editStore = useEditStore();
-
 watch(
   () => editStore.isEqual,
   (v) => {
     if (v) {
       isAddNewValue.value = false;
+    }
+  }
+);
+
+watch(
+  () => editStore.initialAsJson,
+  (v) => {
+    if (v) {
+      originalValue.value = value.value;
     }
   }
 );

@@ -9,6 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     v-if="isWriteable"
     input-classes="w-full"
     :model-value="text"
+    :deletable="deletable"
     @update:model-value="update($event)"
   />
   <span
@@ -29,6 +30,7 @@ const props = defineProps<{
   text?: string | boolean | number;
   editable?: boolean;
   clickable?: boolean;
+  deletable?: boolean;
   readonly?: string | boolean;
 }>();
 
