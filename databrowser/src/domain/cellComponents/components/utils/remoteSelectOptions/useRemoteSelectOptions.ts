@@ -8,6 +8,7 @@ import { useApiRead } from '../../../../api/useApi';
 import { useDatasetBaseInfoStore } from '../../../../datasets/config/store/datasetBaseInfoStore';
 import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 import { RemoteOptionsMapper } from './types';
+import { unwrapData } from '../../../../api/dataExtraction';
 
 export const defaultOptionsMapper: RemoteOptionsMapper = (
   data,
@@ -52,7 +53,7 @@ export const useRemoteSelectOptions = <T extends SelectOption = SelectOption>(
     }
 
     const result = optionMapper(
-      data.value,
+      unwrapData(data.value),
       keySelectorValue,
       labelSelectorValue
     );
