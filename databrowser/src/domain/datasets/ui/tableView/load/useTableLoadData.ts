@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { MaybeRef, toValue } from 'vue';
-import { useApiRead } from '../../../../api/useApi';
+import { MaybeRef } from 'vue';
 import { useUnwrapData } from '../../../../api/dataExtraction';
+import { useApiRead } from '../../../../api/useApi';
 import { DatasetDomain, DatasetQuery } from '../../../config/types';
-import { useHandleDataLoading } from './useHandleDataLoading';
 import { usePagination } from '../../../pagination/usePagination';
+import { useHandleDataLoading } from './useHandleDataLoading';
 
 export const useTableLoadData = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
@@ -26,11 +26,7 @@ export const useTableLoadData = (
   const dataWithLoadingSupport = useHandleDataLoading(isLoading, unwrappedData);
 
   // Compute pagination
-  const pagination = usePagination(
-    toValue(datasetDomain),
-    toValue(datasetQuery),
-    data
-  );
+  const pagination = usePagination(datasetDomain, datasetQuery, data);
 
   return {
     data: dataWithLoadingSupport,
