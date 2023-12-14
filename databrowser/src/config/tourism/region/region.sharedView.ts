@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   contactCategory,
   dataStatesSubCategory,
@@ -34,7 +34,7 @@ export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Ski area Ids',
               component: CellComponent.ArrayCell,
-              fields: {
+              objectMapping: {
                 items: 'SkiareaIds',
               },
               params: {
@@ -44,7 +44,7 @@ export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'HGV id',
               component: CellComponent.StringCell,
-              fields: { text: 'Mapping.hgv.id' },
+              objectMapping: { text: 'Mapping.hgv.id' },
               class: 'break-all',
             },
           ],

@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import { idReadOnlyCell } from '../../builder/tourism';
 
 export const eventTopicsSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -23,7 +23,7 @@ export const eventTopicsSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Type',
               component: CellComponent.StringCell,
               class: 'w-40',
-              fields: {
+              objectMapping: {
                 text: 'Type',
               },
             },
@@ -31,7 +31,7 @@ export const eventTopicsSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'TypeDesc',
               component: CellComponent.StringCell,
               class: 'w-40',
-              fields: {
+              objectMapping: {
                 text: 'TypeDesc.{language}',
               },
             },
@@ -39,7 +39,7 @@ export const eventTopicsSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Bitmask',
               component: CellComponent.StringCell,
               class: 'w-40',
-              fields: {
+              objectMapping: {
                 text: 'Bitmask',
               },
             },
@@ -47,7 +47,7 @@ export const eventTopicsSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Parent',
               component: CellComponent.StringCell,
               class: 'w-40',
-              fields: {
+              objectMapping: {
                 text: 'Parent',
               },
             },

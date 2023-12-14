@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   PropertyConfig,
   SubCategoryElement,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 
 export const sourceSubCategory = (): SubCategoryElement => ({
   name: 'Source',
@@ -14,7 +14,7 @@ export const sourceSubCategory = (): SubCategoryElement => ({
     {
       title: 'Source',
       component: CellComponent.StringCell,
-      fields: { text: 'Source' },
+      objectMapping: { text: 'Source' },
     },
   ],
 });
@@ -23,7 +23,7 @@ export const sourceTableCell = (): PropertyConfig => ({
   title: 'Source',
   component: CellComponent.StringCell,
   class: 'w-36',
-  fields: { text: 'Source' },
+  objectMapping: { text: 'Source' },
 });
 
 export const sourceWithInsertsSubCategory = (

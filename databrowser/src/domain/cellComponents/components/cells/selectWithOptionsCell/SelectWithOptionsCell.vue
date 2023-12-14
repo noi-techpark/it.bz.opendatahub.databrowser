@@ -31,20 +31,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, useAttrs, computed, watch } from 'vue';
-import { useMapper } from './mapper';
+import { computed, ref, toRefs, useAttrs, watch } from 'vue';
+import { useEventDelete } from '../../../../../components/input/utils';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import {
   SelectOption,
   SelectValue,
 } from '../../../../../components/select/types';
+import { selectAddNewValue } from '../../../../../components/select/utils';
+import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
 import { useWriteable } from '../../utils/writeable/useWriteable';
-import { useAxiosFetcher } from '../../../../api';
-import { useQuery } from 'vue-query';
-
 import StringCell from '../stringCell/StringCell.vue';
-import { useEditStore } from '../../../../datasets/editView/store/editStore';
-import { useEventDelete } from '../../../../../components/input/utils';
+import { useMapper } from './mapper';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 const emit = defineEmits(['update', 'addNewValue']);
 
@@ -53,10 +52,9 @@ const props = withDefaults(
     // If options is set, they will be used, otherwise the options from the attributes will be used
     options?: SelectOption[];
     value?: SelectValue;
-    url?: string;
     showEmptyValue?: boolean;
-    showAddNewValue?: boolean;
-    showValueAsLabelFallback?: boolean;
+    showAddNewValue?: boolean | string;
+    showValueAsLabelFallback?: boolean | string;
     showSearchWhenAtLeastCountOptions?: number;
     editable?: boolean;
     readonly?: string | boolean;
@@ -64,7 +62,6 @@ const props = withDefaults(
   {
     options: undefined,
     value: undefined,
-    url: undefined,
     showEmptyValue: false,
     showAddNewValue: false,
     showValueAsLabelFallback: false,
@@ -76,8 +73,17 @@ const props = withDefaults(
 
 const editStore = useEditStore();
 
-const { options, value, url, showEmptyValue, editable, readonly } =
-  toRefs(props);
+const { options, value, showEmptyValue, editable } = toRefs(props);
+
+const showAddNewValue = computed(() =>
+  booleanOrStringToBoolean(props.showAddNewValue)
+);
+
+const showValueAsLabelFallback = computed(() =>
+  booleanOrStringToBoolean(props.showValueAsLabelFallback)
+);
+
+const readonly = computed(() => booleanOrStringToBoolean(props.readonly));
 
 const isWriteable = useWriteable({ editable, readonly });
 
@@ -94,30 +100,8 @@ useEventDelete.on((eventValue: boolean) => {
   }
 });
 
-const queryKey = url.value ?? '';
-const queryFn = url.value ? useAxiosFetcher() : undefined;
-const { data } = useQuery({
-  queryKey,
-  queryFn,
-});
-
-const fetchedOptions = computed<SelectOption[]>(() => {
-  if (data.value == null || data.value.data == null) {
-    return [];
-  }
-
-  const responseValue = data.value.data as string[];
-
-  return responseValue.map<SelectOption>((item) => ({
-    value: item,
-    label: item,
-  }));
-});
-
 const optionsInternal = computed<SelectOption[]>(() => {
-  return fetchedOptions.value.length
-    ? fetchedOptions.value
-    : useMapper(options, ref(attrs)).optionsInternal.value;
+  return useMapper(options, ref(attrs)).optionsInternal.value;
 });
 
 watch(
@@ -146,7 +130,7 @@ watch(
 );
 
 const change = (value: string) => {
-  isAddNewValue.value = !value;
+  isAddNewValue.value = value === selectAddNewValue;
   onUpdate(value);
 };
 const onUpdate = (value: string) => {

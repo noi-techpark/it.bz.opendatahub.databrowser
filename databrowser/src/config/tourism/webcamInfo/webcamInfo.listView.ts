@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
   gpsDataTableCell,
   imageTableCell,
@@ -19,7 +19,7 @@ export const webcamInfoListView: ListViewConfig = {
       title: 'Webcam Name',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         text: 'Webcamname.{language}',
       },
     },
@@ -27,7 +27,7 @@ export const webcamInfoListView: ListViewConfig = {
       title: 'Webcam URL',
       component: CellComponent.UrlCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         text: 'WebCamProperties.WebcamUrl',
       },
     },

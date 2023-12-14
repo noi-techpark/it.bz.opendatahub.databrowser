@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   name: DatasetPage.TABLE,
                   params: {
                     domain: config.route.domain,
-                    pathParams: config.route.pathParams,
+                    pathSegments: config.route.pathSegments,
                   },
                 }"
                 >{{ config.description?.title }}
@@ -56,36 +56,37 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { DatasetConfig, DatasetDomain } from '../domain/datasetConfig/types';
-import AppLayout from '../layouts/AppLayout.vue';
-import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import { useI18n } from 'vue-i18n';
-import { getDatasetConfigSources } from '../domain/datasetConfig/resolver';
+import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
+import { findDatasetConfigProviders } from '../domain/datasets/config/load/datasetConfigLoader';
+import { DatasetConfig } from '../domain/datasets/config/types';
+import AppLayout from '../layouts/AppLayout.vue';
 import { DatasetPage } from '../routes';
 
 const { t } = useI18n();
 
 const isLoading = ref(true);
 
-const configs = ref<Record<DatasetDomain, DatasetConfig[]>>({});
+const configs = ref<Record<string, DatasetConfig[]>>({});
 
-const promises = getDatasetConfigSources().map((source) =>
-  source.getAllDatasetConfigs()
+const promises = findDatasetConfigProviders('any').map((source) =>
+  source.loadAllDatasetConfigs()
 );
 
 Promise.all(promises).then((sources) => {
-  const configsByDomain = sources.reduce<
-    Record<DatasetDomain, DatasetConfig[]>
-  >((previous, current) => {
-    Object.keys(current).forEach((domain) => {
-      const domainConfigs = previous[domain];
-      previous[domain] =
-        domainConfigs != null
-          ? [...domainConfigs, ...current[domain]]
-          : [...current[domain]];
-    });
-    return previous;
-  }, {});
+  const configsByDomain = sources.reduce<Record<string, DatasetConfig[]>>(
+    (previous, current) => {
+      Object.keys(current).forEach((domain) => {
+        const domainConfigs = previous[domain];
+        previous[domain] =
+          domainConfigs != null
+            ? [...domainConfigs, ...current[domain]]
+            : [...current[domain]];
+      });
+      return previous;
+    },
+    {}
+  );
 
   Object.values(configsByDomain).forEach((configs) =>
     configs.sort((a, b) => {

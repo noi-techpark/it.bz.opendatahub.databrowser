@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed, Ref } from 'vue';
-import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 export const useWriteable = ({
   editable,

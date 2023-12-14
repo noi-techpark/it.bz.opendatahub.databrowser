@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   contactCategory,
   dataStatesSubCategory,
@@ -34,7 +34,7 @@ export const skiRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Ski region name',
               component: CellComponent.StringCell,
-              fields: { text: 'SkiRegionName.{language}' },
+              objectMapping: { text: 'SkiRegionName.{language}' },
             },
             ...logoWithMainImageCells(),
           ],

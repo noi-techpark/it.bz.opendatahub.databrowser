@@ -30,27 +30,27 @@ const props = withDefaults(
     items?: Record<string, unknown>[];
     separator?: string;
     max?: string;
-    fieldName?: string;
+    propertyName?: string;
   }>(),
   {
     items: () => [],
     separator: undefined,
     max: undefined,
-    fieldName: undefined,
+    propertyName: undefined,
   }
 );
 
-const { items, max, fieldName } = toRefs(props);
+const { items, max, propertyName } = toRefs(props);
 
 const itemsInternal = computed(() => items.value ?? []);
 
 const more = ref(false);
 
 const newItems = computed(() => {
-  if (fieldName.value == null || max.value == null) {
+  if (propertyName.value == null || max.value == null) {
     return [];
   }
-  const itemIndex = fieldName.value;
+  const itemIndex = propertyName.value;
   return [
     ...itemsInternal.value
       .map((item) => item[itemIndex])
@@ -58,10 +58,10 @@ const newItems = computed(() => {
   ];
 });
 const newItemsAll = computed(() => {
-  if (fieldName.value == null) {
+  if (propertyName.value == null) {
     return [];
   }
-  const itemIndex = fieldName.value;
+  const itemIndex = propertyName.value;
   return [...itemsInternal.value.map((item) => item[itemIndex])];
 });
 </script>

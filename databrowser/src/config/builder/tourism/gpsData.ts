@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailElements,
   PropertyConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import { withOdhBaseUrl } from '../../utils';
 
 export const gpsDataCategory = (): DetailElements => ({
@@ -19,8 +19,8 @@ export const gpsDataCategory = (): DetailElements => ({
         {
           title: '',
           component: CellComponent.EditGpsInfoCell,
-          listFields: {
-            attributeName: 'gpsInfo',
+          arrayMapping: {
+            targetPropertyName: 'gpsInfo',
             pathToParent: 'GpsInfo',
           },
           params: {
@@ -38,7 +38,7 @@ export const gpsDataTableCell = (): PropertyConfig => ({
   title: 'GPS Data',
   component: CellComponent.GpsPointsCell,
   class: 'w-48',
-  fields: {
+  objectMapping: {
     type: 'GpsPoints.position.Gpstype',
     latitude: 'GpsPoints.position.Latitude',
     longitude: 'GpsPoints.position.Longitude',

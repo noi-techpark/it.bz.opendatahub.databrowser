@@ -3,13 +3,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { PropertyConfig } from '../../../domain/datasetConfig/types';
+import { PropertyConfig } from '../../../domain/datasets/config/types';
 import { withOdhBaseUrl } from '../../utils';
 
 export const accommodationCategoryCell = (): PropertyConfig => ({
   title: 'Accommodation category',
   component: CellComponent.InputReferenceCell,
-  fields: { value: 'AccoCategoryId' },
+  objectMapping: { value: 'AccoCategoryId' },
   params: {
     url: withOdhBaseUrl('/v1/AccommodationTypes?type=Category'),
     labelSelector: 'TypeDesc.{language}',
@@ -21,7 +21,7 @@ export const accommodationCategoryCell = (): PropertyConfig => ({
 export const accommodationTypeCell = (): PropertyConfig => ({
   title: 'Accommodation type',
   component: CellComponent.InputReferenceCell,
-  fields: { value: 'AccoTypeId' },
+  objectMapping: { value: 'AccoTypeId' },
   params: {
     url: withOdhBaseUrl('/v1/AccommodationTypes?type=Type'),
     labelSelector: 'TypeDesc.{language}',

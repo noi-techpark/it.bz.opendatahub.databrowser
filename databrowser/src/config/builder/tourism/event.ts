@@ -6,15 +6,15 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailElements,
   PropertyConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 
 export const eventDocumentCell = (): PropertyConfig => ({
   title: 'PDFs',
   component: CellComponent.EventDocumentCell,
-  listFields: {
-    attributeName: 'files',
+  arrayMapping: {
+    targetPropertyName: 'files',
     pathToParent: 'Documents.{language}',
-    fields: {
+    objectMapping: {
       src: 'DocumentURL',
       language: 'Language',
       documentName: 'DocumentName',

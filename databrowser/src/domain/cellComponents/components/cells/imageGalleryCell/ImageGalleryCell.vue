@@ -43,11 +43,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { computed, ComputedRef, toRefs } from 'vue';
-import { usePropertyMapping } from '../../../../api';
+import { buildTargetFromObjectMapping } from '../../../../datasets/config/mapping/utils';
+import { ObjectMapping } from '../../../../datasets/config/types';
+import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
 import ImageCell from '../imageCell/ImageCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
 import StringTemplateCell from '../stringTemplateCell/StringTemplateCell.vue';
-import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 
 /**
  * All fields except "images" are expected to be json paths that can be resolved by
@@ -72,17 +73,23 @@ export type ImageGalleryEntry = Omit<ImageGalleryCellProps, 'images'>;
 
 const props = defineProps<ImageGalleryCellProps>();
 
-const { images, ...fieldsAsRef } = toRefs(props);
-
-const fields = Object.entries(fieldsAsRef).reduce<Record<string, string>>(
-  (previous: ImageGalleryEntry, [key, value]) =>
-    value?.value == null ? previous : { ...previous, [key]: value.value },
-  {}
-);
-
-const { mapWithIndex } = usePropertyMapping();
+const { images, ...listPropertyMappingsAsRef } = toRefs(props);
 
 const resolvedImages: ComputedRef<ImageGalleryCellProps[]> = computed(() => {
-  return images?.value?.map((image) => mapWithIndex(image, fields)) ?? [];
+  // Compute property mappings for image, e.g. where to find the "src" information
+  // in the "image" objects.
+  const objectMapping = Object.entries(
+    listPropertyMappingsAsRef
+  ).reduce<ObjectMapping>(
+    (previous: ImageGalleryEntry, [key, value]) =>
+      value?.value == null ? previous : { ...previous, [key]: value.value },
+    {}
+  );
+
+  return (
+    images?.value?.map((image) =>
+      buildTargetFromObjectMapping(image, objectMapping)
+    ) ?? []
+  );
 });
 </script>

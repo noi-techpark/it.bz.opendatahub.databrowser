@@ -31,7 +31,7 @@ import EditListCell from '../../utils/editList/EditListCell.vue';
 import EditListUpload from '../../utils/editList/upload/EditListUpload.vue';
 import { ImageGalleryEntry } from './types';
 import { computed } from 'vue';
-import { booleanOrStringToBoolean } from '../../../../../components/utils/props';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 const props = withDefaults(
   defineProps<{

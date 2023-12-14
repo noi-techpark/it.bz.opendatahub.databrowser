@@ -6,15 +6,15 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailElements,
   PropertyConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 
 export const webcamCell = (): PropertyConfig => ({
   title: '',
   component: CellComponent.WebcamCell,
-  listFields: {
-    attributeName: 'webcams',
+  arrayMapping: {
+    targetPropertyName: 'webcams',
     pathToParent: 'Webcam',
-    fields: {
+    objectMapping: {
       name: 'Webcamname.{language}',
       imageUrl: 'Webcamurl',
       latitude: 'GpsInfo.Latitude',

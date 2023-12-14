@@ -6,17 +6,17 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailElements,
   PropertyConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 
 export const imageGalleryCell = (
   { resizeImages } = { resizeImages: true }
 ): PropertyConfig => ({
   title: '',
   component: CellComponent.EditImageGalleryCell,
-  listFields: {
-    attributeName: 'images',
+  arrayMapping: {
+    targetPropertyName: 'images',
     pathToParent: 'ImageGallery',
-    fields: {
+    objectMapping: {
       alt: 'ImageAltText.{language}',
       src: 'ImageUrl',
       name: 'ImageName',
@@ -51,7 +51,7 @@ export const imageTableCell = (): PropertyConfig => ({
   title: 'Image',
   component: CellComponent.ImageCell,
   class: 'w-40',
-  fields: {
+  objectMapping: {
     src: 'ImageGallery.0.ImageUrl',
   },
 });
@@ -59,13 +59,13 @@ export const imageTableCell = (): PropertyConfig => ({
 export const mainImageCell = (): PropertyConfig => ({
   title: 'Main Image',
   component: CellComponent.ImageCell,
-  fields: { src: 'ImageGallery.0.ImageUrl' },
+  objectMapping: { src: 'ImageGallery.0.ImageUrl' },
 });
 
 export const logoCell = (): PropertyConfig => ({
   title: 'Logo',
   component: CellComponent.ImageEditCell,
-  fields: { src: 'ContactInfos.{language}.LogoUrl' },
+  objectMapping: { src: 'ContactInfos.{language}.LogoUrl' },
   params: {
     width: '40%',
   },
@@ -75,7 +75,7 @@ export const logoTableCell = (): PropertyConfig => ({
   title: 'Logo',
   component: CellComponent.ImageCell,
   class: 'w-40',
-  fields: { src: 'ContactInfos.{language}.LogoUrl' },
+  objectMapping: { src: 'ContactInfos.{language}.LogoUrl' },
 });
 
 export const logoWithMainImageCells = (): PropertyConfig[] => [

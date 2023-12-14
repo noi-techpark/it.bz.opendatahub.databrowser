@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
   imageTableCell,
   languageTableCell,
@@ -19,7 +19,7 @@ export const wineAwardListView: ListViewConfig = {
       title: 'Name/Title',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'Detail.{language}.Title',
       },
     },
@@ -27,7 +27,7 @@ export const wineAwardListView: ListViewConfig = {
       title: 'Header',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         text: 'Detail.{language}.Header',
       },
     },
@@ -35,7 +35,7 @@ export const wineAwardListView: ListViewConfig = {
       title: 'Vintage',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         text: 'Vintage',
       },
     },
@@ -43,7 +43,7 @@ export const wineAwardListView: ListViewConfig = {
       title: 'Award Year',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         text: 'Awardyear',
       },
     },
@@ -51,7 +51,7 @@ export const wineAwardListView: ListViewConfig = {
       title: 'Awards',
       component: CellComponent.ArrayCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         items: 'Awards',
       },
       params: {

@@ -3,12 +3,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { PropertyConfig } from '../../../domain/datasetConfig/types';
+import { PropertyConfig } from '../../../domain/datasets/config/types';
 
 export const idCell = (): PropertyConfig => ({
   title: 'ID',
   component: CellComponent.StringCell,
-  fields: { text: 'Id' },
+  objectMapping: { text: 'Id' },
 });
 
 export const idReadOnlyCell = (): PropertyConfig => ({
@@ -19,7 +19,7 @@ export const idReadOnlyCell = (): PropertyConfig => ({
 export const customIdCell = (): PropertyConfig => ({
   title: 'Custom Id',
   component: CellComponent.StringCell,
-  fields: { text: 'CustomId' },
+  objectMapping: { text: 'CustomId' },
 });
 
 export const idAndCustomIdCells = (): PropertyConfig[] => [

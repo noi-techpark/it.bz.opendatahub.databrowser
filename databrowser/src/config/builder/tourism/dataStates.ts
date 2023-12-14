@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   PropertyConfig,
   SubCategoryElement,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import { lastChangesCell } from './lastChanges';
 import { publishedOnCell } from './publishedOn';
 
@@ -26,12 +26,12 @@ export const dataStatesSubCategory = (
       {
         title: 'Active on Source',
         component: CellComponent.ToggleCell,
-        fields: { enabled: 'Active' },
+        objectMapping: { enabled: 'Active' },
       },
       {
         title: 'Active on Open Data Hub',
         component: CellComponent.ToggleCell,
-        fields: { enabled: 'SmgActive' },
+        objectMapping: { enabled: 'SmgActive' },
       },
     ],
   };
@@ -40,7 +40,7 @@ export const dataStatesSubCategory = (
     dataStates.properties.push({
       title: 'Visible in Search',
       component: CellComponent.ToggleCell,
-      fields: { enabled: 'VisibleInSearch' },
+      objectMapping: { enabled: 'VisibleInSearch' },
     });
   }
 

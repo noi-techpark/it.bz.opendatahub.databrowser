@@ -291,36 +291,36 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import { format as formatFn } from 'date-fns';
 import { ref } from 'vue';
-import EditListTab from '../../utils/editList/tab/EditListTab.vue';
-import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
+import { useI18n } from 'vue-i18n';
+import QuickViewDayInfo from '../../../../../components/quickview/QuickViewDayInfo.vue';
 import IconCopy from '../../../../../components/svg/IconCopy.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
+import IconEdit from '../../../../../components/svg/IconEdit.vue';
+import { DEFAULT_DATE_FORMAT } from '../../../../../config/utils';
+import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
-import StringCell from '../stringCell/StringCell.vue';
-import { OperationScheduleEntry } from './types';
+import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import DateCell from '../dateCell/DateCell.vue';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
-import {
-  operationScheduleTypeOptions,
-  operationScheduleTimeStateOptions,
-  operationScheduleTimeCodeOptions,
-  operationScheduleTypeDefaultValue,
-  operationScheduleTimeStateDefaultValue,
-  operationScheduleTimeCodeDefaultValue,
-  operationScheduleTimeDays,
-  getOperationScheduleTypeLabel,
-  getOperationScheduleTimeStateLabel,
-  getOperationScheduleTimeCodeLabel,
-} from './operationScheduleOptions';
-import { format as formatFn } from 'date-fns';
-import { DEFAULT_DATE_FORMAT } from '../../../../../config/utils';
+import StringCell from '../stringCell/StringCell.vue';
 import ToggleButtonCell from '../toggleCell/ToggleButtonCell.vue';
-import { useI18n } from 'vue-i18n';
-import QuickViewDayInfo from '../../../../../components/quickview/QuickViewDayInfo.vue';
-import IconEdit from '../../../../../components/svg/IconEdit.vue';
+import {
+  getOperationScheduleTimeCodeLabel,
+  getOperationScheduleTimeStateLabel,
+  getOperationScheduleTypeLabel,
+  operationScheduleTimeCodeDefaultValue,
+  operationScheduleTimeCodeOptions,
+  operationScheduleTimeDays,
+  operationScheduleTimeStateDefaultValue,
+  operationScheduleTimeStateOptions,
+  operationScheduleTypeDefaultValue,
+  operationScheduleTypeOptions,
+} from './operationScheduleOptions';
+import { OperationScheduleEntry } from './types';
 
 const { t } = useI18n();
 
@@ -363,8 +363,6 @@ const updateOperationScheduleTime = (
   );
 
   item.operationScheduleTimes = result;
-
-  console.log(item);
 
   updateItem(itemIndex, { ...item });
 };

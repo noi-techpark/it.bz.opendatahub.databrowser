@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { DetailElements } from '../../../domain/datasetConfig/types';
+import { DetailElements } from '../../../domain/datasets/config/types';
 
 export const textInfoCategory = (): DetailElements => ({
   name: 'Text information',
@@ -15,57 +15,57 @@ export const textInfoCategory = (): DetailElements => ({
         {
           title: 'Meta Title',
           component: CellComponent.StringCell,
-          fields: {
+          objectMapping: {
             text: 'Detail.{language}.MetaTitle',
           },
         },
         {
           title: 'Meta Description',
           component: CellComponent.StringCell,
-          fields: {
+          objectMapping: {
             text: 'Detail.{language}.MetaDesc',
           },
         },
         {
           title: 'Title',
           component: CellComponent.StringCell,
-          fields: {
+          objectMapping: {
             text: 'Detail.{language}.Title',
           },
         },
         {
           title: 'Header',
           component: CellComponent.StringCell,
-          fields: {
+          objectMapping: {
             text: 'Detail.{language}.Header',
           },
         },
         {
           title: 'SubHeader',
           component: CellComponent.TextAreaCell,
-          fields: {
+          objectMapping: {
             text: 'Detail.{language}.SubHeader',
           },
         },
         {
           title: 'Intro Text',
-          component: CellComponent.HtmlCell,
-          fields: {
-            html: 'Detail.{language}.IntroText',
+          component: CellComponent.TextAreaCell,
+          objectMapping: {
+            text: 'Detail.{language}.IntroText',
           },
           params: { rows: '4' },
         },
         {
           title: 'Base Text',
           component: CellComponent.HtmlCell,
-          fields: {
+          objectMapping: {
             html: 'Detail.{language}.BaseText',
           },
         },
         {
           title: 'Additional Text',
           component: CellComponent.TextAreaCell,
-          fields: {
+          objectMapping: {
             text: 'Detail.{language}.AdditionalText',
           },
           params: { rows: '4' },
@@ -73,7 +73,7 @@ export const textInfoCategory = (): DetailElements => ({
         {
           title: 'Get There Text',
           component: CellComponent.TextAreaCell,
-          fields: {
+          objectMapping: {
             text: 'Detail.{language}.GetThereText',
           },
           params: { rows: '4' },

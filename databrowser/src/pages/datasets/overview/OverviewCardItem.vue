@@ -40,21 +40,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import CardContainer from '../../../components/card/CardContainer.vue';
-import CardTitle from '../../../components/card/CardTitle.vue';
-import CardText from '../../../components/card/CardText.vue';
-import TagCustom from '../../../components/tag/TagCustom.vue';
-import CardDivider from '../../../components/card/CardDivider.vue';
-import CardActions from '../../../components/card/CardActions.vue';
-import ArrowLine from '../../../components/svg/ArrowLine.vue';
-import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
-import DatasetTitle from '../../../domain/datasets/common/DatasetTitle.vue';
-import OverviewInfoSources from './OverviewInfoSources.vue';
-import OverviewLinkTable from './OverviewLinkTable.vue';
-import OverviewLinkApi from './OverviewLinkApi.vue';
-import OverviewTagAccess from './OverviewTagAccess.vue';
-import { usePaths } from '../../../domain/datasets/header/usePaths';
 import { useI18n } from 'vue-i18n';
+import CardActions from '../../../components/card/CardActions.vue';
+import CardContainer from '../../../components/card/CardContainer.vue';
+import CardDivider from '../../../components/card/CardDivider.vue';
+import CardText from '../../../components/card/CardText.vue';
+import CardTitle from '../../../components/card/CardTitle.vue';
+import ArrowLine from '../../../components/svg/ArrowLine.vue';
+import TagCustom from '../../../components/tag/TagCustom.vue';
+import DatasetTitle from '../../../domain/datasets/ui/common/DatasetTitle.vue';
+import { usePaths } from '../../../domain/datasets/ui/header/usePaths';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
+import OverviewInfoSources from './OverviewInfoSources.vue';
+import OverviewLinkApi from './OverviewLinkApi.vue';
+import OverviewLinkTable from './OverviewLinkTable.vue';
+import OverviewTagAccess from './OverviewTagAccess.vue';
 
 defineProps<{ dataset: TourismMetaData }>();
 
