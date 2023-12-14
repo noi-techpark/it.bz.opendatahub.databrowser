@@ -17,9 +17,15 @@ export const useRawfilterHandler = () => {
   const rawFilter = useDatasetQueryStore().handle('rawfilter');
   const whereFilter = useDatasetQueryStore().handle('where');
 
-  const rawfilters = computed<Rawfilter[]>(() =>
-    parseRawfilter(datasetDomain.value, whereFilter.value)
-  );
+  const rawfilters = computed<Rawfilter[]>(() => {
+    if (datasetDomain.value === 'tourism') {
+      return parseRawfilter(datasetDomain.value, rawFilter.value);
+    }
+    if (datasetDomain.value === 'mobility') {
+      return parseRawfilter(datasetDomain.value, whereFilter.value);
+    }
+    return [];
+  });
 
   const updateRawfilters = (updatedFilters: Rawfilter[]) => {
     if (datasetDomain.value === 'tourism') {
@@ -93,7 +99,15 @@ const computeFilterValuesForTourism = (updatedFilters: Rawfilter[]) =>
 
 const computeFilterValuesForMobility = (updatedFilters: Rawfilter[]) =>
   updatedFilters.reduce<string[]>((prev, curr) => {
+    if (curr.value === '' || curr.value == null) {
+      return prev;
+    }
+
     const value = toMobilityFilterValue(curr);
+
+    if (value === '' || value == null) {
+      return prev;
+    }
 
     switch (curr.operator) {
       case 'eq':

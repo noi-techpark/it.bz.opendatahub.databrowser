@@ -22,20 +22,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed, toRefs } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { SelectOption } from '../../../../../components/select/types';
-import { ListElements } from '../../../../datasets/config/types';
 import ExportDatasetsToolBoxPanel from '../../toolBox/ExportDatasetsToolBoxPanel.vue';
 import ToolBox from '../../toolBox/ToolBox.vue';
+import { Column } from '../types';
 import SearchAndFilterToolBoxPanel from './SearchAndFilterToolBoxPanel.vue';
 
 const { t } = useI18n();
 
-const props = defineProps<{ url?: string; cols: ListElements[] }>();
+const props = defineProps<{ url?: string; cols: Column[] }>();
 const { cols } = toRefs(props);
 
 const filterOptions = computed(() =>
   cols.value.map<SelectOption>((col) => ({
     label: col.title,
-    value: col.propertyPath,
+    value: col.firstPropertyPath,
   }))
 );
 </script>

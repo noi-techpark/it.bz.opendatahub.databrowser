@@ -15,7 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <TableHeaderCell v-for="col in cols" :key="col.title">
         <SortAndFilterHeader
           :title="col.title"
-          :property-path="col.propertyPath"
+          :property-path="col.firstPropertyPath"
         />
       </TableHeaderCell>
       <TableHeaderCell v-if="showLinkColumn" class="sticky right-0 bg-gray-50">
@@ -73,11 +73,12 @@ import ComponentRenderer from '../../../../components/componentRenderer/Componen
 import TableCell from '../../../../components/table/TableCell.vue';
 import TableHeaderCell from '../../../../components/table/TableHeaderCell.vue';
 import TableWithStickyHeader from '../../../../components/table/TableWithStickyHeader.vue';
-import { DatasetDomain, ListElements } from '../../../datasets/config/types';
+import { DatasetDomain } from '../../../datasets/config/types';
 import SortAndFilterHeader from './SortAndFilterHeader.vue';
 import TableDataEmpty from './TableDataEmpty.vue';
 import TableLinks from './TableLinks.vue';
 import { RecordValues } from './load/types';
+import { Column } from './types';
 import { useTableRowSelection } from './useTableRowSelection';
 
 const { t } = useI18n();
@@ -85,7 +86,7 @@ const { t } = useI18n();
 const props = withDefaults(
   defineProps<{
     rows: RecordValues[];
-    cols: ListElements[];
+    cols: Column[];
     showDetail: boolean;
     showEdit: boolean;
     showQuick: boolean;

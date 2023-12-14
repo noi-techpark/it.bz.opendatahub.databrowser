@@ -3,19 +3,14 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { storeToRefs } from 'pinia';
-import { Ref, computed, toRefs, watch } from 'vue';
-import { ListElements, PropertyPath } from '../../../config/types';
+import { Ref, computed, watch } from 'vue';
+import { PropertyPath } from '../../../config/types';
 import { useToolBoxStore } from '../../toolBox/toolBoxStore';
 import { useTableViewColsStore } from '../tableViewColsStore';
+import { Column } from '../types';
 import { useRawfilterHandler } from './rawfilterHandler';
 import { useTableFilterStore } from './tableFilterStore';
 import { Filter, FilterOperator, FilterValue, Rawfilter } from './types';
-
-type TableViewColumn = ListElements & {
-  title: string;
-  // Defined if there is exactly one entry in objectMapping
-  propertyPath?: string;
-};
 
 let isValueChange = false;
 
@@ -96,11 +91,12 @@ export const useTableFilter = () => {
   const addEmptyFilter = () =>
     wrapFilterMutation(() => {
       const colsWithoutNull = cols.value.find(
-        (col): col is Required<TableViewColumn> => col.propertyPath != null
+        (col) => col.firstPropertyPath != null
       );
       if (colsWithoutNull != null) {
         addFilterByPropertyPath(
-          colsWithoutNull.propertyPath,
+          // We checked that firstPropertyPath is not null above
+          colsWithoutNull.firstPropertyPath!,
           colsWithoutNull.title
         );
       }
@@ -148,7 +144,7 @@ const useTableFilterStoreImport = () => {
     removeFilterByIndex,
     setFilters,
   } = tableFilterStore;
-  const { filters: filtersFromStore } = toRefs(tableFilterStore);
+  const { filters: filtersFromStore } = storeToRefs(tableFilterStore);
 
   return {
     addFilterByPropertyPath,
@@ -163,7 +159,7 @@ let hasFilterWatcher = false;
 
 const addFilterWatcherSingleton = (
   rawfilters: Ref<Rawfilter[]>,
-  columns: Ref<TableViewColumn[]>,
+  cols: Ref<Column[]>,
   setFilters: (filters: Filter[]) => void
 ) => {
   if (hasFilterWatcher) {
@@ -171,7 +167,7 @@ const addFilterWatcherSingleton = (
   }
 
   watch(
-    [rawfilters, columns],
+    [rawfilters, cols],
     () => {
       if (isValueChange) {
         console.debug('isValueEmptyChange, aborting');
@@ -180,8 +176,9 @@ const addFilterWatcherSingleton = (
 
       const filtersWithTitles = rawfilters.value.map((filter) => {
         const title =
-          columns.value.find((col) => col.propertyPath === filter.propertyPath)
-            ?.title ?? filter.propertyPath;
+          cols.value.find(
+            (col) => col.firstPropertyPath === filter.propertyPath
+          )?.title ?? filter.propertyPath;
         return { ...filter, title };
       });
 

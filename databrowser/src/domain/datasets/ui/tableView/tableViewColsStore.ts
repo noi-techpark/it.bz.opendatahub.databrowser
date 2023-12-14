@@ -3,18 +3,18 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { ListViewConfig } from '../../config/types';
-import { useDatasetViewStore } from '../../view/store/datasetViewStore';
+import { Column } from './types';
+
+interface State {
+  cols: Column[];
+}
+
+const initialState = (): State => ({
+  cols: [],
+});
 
 export const useTableViewColsStore = defineStore('tableViewColsStore', {
-  getters: {
-    cols() {
-      return (
-        (useDatasetViewStore().view as ListViewConfig | undefined)?.elements ??
-        []
-      );
-    },
-  },
+  state: initialState,
 });
 
 // Add support for hot-module-reload

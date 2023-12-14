@@ -78,10 +78,7 @@ export interface FilterConfig {
   params?: Record<string, unknown>;
 }
 
-export type ListElements = PropertyConfig & {
-  // Any entry from object mappings
-  propertyPath?: string;
-};
+export type ListElements = PropertyConfig;
 
 export interface SubCategoryElement {
   name: string;
