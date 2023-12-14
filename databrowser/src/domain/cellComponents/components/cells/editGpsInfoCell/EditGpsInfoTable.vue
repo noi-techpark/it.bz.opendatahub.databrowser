@@ -8,13 +8,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <EditListTable :items="items">
     <template #colGroup>
       <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
+      <col class="w-44 md:w-48" />
+      <col class="w-40 md:w-44" />
+      <col class="w-40 md:w-44" />
       <col class="w-32 md:w-40" />
       <col class="w-32 md:w-40" />
     </template>
     <template #tableHeader>
       <TableHeaderCell>MAP</TableHeaderCell>
+      <TableHeaderCell>GPS-TYPE</TableHeaderCell>
       <TableHeaderCell>LATITUDE</TableHeaderCell>
       <TableHeaderCell>LONGITUDE</TableHeaderCell>
       <TableHeaderCell>ALTITUDE</TableHeaderCell>
@@ -23,37 +25,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <template #tableCols="{ item }">
       <TableCell>
-        <UseFullscreen
-          v-slot="{ toggle, isFullscreen }"
-          class="flex items-center justify-center md:items-stretch"
-        >
-          <div
-            v-if="item.Latitude && item.Longitude"
-            :class="{
-              'relative flex h-full w-full cursor-pointer items-center justify-center bg-black':
-                !isFullscreen,
-            }"
-            @click="toggle()"
-          >
-            <MapBase
-              :key="`map_${isFullscreen}`"
-              :center="getItemCenterCoordinates(item)"
-              :markers="getItemMarkersCoordinates(item)"
-              :height="isFullscreen ? '100%' : '100px'"
-              :hide-controls="!isFullscreen"
-              :class="{
-                'pointer-events-none opacity-70': !isFullscreen,
-              }"
-              :zoom="12"
-            />
-            <IconExpanded
-              v-if="!isFullscreen"
-              class="absolute z-[999] text-white transition-all group-hover:scale-125"
-            />
-          </div>
-          <div v-else>Missing coordinates</div>
-        </UseFullscreen>
+        <GpsPointMap
+          v-if="item.Latitude && item.Longitude"
+          ref="gpsPointMap"
+          :latitude="item.Latitude"
+          :longitude="item.Longitude"
+          map-view="table"
+          height="100px"
+        />
+
+        <div v-else>Missing coordinates</div>
       </TableCell>
+      <TableCell>{{ item.Gpstype }}</TableCell>
       <TableCell>{{ item.Latitude }}</TableCell>
       <TableCell>{{ item.Longitude }}</TableCell>
       <TableCell>{{ item.Altitude }}</TableCell>
@@ -70,18 +53,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import TableHeaderCell from '../../../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../../../components/table/TableCell.vue';
-import UseFullscreen from '../../../../../components/fullscreen/UseFullscreen.vue';
-import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
+import GpsPointMap from '../../../../../components/map/GpsPointMap.vue';
 import EditListTable from '../../utils/editList/table/EditListTable.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
-import MapBase from '../../../../../components/map/MapBase.vue';
-import { Marker } from '../../../../../components/map/types';
 import { GpsInfoEntry } from './types';
-import { PointExpression } from 'leaflet';
 
 const props = defineProps<{ items: GpsInfoEntry[] }>();
 
@@ -94,18 +74,5 @@ const addNewGpsPoint = () => {
   navigateToTab(props.items.length);
 };
 
-const getItemCenterCoordinates = (item: GpsInfoEntry) => {
-  return [item.Latitude, item.Longitude] as PointExpression;
-};
-
-const getItemMarkersCoordinates = (item: GpsInfoEntry) => {
-  return [
-    {
-      position: {
-        lat: item.Latitude,
-        lng: item.Longitude,
-      },
-    },
-  ] as Marker[];
-};
+const gpsPointMap = ref();
 </script>

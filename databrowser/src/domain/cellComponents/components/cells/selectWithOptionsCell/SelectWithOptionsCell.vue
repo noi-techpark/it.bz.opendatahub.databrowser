@@ -44,7 +44,7 @@ import { useQuery } from 'vue-query';
 import StringCell from '../stringCell/StringCell.vue';
 import { useEditStore } from '../../../../datasets/editView/store/editStore';
 
-const emit = defineEmits(['update']);
+const emit = defineEmits(['update', 'addNewValue']);
 
 const props = withDefaults(
   defineProps<{
@@ -116,6 +116,13 @@ watch(
     if (v) {
       isAddNewValue.value = false;
     }
+  }
+);
+
+watch(
+  () => isAddNewValue.value,
+  (v) => {
+    emit('addNewValue', v);
   }
 );
 

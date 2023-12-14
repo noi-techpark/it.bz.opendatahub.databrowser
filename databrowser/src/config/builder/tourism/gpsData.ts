@@ -7,6 +7,7 @@ import {
   DetailElements,
   PropertyConfig,
 } from '../../../domain/datasetConfig/types';
+import { withOdhBaseUrl } from '../../utils';
 
 export const gpsDataCategory = (): DetailElements => ({
   name: 'GPS',
@@ -21,6 +22,11 @@ export const gpsDataCategory = (): DetailElements => ({
           listFields: {
             attributeName: 'gpsInfo',
             pathToParent: 'GpsInfo',
+          },
+          params: {
+            positionValuesUrl: withOdhBaseUrl(
+              '/v1/Distinct?odhtype=odhactivitypoi&fields=GpsPoints.[*].*.Gpstype&getasarray=true'
+            ),
           },
         },
       ],

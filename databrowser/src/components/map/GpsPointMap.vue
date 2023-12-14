@@ -5,164 +5,118 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="flex gap-3">
-    <div class="flex flex-col gap-3">
-      <SelectWithLabelVue
-        :label="t('datasets.editView.map.gpsType')"
-        :value="position.gpsType"
-        :options="gpsTypeOptions"
-        class="w-full md:w-64"
+  <UseFullscreen ref="fullscreenComponent" v-slot="{ toggle, isFullscreen }">
+    <div
+      class="relative h-full w-full"
+      :class="{
+        'flex cursor-pointer items-center justify-center bg-black':
+          !isFullscreen && mapView === 'table',
+      }"
+      @click="onContainerClick(isFullscreen)"
+    >
+      <IconExpanded
+        v-if="mapView === 'table'"
+        class="absolute text-white transition-all group-hover:scale-125"
       />
-      <InputCustom
-        v-model="position.latitude"
-        :label="t('datasets.editView.map.latitude')"
-        type="text"
-        input-classes="w-full md:w-64"
-        has-label-top
-      />
-      <InputCustom
-        v-model="position.longitude"
-        :label="t('datasets.editView.map.longitude')"
-        type="text"
-        input-classes="w-full md:w-64"
-        has-label-top
-      />
-      <InputCustom
-        v-model="position.altitude"
-        :label="t('datasets.editView.map.altitude')"
-        type="text"
-        input-classes="w-full md:w-64"
-        has-label-top
-        @input="emit('newPosition', position)"
-      />
-      <InputCustom
-        v-model="position.unitMeasureAltitude"
-        :label="t('datasets.editView.map.altitudeUnit')"
-        type="text"
-        disabled
-        input-classes="w-full md:w-64"
-        has-label-top
-      />
-    </div>
-
-    <div class="w-full">
-      <QuickViewCardOverview
-        :title="t('datasets.editView.map.mapPreviewDataInserted')"
-        content-has-no-padding
-        :sections="[]"
-        :cta-icon="['IconPencil', 'IconExpand']"
-        :icons-active="iconsActive"
-        @cta-click="onCtaClick"
+      <div
+        v-if="isFullscreen"
+        class="absolute right-4 top-4 z-[999] flex items-center gap-3"
       >
-        <template #content>
-          <div
+        <ButtonCustom
+          v-if="mapView !== 'table'"
+          variant="ghost"
+          size="xs"
+          class="flex h-12 w-12 items-center justify-center bg-white p-2"
+          @click="toggleEditMode()"
+          ><IconParser
+            name="IconPencil"
             :class="
-              isFullscreen
-                ? ['fixed top-0 left-0 z-[999] w-full h-full']
-                : ['relative']
+              enableSetMarker
+                ? 'w-6 h-6 border-[1.5px] border-green-400 p-[2px] rounded-[3px] bg-hint-calm-secondary'
+                : 'h-5 w-5 cursor-pointer text-green-400'
             "
-          >
-            <div
-              v-if="isFullscreen"
-              class="fixed right-4 top-4 z-[9999] flex items-center gap-3"
-            >
-              <ButtonCustom
-                variant="ghost"
-                size="xs"
-                class="flex h-12 w-12 items-center justify-center bg-white p-2"
-                @click="toggleEditMode()"
-                ><IconParser
-                  name="IconPencil"
-                  :class="
-                    enableSetMarker
-                      ? 'w-6 h-6 border-[1.5px] border-green-400 p-[2px] rounded-[3px] bg-hint-calm-secondary'
-                      : 'h-5 w-5 cursor-pointer text-green-400'
-                  "
-              /></ButtonCustom>
-              <ButtonCustom
-                variant="ghost"
-                size="xs"
-                class="flex h-12 w-12 items-center justify-center bg-white p-2"
-                @click="toggleFullScreen()"
-                ><IconParser
-                  name="IconClose"
-                  class="cursor-pointer text-green-400"
-              /></ButtonCustom>
-            </div>
-            <div
-              ref="tooltip"
-              class="pointer-events-none absolute bottom-6 right-2 z-[999] rounded-md bg-black px-2 py-1 text-sm text-white opacity-0 transition-all"
-            >
-              {{ t('datasets.editView.map.clickOnTheMapToSetGPSPoint') }}
-            </div>
-            <MapBase
-              :key="`map_${isFullscreen}`"
-              :center="map.center"
-              :markers="map.markers"
-              :enable-set-marker="enableSetMarker"
-              :zoom="12"
-              :height="isFullscreen ? '100%' : '400px'"
-              @map-click="onMapClick"
-            />
-          </div>
-        </template>
-      </QuickViewCardOverview>
+        /></ButtonCustom>
+        <ButtonCustom
+          variant="ghost"
+          size="xs"
+          class="flex h-12 w-12 items-center justify-center bg-white p-2"
+          @click="toggle()"
+          ><IconParser name="IconClose" class="cursor-pointer text-green-400"
+        /></ButtonCustom>
+      </div>
+      <div
+        ref="tooltip"
+        class="pointer-events-none absolute bottom-6 right-2 z-[999] rounded-md bg-black px-2 py-1 text-sm text-white opacity-0 transition-all"
+      >
+        {{ t('datasets.editView.map.clickOnTheMapToSetGPSPoint') }}
+      </div>
+      <MapBase
+        :key="`map_${isFullscreen}`"
+        :center="map.center"
+        :markers="map.markers"
+        :enable-set-marker="enableSetMarker"
+        :zoom="12"
+        :height="isFullscreen ? '100%' : height || '400px'"
+        hide-controls
+        :class="{
+          'pointer-events-none opacity-50':
+            !isFullscreen && mapView === 'table',
+        }"
+        @map-click="onMapClick"
+      />
     </div>
-  </div>
+  </UseFullscreen>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref, toRefs, watch } from 'vue';
 import { PointExpression } from 'leaflet';
 import { useI18n } from 'vue-i18n';
 
-import QuickViewCardOverview from '../quickview/QuickViewCardOverview.vue';
 import MapBase from '../../components/map/MapBase.vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
 import IconParser from '../utils/IconParser.vue';
 
-import InputCustom from '../input/InputCustom.vue';
-import SelectWithLabelVue from '../select/SelectWithLabel.vue';
-import { PointPosition } from './types';
+import UseFullscreen from '../fullscreen/UseFullscreen.vue';
+import IconExpanded from '../svg/IconExpanded.vue';
 
 const { t } = useI18n();
 
-const emit = defineEmits(['newPosition']);
+const emit = defineEmits(['mapClick', 'enableSetMarker']);
 
-const enableSetMarker = ref(false);
-const isFullscreen = ref(false);
 const tooltip = ref();
-const position = ref({
-  latitude: '' as string | number | undefined,
-  longitude: '' as string | number | undefined,
-  altitude: '' as string | number | undefined,
-  unitMeasureAltitude: '' as string | number | undefined,
-  gpsType: '' as string | undefined,
-} as PointPosition);
+const fullscreenComponent = ref();
+const enableSetMarker = ref(false);
 
-interface MapPointPosition extends PointPosition {
-  fallbackCenter?: PointExpression;
-}
+const props = withDefaults(
+  defineProps<{
+    latitude?: string | number;
+    longitude?: string | number;
+    height?: string;
+    fallbackCenter?: PointExpression;
+    mapView?: undefined | 'table';
+  }>(),
+  {
+    latitude: undefined,
+    longitude: undefined,
+    height: undefined,
+    fallbackCenter: undefined,
+    mapView: undefined,
+  }
+);
 
-const props = withDefaults(defineProps<MapPointPosition>(), {
-  latitude: undefined,
-  longitude: undefined,
-  altitude: undefined,
-  unitMeasureAltitude: undefined,
-  gpsType: undefined,
-  fallbackCenter: undefined,
-});
+const { latitude, longitude, fallbackCenter } = toRefs(props);
 
 const map = computed(() => {
-  if (position.value.longitude == null || position.value.latitude == null) {
+  if (longitude.value == null || latitude.value == null) {
     return {
-      center: props.fallbackCenter || undefined,
+      center: fallbackCenter.value || undefined,
       markers: [],
     };
   }
 
-  const lng = Number(position.value.longitude);
-  const lat = Number(position.value.latitude);
+  const lng = Number(longitude.value);
+  const lat = Number(latitude.value);
 
   return {
     center: [lat, lng] as PointExpression,
@@ -170,47 +124,19 @@ const map = computed(() => {
   };
 });
 
-const iconsActive = computed(() => {
-  return enableSetMarker.value ? ['IconPencil'] : [];
-});
-
-const gpsTypeOptions = computed(() => {
-  if (props.gpsType) {
-    return [{ label: props.gpsType || '', value: props.gpsType }];
-  }
-
-  return [{ label: 'Position', value: 'Position' }];
-});
-
-onMounted(() => {
-  position.value.latitude = props.latitude;
-  position.value.longitude = props.longitude;
-  position.value.altitude = props.altitude;
-  position.value.unitMeasureAltitude = props.unitMeasureAltitude || 'm';
-  position.value.gpsType = props.gpsType || gpsTypeOptions.value[0].value;
-});
+watch(enableSetMarker, (newVal) => emit('enableSetMarker', newVal));
 
 const onMapClick = (location: any) => {
   if (!enableSetMarker.value) return;
 
   const { latlng } = location;
-  position.value.latitude = latlng.lat;
-  position.value.longitude = latlng.lng;
+  const { lat, lng } = latlng;
 
-  emit('newPosition', position.value);
+  emit('mapClick', { lat, lng });
 };
 
-const onCtaClick = async (iconValue: any) => {
-  switch (iconValue) {
-    case 'IconPencil':
-      toggleEditMode();
-
-      break;
-
-    default:
-      toggleFullScreen();
-      break;
-  }
+const toggleFullscreen = () => {
+  fullscreenComponent.value.toggleFullscreen();
 };
 
 const toggleEditMode = () => {
@@ -234,9 +160,13 @@ const hideTooltip = () => {
   tooltip.value.classList.remove('opacity-100');
 };
 
-const toggleFullScreen = () => {
-  isFullscreen.value = !isFullscreen.value;
+const onContainerClick = (isFullscreen: boolean) => {
+  if (props.mapView !== 'table') return;
+
+  if (props.mapView === 'table' && isFullscreen) return;
+
+  toggleFullscreen();
 };
 
-defineExpose({ toggleEditMode });
+defineExpose({ toggleEditMode, toggleFullscreen });
 </script>
