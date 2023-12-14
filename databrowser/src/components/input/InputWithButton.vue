@@ -23,6 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         v-if="hasText"
         class="p-[3px] text-delete"
         :data-test="`${id}-reset-search`"
+        :disabled="disabled"
         @click="deleteText"
       >
         <IconDelete />
