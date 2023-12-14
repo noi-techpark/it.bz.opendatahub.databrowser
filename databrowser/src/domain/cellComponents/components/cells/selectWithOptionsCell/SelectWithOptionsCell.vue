@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div v-if="isWriteable">
     <SelectCustom
       v-if="isWriteable && !isAddNewValue"
-      :options="optionsInternal"
+      :options="selectOptions"
       :value="value"
       :show-empty-value="showEmptyValue"
       :show-add-new-value="showAddNewValue"
@@ -44,6 +44,7 @@ import { useWriteable } from '../../utils/writeable/useWriteable';
 import StringCell from '../stringCell/StringCell.vue';
 import { useMapper } from './mapper';
 import { booleanOrStringToBoolean } from '../../../../utils/convertType';
+import { useApiRead } from '../../../../api/useApi';
 
 const emit = defineEmits(['update', 'addNewValue']);
 
@@ -52,6 +53,7 @@ const props = withDefaults(
     // If options is set, they will be used, otherwise the options from the attributes will be used
     options?: SelectOption[];
     value?: SelectValue;
+    url?: string;
     showEmptyValue?: boolean;
     showAddNewValue?: boolean | string;
     showValueAsLabelFallback?: boolean | string;
@@ -62,6 +64,7 @@ const props = withDefaults(
   {
     options: undefined,
     value: undefined,
+    url: undefined,
     showEmptyValue: false,
     showAddNewValue: false,
     showValueAsLabelFallback: false,
@@ -73,7 +76,7 @@ const props = withDefaults(
 
 const editStore = useEditStore();
 
-const { options, value, showEmptyValue, editable } = toRefs(props);
+const { options, value, url, showEmptyValue, editable } = toRefs(props);
 
 const showAddNewValue = computed(() =>
   booleanOrStringToBoolean(props.showAddNewValue)
@@ -89,6 +92,22 @@ const isWriteable = useWriteable({ editable, readonly });
 
 const attrs = useAttrs();
 
+// If there is a URL, fetch the options from the API
+const { data } = useApiRead<string[]>(url.value);
+
+const selectOptions = computed<SelectOption[]>(() => {
+  // If there are options from the API, use them,
+  if (data.value != null) {
+    return data.value.map<SelectOption>((item) => ({
+      value: item,
+      label: item,
+    }));
+  }
+
+  // otherwise use the options from the attributes
+  return useMapper(options, ref(attrs)).optionsInternal.value;
+});
+
 const isAddNewValue = ref(false);
 const newItemValue = ref('');
 const originalValue = ref(value.value);
@@ -98,10 +117,6 @@ useEventDelete.on((eventValue: boolean) => {
     change(originalValue.value as string);
     isAddNewValue.value = false;
   }
-});
-
-const optionsInternal = computed<SelectOption[]>(() => {
-  return useMapper(options, ref(attrs)).optionsInternal.value;
 });
 
 watch(
