@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { reactiveComputed } from '@vueuse/core';
-import { MaybeRef, toRefs, toValue, watchEffect } from 'vue';
+import { MaybeRef, toRefs, toValue, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import {
   ViewConfigWithType,
@@ -68,14 +68,17 @@ export const useComputeSingleRecordSlugWithRouter = (
     )
   );
 
-  watchEffect(() => {
-    if (!result.isSlugValid) {
-      router.replace({
-        hash: '',
-        query: router.currentRoute.value.query,
-      });
+  watch(
+    () => result.isSlugValid,
+    (isSlugValid) => {
+      if (!isSlugValid) {
+        router.replace({
+          hash: '',
+          query: router.currentRoute.value.query,
+        });
+      }
     }
-  });
+  );
 
   return toRefs(result);
 };
