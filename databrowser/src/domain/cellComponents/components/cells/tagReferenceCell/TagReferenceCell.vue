@@ -47,12 +47,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed, toRefs } from 'vue';
 import AlertError from '../../../../../components/alert/AlertError.vue';
-import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import EditListCell from '../../utils/editList/EditListCell.vue';
-import TagReferenceTable from './TagReferenceTable.vue';
-import { useRemoteSelectOptions } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
-import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 import ContactSupportLink from '../../../../../components/contact/ContactSupportLink.vue';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
+import EditListCell from '../../utils/editList/EditListCell.vue';
+import {
+  useRemoteSelectOptionsWithMapper,
+  withSelectors,
+} from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
+import TagReferenceTable from './TagReferenceTable.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -83,5 +86,9 @@ const uniqueValue = computed(() =>
 );
 
 const { isLoading, isSuccess, isError, error, options } =
-  useRemoteSelectOptions(url, keySelector, labelSelector, sortByLabel);
+  useRemoteSelectOptionsWithMapper(
+    url,
+    sortByLabel,
+    withSelectors(keySelector, labelSelector)
+  );
 </script>

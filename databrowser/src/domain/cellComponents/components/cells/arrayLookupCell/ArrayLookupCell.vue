@@ -24,15 +24,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue';
+import { MaybeRef, computed, toRefs, toValue } from 'vue';
 import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import EditListCell from '../../utils/editList/EditListCell.vue';
-import ArrayLookupTable from './ArrayLookupTable.vue';
-import { useRemoteSelectOptions } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
-import { RemoteOptionsMapper } from '../../utils/remoteSelectOptions/types';
-import { SelectOption } from '../../../../../components/select/types';
-import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 import { useDatasetBaseInfoStore } from '../../../../datasets/config/store/datasetBaseInfoStore';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
+import EditListCell from '../../utils/editList/EditListCell.vue';
+import { useRemoteSelectOptionsWithMapper } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
+import ArrayLookupTable from './ArrayLookupTable.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -54,27 +52,24 @@ const enableUniqueValue = computed(() =>
 
 const { lookupUrl, keySelector, labelSelector } = toRefs(props);
 
-const optionMapper: RemoteOptionsMapper<SelectOption & { url: string }> = (
-  data,
-  keySelector,
-  labelSelector
-) => {
-  const { extractValueByPath } = useDatasetBaseInfoStore();
+const optionMapper =
+  (keySelector: MaybeRef<string>, labelSelector: MaybeRef<string>) =>
+  (items: unknown[]) => {
+    const { extractValueByPath } = useDatasetBaseInfoStore();
 
-  return data.map((item: any) => {
-    const value = extractValueByPath(item, keySelector) as string;
-    const label = (extractValueByPath(item, labelSelector) as string) ?? value;
-    const url = item.Url;
-    return { value, label, url };
-  });
-};
+    return items.map((item) => {
+      const value = extractValueByPath(item, toValue(keySelector)) as string;
+      const label =
+        (extractValueByPath(item, toValue(labelSelector)) as string) ?? value;
+      const url = extractValueByPath(item, 'Url') as string;
+      return { value, label, url };
+    });
+  };
 
 const { options, error, isLoading, isSuccess, isError } =
-  useRemoteSelectOptions(
+  useRemoteSelectOptionsWithMapper(
     lookupUrl,
-    keySelector,
-    labelSelector,
     true,
-    optionMapper
+    optionMapper(keySelector, labelSelector)
   );
 </script>

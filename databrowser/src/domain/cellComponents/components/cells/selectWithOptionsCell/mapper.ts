@@ -72,7 +72,7 @@ const buildOptions = (
 // Example: "value_001" with value "EC" and "label_001" with
 // value "Eurac" are merged into the following SelectOption:
 // {value: "EC", label: "Eurac"}
-export const useMapper = (
+export const useAttributesMapper = (
   options: Ref<SelectOption[] | undefined>,
   attrs: Ref<Record<string, unknown>>
 ) => {

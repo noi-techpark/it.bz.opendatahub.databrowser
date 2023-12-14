@@ -22,11 +22,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { toRefs } from 'vue';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import { SelectValue } from '../../../../../components/select/types';
+import {
+  useRemoteSelectOptionsWithMapper,
+  withSelectors,
+} from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
 import { useWriteable } from '../../utils/writeable/useWriteable';
-import LoadingState from '../../../../../components/loading/LoadingState.vue';
-import { useRemoteSelectOptions } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
 
 const emit = defineEmits(['update']);
 
@@ -66,7 +69,11 @@ const {
 const isWriteable = useWriteable({ editable, readonly });
 
 const { isLoading, isSuccess, isError, error, options } =
-  useRemoteSelectOptions(url, keySelector, labelSelector, sortByLabel);
+  useRemoteSelectOptionsWithMapper(
+    url,
+    sortByLabel,
+    withSelectors(keySelector, labelSelector)
+  );
 
 const change = (value: string) => emit('update', { prop: 'value', value });
 </script>

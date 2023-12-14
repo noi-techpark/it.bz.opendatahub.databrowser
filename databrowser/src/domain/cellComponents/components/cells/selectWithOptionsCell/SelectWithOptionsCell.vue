@@ -40,11 +40,14 @@ import {
 } from '../../../../../components/select/types';
 import { selectAddNewValue } from '../../../../../components/select/utils';
 import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
+import {
+  fromStringArray,
+  useRemoteSelectOptionsWithMapper,
+} from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import StringCell from '../stringCell/StringCell.vue';
-import { useMapper } from './mapper';
-import { booleanOrStringToBoolean } from '../../../../utils/convertType';
-import { useApiRead } from '../../../../api/useApi';
+import { useAttributesMapper } from './mapper';
 
 const emit = defineEmits(['update', 'addNewValue']);
 
@@ -92,20 +95,17 @@ const isWriteable = useWriteable({ editable, readonly });
 
 const attrs = useAttrs();
 
-// If there is a URL, fetch the options from the API
-const { data } = useApiRead<string[]>(url.value);
+const { options: remoteOptions } = useRemoteSelectOptionsWithMapper(
+  url,
+  true,
+  fromStringArray
+);
 
 const selectOptions = computed<SelectOption[]>(() => {
-  // If there are options from the API, use them,
-  if (data.value != null) {
-    return data.value.map<SelectOption>((item) => ({
-      value: item,
-      label: item,
-    }));
+  if (url.value != null) {
+    return remoteOptions.value;
   }
-
-  // otherwise use the options from the attributes
-  return useMapper(options, ref(attrs)).optionsInternal.value;
+  return useAttributesMapper(options, ref(attrs)).optionsInternal.value;
 });
 
 const isAddNewValue = ref(false);

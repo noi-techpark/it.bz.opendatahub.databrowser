@@ -2,34 +2,49 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { MaybeRef, Ref, computed, toValue } from 'vue';
+import { MaybeRef, Ref, computed, toValue, unref } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
+import { unwrapData } from '../../../../api/dataExtraction';
 import { useApiRead } from '../../../../api/useApi';
 import { useDatasetBaseInfoStore } from '../../../../datasets/config/store/datasetBaseInfoStore';
 import { booleanOrStringToBoolean } from '../../../../utils/convertType';
-import { RemoteOptionsMapper } from './types';
-import { unwrapData } from '../../../../api/dataExtraction';
 
-export const defaultOptionsMapper: RemoteOptionsMapper = (
-  data,
-  keySelector,
-  labelSelector
-) => {
-  const { extractValueByPath } = useDatasetBaseInfoStore();
-
-  return data.map((item) => {
-    const value = extractValueByPath(item, keySelector) as string;
-    const label = (extractValueByPath(item, labelSelector) as string) ?? value;
-    return { value, label };
+export const fromStringArray = (items: string[]) => {
+  return items.map((item) => {
+    return { value: item, label: item };
   });
 };
 
-export const useRemoteSelectOptions = <T extends SelectOption = SelectOption>(
-  url: MaybeRef<string | undefined>,
+export const withSelectors = (
   keySelector: MaybeRef<string | undefined>,
-  labelSelector: MaybeRef<string | undefined>,
+  labelSelector: MaybeRef<string | undefined>
+) => {
+  const { extractValueByPath } = useDatasetBaseInfoStore();
+
+  // Return mapping function
+  return (items: Record<string, string>[]) => {
+    const keySelectorValue = toValue(keySelector);
+    const labelSelectorValue = toValue(labelSelector);
+    if (keySelectorValue == null || labelSelectorValue == null) {
+      return [];
+    }
+
+    return items.map<SelectOption>((item) => {
+      const value = extractValueByPath(item, keySelectorValue) as string;
+      const label =
+        (extractValueByPath(item, labelSelectorValue) as string) ?? value;
+      return { value, label };
+    });
+  };
+};
+
+export const useRemoteSelectOptionsWithMapper = <
+  T extends SelectOption = SelectOption,
+  D = unknown
+>(
+  url: MaybeRef<string | undefined>,
   sortByLabel: MaybeRef<string | boolean | undefined>,
-  optionMapper = defaultOptionsMapper as RemoteOptionsMapper<T>
+  mapper: MaybeRef<(items: D[]) => T[]>
 ): {
   isLoading: Ref<boolean>;
   isSuccess: Ref<boolean>;
@@ -38,25 +53,15 @@ export const useRemoteSelectOptions = <T extends SelectOption = SelectOption>(
   options: Ref<T[]>;
 } => {
   const { data, isLoading, isSuccess, isError, error } =
-    useApiRead<Record<string, string>[]>(url);
+    useApiRead<unknown>(url);
 
   const options = computed(() => {
-    const keySelectorValue = toValue(keySelector);
-    const labelSelectorValue = toValue(labelSelector);
-
-    if (
-      data.value == null ||
-      keySelectorValue == null ||
-      labelSelectorValue == null
-    ) {
+    if (data.value == null) {
       return [];
     }
 
-    const result = optionMapper(
-      unwrapData(data.value),
-      keySelectorValue,
-      labelSelectorValue
-    );
+    const mapperFn = unref(mapper);
+    const result = mapperFn(unwrapData(data.value));
 
     const sortByLabelValue = booleanOrStringToBoolean(
       toValue(sortByLabel),
