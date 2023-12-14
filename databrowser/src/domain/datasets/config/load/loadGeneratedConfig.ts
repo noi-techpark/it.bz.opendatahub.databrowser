@@ -93,7 +93,10 @@ const findGeneratedDatasetConfig = (
     );
   }
 
-  return candidates[0].config;
+  const config = candidates[0].config;
+  config.description.title = pathSegments.at(-1);
+
+  return config;
 };
 
 const parse = (
