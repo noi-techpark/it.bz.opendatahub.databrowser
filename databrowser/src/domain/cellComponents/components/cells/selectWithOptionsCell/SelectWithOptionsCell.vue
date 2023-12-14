@@ -46,7 +46,7 @@ import StringCell from '../stringCell/StringCell.vue';
 import { useEditStore } from '../../../../datasets/editView/store/editStore';
 import { useEventDelete } from '../../../../../components/input/utils';
 
-const emit = defineEmits(['update']);
+const emit = defineEmits(['update', 'addNewValue']);
 
 const props = withDefaults(
   defineProps<{
@@ -135,6 +135,13 @@ watch(
     if (v) {
       originalValue.value = value.value;
     }
+  }
+);
+
+watch(
+  () => isAddNewValue.value,
+  (v) => {
+    emit('addNewValue', v);
   }
 );
 

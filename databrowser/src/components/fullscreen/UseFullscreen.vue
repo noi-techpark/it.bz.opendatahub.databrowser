@@ -24,4 +24,6 @@ import { useFullscreen } from '@vueuse/core';
 
 const target = ref();
 const data = reactive(useFullscreen(target));
+
+defineExpose({ toggleFullscreen: data.toggle });
 </script>
