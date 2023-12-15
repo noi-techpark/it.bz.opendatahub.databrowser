@@ -112,6 +112,10 @@ const useResponseErrors = (mutateError: Ref<Error | null>) => {
       if (typeof responseData === 'string') {
         return {
           title: responseData,
+          errors: {
+            statusCode: [`Response status code: ${err.response.status}`],
+            raw: [responseData],
+          },
         };
       }
 
