@@ -28,5 +28,7 @@ const props = defineProps<{ to?: RouteLocationRaw }>();
 const { to } = toRefs(props);
 
 const buttonType = computed(() => (to?.value ? ButtonLink : ButtonCustom));
-const disabled = computed(() => to?.value == null);
+const disabled = computed(
+  () => to?.value == null && buttonType.value.__name === 'ButtonLink'
+);
 </script>

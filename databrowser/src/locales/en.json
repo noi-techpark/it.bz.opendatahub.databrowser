@@ -121,6 +121,12 @@
           "buttonDeleteDocAndNames": "Delete the document and its names",
           "buttonKeepDocDeleteNames": "Keep document, delete its names",
           "buttonCancel": "Cancel"
+        },
+        "deleteDialog": {
+          "commonTitleSingular": "Delete record.",
+          "commonTitlePlural": "Delete records.",
+          "commonDescriptionSingular": "Are you sure you want to delete the selected record?",
+          "commonDescriptionPlural": "Are you sure you want to delete the selected records?"
         }
       },
       "footer": {
@@ -255,6 +261,10 @@
         "raw": {
           "short": "Raw",
           "title": "Raw view"
+        },
+        "delete": {
+          "short": "Delete",
+          "title": "Delete view"
         }
       }
     },
