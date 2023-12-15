@@ -10,8 +10,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <template #title>{{ title }}</template>
       <template #description>{{ description }}</template>
       <template #body>
-        <ButtonCustom @click="confirmDelete">Yes (y)</ButtonCustom>
-        <ButtonCustom :variant="Variant.ghost" @click="closeDialog">
+        <ButtonCustom :disabled="confirmButtonDisabled" @click="confirmDelete"
+          >Yes (y)</ButtonCustom
+        >
+        <ButtonCustom
+          :variant="Variant.ghost"
+          :disabled="closeButtonDisabled"
+          @click="closeDialog"
+        >
           No (n)
         </ButtonCustom>
       </template>
@@ -31,6 +37,8 @@ const props = defineProps<{
   showDialog: boolean;
   title: string;
   description: string;
+  confirmButtonDisabled?: boolean;
+  closeButtonDisabled?: boolean;
 }>();
 
 const confirmDelete = () => emit('confirmDelete');
@@ -38,16 +46,16 @@ const confirmDelete = () => emit('confirmDelete');
 const closeDialog = () => emit('close');
 
 onKeyStroke('y', () => {
-  // Don't handle key stroke if dialog is not visible
-  if (!props.showDialog) {
+  // Don't handle key stroke if dialog is not visible or button is disabled
+  if (!props.showDialog || props.confirmButtonDisabled) {
     return;
   }
   confirmDelete();
 });
 
 onKeyStroke('n', () => {
-  // Don't handle key stroke if dialog is not visible
-  if (!props.showDialog) {
+  // Don't handle key stroke if dialog is not visible or button is disabled
+  if (!props.showDialog || props.closeButtonDisabled) {
     return;
   }
   closeDialog();

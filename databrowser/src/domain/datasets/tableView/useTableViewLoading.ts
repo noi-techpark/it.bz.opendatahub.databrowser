@@ -17,6 +17,7 @@ import {
 import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
 import { CellComponent } from '../../cellComponents/types';
 import { ListElements } from '../../datasetConfig/types';
+import { randomId } from '../../../components/utils/random';
 
 const fallbackRows = [...Array(25).keys()].map((_, index) => ({ Id: index }));
 
@@ -71,6 +72,9 @@ export const useTableViewLoading = () => {
       : elements;
   });
 
+  // Handle refetch
+  const refetch = () => updateApiParameterValue('refetchId', randomId());
+
   // Handle page size
   const pageSize = computed(() => {
     const p = useApiParameter('pagesize').value;
@@ -115,5 +119,6 @@ export const useTableViewLoading = () => {
     url,
     changePage,
     changePageSize,
+    refetch,
   };
 };

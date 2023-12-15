@@ -52,8 +52,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <DetailsAction
       v-if="showEdit"
       :to="editViewPathForId(id).value"
-      :title="t('datasets.listView.viewLinks.edit.title')"
-      data-test="dataset-edit-link"
+      :title="t('datasets.listView.viewLinks.delete.title')"
+      data-test="dataset-delete-link"
       @click="onDelete()"
     >
       <IconCloseCircled class="h-4/5 grow stroke-red-500" />
@@ -70,13 +70,12 @@ import { usePathsForCurrentRoute } from '../header/usePaths';
 import DetailsLink from './DetailsLink.vue';
 import DetailsAction from './DetailsAction.vue';
 import { rowId, useEventDelete } from './utils';
-import { ref, computed, watch } from 'vue';
+import { computed } from 'vue';
 import IconLayer from '../../../components/svg/IconLayer.vue';
 import IconEdit from '../../../components/svg/IconEdit.vue';
 import IconCode from '../../../components/svg/IconCode.vue';
 import IconEye from '../../../components/svg/IconEye.vue';
 import IconCloseCircled from '../../../components/svg/IconCloseCircled.vue';
-import { useApiMutate, useApiReadForCurrentDataset } from '../../api';
 
 const { t } = useI18n();
 
@@ -96,23 +95,7 @@ const {
   editViewPathForId,
 } = usePathsForCurrentRoute();
 
-const { url } = useApiReadForCurrentDataset({ withQueryParameters: false });
-
-const { isMutateSuccess, mutate } = useApiMutate(
-  ref(`${url.value}/${id.value}`),
-  ref('delete')
-);
-
 const onDelete = () => {
-  mutate();
+  useEventDelete.emit(id.value);
 };
-
-watch(
-  () => isMutateSuccess.value,
-  (newValue: boolean) => {
-    if (newValue) {
-      useEventDelete.emit(id.value);
-    }
-  }
-);
 </script>

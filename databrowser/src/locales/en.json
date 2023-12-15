@@ -96,6 +96,12 @@
           "buttonDiscardChanges": "Discard changes",
           "title": "Choose language",
           "description": "Which language would you like to assign the uploaded document to?"
+        },
+        "deleteDialog": {
+          "commonTitleSingular": "Delete record.",
+          "commonTitlePlural": "Delete records.",
+          "commonDescriptionSingular": "Are you sure you want to delete the selected record?",
+          "commonDescriptionPlural": "Are you sure you want to delete the selected records?"
         }
       },
       "footer": {
