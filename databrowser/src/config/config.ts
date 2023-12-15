@@ -19,7 +19,7 @@ const mapDatasetConfigs = (
   datasetConfigs: DatasetConfig[]
 ): EmbeddedDatasetConfigs => {
   return datasetConfigs.reduce<EmbeddedDatasetConfigs>((previous, current) => {
-    const configsForDomain = { ...previous[current.route.domain] } ?? {};
+    const configsForDomain = { ...previous[current.route.domain] };
     const path = pathSegmentsToPath(current.route.pathSegments);
     configsForDomain[path] = current;
     return { ...previous, [current.route.domain]: configsForDomain };
