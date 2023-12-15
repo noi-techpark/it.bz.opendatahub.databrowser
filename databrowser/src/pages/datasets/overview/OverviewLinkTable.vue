@@ -31,12 +31,19 @@ const props = defineProps<{ dataset: TourismMetaData }>();
 const { dataset } = toRefs(props);
 
 const tableLocation = computed(() => {
-  if (dataset.value == null || dataset.value.dataSpace == null) {
+  if (dataset.value == null || dataset.value.baseUrl == null) {
     return;
   }
 
-  const { dataSpace, pathSegments, apiFilter } = dataset.value;
+  // TODO: this is a very dirty hack to determine if the domain is the tourism or mobility
+  // domain. A better solution would be to have a domain property in the dataset metadata,
+  // because that way we can support other domains without code changes.
+  const domain = dataset.value.baseUrl.includes('tourism')
+    ? 'tourism'
+    : 'mobility';
 
-  return computeTableLocation(dataSpace, pathSegments, apiFilter);
+  const { pathSegments, apiFilter } = dataset.value;
+
+  return computeTableLocation(domain, pathSegments, apiFilter);
 });
 </script>

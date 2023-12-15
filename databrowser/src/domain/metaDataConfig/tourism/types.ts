@@ -4,6 +4,7 @@
 
 export interface TourismMetaData {
   id: string;
+  baseUrl: string;
   shortname: string;
   description?: string;
   output: string;

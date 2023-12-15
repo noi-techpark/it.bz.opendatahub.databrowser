@@ -14,6 +14,7 @@ interface ODHTag {
   Self: string;
 }
 interface OdhTourismMetaData {
+  BaseUrl: string;
   ApiFilter: string[];
   Id: string;
   OdhType?: string;
@@ -61,6 +62,7 @@ const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
   datasets
     .map((dataset) => ({
       id: dataset.Id,
+      baseUrl: dataset.BaseUrl,
       shortname: dataset.Shortname,
       description: dataset.ApiDescription?.en,
       output: Object.values(dataset.Output ?? {}).join(', '),
