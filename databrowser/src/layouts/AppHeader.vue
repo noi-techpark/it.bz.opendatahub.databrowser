@@ -9,7 +9,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div class="sticky top-0 z-10 w-full">
     <div class="bg-white">
       <ContentAlignmentX
-        class="m-auto flex flex-col gap-x-12 gap-y-2 px-4 pb-2 md:flex-row md:pb-0 xl:w-default"
+        class="m-auto flex flex-col gap-x-12 gap-y-2 px-4 pb-2 md:flex-row md:pb-0"
+        :class="[isFullWidthNav ? 'w-full' : 'xl:w-default']"
       >
         <div class="flex items-center md:items-start">
           <InternalLink
@@ -50,13 +51,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script lang="ts" setup>
-import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+
+import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import TagCustom from '../components/tag/TagCustom.vue';
 import MenuItems from './menu/MenuItems.vue';
 import IconMenu from '../components/svg/IconMenu.vue';
 import IconClose from '../components/svg/IconClose.vue';
 import InternalLink from '../components/link/InternalLink.vue';
+
+const { currentRoute } = useRouter();
 
 const { t } = useI18n();
 
@@ -69,6 +75,10 @@ const emit = defineEmits<{
 }>();
 
 const envBadge = import.meta.env.VITE_APP_ENV_BADGE;
+
+const isFullWidthNav = computed(() => {
+  return currentRoute.value.path.startsWith('/dataset/');
+});
 
 function toggleMenu() {
   emit('toggleMenu', !props.isMenuOpen);
