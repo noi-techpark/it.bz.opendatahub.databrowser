@@ -21,8 +21,6 @@ export const useApiRead = <TQueryFnData = unknown, TData = TQueryFnData>(
   const queryKey = readonly(
     computed<(string | undefined)[]>(() => [toValue(url)])
   );
-  console.log({ url: queryKey });
-
   // Create query function using axios
   const queryFn: QueryFunction<TQueryFnData, readonly unknown[]> = async ({
     queryKey: [url],
