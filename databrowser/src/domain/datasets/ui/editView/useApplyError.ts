@@ -119,10 +119,19 @@ const useResponseErrors = (mutateError: Ref<Error | null>) => {
       // The string type values contain information like HTTP status code. Only the string[]
       // type fields contain true error messages. Those need to be returned
 
-      const responseErrors = responseData.errors as Record<
-        string,
-        string | string[]
-      >;
+      const responseErrors = responseData.errors as
+        | Record<string, string | string[]>
+        | undefined;
+
+      if (responseErrors == null) {
+        return {
+          title: `An unexpected error occurred while saving the record`,
+          errors: {
+            statusCode: [`Response status code: ${err.response.status}`],
+          },
+        };
+      }
+
       const errors = Object.entries(responseErrors).reduce<
         Record<string, string[]>
       >((previous, [key, value]) => {
