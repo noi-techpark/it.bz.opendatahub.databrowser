@@ -55,6 +55,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <TableLinks
             :row="row"
             :show-edit="showEdit"
+            :show-delete="showDelete"
             :show-quick="showQuick"
           />
         </TableCell>
@@ -86,6 +87,7 @@ const props = withDefaults(
     rows: any[];
     renderElements: ListElements[];
     showEdit: boolean;
+    showDelete: boolean;
     showQuick: boolean;
   }>(),
   {

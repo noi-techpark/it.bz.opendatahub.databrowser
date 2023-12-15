@@ -48,6 +48,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         t('datasets.listView.viewLinks.raw.short')
       }}</span>
     </DetailsLink>
+
+    <DetailsAction
+      v-if="showEdit"
+      :to="editViewPathForId(id).value"
+      :title="t('datasets.listView.viewLinks.delete.title')"
+      data-test="dataset-delete-link"
+      @click="onDelete()"
+    >
+      <IconCloseCircled class="h-4/5 grow stroke-red-500" />
+      <span class="text-3xs uppercase text-red-500">{{
+        t('datasets.listView.viewLinks.delete.short')
+      }}</span>
+    </DetailsAction>
   </div>
 </template>
 
@@ -55,18 +68,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { useI18n } from 'vue-i18n';
 import { usePathsForCurrentRoute } from '../header/usePaths';
 import DetailsLink from './DetailsLink.vue';
-import { rowId } from './utils';
+import DetailsAction from './DetailsAction.vue';
+import { rowId, useEventDelete } from './utils';
 import { computed } from 'vue';
 import IconLayer from '../../../components/svg/IconLayer.vue';
 import IconEdit from '../../../components/svg/IconEdit.vue';
 import IconCode from '../../../components/svg/IconCode.vue';
 import IconEye from '../../../components/svg/IconEye.vue';
+import IconCloseCircled from '../../../components/svg/IconCloseCircled.vue';
 
 const { t } = useI18n();
 
 const props = defineProps<{
   row: { Id?: string; id?: string };
   showEdit: boolean;
+  showDelete: boolean;
   showQuick: boolean;
 }>();
 
@@ -78,4 +94,8 @@ const {
   rawViewPathForId,
   editViewPathForId,
 } = usePathsForCurrentRoute();
+
+const onDelete = () => {
+  useEventDelete.emit(id.value);
+};
 </script>
