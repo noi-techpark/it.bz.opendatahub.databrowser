@@ -2,20 +2,20 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { QuickViewConfig } from '../../../domain/datasetConfig/types';
+import { QuickViewConfig } from '../../../domain/datasets/config/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 
 export const odhActivityPoiQuickView: QuickViewConfig = {
   topGallery: {
     isVisible: true,
-    fields: {
+    objectMapping: {
       gallery: 'ImageGallery',
     },
   },
   elements: [
     {
       component: CellComponent.QuickViewTextInfoCard,
-      fields: {
+      objectMapping: {
         header: 'Detail.{language}.Header',
         subHeader: 'Detail.{language}.SubHeader',
         introText: 'Detail.{language}.IntroText',
@@ -23,7 +23,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     },
     {
       component: CellComponent.QuickViewContactsCard,
-      fields: {
+      objectMapping: {
         companyName: 'ContactInfos.{language}.CompanyName',
         givenName: 'ContactInfos.{language}.Givenname',
         surname: 'ContactInfos.{language}.Surname',
@@ -38,23 +38,23 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     },
     {
       component: CellComponent.QuickViewWebcamsView,
-      fields: {
+      objectMapping: {
         webcamsMediaItems: 'Webcam',
       },
     },
     {
       component: CellComponent.QuickViewMapView,
-      fields: {
+      objectMapping: {
         latitude: 'GpsPoints.position.Latitude',
         longitude: 'GpsPoints.position.Longitude',
       },
     },
     {
       component: CellComponent.QuickViewOpeningHoursView,
-      listFields: {
+      arrayMapping: {
         pathToParent: 'OperationSchedule',
-        attributeName: 'operationSchedules',
-        fields: {
+        targetPropertyName: 'operationSchedules',
+        objectMapping: {
           name: 'OperationscheduleName.{language}',
           start: 'Start',
           stop: 'Stop',
@@ -65,7 +65,7 @@ export const odhActivityPoiQuickView: QuickViewConfig = {
     },
     {
       component: CellComponent.QuickViewRecordInfoView,
-      fields: {
+      objectMapping: {
         lastUpdate: '_Meta.LastUpdate',
         active: 'Active',
         odhActive: 'OdhActive',

@@ -114,7 +114,12 @@ const {
 const valueInternal = ref(value.value);
 
 watch(value, (v) => (valueInternal.value = v));
-watch(valueInternal, (v) => emit('change', v));
+watch(valueInternal, (v) => {
+  // Emit change event only if value has changed internally, but not if input prop has change
+  if (v !== value.value) {
+    emit('change', v);
+  }
+});
 
 // Compute internal options array. If showEmptyValue is set,
 // then a "no value" option is added to the front of the list
@@ -147,7 +152,7 @@ const selectedLabel = computed(() => {
   }
 
   if (showValueAsLabelFallback.value) {
-    return valueInternal.value as string;
+    return (valueInternal.value as string) ?? '';
   }
 
   return unknownValueLabel(valueInternal.value);

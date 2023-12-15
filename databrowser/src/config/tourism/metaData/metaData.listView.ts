@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import { imageTableCell, lastChangesTableCell } from '../../builder/tourism';
 
 export const metaDataListView: ListViewConfig = {
@@ -13,72 +13,72 @@ export const metaDataListView: ListViewConfig = {
       title: 'Shortname',
       component: CellComponent.StringCell,
       class: 'w-60',
-      fields: { text: 'Shortname' },
+      objectMapping: { text: 'Shortname' },
     },
     {
       title: 'Description',
       component: CellComponent.StringCell,
       class: 'w-60',
-      fields: { text: 'ApiDescription.{language}' },
+      objectMapping: { text: 'ApiDescription.{language}' },
     },
     {
       title: 'Dataspace',
       component: CellComponent.StringCell,
       class: 'w-60',
-      fields: { text: 'Dataspace' },
+      objectMapping: { text: 'Dataspace' },
     },
     {
       title: 'Category',
       component: CellComponent.ArrayCell,
       class: 'w-60',
-      fields: { items: 'Category' },
+      objectMapping: { items: 'Category' },
       params: { separator: ', ' },
     },
     {
       title: 'Data Provider',
       component: CellComponent.ArrayCell,
       class: 'w-60',
-      fields: { items: 'DataProvider' },
+      objectMapping: { items: 'DataProvider' },
       params: { separator: ', ' },
     },
     {
       title: 'Count',
       component: CellComponent.JsonCell,
       class: 'w-60',
-      fields: { data: 'RecordCount' },
+      objectMapping: { data: 'RecordCount' },
       params: { usePreformatted: 'true' },
     },
     {
       title: 'Deprecated',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: { text: 'Deprecated' },
+      objectMapping: { text: 'Deprecated' },
     },
     {
       title: 'Path',
       component: CellComponent.ArrayCell,
       class: 'w-60',
-      fields: { items: 'PathParam' },
+      objectMapping: { items: 'PathParam' },
       params: { separator: '/' },
     },
     {
       title: 'Filter',
       component: CellComponent.ArrayCell,
       class: 'w-60',
-      fields: { items: 'ApiFilter' },
+      objectMapping: { items: 'ApiFilter' },
       params: { separator: '&' },
     },
     {
       title: 'API URL',
       component: CellComponent.UrlCell,
       class: 'w-80',
-      fields: { text: 'ApiUrl' },
+      objectMapping: { text: 'ApiUrl' },
     },
     {
       title: 'Swagger URL',
       component: CellComponent.UrlCell,
       class: 'w-80',
-      fields: { text: 'SwaggerUrl' },
+      objectMapping: { text: 'SwaggerUrl' },
     },
     lastChangesTableCell(),
   ],

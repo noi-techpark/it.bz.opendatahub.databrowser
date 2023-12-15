@@ -7,8 +7,8 @@ import { useMetaDataQuery } from '../../../domain/metaDataConfig/tourism/useMeta
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import { SelectOption } from '../../../components/select/types';
 import { useI18n } from 'vue-i18n';
-import { DatasetConfig } from '../../../domain/datasetConfig/types';
-import { generatedDatasetConfigSource } from '../../../domain/datasetConfig/source/generated';
+import { DatasetConfig } from '../../../domain/datasets/config/types';
+import { providerForGeneratedDatasetConfig } from '../../../domain/datasets/config/load/loadGeneratedConfig';
 
 export const useMetaDataDatasets = () => {
   const { t } = useI18n();
@@ -59,15 +59,17 @@ export const useOtherDatasets = (metaDataDatasets: Ref<TourismMetaData[]>) => {
   const tourismDatasets = computed<TourismMetaData[]>(() =>
     datasetConfigs.value
       .map<TourismMetaData>((config) => ({
-        id: config.route.pathParams.join('/'),
+        id: config.route.pathSegments.join('/'),
         access: 'unknown',
         description:
           config.description.description ?? 'No description available',
         shortname: config.description.title ?? '',
         output: 'json',
         swaggerUrl: 'https://api.tourism.testingmachine.eu/swagger/index.htm',
-        externalLink: `${config.baseUrl}/${config.route.pathParams.join('/')}`,
-        pathParam: config.route.pathParams,
+        externalLink: `${config.baseUrl}/${config.route.pathSegments.join(
+          '/'
+        )}`,
+        pathSegments: config.route.pathSegments,
         sources: ['No information available'],
         apiFilter: {},
         recordCount: {},
@@ -80,22 +82,23 @@ export const useOtherDatasets = (metaDataDatasets: Ref<TourismMetaData[]>) => {
       .sort((a, b) => a.shortname.localeCompare(b.shortname))
   );
 
-  generatedDatasetConfigSource
-    .getAllDatasetConfigs()
+  providerForGeneratedDatasetConfig
+    .loadAllDatasetConfigs()
     .then((datasetConfigsByDomain) => {
       datasetConfigs.value = (datasetConfigsByDomain['tourism'] ?? {})
         .map((config) => {
           return config;
         })
-        .filter((config) => config.route.pathParams.length > 1)
+        .filter((config) => config.route.pathSegments.length > 1)
         // Filter out configs without table view
         .filter((config) => config.views?.table != null)
-        // Check if pathParams are already contained in results
+        // Check if pathSegments are already contained in results
         .filter((config) => {
-          const pathParams = config.route.pathParams;
-          const pathParamsString = JSON.stringify(pathParams);
+          const pathSegments = config.route.pathSegments;
+          const pathSegmentsString = JSON.stringify(pathSegments);
           const isContained = metaDataDatasets.value.some(
-            (result) => JSON.stringify(result.pathParam) === pathParamsString
+            (result) =>
+              JSON.stringify(result.pathSegments) === pathSegmentsString
           );
           return !isContained;
         });

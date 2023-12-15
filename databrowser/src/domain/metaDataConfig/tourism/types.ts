@@ -9,7 +9,7 @@ export interface TourismMetaData {
   output: string;
   swaggerUrl?: string;
   access: 'opendata' | 'limited' | 'closed' | 'unknown';
-  pathParam: string[];
+  pathSegments: string[];
   externalLink?: string;
   sources: string[];
   lastUpdated?: Date;

@@ -42,7 +42,6 @@ import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
 import RelatedContentCell from '../components/cells/relatedContentCell/RelatedContentCell.vue';
-import FixedValue from '../components/filters/fixedValue/FixedValue.vue';
 
 // NOTE: this components do not belong to table components; it's advised to refactor this table in the future.
 import QuickViewTextInfoCard from '../../../components/quickview/QuickViewTextInfoCard.vue';
@@ -52,7 +51,7 @@ import QuickViewMapView from '../../../components/quickview/QuickViewMapView.vue
 import QuickViewOpeningHoursView from '../../../components/quickview/QuickViewOpeningHoursView.vue';
 import QuickViewRecordInfoView from '../../../components/quickview/QuickViewRecordInfoView.vue';
 
-import { CellComponent, FilterComponent } from '../types';
+import { CellComponent } from '../types';
 
 export default {
   install: (app: App) => {
@@ -110,7 +109,5 @@ export default {
       CellComponent.QuickViewRecordInfoView,
       QuickViewRecordInfoView
     );
-
-    app.component(FilterComponent.FixedValue, FixedValue);
   },
 };

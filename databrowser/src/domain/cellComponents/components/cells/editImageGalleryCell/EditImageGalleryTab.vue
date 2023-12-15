@@ -170,26 +170,26 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import { useFullscreen } from '@vueuse/core';
 import { ref, toRefs, watch } from 'vue';
-import EditListTab from '../../utils/editList/tab/EditListTab.vue';
+import IconCopy from '../../../../../components/svg/IconCopy.vue';
+import IconDelete from '../../../../../components/svg/IconDelete.vue';
+import IconDownload from '../../../../../components/svg/IconDownload.vue';
+import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
+import IconUpload from '../../../../../components/svg/IconUpload.vue';
+import { useImageUpload } from '../../../../api/useUpload';
+import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
 import { getImageSrc, getResolutionAsText } from '../../../../image';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
-import { useFullscreen } from '@vueuse/core';
-import { useImageUpload } from '../../utils/upload/useUpload';
-import { downloadFile } from '../../utils/editList/download/fileDownload';
-import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
-import IconDelete from '../../../../../components/svg/IconDelete.vue';
-import IconCopy from '../../../../../components/svg/IconCopy.vue';
-import IconDownload from '../../../../../components/svg/IconDownload.vue';
-import IconUpload from '../../../../../components/svg/IconUpload.vue';
-import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
-import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
-import StringCell from '../stringCell/StringCell.vue';
-import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
-import ToggleCell from '../toggleCell/ToggleCell.vue';
+import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
+import { downloadFile } from '../../utils/editList/download/fileDownload';
+import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
+import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
+import StringCell from '../stringCell/StringCell.vue';
+import ToggleCell from '../toggleCell/ToggleCell.vue';
 import { ImageGalleryEntry } from './types';
 import { shouldResize } from './utils';
 

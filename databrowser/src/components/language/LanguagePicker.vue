@@ -8,17 +8,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div class="relative z-30 flex items-center">
     <ButtonLink
       v-for="link in links"
-      :key="link.label"
-      :variant="'ghost'"
+      :key="link.value"
       :to="link.to"
       size="xs"
+      variant="ghost"
       class="mx-1 hidden h-6 w-9 text-center uppercase md:flex md:items-center md:justify-center"
       :class="[
         link.value === selected ? 'border-green-500 bg-green-500/10' : '',
       ]"
       :data-test="`desktop-language-picker-${link.value}`"
-      >{{ link.label }}</ButtonLink
     >
+      {{ link.label }}
+    </ButtonLink>
 
     <SelectCustom
       id="mobile-language-picker"
@@ -32,58 +33,45 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import {
-  defaultLanguage as dl,
+  defaultLanguage,
   FilterLanguage,
 } from '../../domain/datasets/language';
-import { computed } from 'vue';
-import { RouteLocationRaw, useRouter } from 'vue-router';
-import { stringifyParameter, useApiQuery, useUrlQuery } from '../../domain/api';
 import ButtonLink from '../button/ButtonLink.vue';
 import SelectCustom from '../select/SelectCustom.vue';
 import { SelectSize } from '../select/types';
 
 const props = withDefaults(
-  defineProps<{
-    defaultLanguage?: FilterLanguage;
-  }>(),
-  { defaultLanguage: dl }
+  defineProps<{ currentLanguage: string | null | undefined }>(),
+  {
+    currentLanguage: defaultLanguage,
+  }
 );
 
-const supportedLanguages: Array<string> = Object.values(FilterLanguage);
+const supportedLanguages = Object.values(FilterLanguage);
 
-const { useApiParameter, updateApiParameterValidator } = useApiQuery();
-
-updateApiParameterValidator('language', (value) =>
-  supportedLanguages.includes(stringifyParameter(value))
-);
-const currentLanguage = useApiParameter('language', {
-  defaultValue: props.defaultLanguage,
-});
-
-const { cleanQueryParametersExtendedWith } = useUrlQuery();
 const router = useRouter();
 
 const links = computed(() => {
   return supportedLanguages.map((language) => {
-    const query = cleanQueryParametersExtendedWith({ language });
-
-    const location: RouteLocationRaw = {
-      query,
-      hash: router.currentRoute.value.hash,
-    };
+    const query = { ...router.currentRoute.value.query, language };
 
     return {
-      label: language.toUpperCase(),
+      label: language.toLocaleUpperCase(),
       value: language,
-      to: location,
+      to: {
+        query,
+        hash: router.currentRoute.value.hash,
+      },
     };
   });
 });
 
 const selected = computed({
-  get: () => stringifyParameter(currentLanguage.value ?? ''),
+  get: () => props.currentLanguage ?? defaultLanguage,
   set: (value) => {
     const to = links.value.find((link) => link.value === value)?.to;
     if (to != null) {

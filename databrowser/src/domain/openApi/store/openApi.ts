@@ -3,22 +3,23 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { OpenApi, SupportedDomains } from '../types';
+import { OpenApi, DomainWithOpenApiDocument } from '../types';
 import { initialState } from './initialState';
-import { domains } from '../domain';
+import { domainWithOpenApiDocument } from '../domain';
+import { toError } from '../../utils/convertError';
 
 const dynamicSwaggerClientImport = async () =>
   await import('swagger-client').then((exports) => exports.default);
 
 // Internal store for loaded OpenAPI documents. The documents are not stored in the
 // state because they won't change and because they may be several KB in size.
-const documents: Record<SupportedDomains, OpenApi.Document | null> = {
+const documents: Record<DomainWithOpenApiDocument, OpenApi.Document | null> = {
   tourism: null,
   mobility: null,
 };
 
 // Get OpenAPI document for given domain
-export const getOpenApiDocument = (domain: SupportedDomains) =>
+export const getOpenApiDocument = (domain: DomainWithOpenApiDocument) =>
   documents[domain];
 
 // OpenAPI store
@@ -26,12 +27,12 @@ export const useOpenApi = defineStore('openApi', {
   state: () => initialState,
   actions: {
     async loadDocument(
-      domain: SupportedDomains
-    ): Promise<OpenApi.Document | null> {
+      domain: DomainWithOpenApiDocument
+    ): Promise<OpenApi.Document> {
       const documentState = this[domain];
       // If OpenAPI document is already loaded, do nothing
       if (documentState.loaded) {
-        return Promise.resolve(documents[domain]);
+        return Promise.resolve(documents[domain]!);
       }
 
       // OpenAPI documents should be loaded only once.
@@ -42,7 +43,7 @@ export const useOpenApi = defineStore('openApi', {
           const unsubscribe = this.$onAction(({ name, args }) => {
             if (name === 'finishDocumentLoad' && args[0] === domain) {
               unsubscribe();
-              resolve(documents[domain]);
+              resolve(documents[domain]!);
             }
           });
         });
@@ -50,7 +51,7 @@ export const useOpenApi = defineStore('openApi', {
 
       documentState.loading = true;
 
-      const url = domains[domain].documentUrl;
+      const url = domainWithOpenApiDocument[domain].documentUrl;
 
       try {
         const SwaggerClient = await dynamicSwaggerClientImport();
@@ -58,21 +59,15 @@ export const useOpenApi = defineStore('openApi', {
           spec: OpenApi.Document;
         };
         documents[domain] = response.spec;
+        return Promise.resolve(documents[domain]!);
       } catch (err) {
-        if (typeof err === 'string') {
-          documentState.error = new Error(err);
-        } else if (err instanceof Error) {
-          documentState.error = err;
-        } else {
-          documentState.error = new Error('No error information available');
-        }
+        documentState.error = toError(err);
+        return Promise.reject(documentState.error);
+      } finally {
+        this.finishDocumentLoad(domain);
       }
-
-      this.finishDocumentLoad(domain);
-
-      return documents[domain];
     },
-    finishDocumentLoad(domain: SupportedDomains) {
+    finishDocumentLoad(domain: DomainWithOpenApiDocument) {
       const documentState = this[domain];
       documentState.loading = false;
       documentState.loaded = true;

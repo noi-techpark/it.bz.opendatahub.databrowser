@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
   gpsDataTableCell,
   languageTableCell,
@@ -20,7 +20,7 @@ export const municipalityListView: ListViewConfig = {
       title: 'CAP',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'Plz',
       },
     },

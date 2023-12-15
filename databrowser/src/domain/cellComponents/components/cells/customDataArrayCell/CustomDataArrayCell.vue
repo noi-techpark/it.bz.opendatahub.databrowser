@@ -10,8 +10,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <AlertError
         v-if="url == null"
         title="Can not display options, no URL defined"
-        content="This seems to be a configuration problem. Please contact support@opendatahub.com"
-      />
+      >
+        This seems to be a configuration problem. Please contact
+        <ContactSupportLink />
+      </AlertError>
 
       <LoadingState
         :is-loading="isLoading"
@@ -29,14 +31,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { computed, toRefs } from 'vue';
-import { useQuery } from 'vue-query';
 import AlertError from '../../../../../components/alert/AlertError.vue';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
 import { SelectOption } from '../../../../../components/select/types';
-import { randomId } from '../../../../../components/utils/random';
-import { useAxiosFetcher } from '../../../../api';
+import { useApiRead } from '../../../../api/useApi';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import CustomDataArrayTable from './CustomDataArrayTable.vue';
-import LoadingState from '../../../../../components/loading/LoadingState.vue';
+import ContactSupportLink from '../../../../../components/contact/ContactSupportLink.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -53,21 +54,15 @@ const props = withDefaults(
 
 const { listItems, url, editable } = toRefs(props);
 
-const queryKey = url.value ?? randomId();
-const queryFn = useAxiosFetcher();
-const { data, isLoading, isSuccess, isError, error } = useQuery({
-  queryKey,
-  queryFn,
-});
+const { data, isLoading, isSuccess, isError, error } =
+  useApiRead<string[]>(url);
 
 const options = computed<SelectOption[]>(() => {
-  if (data.value == null || data.value.data == null) {
+  if (data.value == null) {
     return [];
   }
 
-  const responseValue = data.value.data as string[];
-
-  return responseValue.map<SelectOption>((item) => ({
+  return data.value.map<SelectOption>((item) => ({
     value: item,
     label: item,
   }));

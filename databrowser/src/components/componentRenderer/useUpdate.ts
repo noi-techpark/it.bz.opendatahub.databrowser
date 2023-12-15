@@ -3,92 +3,98 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { useDebounceFn } from '@vueuse/core';
+import * as R from 'ramda';
 import { Ref } from 'vue';
-import { useReplaceWithApiParameters } from '../../domain/api';
-import { useEditStore } from '../../domain/datasets/editView/store/editStore';
+import { isObjectMappingEmpty } from '../../domain/datasets/config/mapping/utils';
+import {
+  ArrayMapping,
+  ObjectMapping,
+} from '../../domain/datasets/config/types';
+import { useEditStore } from '../../domain/datasets/ui/editView/store/editStore';
+import { EditData } from '../../domain/datasets/ui/editView/store/initialState';
 import {
   PropertyUpdate,
   PropertyValue,
-} from '../../domain/datasets/editView/store/types';
-import * as R from 'ramda';
-import { BaseListFields } from '../../domain/datasetConfig/types';
-import { isFieldsEmpty } from '../../domain/api';
+} from '../../domain/datasets/ui/editView/store/types';
 
 export const useUpdate = (
   tagName: Ref<string>,
-  fields: Ref<Record<string, string> | undefined>,
-  listFields: Ref<BaseListFields | undefined>
+  objectMapping: Ref<ObjectMapping | undefined>,
+  arrayMapping: Ref<ArrayMapping | undefined>
 ) => {
-  const { replace } = useReplaceWithApiParameters();
   const editStore = useEditStore();
 
-  const computeSingleFieldsUpdates = (
+  const computeObjectValueUpdates = (
     updates: PropertyValue[],
-    fieldsValue: Record<string, string>
+    objectMapping: ObjectMapping
   ) => {
     return updates
       .map(({ prop, value }) => {
-        const field = fieldsValue[prop];
+        // Get property name, e.g. Shortname
+        const targetPropertyName = objectMapping[prop];
 
-        if (field == null) {
-          const message = fieldUnknownMessage(prop, tagName.value, fieldsValue);
-          console.error(message);
+        // If target property is unknown, log error and return undefined
+        if (targetPropertyName == null) {
+          logUnknownProperty(prop, tagName.value, objectMapping);
           return;
         }
 
-        const fieldName = replace(field);
-
         console.debug(
-          `Change for ${tagName.value}: prop "${prop}" becomes "${value}" for field ${fieldName}`
+          `Change for ${tagName.value}: prop "${prop}" becomes "${value}" for property ${targetPropertyName}`
         );
 
-        return { prop: fieldName, value };
+        return { prop: targetPropertyName, value };
       })
       .filter((entry): entry is PropertyValue => entry != null);
   };
 
-  const computeListFieldsUpdates = (
+  const computeArrayValueUpdates = (
     updates: PropertyValue[],
-    listFieldsValue: BaseListFields
+    { pathToParent, objectMapping }: ArrayMapping
   ) => {
-    const getCurrentValue = (pathToParent: string, index: number) => {
-      const path = replace(pathToParent).split('.');
-      const lensePath = R.lensPath(path);
-      const parent = R.view(lensePath, editStore.current);
-      return parent?.at(index) ?? {};
-    };
-
-    const pathToParentWithReplacements = replace(listFieldsValue.pathToParent);
-
-    const dataArray = updates[0].value as unknown[];
-
-    // If fields is undefined or empty, then the data consist of an
-    // array of simple types (strings, number or booleans). We can
+    // If object mappings is undefined or empty, then the data consists
+    // of an array of simple types (strings, number or booleans). We can
     // return it as it is
-    if (isFieldsEmpty(listFieldsValue.fields)) {
+    if (isObjectMappingEmpty(objectMapping)) {
       return {
-        prop: pathToParentWithReplacements,
-        value: dataArray,
+        prop: pathToParent,
+        value: updates[0].value,
       };
     }
 
-    const complexDataArray = dataArray as Record<string, unknown>[];
+    // Compute path to parent as array for later on usage
+    const pathToParentAsArray = pathToParent.split('.');
 
-    // Handle array of objects
-    const mappedDataArray = complexDataArray.map((entry, index) => {
+    // Get array of entries to update from input data
+    const entries = updates[0].value as Record<string, unknown>[];
+
+    // Map array entries
+    const mappedDataArray = entries.map((entry, index) => {
       // Get current element value from store to be merged with incoming value.
-      // This is necessary to support e.g. translations that are stored inside an object (like in ODH tourism domain)
-      const currentValue = getCurrentValue(pathToParentWithReplacements, index);
+      // This is necessary to not lose data that is not part of the incoming value
+      // e.g. data in other languages
+      const currentValue = getCurrentValue(
+        editStore.current,
+        pathToParentAsArray,
+        index
+      );
 
+      // Merge the properties for the current entry
       return Object.entries(entry).reduce<Record<string, unknown>>(
         (prev, [key, value]) => {
-          // Get property name, e.g. ImageTitle.{language}
-          // listFieldsValue.fields can not be undefined,
-          // because we checked it at the top of computeListFieldsUpdates
-          const propertyName = listFieldsValue.fields![key];
-          // Replace dynamic parts, e.g. if language === 'en', then ImageTitle.{language} becomes ImageTitle.en
-          const propertyNameWithReplacements = replace(propertyName);
-          const path = propertyNameWithReplacements.split('.');
+          // Get property name, e.g. ImageTitle.en
+          const targetPropertyName = objectMapping[key];
+
+          // If target property is unknown, log error and return previous value
+          if (targetPropertyName == null) {
+            logUnknownProperty(key, tagName.value, objectMapping);
+            return prev;
+          }
+
+          // Compute path for data assignment
+          const path = targetPropertyName.split('.');
+
+          // Assign data to path
           return R.assocPath(path, value, prev);
         },
         currentValue
@@ -96,7 +102,7 @@ export const useUpdate = (
     });
 
     return {
-      prop: pathToParentWithReplacements,
+      prop: pathToParent,
       value: mappedDataArray,
     };
   };
@@ -104,29 +110,37 @@ export const useUpdate = (
   return useDebounceFn((update: PropertyUpdate) => {
     const updates = Array.isArray(update) ? update : [update];
 
-    if (fields.value != null) {
-      const singleFieldsUpdates = computeSingleFieldsUpdates(
+    if (objectMapping.value != null) {
+      const objectValueUpdates = computeObjectValueUpdates(
         updates,
-        fields.value
+        objectMapping.value
       );
-      editStore.updateProperties(singleFieldsUpdates);
+      editStore.updateProperties(objectValueUpdates);
     }
 
-    if (listFields.value != null) {
-      const listFieldsUpdates = computeListFieldsUpdates(
+    if (arrayMapping.value != null) {
+      const listValueUpdates = computeArrayValueUpdates(
         updates,
-        listFields.value
+        arrayMapping.value
       );
-      editStore.updateProperties(listFieldsUpdates);
+      editStore.updateProperties(listValueUpdates);
     }
   }, 200);
 };
 
-const fieldUnknownMessage = (
+const logUnknownProperty = (
   prop: string,
   tagName: string,
-  fields: Record<string, string>
+  objectMapping: ObjectMapping
 ) => {
-  const knownFields = fields == null ? 'none' : JSON.stringify(fields);
-  return `Got update event from component ${tagName} for field ${prop} but no field with that name could be found (known fields: ${knownFields})`;
+  const knownProperties =
+    objectMapping == null ? 'none' : JSON.stringify(objectMapping);
+  const message = `Got update event from component ${tagName} for property "${prop}" but no property with that name could be found (known properties: ${knownProperties})`;
+  console.log(message);
+};
+
+const getCurrentValue = (current: EditData, path: string[], index: number) => {
+  const lensePath = R.lensPath(path);
+  const parent = R.view(lensePath, current);
+  return parent?.at(index) ?? {};
 };

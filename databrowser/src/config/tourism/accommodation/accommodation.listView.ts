@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
   imageTableCell,
   languageTableCell,
@@ -20,7 +20,7 @@ export const accommodationListView: ListViewConfig = {
       title: 'Title',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'AccoDetail.{language}.Name',
       },
     },
@@ -28,7 +28,7 @@ export const accommodationListView: ListViewConfig = {
       title: 'Accommodation Type',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'AccoTypeId',
       },
     },
@@ -36,7 +36,7 @@ export const accommodationListView: ListViewConfig = {
       title: 'Category',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'AccoCategoryId',
       },
     },

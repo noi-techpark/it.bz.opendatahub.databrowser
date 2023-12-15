@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DatasetRoute } from '../../../domain/datasetConfig/types';
+import { DatasetRoute } from '../../../domain/datasets/config/types';
 
 export const accommodationRoute: DatasetRoute = {
   domain: 'tourism',
-  pathParams: ['v1', 'Accommodation'],
+  pathSegments: ['v1', 'Accommodation'],
 };

@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div v-if="isWriteable">
     <SelectCustom
       v-if="isWriteable && !isAddNewValue"
-      :options="optionsInternal"
+      :options="selectOptions"
       :value="value"
       :show-empty-value="showEmptyValue"
       :show-add-new-value="showAddNewValue"
@@ -31,20 +31,23 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, useAttrs, computed, watch } from 'vue';
-import { useMapper } from './mapper';
+import { computed, ref, toRefs, useAttrs, watch } from 'vue';
+import { useEventDelete } from '../../../../../components/input/utils';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import {
   SelectOption,
   SelectValue,
 } from '../../../../../components/select/types';
+import { selectAddNewValue } from '../../../../../components/select/utils';
+import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
+import {
+  fromStringArray,
+  useRemoteSelectOptionsWithMapper,
+} from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
 import { useWriteable } from '../../utils/writeable/useWriteable';
-import { useAxiosFetcher } from '../../../../api';
-import { useQuery } from 'vue-query';
-
 import StringCell from '../stringCell/StringCell.vue';
-import { useEditStore } from '../../../../datasets/editView/store/editStore';
-import { useEventDelete } from '../../../../../components/input/utils';
+import { useAttributesMapper } from './mapper';
 
 const emit = defineEmits(['update', 'addNewValue']);
 
@@ -55,8 +58,8 @@ const props = withDefaults(
     value?: SelectValue;
     url?: string;
     showEmptyValue?: boolean;
-    showAddNewValue?: boolean;
-    showValueAsLabelFallback?: boolean;
+    showAddNewValue?: boolean | string;
+    showValueAsLabelFallback?: boolean | string;
     showSearchWhenAtLeastCountOptions?: number;
     editable?: boolean;
     readonly?: string | boolean;
@@ -76,12 +79,34 @@ const props = withDefaults(
 
 const editStore = useEditStore();
 
-const { options, value, url, showEmptyValue, editable, readonly } =
-  toRefs(props);
+const { options, value, url, showEmptyValue, editable } = toRefs(props);
+
+const showAddNewValue = computed(() =>
+  booleanOrStringToBoolean(props.showAddNewValue)
+);
+
+const showValueAsLabelFallback = computed(() =>
+  booleanOrStringToBoolean(props.showValueAsLabelFallback)
+);
+
+const readonly = computed(() => booleanOrStringToBoolean(props.readonly));
 
 const isWriteable = useWriteable({ editable, readonly });
 
 const attrs = useAttrs();
+
+const { options: remoteOptions } = useRemoteSelectOptionsWithMapper(
+  url,
+  true,
+  fromStringArray
+);
+
+const selectOptions = computed<SelectOption[]>(() => {
+  if (url.value != null) {
+    return remoteOptions.value;
+  }
+  return useAttributesMapper(options, ref(attrs)).optionsInternal.value;
+});
 
 const isAddNewValue = ref(false);
 const newItemValue = ref('');
@@ -92,32 +117,6 @@ useEventDelete.on((eventValue: boolean) => {
     change(originalValue.value as string);
     isAddNewValue.value = false;
   }
-});
-
-const queryKey = url.value ?? '';
-const queryFn = url.value ? useAxiosFetcher() : undefined;
-const { data } = useQuery({
-  queryKey,
-  queryFn,
-});
-
-const fetchedOptions = computed<SelectOption[]>(() => {
-  if (data.value == null || data.value.data == null) {
-    return [];
-  }
-
-  const responseValue = data.value.data as string[];
-
-  return responseValue.map<SelectOption>((item) => ({
-    value: item,
-    label: item,
-  }));
-});
-
-const optionsInternal = computed<SelectOption[]>(() => {
-  return fetchedOptions.value.length
-    ? fetchedOptions.value
-    : useMapper(options, ref(attrs)).optionsInternal.value;
 });
 
 watch(
@@ -146,7 +145,7 @@ watch(
 );
 
 const change = (value: string) => {
-  isAddNewValue.value = !value;
+  isAddNewValue.value = value === selectAddNewValue;
   onUpdate(value);
 };
 const onUpdate = (value: string) => {

@@ -2,11 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {
-  CellComponent,
-  FilterComponent,
-} from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { CellComponent } from '../../../domain/cellComponents/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
   imageTableCell,
   languageTableCell,
@@ -27,7 +24,7 @@ export const odhActivityPoiListView: ListViewConfig = {
       title: 'Categories',
       component: CellComponent.ArrayCell,
       class: 'w-52',
-      fields: {
+      objectMapping: {
         items: 'AdditionalPoiInfos.{language}.Categories',
       },
       params: {
@@ -39,7 +36,7 @@ export const odhActivityPoiListView: ListViewConfig = {
       title: 'Web-URL',
       component: CellComponent.UrlCell,
       class: 'w-52',
-      fields: { text: 'ContactInfos.{language}.Url' },
+      objectMapping: { text: 'ContactInfos.{language}.Url' },
     },
     languageTableCell(),
     lastChangesTableCell(),
@@ -48,25 +45,25 @@ export const odhActivityPoiListView: ListViewConfig = {
       title: 'Source state',
       component: CellComponent.StateCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         state: 'Active',
       },
-      filter: {
-        name: 'active',
-        component: FilterComponent.FixedValue,
-        params: {
-          filterOptions: [
-            {
-              label: 'Active',
-              value: 'true',
-            },
-            {
-              label: 'Not active',
-              value: 'false',
-            },
-          ],
-        },
-      },
+      // filter: {
+      //   name: 'active',
+      //   component: FilterComponent.FixedValue,
+      //   params: {
+      //     filterOptions: [
+      //       {
+      //         label: 'Active',
+      //         value: 'true',
+      //       },
+      //       {
+      //         label: 'Not active',
+      //         value: 'false',
+      //       },
+      //     ],
+      //   },
+      // },
     },
     odhActiveTableCell(),
   ],

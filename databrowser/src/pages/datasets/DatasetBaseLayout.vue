@@ -6,25 +6,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <AppLayout :show-app-footer="false">
-    <div v-if="error != null">
-      <AlertError :title="'Error!'" :content="error.message" />
+    <div v-if="isError">
+      <AlertError :title="'Error!'">{{ error?.message }}</AlertError>
     </div>
-
-    <div v-if="datasetConfigStore.resolution.state === 'error'">
-      <AlertError
-        :title="'Error!'"
-        :content="datasetConfigStore.resolution.error"
-      />
-    </div>
-
-    <ContentAlignmentX>
-      <div
-        v-if="datasetConfigStore.resolution.state === 'pending'"
-        class="animate-pulse"
-      >
-        {{ t('datasets.info.loadingConfig') }}
-      </div>
-    </ContentAlignmentX>
 
     <ContentDivider />
 
@@ -33,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <ContentAlignmentX>
           <DatasetHeader />
         </ContentAlignmentX>
-        <template v-if="datasetConfigStore.config != null">
+        <template v-if="hasConfig">
           <slot></slot>
         </template>
       </div>
@@ -42,25 +26,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { onErrorCaptured, ref } from 'vue';
-import AppLayout from '../../layouts/AppLayout.vue';
+import { storeToRefs } from 'pinia';
+import { onErrorCaptured } from 'vue';
+import AlertError from '../../components/alert/AlertError.vue';
 import ContentAlignmentX from '../../components/content/ContentAlignmentX.vue';
 import ContentDivider from '../../components/content/ContentDivider.vue';
-import DatasetHeader from '../../domain/datasets/header/DatasetHeader.vue';
-import { useI18n } from 'vue-i18n';
-import { useDatasetConfigStore } from '../../domain/datasetConfig/store/datasetConfigStore';
-import { useRouter } from 'vue-router';
-import { useConfigRouterWatcher } from '../../domain/datasetConfig/routerWatcher';
-import AlertError from '../../components/alert/AlertError.vue';
+import { useDatasetBaseInfoStore } from '../../domain/datasets/config/store/datasetBaseInfoStore';
+import DatasetHeader from '../../domain/datasets/ui/header/DatasetHeader.vue';
+import AppLayout from '../../layouts/AppLayout.vue';
 
-const { t } = useI18n();
-
-const router = useRouter();
-useConfigRouterWatcher(router);
-
-const datasetConfigStore = useDatasetConfigStore();
-
-const error = ref<Error>();
+const { hasConfig, isError, error } = storeToRefs(useDatasetBaseInfoStore());
 
 onErrorCaptured((hook) => {
   console.error('--------ERROR CAPTURED', hook);

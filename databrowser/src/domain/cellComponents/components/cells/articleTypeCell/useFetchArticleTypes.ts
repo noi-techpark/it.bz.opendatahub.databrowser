@@ -3,8 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed, Ref } from 'vue';
-import { useQuery } from 'vue-query';
-import { useAxiosFetcher } from '../../../../api';
+import { useApiRead } from '../../../../api/useApi';
 
 type ArticleSubTypes = string[];
 type ArticleTypes = Record<string, ArticleSubTypes>;
@@ -28,12 +27,8 @@ export const useFetchArticleTypes = (
   lookupUrl: Ref<string | undefined>,
   isWritable: Ref<boolean>
 ) => {
-  const queryKey = lookupUrl;
-  const queryFn = useAxiosFetcher();
-  const { data, isSuccess, isLoading, isError, error } = useQuery({
-    queryKey,
-    queryFn,
-    enabled: isWritable.value,
+  const { data, error, isLoading, isSuccess, isError } = useApiRead(lookupUrl, {
+    enabled: isWritable,
   });
 
   const articleTypesHierarchy = computed(() => {
@@ -41,7 +36,7 @@ export const useFetchArticleTypes = (
       return {};
     }
 
-    const dataValue = (data?.value?.data as ArticleTypeResponse[]) ?? [];
+    const dataValue = (data?.value as ArticleTypeResponse[]) ?? [];
 
     return dataValue.reduce<ArticleTypes>((knownTypes, curr) => {
       // Skip entries of type ArticleType completely, all information

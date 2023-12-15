@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
   imageTableCell,
   titleTableCell,
@@ -21,13 +21,13 @@ export const venueListView: ListViewConfig = {
       title: 'Category',
       component: CellComponent.StringCell,
       class: 'w-60',
-      fields: { text: 'VenueCategory.0.VenueCode' },
+      objectMapping: { text: 'VenueCategory.0.VenueCode' },
     },
     {
       title: 'Location',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         text: 'LocationInfo.MunicipalityInfo.Name.{language}',
       },
     },

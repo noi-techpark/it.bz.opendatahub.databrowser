@@ -11,6 +11,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import TableView from '../../domain/datasets/ui/tableView/TableView.vue';
 import DatasetBaseLayout from './DatasetBaseLayout.vue';
-import TableView from '../../domain/datasets/tableView/TableView.vue';
 </script>

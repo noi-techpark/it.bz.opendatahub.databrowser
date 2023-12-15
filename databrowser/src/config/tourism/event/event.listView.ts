@@ -2,11 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {
-  CellComponent,
-  FilterComponent,
-} from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { CellComponent } from '../../../domain/cellComponents/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
   imageTableCell,
   languageTableCell,
@@ -26,20 +23,20 @@ export const eventListView: ListViewConfig = {
       component: CellComponent.EditedDateCell,
       class: 'w-48',
       params: { format: DEFAULT_DATE_TIME_FORMAT },
-      fields: { date: 'DateBegin' },
+      objectMapping: { date: 'DateBegin' },
     },
     {
       title: 'Date end',
       component: CellComponent.EditedDateCell,
       class: 'w-48',
       params: { format: DEFAULT_DATE_TIME_FORMAT },
-      fields: { date: 'DateEnd' },
+      objectMapping: { date: 'DateEnd' },
     },
     {
       title: 'Price',
       component: CellComponent.StringCell,
       class: 'w-32',
-      fields: {
+      objectMapping: {
         text: 'EventPrice.Price',
       },
     },
@@ -47,7 +44,7 @@ export const eventListView: ListViewConfig = {
       title: 'Event Organizer',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'OrganizerInfos.{language}.CompanyName',
       },
     },
@@ -55,7 +52,7 @@ export const eventListView: ListViewConfig = {
       title: 'Location',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'LocationInfo.DistrictInfo.Name.en',
       },
     },
@@ -66,25 +63,25 @@ export const eventListView: ListViewConfig = {
       title: 'Source state',
       component: CellComponent.StateCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         state: 'Active',
       },
-      filter: {
-        name: 'active',
-        component: FilterComponent.FixedValue,
-        params: {
-          filterOptions: [
-            {
-              label: 'Active',
-              value: 'true',
-            },
-            {
-              label: 'Not active',
-              value: 'false',
-            },
-          ],
-        },
-      },
+      // filter: {
+      //   name: 'active',
+      //   component: FilterComponent.FixedValue,
+      //   params: {
+      //     filterOptions: [
+      //       {
+      //         label: 'Active',
+      //         value: 'true',
+      //       },
+      //       {
+      //         label: 'Not active',
+      //         value: 'false',
+      //       },
+      //     ],
+      //   },
+      // },
     },
     odhActiveTableCell(),
   ],

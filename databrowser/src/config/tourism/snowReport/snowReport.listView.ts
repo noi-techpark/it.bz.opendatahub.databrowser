@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import { odhActiveTableCell } from '../../builder/tourism';
 import { DEFAULT_DATE_FORMAT } from '../../utils';
 
@@ -14,7 +14,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         src: 'SkiMapUrl',
       },
     },
@@ -22,7 +22,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Logo',
       component: CellComponent.ImageCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         src: 'contactlogo',
       },
     },
@@ -30,7 +30,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Name',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'Areaname',
       },
     },
@@ -38,7 +38,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Location',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'contactcity',
       },
     },
@@ -46,7 +46,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Station Snow Height',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'Measuringpoints.0.Shortname',
       },
     },
@@ -54,7 +54,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Snow Height',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'Measuringpoints.0.SnowHeight',
       },
     },
@@ -62,7 +62,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Slope km',
       component: CellComponent.StringCell,
       class: 'w-36',
-      fields: {
+      objectMapping: {
         text: 'SkiAreaSlopeKm',
       },
     },
@@ -70,7 +70,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Source',
       component: CellComponent.StringCell,
       class: 'w-36',
-      fields: {
+      objectMapping: {
         text: 'lang',
       },
     },
@@ -78,7 +78,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Edited',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         date: 'Measuringpoints.0.LastUpdate',
       },
       params: {
@@ -89,7 +89,7 @@ export const snowReportListView: ListViewConfig = {
       title: 'Source',
       component: CellComponent.StringCell,
       class: 'w-36',
-      fields: {
+      objectMapping: {
         text: 'Measuringpoints.0.Source',
       },
     },

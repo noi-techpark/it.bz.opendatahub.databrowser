@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   contactCategory,
   dataStatesSubCategory,
@@ -40,7 +40,7 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Title',
               component: CellComponent.StringCell,
-              fields: {
+              objectMapping: {
                 text: 'Detail.{language}.Title',
               },
             },
@@ -59,12 +59,12 @@ export const odhActivityPoiSharedView = ():
               {
                 title: 'Interface',
                 component: CellComponent.StringCell,
-                fields: { text: 'SyncSourceInterface' },
+                objectMapping: { text: 'SyncSourceInterface' },
               },
               {
                 title: 'Update mode',
                 component: CellComponent.StringCell,
-                fields: { text: 'SyncUpdateMode' },
+                objectMapping: { text: 'SyncUpdateMode' },
               },
             ],
           },
@@ -88,27 +88,27 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Stamina',
               component: CellComponent.StringCell,
-              fields: { text: 'Ratings.Stamina' },
+              objectMapping: { text: 'Ratings.Stamina' },
             },
             {
               title: 'Experience',
               component: CellComponent.StringCell,
-              fields: { text: 'Ratings.Experience' },
+              objectMapping: { text: 'Ratings.Experience' },
             },
             {
               title: 'Landscape',
               component: CellComponent.StringCell,
-              fields: { text: 'Ratings.Landscape' },
+              objectMapping: { text: 'Ratings.Landscape' },
             },
             {
               title: 'Difficulty',
               component: CellComponent.StringCell,
-              fields: { text: 'Ratings.Difficulty' },
+              objectMapping: { text: 'Ratings.Difficulty' },
             },
             {
               title: 'Technique',
               component: CellComponent.StringCell,
-              fields: { text: 'Ratings.Technique' },
+              objectMapping: { text: 'Ratings.Technique' },
             },
           ],
         },
@@ -124,53 +124,53 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Altitude difference (m)',
               component: CellComponent.StringCell,
-              fields: { text: 'AltitudeDifference' },
+              objectMapping: { text: 'AltitudeDifference' },
             },
             {
               title: 'Altitude Highest Point (m)',
               component: CellComponent.StringCell,
-              fields: { text: 'AltitudeHighestPoint' },
+              objectMapping: { text: 'AltitudeHighestPoint' },
             },
             {
               title: 'Altitude Lowest Point (m)',
               component: CellComponent.StringCell,
-              fields: { text: 'AltitudeLowestPoint' },
+              objectMapping: { text: 'AltitudeLowestPoint' },
             },
             {
               title: 'Altitude Sum Up (m)',
               component: CellComponent.StringCell,
-              fields: { text: 'AltitudeSumUp' },
+              objectMapping: { text: 'AltitudeSumUp' },
             },
             {
               title: 'Altitude Sum Down (m)',
               component: CellComponent.StringCell,
-              fields: { text: 'AltitudeSumDown' },
+              objectMapping: { text: 'AltitudeSumDown' },
             },
             {
               title: 'Length (m)',
               component: CellComponent.StringCell,
-              fields: { text: 'DistanceLength' },
+              objectMapping: { text: 'DistanceLength' },
             },
             {
               title: 'Duration (hh:mm)',
               component: CellComponent.StringCell,
-              fields: { text: 'DistanceDuration' },
+              objectMapping: { text: 'DistanceDuration' },
             },
             {
               title: 'Number',
               component: CellComponent.StringCell,
-              fields: { text: 'Number' },
+              objectMapping: { text: 'Number' },
             },
             {
               title: 'Way Number',
               component: CellComponent.StringCell,
-              fields: { text: 'WayNumber' },
+              objectMapping: { text: 'WayNumber' },
             },
             {
               title: 'Exposition',
               component: CellComponent.ArrayEditableCell,
-              listFields: {
-                attributeName: 'items',
+              arrayMapping: {
+                targetPropertyName: 'items',
                 pathToParent: 'Exposition',
               },
               required: false,
@@ -183,52 +183,52 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Highlight',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'Highlight' },
+              objectMapping: { enabled: 'Highlight' },
             },
             {
               title: 'Open',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'IsOpen' },
+              objectMapping: { enabled: 'IsOpen' },
             },
             {
               title: 'Free entrance',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'HasFreeEntrance' },
+              objectMapping: { enabled: 'HasFreeEntrance' },
             },
             {
               title: 'Prepared',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'IsPrepared' },
+              objectMapping: { enabled: 'IsPrepared' },
             },
             {
               title: 'With Light',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'IsWithLigth' },
+              objectMapping: { enabled: 'IsWithLigth' },
             },
             {
               title: 'Has Rental',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'HasRentals' },
+              objectMapping: { enabled: 'HasRentals' },
             },
             {
               title: 'Run to Valley',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'RunToValley' },
+              objectMapping: { enabled: 'RunToValley' },
             },
             {
               title: 'Lift Available',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'LiftAvailable' },
+              objectMapping: { enabled: 'LiftAvailable' },
             },
             {
               title: 'Feet Climb',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'FeetClimb' },
+              objectMapping: { enabled: 'FeetClimb' },
             },
             {
               title: 'Bike Transport',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'BikeTransport' },
+              objectMapping: { enabled: 'BikeTransport' },
             },
           ],
         },
@@ -238,12 +238,12 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Age from',
               component: CellComponent.StringCell,
-              fields: { text: 'AgeFrom' },
+              objectMapping: { text: 'AgeFrom' },
             },
             {
               title: 'Age to',
               component: CellComponent.StringCell,
-              fields: { text: 'AgeTo' },
+              objectMapping: { text: 'AgeTo' },
             },
           ],
         },
@@ -259,7 +259,9 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Novelty',
               component: CellComponent.TextAreaCell,
-              fields: { enabled: 'AdditionalPoiInfos.{language}.Novelty' },
+              objectMapping: {
+                enabled: 'AdditionalPoiInfos.{language}.Novelty',
+              },
             },
           ],
         },
@@ -269,29 +271,31 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Author Tip',
               component: CellComponent.StringCell,
-              fields: {
+              objectMapping: {
                 text: 'Detail.{language}.AuthorTip',
               },
             },
             {
               title: 'Parking Info',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.ParkingInfo' },
+              objectMapping: { text: 'Detail.{language}.ParkingInfo' },
             },
             {
               title: 'Public Transportation Info',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.PublicTransportationInfo' },
+              objectMapping: {
+                text: 'Detail.{language}.PublicTransportationInfo',
+              },
             },
             {
               title: 'Safety Info',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.SafetyInfo' },
+              objectMapping: { text: 'Detail.{language}.SafetyInfo' },
             },
             {
               title: 'Equipment Info',
               component: CellComponent.StringCell,
-              fields: { text: 'Detail.{language}.EquipmentInfo' },
+              objectMapping: { text: 'Detail.{language}.EquipmentInfo' },
             },
           ],
         },
@@ -310,34 +314,34 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Owner ID',
               component: CellComponent.StringCell,
-              fields: { text: 'OwnerRid' },
+              objectMapping: { text: 'OwnerRid' },
               class: 'break-all',
             },
             {
               title: 'Tourism organization Id',
               component: CellComponent.StringCell,
-              fields: { text: 'TourismorganizationId' },
+              objectMapping: { text: 'TourismorganizationId' },
             },
             {
               title: 'Outdoor Active ID',
               component: CellComponent.StringCell,
-              fields: { text: 'OutdooractiveID' },
+              objectMapping: { text: 'OutdooractiveID' },
             },
             {
               title: 'Outdoor Active Elevation ID',
               component: CellComponent.StringCell,
-              fields: { text: 'OutdooractiveElevationID' },
+              objectMapping: { text: 'OutdooractiveElevationID' },
             },
             {
               title: 'Smg ID',
               component: CellComponent.StringCell,
-              fields: { text: 'SmgId' },
+              objectMapping: { text: 'SmgId' },
             },
             {
               title: 'Area IDs',
               component: CellComponent.ArrayEditableCell,
-              listFields: {
-                attributeName: 'items',
+              arrayMapping: {
+                targetPropertyName: 'items',
                 pathToParent: 'AreaId',
               },
               required: false,
@@ -350,19 +354,19 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Custom Id',
               component: CellComponent.StringCell,
-              fields: { text: 'CustomId' },
+              objectMapping: { text: 'CustomId' },
               class: 'break-all',
             },
             {
               title: 'Copyright Checked',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'CopyrightChecked' },
+              objectMapping: { enabled: 'CopyrightChecked' },
               class: 'break-all',
             },
             {
               title: 'Main type / Type',
               component: CellComponent.InputReferenceCell,
-              fields: { value: 'Type' },
+              objectMapping: { value: 'Type' },
               params: {
                 url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'TypeDesc.{language}',
@@ -372,7 +376,7 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Sub Type',
               component: CellComponent.InputReferenceCell,
-              fields: { value: 'SubType' },
+              objectMapping: { value: 'SubType' },
               params: {
                 url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'TypeDesc.{language}',
@@ -382,7 +386,7 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'POI Type',
               component: CellComponent.InputReferenceCell,
-              fields: { value: 'PoiType' },
+              objectMapping: { value: 'PoiType' },
               params: {
                 url: withOdhBaseUrl('/v1/ODHActivityPoiTypes'),
                 labelSelector: 'TypeDesc.{language}',
@@ -392,12 +396,12 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Difficulty',
               component: CellComponent.StringCell,
-              fields: { text: 'Difficulty' },
+              objectMapping: { text: 'Difficulty' },
             },
             {
               title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'SmgActive' },
+              objectMapping: { enabled: 'SmgActive' },
             },
           ],
         },
@@ -407,11 +411,10 @@ export const odhActivityPoiSharedView = ():
             {
               title: 'Categories',
               component: CellComponent.ArrayEditableCell,
-              listFields: {
-                attributeName: 'items',
+              arrayMapping: {
+                targetPropertyName: 'items',
                 pathToParent: 'AdditionalPoiInfos.{language}.Categories',
               },
-              required: false,
             },
           ],
         },

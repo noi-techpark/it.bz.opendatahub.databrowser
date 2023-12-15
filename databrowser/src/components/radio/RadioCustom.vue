@@ -5,14 +5,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <label class="cursor-pointer"
-    ><input
+  <label class="flex cursor-pointer items-center gap-4">
+    <input
       v-model="internalValue"
       type="radio"
-      class="mr-4 inline-block text-green-500 checked:bg-none focus:ring-green-500"
+      class="cursor-pointer text-green-500 checked:bg-none focus:ring-green-500"
       :value="value"
-    />{{ label }}</label
-  >
+    />{{ label }}
+  </label>
 </template>
 
 <script setup lang="ts">

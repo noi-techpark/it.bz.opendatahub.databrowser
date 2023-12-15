@@ -18,14 +18,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { toRefs, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
-
+import { useApiRead } from '../../../../api/useApi';
+import EditListCell from '../../utils/editList/EditListCell.vue';
 import EditGpsInfoTab from './EditGpsInfoTab.vue';
 import EditGpsInfoTable from './EditGpsInfoTable.vue';
-import EditListCell from '../../utils/editList/EditListCell.vue';
-import { GpsInfoEntry } from './types';
-import { useQuery } from 'vue-query';
-import { useAxiosFetcher } from '../../../../api';
 import { useEditGpsInfoCellStore } from './editGpsInfoCellStore';
+import { GpsInfoEntry } from './types';
 
 const editGpsInfoCellStore = useEditGpsInfoCellStore();
 
@@ -41,17 +39,12 @@ const props = withDefaults(
 
 const { positionValuesUrl } = toRefs(props);
 
-const queryKey = positionValuesUrl.value;
-const queryFn = useAxiosFetcher();
-const { data: positionValues } = useQuery({
-  queryKey,
-  queryFn,
-});
+const { data: positionValues } = useApiRead<string[]>(positionValuesUrl);
 
 watch(
   () => positionValues.value,
   (newVal) => {
-    setPositionValuesInStore(newVal?.data);
+    setPositionValuesInStore(newVal);
   }
 );
 

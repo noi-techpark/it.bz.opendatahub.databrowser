@@ -7,7 +7,8 @@
   },
   "contact": {
     "email": "help{'@'}opendatahub.com",
-    "emailInfo": "info{'@'}opendatahub.com"
+    "emailInfo": "info{'@'}opendatahub.com",
+    "emailSupport": "support{'@'}opendatahub.com"
   },
   "header": {
     "logo": "Open Data Hub - Logo",
@@ -69,6 +70,14 @@
     }
   },
   "datasets": {
+    "error": {
+      "load": {
+        "title": "Error while loading data"
+      },
+      "save": {
+        "title": "Error while saving data"
+      }
+    },
     "detailView": {
       "showEmptyFields": "Show empty fields"
     },
@@ -200,7 +209,8 @@
         "dataDoesNotExist": "You were looking for data that does not exist!",
         "suggestion": "Please rethink your request"
       },
-      "of": "of",
+      "of": "of {pageCount}",
+      "ofUnknown": "of unknown",
       "tableFilterHint": "Filters have been applied to this view",
       "toolBox": {
         "searchAndFilter": {

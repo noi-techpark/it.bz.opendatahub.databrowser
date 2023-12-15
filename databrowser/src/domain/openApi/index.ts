@@ -4,3 +4,4 @@
 
 export * from './store/openApi';
 export * from './domain';
+export * from './types';

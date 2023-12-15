@@ -9,9 +9,11 @@ export const emptyValueOption = (): SelectOption => ({
   value: undefined,
 });
 
+export const selectAddNewValue = '+ ADD NEW';
+
 export const addNewValueOption = (): SelectOption => ({
-  label: '+ ADD NEW',
-  value: '',
+  label: selectAddNewValue,
+  value: selectAddNewValue,
   isAction: true,
 });
 

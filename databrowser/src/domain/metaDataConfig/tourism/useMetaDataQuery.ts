@@ -3,11 +3,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { parse } from 'date-fns';
-import { useQuery } from 'vue-query';
 import { withOdhBaseUrl } from '../../../config/utils';
-import { unifyPagination, useAxiosFetcher } from '../../api';
+import { unwrapData } from '../../api/dataExtraction';
+import { useApiRead } from '../../api/useApi';
+import { WithTourismPagination } from '../../datasets/pagination/types';
 import { TourismMetaData } from './types';
-import { AxiosResponse } from 'axios';
 
 interface ODHTag {
   Id: string;
@@ -41,21 +41,17 @@ interface OdhTourismMetaData {
 const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
 
 export const useMetaDataQuery = () => {
-  const queryKey = metaDataUrl;
-  const queryFn = useAxiosFetcher<OdhTourismMetaData>();
-  return useQuery({ queryKey, queryFn, select });
+  return useApiRead(metaDataUrl, { select });
 };
 
 const select = (
-  data: AxiosResponse<OdhTourismMetaData, any>
+  data: WithTourismPagination<OdhTourismMetaData[]>
 ): TourismMetaData[] => {
-  if (data?.data == null) {
-    return [];
-  }
-  const paginationData = unifyPagination(data.data);
+  // Unwrap data from pagination
+  const unwrappedData = unwrapData<OdhTourismMetaData[]>(data);
 
   // Map ODH MetaData to internal format
-  const itemsWithoutParentInfo = mapResponse(paginationData.items);
+  const itemsWithoutParentInfo = mapResponse(unwrappedData);
 
   // Add parent information to all sub-datasets
   return addParentInfo(itemsWithoutParentInfo);
@@ -70,7 +66,7 @@ const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
       output: Object.values(dataset.Output ?? {}).join(', '),
       swaggerUrl: dataset.SwaggerUrl,
       access: parseAccess(dataset.ApiAccess),
-      pathParam: dataset.PathParam,
+      pathSegments: dataset.PathParam,
       externalLink: dataset.ApiUrl,
       sources: dataset.Sources ?? [],
       lastUpdated: parseLastUpdated(dataset.LastChange),
@@ -88,7 +84,7 @@ const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
     .sort((a, b) => a?.shortname?.localeCompare(b?.shortname));
 
 const addParentInfo = (datasets: TourismMetaData[]): TourismMetaData[] => {
-  const buildKey = (dataset: TourismMetaData) => dataset.pathParam.join('/');
+  const buildKey = (dataset: TourismMetaData) => dataset.pathSegments.join('/');
   // Build a map of all root-datasets (i.e. not sub-datasets that have no apiFilter set).
   // The key corresponds to the path params of the dataset as string (joined by '/'), the
   // value is the dataset itself. The parent connection is then resolved by path params.

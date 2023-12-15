@@ -5,7 +5,7 @@
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import { odhTypeDetailElement } from '../../builder/tourism';
 
 export const odhActivityPoiTypesSharedView = ():

@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   contactCategory,
   dataStatesSubCategory,
@@ -37,7 +37,7 @@ export const tourismAssociationListSharedView = ():
             {
               title: 'Ski Area Ids',
               component: CellComponent.ArrayCell,
-              fields: {
+              objectMapping: {
                 items: 'SkiAreaIds',
               },
               params: {

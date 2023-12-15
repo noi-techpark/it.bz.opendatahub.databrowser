@@ -174,29 +174,29 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 const { t } = useI18n();
 
+import { useI18n } from 'vue-i18n';
+import Accordion from '../../../components/accordion/Accordion.vue';
+import CardDivider from '../../../components/card/CardDivider.vue';
+import CheckboxCustom from '../../../components/checkbox/CheckboxCustom.vue';
+import PageGridContent from '../../../components/content/PageGridContent.vue';
+import InputCustom from '../../../components/input/InputCustom.vue';
+import PartnersAndContributors from '../../../components/partners/PartnersAndContributors.vue';
+import InfoPopover from '../../../components/popover/InfoPopover.vue';
+import PopoverContent from '../../../components/popover/PopoverContent.vue';
+import PopoverCustomPanel from '../../../components/popover/PopoverCustomPanel.vue';
+import IconClose from '../../../components/svg/IconClose.vue';
+import IconFilter from '../../../components/svg/IconFilter.vue';
+import ToggleCustom from '../../../components/toggle/ToggleCustom.vue';
 import { embeddedDatasetConfigs } from '../../../config/config';
+import { DatasetConfig } from '../../../domain/datasets/config/types';
+import ResetAllFilters from '../../../domain/datasets/ui/tableView/filter/ResetAllFilters.vue';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
-import PartnersAndContributors from '../../../components/partners/PartnersAndContributors.vue';
-import CardDivider from '../../../components/card/CardDivider.vue';
-import PageGridContent from '../../../components/content/PageGridContent.vue';
-import { useI18n } from 'vue-i18n';
 import { useMetaDataDatasets, useOtherDatasets } from './useDatasets';
-import ToggleCustom from '../../../components/toggle/ToggleCustom.vue';
-import InputCustom from '../../../components/input/InputCustom.vue';
-import Accordion from '../../../components/accordion/Accordion.vue';
-import CheckboxCustom from '../../../components/checkbox/CheckboxCustom.vue';
-import IconFilter from '../../../components/svg/IconFilter.vue';
-import IconClose from '../../../components/svg/IconClose.vue';
-import InfoPopover from '../../../components/popover/InfoPopover.vue';
-import PopoverCustomPanel from '../../../components/popover/PopoverCustomPanel.vue';
-import PopoverContent from '../../../components/popover/PopoverContent.vue';
-import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
-import { DatasetConfig } from '../../../domain/datasetConfig/types';
-import ResetAllFilters from '../../../domain/datasets/tableView/filter/ResetAllFilters.vue';
 
 type TourismMetaDataIndexes =
   | 'dataSpace'
@@ -532,14 +532,15 @@ const visibleDatasets = computed(() => {
           !acceptedValues.includes('without')
         ) {
           datasets = datasets.filter((dataset) => {
-            const datasetPath = dataset.pathParam.join('/');
+            const datasetPath = dataset.pathSegments.join('/');
             if (!datasetPath) {
               return false;
             }
 
             const hasConfig =
               allDatasetConfigs.value.find(
-                (dataset) => dataset.route.pathParams.join('/') === datasetPath
+                (dataset) =>
+                  dataset.route.pathSegments.join('/') === datasetPath
               ) !== undefined;
             return acceptedValues.includes('with') ? hasConfig : !hasConfig;
           });

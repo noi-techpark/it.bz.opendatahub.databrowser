@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailElements,
   PropertyConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import { withOdhBaseUrl } from '../../utils';
 import { idReadOnlyCell } from './id';
 
@@ -14,7 +14,7 @@ export const odhActiveTableCell = (): PropertyConfig => ({
   title: 'Open Data Hub state',
   component: CellComponent.StateCell,
   class: 'w-40',
-  fields: { state: 'OdhActive' },
+  objectMapping: { state: 'OdhActive' },
 });
 
 export const odhTagCell = (mainentity?: string): PropertyConfig => {
@@ -24,8 +24,8 @@ export const odhTagCell = (mainentity?: string): PropertyConfig => {
   return {
     title: 'Open Data Hub Tags',
     component: CellComponent.TagReferenceCell,
-    listFields: {
-      attributeName: 'items',
+    arrayMapping: {
+      targetPropertyName: 'items',
       pathToParent: 'SmgTags',
     },
     params: { url, keySelector: 'Id', labelSelector: 'TagName.{language}' },
@@ -56,27 +56,27 @@ export const odhTypeDetailElement = (): DetailElements => ({
         {
           title: 'Key',
           component: CellComponent.StringCell,
-          fields: { text: 'Key' },
+          objectMapping: { text: 'Key' },
         },
         {
           title: 'Type',
           component: CellComponent.StringCell,
-          fields: { text: 'Type' },
+          objectMapping: { text: 'Type' },
         },
         {
           title: 'TypeDesc',
           component: CellComponent.StringCell,
-          fields: { text: 'TypeDesc.{language}' },
+          objectMapping: { text: 'TypeDesc.{language}' },
         },
         {
           title: 'Bitmask',
           component: CellComponent.StringCell,
-          fields: { text: 'Bitmask' },
+          objectMapping: { text: 'Bitmask' },
         },
         {
           title: 'Parent',
           component: CellComponent.StringCell,
-          fields: { text: 'Parent' },
+          objectMapping: { text: 'Parent' },
         },
       ],
     },

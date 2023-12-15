@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div
-    v-if="title != null || content != null"
+    v-if="title != null || hasContent"
     class="flex gap-8 px-4 py-2"
     :class="classNames.background"
   >
@@ -14,19 +14,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       class="my-1 flex h-14 w-20 shrink-0 items-center justify-center text-white"
       :class="classNames.icon"
     >
-      <slot><IconCheck v-if="type === 'info'" /><IconWarning v-else /></slot>
+      <slot name="icon">
+        <IconCheck v-if="type === 'info'" /><IconWarning v-else />
+      </slot>
     </div>
     <div :class="classNames.text" class="min-w-0 break-words">
       <div v-if="title != null" class="font-semibold">{{ title }}</div>
-      <div v-if="content != null" class="text-sm">
-        {{ content }}
+      <div v-if="hasContent" class="text-sm">
+        <slot></slot>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import IconWarning from '../svg/IconWarning.vue';
 import IconCheck from '../svg/IconCheck.vue';
 import { AlertType } from './types';
@@ -60,11 +62,9 @@ const types: Record<string, Color> = {
   },
 };
 
-const props = defineProps<{
-  type: AlertType;
-  title?: string;
-  content?: string;
-}>();
+const props = defineProps<{ type: AlertType; title?: string }>();
+
+const hasContent = computed(() => useSlots().default != null);
 
 const classNames = computed(() => types[props.type]);
 </script>

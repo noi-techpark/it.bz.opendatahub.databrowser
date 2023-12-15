@@ -80,18 +80,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from 'vue';
 import { PointExpression } from 'leaflet';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-
-import { useEditGpsInfoCellStore } from './editGpsInfoCellStore';
-import { PointPosition, Position } from '../../../../../components/map/types';
-import { useEditStore } from '../../../../datasets/editView/store/editStore';
+import InputCustom from '../../../../../components/input/InputCustom.vue';
 import GpsPointMap from '../../../../../components/map/GpsPointMap.vue';
+import { PointPosition, Position } from '../../../../../components/map/types';
 import { getCoordinatesOfBolzano } from '../../../../../components/map/utils';
 import QuickViewCardOverview from '../../../../../components/quickview/QuickViewCardOverview.vue';
-import InputCustom from '../../../../../components/input/InputCustom.vue';
+import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
+import { useEditGpsInfoCellStore } from './editGpsInfoCellStore';
 
 const { t } = useI18n();
 
