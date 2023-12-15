@@ -128,9 +128,15 @@ const getDeprecationAndRequired = (
   mapping: {
     objectMapping?: ObjectMapping;
     arrayMapping?: ArrayMapping;
+    required?: boolean;
   }
 ) => {
-  const { objectMapping, arrayMapping } = mapping;
+  const {
+    objectMapping,
+    arrayMapping,
+    required: isRequiredFromConfig,
+  } = mapping;
+
   // Check which kind of mapping is used
   const efectiveMapping = objectMapping ?? arrayMapping?.objectMapping ?? {};
 
@@ -179,11 +185,11 @@ const getDeprecationAndRequired = (
             ];
 
       // Compute required information
-      const anyPropertyRequired =
+      const isAnySchemaRequired =
         schemasForPath.filter((subSchema) => subSchema.schema.required).length >
         0;
 
-      const required = prev.required || anyPropertyRequired;
+      const required = isRequiredFromConfig ?? isAnySchemaRequired;
 
       return { deprecationInfo, required };
     },
