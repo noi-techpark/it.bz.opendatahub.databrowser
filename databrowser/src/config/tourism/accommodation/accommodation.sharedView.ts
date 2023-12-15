@@ -39,13 +39,16 @@ export const accommodationSharedView = ():
             accommodationTypeCell(),
             accommodationCategoryCell(),
             {
-              title: 'Boardings',
-              component: CellComponent.ArrayCell,
-              fields: {
-                items: 'BoardIds',
+              title: 'Boards',
+              component: CellComponent.TagReferenceCell,
+              listFields: {
+                attributeName: 'tags',
+                pathToParent: 'BoardIds',
               },
               params: {
-                separator: ', ',
+                keySelector: 'Key',
+                labelSelector: 'TypeDesc.{language}',
+                url: withOdhBaseUrl('/v1/AccommodationTypes?type=Board'),
               },
             },
           ],
@@ -90,7 +93,9 @@ export const accommodationSharedView = ():
               params: {
                 keySelector: 'Key',
                 labelSelector: 'TypeDesc.{language}',
-                url: withOdhBaseUrl('/v1/AccommodationTypes'),
+                url: withOdhBaseUrl(
+                  '/v1/AccommodationTypes?type=SpecialFeature'
+                ),
               },
             },
             {
@@ -103,7 +108,7 @@ export const accommodationSharedView = ():
               params: {
                 keySelector: 'Key',
                 labelSelector: 'TypeDesc.{language}',
-                url: withOdhBaseUrl('/v1/AccommodationTypes'),
+                url: withOdhBaseUrl('/v1/AccommodationTypes?type=Badge'),
               },
             },
             {
@@ -116,7 +121,7 @@ export const accommodationSharedView = ():
               params: {
                 keySelector: 'Key',
                 labelSelector: 'TypeDesc.{language}',
-                url: withOdhBaseUrl('/v1/AccommodationTypes'),
+                url: withOdhBaseUrl('/v1/AccommodationTypes?type=Theme'),
               },
             },
           ],

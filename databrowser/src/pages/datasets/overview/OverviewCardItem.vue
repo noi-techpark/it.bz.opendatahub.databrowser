@@ -17,7 +17,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </routerLink>
       <template #right>
         <div class="flex gap-3 md:justify-self-end">
-          <TagCustom size="xs" type="black" text="Tourism" />
+          <TagCustom
+            class="capitalize"
+            size="xs"
+            type="black"
+            :text="dataset.dataSpace ?? t('overview.info.dataSpace.unknown')"
+          />
           <OverviewTagAccess :dataset="dataset" />
         </div>
       </template>
@@ -49,8 +54,11 @@ import OverviewLinkTable from './OverviewLinkTable.vue';
 import OverviewLinkApi from './OverviewLinkApi.vue';
 import OverviewTagAccess from './OverviewTagAccess.vue';
 import { usePaths } from '../../../domain/datasets/header/usePaths';
+import { useI18n } from 'vue-i18n';
 
 defineProps<{ dataset: TourismMetaData }>();
+
+const { t } = useI18n();
 
 const { datasetOverviewForId } = usePaths();
 </script>

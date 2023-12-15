@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <CheckboxCustom
                 :model-value="allItemsSelected"
                 class="mr-3"
-                @update:model-value="toggleAllItemsSelected()"
+                @update:model-value="toggleAllItemsSelected(!allItemsSelected)"
               />
               <span class="hidden md:inline">Language</span>
             </div>
@@ -66,6 +66,7 @@ import CheckboxCustom from '../../../../../../components/checkbox/CheckboxCustom
 import TableCustom from '../../../../../../components/table/TableCustom.vue';
 import TableHeader from '../../../../../../components/table/TableHeader.vue';
 
+import { toggleAllItemsSelected } from './utils';
 import { useDialogStore } from './dialogStore';
 import { FileEntryWithLanguageAvailability } from './types';
 
@@ -77,24 +78,15 @@ const props = defineProps<{
 
 const dialogStore = useDialogStore();
 
-const itemsInternal = computed<FileEntryWithLanguageAvailability[]>({
-  get: () => (props.items != null ? props.items : []),
-  set: (value) => console.log(value),
-});
+const itemsInternal = computed<FileEntryWithLanguageAvailability[]>(() =>
+  props.items != null ? props.items : []
+);
 
 const hasItems = computed(() => itemsInternal.value.length > 0);
 
 const allItemsSelected = computed(() =>
   itemsInternal.value.every((item) => item.available)
 );
-
-const toggleAllItemsSelected = () => {
-  const valueToSet = !allItemsSelected.value;
-
-  itemsInternal.value.forEach((_, index) => {
-    toggleSingleItemSelection(index, valueToSet);
-  });
-};
 
 const toggleSingleItemSelection = (index: number, value?: boolean) => {
   dialogStore.setAvailableItemLanguage(

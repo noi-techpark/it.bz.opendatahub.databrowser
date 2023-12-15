@@ -15,6 +15,7 @@ import CustomDataArrayCell from '../components/cells/customDataArrayCell/CustomD
 import DateCell from '../components/cells/dateCell/DateCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditImageGalleryCell.vue';
+import EditGpsInfoCell from '../components/cells/editGpsInfoCell/EditGpsInfoCell.vue';
 import EditRoomBookedCell from '../components/cells/editRoomBookedCell/EditRoomBookedCell.vue';
 import EditRoomVenueCell from '../components/cells/editRoomVenueCell/EditRoomVenueCell.vue';
 import EventDocumentCell from '../components/cells/eventDocumentCell/EventDocumentCell.vue';
@@ -40,6 +41,7 @@ import ToggleButtonCell from '../components/cells/toggleCell/ToggleButtonCell.vu
 import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
+import RelatedContentCell from '../components/cells/relatedContentCell/RelatedContentCell.vue';
 import FixedValue from '../components/filters/fixedValue/FixedValue.vue';
 
 // NOTE: this components do not belong to table components; it's advised to refactor this table in the future.
@@ -68,6 +70,7 @@ export default {
     app.component(CellComponent.CustomDataArrayCell, CustomDataArrayCell);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
     app.component(CellComponent.EditImageGalleryCell, EditImageGalleryCell);
+    app.component(CellComponent.EditGpsInfoCell, EditGpsInfoCell);
     app.component(CellComponent.EditRoomBookedCell, EditRoomBookedCell);
     app.component(CellComponent.EditRoomVenueCell, EditRoomVenueCell);
     app.component(CellComponent.EventDocumentCell, EventDocumentCell);
@@ -93,6 +96,7 @@ export default {
     app.component(CellComponent.ToggleCell, ToggleCell);
     app.component(CellComponent.TypeBasedCell, TypeBasedCell);
     app.component(CellComponent.WebcamCell, WebcamCell);
+    app.component(CellComponent.RelatedContentCell, RelatedContentCell);
 
     app.component(CellComponent.QuickViewTextInfoCard, QuickViewTextInfoCard);
     app.component(CellComponent.QuickViewContactsCard, QuickViewContactsCard);

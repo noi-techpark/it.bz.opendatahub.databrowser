@@ -8,7 +8,7 @@ import { SupportedDomains } from './types';
 export const domains = {
   tourism: {
     description: 'Open Data Hub Tourism API',
-    documentUrl: withOdhBaseUrl('/swagger/v1/swagger.json'),
+    documentUrl: withOdhBaseUrl('/json/swagger.json'),
     baseUrl: withOdhBaseUrl(''),
   },
   mobility: {

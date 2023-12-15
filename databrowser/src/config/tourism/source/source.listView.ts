@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasetConfig/types';
 import { lastChangesTableCell } from '../../builder/tourism';
 
-export const publishedOnListView: ListViewConfig = {
+export const sourceListView: ListViewConfig = {
   elements: [
     {
       title: 'Key',
@@ -20,7 +20,18 @@ export const publishedOnListView: ListViewConfig = {
       fields: { text: 'Name.{language}' },
     },
     {
-      title: 'Publisher URL',
+      title: 'Interfaces',
+      component: CellComponent.ArrayCell,
+      class: 'w-60',
+      fields: {
+        items: 'Interfaces',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
+    {
+      title: 'Source URL',
       component: CellComponent.UrlCell,
       class: 'w-80',
       fields: { text: 'Url' },

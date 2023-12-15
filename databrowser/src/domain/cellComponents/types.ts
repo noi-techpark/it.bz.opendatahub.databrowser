@@ -14,6 +14,7 @@ export enum CellComponent {
   DateCell = 'DateCell',
   EditedDateCell = 'EditedDateCell',
   EditImageGalleryCell = 'EditImageGalleryCell',
+  EditGpsInfoCell = 'EditGpsInfoCell',
   EditRoomBookedCell = 'EditRoomBookedCell',
   EditRoomVenueCell = 'EditRoomVenueCell',
   EventDocumentCell = 'EventDocumentCell',
@@ -40,6 +41,7 @@ export enum CellComponent {
   TypeBasedCell = 'TypeBasedCell',
   WebcamCell = 'WebcamCell',
   WebcamGalleryCell = 'WebcamGalleryCell',
+  RelatedContentCell = 'RelatedContentCell',
 
   QuickViewTextInfoCard = 'QuickViewTextInfoCard',
   QuickViewContactsCard = 'QuickViewContactsCard',
