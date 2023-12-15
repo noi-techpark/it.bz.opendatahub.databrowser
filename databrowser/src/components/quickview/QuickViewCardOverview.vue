@@ -8,7 +8,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <QuickViewCardBase
     :title="title"
     :cta-icon="ctaIcon"
-    @cta-click="$emit('ctaClick')"
+    :icons-active="iconsActive"
+    @cta-click="$emit('ctaClick', $event)"
   >
     <div :class="{ 'p-4': !contentHasNoPadding }">
       <slot name="content" />
@@ -77,12 +78,14 @@ withDefaults(
     title?: string;
     sections: Array<Section>;
     contentHasNoPadding?: boolean;
-    ctaIcon?: string;
+    ctaIcon?: string | Array<string>;
+    iconsActive?: Array<string>;
   }>(),
   {
     title: '',
     contentHasNoPadding: false,
     ctaIcon: '',
+    iconsActive: () => [],
   }
 );
 

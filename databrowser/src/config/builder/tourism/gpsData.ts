@@ -7,36 +7,26 @@ import {
   DetailElements,
   PropertyConfig,
 } from '../../../domain/datasetConfig/types';
+import { withOdhBaseUrl } from '../../utils';
 
 export const gpsDataCategory = (): DetailElements => ({
-  name: 'GPS Data',
+  name: 'GPS',
   slug: 'gps-data',
   subcategories: [
     {
-      name: 'GPS Data',
+      name: 'GPS Points',
       properties: [
         {
           title: '',
-          component: CellComponent.GpsPointsCell,
-          fields: {
-            type: 'GpsPoints.position.Gpstype',
-            latitude: 'GpsPoints.position.Latitude',
-            longitude: 'GpsPoints.position.Longitude',
-            altitude: 'GpsPoints.position.Altitude',
-            altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
+          component: CellComponent.EditGpsInfoCell,
+          listFields: {
+            attributeName: 'gpsInfo',
+            pathToParent: 'GpsInfo',
           },
-        },
-      ],
-    },
-    {
-      name: 'Map',
-      properties: [
-        {
-          title: '',
-          component: CellComponent.QuickViewMapView,
-          fields: {
-            latitude: 'GpsPoints.position.Latitude',
-            longitude: 'GpsPoints.position.Longitude',
+          params: {
+            positionValuesUrl: withOdhBaseUrl(
+              '/v1/Distinct?odhtype=odhactivitypoi&fields=GpsPoints.[*].*.Gpstype&getasarray=true'
+            ),
           },
         },
       ],
