@@ -13,7 +13,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :is-error="isError"
         :error="error"
       />
-      --{{ items }}--
       <ArrayLookupTable
         v-if="isSuccess"
         :options="options"
