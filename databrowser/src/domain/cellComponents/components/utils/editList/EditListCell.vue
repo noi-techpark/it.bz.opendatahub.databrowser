@@ -7,18 +7,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <section>
     <!-- Slot for table visualization -->
-    <slot
-      v-if="isCurrentTable"
-      name="table"
-      :items="(itemsInternal as any[])"
-    ></slot>
+    <slot v-if="isCurrentTable" name="table" :items="itemsInternal"></slot>
 
     <!-- Slot for tab visualization -->
-    <slot
-      v-if="isCurrentTab"
-      name="tab"
-      :items="(itemsInternal as any[])"
-    ></slot>
+    <slot v-if="isCurrentTab" name="tab" :items="itemsInternal"></slot>
 
     <!-- Slot for add visualization (e.g. upload) -->
     <slot v-if="isCurrentAdd" name="add"></slot>

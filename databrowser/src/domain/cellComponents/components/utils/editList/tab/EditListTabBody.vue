@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div>
-    <slot :item="(item as any)" :index="activeTab"></slot>
+    <slot :item="item" :index="activeTab"></slot>
   </div>
 </template>
 
