@@ -25,42 +25,40 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </AlertError>
     </template>
     <template v-else>
-      <LoadingError v-if="isError" :error="error" />
+      <LoadingError v-if="isError">{{ error }}</LoadingError>
       <EditSaveError v-if="isMutateError" :response-errors="responseErrors" />
-      <template v-if="!isError">
-        <DiscardChangesDialog @discard="resetAndCleanup" />
-        <LeaveSectionDialog
-          :is-save-success="isMutateSuccess"
-          @save-changes="saveChanges"
-        />
-        <div class="flex h-screen flex-col justify-between overflow-auto">
-          <ShowEmptyFields v-model="showAll" :disabled="true" />
-          <div
-            class="flex grow md:overflow-y-auto"
-            :class="[{ 'pointer-events-none opacity-50': isMutateLoading }]"
-          >
-            <MainAndSubCategories
-              class="md:border-r"
-              :data="editStore.current"
-              :categories="enhancedMainCategories"
-              :sub-categories="enhancedSubcategories"
-              :current-category="currentCategory"
-              :slug="slug"
-              :show-all="true"
-              :show-edit-hint="true"
-              :editable="true"
-            />
-            <EditToolBox />
-          </div>
-          <EditFooter
-            class="transition-all"
-            :is-saving="isMutateLoading"
-            :class="{ hidden: editStore.isEqual }"
-            @cancel="tryToDiscardChanges"
-            @save="saveChanges"
+      <DiscardChangesDialog @discard="resetAndCleanup" />
+      <LeaveSectionDialog
+        :is-save-success="isMutateSuccess"
+        @save-changes="saveChanges"
+      />
+      <div class="flex h-screen flex-col justify-between overflow-auto">
+        <ShowEmptyFields v-model="showAll" :disabled="true" />
+        <div
+          class="flex grow md:overflow-y-auto"
+          :class="[{ 'pointer-events-none opacity-50': isMutateLoading }]"
+        >
+          <MainAndSubCategories
+            class="md:border-r"
+            :data="editStore.current"
+            :categories="enhancedMainCategories"
+            :sub-categories="enhancedSubcategories"
+            :current-category="currentCategory"
+            :slug="slug"
+            :show-all="true"
+            :show-edit-hint="true"
+            :editable="true"
           />
+          <EditToolBox />
         </div>
-      </template>
+        <EditFooter
+          class="transition-all"
+          :is-saving="isMutateLoading"
+          :class="{ hidden: editStore.isEqual }"
+          @cancel="tryToDiscardChanges"
+          @save="saveChanges"
+        />
+      </div>
     </template>
   </template>
 </template>

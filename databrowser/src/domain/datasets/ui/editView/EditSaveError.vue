@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <AlertError :title="t('datasets.error.save.title')">
-    <ul>
+    <ul class="max-h-32 overflow-auto">
       <li
         v-for="(responseError, key) in responseErrors?.errors"
         :key="key"

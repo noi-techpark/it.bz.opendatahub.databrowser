@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <AlertError :title="t('datasets.editView.error.load.title')">
+  <AlertError :title="t('datasets.error.load.title')">
     <slot></slot>
   </AlertError>
 </template>
