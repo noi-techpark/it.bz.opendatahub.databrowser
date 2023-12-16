@@ -60,6 +60,7 @@ export const useOtherDatasets = (metaDataDatasets: Ref<TourismMetaData[]>) => {
     datasetConfigs.value
       .map<TourismMetaData>((config) => ({
         id: config.route.pathSegments.join('/'),
+        baseUrl: config.baseUrl,
         access: 'unknown',
         description:
           config.description.description ?? 'No description available',
