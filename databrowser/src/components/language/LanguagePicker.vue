@@ -57,7 +57,10 @@ const router = useRouter();
 
 const links = computed(() => {
   return supportedLanguages.map((language) => {
-    const query = { ...router.currentRoute.value.query, language };
+    const query = {
+      ...router.currentRoute.value.query,
+      language: language == 'en' ? undefined : language,
+    };
 
     return {
       label: language.toLocaleUpperCase(),
