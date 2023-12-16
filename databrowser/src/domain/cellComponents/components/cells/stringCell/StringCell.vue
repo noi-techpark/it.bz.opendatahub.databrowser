@@ -10,6 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     input-classes="w-full"
     :model-value="text"
     :deletable="deletable"
+    :placeholder="placeholder"
     @update:model-value="update($event)"
   />
   <span
@@ -32,6 +33,7 @@ const props = defineProps<{
   clickable?: boolean;
   deletable?: boolean;
   readonly?: string | boolean;
+  placeholder?: string;
 }>();
 
 const { editable, readonly } = toRefs(props);
