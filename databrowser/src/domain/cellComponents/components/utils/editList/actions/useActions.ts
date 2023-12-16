@@ -5,29 +5,29 @@
 import { inject, provide } from 'vue';
 import { createEventHook } from '@vueuse/core';
 
-export const useActions = () => {
-  const addItemsEventHook = createEventHook<unknown[]>();
+export const useActions = <T>() => {
+  const addItemsEventHook = createEventHook<T[]>();
   const deleteAllItemsEventHook = createEventHook<void>();
   const deleteItemsEventHook = createEventHook<number[]>();
   const duplicateItemEventHook = createEventHook<number>();
   const pushItemEventHook = createEventHook<number>();
   const updateItemEventHook = createEventHook<{
     index: number;
-    item: Record<string, unknown>;
+    item: T;
   }>();
-  const updateItemsEventHook = createEventHook<unknown[]>();
+  const updateItemsEventHook = createEventHook<T[]>();
 
-  const addEmptyItem = () => addItemsEventHook.trigger([{}]);
-  const addItems = (items: unknown[]) => addItemsEventHook.trigger(items);
+  const addEmptyItem = () => addItemsEventHook.trigger([]);
+  const addItems = (items: T[]) => addItemsEventHook.trigger(items);
   const deleteAllItems = () => deleteAllItemsEventHook.trigger();
   const deleteItems = (indexes: number[]) =>
     deleteItemsEventHook.trigger(indexes);
   const duplicateItem = (index: number) =>
     duplicateItemEventHook.trigger(index);
   const pushItem = (index: number) => pushItemEventHook.trigger(index);
-  const updateItem = (index: number, item: Record<string, unknown>) =>
+  const updateItem = (index: number, item: T) =>
     updateItemEventHook.trigger({ index, item });
-  const updateItems = (items: unknown[]) => updateItemsEventHook.trigger(items);
+  const updateItems = (items: T[]) => updateItemsEventHook.trigger(items);
 
   return {
     addEmptyItem,
@@ -48,9 +48,9 @@ export const useActions = () => {
   };
 };
 
-type Actions = ReturnType<typeof useActions>;
-type ActionTriggers = Omit<
-  Actions,
+type Actions<T> = ReturnType<typeof useActions<T>>;
+type ActionTriggers<T> = Omit<
+  Actions<T>,
   | 'onAddItems'
   | 'onDeleteAllItems'
   | 'onDeleteItems'
@@ -59,8 +59,8 @@ type ActionTriggers = Omit<
   | 'onUpdateItem'
   | 'onUpdateItems'
 >;
-type ActionHooks = Omit<
-  Actions,
+type ActionHooks<T> = Omit<
+  Actions<T>,
   | 'addEmptyItem'
   | 'addItems'
   | 'deleteAllItemsEventHook'
@@ -73,14 +73,15 @@ type ActionHooks = Omit<
 
 const actionKey = Symbol('edit-list-action-key');
 
-export const useProvideActions = () => {
-  const actions = useActions();
+export const useProvideActions = <T>() => {
+  const actions = useActions<T>();
   provide(actionKey, actions);
   return actions;
 };
 
-export const useInjectActions = () => inject<Actions>(actionKey)!;
+export const useInjectActions = <T>() => inject<Actions<T>>(actionKey)!;
 
-export const useInjectActionTriggers = (): ActionTriggers => useInjectActions();
+export const useInjectActionTriggers = <T>(): ActionTriggers<T> =>
+  useInjectActions();
 
-export const useInjectActionHooks = (): ActionHooks => useInjectActions();
+export const useInjectActionHooks = <T>(): ActionHooks<T> => useInjectActions();

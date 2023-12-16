@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   </section>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 import { computed } from 'vue';
 import { useProvideActions } from './actions/useActions';
 import { useProvideNavigation } from './actions/useNavigation';
@@ -34,7 +34,7 @@ import { useProvideEditMode } from './actions/useEditMode';
 const emit = defineEmits(['update']);
 
 const props = defineProps<{
-  items?: unknown[] | null;
+  items?: T[] | null;
   editable?: boolean;
 }>();
 
@@ -60,14 +60,13 @@ const {
   onDuplicateItem,
   onUpdateItem,
   onUpdateItems,
-
   updateItems,
-} = useProvideActions();
+} = useProvideActions<T>();
 
 const editable = computed(() => props.editable === true);
 useProvideEditMode(editable);
 
-onAddItems((items: unknown[]) => {
+onAddItems((items: T[]) => {
   const newItems = [...itemsInternal.value, ...(items ?? [])];
   updateItems(newItems);
   setActiveTab(newItems.length - 1);
@@ -92,7 +91,7 @@ onDeleteAllItems(() => {
 onDuplicateItem((index: number) => {
   const duplicatedEntry = isObject(itemsInternal.value[index])
     ? // If item to duplicate is an object, create a new object with the same properties
-      { ...(itemsInternal.value[index] as object) }
+      structuredClone(itemsInternal.value[index])
     : // Otherwise return the original value
       itemsInternal.value[index];
 
@@ -115,7 +114,7 @@ onUpdateItem(({ index, item }) => {
   updateItems(items);
 });
 
-onUpdateItems((items: unknown[]) => {
+onUpdateItems((items: T[]) => {
   emit('update', { prop: 'items', value: items });
 });
 
