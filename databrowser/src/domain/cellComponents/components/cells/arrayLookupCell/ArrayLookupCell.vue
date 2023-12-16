@@ -13,6 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :is-error="isError"
         :error="error"
       />
+      --{{ items }}--
       <ArrayLookupTable
         v-if="isSuccess"
         :options="options"
@@ -37,7 +38,7 @@ const props = withDefaults(
     lookupUrl: string;
     keySelector: string;
     labelSelector: string;
-    items?: { name: string }[] | null;
+    items?: string[] | null;
     unique?: boolean | string;
   }>(),
   {
