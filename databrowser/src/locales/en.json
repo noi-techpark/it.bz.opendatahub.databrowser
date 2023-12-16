@@ -306,6 +306,15 @@
       "labelButton": "Search",
       "labelPlaceholder": "Insert search value ..."
     },
+    "mappingTable": {
+      "addKeyValue": "Add key and value",
+      "headerCol1": "Key",
+      "headerCol2": "Key to Value",
+      "placeholderParentKey": "Key",
+      "placeholderChildKey": "Key",
+      "placeholderChildValue": "Value",
+      "noData": "No mappings have been defined yet"
+    },
     "operationSchedule": {
       "addSeason": "Add new Season",
       "noSeason": "No seasons have been defined yet",
