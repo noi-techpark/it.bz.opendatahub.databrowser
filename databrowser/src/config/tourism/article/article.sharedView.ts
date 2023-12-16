@@ -18,6 +18,7 @@ import {
   sourceSubCategory,
   textInfoCategory,
 } from '../../builder/tourism';
+import { mappingCategory } from '../../builder/tourism/mapping';
 import { DEFAULT_DATE_FORMAT, withOdhBaseUrl } from '../../utils';
 
 export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -159,5 +160,6 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
+    mappingCategory(),
   ],
 });

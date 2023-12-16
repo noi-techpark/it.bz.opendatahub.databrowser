@@ -26,6 +26,7 @@ export enum CellComponent {
   ImageGalleryCell = 'ImageGalleryCell',
   JsonCell = 'JsonCell',
   LoadingCell = 'LoadingCell',
+  MappingCell = 'MappingCell',
   OperationScheduleCell = 'OperationScheduleCell',
   SelectWithOptionsCell = 'SelectWithOptionsCell',
   StateCell = 'StateCell',
@@ -50,7 +51,3 @@ export enum CellComponent {
   QuickViewOpeningHoursView = 'QuickViewOpeningHoursView',
   QuickViewRecordInfoView = 'QuickViewRecordInfoView',
 }
-
-// export enum FilterComponent {
-//   FixedValue = 'FixedValue',
-// }

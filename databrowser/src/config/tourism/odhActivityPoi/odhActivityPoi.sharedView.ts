@@ -22,6 +22,7 @@ import {
   sourceWithInsertsSubCategory,
   textInfoCategory,
 } from '../../builder/tourism';
+import { mappingCategory } from '../../builder/tourism/mapping';
 import { relatedcontentCategory } from '../../builder/tourism/relatedcontent';
 import { withOdhBaseUrl } from '../../utils';
 
@@ -420,5 +421,6 @@ export const odhActivityPoiSharedView = ():
         },
       ],
     },
+    mappingCategory(),
   ],
 });

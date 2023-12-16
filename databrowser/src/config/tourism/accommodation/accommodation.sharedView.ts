@@ -21,6 +21,7 @@ import {
   sourceSubCategory,
   mainImageCell,
 } from '../../builder/tourism';
+import { mappingCategory } from '../../builder/tourism/mapping';
 import { withOdhBaseUrl } from '../../utils';
 
 export const accommodationSharedView = ():
@@ -196,5 +197,6 @@ export const accommodationSharedView = ():
     locationCategory(),
     gpsDataCategory(),
     odhTagCategory('accommodation'),
+    mappingCategory(),
   ],
 });
