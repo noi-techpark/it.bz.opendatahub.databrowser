@@ -79,7 +79,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           </SubCategoryItem>
           <SubCategoryItem title="Is in gallery">
             <ToggleCell
-              :enabled="item.isInGallery"
+              :enabled="booleanOrStringToBoolean(item.isInGallery)"
               :editable="editable"
               @input="updateItem(index, { source: $event.value })"
             />
@@ -192,6 +192,7 @@ import StringCell from '../stringCell/StringCell.vue';
 import ToggleCell from '../toggleCell/ToggleCell.vue';
 import { ImageGalleryEntry } from './types';
 import { shouldResize } from './utils';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 const props = defineProps<{
   items: ImageGalleryEntry[];

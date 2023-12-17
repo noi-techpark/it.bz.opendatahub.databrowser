@@ -52,7 +52,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 import { ref } from 'vue';
 import TabButton from '../../../../../../components/tab/TabButton.vue';
 import EditListActionHeader from '../header/EditListActionHeader.vue';
@@ -63,7 +63,7 @@ import { useInjectEditMode } from '../actions/useEditMode';
 import { useInjectActionTriggers } from '../actions/useActions';
 
 defineProps<{
-  items: unknown[];
+  items: T[];
   activeTab: number;
 }>();
 

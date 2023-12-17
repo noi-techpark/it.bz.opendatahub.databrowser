@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div>
     <EditListTab :items="items">
       <template #tabLabel="{ item }">
-        <span class="truncate">{{ getFileName((item as FileEntry).src) }}</span>
+        <span class="truncate">{{ getFileName(item.src) }}</span>
       </template>
 
       <template #addItems>
@@ -71,7 +71,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <div>
                   <button
                     class="m-3 flex items-center gap-3"
-                    @click="downloadFile(item.url, item.url)"
+                    @click="downloadFile(item.src, item.src)"
                   >
                     <IconDownload class="text-green-500" />
                     <span>Download PDF</span>
