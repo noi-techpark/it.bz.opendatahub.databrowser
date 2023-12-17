@@ -14,4 +14,6 @@ export interface ImageGalleryEntry {
   license?: string;
   listPosition?: string;
   active?: string;
+  source?: string;
+  isInGallery?: string;
 }

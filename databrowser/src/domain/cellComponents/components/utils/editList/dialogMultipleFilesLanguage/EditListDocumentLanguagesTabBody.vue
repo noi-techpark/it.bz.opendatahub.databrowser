@@ -10,6 +10,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   </div>
 </template>
 
-<script setup lang="ts">
-defineProps<{ item: unknown; activeTab: number }>();
+<script setup lang="ts" generic="T">
+defineProps<{ item: T; activeTab: number }>();
 </script>
