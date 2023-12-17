@@ -8,8 +8,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <section class="flex flex-1 flex-col justify-start overflow-y-auto">
     <TableFilterHint />
     <div class="flex h-full overflow-y-auto">
-      <div v-if="isError" class="flex flex-1">
-        <LoadingError :error="error" />
+      <div v-if="isError" class="grow">
+        <LoadingError>{{ error }}</LoadingError>
       </div>
       <div v-else class="flex flex-1 flex-col overflow-y-auto">
         <TableContent
