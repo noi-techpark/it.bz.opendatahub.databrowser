@@ -15,9 +15,9 @@ export const stationTypesListView: ListViewConfig = {
     },
     {
       title: 'Station code',
-      component: CellComponent.StringCell,
+      component: CellComponent.TypeBasedCell,
       class: 'w-60',
-      objectMapping: { text: 'scode' },
+      objectMapping: { data: 'scode' },
     },
     {
       title: 'Station coordinate',
@@ -39,27 +39,27 @@ export const stationTypesListView: ListViewConfig = {
     },
     {
       title: 'Station origin',
-      component: CellComponent.StringCell,
+      component: CellComponent.TypeBasedCell,
       class: 'w-40',
-      objectMapping: { text: 'sorigin' },
+      objectMapping: { data: 'sorigin' },
     },
     {
       title: 'Station available',
-      component: CellComponent.StringCell,
+      component: CellComponent.TypeBasedCell,
       class: 'w-40',
-      objectMapping: { text: 'savailable' },
+      objectMapping: { data: 'savailable' },
     },
     {
       title: 'Station active',
-      component: CellComponent.StringCell,
+      component: CellComponent.TypeBasedCell,
       class: 'w-40',
-      objectMapping: { text: 'sactive' },
+      objectMapping: { data: 'sactive' },
     },
     {
       title: 'Parent name',
-      component: CellComponent.StringCell,
+      component: CellComponent.TypeBasedCell,
       class: 'w-60',
-      objectMapping: { text: 'pname' },
+      objectMapping: { data: 'pname' },
     },
   ],
 };
