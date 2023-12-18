@@ -25,10 +25,21 @@ import { Switch } from '@headlessui/vue';
 const emit = defineEmits(['update:modelValue']);
 
 const props = withDefaults(
-  defineProps<{ modelValue?: boolean; disabled?: boolean }>(),
+  defineProps<{
+    modelValue?: boolean;
+    disabled?: boolean;
+    activeBorderClass?: string;
+    activeBgClass?: string;
+    inactiveBorderClass?: string;
+    inactiveBgClass?: string;
+  }>(),
   {
     modelValue: true,
     disabled: false,
+    activeBorderClass: 'border-green-400',
+    activeBgClass: 'bg-green-400',
+    inactiveBorderClass: 'border-red-400',
+    inactiveBgClass: 'bg-red-400',
   }
 );
 
@@ -42,7 +53,9 @@ const switchColorClass = computed(() => {
     return 'border-gray-400';
   }
 
-  return turnedOn.value === true ? 'border-green-400' : 'border-red-400';
+  return turnedOn.value === true
+    ? props.activeBorderClass
+    : props.inactiveBorderClass;
 });
 
 const spanColorClass = computed(() => {
@@ -50,6 +63,6 @@ const spanColorClass = computed(() => {
     return 'bg-gray-400';
   }
 
-  return turnedOn.value === true ? 'bg-green-400' : 'bg-red-400';
+  return turnedOn.value === true ? props.activeBgClass : props.inactiveBgClass;
 });
 </script>

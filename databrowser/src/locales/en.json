@@ -79,7 +79,8 @@
       }
     },
     "detailView": {
-      "showEmptyFields": "Show empty fields"
+      "showEmptyFields": "Show empty fields",
+      "showDeprecatedFields": "Show deprecated fields"
     },
     "editView": {
       "authorizationChecking": "Please wait for authorization check",
