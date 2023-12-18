@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     class="z-10 flex flex-col items-start justify-between gap-y-8 md:flex-row md:items-center"
   >
     <div
-      class="flex h-8 flex-col items-start gap-x-5 gap-y-4 text-xl text-gray-900 md:flex-row md:items-center"
+      class="flex h-full flex-col items-start gap-x-12 gap-y-4 text-lg text-gray-900 md:h-8 md:flex-row md:items-center"
     >
       <HeaderLink to="/dataset-overview">
         {{ t('header.menu.datasets') }}
@@ -24,7 +24,23 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </HeaderExternalLink>
     </div>
 
-    <MenuUserSection />
+    <div
+      class="flex grow flex-col gap-x-2 gap-y-4 pt-1 md:grow-0 md:flex-row md:items-center"
+    >
+      <MenuUserSection />
+      <div class="flex grow" />
+      <ExternalLink
+        href="https://opendatahub.com"
+        variant="no-underline"
+        tone="text"
+      >
+        <img
+          :alt="t('header.logo')"
+          class="mt-2 aspect-square h-8 md:mt-0 md:h-6"
+          src="/logo-open-data-hub-black.svg"
+        />
+      </ExternalLink>
+    </div>
   </div>
 </template>
 
@@ -33,6 +49,7 @@ import MenuUserSection from '../../domain/auth/MenuUserSection.vue';
 import { useI18n } from 'vue-i18n';
 import HeaderLink from '../../components/header/HeaderLink.vue';
 import HeaderExternalLink from '../../components/header/HeaderExternalLink.vue';
+import ExternalLink from '../../components/link/ExternalLink.vue';
 
 const { t } = useI18n();
 </script>

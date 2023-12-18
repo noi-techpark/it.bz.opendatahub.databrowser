@@ -22,14 +22,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 data-test="link-to-home-page"
               >
                 <div class="flex">
-                  <img
-                    :alt="t('header.logo')"
-                    class="aspect-square h-12"
-                    src="/logo-open-data-hub-black.svg"
-                  />
-                  <div class="mx-2 w-px self-stretch bg-black"></div>
                   <div
-                    class="h-full rounded border border-black px-2 py-1 text-lg font-semibold leading-5 text-black"
+                    class="h-full rounded border border-black px-2 py-1 text-base font-semibold leading-5 text-black"
                     v-html="t('header.toolBadge')"
                   ></div>
                 </div>

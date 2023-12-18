@@ -7,51 +7,30 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="sticky top-0 z-10 w-full">
-    <div class="bg-gray-50">
-      <ContentAlignmentX class="m-auto flex w-full gap-2 px-4 py-2">
-        <TagCustom
-          v-if="envBadge"
-          class="text-sm"
-          :type="envBadge == 'BETA' ? 'pink' : 'info'"
-          :text="envBadge"
-        />
-        <div class="flex grow" />
-        <ExternalLink
-          href="https://opendatahub.com"
-          variant="no-underline"
-          tone="text"
-          class="flex items-center gap-x-2 text-sm"
-        >
-          {{ t('header.presentedBy') }}
-          <img
-            :alt="t('header.logo')"
-            class="aspect-square h-6"
-            src="/logo-open-data-hub-black.svg"
-          />
-        </ExternalLink>
-      </ContentAlignmentX>
-    </div>
     <div class="bg-white">
       <ContentAlignmentX
-        class="m-auto flex flex-col gap-x-20 gap-y-2 px-4 py-2 md:flex-row"
+        class="m-auto flex flex-col gap-x-12 gap-y-2 px-4 pb-2 md:flex-row md:pb-0"
+        :class="[isFullWidthNav ? 'w-full' : 'xl:w-default']"
       >
-        <div class="flex items-center">
+        <div class="flex items-center md:items-start">
           <InternalLink
             to="/"
             data-test="link-to-home-page"
             variant="no-underline"
           >
             <div class="flex">
-              <img
-                :alt="t('header.logo')"
-                class="aspect-square h-12"
-                src="/logo-open-data-hub-black.svg"
-              />
-              <div class="mx-2 w-px self-stretch bg-black"></div>
               <div
-                class="h-full rounded border border-black px-2 py-1 text-lg font-semibold leading-5 text-black"
+                class="h-full rounded-b border-x border-b border-black px-2 py-1 text-base font-semibold leading-5 text-black"
                 v-html="t('header.toolBadge')"
               ></div>
+              <div class="h-min">
+                <TagCustom
+                  v-if="envBadge"
+                  :type="envBadge === 'BETA' ? 'pink' : 'info'"
+                  :text="envBadge"
+                  class="rounded-none text-sm"
+                />
+              </div>
             </div>
           </InternalLink>
           <IconClose
@@ -64,7 +43,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
         <MenuItems
           :class="props.isMenuOpen ? '' : 'hidden'"
-          class="grow border-t border-gray-250 py-4 md:flex md:border-0"
+          class="grow border-t border-gray-250 pb-4 pt-2 md:flex md:border-0"
         />
       </ContentAlignmentX>
     </div>
@@ -72,14 +51,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script lang="ts" setup>
-import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+
+import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import TagCustom from '../components/tag/TagCustom.vue';
-import ExternalLink from '../components/link/ExternalLink.vue';
 import MenuItems from './menu/MenuItems.vue';
 import IconMenu from '../components/svg/IconMenu.vue';
 import IconClose from '../components/svg/IconClose.vue';
 import InternalLink from '../components/link/InternalLink.vue';
+
+const { currentRoute } = useRouter();
 
 const { t } = useI18n();
 
@@ -92,6 +75,10 @@ const emit = defineEmits<{
 }>();
 
 const envBadge = import.meta.env.VITE_APP_ENV_BADGE;
+
+const isFullWidthNav = computed(() => {
+  return currentRoute.value.path.startsWith('/dataset/');
+});
 
 function toggleMenu() {
   emit('toggleMenu', !props.isMenuOpen);
