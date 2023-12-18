@@ -48,6 +48,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         {{ t('datasets.listView.viewLinks.raw.short') }}
       </span>
     </DetailsLink>
+    <DetailsLink
+      v-if="showDelete"
+      :title="t('datasets.listView.viewLinks.delete.title')"
+      data-test="dataset-delete-link"
+      @click="onDelete()"
+    >
+      <IconCloseCircled class="h-4/5 grow stroke-red-500" />
+      <span class="text-3xs uppercase text-red-500">{{
+        t('datasets.listView.viewLinks.delete.short')
+      }}</span>
+    </DetailsLink>
   </div>
 </template>
 
@@ -59,10 +70,12 @@ import IconCode from '../../../../components/svg/IconCode.vue';
 import IconEdit from '../../../../components/svg/IconEdit.vue';
 import IconEye from '../../../../components/svg/IconEye.vue';
 import IconLayer from '../../../../components/svg/IconLayer.vue';
+import IconCloseCircled from '../../../../components/svg/IconCloseCircled.vue';
 import { RecordId } from '../../../datasets/types';
 import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
 import { useSingleRecordLocations } from '../../location/datasetViewLocation';
 import DetailsLink from './DetailsLink.vue';
+import { useEventDelete } from './utils';
 
 const { t } = useI18n();
 
@@ -70,6 +83,7 @@ const props = defineProps<{
   recordId: RecordId;
   showEdit: boolean;
   showQuick: boolean;
+  showDelete: boolean;
 }>();
 
 const { recordId } = toRefs(props);
@@ -80,4 +94,8 @@ const { datasetDomain, datasetPath, datasetQuery } = storeToRefs(
 
 const { detailLocation, editLocation, rawLocation, quickLocation } =
   useSingleRecordLocations(datasetDomain, datasetPath, datasetQuery, recordId);
+
+const onDelete = () => {
+  useEventDelete.emit(recordId.value);
+};
 </script>

@@ -59,6 +59,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :record-id="recordId"
             :show-edit="showEdit"
             :show-quick="showQuick"
+            :show-delete="showDelete"
           />
         </TableCell>
       </tr>
@@ -90,6 +91,7 @@ const props = withDefaults(
     showDetail: boolean;
     showEdit: boolean;
     showQuick: boolean;
+    showDelete: boolean;
     datasetDomain: DatasetDomain | undefined;
   }>(),
   {}
