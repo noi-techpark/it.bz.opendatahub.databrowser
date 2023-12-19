@@ -25,6 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :category="currentCategory"
         :sub-categories="subCategories"
         :show-all="showAll"
+        :show-deprecated="showDeprecated"
         :editable="editable"
       />
     </div>
@@ -47,6 +48,7 @@ defineProps<{
   currentCategory: Category | undefined;
   slug: string;
   showAll: boolean;
+  showDeprecated: boolean;
   showEditHint: boolean;
   editable: boolean;
 }>();

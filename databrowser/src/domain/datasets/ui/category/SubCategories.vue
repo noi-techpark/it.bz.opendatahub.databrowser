@@ -56,6 +56,7 @@ const props = defineProps<{
   category?: Category;
   showAll?: boolean;
   editable?: boolean;
+  showDeprecated?: boolean;
 }>();
 
 const { computeProperties } = usePropertyComputation();
@@ -67,7 +68,8 @@ const subCategoriesWithValues = computed(() =>
       props.data,
       subCategory.properties,
       props.showAll ?? false,
-      props.editable ?? false
+      props.editable ?? false,
+      props.showDeprecated ?? false
     ),
   }))
 );

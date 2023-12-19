@@ -17,15 +17,24 @@ export const usePropertyComputation = () => {
     data: unknown,
     properties: PropertyConfig[],
     showAllProperties: boolean,
-    editable: boolean
+    editable: boolean,
+    showDeprecatedProperties: boolean
   ): PropertyConfigWithValue[] => {
     // Add data to properties such that it can be used in the render component
-    const propertiesWithValue: PropertyConfigWithValue[] = properties.map(
-      (property) => {
+    const propertiesWithValue: PropertyConfigWithValue[] = properties
+      .filter((property) => {
+        if (showDeprecatedProperties) {
+          return true;
+        }
+
+        return (
+          !property.deprecationInfo || property.deprecationInfo.length === 0
+        );
+      })
+      .map((property) => {
         const value = buildTargetFromMapping(data, property);
         return { ...property, value };
-      }
-    );
+      });
 
     // Show all properties in edit mode. The emptiness value
     // is set to false for all properties configs, to make sure that

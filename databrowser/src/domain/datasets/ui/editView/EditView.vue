@@ -34,6 +34,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       />
       <div class="flex h-screen flex-col justify-between overflow-auto">
         <ShowEmptyFields v-model="showAll" :disabled="true" />
+        <ShowDeprecatedFields v-model="showDeprecated" />
         <div
           class="flex grow md:overflow-y-auto"
           :class="[{ 'pointer-events-none opacity-50': isMutateLoading }]"
@@ -46,6 +47,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :current-category="currentCategory"
             :slug="slug"
             :show-all="true"
+            :show-deprecated="showDeprecated"
             :show-edit-hint="true"
             :editable="true"
           />
@@ -82,6 +84,7 @@ import MainAndSubCategories from '../common/MainAndSubCategories.vue';
 import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
 import { useSingleRecordMutateData } from '../common/load/useSingleRecordMutateData';
 import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
+import ShowDeprecatedFields from '../common/showDeprecatedFields/ShowDeprecatedFields.vue';
 import EditFooter from './EditFooter.vue';
 import EditSaveError from './EditSaveError.vue';
 import DiscardChangesDialog from './dialogs/DiscardChangesDialog.vue';
@@ -95,6 +98,7 @@ import { useEditStoreSync } from './useEditStoreSync';
 const { t } = useI18n();
 
 const showAll = ref(true);
+const showDeprecated = ref(false);
 
 const auth = useAuth();
 

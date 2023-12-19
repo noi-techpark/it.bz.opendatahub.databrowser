@@ -12,10 +12,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
 
     <template #header-cols>
-      <TableHeaderCell v-for="col in cols" :key="col.title">
+      <TableHeaderCell
+        v-for="col in cols"
+        :key="col.title"
+        :class="{
+          'border-x-deprecated border-t-deprecated bg-deprecated/10':
+            getHasDeprecationInfo(col),
+        }"
+      >
         <SortAndFilterHeader
           :title="col.title"
           :property-path="col.firstPropertyPath"
+          :is-deprecated="getHasDeprecationInfo(col)"
         />
       </TableHeaderCell>
       <TableHeaderCell v-if="showLinkColumn" class="sticky right-0 bg-gray-50">
@@ -43,7 +51,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <TableCell
           v-for="(col, colIndex) in cols"
           :key="col.title"
-          :class="{ 'mix-blend-multiply': rowIndex === selectedRowIndex }"
+          :class="{
+            'mix-blend-multiply': rowIndex === selectedRowIndex,
+            'border-x-deprecated': getHasDeprecationInfo(col),
+          }"
         >
           <ComponentRenderer
             :tag-name="col.component"
@@ -106,4 +117,7 @@ const { selectedRowIndex, rowClicked, rowDblClicked } =
 const showLinkColumn = computed(
   () => props.showDetail || props.showEdit || props.showQuick
 );
+
+const getHasDeprecationInfo = (col: Column) =>
+  col.deprecationInfo && col.deprecationInfo.length > 0;
 </script>
