@@ -15,7 +15,7 @@ export const useTableLoadData = (
   fullPath: MaybeRef<string | undefined>
 ) => {
   // Fetch data
-  const { data, error, isError, isLoading } = useApiRead(fullPath, {
+  const { data, error, isError, isLoading, refetch } = useApiRead(fullPath, {
     withAuth: true,
   });
 
@@ -34,5 +34,6 @@ export const useTableLoadData = (
     error,
     isError,
     isDataLoading: isLoading,
+    refetch,
   };
 };
