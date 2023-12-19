@@ -75,7 +75,7 @@ import { RecordId } from '../../../datasets/types';
 import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
 import { useSingleRecordLocations } from '../../location/datasetViewLocation';
 import DetailsLink from './DetailsLink.vue';
-import { useEventDelete } from './utils';
+import { useEventDelete } from './useTableDelete';
 
 const { t } = useI18n();
 

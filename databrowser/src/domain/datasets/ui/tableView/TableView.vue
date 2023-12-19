@@ -38,15 +38,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         ? t('datasets.editView.dialog.deleteDialog.commonDescriptionSingular')
         : t('datasets.editView.dialog.deleteDialog.commonDescriptionPlural')
     "
-    :confirm-button-disabled="isMutateLoading"
-    :close-button-disabled="isMutateLoading"
+    :confirm-button-disabled="isDeleting"
+    :close-button-disabled="isDeleting"
     @confirm-delete="onDelete()"
     @close="closeDeleteConfirmation()"
   />
 </template>
 
 <script setup lang="ts">
-import { watch, ref } from 'vue';
+import { watch } from 'vue';
 import { useRouter } from 'vue-router';
 import LoadingError from '../../../../components/loading/LoadingError.vue';
 import { useI18n } from 'vue-i18n';
@@ -56,10 +56,9 @@ import TableFilterHint from './filter/TableFilterHint.vue';
 import { useTableLoad } from './load/useTableLoad';
 import { useTableViewRouteQueryStore } from './tableViewRouteQueryStore';
 import TableToolBox from './toolBox/TableToolBox.vue';
-import { useEventDelete } from './utils';
 import EditListDeleteDialog from '../../../cellComponents/components/utils/editList/dialogs/EditListDeleteDialog.vue';
 
-import { useApiMutate } from '../../../api/useApi';
+import { useTableDelete } from './useTableDelete';
 
 const { t } = useI18n();
 
@@ -78,60 +77,12 @@ const {
   refetch,
 } = useTableLoad();
 
-const deleteDialog = ref({
-  // NOTE: idsToDelete set as array to facilitate further implementations
-  idsToDelete: [] as string[],
-  isVisible: false,
-});
-
-const deleteUrl = ref();
-
-const {
-  isSuccess: isMutateSuccess,
-  mutate,
-  isPending: isMutateLoading,
-} = useApiMutate(deleteUrl, {
-  method: 'delete',
-});
+const { deleteDialog, onDelete, isDeleting, closeDeleteConfirmation } =
+  useTableDelete(fullPath, refetch);
 
 // Store TableView route query in a store for later use e.g. in DetailView
 // to keep the query params when switching between DetailView and TableView.
 const { currentRoute } = useRouter();
 const { setRouteQuery } = useTableViewRouteQueryStore();
 watch(currentRoute, ({ query }) => setRouteQuery(query), { immediate: true });
-
-watch(
-  () => isMutateSuccess.value,
-  (newValue: boolean) => {
-    if (newValue) {
-      closeDeleteConfirmation();
-      refetch();
-    }
-  }
-);
-
-useEventDelete.on((id: string | undefined) => {
-  if (id) {
-    openDeleteConfirmation(id);
-  }
-});
-
-const openDeleteConfirmation = (id: string) => {
-  deleteDialog.value.isVisible = true;
-  deleteDialog.value.idsToDelete = [id];
-};
-
-const closeDeleteConfirmation = () => {
-  deleteDialog.value.isVisible = false;
-  deleteDialog.value.idsToDelete = [];
-};
-
-const onDelete = async () => {
-  const currentBaseUrl = fullPath.value?.split('?')[0];
-  for (const idToDelete of deleteDialog.value.idsToDelete) {
-    deleteUrl.value = `${currentBaseUrl}/${idToDelete}`;
-
-    mutate();
-  }
-};
 </script>
