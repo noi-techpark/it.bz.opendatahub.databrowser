@@ -68,6 +68,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           v-if="filter.operator !== 'isnull' && filter.operator !== 'isnotnull'"
           :id="`filter-${filter.propertyPath}`"
           :model-value="filter.value?.toString()"
+          @update:model-value="filter.value = $event"
           @filter="updateFilterValue(index, filter.operator, $event)"
         />
       </ToolBoxCardBody>
