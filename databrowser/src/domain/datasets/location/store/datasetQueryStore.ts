@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
-import { Ref, computed } from 'vue';
+import { MaybeRef, Ref, computed, toValue } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDatasetBaseInfoStore } from '../../config/store/datasetBaseInfoStore';
 
@@ -36,18 +36,22 @@ export const useDatasetQueryStore = defineStore('datasetRoutingStore', () => {
     >((prev, name) => ({ ...prev, [name]: buildQueryHandler(name) }), {});
   });
 
-  const handle = (name: string) =>
+  const handle = (name: MaybeRef<string>) =>
     computed({
-      get: () => queryHandlers.value[name]?.value,
+      get: () => queryHandlers.value[toValue(name)]?.value,
       set: (value: string | undefined) => {
+        const nameValue = toValue(name);
         // Handle the case where the query handler is not defined, e.g. because
         // the query parameter is not defined in the dataset config. Examples
         // for this are the query parameters "searchfilter" or "rawfilter"
-        if (queryHandlers.value[name] == null) {
-          const query = { ...router.currentRoute.value.query, [name]: value };
+        if (queryHandlers.value[nameValue] == null) {
+          const query = {
+            ...router.currentRoute.value.query,
+            [nameValue]: value,
+          };
           router.push({ query });
         } else {
-          queryHandlers.value[name].value = value;
+          queryHandlers.value[nameValue].value = value;
         }
       },
     });

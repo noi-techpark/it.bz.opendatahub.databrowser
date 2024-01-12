@@ -4,8 +4,8 @@
 
 import {
   FilterOperator,
-  Rawfilter,
-  RawfilterParser,
+  BaseFilter,
+  StringFilterParser,
   isFilterOperator,
 } from '../types';
 
@@ -69,14 +69,16 @@ import {
 const filterRegex =
   /(?<propertyPath>\w+)\.(?<operator>eq|neq|gt|lt|gteq|lteq|re|ire|nre|nire|in|nin|bbi|bbc)\.(?<value>true|false|\d+|"\w*"|\([\w.,]*\))/g;
 
-export const mobilityParseFilterWithRegex: RawfilterParser = (rawfilter) => {
-  // If rawfilter is undefined, return an empty array.
-  if (rawfilter == undefined) {
+export const mobilityParseFilterWithRegex: StringFilterParser = (
+  filterString
+) => {
+  // If filterString is undefined, return an empty array.
+  if (filterString == undefined) {
     return [];
   }
 
-  // If rawfilter does not match the filterRegex, return an empty array.
-  const matches = rawfilter.matchAll(filterRegex);
+  // If filterString does not match the filterRegex, return an empty array.
+  const matches = filterString.matchAll(filterRegex);
   if (matches == null) {
     return [];
   }
@@ -85,7 +87,7 @@ export const mobilityParseFilterWithRegex: RawfilterParser = (rawfilter) => {
     .filter(
       (g) => g != null && g.propertyPath != null && isFilterOperator(g.operator)
     )
-    .map<Rawfilter>((g) => {
+    .map<BaseFilter>((g) => {
       const propertyPath = convertToPropertyPath(g!.propertyPath);
       const operator = g!.operator as FilterOperator;
       const value = convertToValue(g!.value);

@@ -4,7 +4,7 @@
 
 import { MobilityFilterOption, TourismFilterOption } from './types';
 
-export const tourismFilterSelectOptions: TourismFilterOption[] = [
+export const tourismFilterTypeSelectOptions: TourismFilterOption[] = [
   {
     label: 'equal to',
     value: 'eq',
@@ -55,7 +55,7 @@ export const tourismFilterSelectOptions: TourismFilterOption[] = [
   },
 ];
 
-export const mobilityFilterSelectOptions: MobilityFilterOption[] = [
+export const mobilityFilterTypeSelectOptions: MobilityFilterOption[] = [
   {
     label: 'equal to',
     value: 'eq',

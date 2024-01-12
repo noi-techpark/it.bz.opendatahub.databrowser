@@ -79,10 +79,10 @@ import IconSortDesc from '../../../../components/svg/IconSortDesc.vue';
 import IconStrokedArrowDown from '../../../../components/svg/IconStrokedArrowDown.vue';
 import { PropertyPath } from '../../../datasets/config/types';
 import FilterPopoverContent from './filter/FilterPopoverContent.vue';
-import { useTableFilterForPropertyPath } from './filter/useTableFilter';
 import SortPopoverContent from './sort/SortPopoverContent.vue';
 import { useTableSortForPropertyPath } from './sort/useTableSort';
 import TooltipCustom from '../../../../components/tooltip/TooltipCustom.vue';
+import { useTableFilterStore } from './filter/tableFilterStore';
 
 const props = withDefaults(
   defineProps<{
@@ -90,7 +90,7 @@ const props = withDefaults(
     propertyPath?: PropertyPath;
     isDeprecated?: boolean;
   }>(),
-  { propertyPath: undefined }
+  { propertyPath: undefined, isDeprecated: false }
 );
 
 const { title, propertyPath } = toRefs(props);
@@ -98,8 +98,7 @@ const { title, propertyPath } = toRefs(props);
 const { canSort, isCurrentSortAsc, isCurrentSortDesc } =
   useTableSortForPropertyPath(propertyPath);
 
-const { canFilter, isFilterActive } = useTableFilterForPropertyPath(
-  title,
-  propertyPath
-);
+const canFilter = useTableFilterStore().canFilter(propertyPath);
+
+const isFilterActive = useTableFilterStore().isFilterActive(propertyPath);
 </script>
