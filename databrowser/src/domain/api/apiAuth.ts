@@ -2,19 +2,20 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosStatic } from 'axios';
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosStatic,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { storeToRefs } from 'pinia';
 import { watch } from 'vue';
 import { useAuth } from '../auth/store/auth';
 import { useDatasetBaseInfoStore } from '../datasets/config/store/datasetBaseInfoStore';
 
-type BeforeFetchFn<T = unknown> = (
-  config: AxiosRequestConfig<T>
-) => Promise<AxiosRequestConfig<T>> | AxiosRequestConfig<T>;
-
-export const buildAuthInterceptor = <T>(): BeforeFetchFn<T> => {
+export const buildAuthInterceptor = () => {
   const addAuthToCtx = (
-    ctx: AxiosRequestConfig<T>,
+    ctx: AxiosRequestConfig,
     authenticated: boolean,
     accessToken: string | null
   ) => {
@@ -29,7 +30,9 @@ export const buildAuthInterceptor = <T>(): BeforeFetchFn<T> => {
   const { datasetDomain } = storeToRefs(useDatasetBaseInfoStore());
   const { ready, isAuthenticated, accessToken } = storeToRefs(useAuth());
 
-  return async (ctx) => {
+  return async (
+    config: InternalAxiosRequestConfig
+  ): Promise<InternalAxiosRequestConfig> => {
     // At the moment, only tourism domain auth is supported.
     // For all other domains, we don't add auth information.
     if (datasetDomain.value === 'tourism') {
@@ -38,8 +41,8 @@ export const buildAuthInterceptor = <T>(): BeforeFetchFn<T> => {
           ready,
           (ready) => {
             if (ready) {
-              addAuthToCtx(ctx, isAuthenticated.value, accessToken.value);
-              resolve(ctx);
+              addAuthToCtx(config, isAuthenticated.value, accessToken.value);
+              resolve(config);
             }
           },
           { immediate: true }
@@ -47,7 +50,7 @@ export const buildAuthInterceptor = <T>(): BeforeFetchFn<T> => {
       });
     }
 
-    return Promise.resolve(ctx);
+    return Promise.resolve(config);
   };
 };
 
