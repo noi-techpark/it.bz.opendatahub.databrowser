@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </ToolBoxCardHeader>
 
       <ToolBoxCardBody
-        v-for="(filter, index) in filtersFromStore"
+        v-for="(filter, index) in filters"
         :key="`${filter.propertyPath}-${index}`"
         class="flex flex-col gap-2"
       >
@@ -49,7 +49,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
         <div class="flex items-center gap-2">
           <SelectCustom
-            :options="filterOptions"
+            :options="filterColSelectOptions"
             :show-value-as-label-fallback="true"
             :value="filter.propertyPath"
             :z-index="30"
@@ -57,11 +57,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             @change="filter.propertyPath = $event"
           />
           <SelectCustom
-            :options="filterSelectOptions"
+            :options="filterTypeSelectOptions"
             :value="filter.operator"
             :z-index="30"
             class="basis-1/2"
-            @change="updateFilterValue(index, $event, filter.value)"
+            @change="updateFilter(index, $event, filter.value, false)"
           />
         </div>
         <InputFilter
@@ -69,7 +69,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :id="`filter-${filter.propertyPath}`"
           :model-value="filter.value?.toString()"
           @update:model-value="filter.value = $event"
-          @filter="updateFilterValue(index, filter.operator, $event)"
+          @filter="updateFilter(index, filter.operator, $event, true)"
         />
       </ToolBoxCardBody>
       <ToolBoxCardBody>
@@ -100,7 +100,6 @@ import { Size, Variant } from '../../../../../components/button/types';
 import InputFilter from '../../../../../components/input/InputFilter.vue';
 import InputSearch from '../../../../../components/input/InputSearch.vue';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
-import { SelectOption } from '../../../../../components/select/types';
 import IconClose from '../../../../../components/svg/IconClose.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import TagCustom from '../../../../../components/tag/TagCustom.vue';
@@ -112,16 +111,15 @@ import ToolBoxCardHeader from '../../toolBox/ToolBoxCardHeader.vue';
 import ToolBoxPanel from '../../toolBox/ToolBoxPanel.vue';
 import ResetAllFilters from '../filter/ResetAllFilters.vue';
 import {
-  mobilityFilterSelectOptions,
-  tourismFilterSelectOptions,
+  mobilityFilterTypeSelectOptions,
+  tourismFilterTypeSelectOptions,
 } from '../filter/filterSelectOptions';
-import { useTableFilter } from '../filter/useTableFilter';
+import { useTableFilterStore } from '../filter/tableFilterStore';
 import InfoFilter from './InfoFilter.vue';
 import InfoSearch from './InfoSearch.vue';
+import { FilterOperator, FilterValue } from '../filter/types';
 
 const { t } = useI18n();
-
-defineProps<{ filterOptions: SelectOption[] }>();
 
 const searchfilter = useDatasetQueryStore().handle('searchfilter');
 
@@ -130,22 +128,37 @@ const search = (term: string) => {
   searchfilter.value = value;
 };
 
-const {
-  addEmptyFilter,
-  updateFilterValue,
-  removeAllFilters,
-  removeFilterByIndex,
-  filtersFromStore,
-} = useTableFilter();
-
 const { datasetDomain } = storeToRefs(useDatasetBaseInfoStore());
-const filterSelectOptions = computed(() => {
+const filterTypeSelectOptions = computed(() => {
   if (datasetDomain.value === 'tourism') {
-    return tourismFilterSelectOptions;
+    return tourismFilterTypeSelectOptions;
   }
   if (datasetDomain.value === 'mobility') {
-    return mobilityFilterSelectOptions;
+    return mobilityFilterTypeSelectOptions;
   }
   return [];
 });
+
+const { filters, filterColSelectOptions } = storeToRefs(useTableFilterStore());
+const {
+  addEmptyFilter,
+  removeAllFilters,
+  removeFilterByIndex,
+  updateFilterValue,
+} = useTableFilterStore();
+
+const updateFilter = (
+  index: number,
+  operator: FilterOperator,
+  value: FilterValue,
+  unconditionallyApplyFilters: boolean
+) => {
+  // Apply filters if operator is 'isnull' or 'isnotnull' or if the user
+  // explicitly wants to apply the filters
+  const applyFilters =
+    unconditionallyApplyFilters ||
+    operator === 'isnull' ||
+    operator === 'isnotnull';
+  updateFilterValue(index, operator, value, applyFilters);
+};
 </script>

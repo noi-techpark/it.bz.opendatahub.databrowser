@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         />
         <TableFooter :pagination="pagination" />
       </div>
-      <TableToolBox :url="fullPath" :cols="cols" />
+      <TableToolBox :url="fullPath" />
     </div>
   </section>
   <EditListDeleteDialog

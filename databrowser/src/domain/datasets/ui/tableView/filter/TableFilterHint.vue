@@ -16,10 +16,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { useTableFilter } from './useTableFilter';
 import ResetAllFilters from './ResetAllFilters.vue';
+import { useTableFilterStore } from './tableFilterStore';
+import { storeToRefs } from 'pinia';
 
 const { t } = useI18n();
 
-const { areFiltersActive, removeAllFilters } = useTableFilter();
+const { areFiltersActive } = storeToRefs(useTableFilterStore());
+
+const { removeAllFilters } = useTableFilterStore();
 </script>
