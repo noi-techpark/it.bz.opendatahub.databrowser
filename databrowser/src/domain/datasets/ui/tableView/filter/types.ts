@@ -54,7 +54,6 @@ export type FilterOperator = (
 )[number];
 
 export type FilterOption = TourismFilterOption | MobilityFilterOption;
-// export type FilterOption = SelectOption & { value: FilterOperator };
 
 export type FilterValue = string | number | boolean | unknown[] | undefined;
 
@@ -63,14 +62,14 @@ export const isFilterOperator = (value?: string): value is FilterOperator =>
   (TOURISM_FILTER_OPERATORS.includes(value as TourismFilterOperator) ||
     MOBILITY_FILTER_OPERATORS.includes(value as MobilityFilterOperator));
 
-export interface Rawfilter {
+export interface BaseFilter {
   propertyPath: string;
   operator: FilterOperator;
   value?: FilterValue;
 }
 
-export interface Filter extends Rawfilter {
+export interface Filter extends BaseFilter {
   title: string;
 }
 
-export type RawfilterParser = (rawfilter?: string) => Rawfilter[];
+export type StringFilterParser = (filterString?: string) => BaseFilter[];

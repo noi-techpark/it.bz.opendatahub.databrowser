@@ -22,7 +22,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       class="flex min-w-[20em] items-center gap-2 p-2"
       :size="Size.xs"
       :variant="Variant.ghost"
-      @click="removeFilter"
+      @click="removeFilterByPropertyPath(propertyPath)"
     >
       <IconDelete class="text-delete" /> Reset filter
     </ButtonCustom>
@@ -50,7 +50,7 @@ const props = withDefaults(
 
 const { title, propertyPath } = toRefs(props);
 
-const { addFilter, removeFilter } = useTableFilterStore();
+const { addFilter, removeFilterByPropertyPath } = useTableFilterStore();
 
 const isFilterActive = useTableFilterStore().isFilterActive(propertyPath);
 

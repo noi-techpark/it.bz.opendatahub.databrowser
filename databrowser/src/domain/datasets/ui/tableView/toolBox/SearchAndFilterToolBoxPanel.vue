@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </ToolBoxCardHeader>
 
       <ToolBoxCardBody
-        v-for="(filter, index) in filters"
+        v-for="(filter, index) in tableFilters"
         :key="`${filter.propertyPath}-${index}`"
         class="flex flex-col gap-2"
       >
@@ -139,12 +139,14 @@ const filterTypeSelectOptions = computed(() => {
   return [];
 });
 
-const { filters, filterColSelectOptions } = storeToRefs(useTableFilterStore());
+const { tableFilters, filterColSelectOptions } = storeToRefs(
+  useTableFilterStore()
+);
 const {
   addEmptyFilter,
   removeAllFilters,
   removeFilterByIndex,
-  updateFilterValue,
+  updateFilterValueByIndex,
 } = useTableFilterStore();
 
 const updateFilter = (
@@ -159,6 +161,6 @@ const updateFilter = (
     unconditionallyApplyFilters ||
     operator === 'isnull' ||
     operator === 'isnotnull';
-  updateFilterValue(index, operator, value, applyFilters);
+  updateFilterValueByIndex(index, operator, value, applyFilters);
 };
 </script>

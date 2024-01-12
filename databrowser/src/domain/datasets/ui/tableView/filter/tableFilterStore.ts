@@ -2,23 +2,23 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { defineStore, storeToRefs } from 'pinia';
+import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
 import { Ref, computed, ref, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
 import { PropertyPath } from '../../../config/types';
 import { useToolBoxStore } from '../../toolBox/toolBoxStore';
 import { useTableViewColsStore } from '../tableViewColsStore';
-import { useRawfilterHandler } from './rawfilterHandler';
+import { useDatasetFilterStore } from './datasetFilterStore';
 import { Filter, FilterOperator, FilterValue } from './types';
 
 export const useTableFilterStore = defineStore('tableFilterStore', () => {
-  const filters = ref<Filter[]>([]);
+  const tableFilters = ref<Filter[]>([]);
 
-  // Access rawfilters from URL
-  const { rawfilters, updateRawfilters } = useRawfilterHandler();
+  // Access datasetFilters from URL
+  const { datasetFilters } = storeToRefs(useDatasetFilterStore());
 
   // Check if any filter is active
-  const areFiltersActive = computed(() => rawfilters.value.length > 0);
+  const areFiltersActive = computed(() => datasetFilters.value.length > 0);
 
   // Get table columns
   const { cols } = storeToRefs(useTableViewColsStore());
@@ -31,16 +31,14 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
     }))
   );
 
-  // Update filters if rawfilters or cols change
-  watch([rawfilters, cols], () => {
-    const filtersWithTitles = rawfilters.value.map((filter) => {
+  // Update filters if datasetFilters or cols change
+  watch([datasetFilters, cols], () => {
+    tableFilters.value = datasetFilters.value.map((filter) => {
       const title =
         cols.value.find((col) => col.firstPropertyPath === filter.propertyPath)
           ?.title ?? filter.propertyPath;
       return { ...filter, title };
     });
-
-    setFilters(filtersWithTitles);
   });
 
   // Add empty filter
@@ -51,10 +49,9 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
     );
     // If such a column exists, add a filter for it
     if (colWithPropertyPath != null) {
-      addFilterByPropertyPath(
-        // We checked that firstPropertyPath is not null above, so we can use ! here
-        colWithPropertyPath.firstPropertyPath!,
-        colWithPropertyPath.title
+      addFilter(
+        colWithPropertyPath.title,
+        colWithPropertyPath.firstPropertyPath
       );
     }
   };
@@ -62,18 +59,13 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
   // Add filter for a given propertyPath with default operator and value
   const addFilter = (title: string, propertyPath: PropertyPath | undefined) => {
     if (propertyPath != null) {
-      addFilterByPropertyPath(propertyPath, title);
+      tableFilters.value = [
+        ...tableFilters.value,
+        { propertyPath, title, operator: 'eq', value: '' },
+      ];
       // Show toolbox
       useToolBoxStore().visible = true;
     }
-  };
-
-  // Add filter for a given propertyPath with default operator and value
-  const addFilterByPropertyPath = (propertyPath: string, title: string) => {
-    filters.value = [
-      ...filters.value,
-      { propertyPath, title, operator: 'eq', value: '' },
-    ];
   };
 
   // The canFilter function returns true if there exists a propertyPath for which filtering can be performed.
@@ -87,18 +79,19 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
         return false;
       }
       return (
-        rawfilters.value.filter((f) => f.propertyPath === propertyPath.value)
-          .length > 0
+        datasetFilters.value.filter(
+          (f) => f.propertyPath === propertyPath.value
+        ).length > 0
       );
     });
 
   // Remove all filters
-  const removeAllFilters = () => updateRawfilters([]);
+  const removeAllFilters = () => (datasetFilters.value = []);
 
   // Remove filter for a given propertyPath
   const removeFilterByPropertyPath = (propertyPath?: string) => {
     if (propertyPath != null) {
-      filters.value = filters.value.filter(
+      datasetFilters.value = tableFilters.value.filter(
         (filter) => filter.propertyPath !== propertyPath
       );
     }
@@ -107,52 +100,45 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
   // Remove filter by index
   const removeFilterByIndex = (index?: number) => {
     if (index != null) {
-      filters.value = filters.value.filter((_, i) => i !== index);
+      datasetFilters.value = tableFilters.value.filter((_, i) => i !== index);
     }
   };
 
-  // Set all filters
-  const setFilters = (nextFilters: Filter[]) => (filters.value = nextFilters);
-
-  // Update filter value and, if applyFilter is true, apply filters to URL such that they take effect
-  const updateFilterValue = (
+  // Update filter value by index and, if applyFilter is true, apply filters to URL such that they take effect
+  const updateFilterValueByIndex = (
     index: number,
     operator: FilterOperator,
     value: FilterValue,
     applyFilter = true
   ) => {
-    const updatedFilters = filters.value.map((filter, i) =>
+    const updatedFilters = tableFilters.value.map((filter, i) =>
       i === index ? { ...filter, operator, value } : filter
     );
 
-    setFilters(updatedFilters);
+    tableFilters.value = updatedFilters;
 
     // Apply filters to URL such that they take effect
     if (applyFilter) {
-      updateRawfilters(filters.value);
+      datasetFilters.value = tableFilters.value;
     }
-  };
-
-  // Remove filter for a given propertyPath
-  const removeFilter = (propertyPath: Ref<PropertyPath | undefined>) => {
-    removeFilterByPropertyPath(propertyPath.value);
-    updateRawfilters(filters.value);
   };
 
   return {
     areFiltersActive,
-    filters,
     filterColSelectOptions,
+    tableFilters,
     addEmptyFilter,
     addFilter,
-    addFilterByPropertyPath,
     canFilter,
     isFilterActive,
     removeAllFilters,
-    removeFilter,
     removeFilterByPropertyPath,
     removeFilterByIndex,
-    setFilters,
-    updateFilterValue,
+    updateFilterValueByIndex,
   };
 });
+
+// Add support for hot-module-reload
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useTableFilterStore, import.meta.hot));
+}
