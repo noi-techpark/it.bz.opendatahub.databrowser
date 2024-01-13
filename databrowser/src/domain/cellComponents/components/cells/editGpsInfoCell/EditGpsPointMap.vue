@@ -7,52 +7,52 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <div class="flex flex-wrap gap-3 lg:flex-nowrap">
     <div class="flex basis-full flex-col gap-3 lg:basis-1/3">
-      <div>
-        <label for="select-gps-type" class="mb-1 inline-block">{{
-          t('datasets.editView.map.gpsType')
-        }}</label>
+      <SubCategoryItem :title="t('datasets.editView.map.gpsType')">
         <SelectWithOptionsCell
           id="select-gps-type"
           :value="position.gpsType"
           :options="gpsTypeOptions"
           show-add-new-value
+          :editable="editable"
           class="w-full"
           @update="onUpdateGpsType($event.value)"
           @add-new-value="onAddNewValueInSelect"
         />
-      </div>
-      <InputCustom
-        v-model="position.latitude"
-        :label="t('datasets.editView.map.latitude')"
-        type="text"
-        input-classes="w-full"
-        has-label-top
-        @input="onUpdatePosition()"
-      />
-      <InputCustom
-        v-model="position.longitude"
-        :label="t('datasets.editView.map.longitude')"
-        type="text"
-        input-classes="w-full"
-        has-label-top
-        @input="onUpdatePosition()"
-      />
-      <InputCustom
-        v-model="position.altitude"
-        :label="t('datasets.editView.map.altitude')"
-        type="text"
-        input-classes="w-full"
-        has-label-top
-        @input="onUpdatePosition()"
-      />
-      <InputCustom
-        v-model="position.unitMeasureAltitude"
-        :label="t('datasets.editView.map.altitudeUnit')"
-        type="text"
-        disabled
-        input-classes="w-full"
-        has-label-top
-      />
+      </SubCategoryItem>
+      <SubCategoryItem :title="t('datasets.editView.map.latitude')">
+        <StringCell
+          :text="position.latitude"
+          :editable="editable"
+          @input="onUpdateInputPositionValue('latitude', $event.target.value)"
+        />
+      </SubCategoryItem>
+      <SubCategoryItem :title="t('datasets.editView.map.longitude')">
+        <StringCell
+          :text="position.longitude"
+          :editable="editable"
+          @input="onUpdateInputPositionValue('longitude', $event.target.value)"
+        />
+      </SubCategoryItem>
+      <SubCategoryItem :title="t('datasets.editView.map.altitude')">
+        <StringCell
+          :text="position.altitude"
+          :editable="editable"
+          @input="onUpdateInputPositionValue('altitude', $event.target.value)"
+        />
+      </SubCategoryItem>
+
+      <SubCategoryItem :title="t('datasets.editView.map.altitudeUnit')">
+        <StringCell
+          :text="position.unitMeasureAltitude"
+          readonly
+          @input="
+            onUpdateInputPositionValue(
+              'unitMeasureAltitude',
+              $event.target.value
+            )
+          "
+        />
+      </SubCategoryItem>
     </div>
 
     <div class="z-0 basis-full lg:basis-2/3">
@@ -60,7 +60,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :title="t('datasets.editView.map.mapPreviewDataInserted')"
         content-has-no-padding
         :sections="[]"
-        :cta-icon="['IconPencil', 'IconExpand']"
+        :cta-icon="editable ? ['IconPencil', 'IconExpand'] : ['IconExpand']"
         :icons-active="iconsActive"
         @cta-click="onCtaClick"
       >
@@ -70,6 +70,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :latitude="position.latitude"
             :longitude="position.longitude"
             :fallback-center="fallbackMapCenter"
+            :editable="editable"
             @map-click="onMapClick"
             @enable-set-marker="onEnableSetMarker"
           />
@@ -83,7 +84,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { PointExpression } from 'leaflet';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import InputCustom from '../../../../../components/input/InputCustom.vue';
 import GpsPointMap from '../../../../../components/map/GpsPointMap.vue';
 import { PointPosition, Position } from '../../../../../components/map/types';
 import { getCoordinatesOfBolzano } from '../../../../../components/map/utils';
@@ -91,6 +91,11 @@ import QuickViewCardOverview from '../../../../../components/quickview/QuickView
 import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import { useEditGpsInfoCellStore } from './editGpsInfoCellStore';
+import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
+import StringCell from '../stringCell/StringCell.vue';
+import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
+
+const { editable } = useInjectEditMode();
 
 const { t } = useI18n();
 
@@ -101,6 +106,8 @@ const editStore = useEditStore();
 
 const enableSetMarker = ref(false);
 const gpsPointMap = ref();
+
+type PointPositionKey = keyof PointPosition;
 
 const position = ref({
   latitude: '' as string | number | undefined,
@@ -138,7 +145,7 @@ const initialState = computed(() => {
 watch(
   () => initialState.value,
   () => {
-    if (!editStore.isEqual || !enableSetMarker.value) return;
+    if (!editStore.isEqual || !enableSetMarker.value || !editable.value) return;
 
     gpsPointMap.value.toggleEditMode();
   }
@@ -184,6 +191,12 @@ const onUpdateGpsType = (value: string) => {
 const onMapClick = (newPosition: Position) => {
   position.value.latitude = newPosition.lat;
   position.value.longitude = newPosition.lng;
+
+  onUpdatePosition();
+};
+
+const onUpdateInputPositionValue = (key: PointPositionKey, value: string) => {
+  position.value[key] = value;
 
   onUpdatePosition();
 };

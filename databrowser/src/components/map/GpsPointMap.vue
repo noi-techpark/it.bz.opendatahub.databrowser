@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         class="absolute right-4 top-4 z-[999] flex items-center gap-3"
       >
         <ButtonCustom
-          v-if="mapView !== 'table'"
+          v-if="mapView !== 'table' && editable"
           variant="ghost"
           size="xs"
           class="flex h-12 w-12 items-center justify-center bg-white p-2"
@@ -94,6 +94,7 @@ const props = withDefaults(
     longitude?: string | number;
     height?: string;
     fallbackCenter?: PointExpression;
+    editable?: boolean;
     mapView?: undefined | 'table';
   }>(),
   {
@@ -101,6 +102,7 @@ const props = withDefaults(
     longitude: undefined,
     height: undefined,
     fallbackCenter: undefined,
+    editable: false,
     mapView: undefined,
   }
 );
