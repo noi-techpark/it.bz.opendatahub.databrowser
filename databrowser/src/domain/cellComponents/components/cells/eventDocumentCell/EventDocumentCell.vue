@@ -37,7 +37,7 @@ const updateWithCurrentLanguage = ({ value }: { value?: FileEntry[] }) => {
   const updatedFiles =
     value?.map((file) => ({
       ...file,
-      language: currentLanguage,
+      language: currentLanguage.value,
     })) || [];
 
   emit('update', { prop: 'items', value: updatedFiles });
