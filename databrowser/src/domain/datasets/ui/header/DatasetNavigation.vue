@@ -101,7 +101,9 @@ const {
   quickLocation,
 } = storeToRefs(useDatasetLocationStore());
 
-const hash = computed(() => useRouter().currentRoute.value.hash);
+const { currentRoute } = useRouter();
+
+const hash = computed(() => currentRoute.value.hash);
 
 // Combine query params from TableView with ones from the current route.
 // This is needed to keep the query params when switching between DetailView
