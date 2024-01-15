@@ -45,10 +45,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :key="i"
         class="flex items-center justify-between gap-3 rounded bg-deprecated/10 px-2 py-3 text-sm text-deprecated"
       >
-        <p v-if="availableDeprecationInfo.length > 1">
-          {{ item.pathToDeprecation }}
-        </p>
-        <p v-else>This field is deprecated</p>
+        <p>{{ item.description || 'This field is deprecated' }}</p>
         <TagCustom type="purple" text="Deprecated" has-dot />
       </div>
     </div>
