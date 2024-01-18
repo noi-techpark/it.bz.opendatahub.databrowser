@@ -45,7 +45,8 @@ export const computeApiFullUrl = (
       enhancedQuery['where'] = `and(scode.eq."${id}")`;
     }
     const queryString = `?${stringifyQuery(enhancedQuery)}`;
-    return `${baseUrl}/${pathString}${queryString}`;
+    const latest = id != null ? '/*/latest' : '';
+    return `${baseUrl}/${pathString}${latest}${queryString}`;
   }
 
   // Default if domain is unknown

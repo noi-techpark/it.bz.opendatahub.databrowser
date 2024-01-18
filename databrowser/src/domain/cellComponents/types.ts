@@ -27,6 +27,7 @@ export enum CellComponent {
   JsonCell = 'JsonCell',
   LoadingCell = 'LoadingCell',
   MappingCell = 'MappingCell',
+  MeasurementsCell = 'MeasurementsCell',
   OperationScheduleCell = 'OperationScheduleCell',
   SelectWithOptionsCell = 'SelectWithOptionsCell',
   StateCell = 'StateCell',
