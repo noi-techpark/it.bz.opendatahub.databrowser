@@ -29,6 +29,7 @@ import OperationScheduleCell from '../components/cells/operationScheduleCell/Ope
 import JsonCell from '../components/cells/jsonCell/JsonCell.vue';
 import LoadingCell from '../components/cells/loadingCell/LoadingCell.vue';
 import MappingCell from '../components/cells/mappingCell/MappingCell.vue';
+import MeasurementsCell from '../components/cells/measurementsCell/MeasurementsCell.vue';
 import SelectWithOptionsCell from '../components/cells/selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StateCell from '../components/cells/stateCell/StateCell.vue';
 import StringCell from '../components/cells/stringCell/StringCell.vue';
@@ -83,6 +84,7 @@ export default {
     app.component(CellComponent.JsonCell, JsonCell);
     app.component(CellComponent.LoadingCell, LoadingCell);
     app.component(CellComponent.MappingCell, MappingCell);
+    app.component(CellComponent.MeasurementsCell, MeasurementsCell);
     app.component(CellComponent.OperationScheduleCell, OperationScheduleCell);
     app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);
     app.component(CellComponent.StateCell, StateCell);

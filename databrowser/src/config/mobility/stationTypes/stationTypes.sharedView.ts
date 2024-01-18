@@ -158,67 +158,24 @@ export const stationTypesSharedView = ():
       slug: 'measurements',
       subcategories: [
         {
-          name: 'Measurement Details',
+          name: 'Measurement',
           properties: [
             {
-              title: 'tdescription',
-              component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.tdescription',
-              },
-            },
-            {
-              title: 'tname',
-              component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.tname',
-              },
-            },
-            {
-              title: 'ttype',
-              component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.ttype',
-              },
-            },
-            {
-              title: 'tunit',
-              component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.tunit',
-              },
-            },
-            {
-              title: 'tmetadata',
-              component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.tmetadata',
-              },
-            },
-          ],
-        },
-        {
-          name: 'Values',
-          properties: [
-            {
-              title: 'mvalue',
-              component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.mvalue',
-              },
-            },
-            {
-              title: 'mvalidtime',
-              component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.mvalidtime',
-              },
-            },
-            {
-              title: 'mperiod',
-              component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.mperiod',
+              title: 'Latest',
+              component: CellComponent.MeasurementsCell,
+              arrayMapping: {
+                pathToParent: 'data',
+                targetPropertyName: 'data',
+                objectMapping: {
+                  tdescription: 'tdescription',
+                  tname: 'tname',
+                  ttype: 'ttype',
+                  tunit: 'tunit',
+                  tmetadata: 'tmetadata',
+                  mvalue: 'mvalue',
+                  mvalidtime: 'mvalidtime',
+                  mperiod: 'mperiod',
+                },
               },
             },
           ],
