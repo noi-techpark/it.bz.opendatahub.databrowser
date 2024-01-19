@@ -98,12 +98,16 @@ export const setDataForDocumentEdit = (item: FileEntry) => {
   for (const lang in Documents) {
     const currentLanguageDocuments = Documents[lang];
     for (const currentDocument of currentLanguageDocuments) {
+      if (currentDocument.DocumentURL !== item.src) {
+        continue;
+      }
+
       const index = dialogData.findIndex((item) => item.language === lang);
       dialogData[index] = {
         ...dialogData[index],
         documentName: currentDocument.DocumentName,
         language: lang,
-        available: currentDocument.DocumentURL === item.src,
+        available: true,
       };
     }
   }
@@ -131,7 +135,11 @@ export const updateItem = (index: number, value: FileLanguageUpdate) => {
 
   const currentItem = dialogStore.items[dialogStore.activeTab].data[index];
 
-  if (currentItem.documentName && !value.documentName) {
+  if (
+    currentItem.documentName &&
+    !value.documentName &&
+    !currentItem.disableAvailabilityChange
+  ) {
     value.available = false;
   }
 
