@@ -9,11 +9,3 @@ export interface Position {
   lat: number;
   lng: number;
 }
-
-export interface PointPosition {
-  latitude?: string | number;
-  longitude?: string | number;
-  altitude?: string | number;
-  unitMeasureAltitude?: string | number;
-  gpsType?: string;
-}

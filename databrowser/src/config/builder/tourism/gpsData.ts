@@ -22,6 +22,13 @@ export const gpsDataCategory = (): DetailElements => ({
           arrayMapping: {
             targetPropertyName: 'gpsInfo',
             pathToParent: 'GpsInfo',
+            objectMapping: {
+              latitude: 'Latitude',
+              longitude: 'Longitude',
+              altitude: 'Altitude',
+              unitMeasureAltitude: 'AltitudeUnitofMeasure',
+              gpsType: 'Gpstype',
+            },
           },
           params: {
             positionValuesUrl: withOdhBaseUrl(
