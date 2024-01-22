@@ -210,11 +210,11 @@ export const updateItemsInModalAndSave = () => {
     const keyLangDocuments = documentInModal.language as keyof typeof Documents;
     const currentDocumentData = Documents[keyLangDocuments] || [];
 
-    const currentSavedDocumentIndex = currentDocumentData.find(
+    const currentSavedDocumentIndex = currentDocumentData.findIndex(
       (item: any) => item.DocumentURL === itemInModalToSave.src
     );
 
-    if (currentSavedDocumentIndex) {
+    if (currentSavedDocumentIndex >= 0) {
       Documents[keyLangDocuments].splice(currentSavedDocumentIndex, 1);
     }
   }
