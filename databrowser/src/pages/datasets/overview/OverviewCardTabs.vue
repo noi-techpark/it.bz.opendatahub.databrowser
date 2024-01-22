@@ -49,10 +49,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <TableCell>
             <ExternalLink
               class="w-fit"
-              :href="`mailto:${t('contact.emailInfo')}`"
+              :href="`mailto:${t('contact.email')}`"
               tone="primary"
             >
-              {{ t('contact.emailInfo') }}
+              {{ t('contact.email') }}
             </ExternalLink>
           </TableCell>
         </tr>
