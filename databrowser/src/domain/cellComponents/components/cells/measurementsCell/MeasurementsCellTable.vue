@@ -5,15 +5,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <EditListTable :items="items">
+  <EditListTable :items="items" :hide-tab-link="true">
     <template #colGroup>
       <col class="w-32 md:w-40" />
       <col class="w-32 md:w-40" />
+      <col class="w-28 md:w-28" />
+      <col class="w-28 md:w-28" />
+      <col class="w-28 md:w-28" />
       <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
+      <col class="w-28 md:w-28" />
       <col class="w-32 md:w-40" />
     </template>
 
@@ -22,10 +22,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <TableHeaderCell>tname</TableHeaderCell>
       <TableHeaderCell>ttype</TableHeaderCell>
       <TableHeaderCell>tunit</TableHeaderCell>
-      <TableHeaderCell>tmetadata</TableHeaderCell>
       <TableHeaderCell>mvalue</TableHeaderCell>
       <TableHeaderCell>mvalidtime</TableHeaderCell>
       <TableHeaderCell>mperiod</TableHeaderCell>
+      <TableHeaderCell>tmetadata</TableHeaderCell>
     </template>
 
     <template #tableCols="{ item }: { item: DataEntry }">
@@ -33,7 +33,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <TableCell>{{ item.tname }}</TableCell>
       <TableCell>{{ item.ttype }}</TableCell>
       <TableCell>{{ item.tunit }}</TableCell>
-      <TableCell>{{ item.tmetadata }}</TableCell>
       <TableCell>{{ item.mvalue }}</TableCell>
       <TableCell>
         <EditedDateCell
@@ -42,6 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         />
       </TableCell>
       <TableCell>{{ item.mperiod }}</TableCell>
+      <TableCell>{{ item.tmetadata }}</TableCell>
     </template>
     <template #noItems>No webcams have been defined yet</template>
   </EditListTable>
