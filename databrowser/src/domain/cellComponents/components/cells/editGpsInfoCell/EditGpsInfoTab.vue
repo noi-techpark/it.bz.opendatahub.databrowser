@@ -11,19 +11,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
 
     <template #addItems>
-      <EditListAddButton :text="'Add new GPS Point'" @click="addEmptyItem" />
+      <EditListAddButton
+        :text="'Add new GPS Point'"
+        @click="addItems([{ unitMeasureAltitude: 'm' }])"
+      />
     </template>
 
-    <template #body="{ item, index }">
+    <template #body="{ item, index }: { item: GpsInfoEntry, index: number }">
       <div class="flex flex-wrap gap-8 lg:flex-nowrap">
         <div class="basis-full lg:basis-3/4">
           <EditGpsPointMap
-            :key="`map_${activeTab}`"
-            :latitude="item.Latitude"
-            :longitude="item.Longitude"
-            :altitude="item.Altitude"
-            :unit-measure-altitude="item.AltitudeUnitofMeasure"
-            :gps-type="item.Gpstype"
+            :key="`map_${activeTab}_${items.length}`"
+            :data="item"
             @new-position="onNewPosition(index, $event)"
           />
         </div>
@@ -69,22 +68,18 @@ import { useInjectNavigation } from '../../utils/editList/actions/useNavigation'
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 
 import { GpsInfoEntry } from './types';
-import { PointPosition } from '../../../../../components/map/types';
-import { getMappedDataFromMap } from './utils';
 import EditGpsPointMap from './EditGpsPointMap.vue';
 
 defineProps<{ items: GpsInfoEntry[] }>();
 
 const { activeTab } = useInjectNavigation();
 
-const { deleteItems, duplicateItem, updateItem, addEmptyItem } =
+const { deleteItems, duplicateItem, updateItem, addItems } =
   useInjectActionTriggers();
 
 const { editable } = useInjectEditMode();
 
-const onNewPosition = (index: number, data: PointPosition) => {
-  const mappedData = getMappedDataFromMap(data);
-
-  updateItem(index, mappedData);
+const onNewPosition = (index: number, data: GpsInfoEntry) => {
+  updateItem(index, data);
 };
 </script>

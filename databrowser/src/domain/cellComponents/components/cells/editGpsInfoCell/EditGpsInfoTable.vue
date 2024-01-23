@@ -26,21 +26,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template #tableCols="{ item }">
       <TableCell>
         <GpsPointMap
-          v-if="item.Latitude && item.Longitude"
+          v-if="item.latitude && item.longitude"
           ref="gpsPointMap"
-          :latitude="item.Latitude"
-          :longitude="item.Longitude"
+          :latitude="item.latitude"
+          :longitude="item.longitude"
           map-view="table"
           height="100px"
         />
 
         <div v-else>Missing coordinates</div>
       </TableCell>
-      <TableCell>{{ item.Gpstype }}</TableCell>
-      <TableCell>{{ item.Latitude }}</TableCell>
-      <TableCell>{{ item.Longitude }}</TableCell>
-      <TableCell>{{ item.Altitude }}</TableCell>
-      <TableCell>{{ item.AltitudeUnitofMeasure }}</TableCell>
+      <TableCell>{{ item.gpsType }}</TableCell>
+      <TableCell>{{ item.latitude }}</TableCell>
+      <TableCell>{{ item.longitude }}</TableCell>
+      <TableCell>{{ item.altitude }}</TableCell>
+      <TableCell>{{ item.unitMeasureAltitude }}</TableCell>
     </template>
     <template #noItems>No GPS Point has been added yet.</template>
     <template #addItems>
@@ -67,10 +67,10 @@ const props = defineProps<{ items: GpsInfoEntry[] }>();
 
 const { navigateToTab } = useInjectNavigation();
 
-const { addEmptyItem } = useInjectActionTriggers();
+const { addItems } = useInjectActionTriggers();
 
 const addNewGpsPoint = () => {
-  addEmptyItem();
+  addItems([{ unitMeasureAltitude: 'm' }]);
   navigateToTab(props.items.length);
 };
 
