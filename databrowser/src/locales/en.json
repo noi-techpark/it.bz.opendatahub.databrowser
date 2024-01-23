@@ -112,6 +112,7 @@
         },
         "multipleFilesLanguage": {
           "buttonSaveAndNext": "Save & next",
+          "buttonNext": "Next",
           "buttonDiscardChanges": "Discard changes",
           "title": "Choose language",
           "description": "Which language would you like to assign the uploaded document to?"
