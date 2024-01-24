@@ -3,11 +3,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { PropertyConfig } from '../../../domain/datasetConfig/types';
+import { PropertyConfig } from '../../../domain/datasets/config/types';
 
 export const titleTableCell = (): PropertyConfig => ({
   title: 'Title',
   component: CellComponent.StringCell,
   class: 'w-60',
-  fields: { text: 'Detail.{language}.Title' },
+  objectMapping: { text: 'Detail.{language}.Title' },
 });

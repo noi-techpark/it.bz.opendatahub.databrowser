@@ -49,8 +49,39 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     v-else
     class="flex flex-col items-start gap-x-5 gap-y-4 md:flex-row md:items-center"
   >
-    <HeaderButton @click="onLogin">{{ t('auth.login') }}</HeaderButton>
-    <HeaderButton @click="onRegister">{{ t('auth.register') }}</HeaderButton>
+    <HeaderButton class="md:hidden" @click="onLogin">{{
+      t('auth.login')
+    }}</HeaderButton>
+    <HeaderButton class="md:hidden" @click="onRegister">{{
+      t('auth.register')
+    }}</HeaderButton>
+    <PopoverCustom class="hidden h-8 md:flex">
+      <template #trigger>
+        <PopoverCustomButton class="rounded focus-visible:outline-offset-2">
+          <ProfileButton
+            icon-name="IconUser"
+            custom-bg-color="bg-hint-info/10"
+          />
+        </PopoverCustomButton>
+      </template>
+      <template #container>
+        <PopoverCustomPanel class="mt-1 w-56" :has-close-button="false">
+          <button
+            class="flex w-full rounded p-4 hover:bg-gray-50 focus-visible:outline-offset-2"
+            @click="onLogin"
+          >
+            {{ t('auth.login') }}
+          </button>
+          <PopoverContentDivider />
+          <button
+            class="flex w-full rounded p-4 hover:bg-gray-50 focus-visible:outline-offset-2"
+            @click="onRegister"
+          >
+            {{ t('auth.register') }}
+          </button>
+        </PopoverCustomPanel>
+      </template>
+    </PopoverCustom>
   </div>
 </template>
 

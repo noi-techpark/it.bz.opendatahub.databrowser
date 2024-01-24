@@ -19,23 +19,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import EventDocumentTab from './EventDocumentTab.vue';
-import EventDocumentTable from './EventDocumentTable.vue';
+import { useDatasetQueryStore } from '../../../../datasets/location/store/datasetQueryStore';
 import EditListCell from '../../utils/editList/EditListCell.vue';
 import EditListUpload from '../../utils/editList/upload/EditListUpload.vue';
+import EventDocumentTab from './EventDocumentTab.vue';
+import EventDocumentTable from './EventDocumentTable.vue';
 import { FileEntry } from './types';
-import { useApiQuery } from '../../../../api';
 
 const emit = defineEmits(['update']);
 
 defineProps<{ files?: FileEntry[] }>();
 
-const { useApiParameter } = useApiQuery();
+const currentLanguage = useDatasetQueryStore().handle('language');
 
 // Set current language for each file
 const updateWithCurrentLanguage = ({ value }: { value?: FileEntry[] }) => {
-  const currentLanguage = useApiParameter('language');
-
   const updatedFiles =
     value?.map((file) => ({
       ...file,

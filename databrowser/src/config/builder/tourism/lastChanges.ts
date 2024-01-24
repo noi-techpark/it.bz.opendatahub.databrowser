@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { PropertyConfig } from '../../../domain/datasetConfig/types';
+import { PropertyConfig } from '../../../domain/datasets/config/types';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 interface LastChangesCellOptions {
@@ -20,7 +20,7 @@ export const lastChangesCell = (
   return {
     title: 'Last Changes',
     component: CellComponent.EditedDateCell,
-    fields: { date: 'LastChange' },
+    objectMapping: { date: 'LastChange' },
     params,
   };
 };
@@ -29,6 +29,6 @@ export const lastChangesTableCell = (): PropertyConfig => ({
   title: 'Edited',
   component: CellComponent.EditedDateCell,
   class: 'w-48',
-  fields: { date: 'LastChange' },
+  objectMapping: { date: 'LastChange' },
   params: { format: DEFAULT_DATE_TIME_FORMAT },
 });

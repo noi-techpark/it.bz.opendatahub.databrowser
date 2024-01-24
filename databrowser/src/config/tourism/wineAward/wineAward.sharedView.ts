@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   dataStatesSubCategory,
   idAndCustomIdCells,
@@ -34,7 +34,7 @@ export const wineAwardSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Company Id',
               component: CellComponent.StringCell,
-              fields: { text: 'CompanyId' },
+              objectMapping: { text: 'CompanyId' },
               class: 'break-all',
             },
           ],
@@ -55,17 +55,17 @@ export const wineAwardSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Vintage',
               component: CellComponent.StringCell,
-              fields: { text: 'Vintage' },
+              objectMapping: { text: 'Vintage' },
             },
             {
               title: 'Awardyear',
               component: CellComponent.StringCell,
-              fields: { text: 'Awardyear' },
+              objectMapping: { text: 'Awardyear' },
             },
             {
               title: 'Awards',
               component: CellComponent.ArrayCell,
-              fields: {
+              objectMapping: {
                 items: 'Awards',
               },
               params: {

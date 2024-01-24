@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { idReadOnlyCell } from '../../builder/tourism';
 
@@ -13,7 +13,7 @@ export const accommodationTypesListView: ListViewConfig = {
       title: 'Key',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         text: 'Key',
       },
     },
@@ -21,7 +21,7 @@ export const accommodationTypesListView: ListViewConfig = {
       title: 'Type',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         text: 'Type',
       },
     },
@@ -29,7 +29,7 @@ export const accommodationTypesListView: ListViewConfig = {
       title: 'TypeDesc',
       component: CellComponent.StringCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         text: 'TypeDesc.{language}',
       },
     },

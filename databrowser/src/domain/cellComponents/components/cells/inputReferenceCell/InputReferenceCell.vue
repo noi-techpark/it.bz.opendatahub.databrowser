@@ -21,23 +21,24 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue';
-import { useQuery } from 'vue-query';
-import { useAxiosFetcher } from '../../../../api';
+import { toRefs } from 'vue';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import { SelectValue } from '../../../../../components/select/types';
-import { useMapper } from './mapper';
+import {
+  useRemoteSelectOptionsWithMapper,
+  withSelectors,
+} from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
 import { useWriteable } from '../../utils/writeable/useWriteable';
-import LoadingState from '../../../../../components/loading/LoadingState.vue';
 
 const emit = defineEmits(['update']);
 
 const props = withDefaults(
   defineProps<{
-    value?: SelectValue;
     url: string;
-    keySelector: string;
-    labelSelector: string;
+    value?: SelectValue;
+    keySelector?: string;
+    labelSelector?: string;
     sortByLabel?: boolean;
     showEmptyValue?: boolean;
     editable?: boolean;
@@ -45,6 +46,8 @@ const props = withDefaults(
   }>(),
   {
     value: undefined,
+    keySelector: undefined,
+    labelSelector: undefined,
     sortByLabel: true,
     showEmptyValue: false,
     editable: true,
@@ -65,21 +68,12 @@ const {
 
 const isWriteable = useWriteable({ editable, readonly });
 
-const queryKey = url;
-const queryFn = useAxiosFetcher();
-const response = useQuery({ queryKey, queryFn });
-
-const { options } = useMapper(
-  response.data,
-  keySelector,
-  labelSelector,
-  sortByLabel
-);
-
-const isLoading = computed(() => response.isLoading.value);
-const isSuccess = computed(() => response.isSuccess.value);
-const isError = computed(() => response.isError.value);
-const error = computed(() => response.error.value);
+const { isLoading, isSuccess, isError, error, options } =
+  useRemoteSelectOptionsWithMapper(
+    url,
+    sortByLabel,
+    withSelectors(keySelector, labelSelector)
+  );
 
 const change = (value: string) => emit('update', { prop: 'value', value });
 </script>

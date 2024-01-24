@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   idReadOnlyCell,
   lastChangesCell,
@@ -25,30 +25,30 @@ export const sourceSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Key',
               component: CellComponent.StringCell,
-              fields: { text: 'Key' },
+              objectMapping: { text: 'Key' },
               required: true,
             },
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'Name.{language}' },
+              objectMapping: { text: 'Name.{language}' },
             },
             {
               title: 'Description',
               component: CellComponent.StringCell,
-              fields: { text: 'Description.{language}' },
+              objectMapping: { text: 'Description.{language}' },
             },
             idReadOnlyCell(),
             {
               title: 'URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'Url' },
+              objectMapping: { text: 'Url' },
             },
             {
               title: 'Interfaces',
               component: CellComponent.ArrayEditableCell,
-              listFields: {
-                attributeName: 'items',
+              arrayMapping: {
+                targetPropertyName: 'items',
                 pathToParent: 'Interfaces',
               },
               required: false,

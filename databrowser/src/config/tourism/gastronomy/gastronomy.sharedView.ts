@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   contactCategory,
   dataStatesSubCategory,
@@ -38,16 +38,16 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
             {
               title: 'Max Seating Capacity',
               component: CellComponent.StringCell,
-              fields: { text: 'MaxSeatingCapacity' },
+              objectMapping: { text: 'MaxSeatingCapacity' },
             },
             {
               title: 'Category',
               component: CellComponent.ArrayTagsCell,
-              fields: {
+              objectMapping: {
                 items: 'CategoryCodes',
               },
               params: {
-                fieldName: 'Shortname',
+                propertyName: 'Shortname',
                 separator: ', ',
                 max: '3',
               },
@@ -55,11 +55,11 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
             {
               title: 'Facilities',
               component: CellComponent.ArrayTagsCell,
-              fields: {
+              objectMapping: {
                 items: 'Facilities',
               },
               params: {
-                fieldName: 'Shortname',
+                propertyName: 'Shortname',
                 separator: ', ',
                 max: '3',
               },
@@ -73,19 +73,19 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
             {
               title: 'Area ID',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.AreaInfo.Id' },
+              objectMapping: { text: 'LocationInfo.AreaInfo.Id' },
               class: 'break-all',
             },
             {
               title: 'Accommodation ID',
               component: CellComponent.StringCell,
-              fields: { text: 'AccommodationId' },
+              objectMapping: { text: 'AccommodationId' },
               class: 'break-all',
             },
             {
               title: 'Marketing group ID',
               component: CellComponent.StringCell,
-              fields: { text: 'MarketinggroupId' },
+              objectMapping: { text: 'MarketinggroupId' },
               class: 'break-all',
             },
           ],

@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   accoContactCategory,
   accommodationCategoryCell,
@@ -21,6 +21,7 @@ import {
   sourceSubCategory,
   mainImageCell,
 } from '../../builder/tourism';
+import { mappingCategory } from '../../builder/tourism/mapping';
 import { withOdhBaseUrl } from '../../utils';
 
 export const accommodationSharedView = ():
@@ -39,11 +40,10 @@ export const accommodationSharedView = ():
             accommodationTypeCell(),
             accommodationCategoryCell(),
             {
-              title: 'Boards',
-              component: CellComponent.TagReferenceCell,
-              listFields: {
-                attributeName: 'tags',
-                pathToParent: 'BoardIds',
+              title: 'Boardings',
+              component: CellComponent.ArrayCell,
+              objectMapping: {
+                items: 'BoardIds',
               },
               params: {
                 keySelector: 'Key',
@@ -59,26 +59,26 @@ export const accommodationSharedView = ():
             {
               title: 'Room',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'HasApartment' },
+              objectMapping: { enabled: 'HasApartment' },
             },
             {
               title: 'Gastronomy',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'IsGastronomy' },
+              objectMapping: { enabled: 'IsGastronomy' },
             },
             {
               title: 'Is Bookable',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'IsBookable' },
+              objectMapping: { enabled: 'IsBookable' },
             },
             {
               title: 'Features',
               component: CellComponent.ArrayTagsCell,
-              fields: {
+              objectMapping: {
                 items: 'Features',
               },
               params: {
-                fieldName: 'Name',
+                propertyName: 'Name',
                 separator: ', ',
                 max: '3',
               },
@@ -86,8 +86,8 @@ export const accommodationSharedView = ():
             {
               title: 'Special Features',
               component: CellComponent.TagReferenceCell,
-              listFields: {
-                attributeName: 'tags',
+              arrayMapping: {
+                targetPropertyName: 'tags',
                 pathToParent: 'SpecialFeaturesIds',
               },
               params: {
@@ -101,8 +101,8 @@ export const accommodationSharedView = ():
             {
               title: 'Badges',
               component: CellComponent.TagReferenceCell,
-              listFields: {
-                attributeName: 'tags',
+              arrayMapping: {
+                targetPropertyName: 'tags',
                 pathToParent: 'BadgeIds',
               },
               params: {
@@ -114,8 +114,8 @@ export const accommodationSharedView = ():
             {
               title: 'Themes',
               component: CellComponent.TagReferenceCell,
-              listFields: {
-                attributeName: 'tags',
+              arrayMapping: {
+                targetPropertyName: 'tags',
                 pathToParent: 'ThemeIds',
               },
               params: {
@@ -133,13 +133,13 @@ export const accommodationSharedView = ():
             {
               title: 'HGV ID',
               component: CellComponent.StringCell,
-              fields: { text: 'HgvId' },
+              objectMapping: { text: 'HgvId' },
               class: 'break-all',
             },
             {
               title: 'Marketing Group IDs',
               component: CellComponent.ArrayCell,
-              fields: {
+              objectMapping: {
                 items: 'MarketingGroupIds',
               },
               params: {
@@ -165,12 +165,12 @@ export const accommodationSharedView = ():
             {
               title: 'Long description',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.Longdesc' },
+              objectMapping: { text: 'AccoDetail.{language}.Longdesc' },
             },
             {
               title: 'Short description',
               component: CellComponent.StringCell,
-              fields: { text: 'AccoDetail.{language}.ShortDesc' },
+              objectMapping: { text: 'AccoDetail.{language}.Shortdesc' },
             },
           ],
         },
@@ -188,7 +188,7 @@ export const accommodationSharedView = ():
             {
               title: 'Name',
               component: CellComponent.StringCell,
-              fields: { text: 'Shortname' },
+              objectMapping: { text: 'Shortname' },
             },
           ],
         },
@@ -197,5 +197,6 @@ export const accommodationSharedView = ():
     locationCategory(),
     gpsDataCategory(),
     odhTagCategory('accommodation'),
+    mappingCategory(),
   ],
 });

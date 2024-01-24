@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import { lastChangesTableCell } from '../../builder/tourism';
 
 export const publishedOnListView: ListViewConfig = {
@@ -12,18 +12,18 @@ export const publishedOnListView: ListViewConfig = {
       title: 'Key',
       component: CellComponent.StringCell,
       class: 'w-60',
-      fields: { text: 'Key' },
+      objectMapping: { text: 'Key' },
     },
     {
       title: 'Name',
       component: CellComponent.StringCell,
-      fields: { text: 'Name.{language}' },
+      objectMapping: { text: 'Name.{language}' },
     },
     {
       title: 'Publisher URL',
       component: CellComponent.UrlCell,
       class: 'w-80',
-      fields: { text: 'Url' },
+      objectMapping: { text: 'Url' },
     },
     lastChangesTableCell(),
   ],

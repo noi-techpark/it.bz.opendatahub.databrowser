@@ -7,7 +7,8 @@
   },
   "contact": {
     "email": "help{'@'}opendatahub.com",
-    "emailInfo": "info{'@'}opendatahub.com"
+    "emailInfo": "info{'@'}opendatahub.com",
+    "emailSupport": "support{'@'}opendatahub.com"
   },
   "header": {
     "logo": "Open Data Hub - Logo",
@@ -69,8 +70,17 @@
     }
   },
   "datasets": {
+    "error": {
+      "load": {
+        "title": "Error while loading data"
+      },
+      "save": {
+        "title": "Error while saving data"
+      }
+    },
     "detailView": {
-      "showEmptyFields": "Show empty fields"
+      "showEmptyFields": "Show empty fields",
+      "showDeprecatedFields": "Show deprecated fields"
     },
     "editView": {
       "authorizationChecking": "Please wait for authorization check",
@@ -102,6 +112,7 @@
         },
         "multipleFilesLanguage": {
           "buttonSaveAndNext": "Save & next",
+          "buttonNext": "Next",
           "buttonDiscardChanges": "Discard changes",
           "title": "Choose language",
           "description": "Which language would you like to assign the uploaded document to?"
@@ -112,6 +123,12 @@
           "buttonDeleteDocAndNames": "Delete the document and its names",
           "buttonKeepDocDeleteNames": "Keep document, delete its names",
           "buttonCancel": "Cancel"
+        },
+        "deleteDialog": {
+          "commonTitleSingular": "Delete record.",
+          "commonTitlePlural": "Delete records.",
+          "commonDescriptionSingular": "Are you sure you want to delete the selected record?",
+          "commonDescriptionPlural": "Are you sure you want to delete the selected records?"
         }
       },
       "footer": {
@@ -200,7 +217,8 @@
         "dataDoesNotExist": "You were looking for data that does not exist!",
         "suggestion": "Please rethink your request"
       },
-      "of": "of",
+      "of": "of {pageCount}",
+      "ofUnknown": "of unknown",
       "tableFilterHint": "Filters have been applied to this view",
       "toolBox": {
         "searchAndFilter": {
@@ -245,6 +263,10 @@
         "raw": {
           "short": "Raw",
           "title": "Raw view"
+        },
+        "delete": {
+          "short": "Delete",
+          "title": "Delete view"
         }
       }
     },
@@ -295,6 +317,15 @@
     "inputSearch": {
       "labelButton": "Search",
       "labelPlaceholder": "Insert search value ..."
+    },
+    "mappingTable": {
+      "addKeyValue": "Add key and value",
+      "headerCol1": "Key",
+      "headerCol2": "Key to Value",
+      "placeholderParentKey": "Key",
+      "placeholderChildKey": "Key",
+      "placeholderChildValue": "Value",
+      "noData": "No mappings have been defined yet"
     },
     "operationSchedule": {
       "addSeason": "Add new Season",

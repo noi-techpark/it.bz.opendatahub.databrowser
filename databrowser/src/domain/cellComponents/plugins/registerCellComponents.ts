@@ -28,6 +28,8 @@ import ImageGalleryCell from '../components/cells/imageGalleryCell/ImageGalleryC
 import OperationScheduleCell from '../components/cells/operationScheduleCell/OperationScheduleCell.vue';
 import JsonCell from '../components/cells/jsonCell/JsonCell.vue';
 import LoadingCell from '../components/cells/loadingCell/LoadingCell.vue';
+import MappingCell from '../components/cells/mappingCell/MappingCell.vue';
+import MeasurementsCell from '../components/cells/measurementsCell/MeasurementsCell.vue';
 import SelectWithOptionsCell from '../components/cells/selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StateCell from '../components/cells/stateCell/StateCell.vue';
 import StringCell from '../components/cells/stringCell/StringCell.vue';
@@ -42,7 +44,6 @@ import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
 import RelatedContentCell from '../components/cells/relatedContentCell/RelatedContentCell.vue';
-import FixedValue from '../components/filters/fixedValue/FixedValue.vue';
 
 // NOTE: this components do not belong to table components; it's advised to refactor this table in the future.
 import QuickViewTextInfoCard from '../../../components/quickview/QuickViewTextInfoCard.vue';
@@ -52,7 +53,7 @@ import QuickViewMapView from '../../../components/quickview/QuickViewMapView.vue
 import QuickViewOpeningHoursView from '../../../components/quickview/QuickViewOpeningHoursView.vue';
 import QuickViewRecordInfoView from '../../../components/quickview/QuickViewRecordInfoView.vue';
 
-import { CellComponent, FilterComponent } from '../types';
+import { CellComponent } from '../types';
 
 export default {
   install: (app: App) => {
@@ -82,6 +83,8 @@ export default {
     app.component(CellComponent.ImageGalleryCell, ImageGalleryCell);
     app.component(CellComponent.JsonCell, JsonCell);
     app.component(CellComponent.LoadingCell, LoadingCell);
+    app.component(CellComponent.MappingCell, MappingCell);
+    app.component(CellComponent.MeasurementsCell, MeasurementsCell);
     app.component(CellComponent.OperationScheduleCell, OperationScheduleCell);
     app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);
     app.component(CellComponent.StateCell, StateCell);
@@ -110,7 +113,5 @@ export default {
       CellComponent.QuickViewRecordInfoView,
       QuickViewRecordInfoView
     );
-
-    app.component(FilterComponent.FixedValue, FixedValue);
   },
 };

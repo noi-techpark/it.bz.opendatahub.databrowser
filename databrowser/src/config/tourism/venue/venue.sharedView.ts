@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   contactCategory,
   textInfoCategory,
@@ -41,16 +41,16 @@ export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Room Details',
               component: CellComponent.EditRoomVenueCell,
-              listFields: {
+              arrayMapping: {
                 pathToParent: 'RoomDetails',
-                fields: {
+                objectMapping: {
                   Shortname: 'Shortname',
                   Indoor: 'Indoor',
                   SquareMeters: 'SquareMeters',
                   Capacity: 'VenueSetup.0.Capacity',
                   SetupType: 'VenueSetup.0.VenueCode',
                 },
-                attributeName: 'roomVenue',
+                targetPropertyName: 'roomVenue',
               },
             },
           ],

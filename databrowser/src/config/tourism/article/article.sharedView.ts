@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   contactCategory,
   dataStatesSubCategory,
@@ -18,6 +18,7 @@ import {
   sourceSubCategory,
   textInfoCategory,
 } from '../../builder/tourism';
+import { mappingCategory } from '../../builder/tourism/mapping';
 import { DEFAULT_DATE_FORMAT, withOdhBaseUrl } from '../../utils';
 
 export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -52,7 +53,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.ArticleAdditionalInfoCell,
-              fields: {
+              objectMapping: {
                 infos: 'AdditionalArticleInfos.{language}.Elements',
               },
             },
@@ -70,7 +71,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: '',
               component: CellComponent.ArticleLinkInfoCell,
-              fields: {
+              objectMapping: {
                 links: 'ArticleLinkInfo.{language}.Elements',
               },
             },
@@ -89,12 +90,12 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Highlight',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'Highlight' },
+              objectMapping: { enabled: 'Highlight' },
             },
             {
               title: '',
               component: CellComponent.ArticleTypeCell,
-              fields: {
+              objectMapping: {
                 type: 'Type',
                 subType: 'SubType',
               },
@@ -107,13 +108,13 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Article Date',
               component: CellComponent.DateCell,
-              fields: { date: 'ArticleDate' },
+              objectMapping: { date: 'ArticleDate' },
               params: { format: DEFAULT_DATE_FORMAT },
             },
             {
               title: 'Article Date To',
               component: CellComponent.DateCell,
-              fields: { date: 'ArticleDateTo' },
+              objectMapping: { date: 'ArticleDateTo' },
               params: { format: DEFAULT_DATE_FORMAT },
             },
           ],
@@ -130,7 +131,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'License',
               component: CellComponent.SelectWithOptionsCell,
-              fields: { value: 'LicenseInfo.License' },
+              objectMapping: { value: 'LicenseInfo.License' },
               params: {
                 value_001: 'CC0',
                 label_001: 'CC0',
@@ -143,21 +144,22 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Author',
               component: CellComponent.StringCell,
-              fields: { text: 'LicenseInfo.Author' },
+              objectMapping: { text: 'LicenseInfo.Author' },
             },
             {
               title: 'License Holder',
               component: CellComponent.UrlCell,
-              fields: { text: 'LicenseInfo.LicenseHolder' },
+              objectMapping: { text: 'LicenseInfo.LicenseHolder' },
             },
             {
               title: 'Closed Data',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'LicenseInfo.ClosedData' },
+              objectMapping: { enabled: 'LicenseInfo.ClosedData' },
             },
           ],
         },
       ],
     },
+    mappingCategory(),
   ],
 });

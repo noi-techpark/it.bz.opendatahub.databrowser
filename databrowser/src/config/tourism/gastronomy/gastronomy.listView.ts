@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
   imageTableCell,
   languageTableCell,
@@ -24,11 +24,11 @@ export const gastronomyListView: ListViewConfig = {
       title: 'Tags',
       component: CellComponent.ArrayTagsCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         items: 'CategoryCodes',
       },
       params: {
-        fieldName: 'Shortname',
+        propertyName: 'Shortname',
         separator: ', ',
         max: '3',
       },

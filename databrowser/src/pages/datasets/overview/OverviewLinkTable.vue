@@ -7,15 +7,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <ButtonLink
     :size="Size.xm2col"
-    :to="{
-      name: DatasetPage.TABLE,
-      params: {
-        domain: 'tourism',
-        pathParams: dataset.pathParam,
-      },
-      query: dataset.apiFilter,
-    }"
+    :to="tableLocation"
     :data-test="`dataset-table-link-${dataset.id}`"
+    :disabled="tableLocation == null"
   >
     <IconTable />
     {{ t('overview.cardItem.accessTableView') }}
@@ -28,9 +22,28 @@ import ButtonLink from '../../../components/button/ButtonLink.vue';
 import { Size } from '../../../components/button/types';
 import IconTable from '../../../components/svg/IconTable.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
-import { DatasetPage } from '../../../routes';
+import { computed, toRefs } from 'vue';
+import { computeTableLocation } from '../../../domain/datasets/location/datasetViewLocation';
 
 const { t } = useI18n();
 
-defineProps<{ dataset: TourismMetaData }>();
+const props = defineProps<{ dataset: TourismMetaData }>();
+const { dataset } = toRefs(props);
+
+const tableLocation = computed(() => {
+  if (dataset.value == null || dataset.value.baseUrl == null) {
+    return;
+  }
+
+  // TODO: this is a very dirty hack to determine if the domain is the tourism or mobility
+  // domain. A better solution would be to have a domain property in the dataset metadata,
+  // because that way we can support other domains without code changes.
+  const domain = dataset.value.baseUrl.includes('tourism')
+    ? 'tourism'
+    : 'mobility';
+
+  const { pathSegments, apiFilter } = dataset.value;
+
+  return computeTableLocation(domain, pathSegments, apiFilter);
+});
 </script>

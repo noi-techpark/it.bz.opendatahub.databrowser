@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { initialState } from './initialState';
@@ -43,13 +42,10 @@ export const useAuth = defineStore('auth', {
         return;
       }
 
-      // Add authorization token to axios header to be appended to all requests
-      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       this.isAuthenticated = true;
       this.accessToken = accessToken;
     },
     unauthenticate() {
-      delete axios.defaults.headers.common['Authorization'];
       this.isAuthenticated = false;
       this.accessToken = null;
     },

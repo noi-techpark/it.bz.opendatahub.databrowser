@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
   gpsDataTableCell,
   lastChangesTableCell,
@@ -17,7 +17,7 @@ export const measuringPointListView: ListViewConfig = {
       title: 'Short name',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'Shortname',
       },
     },
@@ -25,7 +25,7 @@ export const measuringPointListView: ListViewConfig = {
       title: 'Region info',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'LocationInfo.RegionInfo.Name.{language}',
       },
     },
@@ -33,7 +33,7 @@ export const measuringPointListView: ListViewConfig = {
       title: 'TV info',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'LocationInfo.TvInfo.Name.{language}',
       },
     },
@@ -41,7 +41,7 @@ export const measuringPointListView: ListViewConfig = {
       title: 'Snow height',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'SnowHeight',
       },
     },
@@ -49,7 +49,7 @@ export const measuringPointListView: ListViewConfig = {
       title: 'Temperature',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'Temperature',
       },
     },

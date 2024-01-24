@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   gpsDataCategory,
   idReadOnlyCell,
@@ -31,7 +31,7 @@ export const measuringPointSharedView = ():
             {
               title: 'Owner ID',
               component: CellComponent.StringCell,
-              fields: { text: 'OwnerId' },
+              objectMapping: { text: 'OwnerId' },
             },
           ],
         },
@@ -48,12 +48,14 @@ export const measuringPointSharedView = ():
             {
               title: 'TV info',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.TvInfo.Name.{language}' },
+              objectMapping: { text: 'LocationInfo.TvInfo.Name.{language}' },
             },
             {
               title: 'Region info',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.RegionInfo.Name.{language}' },
+              objectMapping: {
+                text: 'LocationInfo.RegionInfo.Name.{language}',
+              },
             },
           ],
         },
@@ -70,22 +72,22 @@ export const measuringPointSharedView = ():
             {
               title: 'Snow height',
               component: CellComponent.StringCell,
-              fields: { text: 'SnowHeight' },
+              objectMapping: { text: 'SnowHeight' },
             },
             {
               title: 'New snow height',
               component: CellComponent.StringCell,
-              fields: { text: 'newSnowHeight' },
+              objectMapping: { text: 'newSnowHeight' },
             },
             {
               title: 'Temperature',
               component: CellComponent.StringCell,
-              fields: { text: 'Temperature' },
+              objectMapping: { text: 'Temperature' },
             },
             {
               title: 'Last snow date',
               component: CellComponent.DateCell,
-              fields: { date: 'LastSnowDate' },
+              objectMapping: { date: 'LastSnowDate' },
               params: { format: DEFAULT_DATE_FORMAT },
             },
           ],

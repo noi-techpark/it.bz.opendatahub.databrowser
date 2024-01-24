@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   dataStatesSubCategory,
   gpsDataCategory,
@@ -37,7 +37,7 @@ export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Tourismverein ID',
               component: CellComponent.ArrayCell,
               class: 'w-40',
-              fields: {
+              objectMapping: {
                 items: 'TourismvereinIds',
               },
               params: {
@@ -47,7 +47,7 @@ export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Region Ids',
               component: CellComponent.ArrayCell,
-              fields: {
+              objectMapping: {
                 items: 'RegionIds',
               },
               params: {
@@ -57,7 +57,7 @@ export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'District Ids',
               component: CellComponent.ArrayCell,
-              fields: {
+              objectMapping: {
                 items: 'DistrictIds',
               },
               params: {

@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         class="absolute right-4 top-4 z-[999] flex items-center gap-3"
       >
         <ButtonCustom
-          v-if="mapView !== 'table'"
+          v-if="mapView !== 'table' && editable"
           variant="ghost"
           size="xs"
           class="flex h-12 w-12 items-center justify-center bg-white p-2"
@@ -45,8 +45,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         /></ButtonCustom>
       </div>
       <div
-        ref="tooltip"
         class="pointer-events-none absolute bottom-6 right-2 z-[999] rounded-md bg-black px-2 py-1 text-sm text-white opacity-0 transition-all"
+        :class="{
+          'opacity-100': isTooltipVisible,
+        }"
       >
         {{ t('datasets.editView.map.clickOnTheMapToSetGPSPoint') }}
       </div>
@@ -84,7 +86,9 @@ const { t } = useI18n();
 
 const emit = defineEmits(['mapClick', 'enableSetMarker']);
 
-const tooltip = ref();
+const tooltipInterval = ref();
+const isTooltipVisible = ref(false);
+
 const fullscreenComponent = ref();
 const enableSetMarker = ref(false);
 
@@ -94,6 +98,7 @@ const props = withDefaults(
     longitude?: string | number;
     height?: string;
     fallbackCenter?: PointExpression;
+    editable?: boolean;
     mapView?: undefined | 'table';
   }>(),
   {
@@ -101,6 +106,7 @@ const props = withDefaults(
     longitude: undefined,
     height: undefined,
     fallbackCenter: undefined,
+    editable: false,
     mapView: undefined,
   }
 );
@@ -144,7 +150,7 @@ const toggleEditMode = () => {
 
   if (enableSetMarker.value) {
     showTooltip();
-    setTimeout(() => {
+    tooltipInterval.value = setTimeout(() => {
       hideTooltip();
     }, 5000);
   } else {
@@ -153,11 +159,12 @@ const toggleEditMode = () => {
 };
 
 const showTooltip = () => {
-  tooltip.value.classList.add('opacity-100');
+  isTooltipVisible.value = true;
 };
 
 const hideTooltip = () => {
-  tooltip.value.classList.remove('opacity-100');
+  isTooltipVisible.value = false;
+  clearInterval(tooltipInterval.value);
 };
 
 const onContainerClick = (isFullscreen: boolean) => {

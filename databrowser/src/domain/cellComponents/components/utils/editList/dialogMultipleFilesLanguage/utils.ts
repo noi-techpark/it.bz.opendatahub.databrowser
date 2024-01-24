@@ -3,12 +3,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { useEventBus } from '@vueuse/core';
-import { FileEntry } from '../../../cells/eventDocumentCell/types';
-import { useEditStore } from '../../../../../datasets/editView/store/editStore';
-import { FileEntryWithLanguageAvailability, FileLanguageUpdate } from './types';
-import { useDialogStore } from './dialogStore';
 import { FilterLanguage } from '../../../../../datasets/language';
-import { ParameterValue } from '../../../../../api/service/types';
+import { useEditStore } from '../../../../../datasets/ui/editView/store/editStore';
+import { FileEntry } from '../../../cells/eventDocumentCell/types';
+import { useDialogStore } from './dialogStore';
+import { FileEntryWithLanguageAvailability, FileLanguageUpdate } from './types';
 
 export const useEventSaveChanges = useEventBus<boolean>('saveChanges');
 export const useEventDiscardChanges = useEventBus<boolean>('discardChanges');
@@ -99,12 +98,16 @@ export const setDataForDocumentEdit = (item: FileEntry) => {
   for (const lang in Documents) {
     const currentLanguageDocuments = Documents[lang];
     for (const currentDocument of currentLanguageDocuments) {
+      if (currentDocument.DocumentURL !== item.src) {
+        continue;
+      }
+
       const index = dialogData.findIndex((item) => item.language === lang);
       dialogData[index] = {
         ...dialogData[index],
         documentName: currentDocument.DocumentName,
         language: lang,
-        available: currentDocument.DocumentURL === item.src,
+        available: true,
       };
     }
   }
@@ -132,7 +135,11 @@ export const updateItem = (index: number, value: FileLanguageUpdate) => {
 
   const currentItem = dialogStore.items[dialogStore.activeTab].data[index];
 
-  if (currentItem.documentName && !value.documentName) {
+  if (
+    currentItem.documentName &&
+    !value.documentName &&
+    !currentItem.disableAvailabilityChange
+  ) {
     value.available = false;
   }
 
@@ -160,7 +167,7 @@ export const toggleAllItemsSelected = (value: boolean) => {
 
 export const setDialogItems = (
   items: any[],
-  currentLanguage?: ParameterValue
+  currentLanguage: string | undefined
 ) => {
   const dialogStore = useDialogStore();
 
@@ -203,11 +210,11 @@ export const updateItemsInModalAndSave = () => {
     const keyLangDocuments = documentInModal.language as keyof typeof Documents;
     const currentDocumentData = Documents[keyLangDocuments] || [];
 
-    const currentSavedDocumentIndex = currentDocumentData.find(
+    const currentSavedDocumentIndex = currentDocumentData.findIndex(
       (item: any) => item.DocumentURL === itemInModalToSave.src
     );
 
-    if (currentSavedDocumentIndex) {
+    if (currentSavedDocumentIndex >= 0) {
       Documents[keyLangDocuments].splice(currentSavedDocumentIndex, 1);
     }
   }

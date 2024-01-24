@@ -5,14 +5,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <BaseAlert :title="title" :content="content" type="error" />
+  <BaseAlert :title="title" type="error"><slot></slot></BaseAlert>
 </template>
 
 <script setup lang="ts">
 import BaseAlert from './BaseAlert.vue';
 
-defineProps<{
-  title?: string;
-  content?: string;
-}>();
+defineProps<{ title?: string }>();
 </script>

@@ -70,7 +70,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         handle=".handle"
         class="divide-y divide-gray-200"
       >
-        <tr v-for="(item, index) in (itemsInternal as any)" :key="index">
+        <tr v-for="(item, index) in itemsInternal" :key="index">
           <template v-if="editable && hasItems">
             <td v-if="showSortableColumn" class="border-none px-4 pt-4">
               <IconDragAndDrop class="handle hidden cursor-pointer md:block" />
@@ -115,7 +115,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 import { computed, ref } from 'vue';
 import TableHeaderCell from '../../../../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../../../../components/table/TableCell.vue';
@@ -133,7 +133,7 @@ import { useInjectActionTriggers } from '../actions/useActions';
 import { useInjectEditMode } from '../actions/useEditMode';
 
 const props = defineProps<{
-  items: unknown[] | null;
+  items: T[] | null;
   hideTabLink?: boolean;
   hideSortable?: boolean;
 }>();

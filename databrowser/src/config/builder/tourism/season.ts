@@ -6,15 +6,15 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailElements,
   PropertyConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 
 export const seasonCell = (): PropertyConfig => ({
   title: 'Seasons',
   component: CellComponent.OperationScheduleCell,
-  listFields: {
+  arrayMapping: {
     pathToParent: 'OperationSchedule',
-    attributeName: 'operationSchedules',
-    fields: {
+    targetPropertyName: 'operationSchedules',
+    objectMapping: {
       name: 'OperationscheduleName.{language}',
       start: 'Start',
       stop: 'Stop',

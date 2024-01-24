@@ -3,41 +3,35 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed, Ref } from 'vue';
-import { PathParams } from '../../datasetConfig/types';
+import {
+  DatasetPath,
+  DatasetQuery,
+  PathSegments,
+} from '../../datasets/config/types';
 import { useMetaDataQuery } from './useMetaDataQuery';
-import { stringifyParameter } from '../../api';
-import { useDatasetConfigStore } from '../../datasetConfig/store/datasetConfigStore';
-import { useRouter } from 'vue-router';
-
-type Query = Record<string, string | null | (string | null)[]>;
-
-// Return the metadata for the current route
-export const useMetaDataForCurrentRoute = () => {
-  const datasetConfigStore = useDatasetConfigStore();
-  const pathParams = computed(
-    () => datasetConfigStore.config?.route.pathParams ?? []
-  );
-  const { currentRoute } = useRouter();
-  const query = computed(() => currentRoute.value.query);
-  return useMetaDataForRoute(pathParams, query);
-};
 
 // Return the metadata for the route specified by the path params and query
 export const useMetaDataForRoute = (
-  pathParams: Ref<PathParams>,
-  query: Ref<Query>
+  datasetPath: Ref<DatasetPath | undefined>,
+  datasetQuery: Ref<DatasetQuery | undefined>
 ) => {
   const metaData = useMetaDataQuery();
 
   const currentMetaData = computed(() => {
+    // TODO: use candidate computation from findCandidateConfigs?
     const candidates = (metaData.data.value ?? [])
       .filter((md) => {
-        if (!pathsMatch(pathParams.value, md.pathParam)) {
+        if (
+          datasetPath.value == null ||
+          !pathsMatch(datasetPath.value, md.pathSegments)
+        ) {
           return false;
         }
 
-        const queryAsObject = queryToObject(query.value);
-        return filterContainedInQuery(md.apiFilter ?? {}, queryAsObject);
+        return filterContainedInQuery(
+          md.apiFilter,
+          datasetQuery.value?.stringified
+        );
       })
       // There may be more than one candidate, for example if the query contains
       // a filter that is not present in the API filter (e.g. language). In that
@@ -55,19 +49,17 @@ export const useMetaDataForRoute = (
   return { currentMetaData };
 };
 
-const pathsMatch = (path1: PathParams, path2: PathParams) =>
+const pathsMatch = (path1: PathSegments, path2: PathSegments) =>
   JSON.stringify(path1).localeCompare(JSON.stringify(path2)) === 0;
 
-const queryToObject = (query: Query) =>
-  Object.entries(query).reduce<Record<string, string>>(
-    (prev, [key, value]) => ({ ...prev, [key]: stringifyParameter(value) }),
-    {}
-  );
-
 const filterContainedInQuery = (
-  apiFilter: Record<string, string>,
-  query: Record<string, string>
+  apiFilter: Record<string, string> | undefined,
+  query: Record<string, string> | undefined
 ) => {
+  if (apiFilter == null || query == null) {
+    return false;
+  }
+
   const apiFilterKeys = Object.keys(apiFilter);
   const queryKeys = Object.keys(query);
 

@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { ListViewConfig } from '../../../domain/datasetConfig/types';
+import { ListViewConfig } from '../../../domain/datasets/config/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DEFAULT_DATE_FORMAT } from '../../utils';
 
@@ -12,7 +12,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         src: 'BezirksForecast.0.WeatherImgUrl',
       },
     },
@@ -23,7 +23,7 @@ export const weatherDistrictListView: ListViewConfig = {
       params: {
         format: DEFAULT_DATE_FORMAT,
       },
-      fields: {
+      objectMapping: {
         date: 'BezirksForecast.0.date',
       },
     },
@@ -31,7 +31,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'District name',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'DistrictName',
       },
     },
@@ -39,7 +39,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Weather description',
       component: CellComponent.StringCell,
       class: 'w-48',
-      fields: {
+      objectMapping: {
         text: 'BezirksForecast.0.WeatherDesc',
       },
     },
@@ -47,7 +47,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Max Temperature',
       component: CellComponent.StringCell,
       class: 'w-36',
-      fields: {
+      objectMapping: {
         text: 'BezirksForecast.0.MaxTemp',
       },
     },
@@ -55,7 +55,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Min Temperature',
       component: CellComponent.StringCell,
       class: 'w-36',
-      fields: {
+      objectMapping: {
         text: 'BezirksForecast.0.MinTemp',
       },
     },
@@ -63,7 +63,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Last updated',
       component: CellComponent.EditedDateCell,
       class: 'w-40',
-      fields: {
+      objectMapping: {
         date: 'date',
       },
       params: {
@@ -74,7 +74,7 @@ export const weatherDistrictListView: ListViewConfig = {
       title: 'Source',
       component: CellComponent.UrlCell,
       class: 'w-36',
-      fields: {
+      objectMapping: {
         text: 'LicenseInfo.LicenseHolder',
       },
     },

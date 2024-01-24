@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div>
     <EditListTab :items="items">
       <template #tabLabel="{ item }">
-        <span class="truncate">{{ getFileName((item as FileEntry).src) }}</span>
+        <span class="truncate">{{ getFileName(item.src) }}</span>
       </template>
 
       <template #addItems>
@@ -71,7 +71,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <div>
                   <button
                     class="m-3 flex items-center gap-3"
-                    @click="downloadFile(item.url, item.url)"
+                    @click="downloadFile(item.src, item.src)"
                   >
                     <IconDownload class="text-green-500" />
                     <span>Download PDF</span>
@@ -110,30 +110,31 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { toRefs, watch, ref } from 'vue';
-import EditListTab from '../../utils/editList/tab/EditListTab.vue';
-import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
-import { useImageUpload } from '../../utils/upload/useUpload';
-import { downloadFile } from '../../utils/editList/download/fileDownload';
-import IconDelete from '../../../../../components/svg/IconDelete.vue';
+import { ref, toRefs, watch } from 'vue';
 import IconCopy from '../../../../../components/svg/IconCopy.vue';
+import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import IconDownload from '../../../../../components/svg/IconDownload.vue';
 import IconUpload from '../../../../../components/svg/IconUpload.vue';
-import SubCategoryItem from '../../../../datasets/category/SubCategoryItem.vue';
+import { useImageUpload } from '../../../../api/useUpload';
+import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
+import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
-import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
+import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
+import DialogMultipleFilesLanguage from '../../utils/editList/dialogMultipleFilesLanguage/DialogMultipleFilesLanguage.vue';
+import {
+  clearDialogStore,
+  getCurrentDocumentLanguageAvailability,
+  setDataForDocumentEdit,
+} from '../../utils/editList/dialogMultipleFilesLanguage/utils';
+import { downloadFile } from '../../utils/editList/download/fileDownload';
+import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import { FileType } from '../../utils/upload/types';
 import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
 import UrlCell from '../UrlCell/UrlCell.vue';
-import { FileEntry } from './types';
 import StringCell from '../stringCell/StringCell.vue';
-import {
-  getCurrentDocumentLanguageAvailability,
-  setDataForDocumentEdit,
-  clearDialogStore,
-} from '../../utils/editList/dialogMultipleFilesLanguage/utils';
-import DialogMultipleFilesLanguage from '../../utils/editList/dialogMultipleFilesLanguage/DialogMultipleFilesLanguage.vue';
+import { FileEntry } from './types';
+
 const props = defineProps<{ items: FileEntry[]; type?: FileType }>();
 
 const { items } = toRefs(props);

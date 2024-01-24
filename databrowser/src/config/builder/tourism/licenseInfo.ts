@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { CellComponent } from '../../../domain/cellComponents/types';
-import { DetailElements } from '../../../domain/datasetConfig/types';
+import { DetailElements } from '../../../domain/datasets/config/types';
 
 export const licenseInfoCategory = (): DetailElements => ({
   name: 'License',
@@ -15,7 +15,7 @@ export const licenseInfoCategory = (): DetailElements => ({
         {
           title: 'License',
           component: CellComponent.SelectWithOptionsCell,
-          fields: { value: 'LicenseInfo.License' },
+          objectMapping: { value: 'LicenseInfo.License' },
           params: {
             value_001: 'CC0',
             label_001: 'CC0',
@@ -28,17 +28,17 @@ export const licenseInfoCategory = (): DetailElements => ({
         {
           title: 'Author',
           component: CellComponent.StringCell,
-          fields: { text: 'LicenseInfo.Author' },
+          objectMapping: { text: 'LicenseInfo.Author' },
         },
         {
           title: 'License Holder',
           component: CellComponent.UrlCell,
-          fields: { text: 'LicenseInfo.LicenseHolder' },
+          objectMapping: { text: 'LicenseInfo.LicenseHolder' },
         },
         {
           title: 'Closed Data',
           component: CellComponent.ToggleCell,
-          fields: { enabled: 'LicenseInfo.ClosedData' },
+          objectMapping: { enabled: 'LicenseInfo.ClosedData' },
         },
       ],
     },

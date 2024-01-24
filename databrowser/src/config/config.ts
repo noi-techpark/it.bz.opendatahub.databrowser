@@ -2,88 +2,70 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { DatasetConfig, DatasetDomain } from '../domain/datasetConfig/types';
 import {
-  accommodationConfig,
-  articleConfig,
-  eventShortConfig,
-  odhActivityPoiConfig,
-  odhActivityPoiTypesConfig,
-  eventTopicsConfig,
-  accommodationTypesConfig,
-  webcamInfoConfig,
-  wineAwardConfig,
-  gastronomyConfig,
-  venueConfig,
-  weatherInfoConfig,
-  municipalityConfig,
-  districtConfig,
-  regionConfig,
-  metaRegionConfig,
-  tourismAssociationListConfig,
-  skiRegionConfig,
-  skiAreaConfig,
-  weatherConfig,
-  weatherDistrictConfig,
-  weatherRealTimeConfig,
-  measuringPointConfig,
-  snowReportConfig,
-  eventConfig,
-  experienceAreaConfig,
-  metaDataConfig,
-  publishedOnConfig,
-  sourceConfig,
-} from './tourism';
+  DatasetConfig,
+  AnyDomain,
+  PathSegments,
+} from '../domain/datasets/config/types';
+import { mobilityEmbeddedDatasetConfigs } from './mobility';
+import { tourismEmbeddedDatasetConfigs } from './tourism';
 
-type EmbeddedDatasetConfigs = Record<
-  DatasetDomain,
-  Record<string, DatasetConfig>
->;
+type EmbeddedDatasetConfigs = Record<AnyDomain, Record<string, DatasetConfig>>;
 
-const datasetConfigs = [
-  accommodationConfig,
-  articleConfig,
-  eventShortConfig,
-  odhActivityPoiConfig,
-  odhActivityPoiTypesConfig,
-  eventTopicsConfig,
-  accommodationTypesConfig,
-  webcamInfoConfig,
-  wineAwardConfig,
-  gastronomyConfig,
-  venueConfig,
-  weatherInfoConfig,
-  municipalityConfig,
-  districtConfig,
-  regionConfig,
-  metaRegionConfig,
-  tourismAssociationListConfig,
-  skiRegionConfig,
-  skiAreaConfig,
-  weatherConfig,
-  weatherDistrictConfig,
-  weatherRealTimeConfig,
-  measuringPointConfig,
-  snowReportConfig,
-  eventConfig,
-  experienceAreaConfig,
-  metaDataConfig,
-  publishedOnConfig,
-  sourceConfig,
-];
+const pathSegmentsToPath = (pathSegments: PathSegments): string =>
+  '/' + pathSegments.join('/');
 
-const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {
+const mapDatasetConfigs = (
+  datasetConfigs: DatasetConfig[]
+): EmbeddedDatasetConfigs => {
   return datasetConfigs.reduce<EmbeddedDatasetConfigs>((previous, current) => {
-    const configsForDomain = { ...previous[current.route.domain] } ?? {};
-    const path = '/' + current.route.pathParams.join('/');
+    const configsForDomain = { ...previous[current.route.domain] };
+    const path = pathSegmentsToPath(current.route.pathSegments);
     configsForDomain[path] = current;
     return { ...previous, [current.route.domain]: configsForDomain };
   }, {});
+};
+
+const computeEmbeddedDatasetConfigs = (): EmbeddedDatasetConfigs => {
+  const tourismDatasetConfigs = mapDatasetConfigs(
+    tourismEmbeddedDatasetConfigs
+  );
+  const mobilityDatasetConfigs = mapDatasetConfigs(
+    mobilityEmbeddedDatasetConfigs
+  );
+
+  return { ...tourismDatasetConfigs, ...mobilityDatasetConfigs };
 };
 
 export const embeddedDatasetConfigs = computeEmbeddedDatasetConfigs();
 
 export const findEmbeddedDatasetConfig = (
   domain: string,
-  path: string
-): DatasetConfig | undefined => embeddedDatasetConfigs[domain]?.[path];
+  pathSegments: PathSegments
+): DatasetConfig | undefined => {
+  const path = pathSegmentsToPath(pathSegments);
+  const exactMatch = embeddedDatasetConfigs[domain]?.[path];
+  if (exactMatch != null) {
+    return exactMatch;
+  }
+
+  const configsForDomain = embeddedDatasetConfigs[domain];
+  if (configsForDomain == null) {
+    return undefined;
+  }
+
+  const candidates = Object.values(configsForDomain).filter(
+    (config) => config.route.pathSegments.length === pathSegments.length
+  );
+
+  return candidates.find((config) => {
+    const configPathSegments = config.route.pathSegments;
+    return pathSegments.every((param, index) => {
+      return (
+        configPathSegments[index] === param ||
+        (configPathSegments[index].startsWith('{') &&
+          configPathSegments[index].endsWith('}'))
+      );
+    });
+  });
+};

@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   contactCategory,
   dataStatesSubCategory,
@@ -31,7 +31,14 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
         shortnameWithLogoAndMainImageSubCategory(),
         {
           name: 'IDs',
-          properties: [idReadOnlyCell()],
+          properties: [
+            idReadOnlyCell(),
+            {
+              title: 'Area Id',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'LocationInfo.AreaInfo.Id' },
+            },
+          ],
         },
         dataStatesSubCategory(),
         sourceSubCategory(),
@@ -50,19 +57,19 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date Begin',
               component: CellComponent.DateCell,
-              fields: { date: 'DateBegin' },
+              objectMapping: { date: 'DateBegin' },
               params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
             {
               title: 'Date End',
               component: CellComponent.DateCell,
-              fields: { date: 'EventDatesEnd' },
+              objectMapping: { date: 'EventDatesEnd' },
               params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
             {
               title: 'Entrance',
               component: CellComponent.StringCell,
-              fields: { text: 'Entrance' },
+              objectMapping: { text: 'Entrance' },
             },
           ],
         },
@@ -72,17 +79,17 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Company / Name',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.CompanyName' },
+              objectMapping: { text: 'ContactInfos.{language}.CompanyName' },
             },
             {
               title: 'Tax Number',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Tax' },
+              objectMapping: { text: 'ContactInfos.{language}.Tax' },
             },
             {
               title: 'Vat',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Vat' },
+              objectMapping: { text: 'ContactInfos.{language}.Vat' },
             },
           ],
         },
@@ -92,22 +99,22 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Address',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Address' },
+              objectMapping: { text: 'ContactInfos.{language}.Address' },
             },
             {
               title: 'Zip Code',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.ZipCode' },
+              objectMapping: { text: 'ContactInfos.{language}.ZipCode' },
             },
             {
               title: 'Country Name',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.CountryName' },
+              objectMapping: { text: 'ContactInfos.{language}.CountryName' },
             },
             {
               title: 'Country Code',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.CountryCode' },
+              objectMapping: { text: 'ContactInfos.{language}.CountryCode' },
             },
           ],
         },
@@ -117,17 +124,17 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Email',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Email' },
+              objectMapping: { text: 'ContactInfos.{language}.Email' },
             },
             {
               title: 'Phonenumber',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Phonenumber' },
+              objectMapping: { text: 'ContactInfos.{language}.Phonenumber' },
             },
             {
               title: 'Url',
               component: CellComponent.StringCell,
-              fields: { text: 'ContactInfos.{language}.Url' },
+              objectMapping: { text: 'ContactInfos.{language}.Url' },
             },
           ],
         },
@@ -137,12 +144,12 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Single Days',
               component: CellComponent.StringCell,
-              fields: { text: 'EventDate.SingleDays' },
+              objectMapping: { text: 'EventDate.SingleDays' },
             },
             {
               title: 'Ticket',
               component: CellComponent.StringCell,
-              fields: { text: 'Ticket' },
+              objectMapping: { text: 'Ticket' },
             },
           ],
         },
@@ -152,12 +159,12 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Event Price',
               component: CellComponent.StringCell,
-              fields: { text: 'EventPrice.0' },
+              objectMapping: { text: 'EventPrice.0' },
             },
             {
               title: 'Type',
               component: CellComponent.StringCell,
-              fields: { text: 'Type' },
+              objectMapping: { text: 'Type' },
             },
           ],
         },
@@ -167,36 +174,36 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'MinPersons',
               component: CellComponent.StringCell,
-              fields: { text: 'EventDate.MinPersons' },
+              objectMapping: { text: 'EventDate.MinPersons' },
             },
             {
               title: 'MaxPersons',
               component: CellComponent.StringCell,
-              fields: { text: 'EventDate.MaxPersons' },
+              objectMapping: { text: 'EventDate.MaxPersons' },
             },
             {
               title: 'Ranc',
               component: CellComponent.StringCell,
-              fields: { text: 'EventDate.Ranc' },
+              objectMapping: { text: 'EventDate.Ranc' },
             },
             {
               title: 'SignOn',
               component: CellComponent.StringCell,
-              fields: { text: 'SignOn' },
+              objectMapping: { text: 'SignOn' },
             },
             {
               title: 'PayMet',
               component: CellComponent.StringCell,
-              fields: { text: 'PayMet' },
+              objectMapping: { text: 'PayMet' },
             },
             {
               title: 'Topics',
               component: CellComponent.ArrayTagsCell,
-              fields: {
+              objectMapping: {
                 items: 'Topics',
               },
               params: {
-                fieldName: 'TopicInfo',
+                propertyName: 'TopicInfo',
                 separator: ', ',
                 max: '3',
               },
@@ -219,7 +226,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Area Id',
               component: CellComponent.StringCell,
-              fields: { text: 'LocationInfo.AreaInfo.Id' },
+              objectMapping: { text: 'LocationInfo.AreaInfo.Id' },
             },
           ],
         },
@@ -229,7 +236,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Active on Open Data Hub',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'SmgActive' },
+              objectMapping: { enabled: 'SmgActive' },
             },
           ],
         },

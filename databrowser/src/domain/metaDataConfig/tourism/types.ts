@@ -4,12 +4,13 @@
 
 export interface TourismMetaData {
   id: string;
+  baseUrl: string;
   shortname: string;
   description?: string;
   output: string;
   swaggerUrl?: string;
   access: 'opendata' | 'limited' | 'closed' | 'unknown';
-  pathParam: string[];
+  pathSegments: string[];
   externalLink?: string;
   sources: string[];
   lastUpdated?: Date;

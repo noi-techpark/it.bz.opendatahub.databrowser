@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   idReadOnlyCell,
   shortnameCell,
@@ -27,13 +27,13 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Description',
               component: CellComponent.StringCell,
-              fields: { text: 'ApiDescription.{language}' },
+              objectMapping: { text: 'ApiDescription.{language}' },
             },
             {
               title: 'Dataspace',
               component: CellComponent.SelectWithOptionsCell,
               class: 'w-60',
-              fields: {
+              objectMapping: {
                 value: 'Dataspace',
               },
               params: {
@@ -47,8 +47,8 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Category',
               component: CellComponent.CustomDataArrayCell,
-              listFields: {
-                attributeName: 'listItems',
+              arrayMapping: {
+                targetPropertyName: 'listItems',
                 pathToParent: 'Category',
               },
               params: {
@@ -60,8 +60,8 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Data Provider',
               component: CellComponent.CustomDataArrayCell,
-              listFields: {
-                attributeName: 'listItems',
+              arrayMapping: {
+                targetPropertyName: 'listItems',
                 pathToParent: 'DataProvider',
               },
               params: {
@@ -73,18 +73,25 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Deprecated',
               component: CellComponent.ToggleCell,
-              fields: { enabled: 'Deprecated' },
+              objectMapping: { enabled: 'Deprecated' },
             },
             {
               title: 'Base URL',
-              component: CellComponent.UrlCell,
-              fields: { text: 'BaseUrl' },
+              component: CellComponent.SelectWithOptionsCell,
+              objectMapping: { value: 'BaseUrl' },
+              params: {
+                showAddNewValue: 'true',
+                showValueAsLabelFallback: 'true',
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=BaseUrl.[*]&rawsort=BaseUrl.[*]&getasarray=true'
+                ),
+              },
             },
             {
               title: 'Path',
               component: CellComponent.ArrayEditableCell,
-              listFields: {
-                attributeName: 'items',
+              arrayMapping: {
+                targetPropertyName: 'items',
                 pathToParent: 'PathParam',
               },
               required: true,
@@ -92,27 +99,27 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Filter',
               component: CellComponent.ArrayEditableCell,
-              listFields: {
-                attributeName: 'items',
+              arrayMapping: {
+                targetPropertyName: 'items',
                 pathToParent: 'ApiFilter',
               },
             },
             {
               title: 'API URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'ApiUrl' },
+              objectMapping: { text: 'ApiUrl' },
               params: { readonly: 'true' },
             },
             {
               title: 'Swagger URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'SwaggerUrl' },
+              objectMapping: { text: 'SwaggerUrl' },
             },
             {
               title: 'Tags',
               component: CellComponent.TagReferenceCell,
-              listFields: {
-                attributeName: 'tags',
+              arrayMapping: {
+                targetPropertyName: 'tags',
                 pathToParent: 'OdhTagIds',
               },
               params: {
@@ -133,7 +140,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Count',
               component: CellComponent.JsonCell,
-              fields: { data: 'RecordCount' },
+              objectMapping: { data: 'RecordCount' },
               params: { usePreformatted: 'true' },
             },
           ],

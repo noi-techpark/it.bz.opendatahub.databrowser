@@ -8,8 +8,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <EditListCell :items="items">
     <!-- eslint-disable-next-line vue/no-template-shadow -->
     <template #table="{ items }">
+      <LoadingState
+        :is-loading="isLoading"
+        :is-error="isError"
+        :error="error"
+      />
       <ArrayLookupTable
-        v-if="response.isSuccess"
+        v-if="isSuccess"
         :options="options"
         :items="items"
         :unique="enableUniqueValue"
@@ -19,25 +24,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue';
-import { useQuery } from 'vue-query';
-import {
-  replacePlaceholders,
-  unifyPagination,
-  useApiParameterReplacements,
-  useAxiosFetcher,
-} from '../../../../api';
+import { MaybeRef, computed, toRefs, toValue } from 'vue';
+import LoadingState from '../../../../../components/loading/LoadingState.vue';
+import { useDatasetBaseInfoStore } from '../../../../datasets/config/store/datasetBaseInfoStore';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 import EditListCell from '../../utils/editList/EditListCell.vue';
+import { useRemoteSelectOptionsWithMapper } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
 import ArrayLookupTable from './ArrayLookupTable.vue';
-import * as R from 'ramda';
-import { SelectOption } from '../../../../../components/select/types';
 
 const props = withDefaults(
   defineProps<{
     lookupUrl: string;
     keySelector: string;
     labelSelector: string;
-    items?: { name: string }[] | null;
+    items?: string[] | null;
     unique?: boolean | string;
   }>(),
   {
@@ -46,45 +46,30 @@ const props = withDefaults(
   }
 );
 
-const enableUniqueValue = computed(() => {
-  // if unique is a boolean, return it
-  if (typeof props.unique === 'boolean') {
-    return props.unique;
-  }
-  // if unique is a string, return the boolean value of the string
-  if (typeof props.unique === 'string') {
-    return props.unique.toLocaleLowerCase() === 'true';
-  }
-  return false;
-});
+const enableUniqueValue = computed(() =>
+  booleanOrStringToBoolean(props.unique, false)
+);
 
-const { lookupUrl: queryKey, keySelector, labelSelector } = toRefs(props);
+const { lookupUrl, keySelector, labelSelector } = toRefs(props);
 
-const queryFn = useAxiosFetcher();
-const response = useQuery({ queryKey, queryFn });
+const optionMapper =
+  (keySelector: MaybeRef<string>, labelSelector: MaybeRef<string>) =>
+  (items: unknown[]) => {
+    const { extractValueByPath } = useDatasetBaseInfoStore();
 
-const replacements = useApiParameterReplacements();
+    return items.map((item) => {
+      const value = extractValueByPath(item, toValue(keySelector)) as string;
+      const label =
+        (extractValueByPath(item, toValue(labelSelector)) as string) ?? value;
+      const url = extractValueByPath(item, 'Url') as string;
+      return { value, label, url };
+    });
+  };
 
-const options = computed<(SelectOption & { url: string })[]>(() => {
-  const replace = (s: string): string =>
-    replacePlaceholders(s, replacements.value);
-  const keySelectorWithReplacements = replace(keySelector.value);
-  const labelSelectorWithReplacements = replace(labelSelector.value);
-
-  if (response.isSuccess.value) {
-    const { items } = unifyPagination(response.data.value?.data);
-    return items.map((item: any) => ({
-      label: getPropertyValue(item, labelSelectorWithReplacements),
-      value: getPropertyValue(item, keySelectorWithReplacements),
-      url: item.Url,
-    }));
-  }
-  return [];
-});
-
-const getPropertyValue = (item: unknown, jsonPath: string) => {
-  const path = jsonPath.split('.');
-  const lensePath = R.lensPath(path);
-  return R.view(lensePath, item);
-};
+const { options, error, isLoading, isSuccess, isError } =
+  useRemoteSelectOptionsWithMapper(
+    lookupUrl,
+    true,
+    optionMapper(keySelector, labelSelector)
+  );
 </script>

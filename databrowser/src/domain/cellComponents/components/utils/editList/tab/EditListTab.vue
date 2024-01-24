@@ -27,13 +27,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 import { computed, watch } from 'vue';
 import { useInjectNavigation } from '../actions/useNavigation';
 import EditListTabBody from './EditListTabBody.vue';
 import EditListTabHeader from './EditListTabHeader.vue';
 
-const props = defineProps<{ items: unknown[] | null }>();
+const props = defineProps<{ items: T[] | null }>();
 
 const itemsInternal = computed(() => props.items ?? []);
 

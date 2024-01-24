@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   contactCategory,
   dataStatesSubCategory,
@@ -40,7 +40,7 @@ export const experienceAreaSharedView = ():
             {
               title: 'Tourism Associations IDs',
               component: CellComponent.ArrayCell,
-              fields: {
+              objectMapping: {
                 items: 'TourismvereinIds',
               },
               params: {
@@ -50,7 +50,7 @@ export const experienceAreaSharedView = ():
             {
               title: 'District IDs',
               component: CellComponent.ArrayCell,
-              fields: {
+              objectMapping: {
                 items: 'DistrictIds',
               },
               params: {
@@ -75,8 +75,8 @@ export const experienceAreaSharedView = ():
             {
               title: 'Districts',
               component: CellComponent.TagReferenceCell,
-              listFields: {
-                attributeName: 'tags',
+              arrayMapping: {
+                targetPropertyName: 'tags',
                 pathToParent: 'DistrictIds',
               },
               params: {

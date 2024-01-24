@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   contactCategory,
   dataStatesSubCategory,
@@ -37,7 +37,7 @@ export const webcamInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Area Ids',
               component: CellComponent.ArrayCell,
-              fields: {
+              objectMapping: {
                 items: 'AreaIds',
               },
               params: {
@@ -62,17 +62,17 @@ export const webcamInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Image URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'WebCamProperties.WebcamUrl' },
+              objectMapping: { text: 'WebCamProperties.WebcamUrl' },
             },
             {
               title: 'Stream URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'WebCamProperties.StreamUrl' },
+              objectMapping: { text: 'WebCamProperties.StreamUrl' },
             },
             {
               title: 'Preview URL',
               component: CellComponent.UrlCell,
-              fields: { text: 'WebCamProperties.PreviewUrl' },
+              objectMapping: { text: 'WebCamProperties.PreviewUrl' },
             },
           ],
         },

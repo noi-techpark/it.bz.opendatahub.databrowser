@@ -25,7 +25,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template #tableCols="{ item }">
       <TableCell>{{ item.Shortname }} </TableCell>
       <TableCell>
-        <ToggleCell :enabled="item.Indoor" :editable="true" />
+        <ToggleCell
+          :enabled="booleanOrStringToBoolean(item.Indoor)"
+          :editable="true"
+        />
       </TableCell>
       <TableCell>{{ item.SquareMeters }} </TableCell>
       <TableCell>{{ item.Capacity }} </TableCell>
@@ -46,6 +49,7 @@ import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
 import { RoomVenueEntry } from './types';
 import ToggleCell from '../toggleCell/ToggleCell.vue';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 defineProps<{ items: RoomVenueEntry[] }>();
 

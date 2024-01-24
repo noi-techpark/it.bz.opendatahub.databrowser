@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   PropertyConfig,
   SubCategoryElement,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import { logoWithMainImageCells } from './image';
 
 export const shortnameCell = (options?: {
@@ -14,7 +14,7 @@ export const shortnameCell = (options?: {
 }): PropertyConfig => ({
   title: 'Shortname',
   component: CellComponent.StringCell,
-  fields: { text: 'Shortname' },
+  objectMapping: { text: 'Shortname' },
   required: options?.required === true ? true : undefined,
 });
 

@@ -44,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   @click="saveAndNext()"
                   >{{
                     t(
-                      'datasets.editView.dialog.multipleFilesLanguage.buttonSaveAndNext'
+                      'datasets.editView.dialog.multipleFilesLanguage.buttonNext'
                     )
                   }}</ButtonCustom
                 >
@@ -95,8 +95,6 @@ import { Variant } from '../../../../../../components/button/types';
 import { useDialogStore } from './dialogStore';
 import DialogConfirmDeselectAllLanguages from './DialogConfirmDeselectAllLanguages.vue';
 import {
-  useEventSaveChanges,
-  useEventDiscardChanges,
   addItemsInModalAndSave,
   updateItemsInModalAndSave,
   setIgnoreDelete,
@@ -141,12 +139,10 @@ const saveAndNext = () => {
     updateItemsInModalAndSave();
   }
 
-  useEventSaveChanges.emit(true);
   emit('close');
 };
 
 const discardUpdates = () => {
-  useEventDiscardChanges.emit(true);
   emit('close');
 };
 

@@ -6,7 +6,7 @@ import { CellComponent } from '../../../domain/cellComponents/types';
 import {
   DetailViewConfig,
   EditViewConfig,
-} from '../../../domain/datasetConfig/types';
+} from '../../../domain/datasets/config/types';
 import {
   dataStatesWithInsertsSubCategory,
   gpsDataCategory,
@@ -37,12 +37,12 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Siag ID',
               component: CellComponent.StringCell,
-              fields: { text: 'SiagId' },
+              objectMapping: { text: 'SiagId' },
             },
             {
               title: 'HGV ID',
               component: CellComponent.StringCell,
-              fields: { text: 'hgv.id' },
+              objectMapping: { text: 'hgv.id' },
             },
           ],
         },
@@ -54,12 +54,12 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
                 {
                   title: 'Is comune',
                   component: CellComponent.ToggleCell,
-                  fields: { enabled: 'IsComune' },
+                  objectMapping: { enabled: 'IsComune' },
                 },
                 {
                   title: 'Visible in Search',
                   component: CellComponent.ToggleCell,
-                  fields: { enabled: 'VisibleInSearch' },
+                  objectMapping: { enabled: 'VisibleInSearch' },
                 },
               ],
             },

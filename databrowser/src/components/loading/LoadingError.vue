@@ -5,15 +5,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <AlertError
-    title="Error while loading data"
-    :content="toErrorString(error)"
-  />
+  <AlertError :title="t('datasets.error.load.title')">
+    <slot></slot>
+  </AlertError>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 import AlertError from '../alert/AlertError.vue';
-import { toErrorString } from '../../domain/api/service/utils';
 
-defineProps<{ error: unknown }>();
+const { t } = useI18n();
 </script>
