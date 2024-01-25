@@ -111,11 +111,10 @@
           "title": "Unsaved Data!"
         },
         "multipleFilesLanguage": {
-          "buttonSaveAndNext": "Save & next",
-          "buttonNext": "Next",
-          "buttonDiscardChanges": "Discard changes",
-          "title": "Choose language",
-          "description": "Which language would you like to assign the uploaded document to?"
+          "buttonSaveAndNext": "Ok",
+          "buttonDiscardChanges": "Cancel",
+          "title": "Set document names",
+          "description": "Define a document name for each language. By giving the document a name, you make it available in the respective language."
         },
         "confirmDeselectAllLanguages": {
           "title": "You deselected all languages",
