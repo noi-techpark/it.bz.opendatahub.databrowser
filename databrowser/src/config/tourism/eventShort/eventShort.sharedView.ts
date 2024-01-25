@@ -109,6 +109,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Room name',
               component: CellComponent.StringCell,
               objectMapping: { text: 'AnchorVenue' },
+              required: true,
             },
             {
               title: 'Age From',
