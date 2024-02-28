@@ -12,6 +12,7 @@ import {
   lastChangesCell,
   licenseInfoCategory,
 } from '../../builder/tourism';
+import { withOdhBaseUrl } from '../../utils';
 
 export const sourceSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -44,6 +45,18 @@ export const sourceSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.UrlCell,
               objectMapping: { text: 'Url' },
             },
+            lastChangesCell(),
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Details',
+      slug: 'details',
+      subcategories: [
+        {
+          name: '',
+          properties: [
             {
               title: 'Interfaces',
               component: CellComponent.ArrayEditableCell,
@@ -53,7 +66,19 @@ export const sourceSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
               required: false,
             },
-            lastChangesCell(),
+            {
+              title: 'valid for Types',
+              component: CellComponent.CustomDataArrayCell,
+              arrayMapping: {
+                targetPropertyName: 'listItems',
+                pathToParent: 'Types',
+              },
+              params: {
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=OdhType&getasarray=true&excludenulloremptyvalues=true'
+                ),
+              },
+            },
           ],
         },
       ],

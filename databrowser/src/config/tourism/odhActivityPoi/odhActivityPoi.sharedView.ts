@@ -20,6 +20,7 @@ import {
   seasonCategory,
   shortnameCell,
   sourceWithInsertsSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
 import { mappingCategory } from '../../builder/tourism/mapping';
@@ -70,6 +71,7 @@ export const odhActivityPoiSharedView = ():
             ],
           },
         ]),
+        sourceSubCategoryWithDistinct('odhactivitypoi'),
       ],
     },
     textInfoCategory(),

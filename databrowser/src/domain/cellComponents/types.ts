@@ -12,6 +12,7 @@ export enum CellComponent {
   ArticleTypeCell = 'ArticleTypeCell',
   CustomDataArrayCell = 'CustomDataArrayCell',
   DateCell = 'DateCell',
+  DictionaryCell = 'DictionaryCell',
   EditedDateCell = 'EditedDateCell',
   EditImageGalleryCell = 'EditImageGalleryCell',
   EditGpsInfoCell = 'EditGpsInfoCell',

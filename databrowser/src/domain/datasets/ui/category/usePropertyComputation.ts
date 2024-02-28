@@ -109,6 +109,7 @@ const isShowAlwaysComponent = (component: string) => {
     component === CellComponent.ToggleCell ||
     component === CellComponent.ArticleAdditionalInfoCell ||
     component === CellComponent.ArticleLinkInfoCell ||
+    component === CellComponent.DictionaryCell ||
     component === CellComponent.LoadingCell
   );
 };
