@@ -68,7 +68,15 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
         {
           name: 'Data states',
-          properties: [lastChangesCell(), publishedOnCell()],
+          properties: [
+            lastChangesCell(),
+            publishedOnCell(),
+            {
+              title: 'Active on Source',
+              component: CellComponent.ToggleCell,
+              objectMapping: { enabled: 'Active' },
+            },
+          ],
         },
         sourceSubCategory(),
         sourceSubCategoryWithDistinct('eventshort'),
