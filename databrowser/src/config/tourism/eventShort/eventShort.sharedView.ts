@@ -14,6 +14,7 @@ import {
   licenseInfoCategory,
   lastChangesCell,
   sourceSubCategory,
+  sourceSubCategoryWithDistinct,
 } from '../../builder/tourism';
 import { publishedOnCell } from '../../builder/tourism/publishedOn';
 import { withOdhBaseUrl } from '../../utils';
@@ -70,6 +71,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [lastChangesCell(), publishedOnCell()],
         },
         sourceSubCategory(),
+        sourceSubCategoryWithDistinct('eventshort'),
       ],
     },
     {
