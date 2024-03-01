@@ -17,7 +17,7 @@ import {
   odhTagCategory,
   regionIdCell,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
   webcamCategory,
 } from '../../builder/tourism';
@@ -85,7 +85,7 @@ export const municipalitySharedView = ():
           ],
         },
         dataStatesSubCategory({ hasVisibleInSearch: true }),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('municipality'),
       ],
     },
     textInfoCategory(),

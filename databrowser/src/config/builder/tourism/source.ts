@@ -26,7 +26,7 @@ export const sourceSubCategoryWithDistinct = (
   name: 'Source',
   properties: [
     {
-      title: 'Source (from api)',
+      title: 'Source',
       component: CellComponent.InputReferenceCell,
       objectMapping: { value: 'Source' },
       params: {

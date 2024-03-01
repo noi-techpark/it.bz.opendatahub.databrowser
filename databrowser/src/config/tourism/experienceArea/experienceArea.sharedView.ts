@@ -16,7 +16,7 @@ import {
   mainImageCell,
   odhTagCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
 import { withOdhBaseUrl } from '../../utils';
@@ -60,7 +60,7 @@ export const experienceAreaSharedView = ():
           ],
         },
         dataStatesSubCategory({ hasVisibleInSearch: true }),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('experiencearea'),
       ],
     },
     textInfoCategory(),

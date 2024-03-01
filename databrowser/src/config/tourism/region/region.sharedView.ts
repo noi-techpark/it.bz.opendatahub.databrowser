@@ -15,7 +15,7 @@ import {
   imageGalleryCategory,
   odhTagCategory,
   shortnameWithLogoAndMainImageSubCategory,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
   webcamCategory,
 } from '../../builder/tourism';
@@ -50,7 +50,7 @@ export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
           ],
         },
         dataStatesSubCategory({ hasVisibleInSearch: true }),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('region'),
       ],
     },
     textInfoCategory(),

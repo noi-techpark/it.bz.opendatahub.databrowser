@@ -16,7 +16,7 @@ import {
   licenseInfoCategory,
   odhTagCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
 
@@ -47,7 +47,7 @@ export const webcamInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
           ],
         },
         dataStatesSubCategory(),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('webcam'),
       ],
     },
     gpsDataCategory(),
