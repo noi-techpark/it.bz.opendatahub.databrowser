@@ -42,7 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </tr>
         <tr>
           <TableCell>{{ t('overview.cardTabs.openData') }}</TableCell>
-          <TableCell>{{ dataset.access }}</TableCell>
+          <TableCell>{{ t('overview.dataLicence.info') }}</TableCell>
         </tr>
         <tr>
           <TableCell>{{ t('overview.cardTabs.contact') }}</TableCell>
