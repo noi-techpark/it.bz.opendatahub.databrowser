@@ -82,6 +82,7 @@ export const useProvideActions = <T>() => {
 export const useInjectActions = <T>() => inject<Actions<T>>(actionKey)!;
 
 export const useInjectActionTriggers = <T>(): ActionTriggers<T> =>
-  useInjectActions();
+  useInjectActions<T>();
 
-export const useInjectActionHooks = <T>(): ActionHooks<T> => useInjectActions();
+export const useInjectActionHooks = <T>(): ActionHooks<T> =>
+  useInjectActions<T>();
