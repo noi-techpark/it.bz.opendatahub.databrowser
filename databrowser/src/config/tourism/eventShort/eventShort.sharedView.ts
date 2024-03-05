@@ -13,7 +13,6 @@ import {
   imageGalleryCategory,
   licenseInfoCategory,
   lastChangesCell,
-  sourceSubCategory,
   sourceSubCategoryWithDistinct,
 } from '../../builder/tourism';
 import { publishedOnCell } from '../../builder/tourism/publishedOn';
@@ -78,7 +77,6 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
           ],
         },
-        sourceSubCategory(),
         sourceSubCategoryWithDistinct('eventshort'),
       ],
     },
