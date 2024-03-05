@@ -16,7 +16,7 @@ import {
   odhTagCategory,
   regionIdCell,
   shortnameWithLogoAndMainImageSubCategory,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
 
@@ -47,7 +47,7 @@ export const tourismAssociationListSharedView = ():
           ],
         },
         dataStatesSubCategory({ hasVisibleInSearch: true }),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('tourismassociation'),
       ],
     },
     textInfoCategory(),

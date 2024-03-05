@@ -19,7 +19,7 @@ import {
   odhTagCategory,
   seasonCategory,
   shortnameCell,
-  sourceWithInsertsSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
 import { mappingCategory } from '../../builder/tourism/mapping';
@@ -53,23 +53,22 @@ export const odhActivityPoiSharedView = ():
           properties: [idReadOnlyCell()],
         },
         dataStatesSubCategory(),
-        sourceWithInsertsSubCategory([
-          {
-            position: 1,
-            properties: [
-              {
-                title: 'Interface',
-                component: CellComponent.StringCell,
-                objectMapping: { text: 'SyncSourceInterface' },
-              },
-              {
-                title: 'Update mode',
-                component: CellComponent.StringCell,
-                objectMapping: { text: 'SyncUpdateMode' },
-              },
-            ],
-          },
-        ]),
+        sourceSubCategoryWithDistinct(''),
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Source Interface',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'SyncSourceInterface' },
+            },
+            {
+              title: 'Update mode',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'SyncUpdateMode' },
+            },
+          ],
+        },
       ],
     },
     textInfoCategory(),

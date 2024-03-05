@@ -15,7 +15,7 @@ import {
   odhTagCategory,
   seasonCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
 import { mappingCategory } from '../../builder/tourism/mapping';
@@ -36,7 +36,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [idReadOnlyCell()],
         },
         dataStatesSubCategory(),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('article'),
       ],
     },
     textInfoCategory(),

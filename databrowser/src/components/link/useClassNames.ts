@@ -9,6 +9,7 @@ const toneClass: Record<Tone, string> = {
   ['primary']: 'text-green-500',
   ['text']: 'text-gray-900',
   ['white']: 'text-white',
+  ['none']: '',
 };
 
 const variantClass: Record<Variant, string> = {

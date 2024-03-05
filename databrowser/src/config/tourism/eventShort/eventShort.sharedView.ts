@@ -14,6 +14,7 @@ import {
   licenseInfoCategory,
   lastChangesCell,
   sourceSubCategory,
+  sourceSubCategoryWithDistinct,
 } from '../../builder/tourism';
 import { publishedOnCell } from '../../builder/tourism/publishedOn';
 import { withOdhBaseUrl } from '../../utils';
@@ -67,9 +68,18 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
         {
           name: 'Data states',
-          properties: [lastChangesCell(), publishedOnCell()],
+          properties: [
+            lastChangesCell(),
+            publishedOnCell(),
+            {
+              title: 'Active on Source',
+              component: CellComponent.ToggleCell,
+              objectMapping: { enabled: 'Active' },
+            },
+          ],
         },
         sourceSubCategory(),
+        sourceSubCategoryWithDistinct('eventshort'),
       ],
     },
     {
@@ -109,6 +119,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Room name',
               component: CellComponent.StringCell,
               objectMapping: { text: 'AnchorVenue' },
+              required: true,
             },
             {
               title: 'Age From',

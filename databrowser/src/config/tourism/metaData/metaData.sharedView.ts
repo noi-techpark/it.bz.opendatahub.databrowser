@@ -11,6 +11,7 @@ import {
   idReadOnlyCell,
   shortnameCell,
   imageGalleryCategory,
+  licenseInfoCategory,
 } from '../../builder/tourism';
 import { withOdhBaseUrl } from '../../utils';
 
@@ -45,19 +46,6 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
             },
             {
-              title: 'Category',
-              component: CellComponent.CustomDataArrayCell,
-              arrayMapping: {
-                targetPropertyName: 'listItems',
-                pathToParent: 'Category',
-              },
-              params: {
-                url: withOdhBaseUrl(
-                  '/v1/Distinct?odhtype=odhmetadata&fields=Category.[*]&rawsort=Category.[*]&getasarray=true'
-                ),
-              },
-            },
-            {
               title: 'Data Provider',
               component: CellComponent.CustomDataArrayCell,
               arrayMapping: {
@@ -75,6 +63,33 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.ToggleCell,
               objectMapping: { enabled: 'Deprecated' },
             },
+          ],
+        },
+        {
+          name: 'IDs',
+          properties: [idReadOnlyCell()],
+        },
+        {
+          name: 'Count',
+          properties: [
+            {
+              title: 'Count',
+              component: CellComponent.JsonCell,
+              objectMapping: { data: 'RecordCount' },
+              params: { usePreformatted: 'true' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Api data',
+      slug: 'api-data',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            shortnameCell({ required: true }),
             {
               title: 'Base URL',
               component: CellComponent.SelectWithOptionsCell,
@@ -111,9 +126,45 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               params: { readonly: 'true' },
             },
             {
+              title: 'Output',
+              component: CellComponent.DictionaryCell,
+              objectMapping: {
+                dictitems: 'Output',
+              },
+            },
+            {
               title: 'Swagger URL',
               component: CellComponent.UrlCell,
               objectMapping: { text: 'SwaggerUrl' },
+            },
+            {
+              title: 'Type',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'Type' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Additional data',
+      slug: 'additional-data',
+      subcategories: [
+        {
+          name: 'General data',
+          properties: [
+            {
+              title: 'Category',
+              component: CellComponent.CustomDataArrayCell,
+              arrayMapping: {
+                targetPropertyName: 'listItems',
+                pathToParent: 'Category',
+              },
+              params: {
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=Category.[*]&rawsort=Category.[*]&getasarray=true'
+                ),
+              },
             },
             {
               title: 'Tags',
@@ -130,23 +181,9 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
           ],
         },
-        {
-          name: 'IDs',
-          properties: [idReadOnlyCell()],
-        },
-        {
-          name: 'Count',
-          properties: [
-            {
-              title: 'Count',
-              component: CellComponent.JsonCell,
-              objectMapping: { data: 'RecordCount' },
-              params: { usePreformatted: 'true' },
-            },
-          ],
-        },
       ],
     },
     imageGalleryCategory(),
+    licenseInfoCategory(),
   ],
 });

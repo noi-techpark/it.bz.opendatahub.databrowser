@@ -18,7 +18,7 @@ import {
   locationCategory,
   odhTagCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   mainImageCell,
 } from '../../builder/tourism';
 import { mappingCategory } from '../../builder/tourism/mapping';
@@ -149,7 +149,7 @@ export const accommodationSharedView = ():
           ],
         },
         dataStatesSubCategory(),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('accommodation'),
       ],
     },
     {
