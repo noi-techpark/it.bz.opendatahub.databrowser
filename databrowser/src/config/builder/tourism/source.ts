@@ -21,7 +21,7 @@ export const sourceSubCategory = (): SubCategoryElement => ({
 });
 
 export const sourceSubCategoryWithDistinct = (
-  mainentity?: string
+  mainentity: string
 ): SubCategoryElement => ({
   name: 'Source',
   properties: [
@@ -30,7 +30,7 @@ export const sourceSubCategoryWithDistinct = (
       component: CellComponent.InputReferenceCell,
       objectMapping: { value: 'Source' },
       params: {
-        url: withOdhBaseUrl('/v1/Source?typelist=' + mainentity),
+        url: withOdhBaseUrl('/v1/Source?pagesize=-1&typelist=' + mainentity),
         labelSelector: 'Name.{language}',
         keySelector: 'Key',
       },
