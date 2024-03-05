@@ -13,6 +13,7 @@ import ArticleLinkInfoCell from '../components/cells/articleLinkInfoCell/Article
 import ArticleTypeCell from '../components/cells/articleTypeCell/ArticleTypeCell.vue';
 import CustomDataArrayCell from '../components/cells/customDataArrayCell/CustomDataArrayCell.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
+import DictionaryCell from '../components/cells/dictionaryCell/DictionaryCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditImageGalleryCell.vue';
 import EditGpsInfoCell from '../components/cells/editGpsInfoCell/EditGpsInfoCell.vue';
@@ -69,6 +70,7 @@ export default {
     app.component(CellComponent.ArticleTypeCell, ArticleTypeCell);
     app.component(CellComponent.DateCell, DateCell);
     app.component(CellComponent.CustomDataArrayCell, CustomDataArrayCell);
+    app.component(CellComponent.DictionaryCell, DictionaryCell);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
     app.component(CellComponent.EditImageGalleryCell, EditImageGalleryCell);
     app.component(CellComponent.EditGpsInfoCell, EditGpsInfoCell);

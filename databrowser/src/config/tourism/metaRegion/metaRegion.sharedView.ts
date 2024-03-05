@@ -15,7 +15,7 @@ import {
   mainImageCell,
   odhTagCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
 
@@ -67,7 +67,7 @@ export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
           ],
         },
         dataStatesSubCategory({ hasVisibleInSearch: true }),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('metaregion'),
       ],
     },
     textInfoCategory(),

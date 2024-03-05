@@ -13,7 +13,7 @@ import {
   imageGalleryCategory,
   mainImageCell,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
 
@@ -40,7 +40,7 @@ export const wineAwardSharedView = (): DetailViewConfig | EditViewConfig => ({
           ],
         },
         dataStatesSubCategory(),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('wineaward'),
       ],
     },
     textInfoCategory(),

@@ -7,6 +7,7 @@ import {
   PropertyConfig,
   SubCategoryElement,
 } from '../../../domain/datasets/config/types';
+import { withOdhBaseUrl } from '../../utils';
 
 export const sourceSubCategory = (): SubCategoryElement => ({
   name: 'Source',
@@ -15,6 +16,24 @@ export const sourceSubCategory = (): SubCategoryElement => ({
       title: 'Source',
       component: CellComponent.StringCell,
       objectMapping: { text: 'Source' },
+    },
+  ],
+});
+
+export const sourceSubCategoryWithDistinct = (
+  mainentity?: string
+): SubCategoryElement => ({
+  name: 'Source',
+  properties: [
+    {
+      title: 'Source',
+      component: CellComponent.InputReferenceCell,
+      objectMapping: { value: 'Source' },
+      params: {
+        url: withOdhBaseUrl('/v1/Source?typelist=' + mainentity),
+        labelSelector: 'Name.{language}',
+        keySelector: 'Key',
+      },
     },
   ],
 });
