@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
     <template #noItems>No rooms have been defined yet</template>
     <template #addItems>
-      <EditListAddButton :text="'Add new room'" @click="addEmptyItem" />
+      <EditListAddButton :text="'Add new room'" @click="addItem({})" />
     </template>
   </EditListTable>
 </template>
@@ -53,5 +53,5 @@ import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 defineProps<{ items: RoomVenueEntry[] }>();
 
-const { addEmptyItem } = useInjectActionTriggers();
+const { addItem } = useInjectActionTriggers<RoomVenueEntry>();
 </script>

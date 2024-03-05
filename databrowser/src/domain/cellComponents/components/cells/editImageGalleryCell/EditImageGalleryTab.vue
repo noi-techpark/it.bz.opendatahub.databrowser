@@ -204,7 +204,7 @@ const { items, resizeImages } = toRefs(props);
 const { activeTab, navigateToAdd } = useInjectNavigation();
 
 const { deleteItems, duplicateItem, updateItem, updateItems } =
-  useInjectActionTriggers();
+  useInjectActionTriggers<ImageGalleryEntry>();
 
 const { editable } = useInjectEditMode();
 

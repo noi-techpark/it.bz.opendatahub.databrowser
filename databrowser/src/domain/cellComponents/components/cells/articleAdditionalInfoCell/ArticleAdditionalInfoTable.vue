@@ -66,7 +66,7 @@ const { infos } = toRefs(props);
 
 const { editable } = useInjectEditMode();
 
-const { addItems, updateItem } = useInjectActionTriggers();
+const { addItems, updateItem } = useInjectActionTriggers<InfoEntry>();
 
 useRecordSupportForTable({
   items: infos,

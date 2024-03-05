@@ -71,7 +71,7 @@ const { navigateToTab, navigateToTable } = useInjectNavigation();
 
 const { editable } = useInjectEditMode();
 
-const { deleteAllItems } = useInjectActionTriggers();
+const { deleteAllItems } = useInjectActionTriggers<T>();
 
 // Scroll active tab into view in case there are many to many tabs to show
 const tabWrapper = ref();

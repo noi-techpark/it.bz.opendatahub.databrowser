@@ -105,7 +105,8 @@ const { t } = useI18n();
 
 defineProps<{ items: OperationScheduleEntry[] }>();
 
-const { addItems, updateItem } = useInjectActionTriggers();
+const { addItems, updateItem } =
+  useInjectActionTriggers<OperationScheduleEntry>();
 
 const { editable } = useInjectEditMode();
 </script>

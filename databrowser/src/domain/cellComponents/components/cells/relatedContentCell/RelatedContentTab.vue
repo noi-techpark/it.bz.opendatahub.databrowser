@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template #addItems>
       <EditListAddButton
         :text="'Add new Related Content'"
-        @click="addEmptyItem"
+        @click="addItem({})"
       />
     </template>
 
@@ -26,14 +26,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <StringCell
               :text="item.id"
               :editable="editable"
-              @input="updateItem(index, { name: $event.target.value })"
+              @input="updateItem(index, { id: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Type">
             <StringCell
               :text="item.type"
               :editable="editable"
-              @input="updateItem(index, { imageUrl: $event.target.value })"
+              @input="updateItem(index, { type: $event.target.value })"
             />
           </SubCategoryItem>
         </div>
@@ -98,8 +98,8 @@ import { RelatedContentEntry } from './types';
 
 defineProps<{ items: RelatedContentEntry[] }>();
 
-const { addEmptyItem, deleteItems, duplicateItem, updateItem } =
-  useInjectActionTriggers();
+const { addItem, deleteItems, duplicateItem, updateItem } =
+  useInjectActionTriggers<RelatedContentEntry>();
 
 const { editable } = useInjectEditMode();
 

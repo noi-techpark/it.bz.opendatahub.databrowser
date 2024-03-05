@@ -169,7 +169,7 @@ const {
 } = useItemSelection(itemsInternal);
 
 const { deleteItems, duplicateItem, pushItem, updateItems } =
-  useInjectActionTriggers();
+  useInjectActionTriggers<T>();
 
 const deleteSelectedItems = () => {
   const indexes = itemsSelected.value.reduce<number[]>(

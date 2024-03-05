@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template #addItems>
       <EditListAddButton
         :text="'Add new link'"
-        @click="addItems([{ title: '' }])"
+        @click="addItems([{ title: '', url: '' }])"
       />
     </template>
   </EditListTable>
@@ -60,7 +60,7 @@ const { links } = toRefs(props);
 
 const { editable } = useInjectEditMode();
 
-const { addItems, updateItem } = useInjectActionTriggers();
+const { addItems, updateItem } = useInjectActionTriggers<LinkEntry>();
 
 useRecordSupportForTable<LinkEntry>({
   items: links,

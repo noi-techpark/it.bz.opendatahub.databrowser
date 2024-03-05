@@ -32,7 +32,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
     <template #noItems>No tags have been defined yet</template>
     <template #addItems>
-      <EditListAddButton :text="'Add new'" @click="addItems([undefined])" />
+      <EditListAddButton :text="'Add new'" @click="addItems([''])" />
     </template>
   </EditListTable>
 </template>
@@ -55,7 +55,7 @@ const props = defineProps<{
 
 const { items } = toRefs(props);
 
-const { addItems, updateItem } = useInjectActionTriggers();
+const { addItems, updateItem } = useInjectActionTriggers<string>();
 
 const { editable } = useInjectEditMode();
 
