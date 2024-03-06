@@ -46,7 +46,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
     <template #noItems>No rooms have been defined yet</template>
     <template #addItems>
-      <EditListAddButton :text="'Add new room'" @click="addEmptyItem" />
+      <EditListAddButton :text="'Add new room'" @click="addItem({})" />
     </template>
   </EditListTable>
 </template>
@@ -63,5 +63,5 @@ import { DEFAULT_DATE_TIME_FORMAT } from '../../../../../config/utils';
 
 defineProps<{ items: RoomBookedEntry[] }>();
 
-const { addEmptyItem } = useInjectActionTriggers();
+const { addItem } = useInjectActionTriggers<RoomBookedEntry>();
 </script>

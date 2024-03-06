@@ -42,8 +42,8 @@ export const useRecordSupportForTable = <T>(options: {
 }) => {
   const { items, duplication } = options;
 
-  const { updateItems } = useInjectActionTriggers();
-  const { onDuplicateItem } = useInjectActionHooks();
+  const { updateItems } = useInjectActionTriggers<T>();
+  const { onDuplicateItem } = useInjectActionHooks<T>();
 
   onDuplicateItem((index) => {
     const duplicatedEntry = duplication(items.value, index);

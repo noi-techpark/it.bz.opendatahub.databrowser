@@ -327,7 +327,7 @@ const { t } = useI18n();
 defineProps<{ items: OperationScheduleEntry[] }>();
 
 const { addItems, deleteItems, duplicateItem, updateItem } =
-  useInjectActionTriggers();
+  useInjectActionTriggers<OperationScheduleEntry>();
 
 const { editable } = useInjectEditMode();
 
