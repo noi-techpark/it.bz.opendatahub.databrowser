@@ -380,6 +380,9 @@
       "sources": "Sources",
       "swaggerUrl": "Swagger URL"
     },
+    "dataLicence":{
+      "info": "All publicly (without a login) available data is either under license CC0 or CC-BY." 
+    },
     "dataset": {
       "titleJoiner": "from"
     },
