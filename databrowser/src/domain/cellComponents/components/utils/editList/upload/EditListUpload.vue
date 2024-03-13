@@ -38,7 +38,7 @@ const props = defineProps<{ type: FileType; hasLanguageDialog?: boolean }>();
 
 const { navigateToPrevious } = useInjectNavigation();
 
-const { addItems } = useInjectActionTriggers();
+const { addItems } = useInjectActionTriggers<{ src: string; name?: string }>();
 
 const dialog = ref({ isOpen: false });
 

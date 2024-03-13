@@ -9,9 +9,9 @@ export enum SelectSize {
   md = 'md',
 }
 
-export interface SelectOption {
+export interface SelectOption<T = string | number | undefined> {
   label: string;
-  value: string | number | undefined;
+  value: T;
   disabled?: boolean;
   isAction?: boolean;
 }

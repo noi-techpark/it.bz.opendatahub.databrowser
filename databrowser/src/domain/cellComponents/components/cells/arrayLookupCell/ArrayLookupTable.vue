@@ -58,7 +58,7 @@ import UrlCell from '../UrlCell/UrlCell.vue';
 const props = withDefaults(
   defineProps<{
     items: string[];
-    options: (SelectOption & { url: string })[];
+    options: (SelectOption<string> & { url: string })[];
     unique?: boolean;
   }>(),
   {
@@ -68,7 +68,7 @@ const props = withDefaults(
 
 const { editable } = useInjectEditMode();
 
-const { addItems, updateItem } = useInjectActionTriggers();
+const { addItems, updateItem } = useInjectActionTriggers<string>();
 
 const itemSet = computed(() => new Set(props.items));
 

@@ -75,7 +75,7 @@ defineProps<{ items: GpsInfoEntry[] }>();
 const { activeTab } = useInjectNavigation();
 
 const { deleteItems, duplicateItem, updateItem, addItems } =
-  useInjectActionTriggers();
+  useInjectActionTriggers<GpsInfoEntry>();
 
 const { editable } = useInjectEditMode();
 

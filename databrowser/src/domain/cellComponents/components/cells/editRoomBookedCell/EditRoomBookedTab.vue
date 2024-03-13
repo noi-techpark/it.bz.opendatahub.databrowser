@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
 
     <template #addItems>
-      <EditListAddButton :text="'Add new room'" @click="addEmptyItem" />
+      <EditListAddButton :text="'Add new room'" @click="addItem({})" />
     </template>
 
     <template #body="{ item, index }">
@@ -109,8 +109,8 @@ import { RoomBookedEntry } from './types';
 
 defineProps<{ items: RoomBookedEntry[] }>();
 
-const { addEmptyItem, deleteItems, duplicateItem, updateItem } =
-  useInjectActionTriggers();
+const { addItem, deleteItems, duplicateItem, updateItem } =
+  useInjectActionTriggers<RoomBookedEntry>();
 
 const { editable } = useInjectEditMode();
 </script>
