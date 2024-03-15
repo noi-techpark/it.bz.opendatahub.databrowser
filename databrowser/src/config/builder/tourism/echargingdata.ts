@@ -79,6 +79,16 @@ export const echargingdataCategory = (): DetailElements => ({
             text: 'AdditionalProperties.EchargingDataProperties.ChargingPlugCount',
           },
         },
+        {
+          title: 'Charging Plugs Types',
+          component: CellComponent.ArrayEditableCell,
+          arrayMapping: {
+            targetPropertyName: 'items',
+            pathToParent:
+              'AdditionalProperties.EchargingDataProperties.ChargingCableType',
+          },
+          required: false,
+        },
       ],
     },
     {
