@@ -211,9 +211,22 @@ export const echargingdataCategory = (): DetailElements => ({
         },
         {
           title: 'FloorCover',
-          component: CellComponent.StringCell,
+          component: CellComponent.SelectWithOptionsCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.FloorCover',
+            value:
+              'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.FloorCover',
+          },
+          params: {
+            value_001: 'apshalt-cement',
+            label_001: 'asphalt-cement',
+            value_002: 'pavement',
+            label_002: 'pavement (Pflaster)',
+            value_003: 'grassgrid',
+            label_003: 'grid (Grasgittersteine)',
+            value_004: 'gravel',
+            label_004: 'gravel (Kiesbelag)',
+            value_005: 'other',
+            label_005: 'other',
           },
         },
         {
@@ -267,9 +280,21 @@ export const echargingdataCategory = (): DetailElements => ({
         },
         {
           title: 'FloorCover',
-          component: CellComponent.StringCell,
+          component: CellComponent.SelectWithOptionsCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.FloorCover',
+          },
+          params: {
+            value_001: 'apshalt-cement',
+            label_001: 'asphalt-cement',
+            value_002: 'pavement',
+            label_002: 'pavement (Pflaster)',
+            value_003: 'grassgrid',
+            label_003: 'grid (Grasgittersteine)',
+            value_004: 'gravel',
+            label_004: 'gravel (Kiesbelag)',
+            value_005: 'other',
+            label_005: 'other',
           },
         },
         {
