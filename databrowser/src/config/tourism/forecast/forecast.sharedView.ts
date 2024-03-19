@@ -58,14 +58,14 @@ export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
             },
             {
-              title: 'Max Temparature',
+              title: 'Max Temperature',
               component: CellComponent.StringCell,
               objectMapping: {
                 text: 'ForeCastDaily.0.MaxTemp',
               },
             },
             {
-              title: 'Min Temparature',
+              title: 'Min Temperature',
               component: CellComponent.StringCell,
               objectMapping: {
                 text: 'ForeCastDaily.0.MinTemp',
@@ -111,14 +111,14 @@ export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
             },
             {
-              title: 'Max Temparature',
+              title: 'Max Temperature',
               component: CellComponent.StringCell,
               objectMapping: {
                 text: 'ForeCastDaily.1.MaxTemp',
               },
             },
             {
-              title: 'Min Temparature',
+              title: 'Min Temperature',
               component: CellComponent.StringCell,
               objectMapping: {
                 text: 'ForeCastDaily.1.MinTemp',
@@ -164,14 +164,14 @@ export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
             },
             {
-              title: 'Max Temparature',
+              title: 'Max Temperature',
               component: CellComponent.StringCell,
               objectMapping: {
                 text: 'ForeCastDaily.2.MaxTemp',
               },
             },
             {
-              title: 'Min Temparature',
+              title: 'Min Temperature',
               component: CellComponent.StringCell,
               objectMapping: {
                 text: 'ForeCastDaily.2.MinTemp',
@@ -217,14 +217,14 @@ export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
             },
             {
-              title: 'Max Temparature',
+              title: 'Max Temperature',
               component: CellComponent.StringCell,
               objectMapping: {
                 text: 'ForeCastDaily.3.MaxTemp',
               },
             },
             {
-              title: 'Min Temparature',
+              title: 'Min Temperature',
               component: CellComponent.StringCell,
               objectMapping: {
                 text: 'ForeCastDaily.3.MinTemp',
@@ -270,14 +270,14 @@ export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
             },
             {
-              title: 'Max Temparature',
+              title: 'Max Temperature',
               component: CellComponent.StringCell,
               objectMapping: {
                 text: 'ForeCastDaily.4.MaxTemp',
               },
             },
             {
-              title: 'Min Temparature',
+              title: 'Min Temperature',
               component: CellComponent.StringCell,
               objectMapping: {
                 text: 'ForeCastDaily.4.MinTemp',
