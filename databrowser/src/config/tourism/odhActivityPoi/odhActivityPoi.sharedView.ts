@@ -22,6 +22,7 @@ import {
   sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
+import { echargingdataCategory } from '../../builder/tourism/echargingdata';
 import { mappingCategory } from '../../builder/tourism/mapping';
 import { relatedcontentCategory } from '../../builder/tourism/relatedcontent';
 import { withOdhBaseUrl } from '../../utils';
@@ -77,6 +78,7 @@ export const odhActivityPoiSharedView = ():
     seasonCategory(),
     locationCategory(),
     gpsDataCategory(),
+    echargingdataCategory(),
     odhTagCategory('odhactivitypoi'),
     {
       name: 'Ratings',

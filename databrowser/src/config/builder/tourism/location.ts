@@ -36,7 +36,7 @@ export const locationCategory = (): DetailElements => ({
       ],
     },
     {
-      name: 'Tourism Assocciation',
+      name: 'Tourism Association',
       properties: [
         {
           title: '',
@@ -49,7 +49,7 @@ export const locationCategory = (): DetailElements => ({
           },
         },
         {
-          title: 'Tourism Assocciation ID',
+          title: 'Tourism Association ID',
           component: CellComponent.StringCell,
           objectMapping: { text: 'LocationInfo.TvInfo.Id' },
           params: { readonly: 'true' },
