@@ -15,7 +15,7 @@ import { eventConfig } from './event/event.config';
 import { eventShortConfig } from './eventShort/eventShort.config';
 import { eventTopicsConfig } from './eventTopics/eventTopics.config';
 import { experienceAreaConfig } from './experienceArea/experienceArea.config';
-import { forecastConfig } from './forecast/forecast.config';
+import { weatherForecastConfig } from './weatherForecast/weatherForecast.config';
 import { gastronomyConfig } from './gastronomy/gastronomy.config';
 import { measuringPointConfig } from './measuringPoint/measuringPoint.config';
 import { metaDataConfig } from './metaData/metaData.config';
@@ -48,7 +48,7 @@ export const tourismEmbeddedDatasetConfigs = [
   accommodationTypesConfig,
   webcamInfoConfig,
   wineAwardConfig,
-  forecastConfig,
+  weatherForecastConfig,
   gastronomyConfig,
   venueConfig,
   weatherInfoConfig,

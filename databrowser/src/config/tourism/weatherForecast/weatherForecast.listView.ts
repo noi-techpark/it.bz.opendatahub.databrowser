@@ -6,7 +6,7 @@ import { ListViewConfig } from '../../../domain/datasets/config/types';
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DEFAULT_DATE_FORMAT } from '../../utils';
 
-export const forecastListView: ListViewConfig = {
+export const weatherForecastListView: ListViewConfig = {
   elements: [
     {
       title: 'Image',

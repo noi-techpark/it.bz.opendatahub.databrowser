@@ -4,7 +4,7 @@
 
 import { DatasetRoute } from '../../../domain/datasets/config/types';
 
-export const forecastRoute: DatasetRoute = {
+export const weatherForecastRoute: DatasetRoute = {
   domain: 'tourism',
   pathSegments: ['v1', 'Weather', 'Forecast'],
 };

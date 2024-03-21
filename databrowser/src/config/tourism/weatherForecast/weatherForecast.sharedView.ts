@@ -9,7 +9,9 @@ import {
 } from '../../../domain/datasets/config/types';
 import { DEFAULT_DATE_FORMAT } from '../../utils';
 
-export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
+export const weatherForecastSharedView = ():
+  | DetailViewConfig
+  | EditViewConfig => ({
   elements: [
     {
       name: '5-Day Weather Forecast',
@@ -296,7 +298,7 @@ export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
     },
     {
       name: 'Hourly Forecast Today',
-      slug: 'hourly',
+      slug: 'hourly1',
       subcategories: [
         {
           name: '06:00',
@@ -554,7 +556,7 @@ export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
     },
     {
       name: 'Hourly Forecast Tomorrow',
-      slug: 'hourly1',
+      slug: 'hourly2',
       subcategories: [
         {
           name: '03:00',
@@ -848,7 +850,7 @@ export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
     },
     {
       name: 'Hourly Forecast Day 3',
-      slug: 'hourly2',
+      slug: 'hourly3',
       subcategories: [
         {
           name: '03:00',
@@ -1142,7 +1144,7 @@ export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
     },
     {
       name: 'Hourly Forecast Day 4',
-      slug: 'hourly1',
+      slug: 'hourly4',
       subcategories: [
         {
           name: '03:00',
@@ -1436,7 +1438,7 @@ export const forecastSharedView = (): DetailViewConfig | EditViewConfig => ({
     },
     {
       name: 'Hourly Forecast Day 5',
-      slug: 'hourly1',
+      slug: 'hourly5',
       subcategories: [
         {
           name: '03:00',

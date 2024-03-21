@@ -4,6 +4,6 @@
 
 import { QuickViewConfig } from '../../../domain/datasets/config/types';
 
-export const forecastQuickView: QuickViewConfig = {
+export const weatherForecastQuickView: QuickViewConfig = {
   elements: [],
 };

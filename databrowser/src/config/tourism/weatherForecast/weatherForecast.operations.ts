@@ -10,7 +10,7 @@ import {
   ROLE_READ,
 } from '../roles';
 
-export const forecastOperations: Operations = {
+export const weatherForecastOperations: Operations = {
   readAll: {
     rolesAllowed: ROLE_READ,
   },
@@ -18,12 +18,21 @@ export const forecastOperations: Operations = {
     rolesAllowed: ROLE_READ,
   },
   create: {
-    rolesAllowed: extendCreateRoles(['ForecastManager', 'ForecastCreate']),
+    rolesAllowed: extendCreateRoles([
+      'WeatherForecastManager',
+      'WeatherForecastCreate',
+    ]),
   },
   update: {
-    rolesAllowed: extendUpdateRoles(['ForecastManager', 'ForecastUpdate']),
+    rolesAllowed: extendUpdateRoles([
+      'WeatherForecastManager',
+      'WeatherForecastUpdate',
+    ]),
   },
   delete: {
-    rolesAllowed: extendDeleteRoles(['ForecastManager', 'ForecastDelete']),
+    rolesAllowed: extendDeleteRoles([
+      'WeatherForecastManager',
+      'WeatherForecastDelete',
+    ]),
   },
 };

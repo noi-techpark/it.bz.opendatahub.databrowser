@@ -4,8 +4,8 @@
 
 import { DatasetDescription } from '../../../domain/datasets/config/types';
 
-export const forecastDescription: DatasetDescription = {
-  title: 'Forecast',
+export const weatherForecastDescription: DatasetDescription = {
+  title: 'Weather Forecast',
   subtitle: 'This dataset contains Weather Forecast at a municipality level',
   description: 'This dataset contains Weather Forecast at a municipality level',
 };
