@@ -11,7 +11,7 @@ export const eventOriginsListView: ListViewConfig = {
     {
       title: 'Event name',
       component: CellComponent.StringCell,
-      class: 'w-60',
+      class: 'w-40',
       objectMapping: { text: 'evname' },
     },
     {
@@ -19,6 +19,18 @@ export const eventOriginsListView: ListViewConfig = {
       component: CellComponent.StringCell,
       class: 'w-60',
       objectMapping: { text: 'evcategory' },
+    },
+    {
+      title: 'Description (DE)',
+      component: CellComponent.StringCell,
+      class: 'w-60',
+      objectMapping: { text: 'evmetadata.placeDe' },
+    },
+    {
+      title: 'Description (IT)',
+      component: CellComponent.StringCell,
+      class: 'w-60',
+      objectMapping: { text: 'evmetadata.placeIt' },
     },
     {
       title: 'Coordinate',
