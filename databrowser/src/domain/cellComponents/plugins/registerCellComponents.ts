@@ -45,6 +45,7 @@ import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
 import RelatedContentCell from '../components/cells/relatedContentCell/RelatedContentCell.vue';
+import PushConfigCell from '../components/cells/pushConfigCell/PushConfigCell.vue';
 
 // NOTE: this components do not belong to table components; it's advised to refactor this table in the future.
 import QuickViewTextInfoCard from '../../../components/quickview/QuickViewTextInfoCard.vue';
@@ -102,6 +103,7 @@ export default {
     app.component(CellComponent.TypeBasedCell, TypeBasedCell);
     app.component(CellComponent.WebcamCell, WebcamCell);
     app.component(CellComponent.RelatedContentCell, RelatedContentCell);
+    app.component(CellComponent.PushConfigCell, PushConfigCell);
 
     app.component(CellComponent.QuickViewTextInfoCard, QuickViewTextInfoCard);
     app.component(CellComponent.QuickViewContactsCard, QuickViewContactsCard);

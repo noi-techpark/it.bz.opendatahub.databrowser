@@ -7,33 +7,31 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <EditListTab :items="items">
     <template #tabLabel="{ index }">
-      <div class="w-full">Related Content {{ index + 1 }}</div>
+      <div class="w-full">PushConfig {{ index + 1 }}</div>
     </template>
 
     <template #addItems>
-      <EditListAddButton
-        :text="'Add new Related Content'"
-        @click="addItem({})"
-      />
+      <EditListAddButton :text="'Add new PushConfig'" @click="addItem({})" />
     </template>
 
-    <template
-      #body="{ item, index }: { item: RelatedContentEntry, index: number }"
-    >
+    <template #body="{ item, index }: { item: PushConfigEntry, index: number }">
       <div class="flex flex-wrap gap-8 md:flex-nowrap">
         <div class="basis-full md:order-1 md:basis-2/3">
-          <SubCategoryItem title="Id">
+          <SubCategoryItem title="BaseUrl">
             <StringCell
-              :text="item.id"
+              :text="item.baseurl"
               :editable="editable"
-              @input="updateItem(index, { id: $event.target.value })"
+              @input="updateItem(index, { baseurl: $event.target.value })"
             />
           </SubCategoryItem>
-          <SubCategoryItem title="Type">
+          <SubCategoryItem title="PathParam">
+            <ArrayEditableCell :items="item.pathparam" :editable="editable" />
+          </SubCategoryItem>
+          <SubCategoryItem title="PushApiUrl">
             <StringCell
-              :text="item.type"
+              :text="item.pushapiurl"
               :editable="editable"
-              @input="updateItem(index, { type: $event.target.value })"
+              @input="updateItem(index, { pushapiurl: $event.target.value })"
             />
           </SubCategoryItem>
         </div>
@@ -78,12 +76,13 @@ import { useInjectActionTriggers } from '../../utils/editList/actions/useActions
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import StringCell from '../stringCell/StringCell.vue';
-import { RelatedContentEntry } from './types';
+import ArrayEditableCell from '../arrayCell/ArrayEditableCell.vue';
+import { PushConfigEntry } from './types';
 
-defineProps<{ items: RelatedContentEntry[] }>();
+defineProps<{ items: PushConfigEntry[] }>();
 
 const { addItem, deleteItems, duplicateItem, updateItem } =
-  useInjectActionTriggers<RelatedContentEntry>();
+  useInjectActionTriggers<PushConfigEntry>();
 
 const { editable } = useInjectEditMode();
 </script>
