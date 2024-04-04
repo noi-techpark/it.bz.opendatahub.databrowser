@@ -4,6 +4,7 @@
 
 import { App } from 'vue';
 
+import AdditionalPropertiesCell from '../components/cells/additionalPropertiesCell/AdditionalPropertiesCell.vue';
 import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
 import ArrayEditableCell from '../components/cells/arrayCell/ArrayEditableCell.vue';
 import ArrayLookupCell from '../components/cells/arrayLookupCell/ArrayLookupCell.vue';
@@ -53,6 +54,10 @@ import { CellComponent } from '../types';
 
 export default {
   install: (app: App) => {
+    app.component(
+      CellComponent.AdditionalPropertiesCell,
+      AdditionalPropertiesCell
+    );
     app.component(CellComponent.ArrayCell, ArrayCell);
     app.component(CellComponent.ArrayEditableCell, ArrayEditableCell);
     app.component(CellComponent.ArrayLookupCell, ArrayLookupCell);

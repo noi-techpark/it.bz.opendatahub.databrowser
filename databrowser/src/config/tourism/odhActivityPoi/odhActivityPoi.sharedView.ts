@@ -423,5 +423,21 @@ export const odhActivityPoiSharedView = ():
       ],
     },
     mappingCategory(),
+    {
+      name: 'Additional properties',
+      slug: 'additional-properties',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: '',
+              component: CellComponent.AdditionalPropertiesCell,
+              objectMapping: { additionalProperties: 'AdditionalProperties' },
+            },
+          ],
+        },
+      ],
+    },
   ],
 });
