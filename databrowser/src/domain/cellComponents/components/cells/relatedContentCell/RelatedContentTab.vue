@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       #body="{ item, index }: { item: RelatedContentEntry, index: number }"
     >
       <div class="flex flex-wrap gap-8 md:flex-nowrap">
-        <div class="basis-full md:order-1 md:basis-1/3">
+        <div class="basis-full md:order-1 md:basis-2/3">
           <SubCategoryItem title="Id">
             <StringCell
               :text="item.id"
@@ -37,7 +37,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             />
           </SubCategoryItem>
         </div>
-        <div class="basis-full md:order-3 md:basis-1/3">
+        <div class="basis-full md:order-2 md:basis-1/3">
           <div v-if="editable" class="rounded border">
             <div class="flex items-center justify-between bg-gray-50 px-4 py-3">
               <span class="font-semibold">Info &amp; action</span>
@@ -64,28 +64,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </div>
           </div>
         </div>
-        <div class="basis-full md:order-2 md:basis-1/3">
-          <div class="rounded border">
-            <div ref="target" class="flex justify-center">
-              <img
-                :src="item.type"
-                :alt="item.id"
-                :class="{
-                  'object-contain': isFullscreen,
-                  'rounded-b': !isFullscreen,
-                }"
-              />
-            </div>
-          </div>
-        </div>
       </div>
     </template>
   </EditListTab>
 </template>
 
 <script setup lang="ts">
-import { useFullscreen } from '@vueuse/core';
-import { ref } from 'vue';
 import IconCopy from '../../../../../components/svg/IconCopy.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
@@ -102,7 +86,4 @@ const { addItem, deleteItems, duplicateItem, updateItem } =
   useInjectActionTriggers<RelatedContentEntry>();
 
 const { editable } = useInjectEditMode();
-
-const target = ref();
-const { isFullscreen } = useFullscreen(target);
 </script>

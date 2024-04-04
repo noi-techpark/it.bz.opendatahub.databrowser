@@ -22,3 +22,4 @@ export * from './source';
 export * from './textInfo';
 export * from './title';
 export * from './webcam';
+export * from './pushconfig';
