@@ -58,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
       </TableCell>
       <TableCell>
-        <UrlCell :text="item.pushapiurl" />
+        <UrlCell :text="item.pushapiurl" :editable="false" />
       </TableCell>
     </template>
     <template #noItems>No pushconfig have been defined yet</template>

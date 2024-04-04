@@ -25,14 +25,42 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             />
           </SubCategoryItem>
           <SubCategoryItem title="PathParam">
-            <ArrayEditableCell :items="item.pathparam" :editable="editable" />
+            <div
+              v-for="(value, pathparamIndex) in item.pathparam"
+              :key="pathparamIndex"
+              class="flex flex-col"
+            >
+              <div class="flex gap-2">
+                <StringCell
+                  :text="value"
+                  :editable="editable"
+                  placeholder="Path param"
+                  @update="
+                    updatePathparamItem(
+                      index,
+                      item,
+                      pathparamIndex,
+                      $event.value
+                    )
+                  "
+                />
+                <button
+                  v-if="editable"
+                  @click="deletePathparamItem(index, item, pathparamIndex)"
+                >
+                  <IconDelete class="text-delete" />
+                </button>
+              </div>
+            </div>
+            <EditListAddButton
+              v-if="editable"
+              class="mt-6"
+              text="Add path param"
+              @click="addPathparamItem(index, item)"
+            />
           </SubCategoryItem>
           <SubCategoryItem title="PushApiUrl">
-            <StringCell
-              :text="item.pushapiurl"
-              :editable="editable"
-              @input="updateItem(index, { pushapiurl: $event.target.value })"
-            />
+            <StringCell :text="item.pushapiurl" :editable="false" />
           </SubCategoryItem>
         </div>
         <div class="basis-full md:order-2 md:basis-1/3">
@@ -76,7 +104,6 @@ import { useInjectActionTriggers } from '../../utils/editList/actions/useActions
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import StringCell from '../stringCell/StringCell.vue';
-import ArrayEditableCell from '../arrayCell/ArrayEditableCell.vue';
 import { PushConfigEntry } from './types';
 
 defineProps<{ items: PushConfigEntry[] }>();
@@ -85,4 +112,39 @@ const { addItem, deleteItems, duplicateItem, updateItem } =
   useInjectActionTriggers<PushConfigEntry>();
 
 const { editable } = useInjectEditMode();
+
+const addPathparamItem = (index: number, item: PushConfigEntry) => {
+  const newPathparam = item.pathparam == null ? [''] : [...item.pathparam, ''];
+  const newItem = { ...item, pathparam: newPathparam };
+  updateItem(index, newItem);
+};
+
+const updatePathparamItem = (
+  index: number,
+  item: PushConfigEntry,
+  pathparamIndex: number,
+  value: string
+) => {
+  if (item.pathparam == null) {
+    // Should never happen, because we always add a pathparam before updating it
+    return;
+  }
+  item.pathparam[pathparamIndex] = value;
+  updateItem(index, { ...item });
+};
+
+const deletePathparamItem = (
+  index: number,
+  item: PushConfigEntry,
+  pathparamIndex: number
+) => {
+  if (item.pathparam == null || pathparamIndex >= item.pathparam.length) {
+    // Should never happen, because we always add a pathparam before updating it
+    // and pathparamIndex is always valid
+    return;
+  }
+  item.pathparam.splice(pathparamIndex, 1);
+  const newItem = { ...item };
+  updateItem(index, newItem);
+};
 </script>
