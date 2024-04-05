@@ -143,8 +143,10 @@ const deletePathparamItem = (
     // and pathparamIndex is always valid
     return;
   }
-  item.pathparam.splice(pathparamIndex, 1);
-  const newItem = { ...item };
+  const newPathparam = [...item.pathparam];
+  newPathparam.splice(pathparamIndex, 1);
+  const newItem = { ...item, pathparam: newPathparam };
+
   updateItem(index, newItem);
 };
 </script>
