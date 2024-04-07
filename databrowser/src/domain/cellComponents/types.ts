@@ -30,6 +30,7 @@ export enum CellComponent {
   MappingCell = 'MappingCell',
   MeasurementsCell = 'MeasurementsCell',
   OperationScheduleCell = 'OperationScheduleCell',
+  PushDataCell = 'PushDataCell',
   SelectWithOptionsCell = 'SelectWithOptionsCell',
   StateCell = 'StateCell',
   StringCell = 'StringCell',
