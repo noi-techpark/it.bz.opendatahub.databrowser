@@ -5,8 +5,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="flex">
-    <label class="inline-flex cursor-pointer items-center">
+  <div class="flex" @click="disabled ? undefined : emit('click', !checked)">
+    <label
+      class="inline-flex cursor-pointer items-center"
+      :class="{ 'opacity-50': disabled }"
+    >
       <input
         v-model="checked"
         type="checkbox"
@@ -22,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['click', 'update:modelValue']);
 
 const props = withDefaults(
   defineProps<{
