@@ -31,14 +31,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
         shortnameWithLogoAndMainImageSubCategory(),
         {
           name: 'IDs',
-          properties: [
-            idReadOnlyCell(),
-            {
-              title: 'Area Id',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'LocationInfo.AreaInfo.Id' },
-            },
-          ],
+          properties: [idReadOnlyCell()],
         },
         dataStatesSubCategory(),
         sourceSubCategoryWithDistinct('event'),
@@ -47,6 +40,77 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
+    {
+      name: 'Organizer details',
+      slug: 'Organizer-details',
+      subcategories: [
+        {
+          name: 'Organizer Info',
+          properties: [
+            {
+              title: 'Company / Name',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'OrganizerInfos.{language}.CompanyName' },
+            },
+            {
+              title: 'Tax Number',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'OrganizerInfos.{language}.Tax' },
+            },
+            {
+              title: 'Vat',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'OrganizerInfos.{language}.Vat' },
+            },
+          ],
+        },
+        {
+          name: 'Address',
+          properties: [
+            {
+              title: 'Address',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'OrganizerInfos.{language}.Address' },
+            },
+            {
+              title: 'Zip Code',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'OrganizerInfos.{language}.ZipCode' },
+            },
+            {
+              title: 'Country Name',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'OrganizerInfos.{language}.CountryName' },
+            },
+            {
+              title: 'Country Code',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'OrganizerInfos.{language}.CountryCode' },
+            },
+          ],
+        },
+        {
+          name: 'Contact details',
+          properties: [
+            {
+              title: 'Email',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'OrganizerInfos.{language}.Email' },
+            },
+            {
+              title: 'Phonenumber',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'OrganizerInfos.{language}.Phonenumber' },
+            },
+            {
+              title: 'Url',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'OrganizerInfos.{language}.Url' },
+            },
+          ],
+        },
+      ],
+    },
     {
       name: 'Event details',
       slug: 'Event-details',
@@ -63,78 +127,13 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date End',
               component: CellComponent.DateCell,
-              objectMapping: { date: 'EventDatesEnd' },
+              objectMapping: { date: 'DateEnd' },
               params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
             {
               title: 'Entrance',
               component: CellComponent.StringCell,
               objectMapping: { text: 'Entrance' },
-            },
-          ],
-        },
-        {
-          name: 'Organizer Info',
-          properties: [
-            {
-              title: 'Company / Name',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.CompanyName' },
-            },
-            {
-              title: 'Tax Number',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Tax' },
-            },
-            {
-              title: 'Vat',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Vat' },
-            },
-          ],
-        },
-        {
-          name: 'Address',
-          properties: [
-            {
-              title: 'Address',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Address' },
-            },
-            {
-              title: 'Zip Code',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.ZipCode' },
-            },
-            {
-              title: 'Country Name',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.CountryName' },
-            },
-            {
-              title: 'Country Code',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.CountryCode' },
-            },
-          ],
-        },
-        {
-          name: 'Contact details',
-          properties: [
-            {
-              title: 'Email',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Email' },
-            },
-            {
-              title: 'Phonenumber',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Phonenumber' },
-            },
-            {
-              title: 'Url',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Url' },
             },
           ],
         },

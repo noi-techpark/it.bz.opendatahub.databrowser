@@ -8,7 +8,7 @@ import {
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
   sourceTableCell,
   titleTableCell,
 } from '../../builder/tourism';
@@ -83,6 +83,6 @@ export const eventListView: ListViewConfig = {
       //   },
       // },
     },
-    odhActiveTableCell(),
+    publishedOnTableCell(),
   ],
 };
