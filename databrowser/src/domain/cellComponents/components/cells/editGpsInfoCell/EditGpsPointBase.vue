@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import IconParser from '../utils/IconParser.vue';
+import IconParser from '../../../../../components/utils/IconParser.vue';
 
 const props = withDefaults(
   defineProps<{

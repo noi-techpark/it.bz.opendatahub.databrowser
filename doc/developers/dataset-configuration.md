@@ -10,7 +10,7 @@ The dataset views of the Data Browser App are configured in files located at the
 
 You can find the different datasets in their respective category for now we have only `tourism` but we plan to add `mobility` and others.
 
-Each dataset has a list, quick and shared view. The shared view is for visualizing the detail and edit view, they are united because they share the same base.
+Each dataset has a list and shared view. The shared view is for visualizing the detail and edit view, they are united because they share the same base.
 
 For example, if you want to modify the detail view configuration of the `Article` dataset, adjust the config in [article.sharedView.ts](../../databrowser/src/config/tourism/article/article.sharedlView.ts) file.
 
@@ -28,7 +28,7 @@ Each dataset configuration is of type `DatasetConfig` (see [types.ts](../../data
 - baseUrl (type: string): defines the base URL of the endpoint where the dataset is loaded from
 - route (type: DatasetRoute): gives additional routing information for the dataset, like domain (e.g. `tourism`) and path parameter (e.g. `['v1', 'Article']` for the EventShort dataset). Note that the optional `id` property is only used internally - do not set this in the configuration
 - description (type: DatasetDescription): provides a description for the dataset with `title`, `subtitle` and `description` properties. The description is shown in different places of the Data Browser, e.g. in the upper left of the different views
-- views (type: Record<string, \*ViewConfig>): the `views` attribute contains the different view configurations of a dataset (`table`, `detail`, `raw`, `quick` and `edit`)
+- views (type: Record<string, \*ViewConfig>): the `views` attribute contains the different view configurations of a dataset (`table`, `detail`, `raw` and `edit`)
 - operations (type: Record<string, Operation>): contains information for the different endpoint operations (`readAll`, `read`, `create`, `update` and `delete`). At the moment it contains only information about the roles necessary to invoke an operation (authorization). For example, to update a dataset a user must have a certain role like `DatasetWriter`.
 
 ## View configurations
@@ -49,7 +49,7 @@ Inside the components follow this naming conventions:
 
 ### Table view
 
-The table view gives a list-like overview over the records of a dataset. The user can paginate through the data and jump to detail, raw, quick and edit view for a given record using the links on the right of the table view.
+The table view gives a list-like overview over the records of a dataset. The user can paginate through the data and jump to detail, edit and raw view for a given record using the links on the right of the table view.
 
 Let's take a look at table view configuration of the `Article` dataset as an example, that can be found here: [article.listView.ts](../../databrowser/src/config/tourism/article/article.listView.ts) (the result can be found at this URL [https://databrowser.opendatahub.testingmachine.eu/dataset/table/tourism/v1/Article](https://databrowser.opendatahub.testingmachine.eu/dataset/table/tourism/v1/Article)):
 
@@ -137,9 +137,3 @@ The subcategories are shown in bold on the main content part of the detail view.
 ### Raw view
 
 The raw view shows the JSON data for a given record of a dataset. No further configuration is necessary for the raw view to work.
-
-### Quick view
-
-> Work in progress
-
-The quick view shows a nice overview for a given record of a dataset.

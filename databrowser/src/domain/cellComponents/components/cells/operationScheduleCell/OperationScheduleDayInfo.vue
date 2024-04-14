@@ -23,7 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <span class="leading-tight">{{ d.end ?? '&nbsp;' }}</span>
       </template>
       <span v-else class="leading-tight">{{
-        t('datasets.quickView.closed')
+        t('components.operationSchedule.closed')
       }}</span>
     </div>
   </div>
@@ -32,8 +32,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { OperationScheduleTimeEntry } from '../../domain/cellComponents/components/cells/operationScheduleCell/types';
-import { operationScheduleTimeDays } from '../../domain/cellComponents/components/cells/operationScheduleCell/operationScheduleOptions';
+import { operationScheduleTimeDays } from './operationScheduleOptions';
+import { OperationScheduleTimeEntry } from './types';
 
 const { t } = useI18n();
 

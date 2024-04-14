@@ -96,13 +96,6 @@ export const tourismEmbeddedDatasetConfigs = [
             ...config.views?.edit,
             defaultQueryParams: defaultTourismSingleRecordQueryParameters,
           },
-    quick:
-      config.views?.quick == null
-        ? undefined
-        : {
-            ...config.views?.quick,
-            defaultQueryParams: defaultTourismSingleRecordQueryParameters,
-          },
     raw:
       config.views?.raw == null
         ? undefined

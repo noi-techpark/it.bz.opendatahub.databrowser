@@ -29,7 +29,6 @@ The primary goals of the project are to enable convenient access to Open Data Hu
 - **Raw view:** The raw view presents the JSON file representation of a single record.
 - **Detail view:** The detail provides an in-depth and comprehensive representation of a single record. It allows users to examine a specific record in detail, displaying all available attributes and associated information in a focused and structured manner.
 - **Edit view:**: The edit view enables authorized users to modify the attributes of a single record. They can do so in the detail view interface where users can edit the existing values or input new values for the different attributes associated with the record.
-- **Quick view:**: The quick view is a user-friendly interface that provides a concise and summary-based overview of a record, highlighting the most important attributes. It aims to present key information in a visually appealing and easily digestible format.
 
 ## 2. Project Main technologies
 

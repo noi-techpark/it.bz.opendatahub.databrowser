@@ -155,37 +155,6 @@
         }
       }
     },
-    "quickView": {
-      "standardImageWarning": "This is a standard image and not part of the dataset",
-      "textInformation": "Text information",
-      "contact": "Contact",
-      "locationOnMap": "Location on Map",
-      "recordInformation": "Record information",
-      "openingHours": "Opening hours",
-      "nameCompanyName": "Name/Company Name",
-      "firstName": "First name",
-      "surname": "Surnname",
-      "streetAndNumber": "Street & Hausnumber",
-      "city": "City",
-      "zip": "ZIP-CODE",
-      "country": "Country",
-      "email": "E-Mail",
-      "phoneNumber": "Phone Number",
-      "webUrl": "Web-URL",
-      "lastChanged": "Last Changed",
-      "activeOnSource": "Active on source",
-      "activeOnODH": "Active on ODH",
-      "suedtirolInfoActive": "Active on suedtirol.info",
-      "active": "Active",
-      "inactive": "Inactive",
-      "closed": "Closed",
-      "webcamDetails": "Webcam details",
-      "name": "Name",
-      "link": "Link",
-      "header": "Header",
-      "subheader": "Subheader",
-      "introtext": "Introtext"
-    },
     "generated": {
       "categoryName": "All data"
     },
@@ -255,10 +224,6 @@
           "short": "Edit",
           "title": "Edit view"
         },
-        "quick": {
-          "short": "Quick",
-          "title": "Quick view"
-        },
         "raw": {
           "short": "Raw",
           "title": "Raw view"
@@ -273,7 +238,6 @@
       "detailView": "Detail View",
       "editView": "Edit View",
       "newView": "New Record",
-      "quickView": "Quick View",
       "rawView": "Raw View",
       "tableView": "Table View"
     },
@@ -329,6 +293,7 @@
     "operationSchedule": {
       "addSeason": "Add new Season",
       "noSeason": "No seasons have been defined yet",
+      "closed": "Closed",
       "table": {
         "seasonName": "Season name",
         "seasonStart": "Season start",

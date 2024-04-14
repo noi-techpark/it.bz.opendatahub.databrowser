@@ -59,12 +59,7 @@ export const useSingleRecordLoad = () => {
 
   return {
     data,
-    // addRecordSupported,
-    // editRecordSupported,
-    // hasDetailView,
     hasEditView,
-    // hasNewView,
-    // hasQuickView,
     isNewView,
     view,
     isError,
@@ -72,7 +67,6 @@ export const useSingleRecordLoad = () => {
     error,
     fullPath,
     extractValueByPath,
-    // isEmbeddedSource,
     isGeneratedSource,
     slug,
     categories,

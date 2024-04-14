@@ -11,7 +11,6 @@ interface ComputeViewType {
   isDetailView: boolean;
   isEditView: boolean;
   isNewView: boolean;
-  isQuickView: boolean;
   isRawView: boolean;
 }
 
@@ -22,7 +21,6 @@ export const computeViewType = (
   isDetailView: view?.type === 'detail',
   isEditView: view?.type === 'edit',
   isNewView: view?.type === 'new',
-  isQuickView: view?.type === 'quick',
   isRawView: view?.type === 'raw',
 });
 

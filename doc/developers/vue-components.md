@@ -12,7 +12,6 @@ The Data Browser App provides different views to present the [Open Data Hub](htt
 - The detail view shows the details for a single data entry
 - The edit view allows authorized users to modify attributes of a record
 - The raw view shows the raw data for a dataset
-- The quick shows a concise overview of a record with a nice UI
 
 Each view is build out of dynamically created components, that render parts of datasets. There is e.g. a component that knows how to render string data, another one knows how to render GPS data. The render configurations are defined in the [config](../../databrowser/src/config) folder.
 

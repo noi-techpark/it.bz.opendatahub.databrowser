@@ -20,6 +20,7 @@ import EditGpsInfoCell from '../components/cells/editGpsInfoCell/EditGpsInfoCell
 import EditRoomBookedCell from '../components/cells/editRoomBookedCell/EditRoomBookedCell.vue';
 import EditRoomVenueCell from '../components/cells/editRoomVenueCell/EditRoomVenueCell.vue';
 import EventDocumentCell from '../components/cells/eventDocumentCell/EventDocumentCell.vue';
+import GpsPointMap from '../../../components/map/GpsPointMap.vue';
 import GpsPointsCell from '../components/cells/gpsPointsCell/GpsPointsCell.vue';
 import HtmlCell from '../components/cells/htmlCell/HtmlCell.vue';
 import InputReferenceCell from '../components/cells/inputReferenceCell/InputReferenceCell.vue';
@@ -48,14 +49,6 @@ import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
 import RelatedContentCell from '../components/cells/relatedContentCell/RelatedContentCell.vue';
 import PushConfigCell from '../components/cells/pushConfigCell/PushConfigCell.vue';
 
-// NOTE: this components do not belong to table components; it's advised to refactor this table in the future.
-import QuickViewTextInfoCard from '../../../components/quickview/QuickViewTextInfoCard.vue';
-import QuickViewContactsCard from '../../../components/quickview/QuickViewContactsCard.vue';
-import QuickViewWebcamsView from '../../../components/quickview/QuickViewWebcamsView.vue';
-import QuickViewMapView from '../../../components/quickview/QuickViewMapView.vue';
-import QuickViewOpeningHoursView from '../../../components/quickview/QuickViewOpeningHoursView.vue';
-import QuickViewRecordInfoView from '../../../components/quickview/QuickViewRecordInfoView.vue';
-
 import { CellComponent } from '../types';
 
 export default {
@@ -79,6 +72,7 @@ export default {
     app.component(CellComponent.EditRoomBookedCell, EditRoomBookedCell);
     app.component(CellComponent.EditRoomVenueCell, EditRoomVenueCell);
     app.component(CellComponent.EventDocumentCell, EventDocumentCell);
+    app.component(CellComponent.GpsPointMap, GpsPointMap);
     app.component(CellComponent.GpsPointsCell, GpsPointsCell);
     app.component(CellComponent.HtmlCell, HtmlCell);
     app.component(CellComponent.InputReferenceCell, InputReferenceCell);
@@ -106,18 +100,5 @@ export default {
     app.component(CellComponent.WebcamCell, WebcamCell);
     app.component(CellComponent.RelatedContentCell, RelatedContentCell);
     app.component(CellComponent.PushConfigCell, PushConfigCell);
-
-    app.component(CellComponent.QuickViewTextInfoCard, QuickViewTextInfoCard);
-    app.component(CellComponent.QuickViewContactsCard, QuickViewContactsCard);
-    app.component(CellComponent.QuickViewWebcamsView, QuickViewWebcamsView);
-    app.component(CellComponent.QuickViewMapView, QuickViewMapView);
-    app.component(
-      CellComponent.QuickViewOpeningHoursView,
-      QuickViewOpeningHoursView
-    );
-    app.component(
-      CellComponent.QuickViewRecordInfoView,
-      QuickViewRecordInfoView
-    );
   },
 };

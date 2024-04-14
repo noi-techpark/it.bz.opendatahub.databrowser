@@ -143,7 +143,7 @@ export const stationTypesSharedView = ():
           properties: [
             {
               title: '',
-              component: CellComponent.QuickViewMapView,
+              component: CellComponent.GpsPointMap,
               objectMapping: {
                 latitude: 'data.0.scoordinate.y',
                 longitude: 'data.0.scoordinate.x',
@@ -281,7 +281,7 @@ export const stationTypesSharedView = ():
           properties: [
             {
               title: '',
-              component: CellComponent.QuickViewMapView,
+              component: CellComponent.GpsPointMap,
               objectMapping: {
                 latitude: 'data.0.pcoordinate.y',
                 longitude: 'data.0.pcoordinate.x',
