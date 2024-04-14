@@ -7,6 +7,7 @@ import {
   DetailViewConfig,
   EditViewConfig,
 } from '../../../domain/datasets/config/types';
+import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const eventOriginsSharedView = ():
   | DetailViewConfig
@@ -22,23 +23,27 @@ export const eventOriginsSharedView = ():
             {
               title: 'Event name',
               component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.evname',
-              },
+              objectMapping: { text: 'data.0.evname' },
             },
             {
-              title: 'scode',
+              title: 'Event category',
               component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.scode',
-              },
+              objectMapping: { text: 'data.0.evcategory' },
+            },
+          ],
+        },
+        {
+          name: 'IDs',
+          properties: [
+            {
+              title: 'Event UUID',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'data.0.evuuid' },
             },
             {
-              title: 'stype',
+              title: 'Event series UUID',
               component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.stype',
-              },
+              objectMapping: { text: 'data.0.evseriesuuid' },
             },
           ],
         },
@@ -46,32 +51,24 @@ export const eventOriginsSharedView = ():
           name: 'Source and provenance',
           properties: [
             {
-              title: 'sorigin',
+              title: 'Event origin',
               component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.sorigin',
-              },
+              objectMapping: { text: 'data.0.evorigin' },
             },
             {
-              title: 'prname',
+              title: 'Parent name (prname)',
               component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.prname',
-              },
+              objectMapping: { text: 'data.0.prname' },
             },
             {
-              title: 'prversion',
+              title: 'Parent version (prversion)',
               component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.prversion',
-              },
+              objectMapping: { text: 'data.0.prversion' },
             },
             {
-              title: 'prlineage',
+              title: 'Parent lineage (prlineage)',
               component: CellComponent.StringCell,
-              objectMapping: {
-                text: 'data.0.prlineage',
-              },
+              objectMapping: { text: 'data.0.prlineage' },
             },
           ],
         },
@@ -115,6 +112,55 @@ export const eventOriginsSharedView = ():
                 latitude: 'data.0.evlgeometry.coordinates.1',
                 longitude: 'data.0.evlgeometry.coordinates.0',
               },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Event details',
+      slug: 'event-details',
+      subcategories: [
+        {
+          name: 'Description',
+          properties: [
+            {
+              title: 'Description (DE)',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'data.0.evmetadata.placeDe' },
+            },
+            {
+              title: 'Description (IT)',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'data.0.evmetadata.placeIt' },
+            },
+            {
+              title: 'Description',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'data.0.evdescription' },
+            },
+          ],
+        },
+        {
+          name: 'Event dates',
+          properties: [
+            {
+              title: 'Event start',
+              component: CellComponent.DateCell,
+              objectMapping: { date: 'data.0.evstart' },
+              params: { format: DEFAULT_DATE_TIME_FORMAT },
+            },
+            {
+              title: 'Event end',
+              component: CellComponent.DateCell,
+              objectMapping: { date: 'data.0.evend' },
+              params: { format: DEFAULT_DATE_TIME_FORMAT },
+            },
+            {
+              title: 'Event transaction time',
+              component: CellComponent.DateCell,
+              objectMapping: { date: 'data.0.evtransactiontime' },
+              params: { format: DEFAULT_DATE_TIME_FORMAT },
             },
           ],
         },
