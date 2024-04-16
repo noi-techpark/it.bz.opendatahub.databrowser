@@ -75,7 +75,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <li>
               <ExternalLink
                 class="flex items-center gap-2"
-                href="https://github.com/noi-techpark/it.bz.opendatahub.databrowser/wiki"
+                href="https://github.com/noi-techpark/odh-docs/wiki"
                 variant="no-underline"
                 tone="text"
               >
