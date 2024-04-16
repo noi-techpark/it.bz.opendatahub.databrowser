@@ -107,7 +107,7 @@ export const eventOriginsSharedView = ():
           properties: [
             {
               title: '',
-              component: CellComponent.QuickViewMapView,
+              component: CellComponent.GpsPointMap,
               objectMapping: {
                 latitude: 'data.0.evlgeometry.coordinates.1',
                 longitude: 'data.0.evlgeometry.coordinates.0',
