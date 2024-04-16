@@ -56,10 +56,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </div>
 
     <div class="z-0 basis-full lg:basis-2/3">
-      <QuickViewCardOverview
+      <EditGpsPointOverview
         :title="t('datasets.editView.map.mapPreviewDataInserted')"
         content-has-no-padding
-        :sections="[]"
         :cta-icon="editable ? ['IconPencil', 'IconExpand'] : ['IconExpand']"
         :icons-active="iconsActive"
         @cta-click="onCtaClick"
@@ -75,7 +74,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             @enable-set-marker="onEnableSetMarker"
           />
         </template>
-      </QuickViewCardOverview>
+      </EditGpsPointOverview>
     </div>
   </div>
 </template>
@@ -87,13 +86,13 @@ import { useI18n } from 'vue-i18n';
 import GpsPointMap from '../../../../../components/map/GpsPointMap.vue';
 import { Position } from '../../../../../components/map/types';
 import { getCoordinatesOfBolzano } from '../../../../../components/map/utils';
-import QuickViewCardOverview from '../../../../../components/quickview/QuickViewCardOverview.vue';
-import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
-import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
-import { useEditGpsInfoCellStore } from './editGpsInfoCellStore';
-import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
-import StringCell from '../stringCell/StringCell.vue';
 import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
+import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
+import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
+import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
+import StringCell from '../stringCell/StringCell.vue';
+import EditGpsPointOverview from './EditGpsPointOverview.vue';
+import { useEditGpsInfoCellStore } from './editGpsInfoCellStore';
 import { GpsInfoEntry } from './types';
 
 const { editable } = useInjectEditMode();

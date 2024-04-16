@@ -14,7 +14,6 @@ import {
   ListViewConfigWithType,
   NewViewConfigWithType,
   ObjectValueReplacer,
-  QuickViewConfigWithType,
   StringReplacer,
   ViewConfigWithType,
 } from '../../types';
@@ -55,12 +54,6 @@ export const computeDynamicParamsReplacement = (
         stringReplacer,
         objectValueReplacer
       );
-    case 'quick':
-      return applyReplacementsToQuickView(
-        view,
-        stringReplacer,
-        objectValueReplacer
-      );
     case 'raw':
       return view;
   }
@@ -94,21 +87,6 @@ const applyReplacementsToTableView = (
       arrayMapping: undefined,
     };
   }),
-});
-
-const applyReplacementsToQuickView = (
-  view: QuickViewConfigWithType,
-  stringReplacer: StringReplacer,
-  objectValueReplacer: ObjectValueReplacer
-): QuickViewConfigWithType | undefined => ({
-  ...view,
-  elements: view.elements.map((element) =>
-    replaceMappings(
-      element as PropertyConfig,
-      stringReplacer,
-      objectValueReplacer
-    )
-  ),
 });
 
 const applyReplacementsToSingleRecordView = <

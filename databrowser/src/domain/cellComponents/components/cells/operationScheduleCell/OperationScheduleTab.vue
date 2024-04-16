@@ -281,7 +281,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </div>
 
             <div class="flex flex-col gap-2 px-4 py-3 md:flex-row">
-              <QuickViewDayInfo :schedule-time="scheduleTime" />
+              <OperationScheduleDayInfo :schedule-time="scheduleTime" />
             </div>
           </div>
         </div>
@@ -294,7 +294,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { format as formatFn } from 'date-fns';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import QuickViewDayInfo from '../../../../../components/quickview/QuickViewDayInfo.vue';
 import IconCopy from '../../../../../components/svg/IconCopy.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import IconEdit from '../../../../../components/svg/IconEdit.vue';
@@ -308,6 +307,7 @@ import DateCell from '../dateCell/DateCell.vue';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
 import ToggleButtonCell from '../toggleCell/ToggleButtonCell.vue';
+import OperationScheduleDayInfo from './OperationScheduleDayInfo.vue';
 import {
   getOperationScheduleTimeCodeLabel,
   getOperationScheduleTimeStateLabel,

@@ -40,9 +40,6 @@ export const usePathsForCurrentRoute = () => {
   const detailViewPath = computed<RouteLocationNamedRaw>(() =>
     buildPath(DatasetPage.DETAIL)
   );
-  const quickViewPath = computed<RouteLocationNamedRaw>(() =>
-    buildPath(DatasetPage.QUICK)
-  );
   const rawViewPath = computed<RouteLocationNamedRaw>(() =>
     buildPath(DatasetPage.RAW)
   );
@@ -59,10 +56,6 @@ export const usePathsForCurrentRoute = () => {
   const detailViewPathForId = (id: MaybeRef<string>) =>
     computed<RouteLocationNamedRaw>(() =>
       buildPathForId(DatasetPage.DETAIL, toValue(id))
-    );
-  const quickViewPathForId = (id: MaybeRef<string>) =>
-    computed<RouteLocationNamedRaw>(() =>
-      buildPathForId(DatasetPage.QUICK, toValue(id))
     );
   const rawViewPathForId = (id: MaybeRef<string>) =>
     computed<RouteLocationNamedRaw>(() =>
@@ -83,13 +76,11 @@ export const usePathsForCurrentRoute = () => {
 
   return {
     detailViewPath,
-    quickViewPath,
     rawViewPath,
     editViewPath,
     tableViewPath,
     newViewPath,
     detailViewPathForId,
-    quickViewPathForId,
     rawViewPathForId,
     editViewPathForId,
     tableViewPathForId,

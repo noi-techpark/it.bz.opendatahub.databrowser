@@ -16,8 +16,6 @@ export const computeViewKey = (
       return 'edit';
     case DatasetPage.NEW:
       return 'new';
-    case DatasetPage.QUICK:
-      return 'quick';
     case DatasetPage.RAW:
       return 'raw';
     case DatasetPage.TABLE:

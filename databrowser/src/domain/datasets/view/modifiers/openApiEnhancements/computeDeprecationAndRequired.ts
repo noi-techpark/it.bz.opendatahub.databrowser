@@ -15,7 +15,6 @@ import {
 } from '../../../config/types';
 import {
   ListViewConfigWithType,
-  QuickViewConfigWithType,
   SingleRecordViewConfigWithType,
   ViewConfigWithType,
 } from '../../types';
@@ -39,8 +38,6 @@ export const computeViewWithOpenApiEnhancements = (
   switch (view.type) {
     case 'table':
       return computeTableView(schema, view);
-    case 'quick':
-      return computeQuickView(schema, view);
     case 'raw':
       return view;
     default:
@@ -106,19 +103,6 @@ const computeSingleRecordView = (
         ],
       };
     },
-    { elements: [], type: view.type }
-  );
-};
-
-const computeQuickView = (
-  schema: OpenAPIV3.SchemaObject,
-  view: QuickViewConfigWithType
-): QuickViewConfigWithType => {
-  return view.elements.reduce<QuickViewConfigWithType>(
-    (prev, element) => ({
-      ...prev,
-      ...getDeprecationAndRequired(schema, element),
-    }),
     { elements: [], type: view.type }
   );
 };

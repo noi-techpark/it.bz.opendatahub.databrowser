@@ -14,7 +14,6 @@ export interface DatasetLocations {
   editLocation?: DatasetLocationRoute;
   newLocation?: DatasetLocationRoute;
   rawLocation?: DatasetLocationRoute;
-  quickLocation?: DatasetLocationRoute;
 }
 
 export interface DatasetLocationRouteLink {

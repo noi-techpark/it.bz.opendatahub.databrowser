@@ -45,7 +45,6 @@ export const useDatasetRouteLinks = (
       editLink: toRouteLink(locations.editLocation, router),
       newLink: toRouteLink(locations.newLocation, router),
       rawLink: toRouteLink(locations.rawLocation, router),
-      quickLink: toRouteLink(locations.quickLocation, router),
     };
   });
 
