@@ -17,7 +17,8 @@ export const computeRecordId = (
       return idToString(record.id ?? record.Id);
     }
     case 'mobility': {
-      return idToString(record.scode ?? record.id);
+      // scode is the station code, evuuid is the event uuid, id is the generic id
+      return idToString(record.scode ?? record.evuuid ?? record.id);
     }
     default: {
       return idToString(record.id);
