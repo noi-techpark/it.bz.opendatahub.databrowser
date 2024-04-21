@@ -5,8 +5,8 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "lint": "eslint --cache --ext .ts,.vue src",
-    "lint:fix": "eslint --cache --ext .ts,.vue --fix src",
+    "lint": "eslint --cache --max-warnings 0 --ext .ts,.vue src",
+    "lint:fix": "eslint --cache --max-warnings 0 --ext .ts,.vue --fix src",
     "prepare": "cd .. && husky install"
   },
   "dependencies": {
