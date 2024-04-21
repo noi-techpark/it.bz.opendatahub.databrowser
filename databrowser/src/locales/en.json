@@ -339,7 +339,7 @@
         "successDescription": "Successfully sent push message.",
         "successTitle": "Push notification sent to {name}!"
       },
-      "sendPushNotifications": "Send push notifications"
+      "sendPushNotifications": "Send Push"
     }
   },
   "overview": {
