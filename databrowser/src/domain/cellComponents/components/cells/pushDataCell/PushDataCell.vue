@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div>
-    <PushDataPopup :publishers="publishersWithUrl" />
+    <PushDataPopup :id="id" :publishers="publishersWithUrl" />
   </div>
 </template>
 
