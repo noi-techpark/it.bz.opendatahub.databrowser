@@ -7,7 +7,7 @@ import {
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
   sourceTableCell,
   titleTableCell,
 } from '../../builder/tourism';
@@ -19,6 +19,6 @@ export const metaRegionListView: ListViewConfig = {
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
-    odhActiveTableCell(),
+    publishedOnTableCell(),
   ],
 };

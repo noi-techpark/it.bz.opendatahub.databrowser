@@ -15,6 +15,7 @@ export * from './licenseInfo';
 export * from './location';
 export * from './municipality';
 export * from './odh';
+export * from './publishedOn';
 export * from './pushconfig';
 export * from './pushData';
 export * from './region';

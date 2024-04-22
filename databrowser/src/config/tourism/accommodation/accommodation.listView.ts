@@ -9,7 +9,7 @@ import {
   languageTableCell,
   lastChangesTableCell,
   locationTableCells,
-  odhActiveTableCell,
+  publishedOnTableCell,
   sourceTableCell,
 } from '../../builder/tourism';
 
@@ -44,6 +44,14 @@ export const accommodationListView: ListViewConfig = {
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
-    odhActiveTableCell(),
+    {
+      title: 'Source state',
+      component: CellComponent.StateCell,
+      class: 'w-40',
+      objectMapping: {
+        state: 'Active',
+      },
+    },
+    publishedOnTableCell(),
   ],
 };

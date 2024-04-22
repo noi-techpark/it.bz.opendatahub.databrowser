@@ -7,7 +7,8 @@ import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
   languageTableCell,
   lastChangesTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
+  sourceTableCell,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -47,6 +48,7 @@ export const eventShortListView: ListViewConfig = {
     },
     languageTableCell(),
     lastChangesTableCell(),
-    odhActiveTableCell(),
+    sourceTableCell(),
+    publishedOnTableCell(),
   ],
 };

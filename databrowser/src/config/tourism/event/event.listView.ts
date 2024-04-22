@@ -8,7 +8,7 @@ import {
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
   sourceTableCell,
   titleTableCell,
 } from '../../builder/tourism';
@@ -66,23 +66,7 @@ export const eventListView: ListViewConfig = {
       objectMapping: {
         state: 'Active',
       },
-      // filter: {
-      //   name: 'active',
-      //   component: FilterComponent.FixedValue,
-      //   params: {
-      //     filterOptions: [
-      //       {
-      //         label: 'Active',
-      //         value: 'true',
-      //       },
-      //       {
-      //         label: 'Not active',
-      //         value: 'false',
-      //       },
-      //     ],
-      //   },
-      // },
     },
-    odhActiveTableCell(),
+    publishedOnTableCell(),
   ],
 };
