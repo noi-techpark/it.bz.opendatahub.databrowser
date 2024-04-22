@@ -10,7 +10,7 @@ import {
   lastChangesTableCell,
   locationTableCells,
   logoTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
   pushDataTableCell,
   sourceTableCell,
   titleTableCell,
@@ -50,7 +50,7 @@ export const odhActivityPoiListView: ListViewConfig = {
         state: 'Active',
       },
     },
-    odhActiveTableCell(),
+    publishedOnTableCell(),
     pushDataTableCell(),
   ],
 };

@@ -8,8 +8,8 @@ import {
   languageTableCell,
   lastChangesTableCell,
   logoTableCell,
-  odhActiveTableCell,
   sourceTableCell,
+  publishedOnTableCell,
   titleTableCell,
 } from '../../builder/tourism';
 
@@ -21,6 +21,6 @@ export const regionListView: ListViewConfig = {
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
-    odhActiveTableCell(),
+    publishedOnTableCell(),
   ],
 };
