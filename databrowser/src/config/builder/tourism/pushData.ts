@@ -8,7 +8,7 @@ import { PropertyConfig } from '../../../domain/datasets/config/types';
 export const pushDataTableCell = (): PropertyConfig => ({
   title: 'Push data',
   component: CellComponent.PushDataCell,
-  class: 'w-60',
+  class: 'w-40',
   objectMapping: {
     id: '_Meta.Id',
     type: '_Meta.Type',

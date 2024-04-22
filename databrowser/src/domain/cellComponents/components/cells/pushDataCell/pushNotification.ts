@@ -4,28 +4,13 @@
 
 import { AxiosError, AxiosResponse } from 'axios';
 import { axiosWithMaybeAuth } from '../../../../api/apiAuth';
-import { Publisher, PublisherWithPushResult } from './types';
+import {
+  OdhPushResponseMany,
+  Publisher,
+  PublisherWithPushResult,
+} from './types';
 
-type OdhPushResponse = Record<
-  string,
-  {
-    Id: string;
-    Publisher: string;
-    Date: string;
-    Result: {
-      Response: string;
-      HttpStatusCode: string;
-      Service: string;
-      Success: boolean;
-    };
-    PushObject?: {
-      Id: string;
-      Type: string;
-    };
-  }
->;
-
-type PushNotificationResponse = AxiosResponse<OdhPushResponse>;
+type PushNotificationResponse = AxiosResponse<OdhPushResponseMany>;
 
 // Send push notifications to publishers
 export const sendPushNotifications = async (publishers: Publisher[]) => {
@@ -36,7 +21,7 @@ export const sendPushNotifications = async (publishers: Publisher[]) => {
 
   // Send push notifications to publishers
   publishers.forEach((publisher) => {
-    const pushPromise = axios<OdhPushResponse>({
+    const pushPromise = axios<OdhPushResponseMany>({
       url: publisher.url,
       method: 'post',
     });
@@ -73,6 +58,7 @@ const buildPushResult = (
     ...publisher,
     pushResult: {
       id: result.Id,
+      date: result.Date,
       success: result.Result.Success,
       error: result.Result.Success ? undefined : result.Result.Response,
     },

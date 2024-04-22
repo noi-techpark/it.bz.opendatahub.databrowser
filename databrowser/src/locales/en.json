@@ -319,6 +319,13 @@
       }
     },
     "pushData": {
+      "lastPushInfo": {
+        "title": "Information on last push.",
+        "sentAt": "Last Push: {date}",
+        "pushResponseId": "ID: {id}",
+        "error": "Error: {error}",
+        "sentAtUnknown": "unknown"
+      },
       "popup": {
         "buttonAfterSend": "Push-Notifications sent",
         "buttonBeforeSend": "Send out the Push-Notifications",
@@ -332,7 +339,7 @@
         "successDescription": "Successfully sent push message.",
         "successTitle": "Push notification sent to {name}!"
       },
-      "sendPushNotifications": "Send push notifications"
+      "sendPushNotifications": "Send Push"
     }
   },
   "overview": {
@@ -360,8 +367,8 @@
       "sources": "Sources",
       "swaggerUrl": "Swagger URL"
     },
-    "dataLicence":{
-      "info": "All publicly (without a login) available data is either under license CC0 or CC-BY." 
+    "dataLicence": {
+      "info": "All publicly (without a login) available data is either under license CC0 or CC-BY."
     },
     "dataset": {
       "titleJoiner": "from"

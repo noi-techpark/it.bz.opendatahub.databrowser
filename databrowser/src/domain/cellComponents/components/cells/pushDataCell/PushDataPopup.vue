@@ -65,6 +65,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </ButtonCustom>
 
             <PushResult :push-results="pushResults" />
+
+            <LastPushInfo :id="id" :push-results="pushResults" />
           </div>
         </PopoverContent>
       </PopoverCustomPanel>
@@ -83,15 +85,16 @@ import PopoverCustom from '../../../../../components/popover/PopoverCustom.vue';
 import PopoverCustomButton from '../../../../../components/popover/PopoverCustomButton.vue';
 import PopoverCustomPanel from '../../../../../components/popover/PopoverCustomPanel.vue';
 import IconStrokedArrowDown from '../../../../../components/svg/IconStrokedArrowDown.vue';
+import { useAuth } from '../../../../auth/store/auth';
+import LastPushInfo from './LastPushInfo.vue';
 import PublisherSelection from './PublisherSelection.vue';
 import PushResult from './PushResult.vue';
 import { sendPushNotifications } from './pushNotification';
 import { Publisher, PublisherWithPushResult } from './types';
-import { useAuth } from '../../../../auth/store/auth';
 
 const { t } = useI18n();
 
-const props = defineProps<{ publishers: Publisher[] }>();
+const props = defineProps<{ id?: string; publishers: Publisher[] }>();
 
 const auth = useAuth();
 const disabled = computed(() => !auth.isAuthenticated);
