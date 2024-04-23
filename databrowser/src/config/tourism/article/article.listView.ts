@@ -11,6 +11,7 @@ import {
   sourceTableCell,
   titleTableCell,
   publishedOnTableCell,
+  pushDataTableCell,
 } from '../../builder/tourism';
 
 export const articleListView: ListViewConfig = {
@@ -48,5 +49,6 @@ export const articleListView: ListViewConfig = {
     lastChangesTableCell(),
     sourceTableCell(),
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

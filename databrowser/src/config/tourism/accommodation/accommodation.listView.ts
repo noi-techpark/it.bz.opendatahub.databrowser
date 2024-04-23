@@ -8,7 +8,7 @@ import {
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
-  //locationTableCells,
+  pushDataTableCell,
   publishedOnTableCell,
   sourceTableCell,
 } from '../../builder/tourism';
@@ -61,5 +61,6 @@ export const accommodationListView: ListViewConfig = {
       },
     },
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

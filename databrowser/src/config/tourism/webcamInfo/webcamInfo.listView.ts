@@ -8,8 +8,9 @@ import {
   gpsDataTableCell,
   imageTableCell,
   lastChangesTableCell,
-  odhActiveTableCell,
   sourceTableCell,
+  publishedOnTableCell,
+  pushDataTableCell,
 } from '../../builder/tourism';
 
 export const webcamInfoListView: ListViewConfig = {
@@ -34,6 +35,7 @@ export const webcamInfoListView: ListViewConfig = {
     gpsDataTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
-    odhActiveTableCell(),
+    publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

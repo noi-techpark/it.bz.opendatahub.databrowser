@@ -9,6 +9,7 @@ import {
   lastChangesTableCell,
   logoTableCell,
   publishedOnTableCell,
+  pushDataTableCell,
   sourceTableCell,
   titleTableCell,
 } from '../../builder/tourism';
@@ -22,5 +23,6 @@ export const tourismAssociationListListView: ListViewConfig = {
     lastChangesTableCell(),
     sourceTableCell(),
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };
