@@ -89,7 +89,6 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: '',
           properties: [
-            shortnameCell({ required: true }),
             {
               title: 'Base URL',
               component: CellComponent.SelectWithOptionsCell,

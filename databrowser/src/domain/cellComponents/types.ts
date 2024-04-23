@@ -19,6 +19,7 @@ export enum CellComponent {
   EditRoomBookedCell = 'EditRoomBookedCell',
   EditRoomVenueCell = 'EditRoomVenueCell',
   EventDocumentCell = 'EventDocumentCell',
+  GpsPointMap = 'GpsPointMap',
   GpsPointsCell = 'GpsPointsCell',
   HtmlCell = 'HtmlCell',
   InputReferenceCell = 'InputReferenceCell',
@@ -30,6 +31,7 @@ export enum CellComponent {
   MappingCell = 'MappingCell',
   MeasurementsCell = 'MeasurementsCell',
   OperationScheduleCell = 'OperationScheduleCell',
+  PushDataCell = 'PushDataCell',
   SelectWithOptionsCell = 'SelectWithOptionsCell',
   StateCell = 'StateCell',
   StringCell = 'StringCell',
@@ -45,11 +47,5 @@ export enum CellComponent {
   WebcamCell = 'WebcamCell',
   WebcamGalleryCell = 'WebcamGalleryCell',
   RelatedContentCell = 'RelatedContentCell',
-
-  QuickViewTextInfoCard = 'QuickViewTextInfoCard',
-  QuickViewContactsCard = 'QuickViewContactsCard',
-  QuickViewWebcamsView = 'QuickViewWebcamsView',
-  QuickViewMapView = 'QuickViewMapView',
-  QuickViewOpeningHoursView = 'QuickViewOpeningHoursView',
-  QuickViewRecordInfoView = 'QuickViewRecordInfoView',
+  PushConfigCell = 'PushConfigCell',
 }

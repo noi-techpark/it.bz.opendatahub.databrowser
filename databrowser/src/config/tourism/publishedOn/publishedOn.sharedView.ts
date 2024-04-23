@@ -11,6 +11,7 @@ import {
   idReadOnlyCell,
   lastChangesCell,
   licenseInfoCategory,
+  pushconfigCategory,
 } from '../../builder/tourism';
 
 export const publishedOnSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -44,6 +45,7 @@ export const publishedOnSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
+    pushconfigCategory(),
     licenseInfoCategory(),
   ],
 });

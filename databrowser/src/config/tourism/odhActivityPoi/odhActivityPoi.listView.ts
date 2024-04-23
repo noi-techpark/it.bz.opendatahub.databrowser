@@ -10,7 +10,8 @@ import {
   lastChangesTableCell,
   locationTableCells,
   logoTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
+  pushDataTableCell,
   sourceTableCell,
   titleTableCell,
 } from '../../builder/tourism';
@@ -48,23 +49,8 @@ export const odhActivityPoiListView: ListViewConfig = {
       objectMapping: {
         state: 'Active',
       },
-      // filter: {
-      //   name: 'active',
-      //   component: FilterComponent.FixedValue,
-      //   params: {
-      //     filterOptions: [
-      //       {
-      //         label: 'Active',
-      //         value: 'true',
-      //       },
-      //       {
-      //         label: 'Not active',
-      //         value: 'false',
-      //       },
-      //     ],
-      //   },
-      // },
     },
-    odhActiveTableCell(),
+    publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

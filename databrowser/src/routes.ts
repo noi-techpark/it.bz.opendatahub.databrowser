@@ -9,7 +9,6 @@ export const DatasetPage: Record<Uppercase<ViewKey>, string> = {
   DETAIL: 'DatasetDetailPage',
   EDIT: 'DatasetEditPage',
   NEW: 'DatasetNewPage',
-  QUICK: 'DatasetQuickPage',
   RAW: 'DatasetRawPage',
   TABLE: 'DatasetTablePage',
 } as const;
@@ -35,11 +34,6 @@ export const router = createRouter({
       path: '/dataset/new/:domain/:pathSegments+',
       component: () => import('./pages/datasets/DatasetNewPage.vue'),
       name: DatasetPage.NEW,
-    },
-    {
-      path: '/dataset/quick/:domain/:pathSegments+/:id',
-      component: () => import('./pages/datasets/DatasetQuickPage.vue'),
-      name: DatasetPage.QUICK,
     },
     {
       path: '/dataset/raw/:domain/:pathSegments+/:id',

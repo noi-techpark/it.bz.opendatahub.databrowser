@@ -91,11 +91,6 @@ export interface DetailElements {
   subcategories: SubCategoryElement[];
 }
 
-export type QuickViewElements = Omit<
-  PropertyConfig,
-  'title' | 'class' | 'required' | 'tooltip'
->;
-
 export interface EditElements {
   name: string;
   slug: string;
@@ -134,22 +129,11 @@ export interface NewViewConfig extends BaseViewConfig {
 }
 export interface RawViewConfig extends BaseViewConfig {}
 
-export interface QuickViewConfig extends BaseViewConfig {
-  topGallery?: QuickViewTopGallery;
-  elements: QuickViewElements[];
-}
-
-export interface QuickViewTopGallery {
-  isVisible: boolean;
-  objectMapping: ObjectMapping;
-}
-
 export type ViewConfig =
   | ListViewConfig
   | DetailViewConfig
   | EditViewConfig
   | NewViewConfig
-  | QuickViewConfig
   | RawViewConfig;
 
 export interface Operation {
@@ -167,7 +151,6 @@ export interface DatasetConfig {
     detail?: DetailViewConfig;
     edit?: EditViewConfig;
     new?: NewViewConfig;
-    quick?: QuickViewConfig;
     raw?: RawViewConfig;
     table?: ListViewConfig;
   };

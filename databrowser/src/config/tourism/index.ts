@@ -15,6 +15,7 @@ import { eventConfig } from './event/event.config';
 import { eventShortConfig } from './eventShort/eventShort.config';
 import { eventTopicsConfig } from './eventTopics/eventTopics.config';
 import { experienceAreaConfig } from './experienceArea/experienceArea.config';
+import { weatherForecastConfig } from './weatherForecast/weatherForecast.config';
 import { gastronomyConfig } from './gastronomy/gastronomy.config';
 import { measuringPointConfig } from './measuringPoint/measuringPoint.config';
 import { metaDataConfig } from './metaData/metaData.config';
@@ -23,6 +24,7 @@ import { municipalityConfig } from './municipality/municipality.config';
 import { odhActivityPoiConfig } from './odhActivityPoi/odhActivityPoi.config';
 import { odhActivityPoiTypesConfig } from './odhActivityPoiTypes/odhActivityPoiTypes.config';
 import { publishedOnConfig } from './publishedOn/publishedOn.config';
+import { pushResponseConfig } from './pushResponse/pushResponse.config';
 import { regionConfig } from './region/region.config';
 import { skiAreaConfig } from './skiArea/skiArea.config';
 import { skiRegionConfig } from './skiRegion/skiRegion.config';
@@ -47,6 +49,7 @@ export const tourismEmbeddedDatasetConfigs = [
   accommodationTypesConfig,
   webcamInfoConfig,
   wineAwardConfig,
+  weatherForecastConfig,
   gastronomyConfig,
   venueConfig,
   weatherInfoConfig,
@@ -67,6 +70,7 @@ export const tourismEmbeddedDatasetConfigs = [
   experienceAreaConfig,
   metaDataConfig,
   publishedOnConfig,
+  pushResponseConfig,
 ].map<DatasetConfig>((config) => ({
   ...config,
   views: {
@@ -90,13 +94,6 @@ export const tourismEmbeddedDatasetConfigs = [
         ? undefined
         : {
             ...config.views?.edit,
-            defaultQueryParams: defaultTourismSingleRecordQueryParameters,
-          },
-    quick:
-      config.views?.quick == null
-        ? undefined
-        : {
-            ...config.views?.quick,
             defaultQueryParams: defaultTourismSingleRecordQueryParameters,
           },
     raw:

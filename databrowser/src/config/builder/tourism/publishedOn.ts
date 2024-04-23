@@ -19,3 +19,11 @@ export const publishedOnCell = (): PropertyConfig => {
     },
   };
 };
+
+export const publishedOnTableCell = (): PropertyConfig => ({
+  title: 'Published on',
+  component: CellComponent.ArrayCell,
+  class: 'w-40',
+  objectMapping: { items: 'PublishedOn' },
+  params: { separator: ', ' },
+});

@@ -50,7 +50,6 @@ export const computeSingleRecordLocations = (
     editLocation: { ...singleRecordLocation, name: DatasetPage.EDIT },
     newLocation: { ...params, name: DatasetPage.NEW },
     rawLocation: { ...singleRecordLocation, name: DatasetPage.RAW },
-    quickLocation: { ...singleRecordLocation, name: DatasetPage.QUICK },
   };
 };
 

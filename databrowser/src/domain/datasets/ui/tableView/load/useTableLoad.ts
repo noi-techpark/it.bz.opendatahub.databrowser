@@ -34,9 +34,7 @@ export const useTableLoad = () => {
   );
 
   // Use view info
-  const { view, hasDetailView, hasQuickView } = storeToRefs(
-    useDatasetViewStore()
-  );
+  const { view, hasDetailView } = storeToRefs(useDatasetViewStore());
 
   // Compute table cols
   const cols = useTableCols(isLoading, view);
@@ -59,7 +57,6 @@ export const useTableLoad = () => {
     isError,
     error,
     hasDetailView,
-    hasQuickView,
     editRecordSupported,
     deleteRecordSupported,
     refetch,

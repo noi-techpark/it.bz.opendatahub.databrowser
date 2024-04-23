@@ -50,7 +50,7 @@ const MyLibrary = defineAsyncComponent(() =>
 
 ### Platform assumptions
 
-1. The DetailView and QuickView are designed to be generated through configuration files, differentiated according to the type of dataset. These files are located in the path /src/config/DATASET_NAME/DATASET_NAME.VIEW_TYPE.ts. For example, in /src/config/odhActivityPoi/odhActivityPoi.quickView.ts, you can see the configuration of the QuickView for points of interest.
+1. The DetailView and EditView are designed to be generated through configuration files, differentiated according to the type of dataset. These files are located in the path /src/config/DATASET_NAME/DATASET_NAME.VIEW_TYPE.ts. For example, in /src/config/odhActivityPoi/odhActivityPoi.detailView.ts, you can see the configuration of the DetailView for points of interest.
 2. If the views define their respective components from the configuration file, they must use the ComponentRender component. To include the components with the ComponentRender component, they must be defined in /src/components/registerForComponentRender.js, and then the related components must be placed in the /src/components/ folder, using the following extension: "forRender". Eg, a component called Table that can ben rendered using the ComponentRender component, must be called Table.forRender.vue. Plus, all components built to be rendered with the ComponentRender, must respect the following predefined structure details:
 
 ```

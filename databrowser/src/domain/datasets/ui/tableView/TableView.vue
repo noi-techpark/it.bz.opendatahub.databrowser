@@ -17,7 +17,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :rows="rows"
           :show-detail="hasDetailView"
           :show-edit="editRecordSupported"
-          :show-quick="hasQuickView"
           :show-delete="deleteRecordSupported"
           :dataset-domain="datasetDomain"
         />
@@ -69,7 +68,6 @@ const {
   isError,
   error,
   hasDetailView,
-  hasQuickView,
   editRecordSupported,
   deleteRecordSupported,
   fullPath,

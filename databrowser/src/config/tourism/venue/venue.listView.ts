@@ -10,7 +10,7 @@ import {
   sourceTableCell,
   languageTableCell,
   lastChangesTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
 } from '../../builder/tourism';
 
 export const venueListView: ListViewConfig = {
@@ -34,6 +34,14 @@ export const venueListView: ListViewConfig = {
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
-    odhActiveTableCell(),
+    {
+      title: 'Source state',
+      component: CellComponent.StateCell,
+      class: 'w-40',
+      objectMapping: {
+        state: 'Active',
+      },
+    },
+    publishedOnTableCell(),
   ],
 };

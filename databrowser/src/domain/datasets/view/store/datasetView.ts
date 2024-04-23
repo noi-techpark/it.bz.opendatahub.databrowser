@@ -44,24 +44,12 @@ export const useDatasetView = (
   );
 
   // Compute view type
-  const {
-    isTableView,
-    isDetailView,
-    isEditView,
-    isNewView,
-    isQuickView,
-    isRawView,
-  } = useComputeViewType(viewFromDatasetConfig);
+  const { isTableView, isDetailView, isEditView, isNewView, isRawView } =
+    useComputeViewType(viewFromDatasetConfig);
 
   // Compute which views are present in the dataset config
-  const {
-    hasTableView,
-    hasDetailView,
-    hasEditView,
-    hasNewView,
-    hasQuickView,
-    hasRawView,
-  } = useComputeViewPresence(baseViews);
+  const { hasTableView, hasDetailView, hasEditView, hasNewView, hasRawView } =
+    useComputeViewPresence(baseViews);
 
   return {
     view: viewWithOpenApiEnhancements,
@@ -69,13 +57,11 @@ export const useDatasetView = (
     isDetailView,
     isEditView,
     isNewView,
-    isQuickView,
     isRawView,
     hasTableView,
     hasDetailView,
     hasEditView,
     hasNewView,
-    hasQuickView,
     hasRawView,
   };
 };
