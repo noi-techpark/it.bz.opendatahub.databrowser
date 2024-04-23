@@ -10,7 +10,6 @@ import {
   languageTableCell,
   lastChangesTableCell,
   locationTableCells,
-  logoTableCell,
   publishedOnTableCell,
   pushDataTableCell,
   sourceTableCell,
@@ -20,7 +19,6 @@ import {
 export const odhActivityPoiListView: ListViewConfig = {
   elements: [
     imageTableCell(),
-    logoTableCell(),
     titleTableCell(),
     {
       title: 'Categories',
