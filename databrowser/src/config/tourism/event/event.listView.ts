@@ -9,6 +9,7 @@ import {
   languageTableCell,
   lastChangesTableCell,
   publishedOnTableCell,
+  pushDataTableCell,
   sourceTableCell,
   titleTableCell,
 } from '../../builder/tourism';
@@ -60,5 +61,6 @@ export const eventListView: ListViewConfig = {
       },
     },
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

@@ -9,6 +9,7 @@ import {
   languageTableCell,
   lastChangesTableCell,
   publishedOnTableCell,
+  pushDataTableCell,
   sourceTableCell,
 } from '../../builder/tourism';
 
@@ -70,5 +71,6 @@ export const wineAwardListView: ListViewConfig = {
       },
     },
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };
