@@ -33,14 +33,6 @@ export const eventListView: ListViewConfig = {
       objectMapping: { date: 'DateEnd' },
     },
     {
-      title: 'Price',
-      component: CellComponent.StringCell,
-      class: 'w-32',
-      objectMapping: {
-        text: 'EventPrice.Price',
-      },
-    },
-    {
       title: 'Event Organizer',
       component: CellComponent.StringCell,
       class: 'w-48',

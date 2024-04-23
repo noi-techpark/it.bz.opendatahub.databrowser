@@ -19,9 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </SubCategoryItem>
         <SubCategoryItem v-if="altitude != null" title="Altitude">
           <StringCell :text="altitude" />
-        </SubCategoryItem>
-        <SubCategoryItem v-if="altitudeUnit != null" title="Altitude Unit">
-          <StringCell :text="altitudeUnit" />
+          <StringCell v-if="altitudeUnit != null" :text="altitudeUnit" />
         </SubCategoryItem>
       </div>
     </div>
