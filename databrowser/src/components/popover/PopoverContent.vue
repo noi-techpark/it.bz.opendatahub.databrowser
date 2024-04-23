@@ -5,8 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div
-    class="p-4"
+  <PopoverContentFrame
     :class="{
       'cursor-pointer hover:bg-gray-50': withHover && !disabled,
       'text-disabled': disabled,
@@ -23,10 +22,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         $event.stopPropagation();
       "
     ></slot>
-  </div>
+  </PopoverContentFrame>
 </template>
 
 <script setup lang="ts">
+import PopoverContentFrame from './PopoverContentFrame.vue';
+
 withDefaults(defineProps<{ disabled?: boolean; withHover?: boolean }>(), {
   disabled: false,
   withHover: false,
