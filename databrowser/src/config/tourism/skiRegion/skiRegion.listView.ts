@@ -8,7 +8,8 @@ import {
   languageTableCell,
   lastChangesTableCell,
   logoTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
+  pushDataTableCell,
   sourceTableCell,
   titleTableCell,
 } from '../../builder/tourism';
@@ -21,6 +22,7 @@ export const skiRegionListView: ListViewConfig = {
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
-    odhActiveTableCell(),
+    publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

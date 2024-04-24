@@ -8,7 +8,7 @@ import {
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
-  locationTableCells,
+  pushDataTableCell,
   publishedOnTableCell,
   sourceTableCell,
 } from '../../builder/tourism';
@@ -40,7 +40,15 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoCategoryId',
       },
     },
-    ...locationTableCells(),
+    // ...locationTableCells(),
+    {
+      title: 'Location',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      objectMapping: {
+        text: 'LocationInfo.DistrictInfo.Name.en',
+      },
+    },
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
@@ -53,5 +61,6 @@ export const accommodationListView: ListViewConfig = {
       },
     },
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

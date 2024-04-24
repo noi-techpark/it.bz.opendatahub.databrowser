@@ -24,16 +24,11 @@ const select = (
 ): TourismPublisher[] => {
   // Unwrap data from pagination
   const unwrappedData = unwrapData<OdhPublisher[]>(data);
-  return (
-    unwrappedData
-      .filter((publisher) => publisher.PushConfig?.length > 0)
-      // At the moment it should not be possible to send push notifications to the noi community app
-      // This exception is hardcoded here, but it should be handled in a more generic way
-      .filter((publisher) => publisher.Id !== 'noi-communityapp')
-      .map<TourismPublisher>((publisher) => ({
-        id: publisher.Id,
-        key: publisher.Key,
-        name: publisher.Name,
-      }))
-  );
+  return unwrappedData
+    .filter((publisher) => publisher.PushConfig?.length > 0)
+    .map<TourismPublisher>((publisher) => ({
+      id: publisher.Id,
+      key: publisher.Key,
+      name: publisher.Name,
+    }));
 };

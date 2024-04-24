@@ -5,11 +5,11 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasets/config/types';
 import {
+  gpsDataShortTableCell,
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
   locationTableCells,
-  logoTableCell,
   publishedOnTableCell,
   pushDataTableCell,
   sourceTableCell,
@@ -19,7 +19,6 @@ import {
 export const odhActivityPoiListView: ListViewConfig = {
   elements: [
     imageTableCell(),
-    logoTableCell(),
     titleTableCell(),
     {
       title: 'Categories',
@@ -33,12 +32,13 @@ export const odhActivityPoiListView: ListViewConfig = {
       },
     },
     ...locationTableCells(),
-    {
-      title: 'Web-URL',
-      component: CellComponent.UrlCell,
-      class: 'w-52',
-      objectMapping: { text: 'ContactInfos.{language}.Url' },
-    },
+    // {
+    //   title: 'Web-URL',
+    //   component: CellComponent.UrlCell,
+    //   class: 'w-52',
+    //   objectMapping: { text: 'ContactInfos.{language}.Url' },
+    // },
+    gpsDataShortTableCell(),
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),

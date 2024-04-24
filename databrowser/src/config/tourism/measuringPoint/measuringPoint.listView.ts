@@ -9,6 +9,8 @@ import {
   lastChangesTableCell,
   odhActiveTableCell,
   sourceTableCell,
+  publishedOnTableCell,
+  pushDataTableCell,
 } from '../../builder/tourism';
 
 export const measuringPointListView: ListViewConfig = {
@@ -57,5 +59,7 @@ export const measuringPointListView: ListViewConfig = {
     lastChangesTableCell(),
     sourceTableCell(),
     odhActiveTableCell(),
+    publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

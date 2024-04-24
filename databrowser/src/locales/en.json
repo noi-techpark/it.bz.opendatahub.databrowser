@@ -329,6 +329,9 @@
       "popup": {
         "buttonAfterSend": "Push-Notifications sent",
         "buttonBeforeSend": "Send out the Push-Notifications",
+        "contactSupport1": "If you think this is an error, please contact the",
+        "contactSupport2": "support",
+        "noPublishersAvailable": "For this entry, there are no publishers available to send push.",
         "pushSendImmediately": "Push-Notification is immediately sent out",
         "selectChannel": "Stay connected! Select the channel you want to send the push notification to:",
         "title": "Push-Notification"

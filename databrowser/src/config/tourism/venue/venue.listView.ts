@@ -11,6 +11,7 @@ import {
   languageTableCell,
   lastChangesTableCell,
   publishedOnTableCell,
+  pushDataTableCell,
 } from '../../builder/tourism';
 
 export const venueListView: ListViewConfig = {
@@ -43,5 +44,6 @@ export const venueListView: ListViewConfig = {
       },
     },
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

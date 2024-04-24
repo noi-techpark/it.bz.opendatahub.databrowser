@@ -8,6 +8,7 @@ import {
   languageTableCell,
   lastChangesTableCell,
   publishedOnTableCell,
+  pushDataTableCell,
   sourceTableCell,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
@@ -50,5 +51,6 @@ export const eventShortListView: ListViewConfig = {
     lastChangesTableCell(),
     sourceTableCell(),
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

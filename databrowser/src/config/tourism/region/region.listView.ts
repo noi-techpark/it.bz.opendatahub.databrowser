@@ -10,6 +10,7 @@ import {
   logoTableCell,
   sourceTableCell,
   publishedOnTableCell,
+  pushDataTableCell,
   titleTableCell,
 } from '../../builder/tourism';
 
@@ -22,5 +23,6 @@ export const regionListView: ListViewConfig = {
     lastChangesTableCell(),
     sourceTableCell(),
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

@@ -27,14 +27,28 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
     <template #container>
       <PopoverCustomPanel>
-        <PopoverContent class="max-w-lg">
+        <PopoverContentFrame class="max-w-lg">
           <div>
             <div
               class="mb-2 mr-1 text-sm font-bold text-black md:w-auto md:text-base"
             >
               {{ t('components.pushData.popup.title') }}
             </div>
+          </div>
 
+          <div v-if="publishers.length === 0" class="mb-6 flex flex-col gap-2">
+            <div>
+              {{ t('components.pushData.popup.noPublishersAvailable') }}
+            </div>
+            <div>
+              {{ t('components.pushData.popup.contactSupport1') }}
+              <a :href="`mailto:${t('contact.emailSupport')}`">
+                {{ t('components.pushData.popup.contactSupport2') }}
+              </a>
+            </div>
+          </div>
+
+          <div v-else>
             <div class="mb-4">
               {{ t('components.pushData.popup.selectChannel') }}
             </div>
@@ -65,10 +79,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </ButtonCustom>
 
             <PushResult :push-results="pushResults" />
-
-            <LastPushInfo :id="id" :push-results="pushResults" />
           </div>
-        </PopoverContent>
+          <LastPushInfo :id="id" :push-results="pushResults" />
+        </PopoverContentFrame>
       </PopoverCustomPanel>
     </template>
   </PopoverCustom>
@@ -80,7 +93,7 @@ import { useI18n } from 'vue-i18n';
 import ButtonCustom from '../../../../../components/button/ButtonCustom.vue';
 import { computeButtonClasses } from '../../../../../components/button/styles';
 import { Size, Tone, Variant } from '../../../../../components/button/types';
-import PopoverContent from '../../../../../components/popover/PopoverContent.vue';
+import PopoverContentFrame from '../../../../../components/popover/PopoverContentFrame.vue';
 import PopoverCustom from '../../../../../components/popover/PopoverCustom.vue';
 import PopoverCustomButton from '../../../../../components/popover/PopoverCustomButton.vue';
 import PopoverCustomPanel from '../../../../../components/popover/PopoverCustomPanel.vue';

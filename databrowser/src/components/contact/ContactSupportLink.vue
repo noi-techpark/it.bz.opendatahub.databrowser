@@ -5,7 +5,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <a :href="t('contact.emailSupport')">{{ t('contact.emailSupport') }}</a>
+  <a :href="`mailto:${t('contact.emailSupport')}`">
+    {{ t('contact.emailSupport') }}
+  </a>
 </template>
 
 <script setup lang="ts">

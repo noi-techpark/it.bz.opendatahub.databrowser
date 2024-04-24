@@ -53,3 +53,13 @@ export const gpsDataTableCell = (): PropertyConfig => ({
     altitudeUnit: 'GpsPoints.position.AltitudeUnitofMeasure',
   },
 });
+
+export const gpsDataShortTableCell = (): PropertyConfig => ({
+  title: 'GPS Data',
+  component: CellComponent.GpsPointsCell,
+  class: 'w-48',
+  objectMapping: {
+    latitude: 'GpsPoints.position.Latitude',
+    longitude: 'GpsPoints.position.Longitude',
+  },
+});

@@ -9,6 +9,7 @@ import {
   languageTableCell,
   lastChangesTableCell,
   publishedOnTableCell,
+  pushDataTableCell,
   sourceTableCell,
   titleTableCell,
 } from '../../builder/tourism';
@@ -31,14 +32,6 @@ export const eventListView: ListViewConfig = {
       class: 'w-48',
       params: { format: DEFAULT_DATE_TIME_FORMAT },
       objectMapping: { date: 'DateEnd' },
-    },
-    {
-      title: 'Price',
-      component: CellComponent.StringCell,
-      class: 'w-32',
-      objectMapping: {
-        text: 'EventPrice.Price',
-      },
     },
     {
       title: 'Event Organizer',
@@ -68,5 +61,6 @@ export const eventListView: ListViewConfig = {
       },
     },
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

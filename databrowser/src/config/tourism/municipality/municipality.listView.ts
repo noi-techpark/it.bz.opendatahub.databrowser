@@ -11,6 +11,7 @@ import {
   publishedOnTableCell,
   sourceTableCell,
   titleTableCell,
+  pushDataTableCell,
 } from '../../builder/tourism';
 
 export const municipalityListView: ListViewConfig = {
@@ -45,5 +46,6 @@ export const municipalityListView: ListViewConfig = {
       },
     },
     publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };
