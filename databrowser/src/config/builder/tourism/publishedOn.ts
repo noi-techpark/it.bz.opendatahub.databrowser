@@ -12,7 +12,7 @@ export const publishedOnCell = (): PropertyConfig => {
     component: CellComponent.ArrayLookupCell,
     objectMapping: { items: 'PublishedOn' },
     params: {
-      lookupUrl: withOdhBaseUrl('/v1/Publisher'),
+      lookupUrl: withOdhBaseUrl('/v1/Publisher?pagesize=-1'),
       labelSelector: 'Name.{language}',
       keySelector: 'Id',
       unique: 'true',
