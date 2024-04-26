@@ -48,101 +48,26 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { formatDistanceToNow, format as formatFn } from 'date-fns';
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LoadingIndicator from '../../../../../components/loading/LoadingIndicator.vue';
 import IconExclamationMark from '../../../../../components/svg/IconExclamationMark.vue';
-import {
-  DEFAULT_DATE_TIME_FORMAT,
-  withOdhBaseUrl,
-} from '../../../../../config/utils';
-import { useApiRead } from '../../../../api/useApi';
-import { WithTourismPagination } from '../../../../datasets/pagination/types';
-import { OdhPushResponse, PublisherWithPushResult } from './types';
+import { useLastPushResponse } from './lastPush';
+import { PublisherWithPushResponse } from './types';
+import { watch } from 'vue';
 
 const { t } = useI18n();
 
 const props = defineProps<{
-  id?: string;
-  pushResults: PublisherWithPushResult[];
+  id: string;
+  pushResults: PublisherWithPushResponse[];
 }>();
 
-const url = computed(() =>
-  props.id == null
-    ? undefined
-    : // Fetch last push info for the given id
-      withOdhBaseUrl(
-        `/v1/PushResponse?pagesize=1&pagenumber=1&rawsort=-Date&rawfilter=and(eq(PushObject.Id,'${props.id}'))`
-      )
+// Fetch the last push response
+const { pushResponse, isLoading, isError, error, refetch } =
+  useLastPushResponse(props.id);
+
+watch(
+  () => props.pushResults,
+  () => refetch()
 );
-
-const { data, error, isLoading, isError } =
-  useApiRead<WithTourismPagination<OdhPushResponse>>(url);
-
-interface PushResponseData {
-  state: 'empty' | 'info' | 'ok' | 'error';
-  id?: string;
-  date?: string;
-  dateAgo?: string;
-  dateFormatted?: string;
-  message?: string;
-}
-
-const pushResponse = computed<PushResponseData>(() => {
-  // If the push results are available, this means that a push notification has
-  // been sent. In this case, we show the information from the first push result.
-  if (props.pushResults != null && props.pushResults.length > 0) {
-    const pushResult = props.pushResults[0];
-    return {
-      state: pushResult.pushResult.success ? 'ok' : 'error',
-      id: pushResult.pushResult.id,
-      ...buildDateInfo(new Date().toISOString()),
-    };
-  }
-
-  if (data.value == null) {
-    return { state: 'empty' };
-  }
-
-  if (data.value.TotalResults === 0) {
-    return {
-      state: 'info',
-      message: 'No data available',
-    };
-  }
-
-  const odhPushResponse = data.value.Items[0];
-
-  return {
-    state: 'ok',
-    id: odhPushResponse.Id,
-    ...buildDateInfo(odhPushResponse.Date),
-  };
-});
-
-const buildDateInfo = (dateAsString: string | undefined) => {
-  if (dateAsString == null) {
-    return {
-      date: undefined,
-      dateAgo: undefined,
-      dateFormatted: t('components.pushData.lastPushInfo.sentAtUnknown'),
-    };
-  }
-
-  const date = new Date(dateAsString);
-
-  const pushResponseDate = formatFn(date, DEFAULT_DATE_TIME_FORMAT);
-
-  const pushResponseDateAgo = formatDistanceToNow(date, {
-    addSuffix: true,
-    includeSeconds: true,
-  });
-
-  return {
-    date: pushResponseDate,
-    dateAgo: pushResponseDateAgo,
-    dateFormatted: `${pushResponseDate} (${pushResponseDateAgo})`,
-  };
-};
 </script>
