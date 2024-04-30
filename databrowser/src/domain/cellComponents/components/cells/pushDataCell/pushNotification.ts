@@ -7,10 +7,41 @@ import { axiosWithMaybeAuth } from '../../../../api/apiAuth';
 import {
   OdhPushResponseMany,
   Publisher,
-  PublisherWithPushResult,
+  PublisherWithPushResponse,
 } from './types';
+import { MaybeRef, ref, toValue } from 'vue';
 
 type PushNotificationResponse = AxiosResponse<OdhPushResponseMany>;
+
+export const useSendPushNotifications = (
+  selectedPublishers: MaybeRef<Publisher[]>
+) => {
+  // It is not possible to send push notifications when they are already sent, until the popup is closed
+  const isPushed = ref(false);
+
+  // Array of push results that is updated when the push notifications are sent
+  const publishersWithPushResponse = ref<PublisherWithPushResponse[]>([]);
+
+  // Send push notifications to publishers
+  const sendPushes = async () => {
+    try {
+      publishersWithPushResponse.value = await sendPushNotifications(
+        toValue(selectedPublishers)
+      );
+    } catch (err) {
+      console.error(err);
+      publishersWithPushResponse.value = [];
+    }
+
+    isPushed.value = true;
+  };
+
+  return {
+    isPushed,
+    publishersWithPushResponse,
+    sendPushes,
+  };
+};
 
 // Send push notifications to publishers
 export const sendPushNotifications = async (publishers: Publisher[]) => {
@@ -30,7 +61,7 @@ export const sendPushNotifications = async (publishers: Publisher[]) => {
 
   // Wait for all push notifications to be sent and build the result
   return Promise.allSettled(mutatePromises).then((response) =>
-    publishers.map<PublisherWithPushResult>((publisher, index) =>
+    publishers.map<PublisherWithPushResponse>((publisher, index) =>
       buildPushResult(publisher, response[index])
     )
   );
@@ -39,13 +70,13 @@ export const sendPushNotifications = async (publishers: Publisher[]) => {
 const buildPushResult = (
   publisher: Publisher,
   promiseResult: PromiseSettledResult<PushNotificationResponse>
-): PublisherWithPushResult => {
+): PublisherWithPushResponse => {
   // Handle request errors
   if (promiseResult.status === 'rejected') {
     const error = getErrorMessage(promiseResult.reason);
     return {
       ...publisher,
-      pushResult: {
+      pushResponse: {
         success: false,
         error,
       },
@@ -56,7 +87,7 @@ const buildPushResult = (
   const result = promiseResult.value.data[publisher.id];
   return {
     ...publisher,
-    pushResult: {
+    pushResponse: {
       id: result.Id,
       date: result.Date,
       success: result.Result.Success,

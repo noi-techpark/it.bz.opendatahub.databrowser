@@ -12,5 +12,6 @@ export const pushDataTableCell = (): PropertyConfig => ({
   objectMapping: {
     id: '_Meta.Id',
     type: '_Meta.Type',
+    publishedOn: 'PublishedOn',
   },
 });

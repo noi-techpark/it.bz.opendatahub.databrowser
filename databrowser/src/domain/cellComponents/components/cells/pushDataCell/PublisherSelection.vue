@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { reactive, watch } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import CheckboxCustom from '../../../../../components/checkbox/CheckboxCustom.vue';
 import { Publisher } from './types';
 
@@ -49,9 +49,30 @@ const toggleAll = (event: boolean) =>
     0
   );
 
+// Array of selected publishers that is updated when the component properties
+// change or when the user selects a publisher
+const selectedPublishers = ref<Publisher[]>([]);
+
+// Update the selected publishers when the component properties change
+watch(
+  () => props.publishers,
+  () =>
+    (selectedPublishers.value =
+      props.publishers.length === 1 ? [props.publishers[0]] : [])
+);
+
+// Update the selected publishers when the publishers change
+const updateSelection = (selected: boolean[]) => {
+  selectedPublishers.value = props.publishers.filter(
+    (_, index) => selected[index]
+  );
+  emit('selectionChange', selectedPublishers.value);
+};
+
+// Update selection when the selected array changes
 watch(
   () => selected,
-  () => emit('selectionChange', selected),
-  { deep: true }
+  () => updateSelection(selected),
+  { immediate: true, deep: true }
 );
 </script>
