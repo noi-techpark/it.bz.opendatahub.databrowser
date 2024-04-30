@@ -323,8 +323,7 @@
         "title": "Information on last push.",
         "sentAt": "Last Push: {date}",
         "pushResponseId": "ID: {id}",
-        "error": "Error: {error}",
-        "sentAtUnknown": "unknown"
+        "error": "Error: {error}"
       },
       "popup": {
         "buttonAfterSend": "Push-Notifications sent",

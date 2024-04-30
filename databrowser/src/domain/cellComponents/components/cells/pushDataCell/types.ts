@@ -9,13 +9,15 @@ export interface Publisher {
   url: string;
 }
 
-export interface PublisherWithPushResult extends Publisher {
-  pushResult: {
-    success: boolean;
-    id?: string;
-    date?: string;
-    error?: string;
-  };
+export interface PushResponse {
+  success: boolean;
+  id?: string;
+  date?: string;
+  error?: string;
+}
+
+export interface PublisherWithPushResponse extends Publisher {
+  pushResponse: PushResponse;
 }
 
 export interface OdhPushResponse {
@@ -35,3 +37,12 @@ export interface OdhPushResponse {
 }
 
 export type OdhPushResponseMany = Record<string, OdhPushResponse>;
+
+export interface PushResponseData {
+  state: 'empty' | 'info' | 'ok' | 'error';
+  id?: string;
+  date?: string;
+  dateAgo?: string;
+  dateFormatted?: string;
+  message?: string;
+}
