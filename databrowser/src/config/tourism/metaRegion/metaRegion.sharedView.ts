@@ -17,6 +17,8 @@ import {
   shortnameCell,
   sourceSubCategoryWithDistinct,
   textInfoCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -74,5 +76,7 @@ export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
     imageGalleryCategory(),
     gpsDataCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

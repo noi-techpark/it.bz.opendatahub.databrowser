@@ -11,9 +11,10 @@ import {
   eventDocumentCategory,
   idReadOnlyCell,
   imageGalleryCategory,
-  licenseInfoCategory,
   lastChangesCell,
   sourceSubCategoryWithDistinct,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 import { publishedOnCell } from '../../builder/tourism/publishedOn';
 import { withOdhBaseUrl } from '../../utils';
@@ -198,6 +199,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
     imageGalleryCategory(),
     eventDocumentCategory(),
     licenseInfoCategory(),
+    mappingCategory(),
     {
       name: 'Other',
       slug: 'other',

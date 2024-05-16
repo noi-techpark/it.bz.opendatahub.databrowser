@@ -21,6 +21,8 @@ import {
   textInfoCategory,
   webcamCategory,
   locationCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -127,5 +129,7 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
     gpsDataCategory(),
     webcamCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });
