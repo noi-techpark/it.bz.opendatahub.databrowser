@@ -15,6 +15,8 @@ import {
   shortnameCell,
   sourceSubCategoryWithDistinct,
   textInfoCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const wineAwardSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -76,5 +78,7 @@ export const wineAwardSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

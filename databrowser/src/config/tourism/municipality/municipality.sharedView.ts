@@ -20,6 +20,8 @@ import {
   sourceSubCategoryWithDistinct,
   textInfoCategory,
   webcamCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const municipalitySharedView = ():
@@ -94,5 +96,7 @@ export const municipalitySharedView = ():
     gpsDataCategory(),
     webcamCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

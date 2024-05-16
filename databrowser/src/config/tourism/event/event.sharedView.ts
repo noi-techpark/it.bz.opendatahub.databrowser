@@ -16,9 +16,10 @@ import {
   shortnameWithLogoAndMainImageSubCategory,
   sourceSubCategoryWithDistinct,
   textInfoCategory,
-  licenseInfoCategory,
   idReadOnlyCell,
   locationCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -215,6 +216,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
     gpsDataCategory(),
     odhTagCategory('event'),
     licenseInfoCategory(),
+    mappingCategory(),
     {
       name: 'Other',
       slug: 'other',

@@ -13,11 +13,12 @@ import {
   gpsDataCategory,
   idReadOnlyCell,
   imageGalleryCategory,
-  licenseInfoCategory,
   odhTagCategory,
   shortnameCell,
   sourceSubCategoryWithDistinct,
   textInfoCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const webcamInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -82,5 +83,6 @@ export const webcamInfoSharedView = (): DetailViewConfig | EditViewConfig => ({
     textInfoCategory(),
     contactCategory(),
     licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

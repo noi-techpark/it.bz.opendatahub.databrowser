@@ -18,6 +18,8 @@ import {
   shortnameWithLogoAndMainImageSubCategory,
   sourceSubCategoryWithDistinct,
   textInfoCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const tourismAssociationListSharedView = ():
@@ -55,5 +57,7 @@ export const tourismAssociationListSharedView = ():
     imageGalleryCategory(),
     gpsDataCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

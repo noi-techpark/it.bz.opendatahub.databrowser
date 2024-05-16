@@ -13,6 +13,7 @@ export * from './language';
 export * from './lastChanges';
 export * from './licenseInfo';
 export * from './location';
+export * from './mapping';
 export * from './municipality';
 export * from './odh';
 export * from './publishedOn';
