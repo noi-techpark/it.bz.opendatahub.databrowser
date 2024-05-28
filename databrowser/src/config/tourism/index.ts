@@ -33,6 +33,7 @@ import { snowReportConfig } from './snowReport/snowReport.config';
 import { sourceConfig } from './source/source.config';
 import { tourismAssociationListConfig } from './tourismAssociationList/tourismAssociationList.config';
 import { venueConfig } from './venue/venue.config';
+import { venuev2Config } from './venuev2/venuev2.config';
 import { weatherConfig } from './weather/weather.config';
 import { weatherDistrictConfig } from './weatherDistrict/weatherDistrict.config';
 import { weatherInfoConfig } from './weatherInfo/weatherInfo.config';
@@ -53,6 +54,7 @@ export const tourismEmbeddedDatasetConfigs = [
   weatherForecastConfig,
   gastronomyConfig,
   venueConfig,
+  venuev2Config,
   weatherInfoConfig,
   municipalityConfig,
   districtConfig,
