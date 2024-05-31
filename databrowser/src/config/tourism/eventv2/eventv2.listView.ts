@@ -21,32 +21,24 @@ export const eventv2ListView: ListViewConfig = {
     titleTableCell(),
     {
       title: 'Date start',
-      component: CellComponent.EditedDateCell,
+      component: CellComponent.DateCell,
       class: 'w-48',
       params: { format: DEFAULT_DATE_TIME_FORMAT },
-      objectMapping: { date: 'DateBegin' },
+      objectMapping: { date: 'Begin' },
     },
     {
       title: 'Date end',
-      component: CellComponent.EditedDateCell,
+      component: CellComponent.DateCell,
       class: 'w-48',
       params: { format: DEFAULT_DATE_TIME_FORMAT },
-      objectMapping: { date: 'DateEnd' },
+      objectMapping: { date: 'End' },
     },
     {
-      title: 'Event Organizer',
+      title: 'Venue',
       component: CellComponent.StringCell,
       class: 'w-48',
       objectMapping: {
-        text: 'OrganizerInfos.{language}.CompanyName',
-      },
-    },
-    {
-      title: 'Location',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      objectMapping: {
-        text: 'LocationInfo.DistrictInfo.Name.en',
+        text: 'VenueId',
       },
     },
     languageTableCell(),

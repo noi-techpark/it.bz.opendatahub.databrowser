@@ -12,7 +12,7 @@ import {
   contactCategory,
   dataStatesSubCategory,
   imageGalleryCategory,
-  odhTagCategory,
+  tagCategory,
   shortnameWithLogoAndMainImageSubCategory,
   sourceSubCategoryWithDistinct,
   textInfoCategory,
@@ -106,7 +106,7 @@ export const eventv2SharedView = (): DetailViewConfig | EditViewConfig => ({
       ],
     },
     contactCategory(),
-    odhTagCategory('event'),
+    tagCategory('event'),
     licenseInfoCategory(),
     mappingCategory(),
     {

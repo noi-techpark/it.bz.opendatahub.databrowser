@@ -23,6 +23,8 @@ export * from './region';
 export * from './season';
 export * from './shortname';
 export * from './source';
+export * from './source';
+export * from './tag';
 export * from './textInfo';
 export * from './title';
 export * from './webcam';
