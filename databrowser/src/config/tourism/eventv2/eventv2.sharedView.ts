@@ -19,6 +19,8 @@ import {
   idReadOnlyCell,
   licenseInfoCategory,
   mappingCategory,
+  relatedcontentCategory,
+  eventDocumentCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -38,6 +40,7 @@ export const eventv2SharedView = (): DetailViewConfig | EditViewConfig => ({
       ],
     },
     textInfoCategory(),
+    contactCategory(),
     imageGalleryCategory(),
     {
       name: 'Event details',
@@ -105,24 +108,15 @@ export const eventv2SharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
-    contactCategory(),
     tagCategory('event'),
-    licenseInfoCategory(),
+    relatedcontentCategory(),
     mappingCategory(),
+    eventDocumentCategory(),
+    licenseInfoCategory(),
     {
       name: 'Other',
       slug: 'other',
       subcategories: [
-        {
-          name: 'Various Ids',
-          properties: [
-            {
-              title: 'Area Id',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'LocationInfo.AreaInfo.Id' },
-            },
-          ],
-        },
         {
           name: 'Deprecated',
           properties: [

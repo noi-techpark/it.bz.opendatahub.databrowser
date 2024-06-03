@@ -20,6 +20,7 @@ export * from './publishedOn';
 export * from './pushconfig';
 export * from './pushData';
 export * from './region';
+export * from './relatedcontent';
 export * from './season';
 export * from './shortname';
 export * from './source';

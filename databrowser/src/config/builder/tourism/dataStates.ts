@@ -28,11 +28,11 @@ export const dataStatesSubCategory = (
         component: CellComponent.ToggleCell,
         objectMapping: { enabled: 'Active' },
       },
-      {
-        title: 'Active on Open Data Hub',
-        component: CellComponent.ToggleCell,
-        objectMapping: { enabled: 'SmgActive' },
-      },
+      // {
+      //   title: 'Active on Open Data Hub',
+      //   component: CellComponent.ToggleCell,
+      //   objectMapping: { enabled: 'SmgActive' },
+      // },
     ],
   };
 
