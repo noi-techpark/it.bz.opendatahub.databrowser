@@ -15,12 +15,13 @@ import {
   imageGalleryCategory,
   logoWithMainImageCells,
   locationCategory,
-  odhTagCategory,
+  tagCategory,
   shortnameCell,
   dataStatesSubCategory,
   sourceSubCategoryWithDistinct,
   licenseInfoCategory,
   mappingCategory,
+  relatedcontentCategory,
 } from '../../builder/tourism';
 
 export const venuev2SharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -37,26 +38,6 @@ export const venuev2SharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'IDs',
           properties: [idReadOnlyCell()],
         },
-        {
-          name: '',
-          properties: [
-            {
-              title: 'Room Details',
-              component: CellComponent.EditRoomVenueCell,
-              arrayMapping: {
-                pathToParent: 'RoomDetails',
-                objectMapping: {
-                  Shortname: 'Shortname',
-                  Indoor: 'Indoor',
-                  SquareMeters: 'SquareMeters',
-                  Capacity: 'VenueSetup.0.Capacity',
-                  SetupType: 'VenueSetup.0.VenueCode',
-                },
-                targetPropertyName: 'roomVenue',
-              },
-            },
-          ],
-        },
         dataStatesSubCategory(),
         sourceSubCategoryWithDistinct('venue'),
       ],
@@ -64,10 +45,48 @@ export const venuev2SharedView = (): DetailViewConfig | EditViewConfig => ({
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
+    {
+      name: 'Venue details',
+      slug: 'Venue-details',
+      subcategories: [
+        {
+          name: 'Time and date',
+          properties: [
+            {
+              title: 'Beds',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'VenueInfo.Beds' },
+            },
+            {
+              title: 'RoomCount',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'VenueInfo.RoomCount' },
+            },
+            {
+              title: 'SquareMeters',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'VenueInfo.SquareMeters' },
+            },
+            {
+              title: 'Indoor',
+              component: CellComponent.ToggleCell,
+              objectMapping: { text: 'VenueInfo.Indoor' },
+            },
+            {
+              title: 'Is Root',
+              component: CellComponent.ToggleCell,
+              objectMapping: { enabled: 'IsRoot' },
+            },
+          ],
+        },
+      ],
+    },
     locationCategory(),
     gpsDataCategory(),
-    odhTagCategory('venue'),
-    licenseInfoCategory(),
+    tagCategory('venue'),
+    //todo VenueSetupV2 Capacity
+    relatedcontentCategory(),
     mappingCategory(),
+    licenseInfoCategory(),
   ],
 });
