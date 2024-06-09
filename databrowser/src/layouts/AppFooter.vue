@@ -129,12 +129,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </li>
             <li>
               {{ t('footer.columns.contributors.text') }}
+            </li>
+            <li>
               <ExternalLink
                 class="inline-flex items-center gap-2"
                 href="https://opendatahub.com/community/#contributors"
                 tone="text"
               >
-                {{ t('footer.columns.contributors.link') }}<IconExternal />
+                {{ t('footer.columns.contributors.link') }}
               </ExternalLink>
             </li>
           </ul>
@@ -218,7 +220,6 @@ import CardContainer from '../components/card/CardContainer.vue';
 import ContentAlignmentX from '../components/content/ContentAlignmentX.vue';
 import ExternalLink from '../components/link/ExternalLink.vue';
 import { useI18n } from 'vue-i18n';
-import IconExternal from '../components/svg/IconExternal.vue';
 
 const { t } = useI18n();
 </script>
