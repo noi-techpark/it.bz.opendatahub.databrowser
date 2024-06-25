@@ -15,6 +15,7 @@ import {
 
 export const accommodationListView: ListViewConfig = {
   elements: [
+    imageTableCell(),
     {
       title: 'Title',
       component: CellComponent.StringCell,
@@ -23,7 +24,6 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoDetail.{language}.Name',
       },
     },
-    imageTableCell(),
     {
       title: 'Accommodation Type',
       component: CellComponent.StringCell,

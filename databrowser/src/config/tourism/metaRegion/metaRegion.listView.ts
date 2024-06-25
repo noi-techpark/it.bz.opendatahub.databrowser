@@ -15,8 +15,8 @@ import {
 
 export const metaRegionListView: ListViewConfig = {
   elements: [
-    titleTableCell(),
     imageTableCell(),
+    titleTableCell(),
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),

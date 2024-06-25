@@ -10,6 +10,14 @@ import { DEFAULT_DATE_FORMAT } from '../../utils';
 export const weatherInfoListView: ListViewConfig = {
   elements: [
     {
+      title: 'Image',
+      component: CellComponent.ImageCell,
+      class: 'w-40',
+      objectMapping: {
+        src: 'Weather.{language}.Conditions.0.WeatherImgurl',
+      },
+    },
+    {
       title: 'Evolution Title',
       component: CellComponent.StringCell,
       class: 'w-48',
@@ -23,14 +31,6 @@ export const weatherInfoListView: ListViewConfig = {
       class: 'w-48',
       objectMapping: {
         text: 'Weather.{language}.evolution',
-      },
-    },
-    {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      objectMapping: {
-        src: 'Weather.{language}.Conditions.0.WeatherImgurl',
       },
     },
     {
