@@ -18,7 +18,6 @@ import {
 
 export const odhActivityPoiListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     titleTableCell(),
     {
       title: 'Categories',
@@ -31,6 +30,7 @@ export const odhActivityPoiListView: ListViewConfig = {
         separator: ', ',
       },
     },
+    imageTableCell(),
     ...locationTableCells(),
     // {
     //   title: 'Web-URL',
