@@ -16,8 +16,8 @@ import {
 
 export const articleListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     titleTableCell(),
+    imageTableCell(),
     {
       title: 'Type',
       component: CellComponent.StringCell,

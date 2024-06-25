@@ -16,8 +16,8 @@ import {
 
 export const venueListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     titleTableCell(),
+    imageTableCell(),
     {
       title: 'Category',
       component: CellComponent.StringCell,
