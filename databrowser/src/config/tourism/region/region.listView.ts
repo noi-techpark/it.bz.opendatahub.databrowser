@@ -16,9 +16,9 @@ import {
 
 export const regionListView: ListViewConfig = {
   elements: [
+    titleTableCell(),
     imageTableCell(),
     logoTableCell(),
-    titleTableCell(),
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),

@@ -11,6 +11,14 @@ export const snowReportListView: ListViewConfig = {
   //edit source odh
   elements: [
     {
+      title: 'Name',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      objectMapping: {
+        text: 'Areaname',
+      },
+    },
+    {
       title: 'Image',
       component: CellComponent.ImageCell,
       class: 'w-40',
@@ -24,14 +32,6 @@ export const snowReportListView: ListViewConfig = {
       class: 'w-40',
       objectMapping: {
         src: 'contactlogo',
-      },
-    },
-    {
-      title: 'Name',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      objectMapping: {
-        text: 'Areaname',
       },
     },
     {

@@ -14,8 +14,8 @@ import {
 
 export const experienceAreaListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     titleTableCell(),
+    imageTableCell(),
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),

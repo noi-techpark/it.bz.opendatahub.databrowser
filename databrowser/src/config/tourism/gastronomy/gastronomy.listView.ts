@@ -16,8 +16,8 @@ import {
 
 export const gastronomyListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     titleTableCell(),
+    imageTableCell(),
     ...locationTableCells(),
     languageTableCell(),
     {

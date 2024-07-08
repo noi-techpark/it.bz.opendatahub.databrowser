@@ -16,9 +16,9 @@ import {
 
 export const tourismAssociationListListView: ListViewConfig = {
   elements: [
+    titleTableCell(),
     imageTableCell(),
     logoTableCell(),
-    titleTableCell(),
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),

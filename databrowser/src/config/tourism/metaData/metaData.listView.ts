@@ -8,13 +8,13 @@ import { imageTableCell, lastChangesTableCell } from '../../builder/tourism';
 
 export const metaDataListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     {
       title: 'Shortname',
       component: CellComponent.StringCell,
       class: 'w-60',
       objectMapping: { text: 'Shortname' },
     },
+    imageTableCell(),
     {
       title: 'Description',
       component: CellComponent.StringCell,

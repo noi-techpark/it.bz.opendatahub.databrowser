@@ -15,7 +15,6 @@ import {
 
 export const wineAwardListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     {
       title: 'Name/Title',
       component: CellComponent.StringCell,
@@ -24,6 +23,7 @@ export const wineAwardListView: ListViewConfig = {
         text: 'Detail.{language}.Title',
       },
     },
+    imageTableCell(),
     {
       title: 'Header',
       component: CellComponent.StringCell,

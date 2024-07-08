@@ -9,19 +9,19 @@ import { DEFAULT_DATE_FORMAT } from '../../utils';
 export const weatherForecastListView: ListViewConfig = {
   elements: [
     {
-      title: 'Image',
-      component: CellComponent.ImageCell,
-      class: 'w-40',
-      objectMapping: {
-        src: 'ForeCastDaily.0.WeatherImgUrl',
-      },
-    },
-    {
       title: 'Municipality',
       component: CellComponent.StringCell,
       class: 'w-48',
       objectMapping: {
         text: 'MunicipalityName.{language}',
+      },
+    },
+    {
+      title: 'Image',
+      component: CellComponent.ImageCell,
+      class: 'w-40',
+      objectMapping: {
+        src: 'ForeCastDaily.0.WeatherImgUrl',
       },
     },
     {

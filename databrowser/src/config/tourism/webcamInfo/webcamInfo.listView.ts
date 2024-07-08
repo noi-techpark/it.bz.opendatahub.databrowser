@@ -15,7 +15,6 @@ import {
 
 export const webcamInfoListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     {
       title: 'Webcam Name',
       component: CellComponent.StringCell,
@@ -24,6 +23,7 @@ export const webcamInfoListView: ListViewConfig = {
         text: 'Webcamname.{language}',
       },
     },
+    imageTableCell(),
     {
       title: 'Webcam URL',
       component: CellComponent.UrlCell,
