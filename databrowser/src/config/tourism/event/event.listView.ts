@@ -17,8 +17,8 @@ import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const eventListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     titleTableCell(),
+    imageTableCell(),
     {
       title: 'Date start',
       component: CellComponent.EditedDateCell,
