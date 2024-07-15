@@ -4,4 +4,4 @@
 
 export type Tone = 'primary' | 'text' | 'white' | 'none';
 
-export type Variant = 'no-underline' | 'underline';
+export type Variant = 'no-underline' | 'underline' | 'hover-underline';

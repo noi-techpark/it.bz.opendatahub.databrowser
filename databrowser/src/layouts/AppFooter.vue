@@ -68,15 +68,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               {{ t('footer.columns.relevantLinks.title') }}
             </li>
             <li>
-              <router-link to="/dataset-overview" class="no-underline">
+              <router-link to="/dataset-overview" class="hover-underline">
                 {{ t('header.menu.datasets') }}
               </router-link>
             </li>
             <li>
               <ExternalLink
                 class="flex items-center gap-2"
-                href="https://github.com/noi-techpark/odh-docs/wiki"
-                variant="no-underline"
+                href="https://github.com/noi-techpark/odh-docs/wiki/Data-Browser"
+                variant="hover-underline"
                 tone="text"
               >
                 {{ t('header.menu.howTo') }}
@@ -86,7 +86,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <ExternalLink
                 class="flex items-center gap-2"
                 href="https://opendatahub.com/contact"
-                variant="no-underline"
+                variant="hover-underline"
                 tone="text"
               >
                 {{ t('header.menu.contact') }}
@@ -101,14 +101,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <ExternalLink
                 class="flex items-center gap-2"
                 href="https://opendatahub.com"
-                variant="no-underline"
+                variant="hover-underline"
                 tone="text"
               >
                 {{ t('footer.columns.quickstart.openDataHubWebsite') }}
               </ExternalLink>
             </li>
             <li>
-              <router-link to="/">{{
+              <router-link to="/" class="hover-underline">{{
                 t('footer.columns.quickstart.databrowser')
               }}</router-link>
             </li>
@@ -116,7 +116,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <ExternalLink
                 class="flex items-center gap-2"
                 href="https://webcomponents.opendatahub.com/"
-                variant="no-underline"
+                variant="hover-underline"
                 tone="text"
               >
                 {{ t('footer.columns.quickstart.webComponents') }}
@@ -134,6 +134,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <ExternalLink
                 class="inline-flex items-center gap-2"
                 href="https://opendatahub.com/community/#contributors"
+                variant="hover-underline"
                 tone="text"
               >
                 {{ t('footer.columns.contributors.link') }}
@@ -223,3 +224,13 @@ import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.hover-underline {
+  text-decoration: none;
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
+</style>
