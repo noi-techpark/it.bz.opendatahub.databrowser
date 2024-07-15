@@ -17,10 +17,12 @@ import {
   odhTagCategory,
   seasonCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
   webcamCategory,
   locationCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -116,7 +118,7 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
           ],
         },
         dataStatesSubCategory(),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('skiarea'),
       ],
     },
     textInfoCategory(),
@@ -127,5 +129,7 @@ export const skiAreaSharedView = (): DetailViewConfig | EditViewConfig => ({
     gpsDataCategory(),
     webcamCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

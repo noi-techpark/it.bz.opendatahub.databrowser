@@ -10,12 +10,14 @@ import {
   lastChangesTableCell,
   sourceTableCell,
   titleTableCell,
+  publishedOnTableCell,
+  pushDataTableCell,
 } from '../../builder/tourism';
 
 export const articleListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     titleTableCell(),
+    imageTableCell(),
     {
       title: 'Type',
       component: CellComponent.StringCell,
@@ -46,5 +48,7 @@ export const articleListView: ListViewConfig = {
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
+    publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

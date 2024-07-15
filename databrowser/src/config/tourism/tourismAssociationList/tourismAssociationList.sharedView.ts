@@ -16,8 +16,10 @@ import {
   odhTagCategory,
   regionIdCell,
   shortnameWithLogoAndMainImageSubCategory,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const tourismAssociationListSharedView = ():
@@ -47,7 +49,7 @@ export const tourismAssociationListSharedView = ():
           ],
         },
         dataStatesSubCategory({ hasVisibleInSearch: true }),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('tourismassociation'),
       ],
     },
     textInfoCategory(),
@@ -55,5 +57,7 @@ export const tourismAssociationListSharedView = ():
     imageGalleryCategory(),
     gpsDataCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

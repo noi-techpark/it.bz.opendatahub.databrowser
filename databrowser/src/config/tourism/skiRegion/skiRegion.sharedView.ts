@@ -16,9 +16,11 @@ import {
   logoWithMainImageCells,
   odhTagCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
   webcamCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const skiRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -44,7 +46,7 @@ export const skiRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [...idAndCustomIdCells()],
         },
         dataStatesSubCategory(),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('skiregion'),
       ],
     },
     textInfoCategory(),
@@ -53,5 +55,7 @@ export const skiRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
     gpsDataCategory(),
     webcamCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

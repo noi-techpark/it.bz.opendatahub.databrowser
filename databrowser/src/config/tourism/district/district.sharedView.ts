@@ -15,9 +15,11 @@ import {
   locationCategoryDistrict,
   odhTagCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
   webcamCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -65,7 +67,7 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
           ]),
         },
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('district'),
       ],
     },
     textInfoCategory(),
@@ -74,5 +76,7 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
     gpsDataCategory(),
     webcamCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

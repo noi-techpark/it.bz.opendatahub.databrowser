@@ -15,9 +15,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   />
   <span
     v-else
-    :class="[clickable ? 'cursor-pointer text-hint-info underline' : '']"
-    >{{ text }}</span
+    :class="[
+      clickable ? 'cursor-pointer text-hint-info underline' : '',
+      textClasses,
+    ]"
   >
+    {{ text }}
+  </span>
 </template>
 
 <script setup lang="ts">
@@ -34,6 +38,7 @@ const props = defineProps<{
   deletable?: boolean;
   readonly?: string | boolean;
   placeholder?: string;
+  textClasses?: string;
 }>();
 
 const { editable, readonly } = toRefs(props);

@@ -8,19 +8,21 @@ import {
   languageTableCell,
   lastChangesTableCell,
   logoTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
+  pushDataTableCell,
   sourceTableCell,
   titleTableCell,
 } from '../../builder/tourism';
 
 export const skiAreaListView: ListViewConfig = {
   elements: [
+    titleTableCell(),
     imageTableCell(),
     logoTableCell(),
-    titleTableCell(),
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
-    odhActiveTableCell(),
+    publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

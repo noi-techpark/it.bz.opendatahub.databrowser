@@ -17,7 +17,6 @@ export const useDatasetLocationStore = defineStore(
     const editLocation = ref<DatasetLocationRoute>();
     const newLocation = ref<DatasetLocationRoute>();
     const rawLocation = ref<DatasetLocationRoute>();
-    const quickLocation = ref<DatasetLocationRoute>();
 
     const updateLocation = (
       datasetDomain: DatasetDomain | undefined,
@@ -37,7 +36,6 @@ export const useDatasetLocationStore = defineStore(
       editLocation.value = locations.editLocation;
       newLocation.value = locations.newLocation;
       rawLocation.value = locations.rawLocation;
-      quickLocation.value = locations.quickLocation;
     };
 
     return {
@@ -46,7 +44,6 @@ export const useDatasetLocationStore = defineStore(
       editLocation,
       newLocation,
       rawLocation,
-      quickLocation,
       updateLocation,
     };
   }

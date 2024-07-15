@@ -17,7 +17,7 @@ export const useActions = <T>() => {
   }>();
   const updateItemsEventHook = createEventHook<T[]>();
 
-  const addEmptyItem = () => addItemsEventHook.trigger([]);
+  const addItem = (item: T) => addItemsEventHook.trigger([item]);
   const addItems = (items: T[]) => addItemsEventHook.trigger(items);
   const deleteAllItems = () => deleteAllItemsEventHook.trigger();
   const deleteItems = (indexes: number[]) =>
@@ -30,7 +30,7 @@ export const useActions = <T>() => {
   const updateItems = (items: T[]) => updateItemsEventHook.trigger(items);
 
   return {
-    addEmptyItem,
+    addItem,
     addItems,
     deleteAllItems,
     deleteItems,
@@ -61,7 +61,7 @@ type ActionTriggers<T> = Omit<
 >;
 type ActionHooks<T> = Omit<
   Actions<T>,
-  | 'addEmptyItem'
+  | 'addItem'
   | 'addItems'
   | 'deleteAllItemsEventHook'
   | 'deleteItems'
@@ -82,6 +82,7 @@ export const useProvideActions = <T>() => {
 export const useInjectActions = <T>() => inject<Actions<T>>(actionKey)!;
 
 export const useInjectActionTriggers = <T>(): ActionTriggers<T> =>
-  useInjectActions();
+  useInjectActions<T>();
 
-export const useInjectActionHooks = <T>(): ActionHooks<T> => useInjectActions();
+export const useInjectActionHooks = <T>(): ActionHooks<T> =>
+  useInjectActions<T>();

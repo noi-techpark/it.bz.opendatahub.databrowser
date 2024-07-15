@@ -14,11 +14,12 @@ import {
   imageGalleryCategory,
   odhTagCategory,
   shortnameWithLogoAndMainImageSubCategory,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
-  licenseInfoCategory,
   idReadOnlyCell,
   locationCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -31,21 +32,13 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
         shortnameWithLogoAndMainImageSubCategory(),
         {
           name: 'IDs',
-          properties: [
-            idReadOnlyCell(),
-            {
-              title: 'Area Id',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'LocationInfo.AreaInfo.Id' },
-            },
-          ],
+          properties: [idReadOnlyCell()],
         },
         dataStatesSubCategory(),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('event'),
       ],
     },
     textInfoCategory(),
-    contactCategory(),
     imageGalleryCategory(),
     {
       name: 'Event details',
@@ -63,7 +56,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Date End',
               component: CellComponent.DateCell,
-              objectMapping: { date: 'EventDatesEnd' },
+              objectMapping: { date: 'DateEnd' },
               params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
             },
             {
@@ -73,23 +66,30 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
           ],
         },
+      ],
+    },
+    contactCategory(),
+    {
+      name: 'Organizer details',
+      slug: 'Organizer-details',
+      subcategories: [
         {
           name: 'Organizer Info',
           properties: [
             {
               title: 'Company / Name',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.CompanyName' },
+              objectMapping: { text: 'OrganizerInfos.{language}.CompanyName' },
             },
             {
               title: 'Tax Number',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Tax' },
+              objectMapping: { text: 'OrganizerInfos.{language}.Tax' },
             },
             {
               title: 'Vat',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Vat' },
+              objectMapping: { text: 'OrganizerInfos.{language}.Vat' },
             },
           ],
         },
@@ -99,22 +99,22 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Address',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Address' },
+              objectMapping: { text: 'OrganizerInfos.{language}.Address' },
             },
             {
               title: 'Zip Code',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.ZipCode' },
+              objectMapping: { text: 'OrganizerInfos.{language}.ZipCode' },
             },
             {
               title: 'Country Name',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.CountryName' },
+              objectMapping: { text: 'OrganizerInfos.{language}.CountryName' },
             },
             {
               title: 'Country Code',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.CountryCode' },
+              objectMapping: { text: 'OrganizerInfos.{language}.CountryCode' },
             },
           ],
         },
@@ -124,17 +124,17 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             {
               title: 'Email',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Email' },
+              objectMapping: { text: 'OrganizerInfos.{language}.Email' },
             },
             {
               title: 'Phonenumber',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Phonenumber' },
+              objectMapping: { text: 'OrganizerInfos.{language}.Phonenumber' },
             },
             {
               title: 'Url',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'ContactInfos.{language}.Url' },
+              objectMapping: { text: 'OrganizerInfos.{language}.Url' },
             },
           ],
         },
@@ -216,6 +216,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
     gpsDataCategory(),
     odhTagCategory('event'),
     licenseInfoCategory(),
+    mappingCategory(),
     {
       name: 'Other',
       slug: 'other',

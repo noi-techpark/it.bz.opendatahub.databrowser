@@ -69,7 +69,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <TableLinks
             :record-id="recordId"
             :show-edit="showEdit"
-            :show-quick="showQuick"
             :show-delete="showDelete"
           />
         </TableCell>
@@ -101,7 +100,6 @@ const props = withDefaults(
     cols: Column[];
     showDetail: boolean;
     showEdit: boolean;
-    showQuick: boolean;
     showDelete: boolean;
     datasetDomain: DatasetDomain | undefined;
   }>(),
@@ -114,9 +112,7 @@ const { rows, cols } = toRefs(props);
 const { selectedRowIndex, rowClicked, rowDblClicked } =
   useTableRowSelection(rows);
 
-const showLinkColumn = computed(
-  () => props.showDetail || props.showEdit || props.showQuick
-);
+const showLinkColumn = computed(() => props.showDetail || props.showEdit);
 
 const getHasDeprecationInfo = (col: Column) =>
   col.deprecationInfo && col.deprecationInfo.length > 0;

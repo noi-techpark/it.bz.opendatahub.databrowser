@@ -142,7 +142,7 @@ const { items } = toRefs(props);
 const { activeTab, navigateToAdd } = useInjectNavigation();
 
 const { deleteItems, duplicateItem, updateItem, updateItems } =
-  useInjectActionTriggers();
+  useInjectActionTriggers<FileEntry>();
 
 const { editable } = useInjectEditMode();
 

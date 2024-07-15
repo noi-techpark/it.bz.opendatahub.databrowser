@@ -18,10 +18,11 @@ import {
   locationCategory,
   odhTagCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   mainImageCell,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
-import { mappingCategory } from '../../builder/tourism/mapping';
 import { withOdhBaseUrl } from '../../utils';
 
 export const accommodationSharedView = ():
@@ -149,7 +150,7 @@ export const accommodationSharedView = ():
           ],
         },
         dataStatesSubCategory(),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('accommodation'),
       ],
     },
     {
@@ -197,6 +198,7 @@ export const accommodationSharedView = ():
     locationCategory(),
     gpsDataCategory(),
     odhTagCategory('accommodation'),
+    licenseInfoCategory(),
     mappingCategory(),
   ],
 });

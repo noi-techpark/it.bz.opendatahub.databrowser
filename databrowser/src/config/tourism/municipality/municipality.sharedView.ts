@@ -17,9 +17,11 @@ import {
   odhTagCategory,
   regionIdCell,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
   webcamCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const municipalitySharedView = ():
@@ -85,7 +87,7 @@ export const municipalitySharedView = ():
           ],
         },
         dataStatesSubCategory({ hasVisibleInSearch: true }),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('municipality'),
       ],
     },
     textInfoCategory(),
@@ -94,5 +96,7 @@ export const municipalitySharedView = ():
     gpsDataCategory(),
     webcamCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

@@ -11,7 +11,6 @@ interface ComputeViewPresence {
   hasEditView: boolean;
   hasNewView: boolean;
   hasDetailView: boolean;
-  hasQuickView: boolean;
   hasRawView: boolean;
 }
 
@@ -22,7 +21,6 @@ export const computeViewPresence = (
   hasDetailView: views?.detail != null,
   hasEditView: views?.edit != null,
   hasNewView: views?.new != null,
-  hasQuickView: views?.quick != null,
   hasRawView: views?.raw != null,
 });
 

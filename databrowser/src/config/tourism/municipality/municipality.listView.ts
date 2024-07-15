@@ -8,9 +8,10 @@ import {
   gpsDataTableCell,
   languageTableCell,
   lastChangesTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
   sourceTableCell,
   titleTableCell,
+  pushDataTableCell,
 } from '../../builder/tourism';
 
 export const municipalityListView: ListViewConfig = {
@@ -28,6 +29,23 @@ export const municipalityListView: ListViewConfig = {
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
-    odhActiveTableCell(),
+    {
+      title: 'Source state',
+      component: CellComponent.StateCell,
+      class: 'w-40',
+      objectMapping: {
+        state: 'Active',
+      },
+    },
+    {
+      title: 'Visible in search',
+      component: CellComponent.StateCell,
+      class: 'w-40',
+      objectMapping: {
+        state: 'VisibleInSearch',
+      },
+    },
+    publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

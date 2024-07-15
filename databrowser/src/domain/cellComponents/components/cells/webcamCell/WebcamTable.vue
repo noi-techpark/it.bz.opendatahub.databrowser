@@ -56,7 +56,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
     <template #noItems>No webcams have been defined yet</template>
     <template #addItems>
-      <EditListAddButton :text="'Add new Webcam'" @click="addEmptyItem" />
+      <EditListAddButton :text="'Add new Webcam'" @click="addItem({})" />
     </template>
   </EditListTable>
 </template>
@@ -75,7 +75,7 @@ import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 
 defineProps<{ items: WebcamEntry[] }>();
 
-const { addEmptyItem } = useInjectActionTriggers();
+const { addItem } = useInjectActionTriggers<WebcamEntry>();
 
 const { editable } = useInjectEditMode();
 </script>

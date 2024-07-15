@@ -12,6 +12,9 @@ import {
   idReadOnlyCell,
   shortnameCell,
   dataStatesSubCategory,
+  sourceSubCategoryWithDistinct,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_FORMAT } from '../../utils';
 
@@ -36,6 +39,7 @@ export const measuringPointSharedView = ():
           ],
         },
         dataStatesSubCategory(),
+        sourceSubCategoryWithDistinct('measuringpoint'),
       ],
     },
     {
@@ -94,5 +98,7 @@ export const measuringPointSharedView = ():
         },
       ],
     },
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

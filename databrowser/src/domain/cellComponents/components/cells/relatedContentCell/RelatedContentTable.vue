@@ -65,7 +65,7 @@ import {
 
 defineProps<{ items: RelatedContentEntry[] }>();
 
-const { addItems, updateItem } = useInjectActionTriggers();
+const { addItems, updateItem } = useInjectActionTriggers<RelatedContentEntry>();
 
 const { editable } = useInjectEditMode();
 </script>

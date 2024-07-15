@@ -92,6 +92,11 @@ export const contactCategory = (): DetailElements => ({
           component: CellComponent.UrlCell,
           objectMapping: { text: 'ContactInfos.{language}.Url' },
         },
+        {
+          title: 'Logo-URL',
+          component: CellComponent.UrlCell,
+          objectMapping: { text: 'ContactInfos.{language}.LogoUrl' },
+        },
       ],
     },
   ],

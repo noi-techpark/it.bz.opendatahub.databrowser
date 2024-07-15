@@ -8,14 +8,13 @@ import {
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
-  locationTableCells,
-  odhActiveTableCell,
+  pushDataTableCell,
+  publishedOnTableCell,
   sourceTableCell,
 } from '../../builder/tourism';
 
 export const accommodationListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     {
       title: 'Title',
       component: CellComponent.StringCell,
@@ -24,6 +23,7 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoDetail.{language}.Name',
       },
     },
+    imageTableCell(),
     {
       title: 'Accommodation Type',
       component: CellComponent.StringCell,
@@ -40,10 +40,27 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoCategoryId',
       },
     },
-    ...locationTableCells(),
+    // ...locationTableCells(),
+    {
+      title: 'Location',
+      component: CellComponent.StringCell,
+      class: 'w-48',
+      objectMapping: {
+        text: 'LocationInfo.DistrictInfo.Name.en',
+      },
+    },
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
-    odhActiveTableCell(),
+    {
+      title: 'Source state',
+      component: CellComponent.StateCell,
+      class: 'w-40',
+      objectMapping: {
+        state: 'Active',
+      },
+    },
+    publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

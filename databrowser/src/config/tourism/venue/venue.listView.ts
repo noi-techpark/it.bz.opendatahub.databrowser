@@ -10,13 +10,14 @@ import {
   sourceTableCell,
   languageTableCell,
   lastChangesTableCell,
-  odhActiveTableCell,
+  publishedOnTableCell,
+  pushDataTableCell,
 } from '../../builder/tourism';
 
 export const venueListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     titleTableCell(),
+    imageTableCell(),
     {
       title: 'Category',
       component: CellComponent.StringCell,
@@ -34,6 +35,15 @@ export const venueListView: ListViewConfig = {
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
-    odhActiveTableCell(),
+    {
+      title: 'Source state',
+      component: CellComponent.StateCell,
+      class: 'w-40',
+      objectMapping: {
+        state: 'Active',
+      },
+    },
+    publishedOnTableCell(),
+    pushDataTableCell(),
   ],
 };

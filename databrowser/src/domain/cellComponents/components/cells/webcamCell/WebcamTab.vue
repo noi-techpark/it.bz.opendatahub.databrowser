@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
 
     <template #addItems>
-      <EditListAddButton :text="'Add new Webcam'" @click="addEmptyItem" />
+      <EditListAddButton :text="'Add new Webcam'" @click="addItem({})" />
     </template>
 
     <template #body="{ item, index }: { item: WebcamEntry, index: number }">
@@ -49,7 +49,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <StringCell
               :text="item.altitude"
               :editable="editable"
-              @input="updateItem(index, { u: $event.target.value })"
+              @input="updateItem(index, { altitude: $event.target.value })"
             />
           </SubCategoryItem>
           <SubCategoryItem title="Position">
@@ -142,8 +142,8 @@ import { WebcamEntry } from './types';
 
 defineProps<{ items: WebcamEntry[] }>();
 
-const { addEmptyItem, deleteItems, duplicateItem, updateItem } =
-  useInjectActionTriggers();
+const { addItem, deleteItems, duplicateItem, updateItem } =
+  useInjectActionTriggers<WebcamEntry>();
 
 const { editable } = useInjectEditMode();
 

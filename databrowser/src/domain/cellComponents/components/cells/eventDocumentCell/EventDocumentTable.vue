@@ -67,5 +67,5 @@ const { navigateToAdd } = useInjectNavigation();
 
 const { editable } = useInjectEditMode();
 
-const { updateItem } = useInjectActionTriggers();
+const { updateItem } = useInjectActionTriggers<FileEntry>();
 </script>

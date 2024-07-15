@@ -111,11 +111,10 @@
           "title": "Unsaved Data!"
         },
         "multipleFilesLanguage": {
-          "buttonSaveAndNext": "Save & next",
-          "buttonNext": "Next",
-          "buttonDiscardChanges": "Discard changes",
-          "title": "Choose language",
-          "description": "Which language would you like to assign the uploaded document to?"
+          "buttonSaveAndNext": "Ok",
+          "buttonDiscardChanges": "Cancel",
+          "title": "Set document names",
+          "description": "Define a document name for each language. By giving the document a name, you make it available in the respective language."
         },
         "confirmDeselectAllLanguages": {
           "title": "You deselected all languages",
@@ -155,37 +154,6 @@
           "panelName": "JSON diff"
         }
       }
-    },
-    "quickView": {
-      "standardImageWarning": "This is a standard image and not part of the dataset",
-      "textInformation": "Text information",
-      "contact": "Contact",
-      "locationOnMap": "Location on Map",
-      "recordInformation": "Record information",
-      "openingHours": "Opening hours",
-      "nameCompanyName": "Name/Company Name",
-      "firstName": "First name",
-      "surname": "Surnname",
-      "streetAndNumber": "Street & Hausnumber",
-      "city": "City",
-      "zip": "ZIP-CODE",
-      "country": "Country",
-      "email": "E-Mail",
-      "phoneNumber": "Phone Number",
-      "webUrl": "Web-URL",
-      "lastChanged": "Last Changed",
-      "activeOnSource": "Active on source",
-      "activeOnODH": "Active on ODH",
-      "suedtirolInfoActive": "Active on suedtirol.info",
-      "active": "Active",
-      "inactive": "Inactive",
-      "closed": "Closed",
-      "webcamDetails": "Webcam details",
-      "name": "Name",
-      "link": "Link",
-      "header": "Header",
-      "subheader": "Subheader",
-      "introtext": "Introtext"
     },
     "generated": {
       "categoryName": "All data"
@@ -256,10 +224,6 @@
           "short": "Edit",
           "title": "Edit view"
         },
-        "quick": {
-          "short": "Quick",
-          "title": "Quick view"
-        },
         "raw": {
           "short": "Raw",
           "title": "Raw view"
@@ -274,7 +238,6 @@
       "detailView": "Detail View",
       "editView": "Edit View",
       "newView": "New Record",
-      "quickView": "Quick View",
       "rawView": "Raw View",
       "tableView": "Table View"
     },
@@ -330,6 +293,7 @@
     "operationSchedule": {
       "addSeason": "Add new Season",
       "noSeason": "No seasons have been defined yet",
+      "closed": "Closed",
       "table": {
         "seasonName": "Season name",
         "seasonStart": "Season start",
@@ -353,6 +317,31 @@
         "timeState": "State",
         "timeTimecode": "Timecode"
       }
+    },
+    "pushData": {
+      "lastPushInfo": {
+        "title": "Information on last push.",
+        "sentAt": "Last Push: {date}",
+        "pushResponseId": "ID: {id}",
+        "error": "Error: {error}"
+      },
+      "popup": {
+        "buttonAfterSend": "Push-Notifications sent",
+        "buttonBeforeSend": "Send out the Push-Notifications",
+        "contactSupport1": "If you think this is an error, please contact the",
+        "contactSupport2": "support",
+        "noPublishersAvailable": "For this entry, there are no publishers available to send push.",
+        "pushSendImmediately": "Push-Notification is immediately sent out",
+        "selectChannel": "Stay connected! Select the channel you want to send the push notification to:",
+        "title": "Push-Notification"
+      },
+      "result": {
+        "errorTitle": "Couldn't send push notification to {name}",
+        "pushResultId": "Push response ID: {id}",
+        "successDescription": "Successfully sent push message.",
+        "successTitle": "Push notification sent to {name}!"
+      },
+      "sendPushNotifications": "Send Push"
     }
   },
   "overview": {
@@ -375,10 +364,13 @@
       "apiVersion": "API version",
       "contact": "Contact and support",
       "moreInfo": "More information",
-      "openData": "OpenData",
+      "openData": "Open Data",
       "output": "Output",
       "sources": "Sources",
       "swaggerUrl": "Swagger URL"
+    },
+    "dataLicence": {
+      "info": "All publicly (without a login) available data is either under license CC0 or CC-BY."
     },
     "dataset": {
       "titleJoiner": "from"

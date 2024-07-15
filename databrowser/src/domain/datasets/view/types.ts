@@ -7,7 +7,6 @@ import {
   EditViewConfig,
   ListViewConfig,
   NewViewConfig,
-  QuickViewConfig,
   RawViewConfig,
   ViewKey,
 } from '../config/types';
@@ -44,10 +43,6 @@ export interface RawViewConfigWithType extends RawViewConfig, WithViewKey {
   type: 'raw';
 }
 
-export interface QuickViewConfigWithType extends QuickViewConfig, WithViewKey {
-  type: 'quick';
-}
-
 export type SingleRecordViewConfigWithType =
   | DetailViewConfigWithType
   | EditViewConfigWithType
@@ -56,7 +51,6 @@ export type SingleRecordViewConfigWithType =
 export type ViewConfigWithType =
   | ListViewConfigWithType
   | SingleRecordViewConfigWithType
-  | QuickViewConfigWithType
   | RawViewConfigWithType;
 
 export const isTableViewConfig = (

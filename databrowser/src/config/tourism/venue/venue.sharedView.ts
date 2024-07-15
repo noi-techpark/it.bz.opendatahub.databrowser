@@ -18,7 +18,9 @@ import {
   odhTagCategory,
   shortnameCell,
   dataStatesSubCategory,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -56,7 +58,7 @@ export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
           ],
         },
         dataStatesSubCategory(),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('venue'),
       ],
     },
     textInfoCategory(),
@@ -65,5 +67,7 @@ export const venueSharedView = (): DetailViewConfig | EditViewConfig => ({
     locationCategory(),
     gpsDataCategory(),
     odhTagCategory('venue'),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

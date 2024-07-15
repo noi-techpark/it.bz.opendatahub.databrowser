@@ -31,22 +31,36 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <span v-html="t('footer.cards.databrowser')"></span>
             </div>
           </CardContainer>
-          <CardContainer :no-padding="true" class="grow bg-white p-3">
-            <div class="flex items-center gap-4">
-              <img
-                :alt="t('header.logo')"
-                class="aspect-square h-12"
-                src="/logo-open-data-hub-black.svg"
-              />
-              <span v-html="t('footer.cards.openDataHub')"></span>
-            </div>
-          </CardContainer>
-          <CardContainer :no-padding="true" class="grow bg-white p-3">
-            <div class="flex items-center gap-4">
-              <img alt="NOI Techpark" src="/logo-noi.svg" />
-              <span v-html="t('footer.cards.noi')"></span>
-            </div>
-          </CardContainer>
+          <ExternalLink
+            href="https://opendatahub.com/"
+            tone="none"
+            variant="no-underline"
+            class="grow"
+          >
+            <CardContainer :no-padding="true" class="bg-white p-3">
+              <div class="flex items-center gap-4">
+                <img
+                  :alt="t('header.logo')"
+                  class="aspect-square h-12"
+                  src="/logo-open-data-hub-black.svg"
+                />
+                <span v-html="t('footer.cards.openDataHub')"></span>
+              </div>
+            </CardContainer>
+          </ExternalLink>
+          <ExternalLink
+            href="https://noi.bz.it/"
+            tone="none"
+            variant="no-underline"
+            class="grow"
+          >
+            <CardContainer :no-padding="true" class="bg-white p-3">
+              <div class="flex items-center gap-4">
+                <img alt="NOI Techpark" src="/logo-noi.svg" />
+                <span v-html="t('footer.cards.noi')"></span>
+              </div>
+            </CardContainer>
+          </ExternalLink>
         </div>
         <div class="flex w-full flex-col gap-4 pt-4 md:flex-row">
           <ul class="grow basis-0">
@@ -62,6 +76,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <ExternalLink
                 class="flex items-center gap-2"
                 href="https://github.com/noi-techpark/odh-docs/wiki/Data-Browser"
+
                 variant="no-underline"
                 tone="text"
               >

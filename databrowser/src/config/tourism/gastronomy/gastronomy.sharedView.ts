@@ -18,7 +18,7 @@ import {
   odhTagCategory,
   seasonCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
 
@@ -91,7 +91,7 @@ export const gastronomySharedView = (): EditViewConfig | DetailViewConfig => ({
           ],
         },
         dataStatesSubCategory({ hasVisibleInSearch: true }),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('gastronomy'),
       ],
     },
     textInfoCategory(),

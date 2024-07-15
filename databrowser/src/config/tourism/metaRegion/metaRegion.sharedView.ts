@@ -15,8 +15,10 @@ import {
   mainImageCell,
   odhTagCategory,
   shortnameCell,
-  sourceSubCategory,
+  sourceSubCategoryWithDistinct,
   textInfoCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -67,12 +69,14 @@ export const metaRegionSharedView = (): DetailViewConfig | EditViewConfig => ({
           ],
         },
         dataStatesSubCategory({ hasVisibleInSearch: true }),
-        sourceSubCategory(),
+        sourceSubCategoryWithDistinct('metaregion'),
       ],
     },
     textInfoCategory(),
     imageGalleryCategory(),
     gpsDataCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });

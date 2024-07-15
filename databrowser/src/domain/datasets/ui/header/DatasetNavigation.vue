@@ -31,13 +31,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           data-test="new-view-link"
         ></TabLink>
         <TabLink
-          v-if="!isNewView && hasQuickView"
-          :label="t('datasets.navigation.quickView')"
-          :to="quickLocation"
-          :active="isQuickView"
-          data-test="quick-view-link"
-        />
-        <TabLink
           v-if="!isNewView && hasDetailView"
           :label="t('datasets.navigation.detailView')"
           :to="{ ...detailLocation, hash }"
@@ -82,12 +75,10 @@ const { t } = useI18n();
 const {
   hasDetailView,
   hasEditView,
-  hasQuickView,
   isDetailView,
   isEditView,
   isNewView,
   isRawView,
-  isQuickView,
 } = storeToRefs(useDatasetViewStore());
 
 const { editRecordSupported } = storeToRefs(useDatasetPermissionStore());
@@ -98,7 +89,6 @@ const {
   editLocation,
   newLocation,
   rawLocation,
-  quickLocation,
 } = storeToRefs(useDatasetLocationStore());
 
 const { currentRoute } = useRouter();

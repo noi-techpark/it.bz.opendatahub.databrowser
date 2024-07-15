@@ -67,7 +67,7 @@ const props = defineProps<{ items: GpsInfoEntry[] }>();
 
 const { navigateToTab } = useInjectNavigation();
 
-const { addItems } = useInjectActionTriggers();
+const { addItems } = useInjectActionTriggers<GpsInfoEntry>();
 
 const addNewGpsPoint = () => {
   addItems([{ unitMeasureAltitude: 'm' }]);

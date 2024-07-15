@@ -13,12 +13,14 @@ import ArticleLinkInfoCell from '../components/cells/articleLinkInfoCell/Article
 import ArticleTypeCell from '../components/cells/articleTypeCell/ArticleTypeCell.vue';
 import CustomDataArrayCell from '../components/cells/customDataArrayCell/CustomDataArrayCell.vue';
 import DateCell from '../components/cells/dateCell/DateCell.vue';
+import DictionaryCell from '../components/cells/dictionaryCell/DictionaryCell.vue';
 import EditedDateCell from '../components/cells/editedDateCell/EditedDateCell.vue';
 import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditImageGalleryCell.vue';
 import EditGpsInfoCell from '../components/cells/editGpsInfoCell/EditGpsInfoCell.vue';
 import EditRoomBookedCell from '../components/cells/editRoomBookedCell/EditRoomBookedCell.vue';
 import EditRoomVenueCell from '../components/cells/editRoomVenueCell/EditRoomVenueCell.vue';
 import EventDocumentCell from '../components/cells/eventDocumentCell/EventDocumentCell.vue';
+import GpsPointMap from '../../../components/map/GpsPointMap.vue';
 import GpsPointsCell from '../components/cells/gpsPointsCell/GpsPointsCell.vue';
 import HtmlCell from '../components/cells/htmlCell/HtmlCell.vue';
 import InputReferenceCell from '../components/cells/inputReferenceCell/InputReferenceCell.vue';
@@ -30,6 +32,7 @@ import JsonCell from '../components/cells/jsonCell/JsonCell.vue';
 import LoadingCell from '../components/cells/loadingCell/LoadingCell.vue';
 import MappingCell from '../components/cells/mappingCell/MappingCell.vue';
 import MeasurementsCell from '../components/cells/measurementsCell/MeasurementsCell.vue';
+import PushDataCell from '../components/cells/pushDataCell/PushDataCell.vue';
 import SelectWithOptionsCell from '../components/cells/selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StateCell from '../components/cells/stateCell/StateCell.vue';
 import StringCell from '../components/cells/stringCell/StringCell.vue';
@@ -44,14 +47,7 @@ import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
 import RelatedContentCell from '../components/cells/relatedContentCell/RelatedContentCell.vue';
-
-// NOTE: this components do not belong to table components; it's advised to refactor this table in the future.
-import QuickViewTextInfoCard from '../../../components/quickview/QuickViewTextInfoCard.vue';
-import QuickViewContactsCard from '../../../components/quickview/QuickViewContactsCard.vue';
-import QuickViewWebcamsView from '../../../components/quickview/QuickViewWebcamsView.vue';
-import QuickViewMapView from '../../../components/quickview/QuickViewMapView.vue';
-import QuickViewOpeningHoursView from '../../../components/quickview/QuickViewOpeningHoursView.vue';
-import QuickViewRecordInfoView from '../../../components/quickview/QuickViewRecordInfoView.vue';
+import PushConfigCell from '../components/cells/pushConfigCell/PushConfigCell.vue';
 
 import { CellComponent } from '../types';
 
@@ -69,12 +65,14 @@ export default {
     app.component(CellComponent.ArticleTypeCell, ArticleTypeCell);
     app.component(CellComponent.DateCell, DateCell);
     app.component(CellComponent.CustomDataArrayCell, CustomDataArrayCell);
+    app.component(CellComponent.DictionaryCell, DictionaryCell);
     app.component(CellComponent.EditedDateCell, EditedDateCell);
     app.component(CellComponent.EditImageGalleryCell, EditImageGalleryCell);
     app.component(CellComponent.EditGpsInfoCell, EditGpsInfoCell);
     app.component(CellComponent.EditRoomBookedCell, EditRoomBookedCell);
     app.component(CellComponent.EditRoomVenueCell, EditRoomVenueCell);
     app.component(CellComponent.EventDocumentCell, EventDocumentCell);
+    app.component(CellComponent.GpsPointMap, GpsPointMap);
     app.component(CellComponent.GpsPointsCell, GpsPointsCell);
     app.component(CellComponent.HtmlCell, HtmlCell);
     app.component(CellComponent.InputReferenceCell, InputReferenceCell);
@@ -86,6 +84,7 @@ export default {
     app.component(CellComponent.MappingCell, MappingCell);
     app.component(CellComponent.MeasurementsCell, MeasurementsCell);
     app.component(CellComponent.OperationScheduleCell, OperationScheduleCell);
+    app.component(CellComponent.PushDataCell, PushDataCell);
     app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);
     app.component(CellComponent.StateCell, StateCell);
     app.component(CellComponent.StringCell, StringCell);
@@ -100,18 +99,6 @@ export default {
     app.component(CellComponent.TypeBasedCell, TypeBasedCell);
     app.component(CellComponent.WebcamCell, WebcamCell);
     app.component(CellComponent.RelatedContentCell, RelatedContentCell);
-
-    app.component(CellComponent.QuickViewTextInfoCard, QuickViewTextInfoCard);
-    app.component(CellComponent.QuickViewContactsCard, QuickViewContactsCard);
-    app.component(CellComponent.QuickViewWebcamsView, QuickViewWebcamsView);
-    app.component(CellComponent.QuickViewMapView, QuickViewMapView);
-    app.component(
-      CellComponent.QuickViewOpeningHoursView,
-      QuickViewOpeningHoursView
-    );
-    app.component(
-      CellComponent.QuickViewRecordInfoView,
-      QuickViewRecordInfoView
-    );
+    app.component(CellComponent.PushConfigCell, PushConfigCell);
   },
 };

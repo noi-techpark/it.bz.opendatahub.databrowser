@@ -104,7 +104,7 @@ const { mappings } = toRefs(props);
 
 const { editable } = useInjectEditMode();
 
-const { addItems, updateItem } = useInjectActionTriggers();
+const { addItems, updateItem } = useInjectActionTriggers<Mapping>();
 
 const addChildKey = (index: number, item: Mapping) => {
   const nextItem: Mapping = {

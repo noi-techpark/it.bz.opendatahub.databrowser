@@ -159,7 +159,7 @@ For more information on how to make new files REUSE compliant check the project 
 
 - **Christian Gapp** - _Initial work_ - [gappc](https://github.com/gappc)
 - **AboutBits** - _Initial work_ - [AboutBits](https://github.com/aboutbits)
-- **FlashBeing** - Guideline and _Quick View_ [FlashBeing](https://flashbeing.com/)
+- **FlashBeing** - _Lots of contributions_ [FlashBeing](https://flashbeing.com/)
 - **NOI Support Team** - _Configurations and tests_
 
 ### Acknowledgements
