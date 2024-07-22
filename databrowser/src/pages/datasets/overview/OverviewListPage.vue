@@ -84,17 +84,23 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <div class="h-full overflow-y-auto py-14 md:h-auto md:p-0">
             <button
               class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
-              @click="toggleFilter('hasNoMetadata')"
             >
-              <ToggleCustom v-model="_inputModels.no_metadata" class="mr-2" />
-              {{ t('overview.listPage.noMetadataAvailable') }}
+              <ToggleCustom
+                ref="metadataToggle"
+                v-model="_inputModels.no_metadata"
+                class="mr-2"
+              />
+              <span @click="toggleFilter('no_metadata')">{{
+                t('overview.listPage.noMetadataAvailable')
+              }}</span>
             </button>
             <button
               class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
-              @click="toggleFilter('deprecated')"
             >
               <ToggleCustom v-model="_inputModels.deprecated" class="mr-2" />
-              {{ t('overview.listPage.deprecated') }}
+              <span @click="toggleFilter('deprecated')">{{
+                t('overview.listPage.deprecated')
+              }}</span>
             </button>
             <Accordion
               v-for="filter in dynamicFilters"
@@ -327,11 +333,21 @@ const toggleFilter = (key: string, value?: string) => {
 const setFilter = (key: string, value?: string) => {
   const filterFullKey = getFilterFullKey(key, value);
   filters.value.applied[filterFullKey] = getFilterObject(key, value);
+  if (isModelAffectedFilter(key)) {
+    _inputModels.value[key] = true;
+  }
 };
 
 const unsetFilter = (key: string, value?: string) => {
   const filterFullKey = getFilterFullKey(key, value);
   delete filters.value.applied[filterFullKey];
+  if (isModelAffectedFilter(key)) {
+    _inputModels.value[key] = false;
+  }
+};
+
+const isModelAffectedFilter = (key: string) => {
+  return key == 'no_metadata' || key == 'deprecated';
 };
 
 const getFilterFullKey = (key: string, value?: string) => {
