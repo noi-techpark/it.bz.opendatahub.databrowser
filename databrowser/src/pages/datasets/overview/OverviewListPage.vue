@@ -84,23 +84,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <div class="h-full overflow-y-auto py-14 md:h-auto md:p-0">
             <button
               class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
+              @click="toggleFilter('hasNoMetadata')"
             >
               <ToggleCustom
                 ref="metadataToggle"
-                v-model="_inputModels.no_metadata"
+                v-model="_inputModels.hasNoMetadata"
                 class="mr-2"
               />
-              <span @click="toggleFilter('no_metadata')">{{
-                t('overview.listPage.noMetadataAvailable')
-              }}</span>
+              {{ t('overview.listPage.noMetadataAvailable') }}
             </button>
             <button
               class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
+              @click="toggleFilter('deprecated')"
             >
               <ToggleCustom v-model="_inputModels.deprecated" class="mr-2" />
-              <span @click="toggleFilter('deprecated')">{{
-                t('overview.listPage.deprecated')
-              }}</span>
+              {{ t('overview.listPage.deprecated') }}
             </button>
             <Accordion
               v-for="filter in dynamicFilters"
@@ -240,7 +238,7 @@ const defaultFilters = {
   applied: {} as Record<string, FilterObject>,
 };
 const _inputModels = ref<Record<string, boolean>>({
-  no_metadata: false,
+  hasNoMetadata: false,
   deprecated: false,
 });
 
@@ -347,7 +345,7 @@ const unsetFilter = (key: string, value?: string) => {
 };
 
 const isModelAffectedFilter = (key: string) => {
-  return key == 'no_metadata' || key == 'deprecated';
+  return key == 'hasNoMetadata' || key == 'deprecated';
 };
 
 const getFilterFullKey = (key: string, value?: string) => {
