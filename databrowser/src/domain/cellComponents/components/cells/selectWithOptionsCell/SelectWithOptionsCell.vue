@@ -27,7 +27,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       @update="onUpdate($event.value)"
     />
   </div>
-  <span v-else>{{ value }}</span>
+  <span v-else>{{
+    options?.find((o) => o.value === value)?.label ?? value
+  }}</span>
 </template>
 
 <script setup lang="ts">
