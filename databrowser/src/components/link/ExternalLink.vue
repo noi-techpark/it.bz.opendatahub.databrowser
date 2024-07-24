@@ -31,3 +31,13 @@ const { tone, variant } = toRefs(props);
 
 const classNames = useClassNames(tone, variant);
 </script>
+
+<style scoped>
+.hover-underline {
+  text-decoration: none;
+}
+
+.hover-underline:hover {
+  text-decoration: underline;
+}
+</style>
