@@ -14,7 +14,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <HeaderLink to="/dataset-overview">
         {{ t('header.menu.datasets') }}
       </HeaderLink>
-      <HeaderExternalLink href="https://github.com/noi-techpark/odh-docs/wiki">
+      <HeaderExternalLink
+        href="https://github.com/noi-techpark/odh-docs/wiki/Data-Browser"
+      >
         {{ t('header.menu.howTo') }}
       </HeaderExternalLink>
       <HeaderExternalLink href="https://opendatahub.com/contact">

@@ -15,6 +15,7 @@ const toneClass: Record<Tone, string> = {
 const variantClass: Record<Variant, string> = {
   ['no-underline']: 'no-underline',
   ['underline']: 'underline',
+  ['hover-underline']: 'hover-underline',
 };
 
 export const useClassNames = (tone: Ref<Tone>, variant: Ref<Variant>) =>
