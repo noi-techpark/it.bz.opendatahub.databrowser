@@ -7,12 +7,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <div>
     <Listbox v-slot="{ open }" v-model="valueInternal">
-      <div ref="trigger" class="text-black">
+      <div ref="trigger">
         <SelectButton
           :id="id"
           :class="[
             !open ? 'rounded' : isBottomPlacement ? 'rounded-t' : 'rounded-b',
             buttonClassNames,
+            extraHeight ? 'h-9 min-h-0 text-base' : '',
           ]"
           :label="selectedLabel"
           :data-test="`${id}-select-button`"
@@ -88,6 +89,7 @@ const props = withDefaults(
     showAddNewValue?: boolean;
     showValueAsLabelFallback?: boolean;
     zIndex?: number;
+    extraHeight?: boolean;
   }>(),
   {
     options: () => [],
@@ -99,6 +101,7 @@ const props = withDefaults(
     showAddNewValue: false,
     showValueAsLabelFallback: false,
     zIndex: undefined,
+    extraHeight: false,
   }
 );
 const {

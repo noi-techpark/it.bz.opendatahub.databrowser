@@ -10,8 +10,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :model-value="modelValue"
     :disabled="disabled"
     :focus="focus"
-    :label-button="t('components.inputSearch.labelButton')"
     :label-placeholder="t('components.inputSearch.labelPlaceholder')"
+    show-button-on-left
     @update:model-value="emit('update:modelValue', $event)"
     @confirmed-value="emit('search', $event)"
   >
