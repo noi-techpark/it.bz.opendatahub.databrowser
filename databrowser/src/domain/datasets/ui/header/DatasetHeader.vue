@@ -14,14 +14,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         v-if="hasConfig"
         class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
       >
-        <DatasetHeaderTitle />
+        <SelectCustom
+          :options="selectOptions"
+          :value="currentDataset"
+          :show-search-when-at-least-count-options="1"
+          extra-height
+          class="mr-1 w-56"
+          @change="handleDatasetChange"
+        />
+        <!--<DatasetHeaderTitle /> -->
       </span>
       <span v-else class="mr-3 text-base">
         {{ t('datasets.header.noViewConfig') }}
       </span>
       <AddRecordButton
         v-if="addRecordSupported"
-        class="md:hidden"
+        class="mr-2 md:hidden"
         data-test="mobile-add-record-link"
       />
     </div>
@@ -34,8 +42,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :picked="source"
       :class="{
         'animate-pulse rounded outline outline-green-500': !hasConfig,
+        'mr-2': true,
       }"
       @picked-change="changeSource($event)"
+    />
+
+    <InputSearch
+      id="search-dataset"
+      :model-value="searchfilter"
+      @search="search"
     />
 
     <!-- Show information if current view is auto generated -->
@@ -51,7 +66,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div class="ml-auto flex">
       <AddRecordButton
         v-if="addRecordSupported"
-        class="mr-3 hidden md:block"
+        class="mr-2 hidden md:block"
         data-test="desktop-add-record-link"
       />
 
@@ -66,7 +81,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LanguagePicker from '../../../../components/language/LanguagePicker.vue';
 import TagCustom from '../../../../components/tag/TagCustom.vue';
@@ -77,13 +92,36 @@ import { useDatasetPermissionStore } from '../../permission/store/datasetPermiss
 import AddRecordButton from './AddRecordButton.vue';
 import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
 import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
-import DatasetHeaderTitle from './DatasetHeaderTitle.vue';
+import InputSearch from '../../../../components/input/InputSearch.vue';
+import SelectCustom from '../../../../components/select/SelectCustom.vue';
+import { SelectOption, SelectValue } from '../../../../components/select/types';
 
 const { t } = useI18n();
 
 const { datasetDomain, hasConfig, source } = storeToRefs(
   useDatasetBaseInfoStore()
 );
+
+const selectOptions = computed<SelectOption[]>(() => {
+  return [
+    {
+      label: 'Test',
+      value: 'TODO',
+    },
+  ];
+});
+
+const handleDatasetChange = () => {
+  // TODO: implement dataset change logic here
+};
+
+const currentDataset = ref<SelectValue>('TODO');
+
+const searchfilter = useDatasetQueryStore().handle('searchfilter');
+const search = (term: string) => {
+  const value = term === '' ? undefined : term;
+  searchfilter.value = value;
+};
 
 const { addRecordSupported } = storeToRefs(useDatasetPermissionStore());
 

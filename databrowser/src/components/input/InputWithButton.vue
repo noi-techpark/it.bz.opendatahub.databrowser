@@ -6,8 +6,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div
-    class="flex items-center justify-between gap-2 rounded border border-gray-400 p-2 text-black focus-within:border-green-500"
+    class="flex h-9 items-center justify-between gap-2 rounded border border-gray-400 p-2 text-black focus-within:border-green-500"
   >
+    <ButtonCustom
+      v-if="showConfirmButton && showButtonOnLeft"
+      class="flex h-3 items-center gap-2 rounded p-2"
+      aria-label="Search"
+      :size="Size.xs"
+      :disabled="disabled"
+      :data-test="`${id}-start-search`"
+      variant="transparent"
+      @click="emitConfirmedValue"
+    >
+      <slot name="icon"></slot>
+      <span v-if="labelButton" class="hidden md:inline">{{ labelButton }}</span>
+    </ButtonCustom>
     <input
       :id="id"
       ref="inputRef"
@@ -29,7 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <IconDelete />
       </button>
       <ButtonCustom
-        v-if="showConfirmButton"
+        v-if="showConfirmButton && !showButtonOnLeft"
         class="-m-1 flex items-center gap-2 rounded p-2 md:px-3 md:py-1"
         aria-label="Search"
         :size="Size.xs"
@@ -61,6 +74,7 @@ const props = withDefaults(
     id?: string;
     labelButton?: string;
     labelPlaceholder?: string;
+    showButtonOnLeft?: boolean;
   }>(),
   {
     modelValue: undefined,
@@ -69,6 +83,7 @@ const props = withDefaults(
     id: randomId(),
     labelButton: undefined,
     labelPlaceholder: undefined,
+    showButtonOnLeft: false,
   }
 );
 

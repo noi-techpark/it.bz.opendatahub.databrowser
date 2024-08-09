@@ -212,7 +212,7 @@
             "filterInputButton": "Filter",
             "resetAllFilters": "Reset all filters"
           },
-          "panelName": "Search and filter"
+          "panelName": "Filter"
         }
       },
       "viewLinks": {
@@ -267,6 +267,10 @@
         "panelName": "Export datasets",
         "sectionFurtherDetails": "Further details",
         "sectionRetrieveData": "Retrieve data for this record"
+      },
+      "button": {
+        "openFilterAndExportPossibilities": "Open Filter & Export possibilities",
+        "closeFilterAndExportPossibilities": "Close Filter & Export possibilities"
       }
     }
   },

@@ -13,6 +13,10 @@ export const variantClass: Record<Variant, Record<Tone, String>> = {
     [Tone.primary]:
       'border text-green-500 hover:bg-green-500/10 hover:border-green-500 focus-visible:bg-green-500/10 focus-visible:text-green-500 focus-visible:border-green-500 focus-visible:outline-none',
   },
+  [Variant.transparent]: {
+    [Tone.primary]:
+      'focus-visible:bg-green-500/10 focus-visible:text-green-500 focus-visible:border-green-500 focus-visible:outline-none',
+  },
 };
 
 export const sizeClass: Record<Size, String> = {
@@ -33,6 +37,9 @@ export const disabledClass: Record<Variant, Record<Tone, String>> = {
   [Variant.ghost]: {
     [Tone.primary]:
       'border border-green-500 bg-transparent text-green-500 opacity-25',
+  },
+  [Variant.transparent]: {
+    [Tone.primary]: 'bg-transparent text-grey-500 opacity-25',
   },
 };
 
