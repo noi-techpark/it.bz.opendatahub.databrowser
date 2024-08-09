@@ -134,7 +134,6 @@ import IconStrokedArrowDown from '../../../../components/svg/IconStrokedArrowDow
 import TabButton from '../../../../components/tab/TabButton.vue';
 import { useToolBoxStore } from './toolBoxStore';
 import { watch } from 'vue';
-import IconAdd from '../../../../components/svg/IconAdd.vue';
 
 const { t } = useI18n();
 
