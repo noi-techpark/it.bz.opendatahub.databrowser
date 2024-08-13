@@ -14,12 +14,12 @@ import {
   pushDataTableCell,
   sourceTableCell,
   titleTableCell,
-  idCell,
+  idTableCell,
 } from '../../builder/tourism';
 
 export const odhActivityPoiListView: ListViewConfig = {
   elements: [
-    idCell(),
+    idTableCell(),
     titleTableCell(),
     imageTableCell(),
     {
