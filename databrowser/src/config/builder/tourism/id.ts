@@ -26,3 +26,10 @@ export const idAndCustomIdCells = (): PropertyConfig[] => [
   idReadOnlyCell(),
   customIdCell(),
 ];
+
+export const idTableCell = (): PropertyConfig => ({
+  title: 'Id',
+  component: CellComponent.StringCell,
+  class: 'w-60',
+  objectMapping: { text: 'Id' },
+});
