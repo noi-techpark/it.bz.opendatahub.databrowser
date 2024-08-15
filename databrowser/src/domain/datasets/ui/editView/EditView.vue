@@ -54,7 +54,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <EditToolBox />
         </div>
         <EditFooter
-          class="transition-all"
+          class="sticky bottom-0 transition-all"
           :is-saving="isMutateLoading"
           :class="{ hidden: editStore.isEqual }"
           @cancel="tryToDiscardChanges"
