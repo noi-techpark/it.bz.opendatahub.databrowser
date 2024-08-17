@@ -30,6 +30,7 @@ module.exports = {
         'hint-error-secondary': '#faf0f3',
         error: '#ff0000',
         deprecated: '#8250DF',
+        reference: '#2264E5',
         disabled: '#dcdde1',
         delete: '#dc2626',
         dialog: '#687182',
