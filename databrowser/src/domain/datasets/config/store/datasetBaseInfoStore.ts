@@ -8,6 +8,7 @@ import { useRouter } from 'vue-router';
 import { useComputeRouteLocation } from '../../location/routeLocation';
 import { DatasetConfigSource } from '../types';
 import { useDatasetBaseInfo } from './datasetBaseInfo';
+import { useQueryParamsCleanUp } from './utils';
 
 export const useDatasetBaseInfoStore = defineStore(
   'datasetBaseInfoStore',
@@ -29,34 +30,10 @@ export const useDatasetBaseInfoStore = defineStore(
       { immediate: true }
     );
 
-    // Remove default values from query params. This is a pure esthetical
-    // function, to avoid showing default values in the URL.
-    watch(
-      baseInfo.datasetQuery,
-      (datasetQuery) => {
-        const defaultQueryValues = datasetQuery?.default;
-        if (defaultQueryValues == null) {
-          return;
-        }
-
-        const routeQuery = { ...currentRoute.value.query };
-
-        let routeQueryChanged = false;
-        // Remove default values from query params
-        Object.entries(defaultQueryValues).forEach(([key, value]) => {
-          if (routeQuery[key] === value) {
-            delete routeQuery[key];
-            routeQueryChanged = true;
-          }
-        });
-
-        // Update route
-        if (routeQueryChanged) {
-          setTimeout(() => router.replace({ query: routeQuery }));
-        }
-      },
-      { immediate: true }
-    );
+    // Watch datasetQuery changes and update route if:
+    // - search or filters changed => jump to first page
+    // - default values are part of query params => remove them from URL
+    useQueryParamsCleanUp(baseInfo.datasetDomain, baseInfo.datasetQuery);
 
     return { ...baseInfo, source };
   }
