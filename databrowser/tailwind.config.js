@@ -29,7 +29,7 @@ module.exports = {
         'hint-error': '#d12953',
         'hint-error-secondary': '#faf0f3',
         error: '#ff0000',
-        deprecated: '#8250DF',
+        deprecated: '#D26D29',
         reference: '#2264E5',
         disabled: '#dcdde1',
         delete: '#dc2626',

@@ -7,10 +7,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <LoadingError v-if="isError" :error="error" />
   <template v-else>
-    <div>
-      <ShowEmptyFields v-model="showAll" />
-      <ShowDeprecatedFields v-model="showDeprecated" />
-    </div>
     <div class="flex md:overflow-y-auto">
       <MainAndSubCategories
         :data="data"
@@ -18,27 +14,25 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :sub-categories="subcategories"
         :current-category="currentCategory"
         :slug="slug"
-        :show-all="showAll"
-        :show-deprecated="showDeprecated"
         :show-edit-hint="false"
         :editable="false"
       />
-      <ExportDatasetsToolBox :url="fullPath" />
+      <ExportDatasetsAndSettingsToolBox
+        :url="fullPath"
+        :references-urls="referencesUrls"
+      />
+      <GoToReferenceAttributeDialog />
     </div>
   </template>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
 import LoadingError from '../../../../components/loading/LoadingError.vue';
 import MainAndSubCategories from '../common/MainAndSubCategories.vue';
 import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
-import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
-import ShowDeprecatedFields from '../common/showDeprecatedFields/ShowDeprecatedFields.vue';
-import ExportDatasetsToolBox from '../toolBox/ExportDatasetsToolBox.vue';
-
-const showAll = ref(false);
-const showDeprecated = ref(false);
+import ExportDatasetsAndSettingsToolBox from '../toolBox/ExportDatasetsAndSettingsToolBox.vue';
+import GoToReferenceAttributeDialog from '../common/dialogs/goToReferenceAttributeDialog/GoToReferenceAttributeDialog.vue';
 
 const {
   isError,
@@ -50,4 +44,21 @@ const {
   subcategories,
   currentCategory,
 } = useSingleRecordLoad();
+
+console.log(categories);
+
+const referencesUrls = computed(() => {
+  return categories.value
+    ? categories.value.flatMap((item) =>
+        item.subCategories.flatMap((item) =>
+          item.properties
+            .filter((item) => item.referenceInfo?.url)
+            .map((item) => ({
+              from: item!.referenceInfo?.from || item!.referenceInfo!.url,
+              url: item!.referenceInfo!.url,
+            }))
+        )
+      )
+    : [];
+});
 </script>

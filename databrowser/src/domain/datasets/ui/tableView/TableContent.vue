@@ -12,17 +12,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </template>
 
     <template #header-cols>
-      <TableHeaderCell
-        v-for="col in cols"
-        :key="col.title"
-        :class="{
-          'border-x-deprecated border-t-deprecated bg-deprecated/10':
-            getHasDeprecationInfo(col),
-        }"
-      >
+      <TableHeaderCell v-for="col in cols" :key="col.title">
         <SortAndFilterHeader
           :title="col.title"
           :property-path="col.firstPropertyPath"
+          :reference-base-path="col.params?.referenceBasePath"
           :is-deprecated="getHasDeprecationInfo(col)"
         />
       </TableHeaderCell>
@@ -53,7 +47,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :key="col.title"
           :class="{
             'mix-blend-multiply': rowIndex === selectedRowIndex,
-            'border-x-deprecated': getHasDeprecationInfo(col),
           }"
         >
           <ComponentRenderer

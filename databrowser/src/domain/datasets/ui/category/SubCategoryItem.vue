@@ -9,7 +9,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     class="relative pb-2"
     :class="{
       'has-error': hasError,
-      'my-1 border border-deprecated p-2': hasDeprecationInfo,
+      'my-1 rounded-lg border border-deprecated p-2': hasDeprecationInfo,
+      'my-1 rounded-lg border border-reference p-2': !!referenceInfo,
     }"
   >
     <div
@@ -39,24 +40,75 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </li>
     </ul>
 
-    <div v-if="hasDeprecationInfo" class="mt-2 flex flex-col gap-2">
+    <div
+      v-if="hasDeprecationInfo || !!referenceInfo"
+      class="mt-2 flex flex-col gap-2"
+    >
       <div
-        v-for="(item, i) in availableDeprecationInfo"
+        v-for="(item, i) in availableInfo"
         :key="i"
-        class="flex items-center justify-between gap-3 rounded bg-deprecated/10 px-2 py-3 text-sm text-deprecated"
+        class="flex flex-wrap items-center justify-between gap-3 rounded px-2 py-3 text-sm"
+        :class="{
+          'bg-deprecated/10 text-deprecated': item.type === 'deprecation',
+          'bg-reference/10 text-reference': item.type === 'reference',
+        }"
       >
-        <p>{{ item.description || 'This field is deprecated' }}</p>
-        <TagCustom type="purple" text="Deprecated" has-dot />
+        <div v-if="item.type === 'reference' && referenceInfo">
+          <p class="text-black mb-3">
+            {{ item.description }}
+
+            <a :href="referenceInfo!.url" class="text-hint-info">
+              {{ referenceInfo!.url }}
+            </a>
+          </p>
+
+          <p
+            v-for="refDetail in referenceInfo.referenceDetailViewUrls"
+            :key="refDetail.url"
+          >
+            <span
+              class="text-hint-info uppercase cursor-pointer underline"
+              @click="
+                onGoToReference(
+                  refDetail.url,
+                  referenceInfo.origin,
+                  refDetail.reference
+                )
+              "
+            >
+              {{ t('datasets.navigation.detailView') }}
+              <span v-if="refDetail.reference"
+                >({{ refDetail.reference }})</span
+              >
+            </span>
+          </p>
+        </div>
+        <p v-else>{{ item.description }}</p>
+        <TagCustom
+          :type="item.type === 'reference' ? 'reference' : 'purple'"
+          :text="item.type === 'reference' ? 'Reference' : 'Deprecated'"
+          has-dot
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ComputedRef } from 'vue';
 import IconInfo from '../../../../components/svg/IconInfo.vue';
 import TagCustom from '../../../../components/tag/TagCustom.vue';
-import { DeprecationInfo } from '../../config/types';
+
+import { DeprecationInfo, ReferenceInfo } from '../../config/types';
+import { useI18n } from 'vue-i18n';
+import { useGoToReferenceAttributeDialogStore } from '../common/dialogs/goToReferenceAttributeDialog/goToReferenceAttributeDialogStore';
+
+const { t } = useI18n();
+
+const goToReferenceAttributeDialogStore =
+  useGoToReferenceAttributeDialogStore();
+
+type AvailableInfoType = 'reference' | 'deprecation';
 
 const props = defineProps<{
   title?: string;
@@ -65,6 +117,7 @@ const props = defineProps<{
   deprecationInfo?: DeprecationInfo[];
   errors?: string[];
   hasEmptyValue?: boolean;
+  referenceInfo?: ReferenceInfo;
 }>();
 
 const hasTitleOrTooltip = computed(
@@ -84,4 +137,42 @@ const availableDeprecationInfo = computed(() => {
     ? props.deprecationInfo.map((item) => item.deprecations).flat() || []
     : [];
 });
+
+const availableInfo: ComputedRef<
+  {
+    type: AvailableInfoType;
+    description: string;
+    pathToDeprecation?: string;
+  }[]
+> = computed(() => {
+  const referenceInfo = props.referenceInfo
+    ? [
+        {
+          type: 'reference' as AvailableInfoType,
+          description: t('datasets.detailView.thisIsAReferenceOfDataset'),
+        },
+      ]
+    : [];
+
+  return [
+    ...availableDeprecationInfo.value.map((item) => ({
+      ...item,
+      description: item.description || 'This field is deprecated',
+      type: 'deprecation' as AvailableInfoType,
+    })),
+    ...referenceInfo,
+  ];
+});
+
+const onGoToReference = (
+  url: string,
+  origin: string,
+  referenceName?: string
+) => {
+  goToReferenceAttributeDialogStore.setReferenceUrl(url);
+  goToReferenceAttributeDialogStore.setReferenceAttributeName(
+    `${origin}${referenceName ? ' (' + referenceName + ')' : ''}`
+  );
+  goToReferenceAttributeDialogStore.show();
+};
 </script>

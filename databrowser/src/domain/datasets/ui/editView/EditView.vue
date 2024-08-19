@@ -32,6 +32,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :is-save-success="isMutateSuccess"
         @save-changes="saveChanges"
       />
+      <GoToReferenceAttributeDialog />
       <div class="flex h-screen flex-col justify-between overflow-auto">
         <ShowEmptyFields v-model="showAll" :disabled="true" />
         <ShowDeprecatedFields v-model="showDeprecated" />
@@ -94,6 +95,8 @@ import { useEditStore } from './store/editStore';
 import EditToolBox from './toolBox/EditToolBox.vue';
 import { useApplyError } from './useApplyError';
 import { useEditStoreSync } from './useEditStoreSync';
+
+import GoToReferenceAttributeDialog from '../common/dialogs/goToReferenceAttributeDialog/GoToReferenceAttributeDialog.vue';
 
 const { t } = useI18n();
 
