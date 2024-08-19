@@ -22,8 +22,13 @@ export const computeTableCols = (
     return [];
   }
 
-  return view.elements.map<Column>((element) => {
+  const elements = useTableViewColsStore().showDeprecated
+    ? view.elements
+    : view.elements.filter((element) => !element.deprecationInfo?.length);
+
+  return elements.map<Column>((element) => {
     const firstPropertyPath = firstPropertyName(element.objectMapping);
+
     return {
       ...element,
       firstPropertyPath,

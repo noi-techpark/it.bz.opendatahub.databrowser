@@ -16,6 +16,11 @@ const preferredToolboxVisibility = !mdAndLarger.value
   : cookies.get('isToolboxVisible');
 const initialState = {
   visible: preferredToolboxVisibility === 'false' ? false : true,
+  settings: {
+    showAll: false,
+    showDeprecated: false,
+    showReferences: true,
+  },
 };
 
 export const useToolBoxStore = defineStore('toolBoxStore', {
@@ -26,6 +31,21 @@ export const toggleToolboxVisibility = (isVisible: boolean) => {
   const toolBoxStore = useToolBoxStore();
   toolBoxStore.visible = isVisible;
   cookies.set('isToolboxVisible', String(isVisible));
+};
+
+export const toggleShowAll = (showAll: boolean) => {
+  const toolBoxStore = useToolBoxStore();
+  toolBoxStore.settings.showAll = showAll;
+};
+
+export const toggleShowDeprecated = (showDeprecated: boolean) => {
+  const toolBoxStore = useToolBoxStore();
+  toolBoxStore.settings.showDeprecated = showDeprecated;
+};
+
+export const toggleShowReferences = (showReferences: boolean) => {
+  const toolBoxStore = useToolBoxStore();
+  toolBoxStore.settings.showReferences = showReferences;
 };
 
 // Add support for hot-module-reload

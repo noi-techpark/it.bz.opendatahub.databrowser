@@ -6,9 +6,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <ThreeDotsPopup>
-    <PopoverCustomPanel class="min-w-[20rem]">
+    <PopoverCustomPanel class="min-w-[16rem]">
       <PopoverContentHeader>
-        {{ t('datasets.header.switchViews') }}
+        {{ t('datasets.header.tableSettings') }}
       </PopoverContentHeader>
       <PopoverContentDivider />
       <RadioCustom
@@ -26,6 +26,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :label="t('datasets.header.viewGeneratedConfig')"
         @update:model-value="changePicked"
       />
+      <PopoverContentDivider />
+
+      <ShowDeprecatedFields
+        custom-wrapper-classes="flex justify-between cursor-pointer p-4 hover:bg-gray-50"
+        custom-text-classes="!text-base"
+        :model-value="tableViewColsStore.showDeprecated"
+        :use-container-classes="false"
+        :use-wrapper-classes="false"
+        @update:model-value="tableViewColsStore.setShowDeprecated"
+      />
     </PopoverCustomPanel>
   </ThreeDotsPopup>
 </template>
@@ -37,10 +47,14 @@ import PopoverContentDivider from '../../../../components/popover/PopoverContent
 import PopoverContentHeader from '../../../../components/popover/PopoverContentHeader.vue';
 import PopoverCustomPanel from '../../../../components/popover/PopoverCustomPanel.vue';
 import ThreeDotsPopup from '../../../../components/popover/ThreeDotsPopover.vue';
+import ShowDeprecatedFields from '../common/showDeprecatedFields/ShowDeprecatedFields.vue';
 import RadioCustom from '../../../../components/radio/RadioCustom.vue';
 import { DatasetConfigSource } from '../../config/types';
+import { useTableViewColsStore } from '../tableView/tableViewColsStore';
 
 const { t } = useI18n();
+
+const tableViewColsStore = useTableViewColsStore();
 
 const props = defineProps<{ picked: DatasetConfigSource }>();
 const { picked } = toRefs(props);

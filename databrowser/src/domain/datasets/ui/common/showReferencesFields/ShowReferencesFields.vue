@@ -6,12 +6,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <BaseSettingsToggle
-    :label="t('datasets.detailView.showDeprecatedFields')"
+    :label="t('datasets.detailView.showReferencedFields')"
     :description="
-      hasDescription ? t('datasets.detailView.showDeprecatedFieldsDesc') : ''
+      hasDescription ? t('datasets.detailView.showReferencedFieldsDesc') : ''
     "
-    active-color-class="deprecated"
-    :active="!!showDeprecated"
+    active-color-class="reference"
+    :active="!!showReferences"
     :use-wrapper-classes="useWrapperClasses"
     :use-container-classes="useContainerClasses"
     :custom-wrapper-classes="customWrapperClasses"
@@ -19,14 +19,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   >
     <template #toggle>
       <ToggleCustom
-        v-model="showDeprecated"
+        v-model="showReferences"
         :disabled="disabled"
-        active-bg-class="bg-deprecated"
-        active-border-class="border-deprecated"
+        active-bg-class="bg-reference"
+        active-border-class="border-reference"
         inactive-bg-class="bg-gray-400"
         inactive-border-class="border-gray-400"
         class="shrink-0"
-        data-test="show-deprecated-fields"
+        data-test="show-reference-fields"
       /> </template
   ></BaseSettingsToggle>
 </template>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ToggleCustom from '../../../../../components/toggle/ToggleCustom.vue';
-import { toggleShowDeprecated } from '../../toolBox/toolBoxStore';
+import { toggleShowReferences } from '../../toolBox/toolBoxStore';
 import BaseSettingsToggle from '../BaseSettingsToggle.vue';
 
 const { t } = useI18n();
@@ -63,10 +63,10 @@ const props = withDefaults(
   }
 );
 
-const showDeprecated = computed({
+const showReferences = computed({
   get: () => props.modelValue,
   set: (value) => {
-    toggleShowDeprecated(!!value);
+    toggleShowReferences(!!value);
     emit('update:modelValue', value);
   },
 });

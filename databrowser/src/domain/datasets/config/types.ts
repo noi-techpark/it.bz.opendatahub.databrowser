@@ -15,6 +15,18 @@ export interface DeprecationInfo {
   deprecations: Deprecation[];
 }
 
+export interface ReferenceInfo {
+  from?: string;
+  origin: string;
+  url: string;
+  referenceDetailViewUrls: { url: string; reference?: string }[];
+}
+
+export interface ReferenceInfoToolBoxFetchUrlInfo {
+  from: string;
+  url: string;
+}
+
 export interface BasePropertyConfig {
   title: string;
   component: string;
@@ -23,6 +35,7 @@ export interface BasePropertyConfig {
   tooltip?: string;
   required?: boolean;
   deprecationInfo?: DeprecationInfo[];
+  referenceInfo?: ReferenceInfo;
   nullable?: boolean;
 }
 

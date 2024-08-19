@@ -11,6 +11,7 @@ import {
   DeprecationInfo,
   ObjectMapping,
   PropertyConfig,
+  ReferenceInfo,
   SubCategoryElement,
 } from '../../../config/types';
 import {
@@ -79,6 +80,8 @@ const computeSingleRecordView = (
             (property) => {
               return {
                 ...property,
+                // Extract referenced info based on property params
+                ...getReferenceInfo(property),
                 // Add deprecation and required information to the property
                 ...getDeprecationAndRequired(schema, property),
               };
@@ -105,6 +108,24 @@ const computeSingleRecordView = (
     },
     { elements: [], type: view.type }
   );
+};
+
+const getReferenceInfo = (
+  property: PropertyConfig
+): { referenceInfo?: ReferenceInfo } => {
+  const propertyParams = property.params;
+
+  if (!propertyParams || !propertyParams.url) return {};
+
+  return {
+    referenceInfo: {
+      from:
+        property?.objectMapping?.value || property?.arrayMapping?.pathToParent,
+      origin: propertyParams.url.match(/\/v\d+\/([^/?]+)/)?.[1] || '',
+      url: propertyParams.url,
+      referenceDetailViewUrls: [],
+    },
+  };
 };
 
 const getDeprecationAndRequired = (

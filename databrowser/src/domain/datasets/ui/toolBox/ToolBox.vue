@@ -21,6 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :class="{
       'w-full md:w-1/3': toolBoxStore.visible,
       'w-0 md:w-[4.5rem]': !toolBoxStore.visible,
+      'bg-white': isWhite,
     }"
   >
     <div
@@ -37,6 +38,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <TabGroup :default-index="defaultIndex">
                 <div
                   class="sticky top-0 z-10 flex flex-col justify-end bg-gray-50 pt-3"
+                  :class="{
+                    'bg-white': isWhite,
+                  }"
                 >
                   <!-- Close button at the top right -->
                   <ButtonCustom
@@ -81,6 +85,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <!-- Open / close button -->
     <div
       class="my-3 ml-2 hidden w-14 flex-col gap-2 bg-white px-3 pb-3 pt-4 md:inline-block"
+      :class="{
+        'md:hidden': hideExpandOnDesktop,
+      }"
     >
       <div
         class="expand-bt-text mb-3 flex w-full rotate-180 items-center justify-center text-green-400"
@@ -130,9 +137,13 @@ withDefaults(
   defineProps<{
     tabNames: string[];
     defaultIndex?: number;
+    isWhite?: boolean;
+    hideExpandOnDesktop?: boolean;
   }>(),
   {
     defaultIndex: 0,
+    isWhite: false,
+    hideExpandOnDesktop: false,
   }
 );
 
