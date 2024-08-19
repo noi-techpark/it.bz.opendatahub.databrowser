@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div
     :class="{
       [containerClasses]: useContainerClasses && !description,
-      'border rounded': description,
+      'rounded border': description,
       [`border-${activeColorClass}`]: active,
     }"
   >
@@ -28,7 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </div>
       <slot name="toggle" />
     </div>
-    <div v-if="!!description" class="bg-gray-50 text-xs font-mono p-4">
+    <div v-if="!!description" class="bg-gray-50 p-4 font-mono text-xs">
       {{ description }}
     </div>
   </div>

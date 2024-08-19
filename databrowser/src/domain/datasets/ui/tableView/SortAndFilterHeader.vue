@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <div class="h-2 w-2 rounded-full bg-deprecated"></div>
         </template>
         <template #container>
-          <h4 class="font-semibold mb-2">Attribute is deprecated.</h4>
+          <h4 class="mb-2 font-semibold">Attribute is deprecated.</h4>
           <p class="text-sm">
             A deprecated attribute is one that is phasing out and will not be
             available anymore in the future. It is not recommended to use it.
@@ -26,11 +26,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <div class="h-2 w-2 rounded-full bg-reference"></div>
         </template>
         <template #container>
-          <h4 class="font-semibold mb-2">
+          <h4 class="mb-2 font-semibold">
             Attribute is referenced from other dataset.
           </h4>
 
-          <p class="text-sm mb-5">
+          <p class="mb-5 text-sm">
             This attribute has its origin in another dataset and is added to
             this view.
           </p>

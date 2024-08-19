@@ -75,14 +75,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         v-if="referencesUrlsAccordions[getReferenceKey(referenceUrl)]"
         :with-bg-color="true"
         ><div class="flex items-center gap-1">
-          <p class="font-mono text-xs break-all">{{ referenceUrl.url }}</p>
+          <p class="break-all font-mono text-xs">{{ referenceUrl.url }}</p>
 
           <div class="basis-4">
             <IconCopy
               v-if="
                 referenceUrlToCopy !== referenceUrl.url && !copiedReferenceUrl
               "
-              class="h-4 w-4 text-green-400 cursor-pointer"
+              class="h-4 w-4 cursor-pointer text-green-400"
               @click="onCopyReference(referenceUrl.url)"
             />
             <IconCheck v-else class="h-4 w-4 text-green-400" />

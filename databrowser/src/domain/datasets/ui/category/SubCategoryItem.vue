@@ -54,7 +54,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         }"
       >
         <div v-if="item.type === 'reference' && referenceInfo">
-          <p class="text-black mb-3">
+          <p class="mb-3 text-black">
             {{ item.description }}
 
             <a :href="referenceInfo!.url" class="text-hint-info">
@@ -67,7 +67,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :key="refDetail.url"
           >
             <span
-              class="text-hint-info uppercase cursor-pointer underline"
+              class="cursor-pointer uppercase text-hint-info underline"
               @click="
                 onGoToReference(
                   refDetail.url,
