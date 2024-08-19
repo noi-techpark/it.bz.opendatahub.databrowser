@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <p
-    :class="['cursor-pointer text-hint-info underline flex gap-1', textClasses]"
+    :class="['flex cursor-pointer gap-1 text-hint-info underline', textClasses]"
     @click="onGoToReference()"
   >
     {{ text }}
