@@ -39,7 +39,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <SelectOptionsBox
                 v-model="searchTerm"
                 :show-search="showSearch"
-                :search-results="searchResults"
+                :search-results="
+                  !searchResultsGroupedOptions ? searchResults : undefined
+                "
+                :search-results-grouped-options="searchResultsGroupedOptions"
                 :class="[{ hidden: !open }, optionsClassNames]"
                 :data-test="`${id}-select-options-box`"
               />
@@ -55,6 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed, ref, toRefs, watch } from 'vue';
 import { Listbox } from '@headlessui/vue';
 import {
+  GroupSelectOption,
   SelectOption,
   SelectOptionsPlacement,
   SelectSize,
@@ -78,6 +82,7 @@ const emit = defineEmits(['change']);
 const props = withDefaults(
   defineProps<{
     options?: SelectOption[];
+    groupedOptions?: GroupSelectOption[];
     value?: SelectValue;
     size?: SelectSize;
     id?: string;
@@ -93,6 +98,7 @@ const props = withDefaults(
   }>(),
   {
     options: () => [],
+    groupedOptions: undefined,
     value: undefined,
     size: SelectSize.md,
     id: randomId(),
@@ -106,6 +112,7 @@ const props = withDefaults(
 );
 const {
   options,
+  groupedOptions,
   value,
   size,
   showEmptyValue,
@@ -137,7 +144,30 @@ const optionsInternal = computed<SelectOption[]>(() => {
     data.push(emptyValueOption());
   }
 
-  return [...data, ...options.value];
+  const _options = groupedOptions.value
+    ? groupedOptions.value.flatMap((item) => item.options)
+    : options.value;
+
+  return [...data, ..._options];
+});
+
+const searchResultsGroupedOptions = computed(() => {
+  if (!groupedOptions.value) return undefined;
+
+  const _groupedOptions = [];
+
+  for (const group of groupedOptions.value) {
+    const groupValues = group.options.map((item) => item.value);
+
+    _groupedOptions.push({
+      name: group.name,
+      options: searchResults.value.filter((item) =>
+        groupValues.includes(item.value)
+      ),
+    });
+  }
+
+  return _groupedOptions;
 });
 
 // Compute selected label:

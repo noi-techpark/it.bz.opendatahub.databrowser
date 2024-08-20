@@ -7,8 +7,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <ListboxOptions
     :unmount="false"
+    role="group"
     class="max-h-60 overflow-auto bg-white text-base focus-visible:outline-none"
   >
+    <slot name="groupName" />
+
     <ListboxOption
       v-for="option in searchResults"
       v-slot="{ active, selected }"

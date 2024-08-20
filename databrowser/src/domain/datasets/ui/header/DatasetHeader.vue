@@ -15,7 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
       >
         <SelectCustom
-          :options="selectOptions"
+          :grouped-options="selectOptions"
           :value="currentDataset"
           :show-search-when-at-least-count-options="1"
           extra-height
@@ -94,7 +94,10 @@ import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
 import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
 import InputSearch from '../../../../components/input/InputSearch.vue';
 import SelectCustom from '../../../../components/select/SelectCustom.vue';
-import { SelectOption, SelectValue } from '../../../../components/select/types';
+import {
+  GroupSelectOption,
+  SelectValue,
+} from '../../../../components/select/types';
 
 const { t } = useI18n();
 
@@ -102,11 +105,25 @@ const { datasetDomain, hasConfig, source } = storeToRefs(
   useDatasetBaseInfoStore()
 );
 
-const selectOptions = computed<SelectOption[]>(() => {
+const selectOptions = computed<GroupSelectOption[]>(() => {
   return [
     {
-      label: 'Test',
-      value: 'TODO',
+      name: 'Group name',
+      options: [
+        {
+          label: 'Test',
+          value: 'TODO',
+        },
+      ],
+    },
+    {
+      name: 'other name',
+      options: [
+        {
+          label: 'test 2',
+          value: 'TOD22O',
+        },
+      ],
     },
   ];
 });
