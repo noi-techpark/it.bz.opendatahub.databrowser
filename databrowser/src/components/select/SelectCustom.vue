@@ -157,12 +157,13 @@ const searchResultsGroupedOptions = computed(() => {
   const _groupedOptions = [];
 
   for (const group of groupedOptions.value) {
-    const groupValues = group.options.map((item) => item.value);
-
     _groupedOptions.push({
       name: group.name,
-      options: searchResults.value.filter((item) =>
-        groupValues.includes(item.value)
+      options: group.options.filter(
+        (item) =>
+          !!searchResults.value.find(
+            (searchItem) => searchItem.value === item.value
+          )
       ),
     });
   }

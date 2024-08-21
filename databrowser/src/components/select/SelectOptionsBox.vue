@@ -5,7 +5,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="border border-gray-300 ring-gray-400">
+  <div
+    class="border border-gray-300 ring-gray-400"
+    :class="{
+      'max-h-80 overflow-y-auto': !!searchResultsGroupedOptions,
+    }"
+  >
     <SelectSearchBox
       v-if="showSearch"
       :model-value="modelValue"
@@ -18,16 +23,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
 
     <SelectOptionsList
-      v-for="group in searchResultsGroupedOptions"
+      v-for="(group, i) in searchResultsGroupedOptions"
       v-else
       :key="group.name"
       :search-results="group.options"
-      :aria-labelledby="getGroupId(group.name)"
+      :group-index="i"
       @keydown="showSearch ? handleKeyDown($event) : true"
       ><template #groupName>
-        <li :id="getGroupId(group.name)" role="presentation">
-          {{ group.name }}
-        </li>
+        {{ group.name }}
       </template></SelectOptionsList
     >
   </div>
@@ -54,16 +57,6 @@ defineEmits(['update:modelValue']);
 
 // Handle options container keydown event
 const { handleKeyDown } = useOptionsContainerEventHandler();
-
-const getGroupId = (groupName: string) => {
-  return groupName
-    .toLowerCase()
-    .split(' ')
-    .map((word, index) =>
-      index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
-    )
-    .join('');
-};
 
 // Ensure that either searchResults or searchResultsGroupedOptions is defined, but not both
 if (
