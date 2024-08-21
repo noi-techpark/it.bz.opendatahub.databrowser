@@ -9,8 +9,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :unmount="false"
     role="group"
     class="max-h-60 overflow-auto bg-white text-base focus-visible:outline-none"
+    :class="{
+      'max-h-none overflow-y-hidden': !!$slots.groupName,
+    }"
   >
-    <slot name="groupName" />
+    <li
+      v-if="!!$slots.groupName"
+      class="mx-2 border-b border-gray-250 px-2 py-1 text-dialog"
+      :class="{ 'pt-3': groupIndex && groupIndex > 0 }"
+    >
+      <slot name="groupName" />
+    </li>
 
     <ListboxOption
       v-for="option in searchResults"
@@ -40,6 +49,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { SelectOption } from './types';
 import { ListboxOptions, ListboxOption } from '@headlessui/vue';
 
-defineProps<{ searchResults: SelectOption[] }>();
+defineProps<{ searchResults: SelectOption[]; groupIndex?: number }>();
 defineEmits(['update:modelValue']);
 </script>
