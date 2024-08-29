@@ -22,7 +22,7 @@ import {
   sourceSubCategoryWithDistinct,
   textInfoCategory,
 } from '../../builder/tourism';
-import { echargingdataCategory } from '../../builder/tourism/echargingdata';
+import { additionalPropertiesCategory } from '../../builder/tourism/additionalProperties';
 import { mappingCategory } from '../../builder/tourism/mapping';
 import { relatedcontentCategory } from '../../builder/tourism/relatedcontent';
 import { videoItemsCategory } from '../../builder/tourism/video';
@@ -77,10 +77,10 @@ export const odhActivityPoiSharedView = ():
     contactCategory(),
     imageGalleryCategory(),
     videoItemsCategory(),
+    additionalPropertiesCategory(),
     seasonCategory(),
     locationCategory(),
     gpsDataCategory(),
-    echargingdataCategory(),
     odhTagCategory('odhactivitypoi'),
     {
       name: 'Ratings',

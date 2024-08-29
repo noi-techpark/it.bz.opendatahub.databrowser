@@ -27,8 +27,13 @@ export const computeSingleRecordSlug = (
   const initialSlug = elements?.[0]?.slug ?? '';
 
   // Compute set of allowed slugs from render config
-  const configuredSlugs = elements?.map((vc) => vc.slug) ?? [];
-  const allowedSlugs = new Set(configuredSlugs);
+  const configuredMainSlugs = elements?.map((vc) => vc.slug) ?? [];
+  const configuredSubSlugs =
+    elements?.flatMap((item) =>
+      (item.subElements ?? [])?.map((item) => item?.elements?.slug)
+    ) ?? [];
+
+  const allowedSlugs = new Set([...configuredMainSlugs, ...configuredSubSlugs]);
 
   // Slug = URL hash value (if present) without leading '#'
   const slug = currentRouteHash?.substring(1);

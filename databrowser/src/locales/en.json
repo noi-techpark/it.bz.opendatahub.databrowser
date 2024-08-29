@@ -337,6 +337,15 @@
         "timeTimecode": "Timecode"
       }
     },
+    "additionalProperties": {
+      "addAdditionalProperty": "Add additional property",
+      "noAdditionalProperty": "No additional property have been defined yet",
+      "table": {
+        "additionalProperty": "Additional property",
+        "link": "Link",
+        "settings": "Settings"
+      }
+    },
     "pushData": {
       "lastPushInfo": {
         "title": "Information on last push.",
@@ -368,6 +377,12 @@
         "buttonCancel": "Cancel",
         "title": "You’re about to leave this dataset.",
         "description": "You will now switch to the original dataset of the referenced attribute"
+      },
+      "confirmChangeAdditionalProperty": {
+        "buttonConfirm": "Yes (and delete existing data)",
+        "buttonCancel": "Cancel",
+        "title": "Update property.",
+        "description": "When changing the type of this property, all data linked to it be lost. Do you want to continue?"
       }
     }
   },

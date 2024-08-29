@@ -91,6 +91,11 @@ export interface FilterConfig {
   params?: Record<string, unknown>;
 }
 
+export interface SubElement {
+  objectPath: string;
+  elements: DetailElements | EditElements;
+}
+
 export type ListElements = PropertyConfig;
 
 export interface SubCategoryElement {
@@ -101,13 +106,17 @@ export interface SubCategoryElement {
 export interface DetailElements {
   name: string;
   slug: string;
+  visible?: boolean;
   subcategories: SubCategoryElement[];
+  subElements?: SubElement[];
 }
 
 export interface EditElements {
   name: string;
   slug: string;
   subcategories: SubCategoryElement[];
+  visible?: boolean;
+  subElements?: SubElement[];
 }
 
 export type PathSegments = string[];

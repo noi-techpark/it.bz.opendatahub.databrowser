@@ -8,7 +8,17 @@ import { Category } from '../../category/types';
 export const computeSingleRecordCurrentCategory = (
   categories: Category[],
   slug: string
-) => categories.find((category) => slug === category.slug);
+) => {
+  const categoriesSubElements = categories
+    .filter((item) => item.subElements)
+    .flatMap((item) => item.subElements);
+
+  return (
+    categories.find((category) => slug === category.slug) ??
+    categoriesSubElements.find((item) => item?.elements?.slug === slug)
+      ?.elements
+  );
+};
 
 export const useComputeSingleRecordCurrentCategory = (
   categories: MaybeRef<Category[]>,
