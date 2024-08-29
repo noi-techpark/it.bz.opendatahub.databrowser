@@ -23,14 +23,6 @@ export const variantClass: Record<Variant, Record<Tone, String>> = {
     [Tone.danger]:
       'focus-visible:bg-red-500/10 focus-visible:text-red-500 focus-visible:border-red-500 focus-visible:outline-none',
   },
-  [Variant.transparent]: {
-    [Tone.primary]:
-      'focus-visible:bg-green-500/10 focus-visible:text-green-500 focus-visible:border-green-500 focus-visible:outline-none',
-  },
-  [Variant.transparent]: {
-    [Tone.primary]:
-      'focus-visible:bg-green-500/10 focus-visible:text-green-500 focus-visible:border-green-500 focus-visible:outline-none',
-  },
 };
 
 export const sizeClass: Record<Size, String> = {
@@ -58,12 +50,6 @@ export const disabledClass: Record<Variant, Record<Tone, String>> = {
   [Variant.transparent]: {
     [Tone.primary]: 'bg-transparent text-grey-500 opacity-25',
     [Tone.danger]: 'bg-transparent text-red-500 opacity-25',
-  },
-  [Variant.transparent]: {
-    [Tone.primary]: 'bg-transparent text-grey-500 opacity-25',
-  },
-  [Variant.transparent]: {
-    [Tone.primary]: 'bg-transparent text-grey-500 opacity-25',
   },
 };
 
