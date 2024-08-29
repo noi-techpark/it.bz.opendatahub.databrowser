@@ -81,9 +81,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <div class="ml-auto flex gap-2">
       <DatasetHeaderSearch
-        @open="handleInputSearchOpen"
         :open="inputSearchOpen"
-        class="md:hidden flex"
+        class="flex md:hidden"
+        @open="handleInputSearchOpen"
       />
 
       <AddRecordButton

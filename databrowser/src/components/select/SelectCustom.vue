@@ -46,7 +46,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 :class="[
                   { hidden: !open },
                   optionsClassNames,
-                  'fixed md:static inset-x-0',
+                  'fixed inset-x-0 md:static',
                 ]"
                 :data-test="`${id}-select-options-box`"
               />
@@ -139,7 +139,7 @@ watch(valueInternal, (v) => {
 
 onMounted(() => {
   const target = document.getElementById(props.id);
-  observer.value = new MutationObserver((mutationList, observer) => {
+  observer.value = new MutationObserver((mutationList) => {
     const target = mutationList[0].target;
     if (target instanceof HTMLElement) {
       const open = !!target.dataset.headlessuiState;

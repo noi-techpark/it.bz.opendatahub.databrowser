@@ -6,9 +6,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div
-    class="flex h-9 items-center justify-between gap-2 rounded border border-gray-400 p-2 py-5 md:p-2 text-black bg-white focus-within:border-green-500 focus-within:bg-green-500/10"
+    class="flex h-9 items-center justify-between gap-2 rounded border border-gray-400 bg-white p-2 py-5 text-black focus-within:border-green-500 focus-within:bg-green-500/10 md:p-2"
   >
-    <slot name="icon" v-if="showIcon"></slot>
+    <slot v-if="showIcon" name="icon"></slot>
     <ButtonCustom
       v-if="showConfirmButton && showButtonOnLeft"
       class="flex h-3 items-center gap-2 rounded p-2"
@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       variant="transparent"
       @click="emitConfirmedValue"
     >
-      <slot name="icon" v-if="showIconInButton"></slot>
+      <slot v-if="showIconInButton" name="icon"></slot>
       <span
         v-if="labelButton"
         :class="{ 'hidden md:inline': !showButtonTextMobile }"
@@ -44,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :disabled="disabled"
         @click="deleteText"
       >
-        <IconClose class="text-green-500 w-4 h-4" />
+        <IconClose class="h-4 w-4 text-green-500" />
       </button>
       <ButtonCustom
         v-if="showConfirmButton && !showButtonOnLeft"
@@ -70,7 +70,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed, onMounted, ref, useSlots, watch } from 'vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
 import { Size } from '../button/types';
-import IconDelete from '../svg/IconDelete.vue';
 import { randomId } from '../utils/random';
 import IconClose from '../svg/IconClose.vue';
 

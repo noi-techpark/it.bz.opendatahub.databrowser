@@ -6,13 +6,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div
-    class="top-[57px] bottom-0 inset-x-0 z-10 pointer-events-all"
+    class="pointer-events-all inset-x-0 bottom-0 top-[57px] z-10"
     :class="{
-      'bg-dialog/60 md:bg-transparent md:static fixed z-50 border-t': active,
+      'fixed z-50 border-t bg-dialog/60 md:static md:bg-transparent': active,
     }"
   >
     <div
-      :class="{ 'bg-white': active, 'py-3 px-2': padded }"
+      :class="{ 'bg-white': active, 'px-2 py-3': padded }"
       @click.stop="null"
     >
       <slot></slot>

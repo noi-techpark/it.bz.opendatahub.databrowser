@@ -21,7 +21,7 @@ import { useI18n } from 'vue-i18n';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
 import { Size } from '../../../components/button/types';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
-import { computed, toRefs } from 'vue';
+import { toRefs } from 'vue';
 import IconReadMore from '../../../components/svg/IconReadMore.vue';
 import { usePaths } from '../../../domain/datasets/ui/header/usePaths';
 
