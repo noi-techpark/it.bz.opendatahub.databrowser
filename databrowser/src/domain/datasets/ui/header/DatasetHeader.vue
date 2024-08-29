@@ -14,15 +14,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         v-if="hasConfig"
         class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
       >
-        <SelectCustom
-          :key="`select_custom_${selectOptions?.length}`"
-          :grouped-options="selectOptions"
-          :value="currentDataset"
-          :show-search-when-at-least-count-options="1"
-          extra-height
-          class="mr-1 w-64"
-          @change="handleDatasetChange"
-        />
+        <DatasetHeaderOverlay :active="selectOpen">
+          <SelectCustom
+            :key="`select_custom_${selectOptions?.length}`"
+            :grouped-options="selectOptions"
+            :value="currentDataset"
+            :show-search-when-at-least-count-options="1"
+            extra-height
+            class="mr-1 w-64"
+            @change="handleDatasetChange"
+            @open="handleSelectOpen"
+          />
+        </DatasetHeaderOverlay>
 
         <!--<DatasetHeaderTitle /> -->
       </span>
@@ -49,11 +52,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       @picked-change="changeSource($event)"
     />
 
-    <InputSearch
-      id="search-dataset"
-      :model-value="searchfilter"
-      @search="search"
-    />
+    <!-- <DatasetHeaderOverlay
+      :active="inputSearchOpen"
+      @click="handleInputSearchOpen(false)"
+    > -->
+    <DatasetHeaderOverlay
+      :active="inputSearchOpen"
+      padded
+      @click="handleInputSearchOpen(false)"
+    >
+      <InputSearch
+        id="search-dataset"
+        :class="[inputSearchOpen ? 'flex' : 'hidden md:flex']"
+        :model-value="searchfilter"
+        @search="search"
+      />
+    </DatasetHeaderOverlay>
 
     <!-- Show information if current view is auto generated -->
     <TagCustom
@@ -65,7 +79,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       has-dot
     />
 
-    <div class="ml-auto flex">
+    <div class="ml-auto flex gap-2">
+      <DatasetHeaderSearch
+        @open="handleInputSearchOpen"
+        :open="inputSearchOpen"
+        class="md:hidden flex"
+      />
+
       <AddRecordButton
         v-if="addRecordSupported"
         class="mr-2 hidden md:block"
@@ -94,6 +114,8 @@ import { useDatasetPermissionStore } from '../../permission/store/datasetPermiss
 import AddRecordButton from './AddRecordButton.vue';
 import DatasetHeaderConfigPopup from './DatasetHeaderConfigPopup.vue';
 import DatasetHeaderMoreInfoPopup from './DatasetHeaderMoreInfoPopup.vue';
+import DatasetHeaderOverlay from './DatasetHeaderOverlay.vue';
+import DatasetHeaderSearch from './DatasetHeaderSearch.vue';
 import InputSearch from '../../../../components/input/InputSearch.vue';
 import SelectCustom from '../../../../components/select/SelectCustom.vue';
 import {
@@ -176,6 +198,14 @@ const selectOptions = computed<GroupSelectOption[]>(() => {
   return _options;
 });
 
+const handleInputSearchOpen = (state: boolean) => {
+  inputSearchOpen.value = state;
+};
+
+const handleSelectOpen = (state: boolean) => {
+  selectOpen.value = state;
+};
+
 const handleDatasetChange = (value: string) => {
   const dataset = allDatasets.value.find(
     (item) => getDatasetSelectValue(item) === value
@@ -196,11 +226,14 @@ const getDomainOfDataset = (dataset: TourismMetaData) => {
 };
 
 const currentDataset = ref<SelectValue>('');
+const selectOpen = ref<boolean>();
+const inputSearchOpen = ref<boolean>();
 
 const searchfilter = useDatasetQueryStore().handle('searchfilter');
 const search = (term: string) => {
   const value = term === '' ? undefined : term;
   searchfilter.value = value;
+  handleInputSearchOpen(false);
 };
 
 const { addRecordSupported } = storeToRefs(useDatasetPermissionStore());

@@ -382,6 +382,7 @@
     },
     "cardItem": {
       "accessTableView": "Access to table view",
+      "accessTableInfo": "More info on dataset",
       "showDatasetApi": "Show dataset API"
     },
     "cardSuggestion": {

@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div>
+  <div :class="{ 'w-full': selectOpen }">
     <Listbox v-slot="{ open }" v-model="valueInternal">
       <div ref="trigger">
         <SelectButton
@@ -22,7 +22,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <div
             ref="container"
             class="absolute"
-            :class="{ hidden: !open, 'z-10': zIndex == null }"
+            :class="{ hidden: !open, 'z-50': zIndex == null }"
             :style="{
               zIndex: zIndex == null ? undefined : zIndex,
             }"
@@ -43,7 +43,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   !searchResultsGroupedOptions ? searchResults : undefined
                 "
                 :search-results-grouped-options="searchResultsGroupedOptions"
-                :class="[{ hidden: !open }, optionsClassNames]"
+                :class="[
+                  { hidden: !open },
+                  optionsClassNames,
+                  'fixed md:static inset-x-0',
+                ]"
                 :data-test="`${id}-select-options-box`"
               />
             </transition>
@@ -55,7 +59,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref, toRefs, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, toRefs, watch } from 'vue';
 import { Listbox } from '@headlessui/vue';
 import {
   GroupSelectOption,
@@ -76,7 +80,7 @@ import {
   unknownValueLabel,
 } from './utils';
 
-const emit = defineEmits(['change']);
+const emit = defineEmits(['change', 'open']);
 
 // Handle input props
 const props = withDefaults(
@@ -122,6 +126,8 @@ const {
 } = toRefs(props);
 
 const valueInternal = ref(value.value);
+const observer = ref();
+const selectOpen = ref();
 
 watch(value, (v) => (valueInternal.value = v));
 watch(valueInternal, (v) => {
@@ -130,6 +136,21 @@ watch(valueInternal, (v) => {
     emit('change', v);
   }
 });
+
+onMounted(() => {
+  const target = document.getElementById(props.id);
+  observer.value = new MutationObserver((mutationList, observer) => {
+    const target = mutationList[0].target;
+    if (target instanceof HTMLElement) {
+      const open = !!target.dataset.headlessuiState;
+      selectOpen.value = open;
+      emit('open', open);
+    }
+  });
+  observer.value.observe(target, { attributes: true });
+});
+
+onUnmounted(() => observer.value.disconnect());
 
 // Compute internal options array. If showEmptyValue is set,
 // then a "no value" option is added to the front of the list

@@ -14,10 +14,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </template>
         <template #container>
           <h4 class="mb-2 font-semibold">Attribute is deprecated.</h4>
-          <p class="text-sm">
+
+          <p class="mb-5 text-sm">
             A deprecated attribute is one that is phasing out and will not be
             available anymore in the future. It is not recommended to use it.
           </p>
+
+          <ButtonExternalLink
+            variant="ghost"
+            class="w-full flex justify-center"
+            href="https://github.com/noi-techpark/odh-docs/wiki/What-does-%22deprecated%22-mean%3F"
+            target="_blank"
+            >More info
+          </ButtonExternalLink>
         </template>
       </TooltipCustom>
 
@@ -108,6 +117,7 @@ import { useTableSortForPropertyPath } from './sort/useTableSort';
 import TooltipCustom from '../../../../components/tooltip/TooltipCustom.vue';
 import { useTableFilterStore } from './filter/tableFilterStore';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
+import ButtonExternalLink from '../../../../components/button/ButtonExternalLink.vue';
 import { useGoToReferenceAttributeDialogStore } from '../common/dialogs/goToReferenceAttributeDialog/goToReferenceAttributeDialogStore';
 
 const goToReferenceAttributeDialogStore =
