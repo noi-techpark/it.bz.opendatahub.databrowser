@@ -45,8 +45,6 @@ const {
   currentCategory,
 } = useSingleRecordLoad();
 
-console.log(categories);
-
 const referencesUrls = computed(() => {
   return categories.value
     ? categories.value.flatMap((item) =>

@@ -8,10 +8,17 @@ export type PropertyConfigWithErrors = PropertyConfig & {
   errors?: string[];
 };
 
+export interface SubElementCategory {
+  objectPath: string;
+  elements: Category;
+}
+
 export interface Category {
   name: string;
   slug: string;
   subCategories: SubCategory[];
+  visible: boolean;
+  subElements?: SubElementCategory[];
   isAnyPropertyRequired?: boolean;
   isAnyPropertyError?: boolean;
 }

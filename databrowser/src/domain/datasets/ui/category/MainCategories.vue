@@ -16,19 +16,52 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
 
     <div class="hidden flex-col md:flex">
-      <PillLink
+      <div
         v-for="category in categories"
         :key="category.slug"
-        class="px-4 py-1"
-        :to="categoryRouteLocation(category)"
-        :active="slug === category.slug"
-        :data-test="`desktop-main-category-${category.slug}`"
-        @click="emit('change', category.slug)"
+        class="flex-col md:flex"
       >
-        <span :class="{ 'text-error': category.isAnyPropertyError === true }">
-          {{ computeLabel(category.name, category.isAnyPropertyRequired) }}
-        </span>
-      </PillLink>
+        <PillLink
+          class="px-4 py-1"
+          :to="categoryRouteLocation(category)"
+          :active="slug === category.slug"
+          :data-test="`desktop-main-category-${category.slug}`"
+          :class="{
+            'flex items-center justify-between gap-2':
+              visibleCategorySubElements(category.subElements).length > 0,
+          }"
+          @click="emit('change', category.slug)"
+        >
+          <span :class="{ 'text-error': category.isAnyPropertyError === true }">
+            {{ computeLabel(category.name, category.isAnyPropertyRequired) }}
+          </span>
+          <ArrowUp
+            v-if="visibleCategorySubElements(category.subElements).length > 0"
+            class="transition-all"
+            :class="{
+              'rotate-180':
+                visibleCategorySubElements(category.subElements).length > 0 &&
+                !isActiveWithSubElements(category),
+            }"
+          />
+        </PillLink>
+        <PillLink
+          v-for="subEl in visibleCategorySubElements(category.subElements)"
+          :key="subEl.slug"
+          class="py-1 pl-8 pr-4"
+          :to="categoryRouteLocation(subEl)"
+          :active="slug === subEl.slug"
+          :data-test="`desktop-main-category-sub-el-${subEl.slug}`"
+          :class="{
+            hidden: !isActiveWithSubElements(category),
+          }"
+          @click="emit('change', subEl.slug)"
+        >
+          <span :class="{ 'text-error': subEl.isAnyPropertyError === true }">
+            {{ computeLabel(subEl.name, subEl.isAnyPropertyRequired) }}
+          </span>
+        </PillLink>
+      </div>
     </div>
   </div>
 </template>
@@ -39,7 +72,8 @@ import { useRouter } from 'vue-router';
 import PillLink from '../../../../components/pill/PillLink.vue';
 import SelectCustom from '../../../../components/select/SelectCustom.vue';
 import { SelectOption } from '../../../../components/select/types';
-import { Category } from './types';
+import { Category, SubElementCategory } from './types';
+import ArrowUp from '../../../../components/svg/ArrowUp.vue';
 
 const emit = defineEmits(['change']);
 
@@ -76,4 +110,19 @@ const categoryRouteLocation = (category: Category) => ({
   hash: `#${category.slug}`,
   query: router.currentRoute.value.query,
 });
+
+const visibleCategorySubElements = (categories?: SubElementCategory[]) => {
+  return (categories ?? [])
+    .filter((item) => item?.elements?.visible)
+    .map((item) => item.elements);
+};
+
+const isActiveWithSubElements = (category: Category) => {
+  if (!category.subElements) return false;
+
+  return (
+    slug.value === category.slug ||
+    !!category.subElements?.find((item) => item?.elements?.slug === slug.value)
+  );
+};
 </script>

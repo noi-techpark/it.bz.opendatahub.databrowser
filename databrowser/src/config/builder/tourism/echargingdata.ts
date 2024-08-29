@@ -5,9 +5,12 @@
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailElements } from '../../../domain/datasets/config/types';
 
-export const echargingdataCategory = (): DetailElements => ({
+export const echargingdataCategory = (
+  options = { visible: false }
+): DetailElements => ({
   name: 'Echarging Properties',
   slug: 'echargingdata',
+  visible: options.visible,
   subcategories: [
     {
       name: 'Primary Data (synced from mobility api)',
