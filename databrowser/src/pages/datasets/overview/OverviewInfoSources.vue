@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <CardIconGrid>
-    <IconDataanalyst class="w-4 h-4" />
+    <IconDataanalyst class="h-4 w-4" />
     <div class="flex flex-col gap-2 leading-tight text-gray-600">
       <span class="font-semibold">
         {{ t('overview.info.sources.sources') }}

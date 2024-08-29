@@ -11,15 +11,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :disabled="disabled"
     :focus="focus"
     :label-placeholder="t('components.inputSearch.labelPlaceholder')"
-    @update:model-value="emit('update:modelValue', $event)"
     label-button="Search"
     :show-icon-in-button="false"
     :show-button-text-mobile="true"
     show-icon
+    @update:model-value="emit('update:modelValue', $event)"
     @confirmed-value="emit('search', $event)"
   >
     <template #icon>
-      <IconSearch class="text-green-500 w-4 h-4" />
+      <IconSearch class="h-4 w-4 text-green-500" />
     </template>
   </InputWithButton>
 </template>

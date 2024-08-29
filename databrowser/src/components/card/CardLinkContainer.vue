@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <router-link
     :to="to"
-    class="no-underline hover:bg-hint-info/10 hover:border-hint-info border-[1px] border-transparent rounded-t px-3 pt-3 lg:px-5 lg:pt-4 mb-3"
+    class="mb-3 rounded-t border-[1px] border-transparent px-3 pt-3 no-underline hover:border-hint-info hover:bg-hint-info/10 lg:px-5 lg:pt-4"
   >
     <slot></slot>
   </router-link>

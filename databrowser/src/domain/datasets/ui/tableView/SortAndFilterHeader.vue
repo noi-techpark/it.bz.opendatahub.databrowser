@@ -22,7 +22,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
           <ButtonExternalLink
             variant="ghost"
-            class="w-full flex justify-center"
+            class="flex w-full justify-center"
             href="https://github.com/noi-techpark/odh-docs/wiki/What-does-%22deprecated%22-mean%3F"
             target="_blank"
             >More info
