@@ -6,8 +6,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div
-    class="flex h-9 items-center justify-between gap-2 rounded border border-gray-400 p-2 text-black focus-within:border-green-500"
+    class="flex h-9 items-center justify-between gap-2 rounded border border-gray-400 p-2 py-5 md:p-2 text-black bg-white focus-within:border-green-500 focus-within:bg-green-500/10"
   >
+    <slot name="icon" v-if="showIcon"></slot>
     <ButtonCustom
       v-if="showConfirmButton && showButtonOnLeft"
       class="flex h-3 items-center gap-2 rounded p-2"
@@ -18,14 +19,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       variant="transparent"
       @click="emitConfirmedValue"
     >
-      <slot name="icon"></slot>
-      <span v-if="labelButton" class="hidden md:inline">{{ labelButton }}</span>
+      <slot name="icon" v-if="showIconInButton"></slot>
+      <span
+        v-if="labelButton"
+        :class="{ 'hidden md:inline': !showButtonTextMobile }"
+        >{{ labelButton }}</span
+      >
     </ButtonCustom>
     <input
       :id="id"
       ref="inputRef"
       v-model="text"
-      class="grow"
+      class="grow bg-transparent"
       :placeholder="labelPlaceholder"
       :disabled="disabled"
       :data-test="`${id}-input`"
@@ -39,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :disabled="disabled"
         @click="deleteText"
       >
-        <IconDelete />
+        <IconClose class="text-green-500 w-4 h-4" />
       </button>
       <ButtonCustom
         v-if="showConfirmButton && !showButtonOnLeft"
@@ -50,8 +55,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :data-test="`${id}-start-search`"
         @click="emitConfirmedValue"
       >
-        <slot name="icon"></slot>
-        <span class="hidden md:inline">{{ labelButton }}</span>
+        <slot v-if="showIconInButton" name="icon"></slot>
+        <span
+          v-if="labelButton"
+          :class="{ 'hidden md:inline': !showButtonTextMobile }"
+          >{{ labelButton }}</span
+        >
       </ButtonCustom>
     </div>
   </div>
@@ -63,6 +72,7 @@ import ButtonCustom from '../button/ButtonCustom.vue';
 import { Size } from '../button/types';
 import IconDelete from '../svg/IconDelete.vue';
 import { randomId } from '../utils/random';
+import IconClose from '../svg/IconClose.vue';
 
 const emit = defineEmits(['confirmedValue', 'update:modelValue']);
 
@@ -75,6 +85,9 @@ const props = withDefaults(
     labelButton?: string;
     labelPlaceholder?: string;
     showButtonOnLeft?: boolean;
+    showIconInButton?: boolean;
+    showIcon?: boolean;
+    showButtonTextMobile?: boolean;
   }>(),
   {
     modelValue: undefined,
@@ -84,6 +97,7 @@ const props = withDefaults(
     labelButton: undefined,
     labelPlaceholder: undefined,
     showButtonOnLeft: false,
+    showIconInButton: true,
   }
 );
 
