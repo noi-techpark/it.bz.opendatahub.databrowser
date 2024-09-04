@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <ButtonCustom
     variant="ghost"
-    class="ml-auto flex h-9 w-12 items-center justify-center border-none bg-gray-50 !px-0 md:hidden"
+    class="flex h-9 w-12 items-center justify-center border-none bg-gray-50 !px-0 md:hidden"
     @click="emit('open', true)"
   >
     <IconSearch />

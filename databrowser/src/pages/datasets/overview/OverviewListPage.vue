@@ -6,6 +6,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <AppLayout>
+    <OverviewListPageHero />
+
     <PageGridContent class="grow gap-3 lg:gap-3">
       <div class="flex md:gap-8">
         <div class="shrink-0 md:w-64" />
@@ -201,6 +203,7 @@ import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import { useMetaDataDatasets, useOtherDatasets } from './useDatasets';
+import OverviewListPageHero from './OverviewListPageHero.vue';
 
 type TourismMetaDataIndexes =
   | 'dataSpace'
