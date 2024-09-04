@@ -9,19 +9,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <ContentAlignmentX
       class="relative m-auto flex flex-col items-start py-8 xl:w-default"
     >
-      <div class="flex flex-col gap-3 w-full">
+      <div class="flex w-full flex-col gap-3">
         <div class="flex flex-col gap-1">
-          <div class="flex justify-between items-center gap-4">
+          <div class="flex items-center justify-between gap-4">
             <h1 class="text-3xl font-semibold">
               {{ $t('overview.listPage.heroTitle') }}
             </h1>
             <TooltipCustom :show-close-button="false" hover>
               <IconClose
-                class="w-6 h-6 text-green-500 cursor-pointer"
+                class="h-6 w-6 cursor-pointer text-green-500"
                 @click="onHide"
               />
               <template #container>
-                <p class="text-xs text-dialog max-w-[200px]">
+                <p class="max-w-[200px] text-xs text-dialog">
                   {{ $t('overview.listPage.heroCloseText') }}
                 </p>
               </template>
@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             {{ $t('overview.listPage.heroSubtitle') }}
           </h2>
         </div>
-        <ButtonLink class="w-fit uppercase !px-3" to="/about">
+        <ButtonLink class="w-fit !px-3 uppercase" to="/about">
           {{ $t('overview.listPage.heroMoreInfo') }}
         </ButtonLink>
       </div>
