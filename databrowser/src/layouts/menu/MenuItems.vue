@@ -11,8 +11,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div
       class="flex h-full flex-col items-start gap-x-12 gap-y-4 text-lg text-gray-900 md:h-8 md:flex-row md:items-center"
     >
-      <HeaderLink to="/dataset-overview">
-        {{ t('header.menu.datasets') }}
+      <HeaderLink to="/about">
+        {{ t('header.menu.about') }}
       </HeaderLink>
       <HeaderExternalLink
         href="https://github.com/noi-techpark/odh-docs/wiki/Data-Browser"

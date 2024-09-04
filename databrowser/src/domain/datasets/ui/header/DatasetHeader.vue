@@ -52,10 +52,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       @picked-change="changeSource($event)"
     />
 
-    <!-- <DatasetHeaderOverlay
-      :active="inputSearchOpen"
-      @click="handleInputSearchOpen(false)"
-    > -->
+    <DatasetHeaderSearch
+      :open="inputSearchOpen"
+      class="flex md:hidden"
+      @open="handleInputSearchOpen"
+    />
+
     <DatasetHeaderOverlay
       :active="inputSearchOpen"
       padded
@@ -80,12 +82,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
 
     <div class="ml-auto flex gap-2">
-      <DatasetHeaderSearch
-        :open="inputSearchOpen"
-        class="flex md:hidden"
-        @open="handleInputSearchOpen"
-      />
-
       <AddRecordButton
         v-if="addRecordSupported"
         class="mr-2 hidden md:block"
