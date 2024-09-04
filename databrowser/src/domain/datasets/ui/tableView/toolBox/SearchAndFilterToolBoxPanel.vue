@@ -6,24 +6,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <ToolBoxPanel>
-    <ToolBoxCard v-if="datasetDomain === 'tourism'">
-      <ToolBoxCardHeader>
-        <div class="flex items-center gap-2">
-          {{
-            t('datasets.listView.toolBox.searchAndFilter.basicSearch.header')
-          }}
-          <InfoSearch />
-        </div>
-        <TagCustom text="BETA" type="info" class="font-normal" />
-      </ToolBoxCardHeader>
-      <ToolBoxCardBody>
-        <InputSearch
-          id="search-dataset"
-          :model-value="searchfilter"
-          @search="search"
-        />
-      </ToolBoxCardBody>
-    </ToolBoxCard>
     <ToolBoxCard>
       <ToolBoxCardHeader>
         <div class="flex items-center gap-2">
@@ -98,13 +80,10 @@ import { useI18n } from 'vue-i18n';
 import ButtonCustom from '../../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../../components/button/types';
 import InputFilter from '../../../../../components/input/InputFilter.vue';
-import InputSearch from '../../../../../components/input/InputSearch.vue';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import IconClose from '../../../../../components/svg/IconClose.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
-import TagCustom from '../../../../../components/tag/TagCustom.vue';
 import { useDatasetBaseInfoStore } from '../../../config/store/datasetBaseInfoStore';
-import { useDatasetQueryStore } from '../../../location/store/datasetQueryStore';
 import ToolBoxCard from '../../toolBox/ToolBoxCard.vue';
 import ToolBoxCardBody from '../../toolBox/ToolBoxCardBody.vue';
 import ToolBoxCardHeader from '../../toolBox/ToolBoxCardHeader.vue';
@@ -116,17 +95,9 @@ import {
 } from '../filter/filterSelectOptions';
 import { useTableFilterStore } from '../filter/tableFilterStore';
 import InfoFilter from './InfoFilter.vue';
-import InfoSearch from './InfoSearch.vue';
 import { FilterOperator, FilterValue } from '../filter/types';
 
 const { t } = useI18n();
-
-const searchfilter = useDatasetQueryStore().handle('searchfilter');
-
-const search = (term: string) => {
-  const value = term === '' ? undefined : term;
-  searchfilter.value = value;
-};
 
 const { datasetDomain } = storeToRefs(useDatasetBaseInfoStore());
 const filterTypeSelectOptions = computed(() => {

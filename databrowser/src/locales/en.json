@@ -209,7 +209,7 @@
           },
           "otherFilters": {
             "addNewFilter": "Add a new filter",
-            "header": "All other filters",
+            "header": "All filters",
             "infoPopup": {
               "header": "Information on how to set filters",
               "body": "Access our wiki to get all information on how to work with our filters.",

@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   <!-- ToolBox content -->
   <div
-    class="absolute top-0 z-30 flex h-full flex-col overflow-x-auto bg-gray-50 transition-all md:relative"
+    class="absolute top-0 z-[1000] flex h-full flex-col overflow-x-auto bg-gray-50 transition-all md:relative"
     :class="{
       'w-full md:w-1/3': toolBoxStore.visible,
       'w-0 md:w-[4.5rem]': !toolBoxStore.visible,
@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     }"
   >
     <div
-      class="flex flex-1 overflow-y-auto md:block"
+      class="flex flex-1 overflow-y-auto md:block md:pl-14"
       :class="{ block: toolBoxStore.visible, hidden: !toolBoxStore.visible }"
     >
       <Transition
@@ -84,7 +84,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <!-- Open / close button -->
     <div
-      class="my-3 ml-2 hidden w-14 flex-col gap-2 bg-white px-3 pb-3 pt-4 md:inline-block"
+      class="absolute bottom-0 my-3 ml-2 hidden w-14 flex-col gap-2 bg-white px-3 pb-3 pt-4 md:inline-block"
       :class="{
         'md:hidden': hideExpandOnDesktop,
       }"
