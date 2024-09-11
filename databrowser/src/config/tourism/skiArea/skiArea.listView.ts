@@ -16,9 +16,9 @@ import {
 
 export const skiAreaListView: ListViewConfig = {
   elements: [
+    titleTableCell(),
     imageTableCell(),
     logoTableCell(),
-    titleTableCell(),
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),

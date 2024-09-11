@@ -18,8 +18,8 @@ import {
 
 export const odhActivityPoiListView: ListViewConfig = {
   elements: [
-    imageTableCell(),
     titleTableCell(),
+    imageTableCell(),
     {
       title: 'Categories',
       component: CellComponent.ArrayCell,

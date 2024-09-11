@@ -86,7 +86,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
               @click="toggleFilter('hasNoMetadata')"
             >
-              <ToggleCustom v-model="_inputModels.no_metadata" class="mr-2" />
+              <ToggleCustom
+                ref="metadataToggle"
+                v-model="_inputModels.hasNoMetadata"
+                class="mr-2"
+              />
               {{ t('overview.listPage.noMetadataAvailable') }}
             </button>
             <button
@@ -234,7 +238,7 @@ const defaultFilters = {
   applied: {} as Record<string, FilterObject>,
 };
 const _inputModels = ref<Record<string, boolean>>({
-  no_metadata: false,
+  hasNoMetadata: false,
   deprecated: false,
 });
 
@@ -327,11 +331,21 @@ const toggleFilter = (key: string, value?: string) => {
 const setFilter = (key: string, value?: string) => {
   const filterFullKey = getFilterFullKey(key, value);
   filters.value.applied[filterFullKey] = getFilterObject(key, value);
+  if (isModelAffectedFilter(key)) {
+    _inputModels.value[key] = true;
+  }
 };
 
 const unsetFilter = (key: string, value?: string) => {
   const filterFullKey = getFilterFullKey(key, value);
   delete filters.value.applied[filterFullKey];
+  if (isModelAffectedFilter(key)) {
+    _inputModels.value[key] = false;
+  }
+};
+
+const isModelAffectedFilter = (key: string) => {
+  return key == 'hasNoMetadata' || key == 'deprecated';
 };
 
 const getFilterFullKey = (key: string, value?: string) => {
