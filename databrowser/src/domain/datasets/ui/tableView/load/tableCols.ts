@@ -16,13 +16,14 @@ const firstPropertyName = (objectMapping?: ObjectMapping) => {
 
 export const computeTableCols = (
   isLoading: boolean,
-  view: ViewConfigWithType | undefined
+  view: ViewConfigWithType | undefined,
+  showDeprecated: boolean
 ): Column[] => {
   if (!isTableViewConfig(view)) {
     return [];
   }
 
-  const elements = useTableViewColsStore().showDeprecated
+  const elements = showDeprecated
     ? view.elements
     : view.elements.filter((element) => !element.deprecationInfo?.length);
 
@@ -42,7 +43,11 @@ export const useTableCols = (
   view: MaybeRef<ViewConfigWithType | undefined>
 ) =>
   computed(() => {
-    const cols = computeTableCols(toValue(isLoading), toValue(view));
+    const cols = computeTableCols(
+      toValue(isLoading),
+      toValue(view),
+      useTableViewColsStore().showDeprecated
+    );
     useTableViewColsStore().cols = cols;
     return cols;
   });

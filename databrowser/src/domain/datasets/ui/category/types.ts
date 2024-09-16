@@ -8,6 +8,11 @@ export type PropertyConfigWithErrors = PropertyConfig & {
   errors?: string[];
 };
 
+export type PropertyConfigWithValue = PropertyConfigWithErrors & {
+  value: Record<string, unknown>;
+  empty?: boolean;
+};
+
 export interface SubElementCategory {
   objectPath: string;
   elements: Category;

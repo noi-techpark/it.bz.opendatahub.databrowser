@@ -23,7 +23,7 @@ import ToolBox from './ToolBox.vue';
 import ExportDatasetsToolBoxPanel from './ExportDatasetsToolBoxPanel.vue';
 import SettingsToolBoxPanel from './SettingsToolBoxPanel.vue';
 import { useI18n } from 'vue-i18n';
-import { ReferenceInfoToolBoxFetchUrlInfo } from '../../config/types';
+import { ReferenceInfoToolBoxFetchUrlInfo } from './types';
 
 const { t } = useI18n();
 

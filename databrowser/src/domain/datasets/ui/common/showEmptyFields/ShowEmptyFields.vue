@@ -32,9 +32,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ToggleCustom from '../../../../../components/toggle/ToggleCustom.vue';
-import { toggleShowAll } from '../../toolBox/toolBoxStore';
+import { useToolBoxStore } from '../../toolBox/toolBoxStore';
 
 import BaseSettingsToggle from '../BaseSettingsToggle.vue';
+
+const toolBoxStore = useToolBoxStore();
 
 const { t } = useI18n();
 
@@ -60,12 +62,12 @@ const props = withDefaults(
 const showAll = computed({
   get: () => props.modelValue,
   set: (value) => {
-    toggleShowAll(!!value);
+    toolBoxStore.toggleShowAll(!!value);
     emit('update:modelValue', value);
   },
 });
 
 onMounted(() => {
-  toggleShowAll(!!props.modelValue);
+  toolBoxStore.toggleShowAll(!!props.modelValue);
 });
 </script>

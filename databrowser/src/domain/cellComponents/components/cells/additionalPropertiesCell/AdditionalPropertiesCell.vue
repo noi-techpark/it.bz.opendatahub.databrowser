@@ -32,7 +32,7 @@ const emit = defineEmits(['update']);
 
 const props = withDefaults(
   defineProps<{
-    additionalProperties?: Record<string, any> | undefined;
+    additionalProperties?: Record<string, unknown> | undefined;
   }>(),
   {
     additionalProperties: undefined,

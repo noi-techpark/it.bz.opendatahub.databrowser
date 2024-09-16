@@ -17,12 +17,6 @@ const initialState = (): State => ({
 
 export const useTableViewColsStore = defineStore('tableViewColsStore', {
   state: initialState,
-
-  actions: {
-    setShowDeprecated(value: boolean) {
-      this.showDeprecated = value;
-    },
-  },
 });
 
 // Add support for hot-module-reload

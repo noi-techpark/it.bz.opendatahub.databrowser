@@ -28,7 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :data-test="`desktop-main-category-${category.slug}`"
           :class="{
             'flex items-center justify-between gap-2':
-              visibleCategorySubElements(category.subElements).length > 0,
+              category.subElements != null,
           }"
           @click="emit('change', category.slug)"
         >
@@ -36,7 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             {{ computeLabel(category.name, category.isAnyPropertyRequired) }}
           </span>
           <ArrowUp
-            v-if="visibleCategorySubElements(category.subElements).length > 0"
+            v-if="category.subElements != null"
             class="transition-all"
             :class="{
               'rotate-180':
@@ -113,7 +113,7 @@ const categoryRouteLocation = (category: Category) => ({
 
 const visibleCategorySubElements = (categories?: SubElementCategory[]) => {
   return (categories ?? [])
-    .filter((item) => item?.elements?.visible)
+    .filter((item) => item.elements.visible)
     .map((item) => item.elements);
 };
 
@@ -122,7 +122,7 @@ const isActiveWithSubElements = (category: Category) => {
 
   return (
     slug.value === category.slug ||
-    !!category.subElements?.find((item) => item?.elements?.slug === slug.value)
+    !!category.subElements.find((item) => item.elements.slug === slug.value)
   );
 };
 </script>

@@ -3,17 +3,22 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { useCookies } from 'vue3-cookies';
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
-
-const { cookies } = useCookies();
+import {
+  breakpointsTailwind,
+  useBreakpoints,
+  useLocalStorage,
+} from '@vueuse/core';
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const mdAndLarger = breakpoints.greater('md');
 
+// Using useLocalStorage to persist toolbox visibility state
+const toolboxVisibilityStorage = useLocalStorage('isToolboxVisible', true);
+
 const preferredToolboxVisibility = !mdAndLarger.value
   ? 'false'
-  : cookies.get('isToolboxVisible');
+  : toolboxVisibilityStorage.value;
+
 const initialState = {
   visible: preferredToolboxVisibility === 'false' ? false : true,
   settings: {
@@ -25,28 +30,26 @@ const initialState = {
 
 export const useToolBoxStore = defineStore('toolBoxStore', {
   state: () => initialState,
+
+  actions: {
+    toggleToolboxVisibility(isVisible: boolean) {
+      this.visible = isVisible;
+      toolboxVisibilityStorage.value = isVisible;
+    },
+
+    toggleShowAll(showAll: boolean) {
+      this.settings.showAll = showAll;
+    },
+
+    toggleShowDeprecated(showDeprecated: boolean) {
+      this.settings.showDeprecated = showDeprecated;
+    },
+
+    toggleShowReferences(showReferences: boolean) {
+      this.settings.showReferences = showReferences;
+    },
+  },
 });
-
-export const toggleToolboxVisibility = (isVisible: boolean) => {
-  const toolBoxStore = useToolBoxStore();
-  toolBoxStore.visible = isVisible;
-  cookies.set('isToolboxVisible', String(isVisible));
-};
-
-export const toggleShowAll = (showAll: boolean) => {
-  const toolBoxStore = useToolBoxStore();
-  toolBoxStore.settings.showAll = showAll;
-};
-
-export const toggleShowDeprecated = (showDeprecated: boolean) => {
-  const toolBoxStore = useToolBoxStore();
-  toolBoxStore.settings.showDeprecated = showDeprecated;
-};
-
-export const toggleShowReferences = (showReferences: boolean) => {
-  const toolBoxStore = useToolBoxStore();
-  toolBoxStore.settings.showReferences = showReferences;
-};
 
 // Add support for hot-module-reload
 if (import.meta.hot) {
