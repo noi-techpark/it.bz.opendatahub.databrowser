@@ -29,12 +29,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <PopoverContentDivider />
 
       <ShowDeprecatedFields
+        v-model="tableViewColsStore.showDeprecated"
         custom-wrapper-classes="flex justify-between cursor-pointer p-4 hover:bg-gray-50"
         custom-text-classes="!text-base"
-        :model-value="tableViewColsStore.showDeprecated"
         :use-container-classes="false"
         :use-wrapper-classes="false"
-        @update:model-value="tableViewColsStore.setShowDeprecated"
       />
     </PopoverCustomPanel>
   </ThreeDotsPopup>

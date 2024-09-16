@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     v-if="!toolBoxStore.visible"
     class="absolute bottom-16 right-[20px] z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
     data-test="mobile-open-toolBox"
-    @click="toggleToolboxVisibility(!toolBoxStore.visible)"
+    @click="toolBoxStore.toggleToolboxVisibility(!toolBoxStore.visible)"
   >
     <IconAdd class="just mr-2 h-5 w-5" /><span>Toolbox</span>
   </ButtonCustom>
@@ -48,7 +48,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     size="xs"
                     class="mr-2 mt-6 flex h-8 w-8 items-center justify-center self-end md:hidden"
                     data-test="mobile-close-toolBox"
-                    @click="toggleToolboxVisibility(false)"
+                    @click="toolBoxStore.toggleToolboxVisibility(false)"
                   >
                     <IconClose class="h-5 w-5" />
                   </ButtonCustom>
@@ -106,7 +106,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             ? 'desktop-close-toolBox'
             : 'desktop-open-toolBox'
         "
-        @click="toggleToolboxVisibility(!toolBoxStore.visible)"
+        @click="toolBoxStore.toggleToolboxVisibility(!toolBoxStore.visible)"
       >
         <IconStrokedArrowDown
           class="h-5 w-5 stroke-current"
@@ -129,8 +129,7 @@ import ContentAlignmentX from '../../../../components/content/ContentAlignmentX.
 import IconClose from '../../../../components/svg/IconClose.vue';
 import IconStrokedArrowDown from '../../../../components/svg/IconStrokedArrowDown.vue';
 import TabButton from '../../../../components/tab/TabButton.vue';
-import { useToolBoxStore, toggleToolboxVisibility } from './toolBoxStore';
-import IconAdd from '../../../../components/svg/IconAdd.vue';
+import { useToolBoxStore } from './toolBoxStore';
 
 const { t } = useI18n();
 

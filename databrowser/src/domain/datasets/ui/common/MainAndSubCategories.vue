@@ -53,17 +53,22 @@ const props = defineProps<{
 const { categories, data } = toRefs(props);
 
 const categoriesWithSubElements = computed(() => {
-  const _categoriesWithSubElements = categories.value;
-  const _data = data.value as any;
+  const _categoriesWithSubElements = JSON.parse(
+    JSON.stringify(categories.value)
+  );
+  const _data = data.value;
 
   for (const category of _categoriesWithSubElements) {
     if (!category.subElements) continue;
-    category.subElements.map((item) => {
+
+    for (let index = 0; index < category.subElements.length; index++) {
+      const item = category.subElements[index];
+
       const pathArray = R.split('.', item.objectPath);
       const existsProperty = R.path(pathArray, _data) !== undefined;
 
-      return (item.elements.visible = existsProperty);
-    });
+      item.elements.visible = existsProperty;
+    }
   }
 
   return _categoriesWithSubElements;

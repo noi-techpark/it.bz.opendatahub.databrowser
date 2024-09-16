@@ -30,7 +30,7 @@ export const computeSingleRecordSlug = (
   const configuredMainSlugs = elements?.map((vc) => vc.slug) ?? [];
   const configuredSubSlugs =
     elements?.flatMap((item) =>
-      (item.subElements ?? [])?.map((item) => item?.elements?.slug)
+      item.subElements?.map((item) => item.elements.slug)
     ) ?? [];
 
   const allowedSlugs = new Set([...configuredMainSlugs, ...configuredSubSlugs]);

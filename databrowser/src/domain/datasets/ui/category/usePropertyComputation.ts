@@ -5,12 +5,7 @@
 import { CellComponent } from '../../../cellComponents/types';
 import { buildTargetFromMapping } from '../../config/mapping/utils';
 import { PropertyConfig } from '../../config/types';
-import { PropertyConfigWithErrors } from './types';
-
-export type PropertyConfigWithValue = PropertyConfigWithErrors & {
-  value: Record<string, unknown>;
-  empty?: boolean;
-};
+import { PropertyConfigWithValue } from './types';
 
 export const usePropertyComputation = () => {
   const computeProperties = (

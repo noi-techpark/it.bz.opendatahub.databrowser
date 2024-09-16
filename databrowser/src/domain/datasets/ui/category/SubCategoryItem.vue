@@ -9,8 +9,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     class="relative pb-2"
     :class="{
       'has-error': hasError,
-      'my-1 rounded-lg border border-deprecated p-2': hasDeprecationInfo,
-      'my-1 rounded-lg border border-reference p-2': !!referenceInfo,
+      'my-1 rounded-lg border p-2': hasDeprecationInfo || referenceInfo != null,
+      'border-deprecated': hasDeprecationInfo,
+      'border-reference ': referenceInfo != null,
     }"
   >
     <div
@@ -108,7 +109,10 @@ const { t } = useI18n();
 const goToReferenceAttributeDialogStore =
   useGoToReferenceAttributeDialogStore();
 
-type AvailableInfoType = 'reference' | 'deprecation';
+enum AvailableInfoType {
+  reference = 'reference',
+  deprecation = 'deprecation',
+}
 
 const props = defineProps<{
   title?: string;
@@ -148,7 +152,7 @@ const availableInfo: ComputedRef<
   const referenceInfo = props.referenceInfo
     ? [
         {
-          type: 'reference' as AvailableInfoType,
+          type: AvailableInfoType.reference,
           description: t('datasets.detailView.thisIsAReferenceOfDataset'),
         },
       ]
@@ -158,7 +162,7 @@ const availableInfo: ComputedRef<
     ...availableDeprecationInfo.value.map((item) => ({
       ...item,
       description: item.description || 'This field is deprecated',
-      type: 'deprecation' as AvailableInfoType,
+      type: AvailableInfoType.deprecation,
     })),
     ...referenceInfo,
   ];

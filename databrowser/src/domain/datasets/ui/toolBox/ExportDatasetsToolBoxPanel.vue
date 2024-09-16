@@ -131,7 +131,7 @@ import ToolBoxCardHeaderButton from './ToolBoxCardHeaderButton.vue';
 import ToolBoxPanel from './ToolBoxPanel.vue';
 import ToolBoxSectionLabel from './ToolBoxSectionLabel.vue';
 import ArrowLine from '../../../../components/svg/ArrowLine.vue';
-import { ReferenceInfoToolBoxFetchUrlInfo } from '../../config/types';
+import { ReferenceInfoToolBoxFetchUrlInfo } from './types';
 
 const { t } = useI18n();
 

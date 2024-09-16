@@ -49,10 +49,8 @@ import ComponentRenderer from '../../../../components/componentRenderer/Componen
 import ContentDivider from '../../../../components/content/ContentDivider.vue';
 import SubCategoryItem from './SubCategoryItem.vue';
 import { Category, SubCategory } from './types';
-import {
-  PropertyConfigWithValue,
-  usePropertyComputation,
-} from './usePropertyComputation';
+import { PropertyConfigWithValue } from './types';
+import { usePropertyComputation } from './usePropertyComputation';
 import { ReferenceInfo } from '../../config/types';
 import { useRoute } from 'vue-router';
 import { useToolBoxStore } from '../toolBox/toolBoxStore';

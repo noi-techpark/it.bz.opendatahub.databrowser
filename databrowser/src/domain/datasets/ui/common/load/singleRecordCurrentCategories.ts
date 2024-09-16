@@ -9,15 +9,18 @@ export const computeSingleRecordCurrentCategory = (
   categories: Category[],
   slug: string
 ) => {
+  const foundMainCategory = categories.find(
+    (category) => slug === category.slug
+  );
+
+  if (foundMainCategory) return foundMainCategory;
+
   const categoriesSubElements = categories
     .filter((item) => item.subElements)
     .flatMap((item) => item.subElements);
 
-  return (
-    categories.find((category) => slug === category.slug) ??
-    categoriesSubElements.find((item) => item?.elements?.slug === slug)
-      ?.elements
-  );
+  return categoriesSubElements.find((item) => item?.elements?.slug === slug)
+    ?.elements;
 };
 
 export const useComputeSingleRecordCurrentCategory = (

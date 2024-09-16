@@ -35,12 +35,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ToggleCustom from '../../../../../components/toggle/ToggleCustom.vue';
-import { toggleShowReferences } from '../../toolBox/toolBoxStore';
+import { useToolBoxStore } from '../../toolBox/toolBoxStore';
 import BaseSettingsToggle from '../BaseSettingsToggle.vue';
 
 const { t } = useI18n();
 
 const emit = defineEmits(['update:modelValue']);
+
+const toolBoxStore = useToolBoxStore();
 
 const props = withDefaults(
   defineProps<{
@@ -66,7 +68,7 @@ const props = withDefaults(
 const showReferences = computed({
   get: () => props.modelValue,
   set: (value) => {
-    toggleShowReferences(!!value);
+    toolBoxStore.toggleShowReferences(!!value);
     emit('update:modelValue', value);
   },
 });

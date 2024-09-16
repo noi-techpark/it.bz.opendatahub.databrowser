@@ -47,14 +47,20 @@ const {
 
 const referencesUrls = computed(() => {
   return categories.value
-    ? categories.value.flatMap((item) =>
-        item.subCategories.flatMap((item) =>
-          item.properties
-            .filter((item) => item.referenceInfo?.url)
-            .map((item) => ({
-              from: item!.referenceInfo?.from || item!.referenceInfo!.url,
-              url: item!.referenceInfo!.url,
-            }))
+    ? categories.value.flatMap((category) =>
+        category.subCategories.flatMap((subCategory) =>
+          subCategory.properties
+            .map((property) => {
+              const referenceInfo = property.referenceInfo;
+              if (referenceInfo && referenceInfo.url) {
+                return {
+                  from: referenceInfo.from || referenceInfo.url,
+                  url: referenceInfo.url,
+                };
+              }
+              return null;
+            })
+            .filter((item) => item !== null)
         )
       )
     : [];

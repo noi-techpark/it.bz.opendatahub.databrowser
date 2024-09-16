@@ -22,11 +22,6 @@ export interface ReferenceInfo {
   referenceDetailViewUrls: { url: string; reference?: string }[];
 }
 
-export interface ReferenceInfoToolBoxFetchUrlInfo {
-  from: string;
-  url: string;
-}
-
 export interface BasePropertyConfig {
   title: string;
   component: string;

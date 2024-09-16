@@ -52,20 +52,18 @@ export const computeSingleRecordCategories = (
       visible: element.visible !== false,
       slug: element.slug,
       subCategories: element.subcategories,
-      subElements: element.subElements
-        ? element.subElements.map((item) => {
-            return {
-              objectPath: item.objectPath,
-              elements: {
-                name: item.elements.name,
-                slug: item.elements.slug,
-                visible: item.elements.visible !== false,
-                subCategories: item.elements.subcategories,
-                isAnyPropertyRequired: hasAnyRequiredProperty(item.elements),
-              } as ComputeSingleRecordCategories,
-            };
-          })
-        : undefined,
+      subElements: element.subElements?.map((item) => {
+        return {
+          objectPath: item.objectPath,
+          elements: {
+            name: item.elements.name,
+            slug: item.elements.slug,
+            visible: item.elements.visible !== false,
+            subCategories: item.elements.subcategories,
+            isAnyPropertyRequired: hasAnyRequiredProperty(item.elements),
+          } as ComputeSingleRecordCategories,
+        };
+      }),
       isAnyPropertyRequired,
     };
   });
