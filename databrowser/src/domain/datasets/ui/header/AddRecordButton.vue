@@ -8,9 +8,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <ButtonLink
     :to="newViewPath"
     size="xs"
-    class="!flex h-9 items-center gap-2 px-3 py-[0.35rem] text-base"
+    class="h-9 items-center gap-2 px-3 py-[0.35rem] text-base"
   >
-    <IconAdd class="!h-3 !w-auto fill-current" />
+    <IconAdd class="h-3 w-auto fill-current" />
     {{ t('datasets.header.addRecord') }}
   </ButtonLink>
 </template>

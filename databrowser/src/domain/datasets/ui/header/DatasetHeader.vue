@@ -16,27 +16,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       >
         <DatasetHeaderOverlay :active="selectOpen">
           <SelectCustom
-            :key="`select_custom_${selectOptions?.length}`"
             :grouped-options="selectOptions"
             :value="currentDataset"
             :show-search-when-at-least-count-options="1"
             extra-height
+            mobile-full-screen
             class="mr-1 w-64"
             @change="handleDatasetChange"
             @open="handleSelectOpen"
           />
         </DatasetHeaderOverlay>
-
-        <!--<DatasetHeaderTitle /> -->
       </span>
       <span v-else class="mr-3 text-base">
         {{ t('datasets.header.noViewConfig') }}
       </span>
-      <AddRecordButton
-        v-if="addRecordSupported"
-        class="mr-2 md:hidden"
-        data-test="mobile-add-record-link"
-      />
     </div>
 
     <!-- More info -->
@@ -61,7 +54,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <DatasetHeaderOverlay
       :active="inputSearchOpen"
       padded
-      @click="handleInputSearchOpen(false)"
+      @overlayClick="handleInputSearchOpen(false)"
     >
       <InputSearch
         id="search-dataset"
@@ -84,7 +77,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div class="ml-auto flex gap-2">
       <AddRecordButton
         v-if="addRecordSupported"
-        class="mr-2 hidden md:block"
+        class="mr-2 hidden md:flex"
         data-test="desktop-add-record-link"
       />
 
@@ -138,8 +131,6 @@ const route = useRoute();
 const { metaDataDatasets } = useMetaDataDatasets();
 
 const { tourismDatasets } = useOtherDatasets(metaDataDatasets);
-
-// ---- //
 
 const { datasetDomain, hasConfig, source } = storeToRefs(
   useDatasetBaseInfoStore()

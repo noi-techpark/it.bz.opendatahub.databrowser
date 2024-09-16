@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :disabled="disabled"
     :focus="focus"
     :label-placeholder="t('components.inputSearch.labelPlaceholder')"
-    label-button="Search"
+    :label-button="t('components.inputSearch.labelButton')"
     :show-icon-in-button="false"
     :show-button-text-mobile="true"
     show-icon

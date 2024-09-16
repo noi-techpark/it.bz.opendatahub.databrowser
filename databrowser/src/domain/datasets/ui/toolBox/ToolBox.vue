@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     data-test="mobile-open-toolBox"
     @click="toggleToolboxVisibility(!toolBoxStore.visible)"
   >
-    <IconClose class="just mr-2 h-5 w-5 rotate-45" /><span>Toolbox</span>
+    <IconAdd class="just mr-2 h-5 w-5" /><span>Toolbox</span>
   </ButtonCustom>
 
   <!-- ToolBox content -->
@@ -130,6 +130,7 @@ import IconClose from '../../../../components/svg/IconClose.vue';
 import IconStrokedArrowDown from '../../../../components/svg/IconStrokedArrowDown.vue';
 import TabButton from '../../../../components/tab/TabButton.vue';
 import { useToolBoxStore, toggleToolboxVisibility } from './toolBoxStore';
+import IconAdd from '../../../../components/svg/IconAdd.vue';
 
 const { t } = useI18n();
 

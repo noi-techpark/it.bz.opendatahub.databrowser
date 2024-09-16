@@ -61,7 +61,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :variant="Variant.ghost"
           @click="addEmptyFilter"
         >
-          <IconClose class="h-5 w-5 rotate-45" />
+          <IconAdd class="h-5 w-5" />
           {{
             t(
               'datasets.listView.toolBox.searchAndFilter.otherFilters.addNewFilter'
@@ -81,7 +81,6 @@ import ButtonCustom from '../../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../../components/button/types';
 import InputFilter from '../../../../../components/input/InputFilter.vue';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
-import IconClose from '../../../../../components/svg/IconClose.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import { useDatasetBaseInfoStore } from '../../../config/store/datasetBaseInfoStore';
 import ToolBoxCard from '../../toolBox/ToolBoxCard.vue';
@@ -96,6 +95,7 @@ import {
 import { useTableFilterStore } from '../filter/tableFilterStore';
 import InfoFilter from './InfoFilter.vue';
 import { FilterOperator, FilterValue } from '../filter/types';
+import IconAdd from '../../../../../components/svg/IconAdd.vue';
 
 const { t } = useI18n();
 

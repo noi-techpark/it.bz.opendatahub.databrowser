@@ -14,7 +14,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import { RouteLocationRaw } from 'vue-router';
+
 defineProps<{
-  to: string;
+  to?: RouteLocationRaw;
 }>();
 </script>

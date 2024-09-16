@@ -9,8 +9,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template #trigger>
       <PopoverCustomButton
         v-slot="{ open }"
-        class="flex h-9 w-9 items-center justify-center border"
-        :class="buttonClasses"
+        class="flex h-6 w-6 items-center justify-center border"
+        :class="[buttonClasses, large ? 'w-9 h-9' : '']"
       >
         <IconThreeDots
           class="fill-current transition-transform"
@@ -31,6 +31,8 @@ import IconThreeDots from '../svg/IconThreeDots.vue';
 import PopoverCustom from './PopoverCustom.vue';
 import { computeButtonClasses } from '../button/styles';
 import { Size, Variant } from '../button/types';
+
+const props = defineProps<{ large?: boolean }>();
 
 const buttonClasses = computeButtonClasses({
   variant: Variant.ghost,
