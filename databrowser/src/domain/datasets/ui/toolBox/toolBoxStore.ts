@@ -20,7 +20,10 @@ const preferredToolboxVisibility = !mdAndLarger.value
   : toolboxVisibilityStorage.value;
 
 const initialState = {
-  visible: preferredToolboxVisibility === 'false' ? false : true,
+  visible:
+    preferredToolboxVisibility === 'false'
+      ? false
+      : toolboxVisibilityStorage.value,
   settings: {
     showAll: false,
     showDeprecated: false,
