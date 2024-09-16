@@ -4,6 +4,7 @@
 
 import { RecordId } from './types';
 import { computeTableLocation } from '../../domain/datasets/location/datasetViewLocation';
+import { TourismMetaData } from '../metaDataConfig/tourism/types';
 
 export const computeRecordId = (
   domain: string | undefined,
@@ -29,7 +30,7 @@ export const computeRecordId = (
 
 const idToString = (id: unknown) => (id == null ? undefined : id.toString());
 
-export const getTableLocationFromDataset = (dataset: any) => {
+export const getTableLocationFromDataset = (dataset: TourismMetaData) => {
   if (dataset == null || dataset.baseUrl == null) {
     return;
   }

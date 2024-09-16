@@ -40,20 +40,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
 import ButtonLink from '../../../components/button/ButtonLink.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
 import IconClose from '../../../components/svg/IconClose.vue';
 import TooltipCustom from '../../../components/tooltip/TooltipCustom.vue';
+import { useLocalStorage } from '@vueuse/core';
 
-const hide = ref<boolean>(true);
-
-onMounted(() => {
-  hide.value = !!Number(localStorage.getItem('opendatahub-hide-hero'));
-});
+const hide = useLocalStorage('opendatahub-hide-hero', false);
 
 const onHide = () => {
-  localStorage.setItem('opendatahub-hide-hero', '1');
   hide.value = true;
 };
 </script>

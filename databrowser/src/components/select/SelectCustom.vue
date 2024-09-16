@@ -5,13 +5,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div :class="{ 'w-full': selectOpen }">
+  <div :class="{ 'max-md:w-full': selectOpen && mobileFullScreen }">
     <Listbox v-slot="{ open }" v-model="valueInternal">
       <div ref="trigger">
         <SelectButton
           :id="id"
           :class="[
             !open ? 'rounded' : isBottomPlacement ? 'rounded-t' : 'rounded-b',
+            {
+              'max-md:!rounded-none max-md:border-none':
+                selectOpen && mobileFullScreen,
+            },
             buttonClassNames,
             extraHeight ? 'h-9 min-h-0 text-base' : '',
           ]"
@@ -46,7 +50,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 :class="[
                   { hidden: !open },
                   optionsClassNames,
-                  'fixed inset-x-0 md:static',
+                  { 'fixed inset-x-0 md:static': mobileFullScreen },
                 ]"
                 :data-test="`${id}-select-options-box`"
               />
@@ -99,6 +103,7 @@ const props = withDefaults(
     showValueAsLabelFallback?: boolean;
     zIndex?: number;
     extraHeight?: boolean;
+    mobileFullScreen?: boolean;
   }>(),
   {
     options: () => [],

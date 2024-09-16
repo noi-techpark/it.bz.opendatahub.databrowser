@@ -38,13 +38,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
     <div class="flex items-center gap-2">
       <button
-        v-if="hasText"
-        class="p-[3px] text-delete"
+        class="p-[3px] text-green-500 opacity-0"
+        :class="{ 'opacity-100': hasText }"
         :data-test="`${id}-reset-search`"
-        :disabled="disabled"
+        :disabled="!hasText || disabled"
         @click="deleteText"
       >
-        <IconClose class="h-4 w-4 text-green-500" />
+        <IconClose class="h-4 w-4" />
       </button>
       <ButtonCustom
         v-if="showConfirmButton && !showButtonOnLeft"

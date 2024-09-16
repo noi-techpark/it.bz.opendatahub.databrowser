@@ -19,8 +19,4 @@ import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import IconSearch from '../../../../components/svg/IconSearch.vue';
 
 const emit = defineEmits(['open']);
-
-defineProps<{
-  open?: boolean;
-}>();
 </script>

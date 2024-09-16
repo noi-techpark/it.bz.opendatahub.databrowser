@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <CardContainer no-padding>
-    <CardLinkContainer :to="tableLocation as string">
+    <CardLinkContainer :to="tableLocation">
       <CardTitle tag-name="h2" class="text-green-400">
         <div class="flex items-center gap-3 no-underline">
           <DatasetTitle :dataset="dataset" />
@@ -57,6 +57,7 @@ import OverviewTagAccess from './OverviewTagAccess.vue';
 import { getTableLocationFromDataset } from '../../../domain/datasets/utils';
 import { computed, toRefs } from 'vue';
 import CardLinkContainer from '../../../components/card/CardLinkContainer.vue';
+import { DatasetLocationRoute } from '../../../domain/datasets/location/types';
 
 const props = defineProps<{ dataset: TourismMetaData }>();
 const { dataset } = toRefs(props);
