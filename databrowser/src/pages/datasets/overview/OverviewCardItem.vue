@@ -57,7 +57,6 @@ import OverviewTagAccess from './OverviewTagAccess.vue';
 import { getTableLocationFromDataset } from '../../../domain/datasets/utils';
 import { computed, toRefs } from 'vue';
 import CardLinkContainer from '../../../components/card/CardLinkContainer.vue';
-import { DatasetLocationRoute } from '../../../domain/datasets/location/types';
 
 const props = defineProps<{ dataset: TourismMetaData }>();
 const { dataset } = toRefs(props);
