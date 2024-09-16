@@ -130,6 +130,7 @@ import IconClose from '../../../../components/svg/IconClose.vue';
 import IconStrokedArrowDown from '../../../../components/svg/IconStrokedArrowDown.vue';
 import TabButton from '../../../../components/tab/TabButton.vue';
 import { useToolBoxStore } from './toolBoxStore';
+import { watch } from 'vue';
 
 const { t } = useI18n();
 
@@ -150,6 +151,12 @@ withDefaults(
 const toolBoxStore = useToolBoxStore();
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const mdAndLarger = breakpoints.greater('md');
+
+watch(mdAndLarger, (newVal) => {
+  if (newVal) return;
+
+  toolBoxStore.toggleToolboxVisibility(false);
+});
 </script>
 
 <style scoped>
