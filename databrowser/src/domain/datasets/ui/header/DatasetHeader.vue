@@ -54,7 +54,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <DatasetHeaderOverlay
       :active="inputSearchOpen"
       padded
-      @overlayClick="handleInputSearchOpen(false)"
+      @overlay-click="handleInputSearchOpen(false)"
     >
       <InputSearch
         id="search-dataset"
