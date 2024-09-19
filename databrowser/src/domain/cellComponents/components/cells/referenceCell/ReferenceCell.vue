@@ -29,10 +29,8 @@ const props = defineProps<{
 }>();
 
 const onGoToReference = () => {
-  goToReferenceAttributeDialogStore.setReferenceUrl(
-    `${window.location.origin}/dataset/detail${props.referenceBasePath}/${props.value}`
-  );
-  goToReferenceAttributeDialogStore.setReferenceAttributeName(props.text);
+  goToReferenceAttributeDialogStore.referenceUrl = `${window.location.origin}/dataset/detail${props.referenceBasePath}/${props.value}`;
+  goToReferenceAttributeDialogStore.attributeName = props.text;
   goToReferenceAttributeDialogStore.show();
 };
 </script>

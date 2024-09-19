@@ -22,14 +22,6 @@ export const useGoToReferenceAttributeDialogStore = defineStore(
     state: () => initialState,
 
     actions: {
-      setReferenceUrl(url: string) {
-        this.referenceUrl = url;
-      },
-
-      setReferenceAttributeName(name: string) {
-        this.attributeName = name;
-      },
-
       hide() {
         this.visible = false;
       },
