@@ -62,7 +62,7 @@ export const echargingdataCategory = (): DetailElements => ({
           title: 'AccessTypeInfo',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.AccessTypeInfo.{language}',
+            text: 'AdditionalProperties.EchargingDataProperties.AccessTypeInfo',
           },
         },
         {

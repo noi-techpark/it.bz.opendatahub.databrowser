@@ -66,6 +66,96 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
           ],
         },
+        {
+          name: 'Characteristics',
+          properties: [
+            {
+              title: 'Single Days',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'EventDate.SingleDays' },
+            },
+            {
+              title: 'Ticket',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'Ticket' },
+            },
+          ],
+        },
+        {
+          name: 'Price',
+          properties: [
+            {
+              title: 'Event Price',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'EventPrice.0' },
+            },
+            {
+              title: 'Type',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'Type' },
+            },
+          ],
+        },
+        {
+          name: 'Additional Information',
+          properties: [
+            {
+              title: 'MinPersons',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'EventDate.MinPersons' },
+            },
+            {
+              title: 'MaxPersons',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'EventDate.MaxPersons' },
+            },
+            {
+              title: 'Ranc',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'EventDate.Ranc' },
+            },
+            {
+              title: 'SignOn',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'SignOn' },
+            },
+            {
+              title: 'PayMet',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'PayMet' },
+            },
+            {
+              title: 'Classification',
+              component: CellComponent.SelectWithOptionsCell,
+              objectMapping: {
+                value: 'ClassificationRID',
+              },
+              params: {
+                value_001: 'CE212B488FA14954BE91BBCFA47C0F06',
+                label_001: 'Standard Event',
+                value_002: '4650BDEF28D545CE8AB37138E3C45B80',
+                label_002:
+                  'Rental, GuestCard, Bus trip/transfer, mountain railway',
+                value_003: 'E9F80CE8CB3F481ABC7E548CF34A8C1C',
+                label_003: 'Restaurant, shop',
+                value_004: 'D8F5FF743D5741D1BF1F5D61671F552B',
+                label_004: 'To pick mushrooms, Cross country skiing, Passage',
+              },
+            },
+            {
+              title: 'Topics',
+              component: CellComponent.ArrayTagsCell,
+              objectMapping: {
+                items: 'Topics',
+              },
+              params: {
+                propertyName: 'TopicInfo',
+                separator: ', ',
+                max: '3',
+              },
+            },
+          ],
+        },
       ],
     },
     contactCategory(),
@@ -135,78 +225,6 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Url',
               component: CellComponent.StringCell,
               objectMapping: { text: 'OrganizerInfos.{language}.Url' },
-            },
-          ],
-        },
-        {
-          name: 'Characteristics',
-          properties: [
-            {
-              title: 'Single Days',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'EventDate.SingleDays' },
-            },
-            {
-              title: 'Ticket',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'Ticket' },
-            },
-          ],
-        },
-        {
-          name: 'Price',
-          properties: [
-            {
-              title: 'Event Price',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'EventPrice.0' },
-            },
-            {
-              title: 'Type',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'Type' },
-            },
-          ],
-        },
-        {
-          name: 'Additional Information',
-          properties: [
-            {
-              title: 'MinPersons',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'EventDate.MinPersons' },
-            },
-            {
-              title: 'MaxPersons',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'EventDate.MaxPersons' },
-            },
-            {
-              title: 'Ranc',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'EventDate.Ranc' },
-            },
-            {
-              title: 'SignOn',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'SignOn' },
-            },
-            {
-              title: 'PayMet',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'PayMet' },
-            },
-            {
-              title: 'Topics',
-              component: CellComponent.ArrayTagsCell,
-              objectMapping: {
-                items: 'Topics',
-              },
-              params: {
-                propertyName: 'TopicInfo',
-                separator: ', ',
-                max: '3',
-              },
             },
           ],
         },
