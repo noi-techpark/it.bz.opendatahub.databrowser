@@ -152,12 +152,8 @@ const referenceName = computed(() => {
 const isFilterActive = useTableFilterStore().isFilterActive(propertyPath);
 
 const onGoToReference = () => {
-  goToReferenceAttributeDialogStore.setReferenceUrl(
-    `${window.location.origin}/dataset/table${props.referenceBasePath}`
-  );
-  goToReferenceAttributeDialogStore.setReferenceAttributeName(
-    referenceName.value
-  );
+  goToReferenceAttributeDialogStore.referenceUrl = `${window.location.origin}/dataset/table${props.referenceBasePath}`;
+  goToReferenceAttributeDialogStore.attributeName = referenceName.value;
   goToReferenceAttributeDialogStore.show();
 };
 </script>

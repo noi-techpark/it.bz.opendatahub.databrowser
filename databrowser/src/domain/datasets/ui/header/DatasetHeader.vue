@@ -145,7 +145,7 @@ const relatedDatasetsValues = computed(() => {
 
   if (!_view?.elements) return [];
 
-  return _view?.elements
+  return _view.elements
     ?.map((item: any) => item?.params?.referenceBasePath)
     ?.filter((item: any) => item);
 });

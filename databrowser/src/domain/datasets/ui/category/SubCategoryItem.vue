@@ -173,10 +173,10 @@ const onGoToReference = (
   origin: string,
   referenceName?: string
 ) => {
-  goToReferenceAttributeDialogStore.setReferenceUrl(url);
-  goToReferenceAttributeDialogStore.setReferenceAttributeName(
-    `${origin}${referenceName ? ' (' + referenceName + ')' : ''}`
-  );
+  goToReferenceAttributeDialogStore.referenceUrl = url;
+  goToReferenceAttributeDialogStore.attributeName = `${origin}${
+    referenceName ? ' (' + referenceName + ')' : ''
+  }`;
   goToReferenceAttributeDialogStore.show();
 };
 </script>
