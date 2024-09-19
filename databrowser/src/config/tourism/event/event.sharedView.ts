@@ -132,14 +132,13 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
               params: {
                 value_001: 'CE212B488FA14954BE91BBCFA47C0F06',
-                label_001: 'Standard Event',
+                label_001: 'Event',
                 value_002: '4650BDEF28D545CE8AB37138E3C45B80',
-                label_002:
-                  'Rental, GuestCard, Bus trip/transfer, mountain railway',
+                label_002: 'Service',
                 value_003: 'E9F80CE8CB3F481ABC7E548CF34A8C1C',
-                label_003: 'Restaurant, shop',
+                label_003: 'Reservation',
                 value_004: 'D8F5FF743D5741D1BF1F5D61671F552B',
-                label_004: 'To pick mushrooms, Cross country skiing, Passage',
+                label_004: 'Permit',
               },
             },
             {
