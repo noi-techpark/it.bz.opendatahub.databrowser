@@ -25,6 +25,7 @@ import {
 import { echargingdataCategory } from '../../builder/tourism/echargingdata';
 import { mappingCategory } from '../../builder/tourism/mapping';
 import { relatedcontentCategory } from '../../builder/tourism/relatedcontent';
+import { videoItemsCategory } from '../../builder/tourism/video';
 import { withOdhBaseUrl } from '../../utils';
 
 export const odhActivityPoiSharedView = ():
@@ -75,6 +76,7 @@ export const odhActivityPoiSharedView = ():
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
+    videoItemsCategory(),
     seasonCategory(),
     locationCategory(),
     gpsDataCategory(),
