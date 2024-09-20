@@ -28,7 +28,8 @@ export const computeRecordId = (
   }
 };
 
-const idToString = (id: unknown) => (id == null ? undefined : id.toString());
+const idToString = (id: TourismMetaData) =>
+  id == null ? undefined : id.toString();
 
 export const getTableLocationFromDataset = (dataset: TourismMetaData) => {
   if (dataset == null || dataset.baseUrl == null) {

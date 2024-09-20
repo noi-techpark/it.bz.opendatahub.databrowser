@@ -30,18 +30,13 @@ import { randomId } from '../../../../../components/utils/random';
 
 const emit = defineEmits(['update']);
 
-const props = withDefaults(
-  defineProps<{
-    additionalProperties?: Record<string, unknown> | undefined;
-  }>(),
-  {
-    additionalProperties: undefined,
-  }
-);
+const props = defineProps<{
+  additionalProperties?: Record<string, unknown> | undefined;
+}>();
 
 const { additionalProperties } = toRefs(props);
 
-const _additionalProperties = ref<Record<string, any>>({});
+const _additionalProperties = ref<Record<string, unknown>>({});
 
 const additionalPropertiesElements = computed<AdditionalPropertiesOptions[]>(
   () => {
@@ -86,7 +81,7 @@ const onUpdateAdditionalProperty = (updateItem: {
 };
 
 const setLocalAdditionalProperties = (
-  additionalProperties: Record<string, any> | undefined
+  additionalProperties: Record<string, unknown> | undefined
 ) => {
   _additionalProperties.value = additionalProperties
     ? JSON.parse(JSON.stringify(additionalProperties))
