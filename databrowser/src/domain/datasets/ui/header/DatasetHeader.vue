@@ -22,6 +22,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             extra-height
             mobile-full-screen
             class="mr-1 w-64"
+            no-min-height
             @change="handleDatasetChange"
             @open="handleSelectOpen"
           />
