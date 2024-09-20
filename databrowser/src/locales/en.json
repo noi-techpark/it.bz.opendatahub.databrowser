@@ -81,9 +81,9 @@
     },
     "detailView": {
       "showReferencedFields": "Load referenced attributes",
-      "showReferencedFieldsDesc": "TODO: MISSING DESC",
+      "showReferencedFieldsDesc": "Show attributes which are referenced from other datasets",
       "showEmptyFields": "Show empty fields",
-      "showEmptyFieldsDesc": "TODO: MISSING DESC",
+      "showEmptyFieldsDesc": "Show fields without a value",
       "showDeprecatedFields": "Show deprecated fields",
       "showDeprecatedFieldsDesc": "Deprecated attributes are not available in the long run and will be removed from the database.",
       "thisIsAReferenceOfDataset": "This field is a reference of the dataset: {url}"
