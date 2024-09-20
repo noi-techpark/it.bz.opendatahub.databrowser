@@ -16,6 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               'max-md:!rounded-none max-md:border-none':
                 selectOpen && mobileFullScreen,
             },
+            { 'min-h-full': noMinHeight },
             buttonClassNames,
             extraHeight ? 'h-9 min-h-0 text-base' : '',
           ]"
@@ -104,6 +105,7 @@ const props = withDefaults(
     zIndex?: number;
     extraHeight?: boolean;
     mobileFullScreen?: boolean;
+    noMinHeight?: boolean;
   }>(),
   {
     options: () => [],
