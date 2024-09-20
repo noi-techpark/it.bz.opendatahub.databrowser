@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </h1>
             <TooltipCustom :show-close-button="false" hover>
               <IconClose
-                class="h-6 w-6 cursor-pointer text-green-500"
+                class="size-6 cursor-pointer text-green-500"
                 @click="onHide"
               />
               <template #container>

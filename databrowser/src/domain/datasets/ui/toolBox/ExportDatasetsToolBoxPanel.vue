@@ -62,7 +62,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           "
         >
           <ArrowLine
-            class="h-4 w-4 text-green-400 transition"
+            class="size-4 text-green-400 transition"
             :class="
               referencesUrlsAccordions[getReferenceKey(referenceUrl)]
                 ? '-rotate-90'
@@ -82,10 +82,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               v-if="
                 referenceUrlToCopy !== referenceUrl.url && !copiedReferenceUrl
               "
-              class="h-4 w-4 cursor-pointer text-green-400"
+              class="size-4 cursor-pointer text-green-400"
               @click="onCopyReference(referenceUrl.url)"
             />
-            <IconCheck v-else class="h-4 w-4 text-green-400" />
+            <IconCheck v-else class="size-4 text-green-400" />
           </div></div
       ></ToolBoxCardBody>
     </ToolBoxCard>

@@ -27,7 +27,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </div>
       <div
         v-if="tooltip != null"
-        class="h-4 w-4 text-green-400"
+        class="size-4 text-green-400"
         :title="tooltip"
       >
         <IconInfo />

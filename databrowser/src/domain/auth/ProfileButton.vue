@@ -6,11 +6,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div
-    class="flex h-8 w-8 items-center justify-center rounded-full text-lg font-bold text-white"
+    class="flex size-8 items-center justify-center rounded-full text-lg font-bold text-white"
     :class="bgColorClass"
     :title="username"
   >
-    <IconParser v-if="iconName" :name="iconName" class="h-full w-full" />
+    <IconParser v-if="iconName" :name="iconName" class="size-full" />
     <span v-else>
       {{ letter }}
     </span>

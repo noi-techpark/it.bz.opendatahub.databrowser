@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :to="link.to"
       size="xs"
       variant="ghost"
-      class="mx-1 hidden h-9 w-9 text-center text-base uppercase md:flex md:items-center md:justify-center"
+      class="mx-1 hidden size-9 text-center text-base uppercase md:flex md:items-center md:justify-center"
       :class="[
         link.value === selected ? 'border-green-500 bg-green-500/10' : '',
       ]"

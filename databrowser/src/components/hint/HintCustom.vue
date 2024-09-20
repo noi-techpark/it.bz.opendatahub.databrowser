@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div class="flex items-center justify-between gap-3">
       <div class="grow font-semibold">{{ title }}</div>
       <button data-test="close-hint" @click="emit('close')">
-        <IconClose class="h-4 w-4 rounded-full border" />
+        <IconClose class="size-4 rounded-full border" />
       </button>
     </div>
     <div class="mr-8"><slot></slot></div>

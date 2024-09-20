@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   >
     <div
       v-if="hasDot"
-      class="h-1 w-1 rounded-full"
+      class="size-1 rounded-full"
       :class="classNames.dot"
     ></div>
     <span :class="classNames.text">{{ text }}</span>

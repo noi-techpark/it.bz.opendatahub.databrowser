@@ -14,7 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     >
       <CheckboxCustom :model-value="isCurrentSortAsc" :tabbable="false" />
       Ascending
-      <IconSortAsc class="h-5 w-5" />
+      <IconSortAsc class="size-5" />
     </ButtonCustom>
     <ButtonCustom
       class="flex basis-1/2 items-center gap-2 p-2"
@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     >
       <CheckboxCustom :model-value="isCurrentSortDesc" :tabbable="false" />
       Descending
-      <IconSortDesc class="h-5 w-5" />
+      <IconSortDesc class="size-5" />
     </ButtonCustom>
   </PopoverContent>
 </template>

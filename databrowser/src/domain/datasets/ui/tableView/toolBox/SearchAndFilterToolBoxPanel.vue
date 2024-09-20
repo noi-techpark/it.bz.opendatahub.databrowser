@@ -61,7 +61,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :variant="Variant.ghost"
           @click="addEmptyFilter"
         >
-          <IconAdd class="h-5 w-5" />
+          <IconAdd class="size-5" />
           {{
             t(
               'datasets.listView.toolBox.searchAndFilter.otherFilters.addNewFilter'
