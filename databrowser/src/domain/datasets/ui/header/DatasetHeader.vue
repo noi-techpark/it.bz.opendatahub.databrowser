@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <header class="flex flex-wrap items-center py-2 text-xs md:py-3">
+  <header class="flex flex-wrap items-center py-2 text-xs md:py-0">
     <!-- Dataset title -->
     <div
       class="mb-2 flex w-full items-center justify-between md:mb-0 md:w-auto"

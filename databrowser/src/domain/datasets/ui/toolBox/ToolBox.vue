@@ -127,6 +127,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import ContentAlignmentX from '../../../../components/content/ContentAlignmentX.vue';
 import IconClose from '../../../../components/svg/IconClose.vue';
+import IconAdd from '../../../../components/svg/IconAdd.vue';
 import IconStrokedArrowDown from '../../../../components/svg/IconStrokedArrowDown.vue';
 import TabButton from '../../../../components/tab/TabButton.vue';
 import { useToolBoxStore } from './toolBoxStore';
