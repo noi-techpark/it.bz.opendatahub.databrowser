@@ -12,7 +12,6 @@ const { name, slug } = echargingdataCategory();
 export type AdditionalPropertiesOptions = SelectOption<string> &
   AdditionalProperty;
 
-// FIXME: remove test element
 export const availableAdditionalPropertiesOptions: AdditionalPropertiesOptions[] =
   [
     {
@@ -20,9 +19,5 @@ export const availableAdditionalPropertiesOptions: AdditionalPropertiesOptions[]
       value: 'AdditionalProperties.EchargingDataProperties',
       slug,
     },
-    {
-      label: name + ' TEST',
-      value: 'AdditionalProperties.EchargingDataProperties_TEST',
-      slug: slug + ' TEST',
-    },
+    // NOTE: add here additional properties
   ];

@@ -185,20 +185,6 @@ export const locationTableCells = (): PropertyConfig[] => [
     class: 'w-52',
     objectMapping: { text: 'LocationInfo.RegionInfo.Name.{language}' },
   },
-
-  // FIXME: ADD FOR TESTING 533
-  {
-    title: 'Region TEST',
-    component: CellComponent.ReferenceCell,
-    class: 'w-52',
-    objectMapping: {
-      text: 'LocationInfo.RegionInfo.Name.{language}',
-      value: 'LocationInfo.RegionInfo.Id',
-    },
-    params: {
-      referenceBasePath: '/tourism/v1/Location',
-    },
-  },
   {
     title: 'Municipality',
     component: CellComponent.StringCell,

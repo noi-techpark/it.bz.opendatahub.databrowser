@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <ThreeDotsPopup large>
-    <PopoverCustomPanel class="min-w-[16rem]">
+    <PopoverCustomPanel class="min-w-64">
       <PopoverContentHeader>
         {{ t('datasets.header.tableSettings') }}
       </PopoverContentHeader>

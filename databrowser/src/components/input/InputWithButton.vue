@@ -44,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :disabled="!hasText || disabled"
         @click="deleteText"
       >
-        <IconClose class="h-4 w-4" />
+        <IconClose class="size-4" />
       </button>
       <ButtonCustom
         v-if="showConfirmButton && !showButtonOnLeft"

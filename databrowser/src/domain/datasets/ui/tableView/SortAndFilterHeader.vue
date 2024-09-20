@@ -10,7 +10,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div class="flex items-center justify-end gap-1">
       <TooltipCustom v-if="isDeprecated">
         <template #default>
-          <div class="h-2 w-2 rounded-full bg-deprecated"></div>
+          <div class="size-2 rounded-full bg-deprecated"></div>
         </template>
         <template #container>
           <h4 class="mb-2 font-semibold">Attribute is deprecated.</h4>
@@ -32,7 +32,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
       <TooltipCustom v-if="isReference">
         <template #default>
-          <div class="h-2 w-2 rounded-full bg-reference"></div>
+          <div class="size-2 rounded-full bg-reference"></div>
         </template>
         <template #container>
           <h4 class="mb-2 font-semibold">
@@ -54,7 +54,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </TooltipCustom>
 
       <div v-if="!canSort && !canFilter">
-        <IconStrokedArrowDown class="h-5 w-5 stroke-current" />
+        <IconStrokedArrowDown class="size-5 stroke-current" />
       </div>
 
       <PopoverCustom v-else>
@@ -64,7 +64,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             class="flex items-center rounded"
           >
             <IconStrokedArrowDown
-              class="h-5 w-5 stroke-current"
+              class="size-5 stroke-current"
               :class="{ 'rotate-180': open }"
             />
             <div class="flex items-center gap-1 text-green-500">
