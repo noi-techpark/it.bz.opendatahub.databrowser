@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <UseFullscreen ref="fullscreenComponent" v-slot="{ toggle, isFullscreen }">
     <div
-      class="size-full relative"
+      class="relative size-full"
       :class="{
         'flex cursor-pointer items-center justify-center bg-black':
           !isFullscreen && mapView === 'table',
@@ -26,7 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           v-if="mapView !== 'table' && editable"
           variant="ghost"
           size="xs"
-          class="size-12 flex items-center justify-center bg-white p-2"
+          class="flex size-12 items-center justify-center bg-white p-2"
           @click="toggleEditMode()"
           ><IconParser
             name="IconPencil"
@@ -39,7 +39,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <ButtonCustom
           variant="ghost"
           size="xs"
-          class="size-12 flex items-center justify-center bg-white p-2"
+          class="flex size-12 items-center justify-center bg-white p-2"
           @click="toggle()"
           ><IconParser name="IconClose" class="cursor-pointer text-green-400"
         /></ButtonCustom>

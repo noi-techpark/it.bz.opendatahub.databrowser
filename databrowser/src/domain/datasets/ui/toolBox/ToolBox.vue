@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     data-test="mobile-open-toolBox"
     @click="toolBoxStore.toggleToolboxVisibility(!toolBoxStore.visible)"
   >
-    <IconAdd class="size-5 mr-2" /><span>Toolbox</span>
+    <IconAdd class="mr-2 size-5" /><span>Toolbox</span>
   </ButtonCustom>
 
   <!-- ToolBox content -->
@@ -46,7 +46,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   <ButtonCustom
                     variant="ghost"
                     size="xs"
-                    class="size-8 mr-2 mt-6 flex items-center justify-center self-end md:hidden"
+                    class="mr-2 mt-6 flex size-8 items-center justify-center self-end md:hidden"
                     data-test="mobile-close-toolBox"
                     @click="toolBoxStore.toggleToolboxVisibility(false)"
                   >
@@ -102,7 +102,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </div>
       <ButtonCustom
         size="xs"
-        class="size-8 hidden items-center justify-center md:flex"
+        class="hidden size-8 items-center justify-center md:flex"
         :data-test="
           toolBoxStore.visible
             ? 'desktop-close-toolBox'
