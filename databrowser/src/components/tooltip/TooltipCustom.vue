@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <!-- Tooltip arrow -->
       <div
         ref="arrow"
-        class="absolute size-4 rotate-45 bg-white"
+        class="size-4 absolute rotate-45 bg-white"
         :class="arrowClasses"
       ></div>
 
