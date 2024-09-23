@@ -78,8 +78,6 @@ export const odhActivityPoiSharedView = ():
     imageGalleryCategory(),
     videoItemsCategory(),
     additionalPropertiesCategory(),
-    videoItemsCategory(),
-    additionalPropertiesCategory(),
     seasonCategory(),
     locationCategory(),
     gpsDataCategory(),
