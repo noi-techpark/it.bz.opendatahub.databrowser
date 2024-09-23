@@ -44,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           >
             {{ appliedFiltersNum }}
           </div>
-          <IconFilter class="size-3 mr-2" />
+          <IconFilter class="mr-2 size-3" />
         </button>
 
         <!-- Filters -->
@@ -75,7 +75,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               @reset-all-filters="resetFilters"
             />
             <button
-              class="size-6 mr-3 flex items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
+              class="mr-3 flex size-6 items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
               @click="hideFilters"
             >
               <IconClose class="size-4" />
