@@ -5,7 +5,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <ToolBox :tab-names="[t('datasets.toolBox.exportDatasets.panelName')]">
+  <ToolBox
+    :tab-names="[t('datasets.toolBox.exportDatasets.panelName')]"
+    :open-tool-box-button-label="
+      useCustomButtonLabels ? t('datasets.toolBox.button.openToolBox') : ''
+    "
+    :close-tool-box-button-label="
+      useCustomButtonLabels ? t('datasets.toolBox.button.closeToolBox') : ''
+    "
+  >
     <ExportDatasetsToolBoxPanel :url="url" />
   </ToolBox>
 </template>
@@ -17,5 +25,5 @@ import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
-defineProps<{ url?: string }>();
+defineProps<{ url?: string; useCustomButtonLabels?: boolean }>();
 </script>
