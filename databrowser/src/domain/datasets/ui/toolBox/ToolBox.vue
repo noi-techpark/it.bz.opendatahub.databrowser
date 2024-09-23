@@ -94,8 +94,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       >
         {{
           !toolBoxStore.visible
-            ? t('datasets.toolBox.button.openFilterAndExportPossibilities')
-            : t('datasets.toolBox.button.closeFilterAndExportPossibilities')
+            ? openToolBoxButtonLabel ||
+              t('datasets.toolBox.button.openFilterAndExportPossibilities')
+            : closeToolBoxButtonLabel ||
+              t('datasets.toolBox.button.closeFilterAndExportPossibilities')
         }}
       </div>
       <ButtonCustom
@@ -132,6 +134,7 @@ import IconStrokedArrowDown from '../../../../components/svg/IconStrokedArrowDow
 import TabButton from '../../../../components/tab/TabButton.vue';
 import { useToolBoxStore } from './toolBoxStore';
 import { watch } from 'vue';
+import IconAdd from '../../../../components/svg/IconAdd.vue';
 
 const { t } = useI18n();
 
@@ -141,11 +144,15 @@ withDefaults(
     defaultIndex?: number;
     isWhite?: boolean;
     hideExpandOnDesktop?: boolean;
+    openToolBoxButtonLabel?: string;
+    closeToolBoxButtonLabel?: string;
   }>(),
   {
     defaultIndex: 0,
     isWhite: false,
     hideExpandOnDesktop: false,
+    openToolBoxButtonLabel: '',
+    closeToolBoxButtonLabel: '',
   }
 );
 

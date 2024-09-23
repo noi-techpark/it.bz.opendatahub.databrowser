@@ -20,7 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <IconCheck v-else />
         </ToolBoxCardHeaderButton>
       </ToolBoxCardHeader>
-      <ToolBoxCardBody :with-bg-color="true" class="break-all">{{
+      <ToolBoxCardBody :with-bg-color="withBgColor" class="break-all">{{
         url
       }}</ToolBoxCardBody>
     </ToolBoxCard>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <IconDownload />
         </ToolBoxCardHeaderButton>
       </ToolBoxCardHeader>
-      <ToolBoxCardBody :with-bg-color="true">{{
+      <ToolBoxCardBody :with-bg-color="withBgColor">{{
         t('datasets.toolBox.exportDatasets.json.body')
       }}</ToolBoxCardBody>
     </ToolBoxCard>
@@ -73,7 +73,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </ToolBoxCardHeader>
       <ToolBoxCardBody
         v-if="referencesUrlsAccordions[getReferenceKey(referenceUrl)]"
-        :with-bg-color="true"
+        :with-bg-color="withBgColor"
         ><div class="flex items-center gap-1">
           <p class="break-all font-mono text-xs">{{ referenceUrl.url }}</p>
 
@@ -108,7 +108,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <IconLink class="text-green-500" />
         </a>
       </ToolBoxCardHeader>
-      <ToolBoxCardBody :with-bg-color="true">{{
+      <ToolBoxCardBody :with-bg-color="withBgColor">{{
         t('datasets.toolBox.exportDatasets.documentation.body')
       }}</ToolBoxCardBody>
     </ToolBoxCard>
@@ -139,8 +139,9 @@ const props = withDefaults(
   defineProps<{
     url?: string;
     referencesUrls?: ReferenceInfoToolBoxFetchUrlInfo[];
+    withBgColor?: boolean;
   }>(),
-  { url: undefined, referencesUrls: undefined }
+  { url: undefined, referencesUrls: undefined, withBgColor: true }
 );
 
 const { url, referencesUrls } = toRefs(props);

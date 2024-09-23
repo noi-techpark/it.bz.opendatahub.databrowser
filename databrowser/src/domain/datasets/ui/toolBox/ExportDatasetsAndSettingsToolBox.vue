@@ -10,10 +10,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       t('datasets.toolBox.exportDatasets.panelName'),
       t('datasets.toolBox.exportDatasets.settings'),
     ]"
-    is-white
-    hide-expand-on-desktop
+    :open-tool-box-button-label="t('datasets.toolBox.button.openToolBox')"
+    :close-tool-box-button-label="t('datasets.toolBox.button.closeToolBox')"
   >
-    <ExportDatasetsToolBoxPanel :url="url" :references-urls="referencesUrls" />
+    <ExportDatasetsToolBoxPanel
+      :url="url"
+      :references-urls="referencesUrls"
+      :with-bg-color="false"
+    />
     <SettingsToolBoxPanel />
   </ToolBox>
 </template>

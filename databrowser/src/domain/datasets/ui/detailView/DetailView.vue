@@ -20,6 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <ExportDatasetsAndSettingsToolBox
         :url="fullPath"
         :references-urls="referencesUrls"
+        use-custom-button-labels
       />
       <GoToReferenceAttributeDialog />
     </div>

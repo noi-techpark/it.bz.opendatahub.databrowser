@@ -29,7 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ToggleCustom from '../../../../../components/toggle/ToggleCustom.vue';
 import { useToolBoxStore } from '../../toolBox/toolBoxStore';
@@ -65,5 +65,9 @@ const showAll = computed({
     toolBoxStore.toggleShowAll(!!value);
     emit('update:modelValue', value);
   },
+});
+
+onMounted(() => {
+  toolBoxStore.toggleShowAll(!!props.modelValue);
 });
 </script>

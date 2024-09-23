@@ -286,7 +286,9 @@
       },
       "button": {
         "openFilterAndExportPossibilities": "Open Filter & Export possibilities",
-        "closeFilterAndExportPossibilities": "Close Filter & Export possibilities"
+        "closeFilterAndExportPossibilities": "Close Filter & Export possibilities",
+        "openToolBox": "Open ToolBox",
+        "closeToolBox": "Close ToolBox"
       }
     }
   },
