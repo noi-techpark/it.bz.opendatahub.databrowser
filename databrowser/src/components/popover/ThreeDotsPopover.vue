@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template #trigger>
       <PopoverCustomButton
         v-slot="{ open }"
-        class="flex size-6 items-center justify-center border"
+        class="size-6 flex items-center justify-center border"
         :class="[buttonClasses, large ? 'size-9' : '']"
       >
         <IconThreeDots
