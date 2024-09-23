@@ -13,7 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   >
     <span
       :class="[turnedOn ? 'translate-x-5' : 'translate-x-1', spanColorClass]"
-      class="size-3 inline-block rounded-full transition duration-200 ease-in-out"
+      class="inline-block size-3 rounded-full transition duration-200 ease-in-out"
     ></span>
   </Switch>
 </template>
