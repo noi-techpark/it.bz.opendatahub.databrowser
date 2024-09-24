@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <CardContainer no-padding>
-    <CardLinkContainer :to="tableLocation">
+    <CardLinkContainer :to="tableLocation!">
       <CardTitle tag-name="h2" class="text-green-400">
         <div class="flex items-center gap-3 no-underline">
           <DatasetTitle :dataset="dataset" />
