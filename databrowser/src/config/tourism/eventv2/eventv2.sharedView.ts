@@ -22,6 +22,7 @@ import {
   relatedcontentCategory,
   eventDocumentCategory,
 } from '../../builder/tourism';
+import { videoItemsCategory } from '../../builder/tourism/video';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
 export const eventv2SharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -92,7 +93,7 @@ export const eventv2SharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.InputReferenceCell,
               objectMapping: { value: 'VenueId' },
               params: {
-                url: withOdhBaseUrl('/v1/VenueV2'),
+                url: withOdhBaseUrl('/v2/Venue'),
                 labelSelector: 'Detail.{language}.Title',
                 keySelector: 'Id',
               },
@@ -112,6 +113,7 @@ export const eventv2SharedView = (): DetailViewConfig | EditViewConfig => ({
     relatedcontentCategory(),
     mappingCategory(),
     eventDocumentCategory(),
+    videoItemsCategory(),
     licenseInfoCategory(),
     {
       name: 'Other',

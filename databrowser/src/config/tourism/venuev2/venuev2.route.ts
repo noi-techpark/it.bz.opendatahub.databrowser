@@ -6,5 +6,5 @@ import { DatasetRoute } from '../../../domain/datasets/config/types';
 
 export const venuev2Route: DatasetRoute = {
   domain: 'tourism',
-  pathSegments: ['v1', 'VenueV2'],
+  pathSegments: ['v2', 'Venue'],
 };

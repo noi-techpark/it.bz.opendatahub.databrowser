@@ -38,9 +38,17 @@ const tableLocation = computed(() => {
   // TODO: this is a very dirty hack to determine if the domain is the tourism or mobility
   // domain. A better solution would be to have a domain property in the dataset metadata,
   // because that way we can support other domains without code changes.
-  const domain = dataset.value.baseUrl.includes('tourism')
-    ? 'tourism'
-    : 'mobility';
+  // const domain = dataset.value.baseUrl.includes('tourism')
+  //   ? 'tourism'
+  //   : 'mobility';
+
+  // TODO: Dirty Hack refined, if dataspace weather is set look up to the baseUrl, todo use ApiDomain field
+  const domain =
+    dataset.value.dataSpace == 'weather' || dataset.value.dataSpace == 'other'
+      ? dataset.value.baseUrl.includes('tourism')
+        ? 'tourism'
+        : 'mobility'
+      : dataset.value.dataSpace;
 
   const { pathSegments, apiFilter } = dataset.value;
 
