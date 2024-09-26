@@ -115,21 +115,5 @@ export const eventv2SharedView = (): DetailViewConfig | EditViewConfig => ({
     eventDocumentCategory(),
     videoItemsCategory(),
     licenseInfoCategory(),
-    {
-      name: 'Other',
-      slug: 'other',
-      subcategories: [
-        {
-          name: 'Deprecated',
-          properties: [
-            {
-              title: 'Active on Open Data Hub',
-              component: CellComponent.ToggleCell,
-              objectMapping: { enabled: 'SmgActive' },
-            },
-          ],
-        },
-      ],
-    },
   ],
 });
