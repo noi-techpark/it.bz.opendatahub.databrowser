@@ -20,6 +20,7 @@ import {
   licenseInfoCategory,
   mappingCategory,
 } from '../../builder/tourism';
+import { videoItemsCategory } from '../../builder/tourism/video';
 import { DEFAULT_DATE_FORMAT, withOdhBaseUrl } from '../../utils';
 
 export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -43,6 +44,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
+    videoItemsCategory(),
     seasonCategory(),
     {
       name: 'Additional Information',

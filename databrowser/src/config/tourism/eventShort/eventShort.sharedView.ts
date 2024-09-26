@@ -17,6 +17,7 @@ import {
   mappingCategory,
 } from '../../builder/tourism';
 import { publishedOnCell } from '../../builder/tourism/publishedOn';
+import { videoItemsCategory } from '../../builder/tourism/video';
 import { withOdhBaseUrl } from '../../utils';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -197,6 +198,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
       ],
     },
     imageGalleryCategory(),
+    videoItemsCategory(),
     eventDocumentCategory(),
     licenseInfoCategory(),
     mappingCategory(),
