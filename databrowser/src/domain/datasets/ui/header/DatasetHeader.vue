@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <header class="flex flex-wrap items-center py-2 text-xs md:py-0">
     <!-- Dataset title -->
     <div
-      class="mb-2 flex w-full items-center justify-between md:mb-0 md:w-auto"
+      class="mb-2 flex w-full items-center justify-between py-3 md:mb-0 md:w-auto"
     >
       <span
         v-if="hasConfig"
@@ -58,6 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       @overlay-click="handleInputSearchOpen(false)"
     >
       <InputSearch
+        v-if="isOnTableView"
         id="search-dataset"
         :class="[inputSearchOpen ? 'flex' : 'hidden md:flex']"
         :model-value="searchfilter"
@@ -78,7 +79,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div class="ml-auto flex gap-2">
       <AddRecordButton
         v-if="addRecordSupported"
-        class="mr-2 hidden md:flex"
+        class="mr-2 md:flex"
         data-test="desktop-add-record-link"
       />
 
@@ -120,6 +121,7 @@ import { LocationQuery, useRoute, useRouter } from 'vue-router';
 import { computeTableLocation } from '../../location/datasetViewLocation';
 import { TourismMetaData } from '../../../metaDataConfig/tourism/types';
 import { useDatasetViewStore } from '../../view/store/datasetViewStore';
+import { useSessionStorage } from '@vueuse/core';
 
 const { view } = storeToRefs(useDatasetViewStore());
 
@@ -127,6 +129,7 @@ const { t } = useI18n();
 
 const router = useRouter();
 const route = useRoute();
+const SESSION_DATASET_KEY = 'currentDataset';
 
 // Data fetch
 const { metaDataDatasets } = useMetaDataDatasets();
@@ -186,6 +189,10 @@ const selectOptions = computed<GroupSelectOption[]>(() => {
   return _options;
 });
 
+const isOnTableView = computed<boolean>(() => {
+  return route.fullPath.startsWith('/dataset/table/');
+});
+
 const handleInputSearchOpen = (state: boolean) => {
   inputSearchOpen.value = state;
 };
@@ -206,6 +213,7 @@ const handleDatasetChange = (value: string) => {
   const domain = getDomainOfDataset(dataset);
 
   router.push(computeTableLocation(domain, pathSegments, apiFilter));
+  setCurrentDataset(getDatasetSelectValue(dataset));
 };
 
 const getDomainOfDataset = (dataset: TourismMetaData) => {
@@ -283,6 +291,13 @@ const getCommonPrefixLength = (str1: string, str2: string): number => {
   return i;
 };
 
+const setCurrentDataset = (dataset: string) => {
+  const currentSessionDataset = useSessionStorage(SESSION_DATASET_KEY, '');
+
+  currentDataset.value = dataset;
+  currentSessionDataset.value = dataset;
+};
+
 watch(
   () => selectOptions.value,
   (_options) => {
@@ -302,7 +317,23 @@ watch(
 
     if (!dataset) return;
 
-    currentDataset.value = dataset;
+    const currentSessionDataset = useSessionStorage(SESSION_DATASET_KEY, '');
+    let sessionDataset = null;
+
+    if (currentSessionDataset.value) {
+      let [currentDatasetPath] = currentSessionDataset.value.split('?');
+      let [foundDatasetPath] = dataset.split('?');
+
+      if (currentDatasetPath === foundDatasetPath) {
+        sessionDataset = currentSessionDataset.value;
+      }
+    }
+
+    if (sessionDataset) {
+      currentDataset.value = currentSessionDataset.value;
+    } else {
+      setCurrentDataset(dataset);
+    }
   }
 );
 </script>

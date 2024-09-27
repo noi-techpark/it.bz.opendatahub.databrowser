@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="relative z-30 flex items-center">
+  <div class="z-9 relative flex items-center">
     <ButtonLink
       v-for="link in links"
       :key="link.value"
