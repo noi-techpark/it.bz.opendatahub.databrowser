@@ -22,7 +22,9 @@ import {
   licenseInfoCategory,
   mappingCategory,
   relatedcontentCategory,
+  seasonCategory,
 } from '../../builder/tourism';
+import { videoItemsCategory } from '../../builder/tourism/video';
 
 export const venuev2SharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
@@ -45,6 +47,7 @@ export const venuev2SharedView = (): DetailViewConfig | EditViewConfig => ({
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
+    videoItemsCategory(),
     {
       name: 'Venue details',
       slug: 'Venue-details',
@@ -53,34 +56,40 @@ export const venuev2SharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'Time and date',
           properties: [
             {
-              title: 'Beds',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'VenueInfo.Beds' },
-            },
-            {
-              title: 'RoomCount',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'VenueInfo.RoomCount' },
-            },
-            {
-              title: 'SquareMeters',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'VenueInfo.SquareMeters' },
-            },
-            {
-              title: 'Indoor',
-              component: CellComponent.ToggleCell,
-              objectMapping: { text: 'VenueInfo.Indoor' },
-            },
-            {
               title: 'Is Root',
               component: CellComponent.ToggleCell,
               objectMapping: { enabled: 'IsRoot' },
             },
+            {
+              title: 'Venue Group ID',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'VenueGroupId' },
+            },
+            // {
+            //   title: 'Beds',
+            //   component: CellComponent.StringCell,
+            //   objectMapping: { text: 'VenueInfo.Beds' },
+            // },
+            // {
+            //   title: 'RoomCount',
+            //   component: CellComponent.StringCell,
+            //   objectMapping: { text: 'VenueInfo.RoomCount' },
+            // },
+            // {
+            //   title: 'SquareMeters',
+            //   component: CellComponent.StringCell,
+            //   objectMapping: { text: 'VenueInfo.SquareMeters' },
+            // },
+            // {
+            //   title: 'Indoor',
+            //   component: CellComponent.ToggleCell,
+            //   objectMapping: { text: 'VenueInfo.Indoor' },
+            // }
           ],
         },
       ],
     },
+    seasonCategory(),
     locationCategory(),
     gpsDataCategory(),
     tagCategory('venue'),
