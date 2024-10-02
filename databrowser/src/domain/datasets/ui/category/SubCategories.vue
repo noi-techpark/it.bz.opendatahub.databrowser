@@ -97,10 +97,9 @@ const getReferenceInfo = (
   const basePath = `${window.location.origin}/dataset/detail/${route.params.domain}/${route.params.pathSegments[0]}/${referenceInfo.origin}`;
 
   if (property.arrayMapping && Object.keys(property.arrayMapping).length > 0) {
-    const propertyData = property.value[
-      property.arrayMapping.targetPropertyName
-    ] as Array<any>;
-    return propertyData && propertyData.length
+    const propertyData =
+      property.value[property.arrayMapping.targetPropertyName];
+    return propertyData && Array.isArray(propertyData) && propertyData.length
       ? {
           ...referenceInfo,
           referenceDetailViewUrls: [
