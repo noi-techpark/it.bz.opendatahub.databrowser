@@ -81,7 +81,7 @@
     },
     "detailView": {
       "showReferencedFields": "Load referenced attributes",
-      "showReferencedFieldsDesc": "Show attributes which are referenced from other datasets",
+      "showReferencedFieldsDesc": "Show attributes that reference other datasets",
       "showEmptyFields": "Show empty fields",
       "showEmptyFieldsDesc": "Show fields without a value",
       "showDeprecatedFields": "Show deprecated fields",

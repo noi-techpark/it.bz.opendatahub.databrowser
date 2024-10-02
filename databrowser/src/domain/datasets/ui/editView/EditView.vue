@@ -45,7 +45,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :sub-categories="enhancedSubcategories"
             :current-category="currentCategory"
             :slug="slug"
-            :show-all="true"
             :show-edit-hint="true"
             :editable="true"
           />

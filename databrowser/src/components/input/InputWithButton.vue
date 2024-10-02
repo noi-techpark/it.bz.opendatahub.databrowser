@@ -30,7 +30,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :id="id"
       ref="inputRef"
       v-model="text"
-      class="w-full grow border-none bg-transparent p-0 px-3 focus:ring-0"
+      class="w-full grow border-none bg-transparent focus:ring-0"
       :placeholder="labelPlaceholder"
       :disabled="disabled"
       :data-test="`${id}-input`"

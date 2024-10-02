@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       hasDescription ? t('datasets.detailView.showDeprecatedFieldsDesc') : ''
     "
     active-color-class="deprecated"
-    :active="!!showDeprecated"
+    :active="!!toolBoxStore.settings.showDeprecated"
     :use-wrapper-classes="useWrapperClasses"
     :use-container-classes="useContainerClasses"
     :custom-wrapper-classes="customWrapperClasses"
@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   >
     <template #toggle>
       <ToggleCustom
-        v-model="showDeprecated"
+        v-model="toolBoxStore.settings.showDeprecated"
         :disabled="disabled"
         active-bg-class="bg-deprecated"
         active-border-class="border-deprecated"
@@ -32,7 +32,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ToggleCustom from '../../../../../components/toggle/ToggleCustom.vue';
 import { useToolBoxStore } from '../../toolBox/toolBoxStore';
@@ -40,13 +39,10 @@ import BaseSettingsToggle from '../BaseSettingsToggle.vue';
 
 const { t } = useI18n();
 
-const emit = defineEmits(['update:modelValue']);
-
 const toolBoxStore = useToolBoxStore();
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
-    modelValue?: boolean;
     disabled?: boolean;
     hasDescription?: boolean;
     useContainerClasses?: boolean;
@@ -55,7 +51,6 @@ const props = withDefaults(
     customTextClasses?: string;
   }>(),
   {
-    modelValue: undefined,
     disabled: false,
     hasDescription: false,
     useContainerClasses: true,
@@ -64,12 +59,4 @@ const props = withDefaults(
     customTextClasses: '',
   }
 );
-
-const showDeprecated = computed({
-  get: () => props.modelValue,
-  set: (value) => {
-    toolBoxStore.toggleShowDeprecated(!!value);
-    emit('update:modelValue', value);
-  },
-});
 </script>

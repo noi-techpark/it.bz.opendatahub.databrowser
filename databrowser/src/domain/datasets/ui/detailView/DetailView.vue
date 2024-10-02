@@ -20,7 +20,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <ExportDatasetsAndSettingsToolBox
         :url="fullPath"
         :references-urls="referencesUrls"
-        use-custom-button-labels
       />
       <GoToReferenceAttributeDialog />
     </div>
@@ -48,6 +47,8 @@ const {
 } = useSingleRecordLoad();
 
 const referencesUrls = computed(() => {
+  const takenUrls = new Set<string>();
+
   return categories.value
     ? categories.value.flatMap((category) =>
         category.subCategories.flatMap(
@@ -55,7 +56,13 @@ const referencesUrls = computed(() => {
             subCategory.properties
               .map((property) => {
                 const referenceInfo = property.referenceInfo;
-                if (referenceInfo && referenceInfo.url) {
+                if (
+                  referenceInfo &&
+                  referenceInfo.url &&
+                  !takenUrls.has(referenceInfo.url)
+                ) {
+                  takenUrls.add(referenceInfo.url);
+
                   return {
                     from: referenceInfo.from || referenceInfo.url,
                     url: referenceInfo.url,
