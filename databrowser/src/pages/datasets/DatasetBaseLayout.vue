@@ -10,9 +10,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <AlertError :title="'Error!'">{{ error?.message }}</AlertError>
     </div>
 
-    <ContentDivider />
+    <ContentDivider class="z-[60]" />
 
-    <div class="flex h-full overflow-y-auto">
+    <div class="relative flex h-full overflow-y-auto">
       <div class="flex flex-1 flex-col overflow-x-auto">
         <ContentAlignmentX>
           <DatasetHeader />

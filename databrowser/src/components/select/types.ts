@@ -16,4 +16,9 @@ export interface SelectOption<T = string | number | undefined> {
   isAction?: boolean;
 }
 
+export interface GroupSelectOption<T = string | number | undefined> {
+  name: string;
+  options: SelectOption<T>[];
+}
+
 export type SelectOptionsPlacement = 'bottom' | 'top';

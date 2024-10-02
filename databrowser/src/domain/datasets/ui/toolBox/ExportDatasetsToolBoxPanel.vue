@@ -20,7 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <IconCheck v-else />
         </ToolBoxCardHeaderButton>
       </ToolBoxCardHeader>
-      <ToolBoxCardBody :with-bg-color="true" class="break-all">{{
+      <ToolBoxCardBody :with-bg-color="withBgColor" class="break-all">{{
         url
       }}</ToolBoxCardBody>
     </ToolBoxCard>
@@ -35,9 +35,59 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <IconDownload />
         </ToolBoxCardHeaderButton>
       </ToolBoxCardHeader>
-      <ToolBoxCardBody :with-bg-color="true">{{
+      <ToolBoxCardBody :with-bg-color="withBgColor">{{
         t('datasets.toolBox.exportDatasets.json.body')
       }}</ToolBoxCardBody>
+    </ToolBoxCard>
+
+    <ToolBoxSectionLabel v-if="!!referencesUrls">{{
+      t('datasets.toolBox.exportDatasets.sectionReferencesData')
+    }}</ToolBoxSectionLabel>
+    <ToolBoxCard
+      v-for="referenceUrl in referencesUrls || []"
+      :key="getReferenceKey(referenceUrl)"
+    >
+      <ToolBoxCardHeader :uppercase="false">
+        <span
+          :class="{
+            'text-hint-info':
+              referencesUrlsAccordions[getReferenceKey(referenceUrl)],
+          }"
+          >{{ referenceUrl.from }}</span
+        >
+        <ToolBoxCardHeaderButton
+          @icon-click="
+            referencesUrlsAccordions[getReferenceKey(referenceUrl)] =
+              !referencesUrlsAccordions[getReferenceKey(referenceUrl)]
+          "
+        >
+          <ArrowLine
+            class="size-4 text-green-400 transition"
+            :class="
+              referencesUrlsAccordions[getReferenceKey(referenceUrl)]
+                ? '-rotate-90'
+                : 'rotate-90'
+            "
+          />
+        </ToolBoxCardHeaderButton>
+      </ToolBoxCardHeader>
+      <ToolBoxCardBody
+        v-if="referencesUrlsAccordions[getReferenceKey(referenceUrl)]"
+        :with-bg-color="withBgColor"
+        ><div class="flex items-center gap-1">
+          <p class="break-all font-mono text-xs">{{ referenceUrl.url }}</p>
+
+          <div class="basis-4">
+            <IconCopy
+              v-if="
+                referenceUrlToCopy !== referenceUrl.url && !copiedReferenceUrl
+              "
+              class="size-4 cursor-pointer text-green-400"
+              @click="onCopyReference(referenceUrl.url)"
+            />
+            <IconCheck v-else class="size-4 text-green-400" />
+          </div></div
+      ></ToolBoxCardBody>
     </ToolBoxCard>
 
     <ToolBoxSectionLabel>{{
@@ -58,7 +108,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <IconLink class="text-green-500" />
         </a>
       </ToolBoxCardHeader>
-      <ToolBoxCardBody :with-bg-color="true">{{
+      <ToolBoxCardBody :with-bg-color="withBgColor">{{
         t('datasets.toolBox.exportDatasets.documentation.body')
       }}</ToolBoxCardBody>
     </ToolBoxCard>
@@ -67,7 +117,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core';
-import { computed, toRefs } from 'vue';
+import { computed, ref, toRefs, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import IconCheck from '../../../../components/svg/IconCheck.vue';
 import IconCopy from '../../../../components/svg/IconCopy.vue';
@@ -80,11 +130,24 @@ import ToolBoxCardHeader from './ToolBoxCardHeader.vue';
 import ToolBoxCardHeaderButton from './ToolBoxCardHeaderButton.vue';
 import ToolBoxPanel from './ToolBoxPanel.vue';
 import ToolBoxSectionLabel from './ToolBoxSectionLabel.vue';
+import ArrowLine from '../../../../components/svg/ArrowLine.vue';
+import { ReferenceInfoToolBoxFetchUrlInfo } from './types';
 
 const { t } = useI18n();
 
-const props = withDefaults(defineProps<{ url?: string }>(), { url: undefined });
-const { url } = toRefs(props);
+const props = withDefaults(
+  defineProps<{
+    url?: string;
+    referencesUrls?: ReferenceInfoToolBoxFetchUrlInfo[];
+    withBgColor?: boolean;
+  }>(),
+  { url: undefined, referencesUrls: undefined, withBgColor: true }
+);
+
+const { url, referencesUrls } = toRefs(props);
+
+const referenceUrlToCopy = ref('');
+const referencesUrlsAccordions = ref<Record<string, boolean>>({});
 
 const hasUrl = computed(() => url.value != null);
 
@@ -98,4 +161,27 @@ const downloadData = async () => {
     await fileDownloader.download(url.value!);
   }
 };
+
+const onCopyReference = (url: string) => {
+  referenceUrlToCopy.value = url;
+  copyReferenceUrl(url);
+};
+
+const { copy: copyReferenceUrl, copied: copiedReferenceUrl } = useClipboard();
+
+const getReferenceKey = (referenceUrl: ReferenceInfoToolBoxFetchUrlInfo) => {
+  return `${referenceUrl.from}_${referenceUrl.url}`;
+};
+
+watch(referencesUrls, (newVal) => {
+  if (!newVal) return;
+
+  const obj: Record<string, boolean> = {};
+
+  for (const el of newVal) {
+    obj[getReferenceKey(el)] = false;
+  }
+
+  referencesUrlsAccordions.value = obj;
+});
 </script>

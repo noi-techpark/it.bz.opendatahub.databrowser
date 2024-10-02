@@ -4,6 +4,7 @@
 
 import { App } from 'vue';
 
+import AdditionalPropertiesCell from '../components/cells/additionalPropertiesCell/AdditionalPropertiesCell.vue';
 import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
 import ArrayEditableCell from '../components/cells/arrayCell/ArrayEditableCell.vue';
 import ArrayLookupCell from '../components/cells/arrayLookupCell/ArrayLookupCell.vue';
@@ -34,6 +35,7 @@ import LoadingCell from '../components/cells/loadingCell/LoadingCell.vue';
 import MappingCell from '../components/cells/mappingCell/MappingCell.vue';
 import MeasurementsCell from '../components/cells/measurementsCell/MeasurementsCell.vue';
 import PushDataCell from '../components/cells/pushDataCell/PushDataCell.vue';
+import ReferenceCell from '../components/cells/referenceCell/ReferenceCell.vue';
 import SelectWithOptionsCell from '../components/cells/selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StateCell from '../components/cells/stateCell/StateCell.vue';
 import StringCell from '../components/cells/stringCell/StringCell.vue';
@@ -54,6 +56,10 @@ import { CellComponent } from '../types';
 
 export default {
   install: (app: App) => {
+    app.component(
+      CellComponent.AdditionalPropertiesCell,
+      AdditionalPropertiesCell
+    );
     app.component(CellComponent.ArrayCell, ArrayCell);
     app.component(CellComponent.ArrayEditableCell, ArrayEditableCell);
     app.component(CellComponent.ArrayLookupCell, ArrayLookupCell);
@@ -87,6 +93,7 @@ export default {
     app.component(CellComponent.MeasurementsCell, MeasurementsCell);
     app.component(CellComponent.OperationScheduleCell, OperationScheduleCell);
     app.component(CellComponent.PushDataCell, PushDataCell);
+    app.component(CellComponent.ReferenceCell, ReferenceCell);
     app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);
     app.component(CellComponent.StateCell, StateCell);
     app.component(CellComponent.StringCell, StringCell);

@@ -27,7 +27,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           </div></span
         >
         <ArrowLine
-          class="h-4 w-4 text-green-400 transition"
+          class="size-4 text-green-400 transition"
           :class="show ? '-rotate-90' : 'rotate-90'"
         />
       </button>

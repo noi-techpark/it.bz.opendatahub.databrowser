@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           data-test="table-view-link"
         >
           <IconStrokedArrowDown
-            class="-ml-1 mr-1 h-5 w-5 rotate-90 stroke-current"
+            class="-ml-1 mr-1 size-5 rotate-90 stroke-current"
           />
           <span class="line-height-1">
             {{ t('datasets.navigation.tableView') }}

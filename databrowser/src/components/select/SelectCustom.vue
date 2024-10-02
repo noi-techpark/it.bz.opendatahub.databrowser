@@ -5,14 +5,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div>
+  <div :class="{ 'max-md:w-full': selectOpen && mobileFullScreen }">
     <Listbox v-slot="{ open }" v-model="valueInternal">
-      <div ref="trigger" class="text-black">
+      <div ref="trigger">
         <SelectButton
           :id="id"
           :class="[
             !open ? 'rounded' : isBottomPlacement ? 'rounded-t' : 'rounded-b',
+            {
+              'max-md:!rounded-none max-md:border-none':
+                selectOpen && mobileFullScreen,
+            },
+            { 'min-h-full': noMinHeight },
             buttonClassNames,
+            extraHeight ? 'h-9 min-h-0 text-base' : '',
           ]"
           :label="selectedLabel"
           :data-test="`${id}-select-button`"
@@ -21,7 +27,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <div
             ref="container"
             class="absolute"
-            :class="{ hidden: !open, 'z-10': zIndex == null }"
+            :class="{ hidden: !open, 'z-50': zIndex == null }"
             :style="{
               zIndex: zIndex == null ? undefined : zIndex,
             }"
@@ -38,8 +44,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <SelectOptionsBox
                 v-model="searchTerm"
                 :show-search="showSearch"
-                :search-results="searchResults"
-                :class="[{ hidden: !open }, optionsClassNames]"
+                :search-results="
+                  !searchResultsGroupedOptions ? searchResults : undefined
+                "
+                :search-results-grouped-options="searchResultsGroupedOptions"
+                :class="[
+                  { hidden: !open },
+                  optionsClassNames,
+                  { 'fixed inset-x-0 md:static': mobileFullScreen },
+                ]"
                 :data-test="`${id}-select-options-box`"
               />
             </transition>
@@ -51,9 +64,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref, toRefs, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, toRefs, watch } from 'vue';
 import { Listbox } from '@headlessui/vue';
 import {
+  GroupSelectOption,
   SelectOption,
   SelectOptionsPlacement,
   SelectSize,
@@ -71,12 +85,13 @@ import {
   unknownValueLabel,
 } from './utils';
 
-const emit = defineEmits(['change']);
+const emit = defineEmits(['change', 'open']);
 
 // Handle input props
 const props = withDefaults(
   defineProps<{
     options?: SelectOption[];
+    groupedOptions?: GroupSelectOption[];
     value?: SelectValue;
     size?: SelectSize;
     id?: string;
@@ -88,9 +103,13 @@ const props = withDefaults(
     showAddNewValue?: boolean;
     showValueAsLabelFallback?: boolean;
     zIndex?: number;
+    extraHeight?: boolean;
+    mobileFullScreen?: boolean;
+    noMinHeight?: boolean;
   }>(),
   {
     options: () => [],
+    groupedOptions: undefined,
     value: undefined,
     size: SelectSize.md,
     id: randomId(),
@@ -99,10 +118,12 @@ const props = withDefaults(
     showAddNewValue: false,
     showValueAsLabelFallback: false,
     zIndex: undefined,
+    extraHeight: false,
   }
 );
 const {
   options,
+  groupedOptions,
   value,
   size,
   showEmptyValue,
@@ -112,6 +133,8 @@ const {
 } = toRefs(props);
 
 const valueInternal = ref(value.value);
+const observer = ref();
+const selectOpen = ref();
 
 watch(value, (v) => (valueInternal.value = v));
 watch(valueInternal, (v) => {
@@ -120,6 +143,21 @@ watch(valueInternal, (v) => {
     emit('change', v);
   }
 });
+
+onMounted(() => {
+  const target = document.getElementById(props.id);
+  observer.value = new MutationObserver((mutationList) => {
+    const target = mutationList[0].target;
+    if (target instanceof HTMLElement) {
+      const open = !!target.dataset.headlessuiState;
+      selectOpen.value = open;
+      emit('open', open);
+    }
+  });
+  observer.value.observe(target, { attributes: true });
+});
+
+onUnmounted(() => observer.value.disconnect());
 
 // Compute internal options array. If showEmptyValue is set,
 // then a "no value" option is added to the front of the list
@@ -134,7 +172,31 @@ const optionsInternal = computed<SelectOption[]>(() => {
     data.push(emptyValueOption());
   }
 
-  return [...data, ...options.value];
+  const _options = groupedOptions.value
+    ? groupedOptions.value.flatMap((item) => item.options)
+    : options.value;
+
+  return [...data, ..._options];
+});
+
+const searchResultsGroupedOptions = computed(() => {
+  if (!groupedOptions.value) return undefined;
+
+  const _groupedOptions = [];
+
+  for (const group of groupedOptions.value) {
+    _groupedOptions.push({
+      name: group.name,
+      options: group.options.filter(
+        (item) =>
+          !!searchResults.value.find(
+            (searchItem) => searchItem.value === item.value
+          )
+      ),
+    });
+  }
+
+  return _groupedOptions;
 });
 
 // Compute selected label:

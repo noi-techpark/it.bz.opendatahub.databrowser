@@ -13,7 +13,12 @@ import {
 interface ComputeSingleRecordCategories {
   name: string;
   slug: string;
+  visible: boolean;
   subCategories: SubCategoryElement[];
+  subElements?: {
+    objectPath: string;
+    elements: ComputeSingleRecordCategories;
+  }[];
   isAnyPropertyRequired: boolean;
 }
 
@@ -44,8 +49,21 @@ export const computeSingleRecordCategories = (
 
     return {
       name,
+      visible: element.visible !== false,
       slug: element.slug,
       subCategories: element.subcategories,
+      subElements: element.subElements?.map((item) => {
+        return {
+          objectPath: item.objectPath,
+          elements: {
+            name: item.elements.name,
+            slug: item.elements.slug,
+            visible: item.elements.visible !== false,
+            subCategories: item.elements.subcategories,
+            isAnyPropertyRequired: hasAnyRequiredProperty(item.elements),
+          } as ComputeSingleRecordCategories,
+        };
+      }),
       isAnyPropertyRequired,
     };
   });

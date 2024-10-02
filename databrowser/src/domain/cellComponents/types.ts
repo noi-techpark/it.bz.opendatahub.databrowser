@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 export enum CellComponent {
+  AdditionalPropertiesCell = 'AdditionalPropertiesCell',
   ArrayCell = 'ArrayCell',
   ArrayEditableCell = 'ArrayEditableCell',
   ArrayLookupCell = 'ArrayLookupCell',
@@ -33,6 +34,7 @@ export enum CellComponent {
   MeasurementsCell = 'MeasurementsCell',
   OperationScheduleCell = 'OperationScheduleCell',
   PushDataCell = 'PushDataCell',
+  ReferenceCell = 'ReferenceCell',
   SelectWithOptionsCell = 'SelectWithOptionsCell',
   StateCell = 'StateCell',
   StringCell = 'StringCell',

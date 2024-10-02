@@ -17,8 +17,8 @@ export const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      component: () => import('./pages/HomePage.vue'),
+      path: '/about',
+      component: () => import('./pages/AboutPage.vue'),
     },
     {
       path: '/dataset/detail/:domain/:pathSegments+/:id',
@@ -50,7 +50,7 @@ export const router = createRouter({
       component: () => import('./pages/DatasetLinkPage.vue'),
     },
     {
-      path: '/dataset-overview',
+      path: '/',
       component: () => import('./pages/datasets/overview/OverviewListPage.vue'),
       name: 'OverviewListPage',
     },

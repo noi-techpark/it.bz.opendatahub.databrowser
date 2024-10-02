@@ -6,13 +6,31 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <div
-    class="flex items-center justify-between gap-2 rounded border border-gray-400 p-2 text-black focus-within:border-green-500"
+    class="flex h-9 items-center justify-between gap-2 rounded border border-gray-400 bg-white p-2 py-5 text-black focus-within:border-green-500 focus-within:bg-green-500/10 md:p-2"
   >
+    <slot v-if="showIcon" name="icon"></slot>
+    <ButtonCustom
+      v-if="showConfirmButton && showButtonOnLeft"
+      class="flex h-3 items-center gap-2 rounded p-2"
+      aria-label="Search"
+      :size="Size.xs"
+      :disabled="disabled"
+      :data-test="`${id}-start-search`"
+      variant="transparent"
+      @click="emitConfirmedValue"
+    >
+      <slot v-if="showIconInButton" name="icon"></slot>
+      <span
+        v-if="labelButton"
+        :class="{ 'hidden md:inline': !showButtonTextMobile }"
+        >{{ labelButton }}</span
+      >
+    </ButtonCustom>
     <input
       :id="id"
       ref="inputRef"
       v-model="text"
-      class="grow"
+      class="w-full grow border-none bg-transparent p-0 px-3 focus:ring-0"
       :placeholder="labelPlaceholder"
       :disabled="disabled"
       :data-test="`${id}-input`"
@@ -20,16 +38,16 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
     <div class="flex items-center gap-2">
       <button
-        v-if="hasText"
-        class="p-[3px] text-delete"
+        class="p-[3px] text-green-500 opacity-0"
+        :class="{ 'opacity-100': hasText }"
         :data-test="`${id}-reset-search`"
-        :disabled="disabled"
+        :disabled="!hasText || disabled"
         @click="deleteText"
       >
-        <IconDelete />
+        <IconClose class="size-4" />
       </button>
       <ButtonCustom
-        v-if="showConfirmButton"
+        v-if="showConfirmButton && !showButtonOnLeft"
         class="-m-1 flex items-center gap-2 rounded p-2 md:px-3 md:py-1"
         aria-label="Search"
         :size="Size.xs"
@@ -37,8 +55,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :data-test="`${id}-start-search`"
         @click="emitConfirmedValue"
       >
-        <slot name="icon"></slot>
-        <span class="hidden md:inline">{{ labelButton }}</span>
+        <slot v-if="showIconInButton" name="icon"></slot>
+        <span
+          v-if="labelButton"
+          :class="{ 'hidden md:inline': !showButtonTextMobile }"
+          >{{ labelButton }}</span
+        >
       </ButtonCustom>
     </div>
   </div>
@@ -48,8 +70,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { computed, onMounted, ref, useSlots, watch } from 'vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
 import { Size } from '../button/types';
-import IconDelete from '../svg/IconDelete.vue';
 import { randomId } from '../utils/random';
+import IconClose from '../svg/IconClose.vue';
 
 const emit = defineEmits(['confirmedValue', 'update:modelValue']);
 
@@ -61,6 +83,10 @@ const props = withDefaults(
     id?: string;
     labelButton?: string;
     labelPlaceholder?: string;
+    showButtonOnLeft?: boolean;
+    showIconInButton?: boolean;
+    showIcon?: boolean;
+    showButtonTextMobile?: boolean;
   }>(),
   {
     modelValue: undefined,
@@ -69,6 +95,8 @@ const props = withDefaults(
     id: randomId(),
     labelButton: undefined,
     labelPlaceholder: undefined,
+    showButtonOnLeft: false,
+    showIconInButton: true,
   }
 );
 

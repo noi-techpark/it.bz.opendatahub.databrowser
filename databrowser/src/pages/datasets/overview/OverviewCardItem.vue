@@ -5,37 +5,37 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <CardContainer>
-    <CardTitle tag-name="h2" class="text-green-400">
-      <routerLink
-        :to="datasetOverviewForId(dataset.id).value"
-        class="flex items-center gap-3 no-underline"
-        :data-test="`dataset-link-${dataset.id}`"
-      >
-        <DatasetTitle :dataset="dataset" />
-        <ArrowLine />
-      </routerLink>
-      <template #right>
-        <div class="flex gap-3 md:justify-self-end">
-          <TagCustom
-            class="capitalize"
-            size="xs"
-            type="black"
-            :text="dataset.dataSpace ?? t('overview.info.dataSpace.unknown')"
-          />
-          <OverviewTagAccess :dataset="dataset" />
+  <CardContainer no-padding>
+    <CardLinkContainer :to="tableLocation">
+      <CardTitle tag-name="h2" class="text-green-400">
+        <div class="flex items-center gap-3 no-underline">
+          <DatasetTitle :dataset="dataset" />
+          <ArrowLine />
         </div>
-      </template>
-    </CardTitle>
-    <CardText class="mb-4">
-      {{ dataset.description }}
-    </CardText>
-    <OverviewInfoSources :dataset="dataset" />
-    <CardDivider />
-    <CardActions>
-      <OverviewLinkTable :dataset="dataset" />
-      <OverviewLinkApi :dataset="dataset" />
-    </CardActions>
+        <template #right>
+          <div class="flex gap-3 md:justify-self-end">
+            <TagCustom
+              class="capitalize"
+              size="xs"
+              type="black"
+              :text="dataset.dataSpace ?? t('overview.info.dataSpace.unknown')"
+            />
+            <OverviewTagAccess :dataset="dataset" />
+          </div>
+        </template>
+      </CardTitle>
+      <CardText class="mb-4">
+        {{ dataset.description }}
+      </CardText>
+      <OverviewInfoSources :dataset="dataset" />
+      <CardDivider no-bottom />
+    </CardLinkContainer>
+    <div class="px-3 pb-5 lg:px-5">
+      <CardActions>
+        <OverviewLinkInfo :dataset="dataset" />
+        <OverviewLinkApi :dataset="dataset" />
+      </CardActions>
+    </div>
   </CardContainer>
 </template>
 
@@ -49,16 +49,21 @@ import CardTitle from '../../../components/card/CardTitle.vue';
 import ArrowLine from '../../../components/svg/ArrowLine.vue';
 import TagCustom from '../../../components/tag/TagCustom.vue';
 import DatasetTitle from '../../../domain/datasets/ui/common/DatasetTitle.vue';
-import { usePaths } from '../../../domain/datasets/ui/header/usePaths';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import OverviewInfoSources from './OverviewInfoSources.vue';
 import OverviewLinkApi from './OverviewLinkApi.vue';
-import OverviewLinkTable from './OverviewLinkTable.vue';
+import OverviewLinkInfo from './OverviewLinkInfo.vue';
 import OverviewTagAccess from './OverviewTagAccess.vue';
+import { getTableLocationFromDataset } from '../../../domain/datasets/utils';
+import { computed, toRefs } from 'vue';
+import CardLinkContainer from '../../../components/card/CardLinkContainer.vue';
 
-defineProps<{ dataset: TourismMetaData }>();
+const props = defineProps<{ dataset: TourismMetaData }>();
+const { dataset } = toRefs(props);
 
 const { t } = useI18n();
 
-const { datasetOverviewForId } = usePaths();
+const tableLocation = computed(() =>
+  getTableLocationFromDataset(dataset.value)
+);
 </script>

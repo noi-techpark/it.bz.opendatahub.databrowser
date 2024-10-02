@@ -15,6 +15,13 @@ export interface DeprecationInfo {
   deprecations: Deprecation[];
 }
 
+export interface ReferenceInfo {
+  from?: string;
+  origin: string;
+  url: string;
+  referenceDetailViewUrls: { url: string; reference?: string }[];
+}
+
 export interface BasePropertyConfig {
   title: string;
   component: string;
@@ -23,6 +30,7 @@ export interface BasePropertyConfig {
   tooltip?: string;
   required?: boolean;
   deprecationInfo?: DeprecationInfo[];
+  referenceInfo?: ReferenceInfo;
   nullable?: boolean;
 }
 
@@ -78,6 +86,11 @@ export interface FilterConfig {
   params?: Record<string, unknown>;
 }
 
+export interface SubElement {
+  objectPath: string;
+  elements: DetailElements | EditElements;
+}
+
 export type ListElements = PropertyConfig;
 
 export interface SubCategoryElement {
@@ -88,13 +101,17 @@ export interface SubCategoryElement {
 export interface DetailElements {
   name: string;
   slug: string;
+  visible?: boolean;
   subcategories: SubCategoryElement[];
+  subElements?: SubElement[];
 }
 
 export interface EditElements {
   name: string;
   slug: string;
   subcategories: SubCategoryElement[];
+  visible?: boolean;
+  subElements?: SubElement[];
 }
 
 export type PathSegments = string[];

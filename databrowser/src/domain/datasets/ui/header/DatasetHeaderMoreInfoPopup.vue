@@ -8,11 +8,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <PopoverCustom>
     <template #trigger>
       <PopoverCustomButton
-        class="mr-1 flex h-6 items-center justify-center px-3"
+        class="mr-2 flex size-9 items-center justify-center border"
         :class="buttonClasses"
       >
-        <IconInfo class="mr-2 stroke-current" />
-        <span class="line-height-1">{{ t('datasets.header.moreInfo') }}</span>
+        <IconInfo class="stroke-current text-dialog" />
       </PopoverCustomButton>
     </template>
     <template #container>

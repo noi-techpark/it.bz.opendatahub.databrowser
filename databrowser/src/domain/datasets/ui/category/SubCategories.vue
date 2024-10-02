@@ -24,6 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :tooltip="property.tooltip"
           :required="property.required"
           :deprecation-info="property.deprecationInfo"
+          :reference-info="getReferenceInfo(property, property.referenceInfo)"
           :errors="property.errors"
           :has-empty-value="property.empty"
           :data-test="`subcategory-item-${titleToDataTest(property.title)}`"
@@ -48,15 +49,21 @@ import ComponentRenderer from '../../../../components/componentRenderer/Componen
 import ContentDivider from '../../../../components/content/ContentDivider.vue';
 import SubCategoryItem from './SubCategoryItem.vue';
 import { Category, SubCategory } from './types';
+import { PropertyConfigWithValue } from './types';
 import { usePropertyComputation } from './usePropertyComputation';
+import { ReferenceInfo } from '../../config/types';
+import { useRoute } from 'vue-router';
+import { useToolBoxStore } from '../toolBox/toolBoxStore';
+
+const route = useRoute();
+
+const toolboxStore = useToolBoxStore();
 
 const props = defineProps<{
   data: unknown;
   subCategories: SubCategory[];
   category?: Category;
-  showAll?: boolean;
   editable?: boolean;
-  showDeprecated?: boolean;
 }>();
 
 const { computeProperties } = usePropertyComputation();
@@ -67,9 +74,10 @@ const subCategoriesWithValues = computed(() =>
     properties: computeProperties(
       props.data,
       subCategory.properties,
-      props.showAll ?? false,
+      toolboxStore.settings.showAll,
       props.editable ?? false,
-      props.showDeprecated ?? false
+      toolboxStore.settings.showDeprecated,
+      toolboxStore.settings.showReferences
     ),
   }))
 );
@@ -78,5 +86,40 @@ const toKey = (str: string | undefined, index: number) => `${str}_${index}`;
 
 const titleToDataTest = (title: string) => {
   return title.toLowerCase().replaceAll(' ', '-');
+};
+
+const getReferenceInfo = (
+  property: PropertyConfigWithValue,
+  referenceInfo?: ReferenceInfo
+) => {
+  if (!referenceInfo) return;
+
+  const basePath = `${window.location.origin}/dataset/detail/${route.params.domain}/${route.params.pathSegments[0]}/${referenceInfo.origin}`;
+
+  if (property.arrayMapping && Object.keys(property.arrayMapping).length > 0) {
+    const propertyData = property.value[
+      property.arrayMapping.targetPropertyName
+    ] as Array<any>;
+    return propertyData && propertyData.length
+      ? {
+          ...referenceInfo,
+          referenceDetailViewUrls: [
+            ...propertyData.map((item) => ({
+              url: `${basePath}/${item}`,
+              reference: item,
+            })),
+          ],
+        }
+      : referenceInfo;
+  }
+
+  const propertyValue = Object.values(property.value)?.[0];
+
+  return propertyValue
+    ? {
+        ...referenceInfo,
+        referenceDetailViewUrls: [{ url: `${basePath}/${propertyValue}` }],
+      }
+    : referenceInfo;
 };
 </script>

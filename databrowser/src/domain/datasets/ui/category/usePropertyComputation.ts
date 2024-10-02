@@ -5,12 +5,7 @@
 import { CellComponent } from '../../../cellComponents/types';
 import { buildTargetFromMapping } from '../../config/mapping/utils';
 import { PropertyConfig } from '../../config/types';
-import { PropertyConfigWithErrors } from './types';
-
-type PropertyConfigWithValue = PropertyConfigWithErrors & {
-  value: Record<string, unknown>;
-  empty?: boolean;
-};
+import { PropertyConfigWithValue } from './types';
 
 export const usePropertyComputation = () => {
   const computeProperties = (
@@ -18,11 +13,16 @@ export const usePropertyComputation = () => {
     properties: PropertyConfig[],
     showAllProperties: boolean,
     editable: boolean,
-    showDeprecatedProperties: boolean
+    showDeprecatedProperties: boolean,
+    showReferences: boolean
   ): PropertyConfigWithValue[] => {
     // Add data to properties such that it can be used in the render component
     const propertiesWithValue: PropertyConfigWithValue[] = properties
       .filter((property) => {
+        if (!showReferences && property.referenceInfo) {
+          return false;
+        }
+
         if (showDeprecatedProperties) {
           return true;
         }

@@ -8,7 +8,20 @@ import { Category } from '../../category/types';
 export const computeSingleRecordCurrentCategory = (
   categories: Category[],
   slug: string
-) => categories.find((category) => slug === category.slug);
+) => {
+  const foundMainCategory = categories.find(
+    (category) => slug === category.slug
+  );
+
+  if (foundMainCategory) return foundMainCategory;
+
+  const categoriesSubElements = categories
+    .filter((item) => item.subElements)
+    .flatMap((item) => item.subElements);
+
+  return categoriesSubElements.find((item) => item?.elements?.slug === slug)
+    ?.elements;
+};
 
 export const useComputeSingleRecordCurrentCategory = (
   categories: MaybeRef<Category[]>,

@@ -5,14 +5,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="relative z-30 flex items-center">
+  <div class="z-9 relative flex items-center">
     <ButtonLink
       v-for="link in links"
       :key="link.value"
       :to="link.to"
       size="xs"
       variant="ghost"
-      class="mx-1 hidden h-6 w-9 text-center uppercase md:flex md:items-center md:justify-center"
+      class="mx-1 hidden size-9 text-center text-base uppercase md:flex md:items-center md:justify-center"
       :class="[
         link.value === selected ? 'border-green-500 bg-green-500/10' : '',
       ]"
@@ -23,11 +23,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <SelectCustom
       id="mobile-language-picker"
-      class="h-6 w-16 md:hidden"
+      class="h-9 w-16 md:hidden"
       :options="links"
       :value="selected"
       :size="SelectSize.sm"
       :show-search-when-at-least-count-options="Infinity"
+      extra-height
       @change="selected = $event"
     />
   </div>

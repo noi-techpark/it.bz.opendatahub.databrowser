@@ -115,6 +115,7 @@ export const useUpdate = (
         updates,
         objectMapping.value
       );
+
       editStore.updateProperties(objectValueUpdates);
     }
 

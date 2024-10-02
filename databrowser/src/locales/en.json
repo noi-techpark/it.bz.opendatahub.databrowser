@@ -16,6 +16,7 @@
     "presentedBy": "presented by",
     "menu": {
       "datasets": "Datasets",
+      "about": "About",
       "howTo": "How To",
       "contact": "Contact"
     },
@@ -79,8 +80,13 @@
       }
     },
     "detailView": {
+      "showReferencedFields": "Load referenced attributes",
+      "showReferencedFieldsDesc": "Show attributes which are referenced from other datasets",
       "showEmptyFields": "Show empty fields",
-      "showDeprecatedFields": "Show deprecated fields"
+      "showEmptyFieldsDesc": "Show fields without a value",
+      "showDeprecatedFields": "Show deprecated fields",
+      "showDeprecatedFieldsDesc": "Deprecated attributes are not available in the long run and will be removed from the database.",
+      "thisIsAReferenceOfDataset": "This field is a reference of the dataset: {url}"
     },
     "editView": {
       "authorizationChecking": "Please wait for authorization check",
@@ -171,7 +177,9 @@
       "selectColumnSize": "Select size of columns",
       "switchViews": "Switch between views",
       "viewEmbeddedConfig": "Embedded view config",
-      "viewGeneratedConfig": "Generated view config"
+      "viewGeneratedConfig": "Generated view config",
+      "tableSettings": "Table settings",
+      "showDeprecatedFields": "Show deprecated fields"
     },
     "info": {
       "loadingConfig": "Loading config"
@@ -201,7 +209,7 @@
           },
           "otherFilters": {
             "addNewFilter": "Add a new filter",
-            "header": "All other filters",
+            "header": "All filters",
             "infoPopup": {
               "header": "Information on how to set filters",
               "body": "Access our wiki to get all information on how to work with our filters.",
@@ -212,7 +220,7 @@
             "filterInputButton": "Filter",
             "resetAllFilters": "Reset all filters"
           },
-          "panelName": "Search and filter"
+          "panelName": "Filter"
         }
       },
       "viewLinks": {
@@ -249,10 +257,16 @@
       "downloadCSV": "Download dataset as CSV"
     },
     "toolBox": {
+      "settings": {
+        "defineViewPreferences": "Define preferences for your view."
+      },
       "exportDatasets": {
         "apiDatasets": {
           "header": "API datasets",
           "iconAlt": "Copy the URL for the currently displayed data"
+        },
+        "references": {
+          "iconAlt": "Shoe/hide the URL for the currently referenced data"
         },
         "documentation": {
           "header": "documentation",
@@ -264,10 +278,19 @@
           "body": "dataset.json",
           "iconAlt": "Download the currently displayed data"
         },
+        "settings": "Settings",
         "panelName": "Export datasets",
         "sectionFurtherDetails": "Further details",
-        "sectionRetrieveData": "Retrieve data for this record"
-      }
+        "sectionRetrieveData": "Retrieve data for this record",
+        "sectionReferencesData": "API-Calls used to load additional/referenced values"
+      },
+      "button": {
+        "openFilterAndExportPossibilities": "Open Filter & Export possibilities",
+        "closeFilterAndExportPossibilities": "Close Filter & Export possibilities",
+        "openToolBox": "Open ToolBox",
+        "closeToolBox": "Close ToolBox"
+      },
+      "sectionRetrieveData": "Retrieve data for this record"
     }
   },
   "components": {
@@ -318,6 +341,15 @@
         "timeTimecode": "Timecode"
       }
     },
+    "additionalProperties": {
+      "addAdditionalProperty": "Add additional property",
+      "noAdditionalProperty": "No additional property have been defined yet",
+      "table": {
+        "additionalProperty": "Additional property",
+        "link": "Link",
+        "settings": "Settings"
+      }
+    },
     "pushData": {
       "lastPushInfo": {
         "title": "Information on last push.",
@@ -342,6 +374,20 @@
         "successTitle": "Push notification sent to {name}!"
       },
       "sendPushNotifications": "Send Push"
+    },
+    "dialogs": {
+      "goToReferenceAttribute": {
+        "buttonConfirm": "Ok",
+        "buttonCancel": "Cancel",
+        "title": "You’re about to leave this dataset.",
+        "description": "You will now switch to the original dataset of the referenced attribute"
+      },
+      "confirmChangeAdditionalProperty": {
+        "buttonConfirm": "Yes (and delete existing data)",
+        "buttonCancel": "Cancel",
+        "title": "Update property.",
+        "description": "When changing the type of this property, all data linked to it be lost. Do you want to continue?"
+      }
     }
   },
   "overview": {
@@ -355,6 +401,7 @@
     },
     "cardItem": {
       "accessTableView": "Access to table view",
+      "accessTableInfo": "More info on dataset",
       "showDatasetApi": "Show dataset API"
     },
     "cardSuggestion": {
@@ -401,6 +448,11 @@
       }
     },
     "listPage": {
+      "heroCloseText": "If you close it, this information text will no longer be displayed.",
+      "heroTitle": "This is the Data Browser of the Open Data Hub.",
+      "heroSubtitle": "Explore and navigate through Open Data you need to build your next service.",
+      "heroMoreInfo": "More info",
+
       "accessOfData": "Access of data",
       "accessTypeAll": "All access types",
       "accessTypeLimited": "Limited access",
