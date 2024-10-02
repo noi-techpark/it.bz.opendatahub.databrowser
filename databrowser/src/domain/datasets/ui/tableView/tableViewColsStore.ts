@@ -7,12 +7,10 @@ import { Column } from './types';
 
 interface State {
   cols: Column[];
-  showDeprecated: boolean;
 }
 
 const initialState = (): State => ({
   cols: [],
-  showDeprecated: false,
 });
 
 export const useTableViewColsStore = defineStore('tableViewColsStore', {

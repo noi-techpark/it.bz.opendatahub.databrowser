@@ -11,13 +11,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       hasDescription ? t('datasets.detailView.showEmptyFieldsDesc') : ''
     "
     active-color-class="red-500"
-    :active="!!showAll"
+    :active="!!toolBoxStore.settings.showAll"
     :custom-text-classes="customTextClasses"
     :use-container-classes="useContainerClasses"
   >
     <template #toggle>
       <ToggleCustom
-        v-model="showAll"
+        v-model="toolBoxStore.settings.showAll"
         :disabled="disabled"
         active-bg-class="bg-red-400"
         active-border-class="border-red-400"
@@ -29,7 +29,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ToggleCustom from '../../../../../components/toggle/ToggleCustom.vue';
 import { useToolBoxStore } from '../../toolBox/toolBoxStore';
@@ -40,34 +39,18 @@ const toolBoxStore = useToolBoxStore();
 
 const { t } = useI18n();
 
-const emit = defineEmits(['update:modelValue']);
-
-const props = withDefaults(
+withDefaults(
   defineProps<{
-    modelValue?: boolean;
     disabled?: boolean;
     hasDescription?: boolean;
     useContainerClasses?: boolean;
     customTextClasses?: string;
   }>(),
   {
-    modelValue: undefined,
     disabled: false,
     hasDescription: false,
     useContainerClasses: true,
     customTextClasses: '',
   }
 );
-
-const showAll = computed({
-  get: () => props.modelValue,
-  set: (value) => {
-    toolBoxStore.toggleShowAll(!!value);
-    emit('update:modelValue', value);
-  },
-});
-
-onMounted(() => {
-  toolBoxStore.toggleShowAll(!!props.modelValue);
-});
 </script>

@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       'fixed z-50 bg-dialog/60 md:static md:bg-transparent': active,
     }"
     @click="$emit('overlayClick')"
-  />
+  ></div>
 
   <div
     :class="{

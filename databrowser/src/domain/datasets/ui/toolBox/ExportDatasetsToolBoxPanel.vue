@@ -49,6 +49,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     >
       <ToolBoxCardHeader :uppercase="false">
         <span
+          class="truncate"
           :class="{
             'text-hint-info':
               referencesUrlsAccordions[getReferenceKey(referenceUrl)],

@@ -8,6 +8,7 @@ import { ObjectMapping } from '../../../config/types';
 import { ViewConfigWithType, isTableViewConfig } from '../../../view/types';
 import { Column } from '../types';
 import { useTableViewColsStore } from '../tableViewColsStore';
+import { useToolBoxStore } from '../../toolBox/toolBoxStore';
 
 const firstPropertyName = (objectMapping?: ObjectMapping) => {
   const values = Object.values(objectMapping ?? {});
@@ -46,7 +47,7 @@ export const useTableCols = (
     const cols = computeTableCols(
       toValue(isLoading),
       toValue(view),
-      useTableViewColsStore().showDeprecated
+      useToolBoxStore().settings.showDeprecated
     );
     useTableViewColsStore().cols = cols;
     return cols;

@@ -47,6 +47,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
 
     <DatasetHeaderSearch
+      v-if="isTableView"
       :open="inputSearchOpen"
       class="flex md:hidden"
       @open="handleInputSearchOpen"
@@ -58,7 +59,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       @overlay-click="handleInputSearchOpen(false)"
     >
       <InputSearch
-        v-if="isOnTableView"
+        v-if="isTableView"
         id="search-dataset"
         :class="[inputSearchOpen ? 'flex' : 'hidden md:flex']"
         :model-value="searchfilter"
@@ -123,7 +124,7 @@ import { TourismMetaData } from '../../../metaDataConfig/tourism/types';
 import { useDatasetViewStore } from '../../view/store/datasetViewStore';
 import { useSessionStorage } from '@vueuse/core';
 
-const { view } = storeToRefs(useDatasetViewStore());
+const { view, isTableView } = storeToRefs(useDatasetViewStore());
 
 const { t } = useI18n();
 
@@ -187,10 +188,6 @@ const selectOptions = computed<GroupSelectOption[]>(() => {
   }
 
   return _options;
-});
-
-const isOnTableView = computed<boolean>(() => {
-  return route.fullPath.startsWith('/dataset/table/');
 });
 
 const handleInputSearchOpen = (state: boolean) => {

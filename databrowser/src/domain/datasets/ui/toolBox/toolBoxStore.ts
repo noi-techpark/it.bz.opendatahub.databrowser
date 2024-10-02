@@ -39,18 +39,6 @@ export const useToolBoxStore = defineStore('toolBoxStore', {
       this.visible = isVisible;
       toolboxVisibilityStorage.value = isVisible;
     },
-
-    toggleShowAll(showAll: boolean) {
-      this.settings.showAll = showAll;
-    },
-
-    toggleShowDeprecated(showDeprecated: boolean) {
-      this.settings.showDeprecated = showDeprecated;
-    },
-
-    toggleShowReferences(showReferences: boolean) {
-      this.settings.showReferences = showReferences;
-    },
   },
 });
 

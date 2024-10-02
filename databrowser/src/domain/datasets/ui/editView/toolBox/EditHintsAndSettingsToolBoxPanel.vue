@@ -11,7 +11,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     }}</ToolBoxSectionLabel>
     <ToolBoxCard>
       <ShowDeprecatedFields
-        v-model="showDeprecated"
         custom-text-classes="font-semibold"
         has-description
       />
@@ -28,8 +27,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-
 import { useI18n } from 'vue-i18n';
 import ToolBoxCard from '../../toolBox/ToolBoxCard.vue';
 import ToolBoxCardBody from '../../toolBox/ToolBoxCardBody.vue';
@@ -39,6 +36,4 @@ import ToolBoxSectionLabel from '../../toolBox/ToolBoxSectionLabel.vue';
 import ShowDeprecatedFields from '../../common/showDeprecatedFields/ShowDeprecatedFields.vue';
 
 const { t } = useI18n();
-
-const showDeprecated = ref(false);
 </script>

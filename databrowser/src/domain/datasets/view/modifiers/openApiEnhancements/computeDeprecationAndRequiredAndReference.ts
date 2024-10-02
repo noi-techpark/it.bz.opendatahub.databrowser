@@ -120,7 +120,9 @@ const getReferenceInfo = (
   return {
     referenceInfo: {
       from:
-        property?.objectMapping?.value || property?.arrayMapping?.pathToParent,
+        property.objectMapping?.value ||
+        property.arrayMapping?.pathToParent ||
+        property.objectMapping?.items,
       origin: propertyParams.url.match(/\/v\d+\/([^/?]+)/)?.[1] || '', // Example: https://api.tourism.testingmachine.eu/v1/Municipality?removenullvalues=falseThis regex is designed to extract the resource name (in this case, "Municipality") that appears after the version number (e.g., /v1/) in a URL, while ignoring any query parameters or additional paths.
       url: propertyParams.url,
       referenceDetailViewUrls: [],
