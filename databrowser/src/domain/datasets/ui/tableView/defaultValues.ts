@@ -4,10 +4,12 @@
 
 import { defaultLanguage } from '../../language';
 
+export const minPageSize = 25;
+
 export const pageSizeOptions: { value: string; label: string }[] = [
   {
     value: '25',
-    label: '25',
+    label: minPageSize.toString(),
   },
   {
     value: '50',
