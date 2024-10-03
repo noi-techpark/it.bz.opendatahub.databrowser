@@ -37,7 +37,7 @@ export const licenseInfoCategory = (): DetailElements => ({
         },
         {
           title: 'Closed Data',
-          component: CellComponent.ToggleCell,
+          component: CellComponent.ToggleTriStateCell,
           objectMapping: { enabled: 'LicenseInfo.ClosedData' },
         },
       ],

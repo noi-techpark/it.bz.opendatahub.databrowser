@@ -186,52 +186,52 @@ export const odhActivityPoiSharedView = ():
           properties: [
             {
               title: 'Highlight',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'Highlight' },
             },
             {
               title: 'Open',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'IsOpen' },
             },
             {
               title: 'Free entrance',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'HasFreeEntrance' },
             },
             {
               title: 'Prepared',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'IsPrepared' },
             },
             {
               title: 'With Light',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'IsWithLigth' },
             },
             {
               title: 'Has Rental',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'HasRentals' },
             },
             {
               title: 'Run to Valley',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'RunToValley' },
             },
             {
               title: 'Lift Available',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'LiftAvailable' },
             },
             {
               title: 'Feet Climb',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'FeetClimb' },
             },
             {
               title: 'Bike Transport',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'BikeTransport' },
             },
           ],
@@ -363,7 +363,7 @@ export const odhActivityPoiSharedView = ():
             },
             {
               title: 'Copyright Checked',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'CopyrightChecked' },
               class: 'break-all',
             },
@@ -404,7 +404,7 @@ export const odhActivityPoiSharedView = ():
             },
             {
               title: 'Active on Open Data Hub',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'SmgActive' },
             },
           ],
