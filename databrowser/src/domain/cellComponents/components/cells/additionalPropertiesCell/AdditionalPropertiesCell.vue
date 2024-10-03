@@ -68,7 +68,7 @@ const onUpdateAdditionalProperty = (updateItem: {
     (item) => item.value.split('AdditionalProperties.')[1]
   );
 
-  const newPropertiesObject = {} as Record<string, Record<any, any>>;
+  const newPropertiesObject = {} as Record<string, Record<string, unknown>>;
 
   for (const newProperty of newProperties) {
     newPropertiesObject[newProperty] = {};

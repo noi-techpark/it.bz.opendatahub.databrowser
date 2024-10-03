@@ -61,7 +61,7 @@ export const computeSingleRecordCategories = (
             visible: item.elements.visible !== false,
             subCategories: item.elements.subcategories,
             isAnyPropertyRequired: hasAnyRequiredProperty(item.elements),
-          } as ComputeSingleRecordCategories,
+          },
         };
       }),
       isAnyPropertyRequired,

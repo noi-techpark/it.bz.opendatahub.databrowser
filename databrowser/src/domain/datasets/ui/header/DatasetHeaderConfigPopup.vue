@@ -29,7 +29,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <PopoverContentDivider />
 
       <ShowDeprecatedFields
-        v-model="tableViewColsStore.showDeprecated"
         custom-wrapper-classes="flex justify-between cursor-pointer p-4 hover:bg-gray-50"
         custom-text-classes="!text-base"
         :use-container-classes="false"
@@ -49,11 +48,8 @@ import ThreeDotsPopup from '../../../../components/popover/ThreeDotsPopover.vue'
 import ShowDeprecatedFields from '../common/showDeprecatedFields/ShowDeprecatedFields.vue';
 import RadioCustom from '../../../../components/radio/RadioCustom.vue';
 import { DatasetConfigSource } from '../../config/types';
-import { useTableViewColsStore } from '../tableView/tableViewColsStore';
 
 const { t } = useI18n();
-
-const tableViewColsStore = useTableViewColsStore();
 
 const props = defineProps<{ picked: DatasetConfigSource }>();
 const { picked } = toRefs(props);

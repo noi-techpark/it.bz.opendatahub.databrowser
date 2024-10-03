@@ -45,7 +45,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :sub-categories="enhancedSubcategories"
             :current-category="currentCategory"
             :slug="slug"
-            :show-all="true"
             :show-edit-hint="true"
             :editable="true"
           />
@@ -90,7 +89,7 @@ import { useEditStore } from './store/editStore';
 import EditToolBox from './toolBox/EditToolBox.vue';
 import { useApplyError } from './useApplyError';
 import { useEditStoreSync } from './useEditStoreSync';
-
+import { useToolBoxStore } from '../toolBox/toolBoxStore';
 import GoToReferenceAttributeDialog from '../common/dialogs/goToReferenceAttributeDialog/GoToReferenceAttributeDialog.vue';
 
 const { t } = useI18n();
@@ -100,6 +99,8 @@ const auth = useAuth();
 const { editRecordSupported } = storeToRefs(useDatasetPermissionStore());
 
 const editStore = useEditStore();
+
+const toolBoxStore = useToolBoxStore();
 
 useEventSaveChanges.on((value: boolean) => {
   if (value) {
@@ -191,6 +192,8 @@ watch(
   },
   { immediate: true }
 );
+
+toolBoxStore.settings.showReferences = true;
 
 // Listen for window close / reload event and let the user know
 // if there are unsaved changes

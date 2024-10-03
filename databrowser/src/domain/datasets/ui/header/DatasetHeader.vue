@@ -47,6 +47,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
 
     <DatasetHeaderSearch
+      v-if="isTableView"
       :open="inputSearchOpen"
       class="flex md:hidden"
       @open="handleInputSearchOpen"
@@ -58,7 +59,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       @overlay-click="handleInputSearchOpen(false)"
     >
       <InputSearch
-        v-if="isOnTableView"
+        v-if="isTableView"
         id="search-dataset"
         :class="[inputSearchOpen ? 'flex' : 'hidden md:flex']"
         :model-value="searchfilter"
@@ -122,8 +123,10 @@ import { computeTableLocation } from '../../location/datasetViewLocation';
 import { TourismMetaData } from '../../../metaDataConfig/tourism/types';
 import { useDatasetViewStore } from '../../view/store/datasetViewStore';
 import { useSessionStorage } from '@vueuse/core';
+import { computeRouteDomain } from '../../location/routeDomain';
+import { computeRoutePath } from '../../location/routePath';
 
-const { view } = storeToRefs(useDatasetViewStore());
+const { view, isTableView } = storeToRefs(useDatasetViewStore());
 
 const { t } = useI18n();
 
@@ -145,13 +148,21 @@ const allDatasets = computed(() => {
 });
 
 const relatedDatasetsValues = computed(() => {
-  const _view = view.value as any;
+  const _view = view.value;
 
-  if (!_view?.elements) return [];
+  if (!_view || !('elements' in _view)) return [];
 
-  return _view.elements
-    ?.map((item: any) => item?.params?.referenceBasePath)
-    ?.filter((item: any) => item);
+  const _relatedDatasetsValues = [];
+
+  for (const item of _view.elements) {
+    if (!('params' in item) || !item.params?.referenceBasePath) {
+      continue;
+    }
+
+    _relatedDatasetsValues.push(item.params.referenceBasePath);
+  }
+
+  return _relatedDatasetsValues;
 });
 
 const allDatasetsOptions = computed<GroupSelectOption>(() => {
@@ -167,8 +178,9 @@ const allDatasetsOptions = computed<GroupSelectOption>(() => {
 const relatedDatasetsOptions = computed<GroupSelectOption | undefined>(() => {
   if (!relatedDatasetsValues.value?.length) return undefined;
 
-  const _options = allDatasetsOptions.value.options.filter((item) =>
-    relatedDatasetsValues.value.includes(item.value)
+  const _options = allDatasetsOptions.value.options.filter(
+    (item) =>
+      item.value && relatedDatasetsValues.value.includes(item.value.toString())
   );
 
   if (!_options.length) return undefined;
@@ -187,10 +199,6 @@ const selectOptions = computed<GroupSelectOption[]>(() => {
   }
 
   return _options;
-});
-
-const isOnTableView = computed<boolean>(() => {
-  return route.fullPath.startsWith('/dataset/table/');
 });
 
 const handleInputSearchOpen = (state: boolean) => {
@@ -303,13 +311,17 @@ watch(
   (_options) => {
     const allDatasets = _options.at(-1);
 
-    if (!allDatasets) return;
+    const routeDomain = computeRouteDomain(route);
+    const routePath = computeRoutePath(route);
+
+    if (!allDatasets || !routeDomain) return;
 
     const currentRouteAsSelectValue = getSelectValue(
-      route.params.domain as string,
-      route.params.pathSegments as string[],
+      routeDomain,
+      routePath,
       route.query
     );
+
     const dataset = getClosestMatch(
       currentRouteAsSelectValue,
       allDatasets.options.map((item) => item.value?.toString() || '')
