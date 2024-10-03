@@ -65,7 +65,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script lang="ts" setup>
 import { useEventListener } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import AlertError from '../../../../components/alert/AlertError.vue';
@@ -89,7 +89,7 @@ import { useEditStore } from './store/editStore';
 import EditToolBox from './toolBox/EditToolBox.vue';
 import { useApplyError } from './useApplyError';
 import { useEditStoreSync } from './useEditStoreSync';
-
+import { useToolBoxStore } from '../toolBox/toolBoxStore';
 import GoToReferenceAttributeDialog from '../common/dialogs/goToReferenceAttributeDialog/GoToReferenceAttributeDialog.vue';
 
 const { t } = useI18n();
@@ -99,6 +99,8 @@ const auth = useAuth();
 const { editRecordSupported } = storeToRefs(useDatasetPermissionStore());
 
 const editStore = useEditStore();
+
+const toolBoxStore = useToolBoxStore();
 
 useEventSaveChanges.on((value: boolean) => {
   if (value) {
@@ -198,5 +200,9 @@ useEventListener(window, 'beforeunload', (evt) => {
     evt.returnValue = 'Do you really want to close?';
     return evt.returnValue;
   }
+});
+
+onMounted(() => {
+  toolBoxStore.settings.showReferences = true;
 });
 </script>
