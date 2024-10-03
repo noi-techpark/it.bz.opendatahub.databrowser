@@ -253,7 +253,7 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             {
               title: 'Active on Open Data Hub',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'SmgActive' },
             },
           ],

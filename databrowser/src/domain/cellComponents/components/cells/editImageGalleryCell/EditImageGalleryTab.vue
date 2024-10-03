@@ -78,7 +78,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             />
           </SubCategoryItem>
           <SubCategoryItem title="Is in gallery">
-            <ToggleCell
+            <ToggleTriStateCell
               :enabled="booleanOrStringToBoolean(item.isInGallery)"
               :editable="editable"
               @input="updateItem(index, { source: $event.value })"
@@ -189,7 +189,7 @@ import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
-import ToggleCell from '../toggleCell/ToggleCell.vue';
+import ToggleTriStateCell from '../toggleCell/ToggleTriStateCell.vue';
 import { ImageGalleryEntry } from './types';
 import { shouldResize } from './utils';
 import { booleanOrStringToBoolean } from '../../../../utils/convertType';

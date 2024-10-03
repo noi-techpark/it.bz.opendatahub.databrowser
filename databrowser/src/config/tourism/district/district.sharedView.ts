@@ -55,12 +55,12 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
               properties: [
                 {
                   title: 'Is comune',
-                  component: CellComponent.ToggleCell,
+                  component: CellComponent.ToggleTriStateCell,
                   objectMapping: { enabled: 'IsComune' },
                 },
                 {
                   title: 'Visible in Search',
-                  component: CellComponent.ToggleCell,
+                  component: CellComponent.ToggleTriStateCell,
                   objectMapping: { enabled: 'VisibleInSearch' },
                 },
               ],

@@ -55,7 +55,7 @@ export const echargingdataCategory = (
         },
         {
           title: 'Public accessible',
-          component: CellComponent.ToggleCell,
+          component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.ChargingStationAccessible',
@@ -120,14 +120,14 @@ export const echargingdataCategory = (
         },
         {
           title: 'Has Roof',
-          component: CellComponent.ToggleCell,
+          component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled: 'AdditionalProperties.EchargingDataProperties.HasRoof',
           },
         },
         {
           title: 'Vertical Identification',
-          component: CellComponent.ToggleCell,
+          component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.VerticalIdentification',
@@ -135,7 +135,7 @@ export const echargingdataCategory = (
         },
         {
           title: 'Horizontal identification',
-          component: CellComponent.ToggleCell,
+          component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.HorizontalIdentification',
@@ -164,7 +164,7 @@ export const echargingdataCategory = (
         },
         {
           title: 'Steepless sidewalk connection',
-          component: CellComponent.ToggleCell,
+          component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.SteplessSidewalkConnection',
@@ -192,7 +192,7 @@ export const echargingdataCategory = (
       properties: [
         {
           title: 'Flat',
-          component: CellComponent.ToggleCell,
+          component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.Flat',
@@ -248,7 +248,7 @@ export const echargingdataCategory = (
         },
         {
           title: 'HatchingMarked',
-          component: CellComponent.ToggleCell,
+          component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.HatchingMarked',
@@ -261,7 +261,7 @@ export const echargingdataCategory = (
       properties: [
         {
           title: 'Flat',
-          component: CellComponent.ToggleCell,
+          component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.Flat',
@@ -316,7 +316,7 @@ export const echargingdataCategory = (
         },
         {
           title: 'HatchingMarked',
-          component: CellComponent.ToggleCell,
+          component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.HatchingMarked',

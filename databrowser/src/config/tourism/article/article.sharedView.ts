@@ -92,7 +92,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             {
               title: 'Highlight',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'Highlight' },
             },
             {

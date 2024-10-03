@@ -53,12 +53,12 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'External organizer',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'ExternalOrganizer' },
             },
             {
               title: 'Sold out',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'SoldOut' },
             },
           ],
@@ -74,7 +74,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             publishedOnCell(),
             {
               title: 'Active on Source',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'Active' },
             },
           ],
@@ -221,19 +221,19 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             {
               title: 'Active',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'ActiveToday' },
               params: { readonly: 'true' },
             },
             {
               title: 'noi.bz.it Active',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'ActiveWeb' },
               params: { readonly: 'true' },
             },
             {
               title: 'NOI Community App Active',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'ActiveCommunityApp' },
               params: { readonly: 'true' },
             },

@@ -69,7 +69,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             />
           </SubCategoryItem>
           <SubCategoryItem title="Active">
-            <ToggleCell
+            <ToggleTriStateCell
               :enabled="booleanOrStringToBoolean(item.active)"
               :editable="editable"
               @input="updateItem(index, { active: $event.value })"
@@ -193,7 +193,7 @@ import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import StringCell from '../stringCell/StringCell.vue';
-import ToggleCell from '../toggleCell/ToggleCell.vue';
+import ToggleTriStateCell from '../toggleCell/ToggleTriStateCell.vue';
 import { VideoItemsEntry } from './types';
 
 const props = defineProps<{ items: VideoItemsEntry[] }>();
