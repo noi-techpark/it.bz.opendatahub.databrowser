@@ -65,7 +65,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script lang="ts" setup>
 import { useEventListener } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { onMounted, watch } from 'vue';
+import { watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import AlertError from '../../../../components/alert/AlertError.vue';
@@ -193,6 +193,8 @@ watch(
   { immediate: true }
 );
 
+toolBoxStore.settings.showReferences = true;
+
 // Listen for window close / reload event and let the user know
 // if there are unsaved changes
 useEventListener(window, 'beforeunload', (evt) => {
@@ -200,9 +202,5 @@ useEventListener(window, 'beforeunload', (evt) => {
     evt.returnValue = 'Do you really want to close?';
     return evt.returnValue;
   }
-});
-
-onMounted(() => {
-  toolBoxStore.settings.showReferences = true;
 });
 </script>
