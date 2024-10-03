@@ -18,6 +18,8 @@ import {
   sourceSubCategoryWithDistinct,
   textInfoCategory,
   webcamCategory,
+  licenseInfoCategory,
+  mappingCategory,
 } from '../../builder/tourism';
 
 export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -59,5 +61,7 @@ export const regionSharedView = (): DetailViewConfig | EditViewConfig => ({
     gpsDataCategory(),
     webcamCategory(),
     odhTagCategory(),
+    licenseInfoCategory(),
+    mappingCategory(),
   ],
 });
