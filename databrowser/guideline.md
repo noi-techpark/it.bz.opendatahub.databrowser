@@ -14,6 +14,7 @@ If something is not specified below, it is advisable to try to search for a simi
 
 - [Coding Style](#coding-style)
 - [Platform assumptions](#platform-assumptions)
+- [Deprecations](#deprecations)
 - [Reuse Compliance](#reuse-compliance)
 
 ### Coding Style
@@ -31,7 +32,7 @@ withDefaults(
 );
 ```
 
-2. The Tailwind classes shall be included in the Elements template and non separated in the <style> section of the component.
+2. The Tailwind classes shall be included in the Elements template and non separated in the `<style>` section of the component.
 3. Date manipulation should be performed using the date-fns library [https://date-fns.org/](https://date-fns.org/).
 4. SVGs should be inserted without fixed dimensions, without safety spaces, and without specifying the fill/stroke color. Instead, the currentColor property should be used.
 5. Plugins/libraries that are not useful throughout the project should only be included asynchronously in the individual component and not in main.ts, using the following method:
@@ -61,10 +62,18 @@ const MyLibrary = defineAsyncComponent(() =>
 3. The list of components included in registerForComponentRender.ts must be entered in alphabetical order.
 4. As a general rule, avoid retrieving data within your component. If it's necessary to do so, please ask for before on GitHub.
 
+### Deprecations
+
+#### TooltipCustom Component Deprecation
+
+- **What:** The `TooltipCustom` component will be deprecated in the future.
+- **Why:** The functionalities of `TooltipCustom` largely overlap with `PopoverCustom`, which is more widely used throughout the project. To simplify maintenance and improve consistency, we will remove `TooltipCustom` in favor of `PopoverCustom`.
+- **Alternative:** Use the `PopoverCustom` component instead of `TooltipCustom` for similar functionality in all future implementations.
+
 ### Reuse Compliance
 
 1. All files either have to be mentioned in the [dep5](/.reuse/dep5) file of the project or contain a header containing SPDX copyright and licensing information.
 2. Files which cannot recieve a header e.g. .json or .png files should not have a respective FILE_NAME.FILE_EXT.license file (as would also compliant with the REUSE standards) but rather be mentioned in the dep5 file.
-3. Configuration or informative files e.g. .md or .config.js files should be licensed CC0-1.0, preferably within their header. 
+3. Configuration or informative files e.g. .md or .config.js files should be licensed CC0-1.0, preferably within their header.
 4. Source code files should be licensed AGPL-3.0-or-later, preferably within their header.
-4. Find more information about REUSE guidelines in NOI Techpark projects [here](https://github.com/noi-techpark/odh-docs/wiki/REUSE)
+5. Find more information about REUSE guidelines in NOI Techpark projects [here](https://github.com/noi-techpark/odh-docs/wiki/REUSE)
