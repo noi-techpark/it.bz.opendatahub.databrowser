@@ -50,26 +50,24 @@ const referencesUrls = computed(() => {
 
   return categories.value
     ? categories.value.flatMap((category) =>
-        category.subCategories.flatMap((subCategory) =>
-          subCategory.properties
-            .map((property) => {
-              const referenceInfo = property.referenceInfo;
-              if (
-                referenceInfo &&
-                referenceInfo.url &&
-                !takenUrls.has(referenceInfo.url)
-              ) {
-                takenUrls.add(referenceInfo.url);
-
-                return {
-                  from: referenceInfo.from || referenceInfo.url,
-                  url: referenceInfo.url,
-                };
-              }
-              return null;
-            })
-            .filter((item) => item !== null)
-        )
+        category.subCategories.flatMap((subCategory) => {
+          const results = [];
+          for (const property of subCategory.properties) {
+            const referenceInfo = property.referenceInfo;
+            if (
+              referenceInfo &&
+              referenceInfo.url &&
+              !takenUrls.has(referenceInfo.url)
+            ) {
+              takenUrls.add(referenceInfo.url);
+              results.push({
+                from: referenceInfo.from || referenceInfo.url,
+                url: referenceInfo.url,
+              });
+            }
+          }
+          return results;
+        })
       )
     : [];
 });
