@@ -125,6 +125,21 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               params: { readonly: 'true' },
             },
             {
+              title: 'Api Type',
+              component: CellComponent.SelectWithOptionsCell,
+              class: 'w-60',
+              objectMapping: {
+                value: 'ApiType',
+              },
+              params: {
+                showAddNewValue: 'true',
+                showValueAsLabelFallback: 'true',
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=ApiType.[*]&rawsort=ApiType.[*]&getasarray=true'
+                ),
+              },
+            },
+            {
               title: 'Output',
               component: CellComponent.DictionaryCell,
               objectMapping: {

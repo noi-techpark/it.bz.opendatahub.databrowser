@@ -36,12 +36,30 @@ export const getTableLocationFromDataset = (dataset: TourismMetaData) => {
     return;
   }
 
-  // TODO: this is a very dirty hack to determine if the domain is the tourism or mobility
-  // domain. A better solution would be to have a domain property in the dataset metadata,
-  // because that way we can support other domains without code changes.
-  const domain = dataset.baseUrl.includes('tourism') ? 'tourism' : 'mobility';
+  const domain = translateApiTypeToDomain(dataset);
 
   const { pathSegments, apiFilter } = dataset;
 
   return computeTableLocation(domain, pathSegments, apiFilter);
+};
+
+const translateApiTypeToDomain = (dataset: TourismMetaData) => {
+  if (dataset.apiType) {
+    // Add here all apiTypes
+    switch (dataset.apiType) {
+      case 'content':
+        return 'tourism';
+      case 'timeseries':
+        return 'mobility';
+      default:
+        return dataset.apiType;
+    }
+  } else {
+    // Id no apiType is present lets use the dirty hack ;)
+    // TODO: this is a very dirty hack to determine if the domain is the tourism or mobility
+    // domain. A better solution would be to have a domain property in the dataset metadata,
+    // because that way we can support other domains without code changes.
+    if (dataset.baseUrl.includes('tourism')) return 'tourism';
+    else return 'mobility';
+  }
 };
