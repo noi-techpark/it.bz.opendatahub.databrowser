@@ -46,6 +46,7 @@ export enum CellComponent {
   TextHighlightCell = 'TextHighlightCell',
   ToggleCell = 'ToggleCell',
   ToggleButtonCell = 'ToggleButtonCell',
+  ToggleTriStateCell = 'ToggleTriStateCell',
   TypeBasedCell = 'TypeBasedCell',
   WebcamCell = 'WebcamCell',
   WebcamGalleryCell = 'WebcamGalleryCell',

@@ -60,7 +60,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Deprecated',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'Deprecated' },
             },
           ],
