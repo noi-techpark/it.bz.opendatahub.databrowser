@@ -59,8 +59,7 @@ const partners: Partner[] = [
   },
   {
     imageAlt: 'Christian Gapp company logo',
-    imageSrc:
-      'https://gappc.net/wp-content/uploads/2022/10/logo-full-black.png',
+    imageSrc: '/logo-gapp.svg',
     linkTitle: 'Christian Gapp homepage',
     url: 'https://gappc.net/',
   },
