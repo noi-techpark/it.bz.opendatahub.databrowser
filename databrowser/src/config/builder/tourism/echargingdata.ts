@@ -95,7 +95,7 @@ export const echargingdataCategory = (
       ],
     },
     {
-      name: 'Survey Data',
+      name: 'Survey Information',
       properties: [
         {
           title: 'Survey Date',
@@ -118,15 +118,20 @@ export const echargingdataCategory = (
             text: 'AdditionalProperties.EchargingDataProperties.SurveyAnnotations.{language}',
           },
         },
+      ],
+    },
+    {
+      name: 'General characteristics',
+      properties: [
         {
-          title: 'Has Roof',
+          title: 'Covered',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled: 'AdditionalProperties.EchargingDataProperties.HasRoof',
           },
         },
         {
-          title: 'Vertical Identification',
+          title: 'Vertical road sign',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
@@ -134,61 +139,17 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Horizontal identification',
+          title: 'Horizontal road sign',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.HorizontalIdentification',
           },
         },
-        {
-          title: 'Max operation Height in cm',
-          component: CellComponent.StringCell,
-          objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.MaxOperationHeight',
-          },
-        },
-        {
-          title: 'Charging cable length in cm',
-          component: CellComponent.StringCell,
-          objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.ChargingCableLength',
-          },
-        },
-        {
-          title: 'Charging Pistol operation height in cm',
-          component: CellComponent.StringCell,
-          objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.ChargingPistolOperationHeightMax',
-          },
-        },
-        {
-          title: 'Steepless sidewalk connection',
-          component: CellComponent.ToggleTriStateCell,
-          objectMapping: {
-            enabled:
-              'AdditionalProperties.EchargingDataProperties.SteplessSidewalkConnection',
-          },
-        },
-        {
-          title: 'Barrierfree',
-          component: CellComponent.SelectWithOptionsCell,
-          objectMapping: {
-            value: 'AdditionalProperties.EchargingDataProperties.Barrierfree',
-          },
-          params: {
-            value_001: 'barrierfree',
-            label_001: 'Barrier free',
-            value_002: 'restricted accessible',
-            label_002: 'restricted accessible',
-            value_003: 'not accessible',
-            label_003: 'not accessible',
-          },
-        },
       ],
     },
     {
-      name: 'Horizontal Carparking',
+      name: 'Car parking space next to each other',
       properties: [
         {
           title: 'Flat',
@@ -199,21 +160,21 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Inclination',
+          title: 'Gradient',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.Inclination',
           },
         },
         {
-          title: 'Crossfall',
+          title: 'Lateral Inclination',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.Crossfall',
           },
         },
         {
-          title: 'FloorCover',
+          title: 'Pavement',
           component: CellComponent.SelectWithOptionsCell,
           objectMapping: {
             value:
@@ -247,7 +208,7 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'HatchingMarked',
+          title: 'Manoeuvrng space signage present',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
@@ -257,7 +218,7 @@ export const echargingdataCategory = (
       ],
     },
     {
-      name: 'Vertical Carparking',
+      name: 'Parking spot behind each other',
       properties: [
         {
           title: 'Flat',
@@ -268,21 +229,21 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Inclination',
+          title: 'Gradient',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.Inclination',
           },
         },
         {
-          title: 'Crossfall',
+          title: 'Lateral inclination',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.Crossfall',
           },
         },
         {
-          title: 'FloorCover',
+          title: 'Pavement',
           component: CellComponent.SelectWithOptionsCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.FloorCover',
@@ -315,11 +276,65 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'HatchingMarked',
+          title: 'Manoeuvrng space signage present',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.HatchingMarked',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Charging station',
+      properties: [
+        {
+          title: 'Display or card reader (cm)',
+          component: CellComponent.StringCell,
+          objectMapping: {
+            text: 'AdditionalProperties.EchargingDataProperties.MaxOperationHeight',
+          },
+        },
+        {
+          title: 'Charging Pistol height (cm)',
+          component: CellComponent.StringCell,
+          objectMapping: {
+            text: 'AdditionalProperties.EchargingDataProperties.ChargingPistolOperationHeightMax',
+          },
+        },
+        {
+          title: 'Charging cable length (cm)',
+          component: CellComponent.StringCell,
+          objectMapping: {
+            text: 'AdditionalProperties.EchargingDataProperties.ChargingCableLength',
+          },
+        },
+        {
+          title: 'Steepless sidewalk connection',
+          component: CellComponent.ToggleTriStateCell,
+          objectMapping: {
+            enabled:
+              'AdditionalProperties.EchargingDataProperties.SteplessSidewalkConnection',
+          },
+        },
+      ],
+    },
+    {
+      name: 'Other Information',
+      properties: [
+        {
+          title: 'Accessibility',
+          component: CellComponent.SelectWithOptionsCell,
+          objectMapping: {
+            value: 'AdditionalProperties.EchargingDataProperties.Barrierfree',
+          },
+          params: {
+            value_001: 'Accessible',
+            label_001: 'Accessible',
+            value_002: 'ConditionalAccessibility',
+            label_002: 'Conditional accessibility',
+            value_003: 'NotAccessible',
+            label_003: 'Not accessible',
           },
         },
       ],
