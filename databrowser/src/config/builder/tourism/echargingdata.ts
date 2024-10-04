@@ -76,19 +76,12 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Charging Plugs count',
-          component: CellComponent.StringCell,
-          objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.ChargingPlugCount',
-          },
-        },
-        {
           title: 'Charging Plugs Types',
           component: CellComponent.ArrayEditableCell,
           arrayMapping: {
             targetPropertyName: 'items',
             pathToParent:
-              'AdditionalProperties.EchargingDataProperties.ChargingCableType',
+              'AdditionalProperties.EchargingDataProperties.ChargingPistolTypes',
           },
           required: false,
         },
@@ -127,7 +120,7 @@ export const echargingdataCategory = (
           title: 'Covered',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
-            enabled: 'AdditionalProperties.EchargingDataProperties.HasRoof',
+            enabled: 'AdditionalProperties.EchargingDataProperties.Covered',
           },
         },
         {
@@ -135,7 +128,7 @@ export const echargingdataCategory = (
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
-              'AdditionalProperties.EchargingDataProperties.VerticalIdentification',
+              'AdditionalProperties.EchargingDataProperties.VerticalRoadSign',
           },
         },
         {
@@ -143,7 +136,7 @@ export const echargingdataCategory = (
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
-              'AdditionalProperties.EchargingDataProperties.HorizontalIdentification',
+              'AdditionalProperties.EchargingDataProperties.HorizontalFloorRoadSign',
           },
         },
       ],
@@ -156,21 +149,21 @@ export const echargingdataCategory = (
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
-              'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.Flat',
+              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Flat',
           },
         },
         {
           title: 'Gradient',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.Inclination',
+            text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Gradient',
           },
         },
         {
           title: 'Lateral Inclination',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.Crossfall',
+            text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.LateralInclination',
           },
         },
         {
@@ -178,7 +171,7 @@ export const echargingdataCategory = (
           component: CellComponent.SelectWithOptionsCell,
           objectMapping: {
             value:
-              'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.FloorCover',
+              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Pavement',
           },
           params: {
             value_001: 'apshalt-cement',
@@ -197,14 +190,14 @@ export const echargingdataCategory = (
           title: 'Width',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.Width',
+            text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Width',
           },
         },
         {
           title: 'Length',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.Length',
+            text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Length',
           },
         },
         {
@@ -212,7 +205,7 @@ export const echargingdataCategory = (
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
-              'AdditionalProperties.EchargingDataProperties.CarparkingAreaInColumns.HatchingMarked',
+              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.ManeuvringSpaceSignagePresent',
           },
         },
       ],
@@ -225,28 +218,28 @@ export const echargingdataCategory = (
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
-              'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.Flat',
+              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Flat',
           },
         },
         {
           title: 'Gradient',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.Inclination',
+            text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Gradient',
           },
         },
         {
           title: 'Lateral inclination',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.Crossfall',
+            text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.LateralInclination',
           },
         },
         {
           title: 'Pavement',
           component: CellComponent.SelectWithOptionsCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.FloorCover',
+            text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Pavement',
           },
           params: {
             value_001: 'apshalt-cement',
@@ -265,14 +258,14 @@ export const echargingdataCategory = (
           title: 'Width',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.Width',
+            text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Width',
           },
         },
         {
           title: 'Length',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.Length',
+            text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Length',
           },
         },
         {
@@ -280,7 +273,7 @@ export const echargingdataCategory = (
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
-              'AdditionalProperties.EchargingDataProperties.CarparkingAreaInRows.HatchingMarked',
+              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.ManeuvringSpaceSignagePresent',
           },
         },
       ],
@@ -292,14 +285,14 @@ export const echargingdataCategory = (
           title: 'Display or card reader (cm)',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.MaxOperationHeight',
+            text: 'AdditionalProperties.EchargingDataProperties.DisplayOrCardReaderOperationHeight',
           },
         },
         {
           title: 'Charging Pistol height (cm)',
           component: CellComponent.StringCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.ChargingPistolOperationHeightMax',
+            text: 'AdditionalProperties.EchargingDataProperties.ChargingPistolOperationHeight',
           },
         },
         {
@@ -307,6 +300,13 @@ export const echargingdataCategory = (
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.ChargingCableLength',
+          },
+        },
+        {
+          title: 'Shielding post in front of charging station',
+          component: CellComponent.ToggleTriStateCell,
+          objectMapping: {
+            text: 'AdditionalProperties.EchargingDataProperties.ShieldingPostInFrontOfStation',
           },
         },
         {
