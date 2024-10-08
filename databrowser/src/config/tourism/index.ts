@@ -42,6 +42,7 @@ import { weatherInfoConfig } from './weatherInfo/weatherInfo.config';
 import { weatherRealTimeConfig } from './weatherRealTime/weatherRealTime.config';
 import { webcamInfoConfig } from './webcamInfo/webcamInfo.config';
 import { wineAwardConfig } from './wineAward/wineAward.config';
+import { noinewsConfig } from './noinews/noinews.config';
 
 export const tourismEmbeddedDatasetConfigs = [
   accommodationConfig,
@@ -79,6 +80,7 @@ export const tourismEmbeddedDatasetConfigs = [
   pushResponseConfig,
   odhTagConfig,
   tagConfig,
+  noinewsConfig,
 ].map<DatasetConfig>((config) => ({
   ...config,
   views: {
