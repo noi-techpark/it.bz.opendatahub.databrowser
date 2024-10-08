@@ -4,10 +4,7 @@
 
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasets/config/types';
-import {
-  lastChangesTableCell,
-  publishedOnCell,
-} from '../../builder/tourism';
+import { lastChangesTableCell, publishedOnCell } from '../../builder/tourism';
 
 export const odhTagListView: ListViewConfig = {
   elements: [
