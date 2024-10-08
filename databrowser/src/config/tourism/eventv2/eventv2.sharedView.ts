@@ -36,7 +36,7 @@ export const eventv2SharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'IDs',
           properties: [idReadOnlyCell()],
         },
-        dataStatesSubCategory(),
+        dataStatesSubCategory({ hideODHActive: true }),
         sourceSubCategoryWithDistinct('event'),
       ],
     },
