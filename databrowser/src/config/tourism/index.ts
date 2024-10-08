@@ -24,6 +24,7 @@ import { metaRegionConfig } from './metaRegion/metaRegion.config';
 import { municipalityConfig } from './municipality/municipality.config';
 import { odhActivityPoiConfig } from './odhActivityPoi/odhActivityPoi.config';
 import { odhActivityPoiTypesConfig } from './odhActivityPoiTypes/odhActivityPoiTypes.config';
+import { odhTagConfig } from './odhTag/odhTag.config';
 import { publishedOnConfig } from './publishedOn/publishedOn.config';
 import { pushResponseConfig } from './pushResponse/pushResponse.config';
 import { regionConfig } from './region/region.config';
@@ -75,6 +76,7 @@ export const tourismEmbeddedDatasetConfigs = [
   metaDataConfig,
   publishedOnConfig,
   pushResponseConfig,
+  odhTagConfig,
 ].map<DatasetConfig>((config) => ({
   ...config,
   views: {
