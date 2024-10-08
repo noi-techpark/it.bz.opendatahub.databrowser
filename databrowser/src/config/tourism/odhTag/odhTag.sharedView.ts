@@ -27,7 +27,7 @@ export const odhTagSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             shortnameCell({ required: true }),
             {
-              title: 'TagName',
+              title: 'Tag Name',
               component: CellComponent.StringCell,
               objectMapping: { text: 'TagName.{language}' },
             },
@@ -60,7 +60,7 @@ export const odhTagSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
             },
             {
-              title: 'ValidForEntity',
+              title: 'Valid for Entity',
               component: CellComponent.CustomDataArrayCell,
               arrayMapping: {
                 targetPropertyName: 'listItems',
@@ -89,12 +89,12 @@ export const odhTagSharedView = (): DetailViewConfig | EditViewConfig => ({
           name: 'Additional data',
           properties: [
             {
-              title: 'DisplayAsCategory',
+              title: 'Display as Category',
               component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'DisplayAsCategory' },
             },
             {
-              title: 'MappedTagIds',
+              title: 'Mapped Tag Ids',
               component: CellComponent.CustomDataArrayCell,
               arrayMapping: {
                 targetPropertyName: 'listItems',
@@ -107,21 +107,21 @@ export const odhTagSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
             },
             {
-              title: 'LTSTaggingInfo',
+              title: 'LTS Tagging Info',
               component: CellComponent.DictionaryCell,
               objectMapping: {
                 dictitems: 'LTSTaggingInfo',
               },
             },
             {
-              title: 'IDMCategoryMapping',
+              title: 'IDM Category Mapping',
               component: CellComponent.DictionaryCell,
               objectMapping: {
                 dictitems: 'IDMCategoryMapping',
               },
             },
             {
-              title: 'PublishDataWithTagOn',
+              title: 'Publish Data with this Tag on',
               component: CellComponent.DictionaryCell,
               objectMapping: {
                 dictitems: 'PublishDataWithTagOn',
