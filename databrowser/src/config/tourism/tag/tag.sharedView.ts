@@ -16,7 +16,7 @@ import {
 } from '../../builder/tourism';
 import { withOdhBaseUrl } from '../../utils';
 
-export const odhTagSharedView = (): DetailViewConfig | EditViewConfig => ({
+export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
   elements: [
     {
       name: 'Main data',
@@ -33,14 +33,42 @@ export const odhTagSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Source',
+              component: CellComponent.SelectWithOptionsCell,
+              class: 'w-60',
+              objectMapping: {
+                value: 'Source',
+              },
+              params: {
+                showAddNewValue: 'true',
+                showValueAsLabelFallback: 'true',
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=tag&fields=Source&rawsort=Source&getasarray=true'
+                ),
+              },
+            },
+            {
+              title: 'Types',
               component: CellComponent.CustomDataArrayCell,
               arrayMapping: {
                 targetPropertyName: 'listItems',
-                pathToParent: 'Source',
+                pathToParent: 'Types',
               },
               params: {
                 url: withOdhBaseUrl(
-                  '/v1/Distinct?odhtype=odhtag&fields=Source.[*]&rawsort=Source.[*]&getasarray=true'
+                  '/v1/Distinct?odhtype=odhtag&fields=Types.[*]&rawsort=Types.[*]&getasarray=true'
+                ),
+              },
+            },
+            {
+              title: 'ODHTagIds',
+              component: CellComponent.CustomDataArrayCell,
+              arrayMapping: {
+                targetPropertyName: 'listItems',
+                pathToParent: 'ODHTagIds',
+              },
+              params: {
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhtag&fields=ODHTagIds.[*]&rawsort=ODHTagIds.[*]&getasarray=true'
                 ),
               },
             },
