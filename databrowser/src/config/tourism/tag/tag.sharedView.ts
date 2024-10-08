@@ -13,6 +13,7 @@ import {
   licenseInfoCategory,
   dataStatesSubCategory,
   mappingCategory,
+  sourceSubCategoryWithDistinct,
 } from '../../builder/tourism';
 import { withOdhBaseUrl } from '../../utils';
 
@@ -60,19 +61,6 @@ export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
             },
             {
-              title: 'ODHTagIds (If Tag was imported from ODHTag)',
-              component: CellComponent.CustomDataArrayCell,
-              arrayMapping: {
-                targetPropertyName: 'listItems',
-                pathToParent: 'ODHTagIds',
-              },
-              params: {
-                url: withOdhBaseUrl(
-                  '/v1/Distinct?odhtype=odhtag&fields=ODHTagIds.[*]&rawsort=ODHTagIds.[*]&getasarray=true'
-                ),
-              },
-            },
-            {
               title: 'Main Entity',
               component: CellComponent.SelectWithOptionsCell,
               class: 'w-60',
@@ -107,6 +95,7 @@ export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [idReadOnlyCell()],
         },
         dataStatesSubCategory({ hideODHActive: true }),
+        sourceSubCategoryWithDistinct('tag'),
       ],
     },
     {
@@ -120,6 +109,19 @@ export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Display as Category',
               component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'DisplayAsCategory' },
+            },
+            {
+              title: 'ODHTagIds (If Tag was imported from ODHTag)',
+              component: CellComponent.CustomDataArrayCell,
+              arrayMapping: {
+                targetPropertyName: 'listItems',
+                pathToParent: 'ODHTagIds',
+              },
+              params: {
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhtag&fields=ODHTagIds.[*]&rawsort=ODHTagIds.[*]&getasarray=true'
+                ),
+              },
             },
             {
               title: 'Mapped Tag Ids',

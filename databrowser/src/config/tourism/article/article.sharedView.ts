@@ -19,6 +19,7 @@ import {
   textInfoCategory,
   licenseInfoCategory,
   mappingCategory,
+  tagCategory,
 } from '../../builder/tourism';
 import { videoItemsCategory } from '../../builder/tourism/video';
 import { DEFAULT_DATE_FORMAT, withOdhBaseUrl } from '../../utils';
@@ -83,6 +84,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
       ],
     },
     odhTagCategory('article'),
+    tagCategory('article'),
     {
       name: 'Article Details',
       slug: 'article-details',

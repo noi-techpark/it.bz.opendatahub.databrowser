@@ -26,8 +26,8 @@ export const tagCell = (mainentity?: string): PropertyConfig => {
 
 export const tagCategory = (mainentity?: string): DetailElements => {
   return {
-    name: 'Tags',
-    slug: 'Tags',
+    name: 'Tags (v2)',
+    slug: 'Tags (v2)',
     subcategories: [
       {
         name: '',
