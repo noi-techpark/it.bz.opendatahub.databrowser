@@ -13,6 +13,7 @@ import { publishedOnCell } from './publishedOn';
 interface Options {
   hasLastChanges?: boolean;
   hasVisibleInSearch?: boolean;
+  hideODHActive?: boolean;
 }
 
 export const dataStatesSubCategory = (
@@ -28,13 +29,21 @@ export const dataStatesSubCategory = (
         component: CellComponent.ToggleTriStateCell,
         objectMapping: { enabled: 'Active' },
       },
-      {
-        title: 'Active on Open Data Hub',
-        component: CellComponent.ToggleTriStateCell,
-        objectMapping: { enabled: 'SmgActive' },
-      },
+      // {
+      //   title: 'Active on Open Data Hub',
+      //   component: CellComponent.ToggleTriStateCell,
+      //   objectMapping: { enabled: 'SmgActive' },
+      // },
     ],
   };
+
+  if (!options?.hideODHActive) {
+    dataStates.properties.push({
+      title: 'Active on Open Data Hub',
+      component: CellComponent.ToggleTriStateCell,
+      objectMapping: { enabled: 'SmgActive' },
+    });
+  }
 
   if (options?.hasVisibleInSearch) {
     dataStates.properties.push({
