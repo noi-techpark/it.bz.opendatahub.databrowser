@@ -12,8 +12,6 @@ import {
   dataStatesSubCategory,
   idReadOnlyCell,
   imageGalleryCategory,
-  odhTagCategory,
-  seasonCategory,
   shortnameCell,
   sourceSubCategoryWithDistinct,
   textInfoCategory,
