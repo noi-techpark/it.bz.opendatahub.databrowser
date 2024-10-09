@@ -4,6 +4,7 @@
 
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { DetailElements } from '../../../domain/datasets/config/types';
+import { withOdhBaseUrl } from '../../utils';
 
 export const echargingdataCategory = (
   options = { visible: false }
@@ -99,9 +100,17 @@ export const echargingdataCategory = (
         },
         {
           title: 'Survey Type',
-          component: CellComponent.StringCell,
+          component: CellComponent.SelectWithOptionsCell,
+          class: 'w-60',
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.SurveyType',
+            value: 'AdditionalProperties.EchargingDataProperties.SurveyType',
+          },
+          params: {
+            showAddNewValue: 'true',
+            showValueAsLabelFallback: 'true',
+            url: withOdhBaseUrl(
+              '/v1/Distinct?odhtype=odhactivitypoi&fields=AdditionalProperties.EchargingDataProperties.SurveyType&rawsort=AdditionalProperties.EchargingDataProperties.SurveyType&getasarray=true'
+            ),
           },
         },
         {
