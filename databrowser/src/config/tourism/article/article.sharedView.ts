@@ -12,14 +12,12 @@ import {
   dataStatesSubCategory,
   idReadOnlyCell,
   imageGalleryCategory,
-  odhTagCategory,
   seasonCategory,
   shortnameCell,
   sourceSubCategoryWithDistinct,
   textInfoCategory,
   licenseInfoCategory,
   mappingCategory,
-  tagCategory,
 } from '../../builder/tourism';
 import { videoItemsCategory } from '../../builder/tourism/video';
 import { DEFAULT_DATE_FORMAT, withOdhBaseUrl } from '../../utils';
@@ -83,8 +81,43 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
-    odhTagCategory('article'),
-    tagCategory('article'),
+    {
+      name: 'Tags',
+      slug: 'Tags',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Assigned ODH Tags (Deprecated)',
+              component: CellComponent.TagReferenceCell,
+              arrayMapping: {
+                targetPropertyName: 'items',
+                pathToParent: 'SmgTags',
+              },
+              params: {
+                url: withOdhBaseUrl('/v1/ODHTag?mainentity=article'),
+                keySelector: 'Id',
+                labelSelector: 'TagName.{language}',
+              },
+            },
+            {
+              title: 'Assigned Tags',
+              component: CellComponent.TagReferenceCell,
+              arrayMapping: {
+                targetPropertyName: 'items',
+                pathToParent: 'TagIds',
+              },
+              params: {
+                url: withOdhBaseUrl('/v1/Tag?validforentity=article'),
+                keySelector: 'Id',
+                labelSelector: 'TagName.{language}',
+              },
+            },
+          ],
+        },
+      ],
+    },
     {
       name: 'Article Details',
       slug: 'article-details',

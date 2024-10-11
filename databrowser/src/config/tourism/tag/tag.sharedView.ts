@@ -56,7 +56,7 @@ export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
               params: {
                 url: withOdhBaseUrl(
-                  '/v1/Distinct?odhtype=odhtag&fields=Types.[*]&rawsort=Types.[*]&getasarray=true'
+                  '/v1/Distinct?odhtype=tag&fields=Types.[*]&rawsort=Types.[*]&getasarray=true'
                 ),
               },
             },
@@ -71,7 +71,7 @@ export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
                 showAddNewValue: 'true',
                 showValueAsLabelFallback: 'true',
                 url: withOdhBaseUrl(
-                  '/v1/Distinct?odhtype=odhtag&fields=MainEntity&rawsort=MainEntity&getasarray=true'
+                  '/v1/Distinct?odhtype=tag&fields=MainEntity&rawsort=MainEntity&getasarray=true'
                 ),
               },
             },
@@ -84,7 +84,7 @@ export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
               params: {
                 url: withOdhBaseUrl(
-                  '/v1/Distinct?odhtype=odhtag&fields=ValidForEntity.[*]&rawsort=ValidForEntity.[*]&getasarray=true'
+                  '/v1/Distinct?odhtype=tag&fields=ValidForEntity.[*]&rawsort=ValidForEntity.[*]&getasarray=true'
                 ),
               },
             },
@@ -119,7 +119,7 @@ export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
               params: {
                 url: withOdhBaseUrl(
-                  '/v1/Distinct?odhtype=odhtag&fields=ODHTagIds.[*]&rawsort=ODHTagIds.[*]&getasarray=true'
+                  '/v1/Distinct?odhtype=tag&fields=ODHTagIds.[*]&rawsort=ODHTagIds.[*]&getasarray=true'
                 ),
               },
             },
@@ -132,7 +132,7 @@ export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
               params: {
                 url: withOdhBaseUrl(
-                  '/v1/Distinct?odhtype=odhtag&fields=MappedTagIds.[*]&rawsort=MappedTagIds.[*]&getasarray=true'
+                  '/v1/Distinct?odhtype=tag&fields=MappedTagIds.[*]&rawsort=MappedTagIds.[*]&getasarray=true'
                 ),
               },
             },
