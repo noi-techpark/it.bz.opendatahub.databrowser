@@ -15,6 +15,7 @@ import {
   sourceSubCategoryWithDistinct,
   licenseInfoCategory,
   mappingCategory,
+  tagCategory,
 } from '../../builder/tourism';
 import { publishedOnCell } from '../../builder/tourism/publishedOn';
 import { videoItemsCategory } from '../../builder/tourism/video';
@@ -142,36 +143,36 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
               required: true,
             },
-            {
-              title: 'Technology Fields',
-              component: CellComponent.TagReferenceCell,
-              arrayMapping: {
-                targetPropertyName: 'tags',
-                pathToParent: 'TechnologyFields',
-              },
-              params: {
-                url: withOdhBaseUrl(
-                  '/v1/EventShortTypes?type=TechnologyFields'
-                ),
-                labelSelector: 'TypeDesc.{language}',
-                keySelector: 'Key',
-                unique: 'true',
-              },
-            },
-            {
-              title: 'Tagging Fields',
-              component: CellComponent.TagReferenceCell,
-              arrayMapping: {
-                targetPropertyName: 'tags',
-                pathToParent: 'CustomTagging',
-              },
-              params: {
-                url: withOdhBaseUrl('/v1/EventShortTypes?type=CustomTagging'),
-                labelSelector: 'TypeDesc.{language}',
-                keySelector: 'Key',
-                unique: 'true',
-              },
-            },
+            // {
+            //   title: 'Technology Fields',
+            //   component: CellComponent.TagReferenceCell,
+            //   arrayMapping: {
+            //     targetPropertyName: 'tags',
+            //     pathToParent: 'TechnologyFields',
+            //   },
+            //   params: {
+            //     url: withOdhBaseUrl(
+            //       '/v1/EventShortTypes?type=TechnologyFields'
+            //     ),
+            //     labelSelector: 'TypeDesc.{language}',
+            //     keySelector: 'Key',
+            //     unique: 'true',
+            //   },
+            // },
+            // {
+            //   title: 'Tagging Fields',
+            //   component: CellComponent.TagReferenceCell,
+            //   arrayMapping: {
+            //     targetPropertyName: 'tags',
+            //     pathToParent: 'CustomTagging',
+            //   },
+            //   params: {
+            //     url: withOdhBaseUrl('/v1/EventShortTypes?type=CustomTagging'),
+            //     labelSelector: 'TypeDesc.{language}',
+            //     keySelector: 'Key',
+            //     unique: 'true',
+            //   },
+            // },
             {
               title: 'Room Management',
               component: CellComponent.EditRoomBookedCell,
@@ -197,6 +198,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
+    tagCategory('eventshort'),
     imageGalleryCategory(),
     videoItemsCategory(),
     eventDocumentCategory(),
@@ -217,7 +219,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
           ],
         },
         {
-          name: 'Deprecated',
+          name: '',
           properties: [
             {
               title: 'Active',

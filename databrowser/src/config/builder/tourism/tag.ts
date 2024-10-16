@@ -10,7 +10,10 @@ import {
 import { withOdhBaseUrl } from '../../utils';
 
 export const tagCell = (mainentity?: string): PropertyConfig => {
-  const filterParam = mainentity == null ? '' : `?mainentity=${mainentity}`;
+  const filterParam =
+    mainentity == null
+      ? ''
+      : `?validforentity=${mainentity}&fields=Id,TagName&pagesize=0`;
   const url = withOdhBaseUrl('/v1/Tag') + filterParam;
 
   return {
@@ -26,8 +29,8 @@ export const tagCell = (mainentity?: string): PropertyConfig => {
 
 export const tagCategory = (mainentity?: string): DetailElements => {
   return {
-    name: 'Tags (v2)',
-    slug: 'Tags (v2)',
+    name: 'Tags',
+    slug: 'Tags',
     subcategories: [
       {
         name: '',
