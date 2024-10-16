@@ -40,7 +40,7 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'AccessType',
+          title: 'Access type',
           component: CellComponent.SelectWithOptionsCell,
           objectMapping: {
             value: 'AdditionalProperties.EchargingDataProperties.AccessType',
@@ -63,21 +63,21 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'AccessTypeInfo',
+          title: 'Access type information',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.AccessTypeInfo',
           },
         },
         {
-          title: 'PaymentInfo',
+          title: 'Payment information',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.PaymentInfo',
           },
         },
         {
-          title: 'Charging Plugs Types',
+          title: 'Charging plugs types',
           component: CellComponent.ArrayEditableCell,
           arrayMapping: {
             targetPropertyName: 'items',
