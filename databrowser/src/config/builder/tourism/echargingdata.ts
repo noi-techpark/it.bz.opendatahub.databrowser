@@ -113,13 +113,6 @@ export const echargingdataCategory = (
             ),
           },
         },
-        {
-          title: 'Survey Annotations',
-          component: CellComponent.StringCell,
-          objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.SurveyAnnotations.{language}',
-          },
-        },
       ],
     },
     {
@@ -141,7 +134,7 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Horizontal road sign',
+          title: 'Horizontal floor road sign',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
@@ -162,14 +155,14 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Gradient',
+          title: 'Gradient (%)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Gradient',
           },
         },
         {
-          title: 'Lateral Inclination',
+          title: 'Lateral Inclination (%)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.LateralInclination',
@@ -196,14 +189,14 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Width',
+          title: 'Width (m)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Width',
           },
         },
         {
-          title: 'Length',
+          title: 'Length (m)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Length',
@@ -231,14 +224,14 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Gradient',
+          title: 'Gradient (%)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Gradient',
           },
         },
         {
-          title: 'Lateral inclination',
+          title: 'Lateral inclination (%)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.LateralInclination',
@@ -264,14 +257,14 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Width',
+          title: 'Width (m)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Width',
           },
         },
         {
-          title: 'Length',
+          title: 'Length (m)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Length',
@@ -344,6 +337,13 @@ export const echargingdataCategory = (
             label_002: 'Conditional accessibility',
             value_003: 'NotAccessible',
             label_003: 'Not accessible',
+          },
+        },
+        {
+          title: 'Survey Annotations',
+          component: CellComponent.StringCell,
+          objectMapping: {
+            text: 'AdditionalProperties.EchargingDataProperties.SurveyAnnotations.{language}',
           },
         },
       ],
