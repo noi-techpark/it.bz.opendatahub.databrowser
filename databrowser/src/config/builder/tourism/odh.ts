@@ -18,7 +18,7 @@ export const odhActiveTableCell = (): PropertyConfig => ({
 });
 
 export const odhTagCell = (mainentity?: string): PropertyConfig => {
-  const filterParam = mainentity == null ? '' : `?mainentity=${mainentity}`;
+  const filterParam = mainentity == null ? '' : `?validforentity=${mainentity}`;
   const url = withOdhBaseUrl('/v1/ODHTag') + filterParam;
 
   return {
