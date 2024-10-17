@@ -14,7 +14,7 @@ export const echargingdataCategory = (
   visible: options.visible,
   subcategories: [
     {
-      name: 'Primary Data (synced from mobility api)',
+      name: 'Primary Data (synced from timeseries api)',
       properties: [
         {
           title: 'State',

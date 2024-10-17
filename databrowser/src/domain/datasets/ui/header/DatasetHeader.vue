@@ -125,6 +125,7 @@ import { useDatasetViewStore } from '../../view/store/datasetViewStore';
 import { useSessionStorage } from '@vueuse/core';
 import { computeRouteDomain } from '../../location/routeDomain';
 import { computeRoutePath } from '../../location/routePath';
+import { getApiDomain } from '../../../../domain/datasets/utils';
 
 const { view, isTableView } = storeToRefs(useDatasetViewStore());
 
@@ -226,7 +227,8 @@ const handleDatasetChange = (value: string) => {
 
 const getDomainOfDataset = (dataset: TourismMetaData) => {
   // TODO: fix this as referenced in OverviewLinkTable
-  return dataset.baseUrl.includes('tourism') ? 'tourism' : 'mobility';
+  //return dataset.baseUrl.includes('tourism') ? 'tourism' : 'mobility';
+  return getApiDomain(dataset) ?? 'mobility';
 };
 
 const currentDataset = ref<SelectValue>('');
