@@ -34,17 +34,6 @@ export const articleListView: ListViewConfig = {
         text: 'SubType',
       },
     },
-    {
-      title: 'Tags',
-      component: CellComponent.ArrayCell,
-      class: 'w-40',
-      objectMapping: {
-        items: 'SmgTags',
-      },
-      params: {
-        separator: ', ',
-      },
-    },
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),

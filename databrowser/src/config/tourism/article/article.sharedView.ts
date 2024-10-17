@@ -88,18 +88,28 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: '',
           properties: [
+            // {
+            //   title: 'Assigned ODH Tags (Deprecated)',
+            //   component: CellComponent.TagReferenceCell,
+            //   arrayMapping: {
+            //     targetPropertyName: 'items',
+            //     pathToParent: 'SmgTags',
+            //   },
+            //   params: {
+            //     url: withOdhBaseUrl('/v1/ODHTag?mainentity=article'),
+            //     keySelector: 'Id',
+            //     labelSelector: 'TagName.{language}',
+            //     editable: 'false',
+            //   },
+            // },
             {
-              title: 'Assigned ODH Tags (Deprecated)',
-              component: CellComponent.TagReferenceCell,
-              arrayMapping: {
-                targetPropertyName: 'items',
-                pathToParent: 'SmgTags',
+              title: 'Tags (Deprecated)',
+              component: CellComponent.ArrayCell,
+              objectMapping: {
+                items: 'SmgTags',
               },
               params: {
-                url: withOdhBaseUrl('/v1/ODHTag?mainentity=article'),
-                keySelector: 'Id',
-                labelSelector: 'TagName.{language}',
-                editable: 'false',
+                separator: ', ',
               },
             },
             {
