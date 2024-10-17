@@ -42,6 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     @confirm-delete="onDelete()"
     @close="closeDeleteConfirmation()"
   />
+  <GoToReferenceAttributeDialog />
 </template>
 
 <script setup lang="ts">
@@ -58,6 +59,7 @@ import TableToolBox from './toolBox/TableToolBox.vue';
 import EditListDeleteDialog from '../../../cellComponents/components/utils/editList/dialogs/EditListDeleteDialog.vue';
 
 import { useTableDelete } from './useTableDelete';
+import GoToReferenceAttributeDialog from '../common/dialogs/goToReferenceAttributeDialog/GoToReferenceAttributeDialog.vue';
 
 const { t } = useI18n();
 

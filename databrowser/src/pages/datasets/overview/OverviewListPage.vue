@@ -6,6 +6,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <AppLayout>
+    <OverviewListPageHero />
+
     <PageGridContent class="grow gap-3 lg:gap-3">
       <div class="flex md:gap-8">
         <div class="shrink-0 md:w-64" />
@@ -42,7 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           >
             {{ appliedFiltersNum }}
           </div>
-          <IconFilter class="mr-2 h-3 w-3" />
+          <IconFilter class="mr-2 size-3" />
         </button>
 
         <!-- Filters -->
@@ -73,10 +75,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               @reset-all-filters="resetFilters"
             />
             <button
-              class="mr-3 flex h-6 w-6 items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
+              class="mr-3 flex size-6 items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
               @click="hideFilters"
             >
-              <IconClose class="h-4 w-4" />
+              <IconClose class="size-4" />
             </button>
           </div>
 
@@ -86,7 +88,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
               @click="toggleFilter('hasNoMetadata')"
             >
-              <ToggleCustom v-model="_inputModels.no_metadata" class="mr-2" />
+              <ToggleCustom
+                ref="metadataToggle"
+                v-model="_inputModels.hasNoMetadata"
+                class="mr-2"
+              />
               {{ t('overview.listPage.noMetadataAvailable') }}
             </button>
             <button
@@ -197,6 +203,7 @@ import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import { useMetaDataDatasets, useOtherDatasets } from './useDatasets';
+import OverviewListPageHero from './OverviewListPageHero.vue';
 
 type TourismMetaDataIndexes =
   | 'dataSpace'
@@ -234,7 +241,7 @@ const defaultFilters = {
   applied: {} as Record<string, FilterObject>,
 };
 const _inputModels = ref<Record<string, boolean>>({
-  no_metadata: false,
+  hasNoMetadata: false,
   deprecated: false,
 });
 
@@ -327,11 +334,21 @@ const toggleFilter = (key: string, value?: string) => {
 const setFilter = (key: string, value?: string) => {
   const filterFullKey = getFilterFullKey(key, value);
   filters.value.applied[filterFullKey] = getFilterObject(key, value);
+  if (isModelAffectedFilter(key)) {
+    _inputModels.value[key] = true;
+  }
 };
 
 const unsetFilter = (key: string, value?: string) => {
   const filterFullKey = getFilterFullKey(key, value);
   delete filters.value.applied[filterFullKey];
+  if (isModelAffectedFilter(key)) {
+    _inputModels.value[key] = false;
+  }
+};
+
+const isModelAffectedFilter = (key: string) => {
+  return key == 'hasNoMetadata' || key == 'deprecated';
 };
 
 const getFilterFullKey = (key: string, value?: string) => {

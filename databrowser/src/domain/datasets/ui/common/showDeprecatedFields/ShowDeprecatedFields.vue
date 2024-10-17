@@ -5,16 +5,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div :class="[containerClasses, showDeprecated ? 'bg-deprecated/10' : '']">
-    <div :class="wrapperClasses">
-      <div
-        class="truncate text-sm"
-        :class="{ 'text-deprecated': showDeprecated }"
-      >
-        {{ t('datasets.detailView.showDeprecatedFields') }}
-      </div>
+  <BaseSettingsToggle
+    :label="t('datasets.detailView.showDeprecatedFields')"
+    :description="
+      hasDescription ? t('datasets.detailView.showDeprecatedFieldsDesc') : ''
+    "
+    active-color-class="deprecated"
+    :active="!!toolBoxStore.settings.showDeprecated"
+    :use-wrapper-classes="useWrapperClasses"
+    :use-container-classes="useContainerClasses"
+    :custom-wrapper-classes="customWrapperClasses"
+    :custom-text-classes="customTextClasses"
+  >
+    <template #toggle>
       <ToggleCustom
-        v-model="showDeprecated"
+        v-model="toolBoxStore.settings.showDeprecated"
         :disabled="disabled"
         active-bg-class="bg-deprecated"
         active-border-class="border-deprecated"
@@ -22,25 +27,36 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         inactive-border-class="border-gray-400"
         class="shrink-0"
         data-test="show-deprecated-fields"
-      />
-    </div>
-  </div>
+      /> </template
+  ></BaseSettingsToggle>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ToggleCustom from '../../../../../components/toggle/ToggleCustom.vue';
-import { containerClasses, wrapperClasses } from '../fieldsToggleStyles';
+import { useToolBoxStore } from '../../toolBox/toolBoxStore';
+import BaseSettingsToggle from '../BaseSettingsToggle.vue';
 
 const { t } = useI18n();
 
-const emit = defineEmits(['update:modelValue']);
+const toolBoxStore = useToolBoxStore();
 
-const props = defineProps<{ modelValue?: boolean; disabled?: boolean }>();
-
-const showDeprecated = computed({
-  get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value),
-});
+withDefaults(
+  defineProps<{
+    disabled?: boolean;
+    hasDescription?: boolean;
+    useContainerClasses?: boolean;
+    useWrapperClasses?: boolean;
+    customWrapperClasses?: string;
+    customTextClasses?: string;
+  }>(),
+  {
+    disabled: false,
+    hasDescription: false,
+    useContainerClasses: true,
+    useWrapperClasses: true,
+    customWrapperClasses: '',
+    customTextClasses: '',
+  }
+);
 </script>

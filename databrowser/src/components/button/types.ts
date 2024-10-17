@@ -5,6 +5,7 @@
 export enum Variant {
   solid = 'solid',
   ghost = 'ghost',
+  transparent = 'transparent',
 }
 
 export enum Size {
@@ -17,4 +18,5 @@ export enum Size {
 
 export enum Tone {
   primary = 'primary',
+  danger = 'danger',
 }

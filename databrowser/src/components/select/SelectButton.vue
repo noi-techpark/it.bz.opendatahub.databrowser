@@ -13,8 +13,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <span
       class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
     >
-      <IconStrokedArrowDown v-if="!open" class="h-5 w-5 stroke-current" />
-      <IconStrokedArrowUp v-else class="h-5 w-5 stroke-current" />
+      <IconStrokedArrowDown v-if="!open" class="size-5 stroke-current" />
+      <IconStrokedArrowUp v-else class="size-5 stroke-current" />
     </span>
   </ListboxButton>
 </template>

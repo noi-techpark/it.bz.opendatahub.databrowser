@@ -6,14 +6,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <AppLayout>
-    <HeroContainer>
-      <HeroTitle> This is the Data Browser of the Open Data Hub. </HeroTitle>
-      <HeroSubTitle>
-        Explore and navigate through Open Data you need to build your next
-        service.
-      </HeroSubTitle>
-    </HeroContainer>
-
     <PageGridContent class="pt-0 lg:pt-8" disable-padding-top>
       <CardGrid>
         <div class="order-last lg:order-first">
@@ -140,9 +132,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import AppLayout from '../layouts/AppLayout.vue';
-import HeroContainer from '../components/hero/HeroContainer.vue';
-import HeroTitle from '../components/hero/HeroTitle.vue';
-import HeroSubTitle from '../components/hero/HeroSubTitle.vue';
 import ButtonLink from '../components/button/ButtonLink.vue';
 import CardTitle from '../components/card/CardTitle.vue';
 import CardText from '../components/card/CardText.vue';

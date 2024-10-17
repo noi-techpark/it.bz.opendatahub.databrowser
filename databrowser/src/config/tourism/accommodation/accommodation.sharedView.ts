@@ -59,17 +59,17 @@ export const accommodationSharedView = ():
           properties: [
             {
               title: 'Room',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'HasApartment' },
             },
             {
               title: 'Gastronomy',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'IsGastronomy' },
             },
             {
               title: 'Is Bookable',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'IsBookable' },
             },
             {

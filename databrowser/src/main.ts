@@ -5,7 +5,6 @@
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import CookieConsent from 'vue-cookieconsent';
-import VueHotjar from 'vue-hotjar-next';
 import App from './App.vue';
 import { consentOptions } from './cookieconsent/consentOptions';
 import './cookieconsent/cookieconsent.css';
@@ -36,12 +35,6 @@ app.use(registerCellComponents);
 
 // Add cookie-banner
 app.use(CookieConsent, consentOptions);
-
-// Add hotjar
-app.use(VueHotjar, {
-  id: parseInt(import.meta.env.VITE_APP_HOTJAR_ID, 10),
-  isProduction,
-});
 
 // Load i18n translation asynchronously
 const i18nPromise: Promise<I18n> = setupI18n({

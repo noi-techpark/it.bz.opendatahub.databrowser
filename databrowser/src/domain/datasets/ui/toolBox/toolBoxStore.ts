@@ -3,11 +3,43 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore } from 'pinia';
+import {
+  breakpointsTailwind,
+  useBreakpoints,
+  useLocalStorage,
+} from '@vueuse/core';
 
-const initialState = { visible: false };
+const breakpoints = useBreakpoints(breakpointsTailwind);
+const mdAndLarger = breakpoints.greater('md');
+
+// Using useLocalStorage to persist toolbox visibility state
+const toolboxVisibilityStorage = useLocalStorage('isToolboxVisible', true);
+
+const preferredToolboxVisibility = !mdAndLarger.value
+  ? 'false'
+  : toolboxVisibilityStorage.value;
+
+const initialState = {
+  visible:
+    preferredToolboxVisibility === 'false'
+      ? false
+      : toolboxVisibilityStorage.value,
+  settings: {
+    showAll: false,
+    showDeprecated: false,
+    showReferences: true,
+  },
+};
 
 export const useToolBoxStore = defineStore('toolBoxStore', {
   state: () => initialState,
+
+  actions: {
+    toggleToolboxVisibility(isVisible: boolean) {
+      this.visible = isVisible;
+      toolboxVisibilityStorage.value = isVisible;
+    },
+  },
 });
 
 // Add support for hot-module-reload

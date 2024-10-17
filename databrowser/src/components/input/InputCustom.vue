@@ -30,7 +30,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       v-if="type === 'search' && !text"
       class="absolute right-0 flex h-full w-12 items-center justify-center"
     >
-      <IconSearch class="h-5 w-5 text-green-400" />
+      <IconSearch class="size-5 text-green-400" />
     </div>
     <div
       v-if="deletable"
@@ -40,7 +40,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         class="cursor-pointer rounded-full border border-red-500"
         @click="onDelete()"
       >
-        <IconClose class="h-5 w-5 text-red-500" />
+        <IconClose class="size-5 text-red-500" />
       </div>
     </div>
   </div>

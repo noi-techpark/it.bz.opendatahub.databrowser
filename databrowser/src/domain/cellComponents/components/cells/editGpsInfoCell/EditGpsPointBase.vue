@@ -15,10 +15,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           v-for="(icon, index) in icons"
           :key="index"
           :name="icon"
-          class="h-4 w-4 cursor-pointer text-green-400"
+          class="size-4 cursor-pointer text-green-400"
           :class="[
             iconsActive.includes(icon)
-              ? 'h-5 w-5 rounded-[3px] border-[1.5px] border-green-400 bg-hint-calm-secondary p-[2px]'
+              ? 'size-5 rounded-[3px] border-[1.5px] border-green-400 bg-hint-calm-secondary p-[2px]'
               : '',
           ]"
           @click="$emit('ctaClick', icon)"

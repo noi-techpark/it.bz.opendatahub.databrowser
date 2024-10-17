@@ -4,6 +4,7 @@
 
 import { App } from 'vue';
 
+import AdditionalPropertiesCell from '../components/cells/additionalPropertiesCell/AdditionalPropertiesCell.vue';
 import ArrayCell from '../components/cells/arrayCell/ArrayCell.vue';
 import ArrayEditableCell from '../components/cells/arrayCell/ArrayEditableCell.vue';
 import ArrayLookupCell from '../components/cells/arrayLookupCell/ArrayLookupCell.vue';
@@ -19,6 +20,7 @@ import EditImageGalleryCell from '../components/cells/editImageGalleryCell/EditI
 import EditGpsInfoCell from '../components/cells/editGpsInfoCell/EditGpsInfoCell.vue';
 import EditRoomBookedCell from '../components/cells/editRoomBookedCell/EditRoomBookedCell.vue';
 import EditRoomVenueCell from '../components/cells/editRoomVenueCell/EditRoomVenueCell.vue';
+import EditVideoItemsCell from '../components/cells/editVideoItemsCell/EditVideoItemsCell.vue';
 import EventDocumentCell from '../components/cells/eventDocumentCell/EventDocumentCell.vue';
 import GpsPointMap from '../../../components/map/GpsPointMap.vue';
 import GpsPointsCell from '../components/cells/gpsPointsCell/GpsPointsCell.vue';
@@ -33,6 +35,7 @@ import LoadingCell from '../components/cells/loadingCell/LoadingCell.vue';
 import MappingCell from '../components/cells/mappingCell/MappingCell.vue';
 import MeasurementsCell from '../components/cells/measurementsCell/MeasurementsCell.vue';
 import PushDataCell from '../components/cells/pushDataCell/PushDataCell.vue';
+import ReferenceCell from '../components/cells/referenceCell/ReferenceCell.vue';
 import SelectWithOptionsCell from '../components/cells/selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StateCell from '../components/cells/stateCell/StateCell.vue';
 import StringCell from '../components/cells/stringCell/StringCell.vue';
@@ -44,6 +47,7 @@ import TextAreaCell from '../components/cells/textAreaCell/TextAreaCell.vue';
 import TextHighlightCell from '../components/cells/textHighlightCell/TextHighlightCell.vue';
 import ToggleButtonCell from '../components/cells/toggleCell/ToggleButtonCell.vue';
 import ToggleCell from '../components/cells/toggleCell/ToggleCell.vue';
+import ToggleTriStateCell from '../components/cells/toggleCell/ToggleTriStateCell.vue';
 import TypeBasedCell from '../components/cells/typeBasedCell/TypeBasedCell.vue';
 import WebcamCell from '../components/cells/webcamCell/WebcamCell.vue';
 import RelatedContentCell from '../components/cells/relatedContentCell/RelatedContentCell.vue';
@@ -53,6 +57,10 @@ import { CellComponent } from '../types';
 
 export default {
   install: (app: App) => {
+    app.component(
+      CellComponent.AdditionalPropertiesCell,
+      AdditionalPropertiesCell
+    );
     app.component(CellComponent.ArrayCell, ArrayCell);
     app.component(CellComponent.ArrayEditableCell, ArrayEditableCell);
     app.component(CellComponent.ArrayLookupCell, ArrayLookupCell);
@@ -71,6 +79,7 @@ export default {
     app.component(CellComponent.EditGpsInfoCell, EditGpsInfoCell);
     app.component(CellComponent.EditRoomBookedCell, EditRoomBookedCell);
     app.component(CellComponent.EditRoomVenueCell, EditRoomVenueCell);
+    app.component(CellComponent.EditVideoItemsCell, EditVideoItemsCell);
     app.component(CellComponent.EventDocumentCell, EventDocumentCell);
     app.component(CellComponent.GpsPointMap, GpsPointMap);
     app.component(CellComponent.GpsPointsCell, GpsPointsCell);
@@ -85,6 +94,7 @@ export default {
     app.component(CellComponent.MeasurementsCell, MeasurementsCell);
     app.component(CellComponent.OperationScheduleCell, OperationScheduleCell);
     app.component(CellComponent.PushDataCell, PushDataCell);
+    app.component(CellComponent.ReferenceCell, ReferenceCell);
     app.component(CellComponent.SelectWithOptionsCell, SelectWithOptionsCell);
     app.component(CellComponent.StateCell, StateCell);
     app.component(CellComponent.StringCell, StringCell);
@@ -96,6 +106,7 @@ export default {
     app.component(CellComponent.TextHighlightCell, TextHighlightCell);
     app.component(CellComponent.ToggleButtonCell, ToggleButtonCell);
     app.component(CellComponent.ToggleCell, ToggleCell);
+    app.component(CellComponent.ToggleTriStateCell, ToggleTriStateCell);
     app.component(CellComponent.TypeBasedCell, TypeBasedCell);
     app.component(CellComponent.WebcamCell, WebcamCell);
     app.component(CellComponent.RelatedContentCell, RelatedContentCell);

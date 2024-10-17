@@ -23,27 +23,14 @@ import { Size } from '../../../components/button/types';
 import IconTable from '../../../components/svg/IconTable.vue';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import { computed, toRefs } from 'vue';
-import { computeTableLocation } from '../../../domain/datasets/location/datasetViewLocation';
+import { getTableLocationFromDataset } from '../../../domain/datasets/utils';
 
 const { t } = useI18n();
 
 const props = defineProps<{ dataset: TourismMetaData }>();
 const { dataset } = toRefs(props);
 
-const tableLocation = computed(() => {
-  if (dataset.value == null || dataset.value.baseUrl == null) {
-    return;
-  }
-
-  // TODO: this is a very dirty hack to determine if the domain is the tourism or mobility
-  // domain. A better solution would be to have a domain property in the dataset metadata,
-  // because that way we can support other domains without code changes.
-  const domain = dataset.value.baseUrl.includes('tourism')
-    ? 'tourism'
-    : 'mobility';
-
-  const { pathSegments, apiFilter } = dataset.value;
-
-  return computeTableLocation(domain, pathSegments, apiFilter);
-});
+const tableLocation = computed(() =>
+  getTableLocationFromDataset(dataset.value)
+);
 </script>

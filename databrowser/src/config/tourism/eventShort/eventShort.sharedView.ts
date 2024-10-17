@@ -15,8 +15,10 @@ import {
   sourceSubCategoryWithDistinct,
   licenseInfoCategory,
   mappingCategory,
+  tagCategory,
 } from '../../builder/tourism';
 import { publishedOnCell } from '../../builder/tourism/publishedOn';
+import { videoItemsCategory } from '../../builder/tourism/video';
 import { withOdhBaseUrl } from '../../utils';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -52,12 +54,12 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'External organizer',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'ExternalOrganizer' },
             },
             {
               title: 'Sold out',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'SoldOut' },
             },
           ],
@@ -73,7 +75,7 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
             publishedOnCell(),
             {
               title: 'Active on Source',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'Active' },
             },
           ],
@@ -141,36 +143,36 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
               },
               required: true,
             },
-            {
-              title: 'Technology Fields',
-              component: CellComponent.TagReferenceCell,
-              arrayMapping: {
-                targetPropertyName: 'tags',
-                pathToParent: 'TechnologyFields',
-              },
-              params: {
-                url: withOdhBaseUrl(
-                  '/v1/EventShortTypes?type=TechnologyFields'
-                ),
-                labelSelector: 'TypeDesc.{language}',
-                keySelector: 'Key',
-                unique: 'true',
-              },
-            },
-            {
-              title: 'Tagging Fields',
-              component: CellComponent.TagReferenceCell,
-              arrayMapping: {
-                targetPropertyName: 'tags',
-                pathToParent: 'CustomTagging',
-              },
-              params: {
-                url: withOdhBaseUrl('/v1/EventShortTypes?type=CustomTagging'),
-                labelSelector: 'TypeDesc.{language}',
-                keySelector: 'Key',
-                unique: 'true',
-              },
-            },
+            // {
+            //   title: 'Technology Fields',
+            //   component: CellComponent.TagReferenceCell,
+            //   arrayMapping: {
+            //     targetPropertyName: 'tags',
+            //     pathToParent: 'TechnologyFields',
+            //   },
+            //   params: {
+            //     url: withOdhBaseUrl(
+            //       '/v1/EventShortTypes?type=TechnologyFields'
+            //     ),
+            //     labelSelector: 'TypeDesc.{language}',
+            //     keySelector: 'Key',
+            //     unique: 'true',
+            //   },
+            // },
+            // {
+            //   title: 'Tagging Fields',
+            //   component: CellComponent.TagReferenceCell,
+            //   arrayMapping: {
+            //     targetPropertyName: 'tags',
+            //     pathToParent: 'CustomTagging',
+            //   },
+            //   params: {
+            //     url: withOdhBaseUrl('/v1/EventShortTypes?type=CustomTagging'),
+            //     labelSelector: 'TypeDesc.{language}',
+            //     keySelector: 'Key',
+            //     unique: 'true',
+            //   },
+            // },
             {
               title: 'Room Management',
               component: CellComponent.EditRoomBookedCell,
@@ -196,7 +198,9 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
+    tagCategory('eventshort'),
     imageGalleryCategory(),
+    videoItemsCategory(),
     eventDocumentCategory(),
     licenseInfoCategory(),
     mappingCategory(),
@@ -215,23 +219,23 @@ export const eventShortSharedView = (): DetailViewConfig | EditViewConfig => ({
           ],
         },
         {
-          name: 'Deprecated',
+          name: '',
           properties: [
             {
               title: 'Active',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'ActiveToday' },
               params: { readonly: 'true' },
             },
             {
               title: 'noi.bz.it Active',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'ActiveWeb' },
               params: { readonly: 'true' },
             },
             {
               title: 'NOI Community App Active',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'ActiveCommunityApp' },
               params: { readonly: 'true' },
             },

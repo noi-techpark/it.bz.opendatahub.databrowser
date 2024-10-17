@@ -15,7 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       >
         {{ t('components.pushData.sendPushNotifications') }}
         <IconStrokedArrowDown
-          class="h-5 w-5 stroke-current"
+          class="size-5 stroke-current"
           :class="{ 'rotate-180': open }"
         />
       </PopoverCustomButton>

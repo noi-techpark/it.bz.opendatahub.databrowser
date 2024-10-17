@@ -17,6 +17,7 @@ export const sourceListView: ListViewConfig = {
     {
       title: 'Name',
       component: CellComponent.StringCell,
+      class: 'w-60',
       objectMapping: { text: 'Name.{language}' },
     },
     {

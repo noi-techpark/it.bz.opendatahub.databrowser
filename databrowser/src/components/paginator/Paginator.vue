@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :data-test="`${id}-previous-page`"
       @click="navigation.goToPage(pagination.currentPage - 1)"
     >
-      <IconStrokedArrowDown class="h-5 w-5 rotate-90 stroke-current" />
+      <IconStrokedArrowDown class="size-5 rotate-90 stroke-current" />
     </button>
 
     <div class="mr-2 flex items-center">
@@ -47,7 +47,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :data-test="`${id}-next-page`"
       @click="navigation.goToPage(pagination.currentPage + 1)"
     >
-      <IconStrokedArrowDown class="h-5 w-5 -rotate-90 stroke-current" />
+      <IconStrokedArrowDown class="size-5 -rotate-90 stroke-current" />
     </button>
   </div>
 </template>

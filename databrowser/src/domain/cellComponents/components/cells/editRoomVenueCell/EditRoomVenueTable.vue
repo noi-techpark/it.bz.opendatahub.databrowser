@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <EditListTable :items="items">
     <template #colGroup>
       <col class="w-32 md:w-40" />
-      <col class="w-32 md:w-40" />
+      <col class="w-52 md:w-52" />
       <col class="w-32 md:w-40" />
       <col class="w-32 md:w-40" />
       <col class="w-32 md:w-40" />
@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <template #tableCols="{ item }">
       <TableCell>{{ item.Shortname }} </TableCell>
       <TableCell>
-        <ToggleCell
+        <ToggleTriStateCell
           :enabled="booleanOrStringToBoolean(item.Indoor)"
           :editable="true"
         />
@@ -42,14 +42,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import TableHeaderCell from '../../../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../../../components/table/TableCell.vue';
-import EditListTable from '../../utils/editList/table/EditListTable.vue';
+import TableHeaderCell from '../../../../../components/table/TableHeaderCell.vue';
+import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectActionTriggers } from '../../utils/editList/actions/useActions';
+import EditListTable from '../../utils/editList/table/EditListTable.vue';
+import ToggleTriStateCell from '../toggleCell/ToggleTriStateCell.vue';
 import { RoomVenueEntry } from './types';
-import ToggleCell from '../toggleCell/ToggleCell.vue';
-import { booleanOrStringToBoolean } from '../../../../utils/convertType';
 
 defineProps<{ items: RoomVenueEntry[] }>();
 

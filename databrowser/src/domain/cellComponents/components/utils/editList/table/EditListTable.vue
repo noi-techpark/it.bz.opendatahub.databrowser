@@ -136,6 +136,7 @@ const props = defineProps<{
   items: T[] | null;
   hideTabLink?: boolean;
   hideSortable?: boolean;
+  hideSettingsColumn?: boolean;
 }>();
 
 // Inject navigation from an ancestor component
@@ -153,7 +154,7 @@ const hasItems = computed(() => itemsInternal.value.length > 0);
 const showSortableColumn = computed(() => !props.hideSortable);
 
 const showSettingsColumn = computed(() => {
-  if (!hasItems.value) {
+  if (!hasItems.value || props.hideSettingsColumn) {
     return false;
   }
 

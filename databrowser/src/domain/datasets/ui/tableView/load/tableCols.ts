@@ -8,6 +8,7 @@ import { ObjectMapping } from '../../../config/types';
 import { ViewConfigWithType, isTableViewConfig } from '../../../view/types';
 import { Column } from '../types';
 import { useTableViewColsStore } from '../tableViewColsStore';
+import { useToolBoxStore } from '../../toolBox/toolBoxStore';
 
 const firstPropertyName = (objectMapping?: ObjectMapping) => {
   const values = Object.values(objectMapping ?? {});
@@ -16,14 +17,20 @@ const firstPropertyName = (objectMapping?: ObjectMapping) => {
 
 export const computeTableCols = (
   isLoading: boolean,
-  view: ViewConfigWithType | undefined
+  view: ViewConfigWithType | undefined,
+  showDeprecated: boolean
 ): Column[] => {
   if (!isTableViewConfig(view)) {
     return [];
   }
 
-  return view.elements.map<Column>((element) => {
+  const elements = showDeprecated
+    ? view.elements
+    : view.elements.filter((element) => !element.deprecationInfo?.length);
+
+  return elements.map<Column>((element) => {
     const firstPropertyPath = firstPropertyName(element.objectMapping);
+
     return {
       ...element,
       firstPropertyPath,
@@ -37,7 +44,11 @@ export const useTableCols = (
   view: MaybeRef<ViewConfigWithType | undefined>
 ) =>
   computed(() => {
-    const cols = computeTableCols(toValue(isLoading), toValue(view));
+    const cols = computeTableCols(
+      toValue(isLoading),
+      toValue(view),
+      useToolBoxStore().settings.showDeprecated
+    );
     useTableViewColsStore().cols = cols;
     return cols;
   });

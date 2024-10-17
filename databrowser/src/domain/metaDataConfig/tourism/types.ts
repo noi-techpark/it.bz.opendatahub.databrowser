@@ -21,6 +21,7 @@ export interface TourismMetaData {
   tags: string[];
   hasNoMetadata?: boolean;
   dataSpace?: string;
+  apiType?: string;
   categories: string[];
   dataProviders: string[];
   singleDataset?: boolean;

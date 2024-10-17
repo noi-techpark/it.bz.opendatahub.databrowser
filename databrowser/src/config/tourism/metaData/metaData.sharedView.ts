@@ -60,7 +60,7 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
             },
             {
               title: 'Deprecated',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'Deprecated' },
             },
           ],
@@ -123,6 +123,21 @@ export const metaDataSharedView = (): DetailViewConfig | EditViewConfig => ({
               component: CellComponent.UrlCell,
               objectMapping: { text: 'ApiUrl' },
               params: { readonly: 'true' },
+            },
+            {
+              title: 'Api Type',
+              component: CellComponent.SelectWithOptionsCell,
+              class: 'w-60',
+              objectMapping: {
+                value: 'ApiType',
+              },
+              params: {
+                showAddNewValue: 'true',
+                showValueAsLabelFallback: 'true',
+                url: withOdhBaseUrl(
+                  '/v1/Distinct?odhtype=odhmetadata&fields=ApiType.[*]&rawsort=ApiType.[*]&getasarray=true'
+                ),
+              },
             },
             {
               title: 'Output',

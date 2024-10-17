@@ -32,9 +32,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :is-save-success="isMutateSuccess"
         @save-changes="saveChanges"
       />
+      <GoToReferenceAttributeDialog />
       <div class="flex h-screen flex-col justify-between overflow-auto">
-        <ShowEmptyFields v-model="showAll" :disabled="true" />
-        <ShowDeprecatedFields v-model="showDeprecated" />
         <div
           class="flex grow md:overflow-y-auto"
           :class="[{ 'pointer-events-none opacity-50': isMutateLoading }]"
@@ -46,15 +45,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :sub-categories="enhancedSubcategories"
             :current-category="currentCategory"
             :slug="slug"
-            :show-all="true"
-            :show-deprecated="showDeprecated"
             :show-edit-hint="true"
             :editable="true"
           />
           <EditToolBox />
         </div>
         <EditFooter
-          class="transition-all"
+          class="fixed bottom-0 transition-all md:static"
           :is-saving="isMutateLoading"
           :class="{ hidden: editStore.isEqual }"
           @cancel="tryToDiscardChanges"
@@ -68,7 +65,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script lang="ts" setup>
 import { useEventListener } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import AlertError from '../../../../components/alert/AlertError.vue';
@@ -83,8 +80,6 @@ import { useDatasetPermissionStore } from '../../permission/store/datasetPermiss
 import MainAndSubCategories from '../common/MainAndSubCategories.vue';
 import { useSingleRecordLoad } from '../common/load/useSingleRecordLoad';
 import { useSingleRecordMutateData } from '../common/load/useSingleRecordMutateData';
-import ShowEmptyFields from '../common/showEmptyFields/ShowEmptyFields.vue';
-import ShowDeprecatedFields from '../common/showDeprecatedFields/ShowDeprecatedFields.vue';
 import EditFooter from './EditFooter.vue';
 import EditSaveError from './EditSaveError.vue';
 import DiscardChangesDialog from './dialogs/DiscardChangesDialog.vue';
@@ -94,17 +89,18 @@ import { useEditStore } from './store/editStore';
 import EditToolBox from './toolBox/EditToolBox.vue';
 import { useApplyError } from './useApplyError';
 import { useEditStoreSync } from './useEditStoreSync';
+import { useToolBoxStore } from '../toolBox/toolBoxStore';
+import GoToReferenceAttributeDialog from '../common/dialogs/goToReferenceAttributeDialog/GoToReferenceAttributeDialog.vue';
 
 const { t } = useI18n();
-
-const showAll = ref(true);
-const showDeprecated = ref(false);
 
 const auth = useAuth();
 
 const { editRecordSupported } = storeToRefs(useDatasetPermissionStore());
 
 const editStore = useEditStore();
+
+const toolBoxStore = useToolBoxStore();
 
 useEventSaveChanges.on((value: boolean) => {
   if (value) {
@@ -196,6 +192,8 @@ watch(
   },
   { immediate: true }
 );
+
+toolBoxStore.settings.showReferences = true;
 
 // Listen for window close / reload event and let the user know
 // if there are unsaved changes

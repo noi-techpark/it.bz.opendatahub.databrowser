@@ -9,7 +9,7 @@ import {
 } from '../../../../openApi';
 import { DatasetDomain, DatasetPath } from '../../../config/types';
 import { ViewConfigWithType } from '../../types';
-import { computeViewWithOpenApiEnhancements } from './computeDeprecationAndRequired';
+import { computeViewWithOpenApiEnhancements } from './computeDeprecationAndRequiredAndReference';
 
 export const useOpenApiEnhancements = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,

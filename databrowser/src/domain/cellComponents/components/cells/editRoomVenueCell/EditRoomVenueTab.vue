@@ -25,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             />
           </SubCategoryItem>
           <SubCategoryItem title="Indoor" :required="true">
-            <ToggleCell
+            <ToggleTriStateCell
               :text="item.Indoor"
               :editable="editable"
               @input="updateItem(index, { Indoor: $event.target.value })"
@@ -95,6 +95,7 @@ import { useInjectActionTriggers } from '../../utils/editList/actions/useActions
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
 import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import StringCell from '../stringCell/StringCell.vue';
+import ToggleTriStateCell from '../toggleCell/ToggleTriStateCell.vue';
 import { RoomVenueEntry } from './types';
 
 defineProps<{ items: RoomVenueEntry[] }>();

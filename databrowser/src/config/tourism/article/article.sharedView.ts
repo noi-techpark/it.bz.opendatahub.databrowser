@@ -12,7 +12,6 @@ import {
   dataStatesSubCategory,
   idReadOnlyCell,
   imageGalleryCategory,
-  odhTagCategory,
   seasonCategory,
   shortnameCell,
   sourceSubCategoryWithDistinct,
@@ -20,6 +19,7 @@ import {
   licenseInfoCategory,
   mappingCategory,
 } from '../../builder/tourism';
+import { videoItemsCategory } from '../../builder/tourism/video';
 import { DEFAULT_DATE_FORMAT, withOdhBaseUrl } from '../../utils';
 
 export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
@@ -43,6 +43,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
     textInfoCategory(),
     contactCategory(),
     imageGalleryCategory(),
+    videoItemsCategory(),
     seasonCategory(),
     {
       name: 'Additional Information',
@@ -80,7 +81,46 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
         },
       ],
     },
-    odhTagCategory('article'),
+    {
+      name: 'Tags',
+      slug: 'Tags',
+      subcategories: [
+        {
+          name: '',
+          properties: [
+            {
+              title: 'Assigned ODH Tags (Deprecated)',
+              component: CellComponent.TagReferenceCell,
+              arrayMapping: {
+                targetPropertyName: 'items',
+                pathToParent: 'SmgTags',
+              },
+              params: {
+                url: withOdhBaseUrl('/v1/ODHTag?mainentity=article'),
+                keySelector: 'Id',
+                labelSelector: 'TagName.{language}',
+                editable: 'false',
+              },
+            },
+            {
+              title: 'Assigned Tags',
+              component: CellComponent.TagReferenceCell,
+              arrayMapping: {
+                targetPropertyName: 'items',
+                pathToParent: 'TagIds',
+              },
+              params: {
+                url: withOdhBaseUrl(
+                  '/v1/Tag?validforentity=article&fields=Id,TagName&pagesize=0'
+                ),
+                keySelector: 'Id',
+                labelSelector: 'TagName.{language}',
+              },
+            },
+          ],
+        },
+      ],
+    },
     {
       name: 'Article Details',
       slug: 'article-details',
@@ -90,7 +130,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             {
               title: 'Highlight',
-              component: CellComponent.ToggleCell,
+              component: CellComponent.ToggleTriStateCell,
               objectMapping: { enabled: 'Highlight' },
             },
             {

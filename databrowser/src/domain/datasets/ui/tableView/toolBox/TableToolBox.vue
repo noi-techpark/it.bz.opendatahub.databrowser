@@ -6,7 +6,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <ToolBox
-    :visible="false"
     :tab-names="[
       t('datasets.listView.toolBox.searchAndFilter.panelName'),
       t('datasets.toolBox.exportDatasets.panelName'),
