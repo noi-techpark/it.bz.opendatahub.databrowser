@@ -75,12 +75,18 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.AccessTypeInfo',
           },
+          params: {
+            readonly: 'true',
+          },
         },
         {
           title: 'Payment information',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.PaymentInfo',
+          },
+          params: {
+            readonly: 'true',
           },
         },
         {
