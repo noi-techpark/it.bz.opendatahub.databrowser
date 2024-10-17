@@ -37,6 +37,8 @@ export const echargingdataCategory = (
             label_006: 'fault',
             value_007: 'PLANNED',
             label_007: 'planned',
+            editable: 'false',
+            readonly: 'true',
           },
         },
         {
@@ -52,6 +54,8 @@ export const echargingdataCategory = (
             label_002: 'private',
             value_003: 'PRIVATE_WITHPUBLICACCESS',
             label_003: 'private with public access',
+            editable: 'false',
+            readonly: 'true',
           },
         },
         {
@@ -60,6 +64,9 @@ export const echargingdataCategory = (
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.ChargingStationAccessible',
+          },
+          params: {
+            readonly: 'true',
           },
         },
         {
@@ -78,13 +85,14 @@ export const echargingdataCategory = (
         },
         {
           title: 'Charging plugs types',
-          component: CellComponent.ArrayEditableCell,
-          arrayMapping: {
-            targetPropertyName: 'items',
-            pathToParent:
+          component: CellComponent.ArrayCell,
+          objectMapping: {
+            items:
               'AdditionalProperties.EchargingDataProperties.ChargingPistolTypes',
           },
-          required: false,
+          params: {
+            separator: ', ',
+          },
         },
       ],
     },
@@ -189,14 +197,14 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Width (m)',
+          title: 'Width (cm)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Width',
           },
         },
         {
-          title: 'Length (m)',
+          title: 'Length (cm)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Length',
@@ -257,14 +265,14 @@ export const echargingdataCategory = (
           },
         },
         {
-          title: 'Width (m)',
+          title: 'Width (cm)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Width',
           },
         },
         {
-          title: 'Length (m)',
+          title: 'Length (cm)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Length',

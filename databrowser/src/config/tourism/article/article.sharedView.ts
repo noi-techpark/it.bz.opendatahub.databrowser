@@ -99,6 +99,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
                 url: withOdhBaseUrl('/v1/ODHTag?mainentity=article'),
                 keySelector: 'Id',
                 labelSelector: 'TagName.{language}',
+                editable: 'false',
               },
             },
             {
@@ -109,7 +110,9 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
                 pathToParent: 'TagIds',
               },
               params: {
-                url: withOdhBaseUrl('/v1/Tag?validforentity=article'),
+                url: withOdhBaseUrl(
+                  '/v1/Tag?validforentity=article&fields=Id,TagName&pagesize=0'
+                ),
                 keySelector: 'Id',
                 labelSelector: 'TagName.{language}',
               },
