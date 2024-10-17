@@ -26,17 +26,28 @@ export const articleListView: ListViewConfig = {
         text: 'Type',
       },
     },
-    {
-      title: 'SubType',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      objectMapping: {
-        text: 'SubType',
-      },
-    },
+    // {
+    //   title: 'Tags',
+    //   component: CellComponent.ArrayCell,
+    //   class: 'w-48',
+    //   objectMapping: {
+    //     items: 'Tags.Id', //not working
+    //   },
+    //   params: {
+    //     separator: ', ',
+    //   },
+    // },
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),
+    {
+      title: 'Source state',
+      component: CellComponent.StateCell,
+      class: 'w-40',
+      objectMapping: {
+        state: 'Active',
+      },
+    },
     publishedOnTableCell(),
     pushDataTableCell(),
   ],
