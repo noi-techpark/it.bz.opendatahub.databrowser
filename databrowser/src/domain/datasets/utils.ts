@@ -43,6 +43,14 @@ export const getTableLocationFromDataset = (dataset: TourismMetaData) => {
   return computeTableLocation(domain, pathSegments, apiFilter);
 };
 
+export const getApiDomain = (dataset: TourismMetaData) => {
+  if (dataset == null || dataset.baseUrl == null) {
+    return;
+  }
+
+  return translateApiTypeToDomain(dataset);
+};
+
 const translateApiTypeToDomain = (dataset: TourismMetaData) => {
   if (dataset.apiType) {
     // Add here all apiTypes

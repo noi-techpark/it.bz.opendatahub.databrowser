@@ -14,7 +14,7 @@ export const echargingdataCategory = (
   visible: options.visible,
   subcategories: [
     {
-      name: 'Primary Data (synced from mobility api)',
+      name: 'Primary Data (synced from timeseries api)',
       properties: [
         {
           title: 'State',
@@ -75,12 +75,18 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.AccessTypeInfo',
           },
+          params: {
+            readonly: 'true',
+          },
         },
         {
           title: 'Payment information',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.PaymentInfo',
+          },
+          params: {
+            readonly: 'true',
           },
         },
         {
