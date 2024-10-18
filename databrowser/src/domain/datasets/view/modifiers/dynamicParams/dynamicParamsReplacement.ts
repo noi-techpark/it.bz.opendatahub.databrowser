@@ -5,8 +5,11 @@
 import { MaybeRef, computed, toValue } from 'vue';
 import {
   DatasetDomain,
+  DetailElements,
+  EditElements,
   ListElements,
   PropertyConfig,
+  SubCategoryElement,
 } from '../../../config/types';
 import {
   DetailViewConfigWithType,
@@ -100,16 +103,67 @@ const applyReplacementsToSingleRecordView = <
   objectValueReplacer: ObjectValueReplacer
 ): T | undefined => ({
   ...view,
-  elements: view.elements.map((element) => ({
-    ...element,
-    subcategories: element.subcategories.map((subcategory) => ({
-      ...subcategory,
-      properties: subcategory.properties.map((property) =>
-        replaceMappings(property, stringReplacer, objectValueReplacer)
-      ),
-    })),
-  })),
+  elements: applyReplacementsToElements(
+    view.elements,
+    stringReplacer,
+    objectValueReplacer
+  ),
 });
+
+const applyReplacementsToElements = (
+  elements: DetailElements[] | EditElements[],
+  stringReplacer: StringReplacer,
+  objectValueReplacer: ObjectValueReplacer
+) => {
+  return elements.map((element) => ({
+    ...applyReplacementsToSubElements(
+      element,
+      stringReplacer,
+      objectValueReplacer
+    ),
+    subcategories: applyReplacementsToSubCategories(
+      element.subcategories,
+      stringReplacer,
+      objectValueReplacer
+    ),
+  }));
+};
+
+const applyReplacementsToSubCategories = (
+  subcategories: SubCategoryElement[],
+  stringReplacer: StringReplacer,
+  objectValueReplacer: ObjectValueReplacer
+) => {
+  return subcategories.map((subcategory) => ({
+    ...subcategory,
+    properties: subcategory.properties.map((property) =>
+      replaceMappings(property, stringReplacer, objectValueReplacer)
+    ),
+  }));
+};
+
+const applyReplacementsToSubElements = (
+  element: DetailElements,
+  stringReplacer: StringReplacer,
+  objectValueReplacer: ObjectValueReplacer
+) => {
+  return element.subElements
+    ? {
+        ...element,
+        subElements: [...element.subElements].map((subElement) => ({
+          ...subElement,
+          elements: {
+            ...subElement.elements,
+            subcategories: applyReplacementsToSubCategories(
+              subElement.elements.subcategories,
+              stringReplacer,
+              objectValueReplacer
+            ),
+          },
+        })),
+      }
+    : element;
+};
 
 const replaceMappings = (
   property: PropertyConfig,
