@@ -11,6 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :model-value="text"
     :deletable="deletable"
     :placeholder="placeholder"
+    :type="type"
     @update:model-value="update($event)"
   />
   <span
@@ -28,6 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { toRefs } from 'vue';
 import InputCustom from '../../../../../components/input/InputCustom.vue';
 import { useWriteable } from '../../utils/writeable/useWriteable';
+import { InputType } from '../../../../../components/input/types';
 
 const emit = defineEmits(['update']);
 
@@ -39,6 +41,7 @@ const props = defineProps<{
   readonly?: string | boolean;
   placeholder?: string;
   textClasses?: string;
+  type?: InputType;
 }>();
 
 const { editable, readonly } = toRefs(props);
