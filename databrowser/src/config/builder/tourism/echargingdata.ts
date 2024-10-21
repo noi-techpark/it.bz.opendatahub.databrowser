@@ -311,6 +311,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.DisplayOrCardReaderOperationHeight',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Charging Pistol height (cm)',
@@ -318,6 +319,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.ChargingPistolOperationHeight',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Charging cable length (cm)',
@@ -325,6 +327,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.ChargingCableLength',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Shielding post in front of charging station',
