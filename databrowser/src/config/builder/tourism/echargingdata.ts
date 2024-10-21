@@ -174,6 +174,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Gradient',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Lateral Inclination (%)',
@@ -181,6 +182,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.LateralInclination',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Pavement',
@@ -208,6 +210,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Width',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Length (cm)',
@@ -215,6 +218,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.Length',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Manoeuvrng space signage present',
@@ -243,6 +247,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Gradient',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Lateral inclination (%)',
@@ -250,6 +255,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.LateralInclination',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Pavement',
@@ -276,6 +282,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Width',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Length (cm)',
@@ -283,6 +290,7 @@ export const echargingdataCategory = (
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Length',
           },
+          params: { type: 'number' },
         },
         {
           title: 'Manoeuvrng space signage present',
