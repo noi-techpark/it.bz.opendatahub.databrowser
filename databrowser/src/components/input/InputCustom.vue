@@ -53,6 +53,7 @@ import IconSearch from '../svg/IconSearch.vue';
 import IconClose from '../svg/IconClose.vue';
 
 import { useEventDelete } from './utils';
+import { InputType } from './types';
 
 const id = randomId();
 
@@ -67,7 +68,7 @@ const props = defineProps<{
   deletable?: boolean;
   hasLabelTop?: boolean;
   disabled?: boolean;
-  type?: 'text' | 'date' | 'datetime-local' | 'time' | 'search';
+  type?: InputType;
 }>();
 
 const inputRef = ref();
