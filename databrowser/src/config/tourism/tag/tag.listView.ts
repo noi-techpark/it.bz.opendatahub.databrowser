@@ -15,16 +15,23 @@ export const tagListView: ListViewConfig = {
       objectMapping: { text: 'Id' },
     },
     {
-      title: 'TagName',
+      title: 'Name',
       component: CellComponent.StringCell,
       class: 'w-60',
       objectMapping: { text: 'TagName.{language}' },
     },
     {
-      title: 'ValidForEntity',
+      title: 'Valid For',
       component: CellComponent.ArrayCell,
       class: 'w-60',
       objectMapping: { items: 'ValidForEntity' },
+      params: { separator: ', ' },
+    },
+    {
+      title: 'Tag Types',
+      component: CellComponent.ArrayCell,
+      class: 'w-60',
+      objectMapping: { items: 'Types' },
       params: { separator: ', ' },
     },
     {
