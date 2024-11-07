@@ -33,21 +33,6 @@ export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
               objectMapping: { text: 'TagName.{language}' },
             },
             {
-              title: 'Source',
-              component: CellComponent.SelectWithOptionsCell,
-              class: 'w-60',
-              objectMapping: {
-                value: 'Source',
-              },
-              params: {
-                showAddNewValue: 'true',
-                showValueAsLabelFallback: 'true',
-                url: withOdhBaseUrl(
-                  '/v1/Distinct?odhtype=tag&fields=Source&rawsort=Source&getasarray=true'
-                ),
-              },
-            },
-            {
               title: 'Types',
               component: CellComponent.CustomDataArrayCell,
               arrayMapping: {
