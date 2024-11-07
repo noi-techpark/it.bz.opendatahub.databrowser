@@ -31,7 +31,7 @@ export const tagSharedView = (): DetailViewConfig | EditViewConfig => ({
               title: 'Tag Name',
               component: CellComponent.StringCell,
               objectMapping: { text: 'TagName.{language}' },
-            },            
+            },
             {
               title: 'Types',
               component: CellComponent.CustomDataArrayCell,
