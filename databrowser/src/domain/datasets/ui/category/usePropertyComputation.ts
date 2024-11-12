@@ -19,10 +19,6 @@ export const usePropertyComputation = () => {
     // Add data to properties such that it can be used in the render component
     const propertiesWithValue: PropertyConfigWithValue[] = properties
       .filter((property) => {
-        if (!showReferences && property.referenceInfo) {
-          return false;
-        }
-
         if (showDeprecatedProperties) {
           return true;
         }
@@ -32,8 +28,13 @@ export const usePropertyComputation = () => {
         );
       })
       .map((property) => {
-        const value = buildTargetFromMapping(data, property);
-        return { ...property, value };
+        const propertyToMap =
+          !showReferences && property.referenceInfo
+            ? computeReferencedPropertyAsStringOrArrayCell(property)
+            : property;
+
+        const value = buildTargetFromMapping(data, propertyToMap);
+        return { ...propertyToMap, value };
       });
 
     // Show all properties in edit mode. The emptiness value
@@ -67,6 +68,36 @@ export const usePropertyComputation = () => {
   };
 
   return { computeProperties };
+};
+
+const computeReferencedPropertyAsStringOrArrayCell = (
+  property: PropertyConfig
+): PropertyConfig => {
+  const isArrayCell =
+    property.arrayMapping && Object.keys(property.arrayMapping).length > 0;
+  const idLabel = isArrayCell ? 'IDs' : 'ID';
+
+  const title = property.title
+    ? `${property.title} ${idLabel}`
+    : `Reference ${idLabel}`;
+
+  if (isArrayCell) {
+    return {
+      title,
+      component: CellComponent.ArrayCell,
+      params: { separator: ', ' },
+      arrayMapping: property.arrayMapping,
+    };
+  }
+
+  return {
+    title,
+    component: CellComponent.StringCell,
+    params: { readonly: 'true' },
+    objectMapping: {
+      text: property.objectMapping?.value ?? '',
+    },
+  };
 };
 
 const propertyWithValueAndEmptiness = (
