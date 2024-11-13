@@ -15,17 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <h1 class="text-2xl font-semibold leading-tight md:text-3xl">
               {{ $t('overview.listPage.heroTitle') }}
             </h1>
-            <TooltipCustom :show-close-button="false" hover>
-              <IconClose
-                class="size-6 cursor-pointer text-green-500"
-                @click="onHide"
-              />
-              <template #container>
-                <p class="max-w-[200px] text-xs text-dialog">
-                  {{ $t('overview.listPage.heroCloseText') }}
-                </p>
-              </template>
-            </TooltipCustom>
+            <DisclaimerCloseHeroPopup @close="onHide" />
           </div>
           <h2 class="text-base font-normal text-dialog md:text-xl">
             {{ $t('overview.listPage.heroSubtitle') }}
@@ -42,9 +32,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import ButtonLink from '../../../components/button/ButtonLink.vue';
 import ContentAlignmentX from '../../../components/content/ContentAlignmentX.vue';
-import IconClose from '../../../components/svg/IconClose.vue';
-import TooltipCustom from '../../../components/tooltip/TooltipCustom.vue';
 import { useLocalStorage } from '@vueuse/core';
+import DisclaimerCloseHeroPopup from './DisclaimerCloseHeroPopup.vue';
 
 const hide = useLocalStorage('opendatahub-hide-hero', false);
 

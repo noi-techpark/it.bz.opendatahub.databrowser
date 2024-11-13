@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <PopoverGroup>
-    <Popover>
+    <Popover v-slot="{ open }">
       <span ref="trigger">
         <slot name="trigger"></slot>
       </span>
@@ -21,6 +21,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           }"
         >
           <slot name="container"></slot>
+
+          <PopoverTransition v-if="hasArrow">
+            <div
+              v-show="open"
+              ref="arrow"
+              class="absolute size-4 rotate-45 border-gray-400 bg-white"
+              :class="arrowClasses"
+            ></div>
+          </PopoverTransition>
         </div>
       </Teleport>
     </Popover>
@@ -30,14 +39,37 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { Popover, PopoverGroup } from '@headlessui/vue';
 import { useFloatingUi } from '../utils/useFloatingUi';
+import { computed, ref } from 'vue';
+import PopoverTransition from './PopoverTransition.vue';
 
-withDefaults(defineProps<{ fullScreenWidth?: boolean; zIndex?: number }>(), {
-  fullScreenWidth: true,
-  zIndex: undefined,
-});
+withDefaults(
+  defineProps<{
+    fullScreenWidth?: boolean;
+    zIndex?: number;
+    hasArrow?: boolean;
+  }>(),
+  {
+    fullScreenWidth: true,
+    zIndex: undefined,
+    hasArrow: false,
+  }
+);
 
-const [trigger, container] = useFloatingUi({
+const arrow = ref();
+
+const [trigger, container, placement] = useFloatingUi({
   placement: 'bottom-start',
   offset: 8,
+  arrow,
 });
+
+const arrowClasses = computed(() =>
+  placement.value.startsWith(`bottom`)
+    ? `border-t border-l`
+    : placement.value.startsWith(`top`)
+    ? `border-b border-r`
+    : placement.value.startsWith(`left`)
+    ? `border-t border-r`
+    : `border-b border-l`
+);
 </script>
