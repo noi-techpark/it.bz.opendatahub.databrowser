@@ -67,6 +67,7 @@ export const useFloatingUi = (
           if (middlewareData.arrow != null) {
             const { x: arrowX, y: arrowY } = middlewareData.arrow;
             const splittedPlacement = currentPlacement.split('-')[0];
+            const leftOffset = 5;
 
             const staticSide = {
               top: 'bottom',
@@ -76,7 +77,7 @@ export const useFloatingUi = (
             }[splittedPlacement]!;
 
             Object.assign(arrowEl.style, {
-              left: arrowX != null ? `${arrowX}px` : '',
+              left: arrowX != null ? `${arrowX + leftOffset}px` : '',
               top: arrowY != null ? `${arrowY}px` : '',
               right: '',
               bottom: '',

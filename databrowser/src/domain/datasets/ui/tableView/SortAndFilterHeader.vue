@@ -8,50 +8,63 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div class="flex items-center justify-between gap-1">
     {{ title }}
     <div class="flex items-center justify-end gap-1">
-      <TooltipCustom v-if="isDeprecated">
-        <template #default>
-          <div class="size-2 rounded-full bg-deprecated"></div>
+      <PopoverCustom v-if="isDeprecated" has-arrow>
+        <template #trigger>
+          <PopoverCustomButton class="flex">
+            <div class="size-2 rounded-full bg-deprecated"></div>
+          </PopoverCustomButton>
         </template>
         <template #container>
-          <h4 class="mb-2 font-semibold">Attribute is deprecated.</h4>
+          <PopoverCustomPanel>
+            <PopoverContent class="max-w-md">
+              <h4 class="mb-2 font-semibold">Attribute is deprecated.</h4>
 
-          <p class="mb-5 text-sm">
-            A deprecated attribute is one that is phasing out and will not be
-            available anymore in the future. It is not recommended to use it.
-          </p>
+              <p class="mb-5 text-sm">
+                A deprecated attribute is one that is phasing out and will not
+                be available anymore in the future. It is not recommended to use
+                it.
+              </p>
 
-          <ButtonExternalLink
-            variant="ghost"
-            class="flex w-full justify-center"
-            href="https://github.com/noi-techpark/odh-docs/wiki/What-does-%22deprecated%22-mean%3F"
-            target="_blank"
-            >More info
-          </ButtonExternalLink>
+              <ButtonExternalLink
+                variant="ghost"
+                class="flex w-full justify-center"
+                href="https://github.com/noi-techpark/odh-docs/wiki/What-does-%22deprecated%22-mean%3F"
+                target="_blank"
+                >More info
+              </ButtonExternalLink>
+            </PopoverContent>
+          </PopoverCustomPanel>
         </template>
-      </TooltipCustom>
+      </PopoverCustom>
 
-      <TooltipCustom v-if="isReference">
-        <template #default>
-          <div class="size-2 rounded-full bg-reference"></div>
+      <PopoverCustom v-if="isReference" has-arrow>
+        <template #trigger>
+          <PopoverCustomButton class="flex">
+            <div class="size-2 rounded-full bg-reference"></div>
+          </PopoverCustomButton>
         </template>
         <template #container>
-          <h4 class="mb-2 font-semibold">
-            Attribute is referenced from other dataset.
-          </h4>
+          <PopoverCustomPanel>
+            <PopoverContent class="max-w-md">
+              <h4 class="mb-2 font-semibold">
+                Attribute is referenced from other dataset.
+              </h4>
 
-          <p class="mb-5 text-sm">
-            This attribute has its origin in another dataset and is added to
-            this view.
-          </p>
+              <p class="mb-5 text-sm">
+                This attribute has its origin in another dataset and is added to
+                this view.
+              </p>
 
-          <ButtonCustom
-            variant="ghost"
-            class="w-full"
-            @click="onGoToReference()"
-            >View original dataset ({{ referenceName }})
-          </ButtonCustom>
+              <ButtonCustom
+                variant="ghost"
+                class="w-full"
+                @click="onGoToReference()"
+                >View original dataset ({{ referenceName }})
+              </ButtonCustom>
+            </PopoverContent></PopoverCustomPanel
+          >
         </template>
-      </TooltipCustom>
+      </PopoverCustom>
 
       <div v-if="!canSort && !canFilter">
         <IconStrokedArrowDown class="size-5 stroke-current" />
@@ -106,6 +119,7 @@ import PopoverContentHeader from '../../../../components/popover/PopoverContentH
 import PopoverCustom from '../../../../components/popover/PopoverCustom.vue';
 import PopoverCustomButton from '../../../../components/popover/PopoverCustomButton.vue';
 import PopoverCustomPanel from '../../../../components/popover/PopoverCustomPanel.vue';
+import PopoverContent from '../../../../components/popover/PopoverContent.vue';
 import IconFilter from '../../../../components/svg/IconFilter.vue';
 import IconSortAsc from '../../../../components/svg/IconSortAsc.vue';
 import IconSortDesc from '../../../../components/svg/IconSortDesc.vue';
@@ -114,7 +128,6 @@ import { PropertyPath } from '../../../datasets/config/types';
 import FilterPopoverContent from './filter/FilterPopoverContent.vue';
 import SortPopoverContent from './sort/SortPopoverContent.vue';
 import { useTableSortForPropertyPath } from './sort/useTableSort';
-import TooltipCustom from '../../../../components/tooltip/TooltipCustom.vue';
 import { useTableFilterStore } from './filter/tableFilterStore';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import ButtonExternalLink from '../../../../components/button/ButtonExternalLink.vue';
