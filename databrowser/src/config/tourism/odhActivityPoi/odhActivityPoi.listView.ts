@@ -39,6 +39,17 @@ export const odhActivityPoiListView: ListViewConfig = {
     //   objectMapping: { text: 'ContactInfos.{language}.Url' },
     // },
     gpsDataShortTableCell(),
+    {
+      title: 'Tags',
+      component: CellComponent.ArrayCell,
+      class: 'w-48',
+      objectMapping: {
+        items: 'SmgTags',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),

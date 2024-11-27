@@ -40,13 +40,45 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoCategoryId',
       },
     },
-    // ...locationTableCells(),
     {
       title: 'Location',
       component: CellComponent.StringCell,
       class: 'w-48',
       objectMapping: {
         text: 'LocationInfo.DistrictInfo.Name.en',
+      },
+    },
+    {
+      title: 'Badges',
+      component: CellComponent.ArrayCell,
+      class: 'w-48',
+      objectMapping: {
+        items: 'BadgeIds',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
+    {
+      title: 'Themes',
+      component: CellComponent.ArrayCell,
+      class: 'w-48',
+      objectMapping: {
+        items: 'ThemeIds',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
+    {
+      title: 'Tags',
+      component: CellComponent.ArrayCell,
+      class: 'w-48',
+      objectMapping: {
+        items: 'SmgTags',
+      },
+      params: {
+        separator: ', ',
       },
     },
     languageTableCell(),
