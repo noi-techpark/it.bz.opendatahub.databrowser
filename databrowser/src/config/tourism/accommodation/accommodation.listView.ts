@@ -45,7 +45,7 @@ export const accommodationListView: ListViewConfig = {
       component: CellComponent.StringCell,
       class: 'w-48',
       objectMapping: {
-        text: 'LocationInfo.DistrictInfo.Name.en',
+        text: 'LocationInfo.DistrictInfo.Id',
       },
     },
     {
