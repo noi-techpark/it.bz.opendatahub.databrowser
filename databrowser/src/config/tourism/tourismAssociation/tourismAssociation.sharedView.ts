@@ -22,7 +22,7 @@ import {
   mappingCategory,
 } from '../../builder/tourism';
 
-export const tourismAssociationListSharedView = ():
+export const tourismAssociationSharedView = ():
   | DetailViewConfig
   | EditViewConfig => ({
   elements: [

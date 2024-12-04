@@ -14,7 +14,7 @@ import {
   titleTableCell,
 } from '../../builder/tourism';
 
-export const tourismAssociationListListView: ListViewConfig = {
+export const tourismAssociationListView: ListViewConfig = {
   elements: [
     titleTableCell(),
     imageTableCell(),

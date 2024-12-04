@@ -127,6 +127,22 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
                 labelSelector: 'TagName.{language}',
               },
             },
+            {
+              title: 'Assigned Tags TEST ',
+              component: CellComponent.TagReferenceCell,
+              arrayMapping: {
+                targetPropertyName: 'items',
+                pathToParent: 'TagIds',
+              },
+              params: {
+                value_001: 'PUBLIC',
+                label_001: 'public',
+                value_002: 'PRIVATE',
+                label_002: 'private',
+                value_003: 'PRIVATE_WITHPUBLICACCESS',
+                label_003: 'private with public access',
+              },
+            },
           ],
         },
       ],

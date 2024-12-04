@@ -9,10 +9,10 @@ import { lastChangesTableCell, publishedOnCell } from '../../builder/tourism';
 export const odhTagListView: ListViewConfig = {
   elements: [
     {
-      title: 'Shortname',
+      title: 'Id',
       component: CellComponent.StringCell,
       class: 'w-60',
-      objectMapping: { text: 'Shortname' },
+      objectMapping: { text: 'Id' },
     },
     {
       title: 'TagName',

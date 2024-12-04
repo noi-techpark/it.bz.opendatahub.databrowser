@@ -26,17 +26,17 @@ export const articleListView: ListViewConfig = {
         text: 'Type',
       },
     },
-    // {
-    //   title: 'Tags',
-    //   component: CellComponent.ArrayCell,
-    //   class: 'w-48',
-    //   objectMapping: {
-    //     items: 'Tags.Id', //not working
-    //   },
-    //   params: {
-    //     separator: ', ',
-    //   },
-    // },
+    {
+      title: 'Tags',
+      component: CellComponent.ArrayCell,
+      class: 'w-48',
+      objectMapping: {
+        items: 'SmgTags',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),

@@ -67,6 +67,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               label_001="CC0"
               value_002="Proprietary"
               label_002="Proprietary"
+              value_003="LTS"
+              label_003="Proprietary LTS"
               @update="updateItem(index, { license: $event.value })"
             />
           </SubCategoryItem>
@@ -82,6 +84,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               :enabled="booleanOrStringToBoolean(item.isInGallery)"
               :editable="editable"
               @input="updateItem(index, { source: $event.value })"
+            />
+          </SubCategoryItem>
+          <SubCategoryItem title="Valid From">
+            <DateCell
+              :date="item.validFrom"
+              :editable="editable"
+              type="datetime"
+              @input="updateItem(index, { validFrom: $event.value })"
+            />
+          </SubCategoryItem>
+          <SubCategoryItem title="Valid To">
+            <DateCell
+              :date="item.validTo"
+              :editable="editable"
+              type="datetime"
+              @input="updateItem(index, { validTo: $event.value })"
             />
           </SubCategoryItem>
         </div>
@@ -189,6 +207,7 @@ import EditListTab from '../../utils/editList/tab/EditListTab.vue';
 import { useFileDialogForType } from '../../utils/upload/useFileDialogForType';
 import SelectWithOptionsCell from '../selectWithOptionsCell/SelectWithOptionsCell.vue';
 import StringCell from '../stringCell/StringCell.vue';
+import DateCell from '../dateCell/DateCell.vue';
 import ToggleTriStateCell from '../toggleCell/ToggleTriStateCell.vue';
 import { ImageGalleryEntry } from './types';
 import { shouldResize } from './utils';

@@ -4,8 +4,8 @@
 
 import { DatasetDescription } from '../../../domain/datasets/config/types';
 
-export const tourismAssociationListDescription: DatasetDescription = {
-  title: 'Tourism Association List',
+export const tourismAssociationDescription: DatasetDescription = {
+  title: 'Tourism Association',
   subtitle: 'This dataset contains Tourism Associations.',
   description: 'This dataset contains Tourism Associations.',
 };

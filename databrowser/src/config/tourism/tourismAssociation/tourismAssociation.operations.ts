@@ -10,7 +10,7 @@ import {
   ROLE_READ,
 } from '../roles';
 
-export const tourismAssociationListOperations: Operations = {
+export const tourismAssociationOperations: Operations = {
   readAll: {
     rolesAllowed: ROLE_READ,
   },
@@ -19,20 +19,20 @@ export const tourismAssociationListOperations: Operations = {
   },
   create: {
     rolesAllowed: extendCreateRoles([
-      'TourismAssociationListManager',
-      'TourismAssociationListCreate',
+      'TourismAssociationManager',
+      'TourismAssociationCreate',
     ]),
   },
   update: {
     rolesAllowed: extendUpdateRoles([
-      'TourismAssociationListManager',
-      'TourismAssociationListUpdate',
+      'TourismAssociationtManager',
+      'TourismAssociationUpdate',
     ]),
   },
   delete: {
     rolesAllowed: extendDeleteRoles([
-      'TourismAssociationListManager',
-      'TourismAssociationListDelete',
+      'TourismAssociationManager',
+      'TourismAssociationDelete',
     ]),
   },
 };
