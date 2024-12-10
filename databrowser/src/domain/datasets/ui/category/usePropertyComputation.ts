@@ -74,19 +74,25 @@ const computeReferencedPropertyAsStringOrArrayCell = (
   property: PropertyConfig
 ): PropertyConfig => {
   const isArrayCell =
-    property.arrayMapping && Object.keys(property.arrayMapping).length > 0;
+    property.objectMapping?.items ||
+    (property.arrayMapping && Object.keys(property.arrayMapping).length > 0);
   const idLabel = isArrayCell ? 'IDs' : 'ID';
 
   const title = property.title
     ? `${property.title} ${idLabel}`
     : `Reference ${idLabel}`;
+  const items = property.objectMapping
+    ? property.objectMapping?.items
+    : property.arrayMapping?.pathToParent;
 
   if (isArrayCell) {
     return {
       title,
       component: CellComponent.ArrayCell,
-      params: { separator: ', ' },
-      arrayMapping: property.arrayMapping,
+      params: { separator: ', ', emptyText: 'No values defined' },
+      objectMapping: {
+        items,
+      },
     };
   }
 
