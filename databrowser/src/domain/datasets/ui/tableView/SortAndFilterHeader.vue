@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div class="flex items-center justify-between gap-1">
     {{ title }}
     <div class="flex items-center justify-end gap-1">
-      <PopoverCustom v-if="isDeprecated" has-arrow>
+      <PopoverCustom v-if="isDeprecated" has-arrow :left-offset="5">
         <template #trigger>
           <PopoverCustomButton class="flex">
             <div class="size-2 rounded-full bg-deprecated"></div>
@@ -37,7 +37,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </template>
       </PopoverCustom>
 
-      <PopoverCustom v-if="isReference" has-arrow>
+      <PopoverCustom v-if="isReference" has-arrow :left-offset="5">
         <template #trigger>
           <PopoverCustomButton class="flex">
             <div class="size-2 rounded-full bg-reference"></div>
@@ -61,8 +61,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 @click="onGoToReference()"
                 >View original dataset ({{ referenceName }})
               </ButtonCustom>
-            </PopoverContent></PopoverCustomPanel
-          >
+            </PopoverContent>
+          </PopoverCustomPanel>
         </template>
       </PopoverCustom>
 

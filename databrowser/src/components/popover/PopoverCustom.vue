@@ -42,16 +42,18 @@ import { useFloatingUi } from '../utils/useFloatingUi';
 import { computed, ref } from 'vue';
 import PopoverTransition from './PopoverTransition.vue';
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     fullScreenWidth?: boolean;
     zIndex?: number;
     hasArrow?: boolean;
+    leftOffset?: number;
   }>(),
   {
     fullScreenWidth: true,
     zIndex: undefined,
     hasArrow: false,
+    leftOffset: undefined,
   }
 );
 
@@ -61,6 +63,7 @@ const [trigger, container, placement] = useFloatingUi({
   placement: 'bottom-start',
   offset: 8,
   arrow,
+  leftOffset: props.leftOffset,
 });
 
 const arrowClasses = computed(() =>

@@ -17,6 +17,7 @@ export interface UseFloatingUi {
   placement: Placement;
   matchReferenceWidth?: boolean;
   offset?: number;
+  leftOffset?: number;
   arrow?: Ref<any>;
 }
 
@@ -55,8 +56,14 @@ export const useFloatingUi = (
           middleware,
         }).then(({ x, y, placement: currentPlacement, middlewareData }) => {
           // Position tooltip
+          const [staticPlacement, dynamicPlacement] =
+            currentPlacement.split('-');
+
+          const leftOffset =
+            (options.leftOffset || 0) * (dynamicPlacement === 'end' ? 1 : -1);
+
           Object.assign(tooltipEl.style, {
-            left: `${x}px`,
+            left: `${x + leftOffset}px`,
             top: `${y}px`,
           });
 
@@ -66,22 +73,16 @@ export const useFloatingUi = (
           // If arrow element is provided, handle its positioning
           if (middlewareData.arrow != null) {
             const { x: arrowX, y: arrowY } = middlewareData.arrow;
-            const splittedPlacement = currentPlacement.split('-')[0];
-
-            const { x: tooltipX } = tooltipEl.getBoundingClientRect();
-            const { x: arrowWindowX } = arrowEl.getBoundingClientRect();
-
-            const leftOffset = tooltipX > arrowWindowX ? 5 : -5;
 
             const staticSide = {
               top: 'bottom',
               right: 'left',
               bottom: 'top',
               left: 'right',
-            }[splittedPlacement]!;
+            }[staticPlacement]!;
 
             Object.assign(arrowEl.style, {
-              left: arrowX != null ? `${arrowX + leftOffset}px` : '',
+              left: arrowX != null ? `${arrowX - leftOffset}px` : '',
               top: arrowY != null ? `${arrowY}px` : '',
               right: '',
               bottom: '',

@@ -12,14 +12,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     :class="{
       relative: triggerOnHover,
     }"
-    @click="onPopoverButtonClick"
   >
     <slot :open="open" :close="close"></slot>
     <span
       v-if="triggerOnHover"
       ref="triggerHoverRef"
       class="absolute left-0 top-0 h-full w-full"
-      @click="onTriggerHoverClick()"
+      @click.stop="onTriggerHoverClick()"
       @mouseover="onTriggerMouseHover(open)"
       @mouseleave="onTriggerMouseLeave(close)"
     >
@@ -32,7 +31,7 @@ import { ref } from 'vue';
 import { PopoverButton } from '@headlessui/vue';
 import { useTimeoutFn } from '@vueuse/core';
 
-const props = defineProps<{ disabled?: boolean; triggerOnHover?: boolean }>();
+defineProps<{ disabled?: boolean; triggerOnHover?: boolean }>();
 
 const emit = defineEmits(['triggerClick']);
 
@@ -54,14 +53,6 @@ const onTriggerMouseLeave = (isClose: boolean) => {
 
 const onTriggerHoverClick = () => {
   emit('triggerClick');
-};
-
-const onPopoverButtonClick = (e: PointerEvent) => {
-  if (!e.pointerType || !props.triggerOnHover) {
-    return;
-  }
-
-  e.preventDefault();
 };
 
 const {
