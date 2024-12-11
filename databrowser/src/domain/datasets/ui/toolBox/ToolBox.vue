@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
   <!-- ToolBox content -->
   <div
-    class="absolute top-0 z-[10] flex h-full flex-col overflow-x-auto bg-gray-50 transition-all md:relative"
+    class="absolute top-0 z-10 flex h-full flex-col overflow-x-auto bg-gray-50 transition-all md:relative"
     :class="{
       'w-full md:w-1/3': toolBoxStore.visible,
       'w-0 md:w-[4.5rem]': !toolBoxStore.visible,
