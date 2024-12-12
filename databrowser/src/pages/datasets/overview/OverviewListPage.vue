@@ -248,11 +248,7 @@ import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import { useMetaDataDatasets, useOtherDatasets } from './useDatasets';
 import OverviewListPageHero from './OverviewListPageHero.vue';
-import { computeButtonClasses } from '../../../components/button/styles';
 import { Size, Variant } from '../../../components/button/types';
-import { storeToRefs } from 'pinia';
-import { useMetaDataStore } from '../../../domain/metaDataConfig/tourism/metaDataStore';
-import { usePaths } from '../../../domain/datasets/ui/header/usePaths';
 import ButtonExternalLink from '../../../components/button/ButtonExternalLink.vue';
 import PopoverContentHeader from '../../../components/popover/PopoverContentHeader.vue';
 
