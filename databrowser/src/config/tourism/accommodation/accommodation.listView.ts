@@ -12,6 +12,7 @@ import {
   publishedOnTableCell,
   sourceTableCell,
 } from '../../builder/tourism';
+import { withOdhBaseUrl } from '../../utils';
 
 export const accommodationListView: ListViewConfig = {
   elements: [
@@ -40,13 +41,61 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoCategoryId',
       },
     },
-    // ...locationTableCells(),
     {
-      title: 'Location',
-      component: CellComponent.StringCell,
+      title: 'District',
+      component: CellComponent.InputReferenceCell,
+      class: 'w-52',
+      objectMapping: { value: 'LocationInfo.DistrictInfo.Id' },
+      params: {
+        url: withOdhBaseUrl('/v1/Location?type=fra&showall=true'),
+        labelSelector: 'name.{language}',
+        keySelector: 'id',
+        showid: 'true',
+      },
+    },
+    {
+      title: 'Region',
+      component: CellComponent.InputReferenceCell,
+      class: 'w-52',
+      objectMapping: { value: 'LocationInfo.RegionInfo.Id' },
+      params: {
+        url: withOdhBaseUrl('/v1/Location?type=reg&showall=true'),
+        labelSelector: 'name.{language}',
+        keySelector: 'id',
+        showid: 'true',
+      },
+    },
+    {
+      title: 'Badges',
+      component: CellComponent.ArrayCell,
       class: 'w-48',
       objectMapping: {
-        text: 'LocationInfo.DistrictInfo.Name.en',
+        items: 'BadgeIds',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
+    {
+      title: 'Themes',
+      component: CellComponent.ArrayCell,
+      class: 'w-48',
+      objectMapping: {
+        items: 'ThemeIds',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
+    {
+      title: 'Tags',
+      component: CellComponent.ArrayCell,
+      class: 'w-48',
+      objectMapping: {
+        items: 'SmgTags',
+      },
+      params: {
+        separator: ', ',
       },
     },
     languageTableCell(),

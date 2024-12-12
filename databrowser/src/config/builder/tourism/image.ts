@@ -29,6 +29,8 @@ export const imageGalleryCell = (
       listPosition: 'ListPosition',
       source: 'ImageSource',
       isInGallery: 'IsInGallery',
+      validFrom: 'ValidFrom',
+      validTo: 'ValidTo',
     },
   },
   params: { resizeImages: resizeImages + '' },

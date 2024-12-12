@@ -4,7 +4,7 @@
 
 import { DatasetRoute } from '../../../domain/datasets/config/types';
 
-export const tourismAssociationListRoute: DatasetRoute = {
+export const tourismAssociationRoute: DatasetRoute = {
   domain: 'tourism',
   pathSegments: ['v1', 'TourismAssociation'],
 };
