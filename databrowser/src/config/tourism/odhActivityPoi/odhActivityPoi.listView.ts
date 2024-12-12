@@ -9,7 +9,7 @@ import {
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
-  locationTableCells,
+  locationTableCellsMinimal,
   publishedOnTableCell,
   pushDataTableCell,
   sourceTableCell,
@@ -31,13 +31,7 @@ export const odhActivityPoiListView: ListViewConfig = {
         separator: ', ',
       },
     },
-    ...locationTableCells(),
-    // {
-    //   title: 'Web-URL',
-    //   component: CellComponent.UrlCell,
-    //   class: 'w-52',
-    //   objectMapping: { text: 'ContactInfos.{language}.Url' },
-    // },
+    ...locationTableCellsMinimal(),
     gpsDataShortTableCell(),
     {
       title: 'Tags',

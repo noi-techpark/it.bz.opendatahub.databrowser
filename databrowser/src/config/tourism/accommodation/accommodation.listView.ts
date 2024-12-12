@@ -11,8 +11,8 @@ import {
   pushDataTableCell,
   publishedOnTableCell,
   sourceTableCell,
+  locationTableCellsMinimal,
 } from '../../builder/tourism';
-import { withOdhBaseUrl } from '../../utils';
 
 export const accommodationListView: ListViewConfig = {
   elements: [
@@ -41,30 +41,43 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoCategoryId',
       },
     },
-    {
-      title: 'District',
-      component: CellComponent.InputReferenceCell,
-      class: 'w-52',
-      objectMapping: { value: 'LocationInfo.DistrictInfo.Id' },
-      params: {
-        url: withOdhBaseUrl('/v1/Location?type=fra&showall=true'),
-        labelSelector: 'name.{language}',
-        keySelector: 'id',
-        showid: 'true',
-      },
-    },
-    {
-      title: 'Region',
-      component: CellComponent.InputReferenceCell,
-      class: 'w-52',
-      objectMapping: { value: 'LocationInfo.RegionInfo.Id' },
-      params: {
-        url: withOdhBaseUrl('/v1/Location?type=reg&showall=true'),
-        labelSelector: 'name.{language}',
-        keySelector: 'id',
-        showid: 'true',
-      },
-    },
+    // {
+    //   title: 'District',
+    //   component: CellComponent.InputReferenceCell,
+    //   class: 'w-52',
+    //   objectMapping: { value: 'LocationInfo.DistrictInfo.Id' },
+    //   params: {
+    //     url: withOdhBaseUrl('/v1/Location?type=fra&showall=true'),
+    //     labelSelector: 'name.{language}',
+    //     keySelector: 'id',
+    //     showid: 'true',
+    //   },
+    // },
+    // {
+    //   title: 'Tourismassociation',
+    //   component: CellComponent.InputReferenceCell,
+    //   class: 'w-52',
+    //   objectMapping: { value: 'LocationInfo.TvInfo.Id' },
+    //   params: {
+    //     url: withOdhBaseUrl('/v1/Location?type=tvs&showall=true'),
+    //     labelSelector: 'name.{language}',
+    //     keySelector: 'id',
+    //     showid: 'true',
+    //   },
+    // },
+    // {
+    //   title: 'Region',
+    //   component: CellComponent.InputReferenceCell,
+    //   class: 'w-52',
+    //   objectMapping: { value: 'LocationInfo.RegionInfo.Id' },
+    //   params: {
+    //     url: withOdhBaseUrl('/v1/Location?type=reg&showall=true'),
+    //     labelSelector: 'name.{language}',
+    //     keySelector: 'id',
+    //     showid: 'true',
+    //   },
+    // },
+    ...locationTableCellsMinimal(),
     {
       title: 'Badges',
       component: CellComponent.ArrayCell,
