@@ -12,6 +12,7 @@ import {
   pushDataTableCell,
   sourceTableCell,
   titleTableCell,
+  locationTableCellsMinimal,
 } from '../../builder/tourism';
 import { DEFAULT_DATE_TIME_FORMAT } from '../../utils';
 
@@ -33,14 +34,7 @@ export const eventListView: ListViewConfig = {
       params: { format: DEFAULT_DATE_TIME_FORMAT },
       objectMapping: { date: 'DateEnd' },
     },
-    {
-      title: 'Location',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      objectMapping: {
-        text: 'LocationInfo.DistrictInfo.Name.en',
-      },
-    },
+    ...locationTableCellsMinimal(),
     {
       title: 'Tags',
       component: CellComponent.ArrayCell,
