@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <!-- Mobile toolBox open button -->
   <ButtonCustom
     v-if="!toolBoxStore.visible"
-    class="absolute bottom-16 right-[20px] z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
+    class="mobile-toolbox absolute bottom-16 right-[20px] z-20 flex -rotate-90 items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
     data-test="mobile-open-toolBox"
     @click="toolBoxStore.toggleToolboxVisibility(!toolBoxStore.visible)"
   >
@@ -174,5 +174,9 @@ watch(mdAndLarger, (newVal) => {
 .expand-bt-text {
   writing-mode: vertical-lr;
   text-orientation: mixed;
+}
+
+.mobile-toolbox {
+  right: -3rem;
 }
 </style>
