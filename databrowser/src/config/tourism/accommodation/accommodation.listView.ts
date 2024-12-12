@@ -12,6 +12,7 @@ import {
   publishedOnTableCell,
   sourceTableCell,
 } from '../../builder/tourism';
+import { withOdhBaseUrl } from '../../utils';
 
 export const accommodationListView: ListViewConfig = {
   elements: [
@@ -41,11 +42,27 @@ export const accommodationListView: ListViewConfig = {
       },
     },
     {
-      title: 'Location',
-      component: CellComponent.StringCell,
-      class: 'w-48',
-      objectMapping: {
-        text: 'LocationInfo.DistrictInfo.Id',
+      title: 'District',
+      component: CellComponent.InputReferenceCell,
+      class: 'w-52',
+      objectMapping: { value: 'LocationInfo.DistrictInfo.Id' },
+      params: {
+        url: withOdhBaseUrl('/v1/Location?type=fra&showall=true'),
+        labelSelector: 'name.{language}',
+        keySelector: 'id',
+        showid: 'true',
+      },
+    },
+    {
+      title: 'Region',
+      component: CellComponent.InputReferenceCell,
+      class: 'w-52',
+      objectMapping: { value: 'LocationInfo.RegionInfo.Id' },
+      params: {
+        url: withOdhBaseUrl('/v1/Location?type=reg&showall=true'),
+        labelSelector: 'name.{language}',
+        keySelector: 'id',
+        showid: 'true',
       },
     },
     {
