@@ -11,6 +11,7 @@ import {
   pushDataTableCell,
   publishedOnTableCell,
   sourceTableCell,
+  locationTableCellsMinimal,
 } from '../../builder/tourism';
 
 export const accommodationListView: ListViewConfig = {
@@ -40,13 +41,74 @@ export const accommodationListView: ListViewConfig = {
         text: 'AccoCategoryId',
       },
     },
-    // ...locationTableCells(),
+    // {
+    //   title: 'District',
+    //   component: CellComponent.InputReferenceCell,
+    //   class: 'w-52',
+    //   objectMapping: { value: 'LocationInfo.DistrictInfo.Id' },
+    //   params: {
+    //     url: withOdhBaseUrl('/v1/Location?type=fra&showall=true'),
+    //     labelSelector: 'name.{language}',
+    //     keySelector: 'id',
+    //     showid: 'true',
+    //   },
+    // },
+    // {
+    //   title: 'Tourismassociation',
+    //   component: CellComponent.InputReferenceCell,
+    //   class: 'w-52',
+    //   objectMapping: { value: 'LocationInfo.TvInfo.Id' },
+    //   params: {
+    //     url: withOdhBaseUrl('/v1/Location?type=tvs&showall=true'),
+    //     labelSelector: 'name.{language}',
+    //     keySelector: 'id',
+    //     showid: 'true',
+    //   },
+    // },
+    // {
+    //   title: 'Region',
+    //   component: CellComponent.InputReferenceCell,
+    //   class: 'w-52',
+    //   objectMapping: { value: 'LocationInfo.RegionInfo.Id' },
+    //   params: {
+    //     url: withOdhBaseUrl('/v1/Location?type=reg&showall=true'),
+    //     labelSelector: 'name.{language}',
+    //     keySelector: 'id',
+    //     showid: 'true',
+    //   },
+    // },
+    ...locationTableCellsMinimal(),
     {
-      title: 'Location',
-      component: CellComponent.StringCell,
+      title: 'Badges',
+      component: CellComponent.ArrayCell,
       class: 'w-48',
       objectMapping: {
-        text: 'LocationInfo.DistrictInfo.Name.en',
+        items: 'BadgeIds',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
+    {
+      title: 'Themes',
+      component: CellComponent.ArrayCell,
+      class: 'w-48',
+      objectMapping: {
+        items: 'ThemeIds',
+      },
+      params: {
+        separator: ', ',
+      },
+    },
+    {
+      title: 'Tags',
+      component: CellComponent.ArrayCell,
+      class: 'w-48',
+      objectMapping: {
+        items: 'SmgTags',
+      },
+      params: {
+        separator: ', ',
       },
     },
     languageTableCell(),

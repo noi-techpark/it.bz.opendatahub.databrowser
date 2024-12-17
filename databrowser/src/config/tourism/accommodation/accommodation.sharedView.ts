@@ -165,12 +165,12 @@ export const accommodationSharedView = ():
             accommodationCategoryCell(),
             {
               title: 'Long description',
-              component: CellComponent.StringCell,
+              component: CellComponent.TextAreaCell,
               objectMapping: { text: 'AccoDetail.{language}.Longdesc' },
             },
             {
               title: 'Short description',
-              component: CellComponent.StringCell,
+              component: CellComponent.TextAreaCell,
               objectMapping: { text: 'AccoDetail.{language}.Shortdesc' },
             },
           ],
