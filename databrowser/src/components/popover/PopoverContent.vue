@@ -10,18 +10,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       'cursor-pointer hover:bg-gray-50': withHover && !disabled,
       'text-disabled': disabled,
     }"
-    @click="
-      $event.preventDefault();
-      $event.stopPropagation();
-    "
   >
-    <slot
-      @click="
-        false;
-        $event.preventDefault();
-        $event.stopPropagation();
-      "
-    ></slot>
+    <slot></slot>
   </PopoverContentFrame>
 </template>
 
