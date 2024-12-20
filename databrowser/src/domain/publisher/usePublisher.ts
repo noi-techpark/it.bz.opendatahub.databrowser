@@ -17,7 +17,8 @@ interface OdhPublisher {
 
 const publisherUrl = withOdhBaseUrl('/v1/Publisher?pagesize=100');
 
-export const usePublisher = () => useApiRead(publisherUrl, { select });
+export const usePublisher = () =>
+  useApiRead(publisherUrl, { select, queryKey: [publisherUrl] });
 
 const select = (
   data: WithTourismPagination<OdhPublisher[]>

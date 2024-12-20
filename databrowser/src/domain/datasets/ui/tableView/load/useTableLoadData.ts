@@ -17,6 +17,7 @@ export const useTableLoadData = (
   // Fetch data
   const { data, error, isError, isLoading, refetch } = useApiRead(fullPath, {
     withAuth: true,
+    queryKey: [fullPath],
   });
 
   // Unwrap data, because the data may be wrapped wrapped in a "Items" or "data"
