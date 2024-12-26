@@ -1,6 +1,7 @@
 {
   "name": "databrowser",
   "version": "2.3.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
