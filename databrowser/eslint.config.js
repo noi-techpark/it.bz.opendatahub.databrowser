@@ -26,8 +26,7 @@ export default [
       // Temporarily turn off the recommended rules to not overload the
       // eslint-update commit with changes. We will enable them one by one
       // later on.
-      "@typescript-eslint/no-explicit-any": "off",
-      "prefer-const": "off",
+      "@typescript-eslint/no-explicit-any": "off"
     }
   },
 
