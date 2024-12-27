@@ -22,12 +22,6 @@ export default [
 
   {
     files: ['**/*.{ts,vue}'],
-    // Temporarily turn off the report of unused disable directives
-    // to not overload the eslint-update commit with changes. We will
-    // remove this config later on.
-    linterOptions: {
-      reportUnusedDisableDirectives: "off"
-    },
     rules: {
       // Temporarily turn off the recommended rules to not overload the
       // eslint-update commit with changes. We will enable them one by one
