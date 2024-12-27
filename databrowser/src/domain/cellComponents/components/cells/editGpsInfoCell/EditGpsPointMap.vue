@@ -183,7 +183,7 @@ const onEnableSetMarker = (value: boolean) => {
   enableSetMarker.value = value;
 };
 
-const onCtaClick = async (iconValue: any) => {
+const onCtaClick = async (iconValue: unknown) => {
   switch (iconValue) {
     case 'IconPencil':
       gpsPointMap.value.toggleEditMode();

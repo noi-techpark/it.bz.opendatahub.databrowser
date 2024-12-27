@@ -8,7 +8,7 @@ import { TourismMetaData } from '../metaDataConfig/tourism/types';
 
 export const computeRecordId = (
   domain: string | undefined,
-  record?: any
+  record?: unknown
 ): RecordId => {
   if (record == null || Array.isArray(record)) {
     return undefined;
@@ -16,19 +16,22 @@ export const computeRecordId = (
 
   switch (domain) {
     case 'tourism': {
-      return idToString(record.id ?? record.Id);
+      const maybeTourism = record as { id?: string; Id?: string };
+      return idToString(maybeTourism.id ?? maybeTourism.Id);
     }
     case 'mobility': {
       // scode is the station code, evuuid is the event uuid, id is the generic id
-      return idToString(record.scode ?? record.evuuid ?? record.id);
+      const maybeMobility = record as { scode?: string; evuuid?: string; id?: string };
+      return idToString(maybeMobility.scode ?? maybeMobility.evuuid ?? maybeMobility.id);
     }
     default: {
-      return idToString(record.id);
+      const maybeDefault = record as { id?: string };
+      return idToString(maybeDefault.id);
     }
   }
 };
 
-const idToString = (id: TourismMetaData) =>
+const idToString = (id: unknown) =>
   id == null ? undefined : id.toString();
 
 export const getTableLocationFromDataset = (dataset: TourismMetaData) => {

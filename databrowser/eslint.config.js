@@ -20,15 +20,5 @@ export default [
   ...pluginVue.configs['flat/essential'],
   ...vueTsEslintConfig(),
 
-  {
-    files: ['**/*.{ts,vue}'],
-    rules: {
-      // Temporarily turn off the recommended rules to not overload the
-      // eslint-update commit with changes. We will enable them one by one
-      // later on.
-      "@typescript-eslint/no-explicit-any": "off"
-    }
-  },
-
   skipFormatting,
 ]

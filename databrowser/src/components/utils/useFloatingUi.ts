@@ -17,14 +17,14 @@ export interface UseFloatingUi {
   placement: Placement;
   matchReferenceWidth?: boolean;
   offset?: number;
-  arrow?: Ref<any>;
+  arrow?: Ref<HTMLElement | null>;
 }
 
 export const useFloatingUi = (
   options: UseFloatingUi
-): [Ref<any>, Ref<any>, Ref<Placement>] => {
-  const reference = ref<any>(null);
-  const tooltip = ref<any>(null);
+): [Ref<HTMLElement | null>, Ref<HTMLElement | null>, Ref<Placement>] => {
+  const reference = ref<HTMLElement | null>(null);
+  const tooltip = ref<HTMLElement | null>(null);
   const placement = ref<Placement>(options.placement);
 
   onMounted(() =>
@@ -36,14 +36,17 @@ export const useFloatingUi = (
         return;
       }
 
-      const tooltipEl = tooltip.value.el || tooltip.value;
-      const referenceEl = reference.value.el || reference.value;
-      const arrowEl = options.arrow?.value?.el || options.arrow?.value;
+      const tooltipEl = tooltip.value;
+      const referenceEl = reference.value
+      const arrowEl = options.arrow?.value;
 
       if (!(referenceEl instanceof HTMLElement)) {
         return;
       }
       if (!(tooltipEl instanceof HTMLElement)) {
+        return;
+      }
+      if (arrowEl == null) {
         return;
       }
 
@@ -75,13 +78,15 @@ export const useFloatingUi = (
               left: 'right',
             }[splittedPlacement]!;
 
-            Object.assign(arrowEl.style, {
-              left: arrowX != null ? `${arrowX}px` : '',
-              top: arrowY != null ? `${arrowY}px` : '',
-              right: '',
-              bottom: '',
-              [staticSide]: '-8px',
-            });
+            if (arrowEl != null) {
+              Object.assign(arrowEl.style, {
+                left: arrowX != null ? `${arrowX}px` : '',
+                top: arrowY != null ? `${arrowY}px` : '',
+                right: '',
+                bottom: '',
+                [staticSide]: '-8px',
+              });
+            }
           }
         });
       });

@@ -234,6 +234,6 @@ export interface RouteLocation {
   routeName: RouteName;
 }
 
-export type ToMaybeRefs<T = any> = {
+export type ToMaybeRefs<T = unknown> = {
   [K in keyof T]: MaybeRef<T[K]>;
 };
