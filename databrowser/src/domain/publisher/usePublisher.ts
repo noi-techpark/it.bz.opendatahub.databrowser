@@ -12,7 +12,7 @@ interface OdhPublisher {
   Id: string;
   Key: string;
   Name: Record<string, string>;
-  PushConfig: {}[];
+  PushConfig: unknown[];
 }
 
 const publisherUrl = withOdhBaseUrl('/v1/Publisher?pagesize=100');
