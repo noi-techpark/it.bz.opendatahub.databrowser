@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { ref, Ref, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
 
 // This method maps input attributes of form "value_XXX" (where XXX is
@@ -13,7 +12,7 @@ import { SelectOption } from '../../../../../components/select/types';
 
 // Example: attrs = {value_001: "EC", value_002: "NOI", ...}
 // transforms to {1: {value: "EC"}, 2: {value: "NOI"}, ...}
-const mapToOptionsWithKeys = (attrs: Record<string, unknown>) =>
+export const mapToOptionsWithKeys = (attrs: Record<string, unknown>) =>
   Object.entries(attrs)
     .filter(([key]) => key.startsWith('value_'))
     .reduce<Record<string, SelectOption>>((previous, [key, val]) => {
@@ -30,9 +29,9 @@ const mapToOptionsWithKeys = (attrs: Record<string, unknown>) =>
 
 // This method tries to match attributes of the form "label_001"
 // to the given optionsWithKeys
-const mapToOptionsWithKeysAndValues = (
+export const mapToOptionsWithKeysAndValues = (
   attrs: Record<string, unknown>,
-  optionsWithKeys: Record<string, SelectOption>
+  optionsWithKeys: Record<string, SelectOption>,
 ) =>
   Object.entries(attrs)
     .filter(([key]) => key.startsWith('label_'))
@@ -43,7 +42,7 @@ const mapToOptionsWithKeysAndValues = (
       // Return if key is not of form "value_XXX" (where X is a number)
       // or if the key is unknown
       if (isNaN(number) || optionsWithKeys[number] == null) {
-        previous;
+        return previous;
       }
 
       const entry = { ...optionsWithKeys[number] };
@@ -53,49 +52,20 @@ const mapToOptionsWithKeysAndValues = (
     }, {});
 
 // Build usable SelectOptions
-const buildOptions = (
-  optionsWithKeysAndValues: Record<string, SelectOption>
+export const buildOptions = (
+  optionsWithKeysAndValues: Record<string, SelectOption>,
+  sortByLabel: boolean,
 ) => {
   const keys = Object.keys(optionsWithKeysAndValues);
+  if (sortByLabel) {
+    keys.sort();
+  }
 
   return keys.reduce<SelectOption[]>((previous, key) => {
     const value = optionsWithKeysAndValues[key].value;
     const label = optionsWithKeysAndValues[key].label;
-    return [...previous, { value, label }];
+    const option: SelectOption = { value, label };
+
+    return [...previous, option];
   }, []);
-};
-
-// The select options are provided as attributes of form
-// "value_XXX" and "label_XXX"; they must be transformed in
-// order to be usable by the select component
-//
-// Example: "value_001" with value "EC" and "label_001" with
-// value "Eurac" are merged into the following SelectOption:
-// {value: "EC", label: "Eurac"}
-export const useAttributesMapper = (
-  options: Ref<SelectOption[] | undefined>,
-  attrs: Ref<Record<string, unknown>>
-) => {
-  const optionsInternal = ref<SelectOption[]>([]);
-
-  watch(
-    () => [options.value, attrs.value],
-    () => {
-      if (options.value != null) {
-        optionsInternal.value = options.value;
-        return;
-      }
-
-      const optionsWithKeys = mapToOptionsWithKeys(attrs.value);
-      const optionsWithKeysAndValues = mapToOptionsWithKeysAndValues(
-        attrs.value,
-        optionsWithKeys
-      );
-
-      optionsInternal.value = buildOptions(optionsWithKeysAndValues);
-    },
-    { immediate: true }
-  );
-
-  return { optionsInternal };
 };

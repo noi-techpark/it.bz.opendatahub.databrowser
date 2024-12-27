@@ -27,7 +27,6 @@ export default [
       // eslint-update commit with changes. We will enable them one by one
       // later on.
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unused-expressions": "off",
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/no-wrapper-object-types": "off",
