@@ -10,7 +10,7 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint --cache --max-warnings 0 src",
     "lint:fix": "eslint --cache --max-warnings 0 --fix src",
-    "prepare": "cd .. && husky install"
+    "prepare": "cd .. && husky"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.12",
