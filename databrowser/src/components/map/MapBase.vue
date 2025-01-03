@@ -5,91 +5,139 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <l-map
-    ref="map"
-    :zoom="zoom"
-    :center="center"
-    :style="{ height, cursor: enableSetMarker ? 'crosshair' : undefined }"
-    :use-global-leaflet="false"
-    :class="{ 'hide-controls': hideControls }"
-    @ready="onMapReady"
-  >
-    <l-tile-layer
-      url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-      :attribution="attribution"
-    ></l-tile-layer>
-    <l-marker
-      v-for="marker in markers"
-      :key="
-        marker.position.lat +
-        '-' +
-        marker.position.lng +
-        '-' +
-        new Date().getTime()
-      "
-      :lat-lng="[marker.position.lat, marker.position.lng]"
-      class="marker"
-      :style="{
-        width: '10px',
-      }"
-    ></l-marker>
-  </l-map>
+  <div class="relative w-full" :style="{ height }">
+    <div id="map" class="h-full w-full"></div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
-import { LeafletMouseEvent, PointExpression } from 'leaflet';
-import { Marker } from './types';
+import { AttributionControl, Map, Marker } from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { initMap } from './mapUtils';
+import { LatLngPosition } from './types';
+import { getDefaultAttribution, getDefaultCoordinates } from './utils';
 
-import 'leaflet/dist/leaflet.css';
+const emit = defineEmits<{
+  (e: 'mapClick', latLng: LatLngPosition): void;
+}>();
 
-const emit = defineEmits(['mapClick']);
-
-const LMap = defineAsyncComponent(() =>
-  import('@vue-leaflet/vue-leaflet').then((exports) => exports.LMap)
-);
-
-const LTileLayer = defineAsyncComponent(() =>
-  import('@vue-leaflet/vue-leaflet').then((exports) => exports.LTileLayer)
-);
-
-const LMarker = defineAsyncComponent(() =>
-  import('@vue-leaflet/vue-leaflet').then((exports) => exports.LMarker)
-);
-
-withDefaults(
+const props = withDefaults(
   defineProps<{
-    center?: PointExpression;
-    markers: Array<Marker>;
+    center?: LatLngPosition;
+    markers?: LatLngPosition[];
     zoom?: number;
     height?: string;
     enableSetMarker?: boolean;
-    hideControls?: boolean;
+    hideAttribution?: boolean;
   }>(),
   {
-    center: () => [40, 40],
+    center: () => getDefaultCoordinates(),
     markers: () => [],
     zoom: 8,
     height: '400px',
     enableSetMarker: false,
-    hideControls: false,
+    hideAttribution: false,
   }
 );
 
-const attribution =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+const map = ref<Map>();
+const mapLoaded = ref<boolean>(false);
 
-const onMapReady = (map: L.Map) => {
-  map.on('click', onMapClick);
-};
+onUnmounted(() => {
+  if (map.value != null) {
+    map.value.remove();
+  }
+});
 
-const onMapClick = async (event: LeafletMouseEvent) => {
-  emit('mapClick', event);
-};
+onMounted(() => {
+  map.value = initMap({
+    center: props.center,
+    zoom: props.zoom,
+  });
+
+  map.value.on('load', () => {
+    mapLoaded.value = map.value?.loaded() ?? false;
+  });
+
+  map.value.on('click', (event) => emit('mapClick', event.lngLat));
+});
+
+// Draw and update markers
+let currentMarkers: Marker[] = [];
+watch(
+  [mapLoaded, () => props.markers],
+  ([mapLoadedValue, markers]) => {
+    if (!mapLoadedValue) {
+      return;
+    }
+
+    const mapValue = map.value;
+
+    if (mapValue == null) {
+      console.error('Map is null');
+      return;
+    }
+
+    currentMarkers.forEach((marker) => marker.remove());
+    currentMarkers = [];
+
+    markers.forEach((marker) => {
+      const newMarker = new Marker().setLngLat(marker).addTo(mapValue);
+      currentMarkers.push(newMarker);
+    });
+  },
+  { immediate: true }
+);
+
+// Set cursor depending on enableSetMarker
+watch(
+  [mapLoaded, () => props.enableSetMarker],
+  ([mapLoadedValue, enableSetMarker]) => {
+    if (!mapLoadedValue) {
+      return;
+    }
+
+    const mapValue = map.value;
+
+    if (mapValue == null) {
+      console.error('Map is null');
+      return;
+    }
+
+    mapValue.getCanvas().style.cursor = enableSetMarker ? 'crosshair' : '';
+  }
+);
+
+// Show / hide attribution
+let attributionControl: AttributionControl | undefined;
+watch(
+  [mapLoaded, () => props.hideAttribution],
+  ([mapLoadedValue, hideAttribution]) => {
+    if (!mapLoadedValue) {
+      return;
+    }
+
+    const mapValue = map.value;
+
+    if (mapValue == null) {
+      console.error('Map is null');
+      return;
+    }
+
+    if (
+      hideAttribution &&
+      attributionControl != null &&
+      mapValue.hasControl(attributionControl)
+    ) {
+      mapValue.removeControl(attributionControl);
+      attributionControl = undefined;
+    } else if (!hideAttribution && attributionControl == null) {
+      attributionControl = new AttributionControl({
+        customAttribution: getDefaultAttribution(),
+      });
+      mapValue.addControl(attributionControl, 'bottom-right');
+    }
+  }
+);
 </script>
-
-<style scoped>
-.hide-controls :deep(.leaflet-control-container) {
-  @apply hidden;
-}
-</style>
