@@ -54,6 +54,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <InputSearch
         v-if="isTableView"
         id="search-dataset"
+        class="md:w-80"
+        :show-confirm-button="true"
         :class="[inputSearchOpen ? 'flex' : 'hidden md:flex']"
         :model-value="searchfilter"
         @search="search"
