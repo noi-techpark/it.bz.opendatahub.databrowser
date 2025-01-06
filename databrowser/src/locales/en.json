@@ -242,6 +242,10 @@
         }
       }
     },
+    "mapView": {
+      "headerBig": "{recordTotal} Records from {activeDatasetCount} datasets selected.",
+      "headerSmall": "Total no. of dataset: {datasetCount}"
+    },
     "navigation": {
       "detailView": "Detail View",
       "editView": "Edit View",
@@ -480,7 +484,8 @@
       "single": "Single",
       "noDatasetFoundWithSelectedFilters": "No dataset were found with the selected filters.",
       "aggregatedDatasetDesc": "All records with the same data structure combined in one dataset. Consider: in many cases this also leads to a contentwise uniformity within the dataset.",
-      "singleDatasetDesc": "Datasets that have been extracted from aggregated ones, e.g. because they are individual from a content-perspective."
+      "singleDatasetDesc": "Datasets that have been extracted from aggregated ones, e.g. because they are individual from a content-perspective.",
+      "showOnMap": "Show on map"
     }
   }
 }
