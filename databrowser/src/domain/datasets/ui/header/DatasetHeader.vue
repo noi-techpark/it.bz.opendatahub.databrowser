@@ -120,7 +120,7 @@ import { useDatasetViewStore } from '../../view/store/datasetViewStore';
 import { useSessionStorage } from '@vueuse/core';
 import { computeRouteDomain } from '../../location/routeDomain';
 import { computeRoutePath } from '../../location/routePath';
-import { getApiDomain } from '../../../../domain/datasets/utils';
+import { getApiDomainFromMetaData } from '../../../metaDataConfig/utils';
 
 const { view, isTableView } = storeToRefs(useDatasetViewStore());
 
@@ -214,16 +214,10 @@ const handleDatasetChange = (value: string) => {
 
   const { pathSegments, apiFilter } = dataset;
 
-  const domain = getDomainOfDataset(dataset);
+  const domain = getApiDomainFromMetaData(dataset);
 
   router.push(computeTableLocation(domain, pathSegments, apiFilter));
   setCurrentDataset(getDatasetSelectValue(dataset));
-};
-
-const getDomainOfDataset = (dataset: TourismMetaData) => {
-  // TODO: fix this as referenced in OverviewLinkTable
-  //return dataset.baseUrl.includes('tourism') ? 'tourism' : 'mobility';
-  return getApiDomain(dataset) ?? 'mobility';
 };
 
 const currentDataset = ref<SelectValue>('');
@@ -248,7 +242,7 @@ const changeSource = (value: DatasetConfigSource) => {
 const showLanguagePicker = computed(() => datasetDomain.value === 'tourism');
 
 const getDatasetSelectValue = (dataset: TourismMetaData) => {
-  const domain = getDomainOfDataset(dataset);
+  const domain = getApiDomainFromMetaData(dataset);
   const { pathSegments, apiFilter } = dataset;
 
   return getSelectValue(domain, pathSegments, apiFilter);
