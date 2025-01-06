@@ -13,9 +13,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <div class="shrink-0 md:w-64" />
         <div class="flex w-full flex-col gap-6 md:flex-row md:gap-0">
           <h1 class="grow text-2xl font-semibold text-gray-900">
-            {{ isOtherDatasetsLoading ? '...' : visibleDatasets?.length }}
+            {{ isMetaDataLoading ? '...' : visibleDatasets?.length }}
             {{
-              !isOtherDatasetsLoading && visibleDatasets?.length === 1
+              !isMetaDataLoading && visibleDatasets?.length === 1
                 ? t('overview.listPage.datasetFound')
                 : t('overview.listPage.datasetsFound')
             }}
@@ -107,7 +107,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               :key="filter.id"
               :text="filter.name"
               button-class="font-semibold text-gray-900 pb-2 px-4"
-              :badge-value="getActiveFiltersCountOfGroup(filter.id as TourismMetaDataIndexes)"
+              :badge-value="
+                getActiveFiltersCountOfGroup(
+                  filter.id as TourismMetaDataIndexes
+                )
+              "
               class="border-t border-gray-300 pt-2 text-dialog"
             >
               <div
@@ -116,7 +120,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 class="flex items-center border-t border-gray-300 px-4 py-2"
               >
                 <CheckboxCustom
-                  v-model="_inputModels[getInputModelId(filter.id as TourismMetaDataIndexes, option.value)]"
+                  v-model="
+                    _inputModels[
+                      getInputModelId(
+                        filter.id as TourismMetaDataIndexes,
+                        option.value
+                      )
+                    ]
+                  "
                   class="mr-2"
                   :label="option.value"
                   @input="toggleFilter(filter.id, option.key)"
@@ -151,7 +162,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
         <!-- Results -->
         <div class="flex min-h-screen w-full flex-col gap-4">
-          <div v-if="isOtherDatasetsLoading" class="animate-pulse">
+          <div v-if="isMetaDataLoading" class="animate-pulse">
             {{ t('overview.listPage.loadOtherDatasets') }}
           </div>
           <template v-else>
@@ -202,8 +213,8 @@ import ResetAllFilters from '../../../domain/datasets/ui/tableView/filter/ResetA
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
-import { useMetaDataDatasets, useOtherDatasets } from './useDatasets';
 import OverviewListPageHero from './OverviewListPageHero.vue';
+import { useMetaDataForAllDatasets } from './useDatasets';
 
 type TourismMetaDataIndexes =
   | 'dataSpace'
@@ -472,12 +483,10 @@ const dynamicFilters = computed(
     ] as DynamicFilter[]
 );
 
-const allDatasets = computed(() => {
-  return [...metaDataDatasets.value, ...tourismDatasets.value];
-});
+const { metaData, isMetaDataLoading } = useMetaDataForAllDatasets();
 
 const visibleDatasets = computed(() => {
-  let datasets = allDatasets.value;
+  let datasets = [...metaData.value];
 
   if (filters.value.searchVal) {
     datasets = datasets.filter((dataset) =>
@@ -570,27 +579,27 @@ const visibleDatasets = computed(() => {
 });
 
 const availableDataSpaces = computed(() => {
-  return mapDatasetsKeyStringToFilterItems(allDatasets.value, 'dataSpace');
+  return mapDatasetsKeyStringToFilterItems(metaData.value, 'dataSpace');
 });
 
 const availableCategories = computed(() => {
-  return mapDatasetsKeyArrayToFilterItems(allDatasets.value, 'categories');
+  return mapDatasetsKeyArrayToFilterItems(metaData.value, 'categories');
 });
 
 const availableDataProviders = computed(() => {
-  return mapDatasetsKeyArrayToFilterItems(allDatasets.value, 'dataProviders');
+  return mapDatasetsKeyArrayToFilterItems(metaData.value, 'dataProviders');
 });
 
 const availableSources = computed(() => {
-  return mapDatasetsKeyArrayToFilterItems(allDatasets.value, 'sources');
+  return mapDatasetsKeyArrayToFilterItems(metaData.value, 'sources');
 });
 
 const availableTags = computed(() => {
-  return mapDatasetsKeyArrayToFilterItems(allDatasets.value, 'tags');
+  return mapDatasetsKeyArrayToFilterItems(metaData.value, 'tags');
 });
 
 const availableAccessTypes = computed(() => {
-  return mapDatasetsKeyStringToFilterItems(allDatasets.value, 'access');
+  return mapDatasetsKeyStringToFilterItems(metaData.value, 'access');
 });
 
 const availableDatasetFilters = computed(() => {
@@ -628,10 +637,4 @@ const availableDatasetConfigurations = computed(() => {
 const appliedFiltersNum = computed(() => {
   return Object.keys(filters.value.applied).length;
 });
-
-// Data fetch
-const { metaDataDatasets } = useMetaDataDatasets();
-
-const { isOtherDatasetsLoading, tourismDatasets } =
-  useOtherDatasets(metaDataDatasets);
 </script>

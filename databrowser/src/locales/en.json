@@ -452,11 +452,7 @@
       "heroTitle": "This is the Data Browser of the Open Data Hub.",
       "heroSubtitle": "Explore and navigate through Open Data you need to build your next service.",
       "heroMoreInfo": "More info",
-
       "accessOfData": "Access of data",
-      "accessTypeAll": "All access types",
-      "accessTypeLimited": "Limited access",
-      "accessTypeOpen": "Full access",
       "listOfAllDatasets": "List of all datasets",
       "loadOtherDatasets": "Loading all other datasets...",
       "otherDatasets": "All other datasets",

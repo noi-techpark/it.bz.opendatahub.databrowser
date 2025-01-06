@@ -109,10 +109,7 @@ import {
   SelectSize,
   SelectValue,
 } from '../../../../components/select/types';
-import {
-  useMetaDataDatasets,
-  useOtherDatasets,
-} from '../../../../pages/datasets/overview/useDatasets';
+import { useMetaDataForAllDatasets } from '../../../../pages/datasets/overview/useDatasets';
 import { LocationQuery, useRoute, useRouter } from 'vue-router';
 import { computeTableLocation } from '../../location/datasetViewLocation';
 import { TourismMetaData } from '../../../metaDataConfig/tourism/types';
@@ -130,18 +127,11 @@ const router = useRouter();
 const route = useRoute();
 const SESSION_DATASET_KEY = 'currentDataset';
 
-// Data fetch
-const { metaDataDatasets } = useMetaDataDatasets();
-
-const { tourismDatasets } = useOtherDatasets(metaDataDatasets);
-
 const { datasetDomain, hasConfig, source } = storeToRefs(
   useDatasetBaseInfoStore()
 );
 
-const allDatasets = computed(() => {
-  return [...metaDataDatasets.value, ...tourismDatasets.value];
-});
+const { metaData } = useMetaDataForAllDatasets();
 
 const relatedDatasetsValues = computed(() => {
   const _view = view.value;
@@ -164,7 +154,7 @@ const relatedDatasetsValues = computed(() => {
 const allDatasetsOptions = computed<GroupSelectOption>(() => {
   return {
     name: 'All datasets',
-    options: allDatasets.value.map((item) => ({
+    options: metaData.value.map((item) => ({
       label: item.shortname,
       value: getDatasetSelectValue(item),
     })),
@@ -206,7 +196,7 @@ const handleSelectOpen = (state: boolean) => {
 };
 
 const handleDatasetChange = (value: string) => {
-  const dataset = allDatasets.value.find(
+  const dataset = metaData.value.find(
     (item) => getDatasetSelectValue(item) === value
   );
 
