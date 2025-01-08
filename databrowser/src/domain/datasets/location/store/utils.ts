@@ -10,7 +10,7 @@ import { useDatasetLocationStore } from './useDatasetLocationStore';
 
 const computeSingleRecordData = (
   datasetDomain: DatasetDomain | undefined,
-  record: any
+  record: unknown
 ) => {
   if (datasetDomain !== 'mobility') {
     return record;
@@ -24,7 +24,7 @@ export const updateDatasetLocationStore = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
   datasetPath: MaybeRef<DatasetPath | undefined>,
   datasetQuery: MaybeRef<DatasetQuery | undefined>,
-  record?: MaybeRef<any>
+  record?: MaybeRef<unknown>
 ) => {
   const store = useDatasetLocationStore();
   watch(

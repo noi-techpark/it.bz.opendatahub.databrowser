@@ -162,7 +162,7 @@ onUnmounted(() => observer.value.disconnect());
 // Compute internal options array. If showEmptyValue is set,
 // then a "no value" option is added to the front of the list
 const optionsInternal = computed<SelectOption[]>(() => {
-  let data = [];
+  const data = [];
 
   if (showAddNewValue.value) {
     data.push(addNewValueOption());

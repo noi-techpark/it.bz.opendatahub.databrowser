@@ -132,7 +132,7 @@ const map = computed(() => {
 
 watch(enableSetMarker, (newVal) => emit('enableSetMarker', newVal));
 
-const onMapClick = (location: any) => {
+const onMapClick = (location: {latlng: {lat: number, lng: number}}) => {
   if (!enableSetMarker.value) return;
 
   const { latlng } = location;

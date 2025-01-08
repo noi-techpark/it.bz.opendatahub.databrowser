@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { createEventHook } from '@vueuse/core';
-import axios from 'axios';
+import axios, { AxiosProgressEvent } from 'axios';
 import { computed, readonly, Ref, ref } from 'vue';
 import { FileType } from '../cellComponents/components/utils/upload/types';
 import { toError } from '../utils/convertError';
@@ -48,10 +48,12 @@ export const useUpload = (url: Ref<string>) => {
     isUploadError.value = false;
     isUploadSuccess.value = false;
 
-    const onUploadProgress = (progressEvent: any) => {
-      uploadProgress.value = Math.round(
-        (progressEvent.loaded * 100) / progressEvent.total
-      );
+    const onUploadProgress = (progressEvent: AxiosProgressEvent) => {
+      if (progressEvent.total != null) {
+        uploadProgress.value = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+      }
     };
 
     try {

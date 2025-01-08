@@ -33,7 +33,7 @@ const props = withDefaults(
   }
 );
 
-const dataInfo = computed<{ type: string; data: any }>(() => {
+const dataInfo = computed<{ type: string; data: unknown }>(() => {
   if (typeof props.data === 'string' || props.data instanceof String) {
     // Check if string is a date
     const parsedDate = parseISO(props.data as string);

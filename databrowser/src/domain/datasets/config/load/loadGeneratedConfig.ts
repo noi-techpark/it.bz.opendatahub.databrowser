@@ -15,6 +15,11 @@ import {
   useOpenApi,
 } from '../../../openApi';
 import { DomainWithOpenApiDocument, OpenApi } from '../../../openApi/types';
+import { hasTourismPaginationShape } from '../../pagination/types';
+import {
+  defaultMobilityTableQueryParameters,
+  defaultTourismTableQueryParameters,
+} from '../../ui/tableView/defaultValues';
 import {
   AnyDomain,
   DatasetConfig,
@@ -27,15 +32,10 @@ import {
 } from '../types';
 import { findCandidateConfigs } from '../utils';
 import {
-  defaultMobilityTableQueryParameters,
-  defaultTourismTableQueryParameters,
-} from '../../ui/tableView/defaultValues';
-import {
   DatasetConfigLoader,
   LoadAllDatasetConfigsFn,
   LoadDatasetConfigFn,
 } from './types';
-import { isWithTourismPagination } from '../../pagination/types';
 
 type ErrorMessage = string;
 
@@ -155,18 +155,11 @@ const parse = (
           operation,
           openApiOperation
         );
-        const schemaProperties = extractSchemaProperties(schema);
 
         if (operation === 'readAll') {
-          // Handle tourism pagination style result
-          if (isWithTourismPagination(schemaProperties)) {
-            datasetConfig.views.table = listViewConfigFromProperties(
-              (schemaProperties as any).Items?.items?.properties
-            );
-          } else {
-            datasetConfig.views.table =
-              listViewConfigFromProperties(schemaProperties);
-          }
+          console.log('readAll schemaProperties', schema);
+          datasetConfig.views.table =
+            listViewConfigFromProperties(schema);
 
           // Set default query parameters
           datasetConfig.views.table.defaultQueryParams =
@@ -175,7 +168,7 @@ const parse = (
               : defaultMobilityTableQueryParameters;
         } else if (operation === 'read') {
           datasetConfig.views.detail =
-            detailViewConfigFromProperties(schemaProperties);
+            detailViewConfigFromProperties(schema);
         }
         // End resolve view
       });
@@ -269,15 +262,16 @@ const mapOperationToRoles = (operation: OperationKey): string[] => {
   }
 };
 
-const isArraySchema = (schema: any): schema is OpenApi.ArraySchemaObject =>
-  schema?.items != null;
-
 const schemaFromEndpointMethod = (
   domain: DomainWithOpenApiDocument,
   operation: OperationKey,
   endpointMethod: OpenApi.OperationObject
 ): OpenApi.SchemaObject | undefined => {
   if (operation === 'read' || operation === 'readAll') {
+    if (domain === 'mobility') {
+      return mobilityDefaultSchema;
+    }
+
     const responseOk = endpointMethod.responses?.[200] as
       | OpenApi.ResponseObject
       | undefined;
@@ -285,7 +279,17 @@ const schemaFromEndpointMethod = (
       | OpenApi.SchemaObject
       | undefined;
 
-    return domain !== 'mobility' ? schema : mobilityDefaultSchema;
+    // List schemes for tourism API are nested inside the tourism pagination data structure
+    // (with its typical pagination properties like Items, TotalResults, TotalPages, etc.)
+    // We first check if the schema has tourism pagination shape and if so, we return the
+    // actual properties of the list schema.
+    if (hasTourismPaginationShape(schema?.properties)) {
+      // Note that in this case, the schema we're interested in is inside the Items.items property
+      type ListSchema = { properties?: { Items?: { items?: { properties: OpenApi.SchemaObject | undefined } } } };
+      return (schema as ListSchema)?.properties?.Items?.items?.properties;
+    }
+
+    return schema;
   }
   if (operation === 'create' || operation === 'update') {
     const requestBody = endpointMethod.requestBody as
@@ -294,20 +298,6 @@ const schemaFromEndpointMethod = (
     return requestBody?.content['application/json']?.schema as
       | OpenApi.SchemaObject
       | undefined;
-  }
-};
-
-const extractSchemaProperties = (
-  schema?: OpenApi.SchemaObject
-): OpenApi.SchemaObject | undefined => {
-  if (schema == null) {
-    return;
-  }
-  if (schema.properties != null) {
-    return schema.properties;
-  }
-  if (isArraySchema(schema)) {
-    return (schema.items as OpenApi.SchemaObject).properties;
   }
 };
 
@@ -385,7 +375,7 @@ const loadAllDatasetConfigs: LoadAllDatasetConfigsFn = async () => {
   const result: Record<AnyDomain, DatasetConfig[]> = {};
 
   for (const domain of Object.keys(domainWithOpenApiDocument)) {
-    const document = await useOpenApi().loadDocument(domain as any);
+    const document = await useOpenApi().loadDocument(domain as DomainWithOpenApiDocument);
 
     // If no OpenAPI document could be found, then there are no view configs to return
     if (document == null) {

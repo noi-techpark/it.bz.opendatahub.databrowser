@@ -42,16 +42,12 @@ import SelectOptionsList from './SelectOptionsList.vue';
 import SelectSearchBox from './SelectSearchBox.vue';
 import { useOptionsContainerEventHandler } from './useOptionsContainerEventHandler';
 
-type SearchProps =
-  | { searchResults: SelectOption[]; searchResultsGroupedOptions?: never }
-  | { searchResults?: never; searchResultsGroupedOptions: GroupSelectOption[] };
-
-const props = defineProps<
-  {
-    modelValue: string;
-    showSearch: boolean;
-  } & SearchProps
->();
+const props = defineProps<{
+  modelValue: string;
+  showSearch: boolean;
+  searchResults?: SelectOption[];
+  searchResultsGroupedOptions?: GroupSelectOption[];
+}>();
 
 defineEmits(['update:modelValue']);
 

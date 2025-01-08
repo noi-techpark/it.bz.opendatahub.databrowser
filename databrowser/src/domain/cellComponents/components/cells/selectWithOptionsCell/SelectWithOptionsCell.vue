@@ -47,7 +47,7 @@ import {
 } from '../../utils/remoteSelectOptions/useRemoteSelectOptions';
 import { useWriteable } from '../../utils/writeable/useWriteable';
 import StringCell from '../stringCell/StringCell.vue';
-import { useAttributesMapper } from './mapper';
+import { useSelectOptionsMapper } from './useSelectOptionsMapper';
 
 const emit = defineEmits(['update', 'addNewValue']);
 
@@ -105,7 +105,7 @@ const selectOptions = computed<SelectOption[]>(() => {
   if (url.value != null) {
     return remoteOptions.value;
   }
-  return useAttributesMapper(options, ref(attrs)).optionsInternal.value;
+  return useSelectOptionsMapper(options, ref(attrs)).optionsInternal.value;
 });
 
 const isAddNewValue = ref(false);

@@ -263,7 +263,7 @@ const mapDatasetsKeyArrayToFilterItems = (
   key: TourismMetaDataIndexes
 ) => {
   const addedProps: Record<string, boolean> = {};
-  let finalList = [] as FilterSelectItem[];
+  const finalList: FilterSelectItem[] = [];
 
   datasets.forEach((dataset) => {
     if (dataset[key] != null) {
@@ -285,7 +285,7 @@ const mapDatasetsKeyStringToFilterItems = (
   key: TourismMetaDataIndexes
 ) => {
   const addedProps = {} as Record<string, boolean>;
-  let finalList: FilterSelectItem[] = [];
+  const finalList: FilterSelectItem[] = [];
 
   datasets.forEach((dataset) => {
     const propName = dataset[key] as string;
@@ -415,7 +415,7 @@ const getSingleDatasetPopoverDescription = (forOption: string) => {
 
 // Computed
 const allDatasetConfigs = computed(() => {
-  let list: DatasetConfig[] = [];
+  const list: DatasetConfig[] = [];
 
   for (const datasets of Object.values(embeddedDatasetConfigs)) {
     for (const dataset of Object.values(datasets)) {

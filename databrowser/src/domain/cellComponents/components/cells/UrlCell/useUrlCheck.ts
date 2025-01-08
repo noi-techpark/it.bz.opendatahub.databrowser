@@ -13,6 +13,7 @@ export const isValidFqdnUrl = (s?: string) => {
     new URL(s);
     return true;
   } catch (err) {
+    console.trace(`String is not a valid FQDN URL: ${s}; error was ${err}`);
     return false;
   }
 };

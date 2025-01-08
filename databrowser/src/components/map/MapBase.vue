@@ -38,7 +38,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script lang="ts" setup>
 import { defineAsyncComponent } from 'vue';
-import { PointExpression } from 'leaflet';
+import { LeafletMouseEvent, PointExpression } from 'leaflet';
 import { Marker } from './types';
 
 import 'leaflet/dist/leaflet.css';
@@ -79,11 +79,11 @@ withDefaults(
 const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
-const onMapReady = (map: any) => {
+const onMapReady = (map: L.Map) => {
   map.on('click', onMapClick);
 };
 
-const onMapClick = async (event: any) => {
+const onMapClick = async (event: LeafletMouseEvent) => {
   emit('mapClick', event);
 };
 </script>
