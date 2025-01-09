@@ -306,7 +306,7 @@ export const echargingdataCategory = (
       name: 'Charging station',
       properties: [
         {
-          title: 'Display or card reader (cm)',
+          title: 'Display or card reader height (cm)',
           component: CellComponent.StringCell,
           objectMapping: {
             text: 'AdditionalProperties.EchargingDataProperties.DisplayOrCardReaderOperationHeight',
