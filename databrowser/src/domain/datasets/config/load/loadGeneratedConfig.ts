@@ -157,7 +157,6 @@ const parse = (
         );
 
         if (operation === 'readAll') {
-          console.log('readAll schemaProperties', schema);
           datasetConfig.views.table =
             listViewConfigFromProperties(schema);
 
