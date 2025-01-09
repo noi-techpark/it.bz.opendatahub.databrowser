@@ -9,7 +9,7 @@ import { SelectOption } from './types';
 export const useSearch = (options: Ref<SelectOption[]>) => {
   const searchTerm = ref('');
 
-  const { results } = useFuse(searchTerm, options.value, {
+  const { results } = useFuse(searchTerm, options, {
     fuseOptions: {
       keys: ['label'],
       threshold: 0.2,
