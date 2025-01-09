@@ -27,11 +27,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <TableCell>
         <GpsPointMap
           v-if="item.latitude && item.longitude"
+          class="h-24"
           ref="gpsPointMap"
+          :prevent-interaction="true"
+          :fullscreen-on-click="true"
           :latitude="item.latitude"
           :longitude="item.longitude"
-          map-view="table"
-          height="100px"
         />
 
         <div v-else>Missing coordinates</div>

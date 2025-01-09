@@ -5,15 +5,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="relative w-full" :style="{ height }">
-    <div id="map" class="h-full w-full"></div>
-  </div>
+  <BaseMap :map-loaded="mapLoaded" @map-id="handleMapIdChange" />
 </template>
 
 <script lang="ts" setup>
 import { AttributionControl, Map, Marker } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { onUnmounted, ref, watch } from 'vue';
+import BaseMap from './BaseMap.vue';
 import { initMap } from './mapUtils';
 import { LatLngPosition } from './types';
 import { getDefaultAttribution, getDefaultCoordinates } from './utils';
@@ -50,8 +49,12 @@ onUnmounted(() => {
   }
 });
 
-onMounted(() => {
-  map.value = initMap({
+const handleMapIdChange = (mapId: string) => {
+  if (map.value != null) {
+    map.value.remove();
+  }
+
+  map.value = initMap(mapId, {
     center: props.center,
     zoom: props.zoom,
   });
@@ -61,7 +64,7 @@ onMounted(() => {
   });
 
   map.value.on('click', (event) => emit('mapClick', event.lngLat));
-});
+};
 
 // Draw and update markers
 let currentMarkers: Marker[] = [];

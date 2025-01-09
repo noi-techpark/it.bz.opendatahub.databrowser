@@ -6,13 +6,13 @@ import { Map } from 'maplibre-gl';
 import { MapGLOptions } from './types';
 import { getDefaultCoordinates } from './utils';
 
-export const initMap = (options?: MapGLOptions) => {
+export const initMap = (mapId: string, options?: MapGLOptions) => {
   const center = options?.center || getDefaultCoordinates();
   const zoom = options?.zoom || 6;
   const minZoom = options?.minZoom || 3;
   const maxZoom = options?.maxZoom || 18;
   return new Map({
-    container: 'map',
+    container: mapId,
     style: {
       version: 8,
       sources: {

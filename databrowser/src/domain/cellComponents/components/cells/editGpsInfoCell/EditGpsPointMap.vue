@@ -66,6 +66,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <template #content>
           <GpsPointMap
             ref="gpsPointMap"
+            class="h-60"
             :latitude="position.latitude"
             :longitude="position.longitude"
             :fallback-center="fallbackMapCenter"
