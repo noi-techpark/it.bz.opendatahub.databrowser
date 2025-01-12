@@ -170,4 +170,5 @@ const buildMetaData = (config: DatasetConfig): TourismMetaData => ({
   categories: [],
   dataProviders: [],
   datasetConfigurations: [],
+  apiType: 'content',
 });

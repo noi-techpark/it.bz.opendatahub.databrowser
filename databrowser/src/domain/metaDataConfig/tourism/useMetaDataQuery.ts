@@ -7,6 +7,7 @@ import { withOdhBaseUrl } from '../../../config/utils';
 import { unwrapData } from '../../api/dataExtraction';
 import { useApiRead } from '../../api/useApi';
 import { WithTourismPagination } from '../../datasets/pagination/types';
+import { ApiType } from '../types';
 import { TourismMetaData } from './types';
 
 interface ODHTag {
@@ -37,6 +38,7 @@ interface OdhTourismMetaData {
   Dataspace?: string;
   Category?: string[];
   DataProvider?: string[];
+  ApiType?: string;
 }
 
 const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
@@ -82,6 +84,7 @@ const mapResponse = (datasets: OdhTourismMetaData[]): TourismMetaData[] =>
       dataProviders: dataset.DataProvider || [],
       singleDataset: dataset.SingleDataset,
       datasetConfigurations: [],
+      apiType: parseApiType(dataset.ApiType, dataset.ApiUrl),
     }))
     .sort((a, b) => a?.shortname?.localeCompare(b?.shortname));
 
@@ -148,3 +151,25 @@ const parseLastUpdated = (lastUpdated?: string) => {
 
 const hasApiFilter = (dataset: TourismMetaData) =>
   Object.keys(dataset.apiFilter).length > 0;
+
+const parseApiType = (apiType?: string, apiUrl?: string): ApiType => {
+  if (apiType === 'content') {
+    return 'content';
+  }
+  if (apiType === 'timeseries') {
+    return 'timeseries';
+  }
+
+  // Fallback to heuristic based on apiUrl
+  if (apiUrl == null) {
+    return 'unknown';
+  }
+  if (apiUrl?.includes('tourism')) {
+    return 'content';
+  }
+  if (apiUrl?.includes('mobility')) {
+    return 'timeseries';
+  }
+
+  return 'unknown';
+};
