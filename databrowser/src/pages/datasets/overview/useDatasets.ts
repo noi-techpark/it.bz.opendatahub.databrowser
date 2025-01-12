@@ -8,6 +8,7 @@ import { DatasetConfig } from '../../../domain/datasets/config/types';
 import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import { useMetaDataQuery } from '../../../domain/metaDataConfig/tourism/useMetaDataQuery';
 import { toError } from '../../../domain/utils/convertError';
+import { useMemoize } from '@vueuse/core';
 
 /**
  * This method returns metadata for all datasets.
@@ -16,7 +17,7 @@ import { toError } from '../../../domain/utils/convertError';
  * Otherwise, a best-effort attempt will be made to generate metadata for the dataset from the
  * OpenAPI specification.
  */
-export const useMetaDataForAllDatasets = () => {
+export const useMetaDataForAllDatasets = useMemoize(() => {
   const {
     metaData: metaDataFromConfig,
     isLoading: isMetaDataFromConfigLoading,
@@ -56,7 +57,7 @@ export const useMetaDataForAllDatasets = () => {
     isMetaDataLoading,
     metaDataError,
   };
-};
+});
 
 /**
  * This method returns metadata for all datasets that are configured in the MetaData endpoint.
