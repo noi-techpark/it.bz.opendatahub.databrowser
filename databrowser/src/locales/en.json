@@ -244,7 +244,8 @@
     },
     "mapView": {
       "headerBig": "{recordTotal} Records from {activeDatasetCount} datasets selected.",
-      "headerSmall": "Total no. of dataset: {datasetCount}"
+      "headerSmall": "Total no. of dataset: {datasetCount}",
+      "note": "Only datasets containing geographical coordinates can be shown on the map."
     },
     "navigation": {
       "detailView": "Detail View",
