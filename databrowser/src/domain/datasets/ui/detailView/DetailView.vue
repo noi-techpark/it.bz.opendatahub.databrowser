@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <LoadingError v-if="isError" :error="error" />
   <template v-else>
-    <div class="flex md:overflow-y-auto toolbox-padding">
+    <div class="toolbox-padding flex md:overflow-y-auto">
       <MainAndSubCategories
         :data="data"
         :categories="categories"

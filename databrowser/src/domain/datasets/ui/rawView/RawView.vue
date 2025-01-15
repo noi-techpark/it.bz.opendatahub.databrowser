@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <LoadingError v-if="isError" :error="error" />
   <template v-else>
-    <div class="overflow-y-auto md:flex toolbox-padding">
+    <div class="toolbox-padding overflow-y-auto md:flex">
       <ContentAlignmentX class="overflow-y-auto py-6 md:flex">
         <div v-if="isLoading" class="w-full">
           <LoadingCell v-for="i in 10" :key="i" class="my-3" />
