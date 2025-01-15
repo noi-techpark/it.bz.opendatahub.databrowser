@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <LoadingError v-if="isError" :error="error" />
   <template v-else>
-    <div class="flex md:overflow-y-auto">
+    <div class="flex md:overflow-y-auto toolbox-padding">
       <MainAndSubCategories
         :data="data"
         :categories="categories"
@@ -72,3 +72,11 @@ const referencesUrls = computed(() => {
     : [];
 });
 </script>
+
+<style scoped>
+@media screen and (max-width: 767px) {
+  .is-toolbox-visible .toolbox-padding {
+    padding-bottom: 9rem;
+  }
+}
+</style>
