@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <header class="flex flex-wrap items-center py-2 text-xs md:py-0">
+  <header class="flex flex-wrap items-center py-2 gap-2">
     <!-- Dataset title -->
     <div
       class="flex items-center justify-between"
@@ -35,7 +35,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :picked="source"
       :class="{
         'animate-pulse rounded outline outline-green-500': !hasConfig,
-        'mr-2': true,
       }"
       @picked-change="changeSource($event)"
     />
@@ -65,7 +64,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <TagCustom
       v-if="source === 'generated'"
       :text="t('datasets.header.viewGeneratedConfig')"
-      class="ml-1"
       size="xs"
       type="yellow"
       has-dot
@@ -106,6 +104,7 @@ import InputSearch from '../../../../components/input/InputSearch.vue';
 import SelectCustom from '../../../../components/select/SelectCustom.vue';
 import {
   GroupSelectOption,
+  SelectSize,
   SelectValue,
 } from '../../../../components/select/types';
 import {
