@@ -2,11 +2,9 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-// eslint-disable-next-line no-undef
-const tailwindForms = require('@tailwindcss/forms');
+import tailwindForms from '@tailwindcss/forms';
 
-// eslint-disable-next-line no-undef
-module.exports = {
+export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {

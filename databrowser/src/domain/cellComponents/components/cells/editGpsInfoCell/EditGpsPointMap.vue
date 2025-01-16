@@ -80,12 +80,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { PointExpression } from 'leaflet';
 import { computed, ref, toRefs, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import GpsPointMap from '../../../../../components/map/GpsPointMap.vue';
-import { Position } from '../../../../../components/map/types';
-import { getCoordinatesOfBolzano } from '../../../../../components/map/utils';
+import { LatLngPosition } from '../../../../../components/map/types';
+import { getDefaultCoordinates } from '../../../../../components/map/utils';
 import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
 import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
@@ -123,10 +122,7 @@ const gpsTypeOptions = computed(() => {
   return editGpsInfoCellStore.sortedPositionOptions;
 });
 
-const fallbackMapCenter = computed(() => {
-  const { lat, lng } = getCoordinatesOfBolzano();
-  return [lat, lng] as PointExpression;
-});
+const fallbackMapCenter = computed(() => getDefaultCoordinates());
 
 const initialState = computed(() => {
   return editStore.initialAsJson;
@@ -167,7 +163,7 @@ const onUpdateGpsType = (value: string) => {
   onUpdatePosition({ ...position.value, gpsType: value });
 };
 
-const onMapClick = (newPosition: Position) => {
+const onMapClick = (newPosition: LatLngPosition) => {
   onUpdatePosition({
     ...position.value,
     latitude: newPosition.lat,
@@ -183,13 +179,11 @@ const onEnableSetMarker = (value: boolean) => {
   enableSetMarker.value = value;
 };
 
-const onCtaClick = async (iconValue: any) => {
+const onCtaClick = async (iconValue: unknown) => {
   switch (iconValue) {
     case 'IconPencil':
       gpsPointMap.value.toggleEditMode();
-
       break;
-
     default:
       gpsPointMap.value.toggleFullscreen();
       break;

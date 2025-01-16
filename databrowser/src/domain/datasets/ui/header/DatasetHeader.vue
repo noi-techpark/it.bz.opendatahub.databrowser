@@ -336,8 +336,8 @@ watch(
 
     // NOTE: this is a provisional solution to handle url change and at least refresh the dataset when its base name its changed. See issue #602 for more details
     if (currentSessionDataset.value) {
-      let [currentDatasetPath] = currentSessionDataset.value.split('?');
-      let [foundDatasetPath] = dataset.split('?');
+      const [currentDatasetPath] = currentSessionDataset.value.split('?');
+      const [foundDatasetPath] = dataset.split('?');
 
       if (currentDatasetPath === foundDatasetPath) {
         sessionDataset = currentSessionDataset.value;

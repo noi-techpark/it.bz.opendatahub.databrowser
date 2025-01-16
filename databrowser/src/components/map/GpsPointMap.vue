@@ -28,21 +28,24 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           size="xs"
           class="flex size-12 items-center justify-center bg-white p-2"
           @click="toggleEditMode()"
-          ><IconParser
+        >
+          <IconParser
             name="IconPencil"
             :class="
               enableSetMarker
                 ? 'w-6 h-6 border-[1.5px] border-green-400 p-[2px] rounded-[3px] bg-hint-calm-secondary'
                 : 'h-5 w-5 cursor-pointer text-green-400'
             "
-        /></ButtonCustom>
+          />
+        </ButtonCustom>
         <ButtonCustom
           variant="ghost"
           size="xs"
           class="flex size-12 items-center justify-center bg-white p-2"
           @click="toggle()"
-          ><IconParser name="IconClose" class="cursor-pointer text-green-400"
-        /></ButtonCustom>
+        >
+          <IconParser name="IconClose" class="cursor-pointer text-green-400" />
+        </ButtonCustom>
       </div>
       <div
         class="pointer-events-none absolute bottom-6 right-2 z-[999] rounded-md bg-black px-2 py-1 text-sm text-white opacity-0 transition-all"
@@ -59,11 +62,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :enable-set-marker="enableSetMarker"
         :zoom="12"
         :height="isFullscreen ? '100%' : height || '400px'"
-        hide-controls
         :class="{
           'pointer-events-none opacity-50':
             !isFullscreen && mapView === 'table',
         }"
+        :hide-attribution="!isFullscreen"
         @map-click="onMapClick"
       />
     </div>
@@ -71,20 +74,25 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref, toRefs, watch } from 'vue';
-import { PointExpression } from 'leaflet';
+import { computed, defineAsyncComponent, ref, toRefs, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-
-import MapBase from '../../components/map/MapBase.vue';
 import ButtonCustom from '../button/ButtonCustom.vue';
-import IconParser from '../utils/IconParser.vue';
-
 import UseFullscreen from '../fullscreen/UseFullscreen.vue';
 import IconExpanded from '../svg/IconExpanded.vue';
+import IconParser from '../utils/IconParser.vue';
+import { LatLngPosition } from './types';
+
+// Dynamically import MapBase to improve code chunking
+const MapBase = defineAsyncComponent(() =>
+  import('../../components/map/MapBase.vue').then((exports) => exports.default)
+);
 
 const { t } = useI18n();
 
-const emit = defineEmits(['mapClick', 'enableSetMarker']);
+const emit = defineEmits<{
+  (e: 'mapClick', latLng: LatLngPosition): void;
+  (e: 'enableSetMarker', enable: boolean): void;
+}>();
 
 const tooltipInterval = ref();
 const isTooltipVisible = ref(false);
@@ -97,7 +105,7 @@ const props = withDefaults(
     latitude?: string | number;
     longitude?: string | number;
     height?: string;
-    fallbackCenter?: PointExpression;
+    fallbackCenter?: LatLngPosition;
     editable?: boolean;
     mapView?: undefined | 'table';
   }>(),
@@ -113,10 +121,13 @@ const props = withDefaults(
 
 const { latitude, longitude, fallbackCenter } = toRefs(props);
 
-const map = computed(() => {
+const map = computed<{
+  center?: LatLngPosition;
+  markers: LatLngPosition[];
+}>(() => {
   if (longitude.value == null || latitude.value == null) {
     return {
-      center: fallbackCenter.value || undefined,
+      center: fallbackCenter.value,
       markers: [],
     };
   }
@@ -125,20 +136,17 @@ const map = computed(() => {
   const lat = Number(latitude.value);
 
   return {
-    center: [lat, lng] as PointExpression,
-    markers: [{ position: { lat, lng } }],
+    center: { lat, lng },
+    markers: [{ lat, lng }],
   };
 });
 
 watch(enableSetMarker, (newVal) => emit('enableSetMarker', newVal));
 
-const onMapClick = (location: any) => {
+const onMapClick = (latLng: LatLngPosition) => {
   if (!enableSetMarker.value) return;
 
-  const { latlng } = location;
-  const { lat, lng } = latlng;
-
-  emit('mapClick', { lat, lng });
+  emit('mapClick', latLng);
 };
 
 const toggleFullscreen = () => {

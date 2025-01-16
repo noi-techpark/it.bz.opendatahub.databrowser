@@ -178,7 +178,55 @@ export const locationCategoryDistrict = (): DetailElements => ({
   ],
 });
 
-export const locationTableCells = (): PropertyConfig[] => [
+export const locationTableCellsAll = (): PropertyConfig[] => [
+  {
+    title: 'Region',
+    component: CellComponent.StringCell,
+    class: 'w-52',
+    objectMapping: { text: 'LocationInfo.RegionInfo.Name.{language}' },
+  },
+  {
+    title: 'TourismAssociation',
+    component: CellComponent.StringCell,
+    class: 'w-52',
+    objectMapping: { text: 'LocationInfo.TvInfo.Name.{language}' },
+  },
+  {
+    title: 'Municipality',
+    component: CellComponent.StringCell,
+    class: 'w-52',
+    objectMapping: { text: 'LocationInfo.MunicipalityInfo.Name.{language}' },
+  },
+  {
+    title: 'District',
+    component: CellComponent.StringCell,
+    class: 'w-52',
+    objectMapping: { text: 'LocationInfo.DistrictInfo.Name.{language}' },
+  },
+];
+
+export const locationTableCellsStandard = (): PropertyConfig[] => [
+  {
+    title: 'Region',
+    component: CellComponent.StringCell,
+    class: 'w-52',
+    objectMapping: { text: 'LocationInfo.RegionInfo.Name.{language}' },
+  },
+  {
+    title: 'TourismAssociation',
+    component: CellComponent.StringCell,
+    class: 'w-52',
+    objectMapping: { text: 'LocationInfo.TvInfo.Name.{language}' },
+  },
+  {
+    title: 'Municipality',
+    component: CellComponent.StringCell,
+    class: 'w-52',
+    objectMapping: { text: 'LocationInfo.MunicipalityInfo.Name.{language}' },
+  },
+];
+
+export const locationTableCellsMinimal = (): PropertyConfig[] => [
   {
     title: 'Region',
     component: CellComponent.StringCell,
@@ -190,5 +238,32 @@ export const locationTableCells = (): PropertyConfig[] => [
     component: CellComponent.StringCell,
     class: 'w-52',
     objectMapping: { text: 'LocationInfo.MunicipalityInfo.Name.{language}' },
+  },
+];
+
+export const locationTableCellsReferencedMinimal = (): PropertyConfig[] => [
+  {
+    title: 'Region',
+    component: CellComponent.InputReferenceCell,
+    class: 'w-52',
+    objectMapping: { value: 'LocationInfo.RegionInfo.Id' },
+    params: {
+      url: withOdhBaseUrl('/v1/Location?type=reg&showall=true'),
+      labelSelector: 'name.{language}',
+      keySelector: 'id',
+      showid: 'true',
+    },
+  },
+  {
+    title: 'Municipality',
+    component: CellComponent.InputReferenceCell,
+    class: 'w-52',
+    objectMapping: { value: 'LocationInfo.MunicipalityInfo.Id' },
+    params: {
+      url: withOdhBaseUrl('/v1/Location?type=mun&showall=true'),
+      labelSelector: 'name.{language}',
+      keySelector: 'id',
+      showid: 'true',
+    },
   },
 ];

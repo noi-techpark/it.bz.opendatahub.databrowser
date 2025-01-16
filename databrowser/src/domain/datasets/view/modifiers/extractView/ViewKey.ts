@@ -15,11 +15,34 @@ export const extractView = (
   if (viewKeyValue == null || baseViewsValue == null) {
     return undefined;
   }
-  return {
-    ...baseViewsValue[viewKeyValue],
-    // Need to cast to any because TypeScript doesn't know that the view and type actually match
-    type: viewKeyValue as any,
-  };
+
+  switch (viewKeyValue) {
+    case 'table':
+      return baseViewsValue.table && {
+        ...baseViewsValue.table,
+        type: viewKeyValue,
+      };
+    case 'detail':
+      return baseViewsValue.detail && {
+        ...baseViewsValue.detail,
+        type: viewKeyValue,
+      };
+    case 'edit':
+      return baseViewsValue.edit && {
+        ...baseViewsValue.edit,
+        type: viewKeyValue,
+      };
+    case 'new':
+      return baseViewsValue.new && {
+        ...baseViewsValue.new,
+        type: viewKeyValue,
+      };
+    case 'raw':
+      return baseViewsValue.raw && {
+        ...baseViewsValue.raw,
+        type: viewKeyValue,
+      };
+  }
 };
 
 export const useExtractView = (

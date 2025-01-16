@@ -166,7 +166,9 @@ export const toggleAllItemsSelected = (value: boolean) => {
 };
 
 export const setDialogItems = (
-  items: any[],
+  items: {
+    name: string, src: string, data?: unknown
+  }[],
   currentLanguage: string | undefined
 ) => {
   const dialogStore = useDialogStore();
@@ -200,18 +202,18 @@ export const setDialogItems = (
 
 export const updateItemsInModalAndSave = () => {
   const editStore = useEditStore();
-  const currentState = JSON.parse(editStore.currentAsJson);
+  const currentState = editStore.current;
   const itemInModalToSave = getCurrentItemToSave();
   const itemInModalToDelete = getCurrentItemDelete();
 
-  const { Documents } = currentState;
+  const Documents = currentState.Documents as Record<string, { DocumentURL?: string, DocumentName?: string, Language?: string }[]>;
 
   for (const documentInModal of itemInModalToDelete.data) {
     const keyLangDocuments = documentInModal.language as keyof typeof Documents;
     const currentDocumentData = Documents[keyLangDocuments] || [];
 
     const currentSavedDocumentIndex = currentDocumentData.findIndex(
-      (item: any) => item.DocumentURL === itemInModalToSave.src
+      (item) => item.DocumentURL === itemInModalToSave.src
     );
 
     if (currentSavedDocumentIndex >= 0) {
@@ -229,7 +231,7 @@ export const updateItemsInModalAndSave = () => {
     }
 
     const currentSavedDocument = currentDocumentData.find(
-      (item: any) => item.DocumentURL === itemInModalToSave.src
+      (item) => item.DocumentURL === itemInModalToSave.src
     );
 
     if (currentSavedDocument) {
@@ -248,11 +250,11 @@ export const updateItemsInModalAndSave = () => {
 
 export const addItemsInModalAndSave = () => {
   const editStore = useEditStore();
-  const currentState = JSON.parse(editStore.currentAsJson);
+  const currentState = editStore.current;
   const dialogStore = useDialogStore();
   const items = dialogStore.items;
 
-  const { Documents } = currentState;
+  const Documents = currentState.Documents as Record<string, { DocumentURL?: string, DocumentName?: string, Language?: string }[]>;;
 
   for (const item of items) {
     for (const itemData of item.data.filter((v) => v.available)) {
@@ -260,7 +262,7 @@ export const addItemsInModalAndSave = () => {
 
       Documents[itemData.language] ??= [];
       const uploadedDocumentIndex = Documents[itemData.language].findIndex(
-        (documentData: any) => documentData.DocumentURL === item.src
+        (documentData) => documentData.DocumentURL === item.src
       );
 
       if (uploadedDocumentIndex >= 0) {

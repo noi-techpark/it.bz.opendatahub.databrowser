@@ -5,58 +5,37 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div
-    class="border border-gray-300 ring-gray-400"
-    :class="{
-      'max-h-80 overflow-y-auto': !!searchResultsGroupedOptions,
-    }"
-  >
-    <SelectSearchBox
-      v-if="showSearch"
-      :model-value="modelValue"
-      @update:model-value="$emit('update:modelValue', $event)"
-    />
+  <div class="border border-gray-300 ring-gray-400">
     <SelectOptionsList
-      v-if="!searchResultsGroupedOptions"
-      :search-results="searchResults!"
-      @keydown="showSearch ? handleKeyDown($event) : true"
-    />
-
-    <SelectOptionsList
-      v-for="(group, i) in searchResultsGroupedOptions"
-      v-else
-      :key="group.name"
-      :search-results="group.options"
-      :group-index="i"
-      @keydown="showSearch ? handleKeyDown($event) : true"
-      ><template #groupName>
-        {{ group.name }}
-      </template></SelectOptionsList
+      :search-results="searchResults"
+      :search-results-grouped-options="searchResultsGroupedOptions"
     >
+      <template v-if="showSearch" #header>
+        <div class="bg-gray-100 p-3">
+          <InputCustom
+            v-model="modelValue"
+            :focus="true"
+            input-classes="w-full"
+            placeholder="Search data"
+          />
+        </div>
+      </template>
+    </SelectOptionsList>
   </div>
 </template>
 
 <script setup lang="ts">
-import { GroupSelectOption, SelectOption } from './types';
+import InputCustom from '../input/InputCustom.vue';
 import SelectOptionsList from './SelectOptionsList.vue';
-import SelectSearchBox from './SelectSearchBox.vue';
-import { useOptionsContainerEventHandler } from './useOptionsContainerEventHandler';
+import { GroupSelectOption, SelectOption } from './types';
 
-type SearchProps =
-  | { searchResults: SelectOption[]; searchResultsGroupedOptions?: never }
-  | { searchResults?: never; searchResultsGroupedOptions: GroupSelectOption[] };
+const props = defineProps<{
+  showSearch: boolean;
+  searchResults?: SelectOption[];
+  searchResultsGroupedOptions?: GroupSelectOption[];
+}>();
 
-const props = defineProps<
-  {
-    modelValue: string;
-    showSearch: boolean;
-  } & SearchProps
->();
-
-defineEmits(['update:modelValue']);
-
-// Handle options container keydown event
-const { handleKeyDown } = useOptionsContainerEventHandler();
+const modelValue = defineModel<string>({ required: true });
 
 // Ensure that either searchResults or searchResultsGroupedOptions is defined, but not both
 if (

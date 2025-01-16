@@ -74,7 +74,7 @@ const props = defineProps<{
 const inputRef = ref();
 onMounted(() => {
   if (props.focus === true) {
-    setTimeout(() => inputRef.value.focus(), 50);
+    setTimeout(() => inputRef.value.focus(), 500);
   }
 });
 

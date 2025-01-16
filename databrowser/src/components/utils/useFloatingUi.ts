@@ -19,32 +19,28 @@ export interface UseFloatingUi {
   offset?: number;
   leftOffset?: number;
   arrow?: Ref<any>;
+
 }
 
 export const useFloatingUi = (
-  options: UseFloatingUi
-): [Ref<any>, Ref<any>, Ref<Placement>] => {
-  const reference = ref<any>(null);
-  const tooltip = ref<any>(null);
+  options: UseFloatingUi,
+): [Ref<HTMLElement | null>, Ref<HTMLElement | null>, Ref<Placement>] => {
+  const reference = ref<HTMLElement | null>(null);
+  const tooltip = ref<HTMLElement | null>(null);
   const placement = ref<Placement>(options.placement);
 
   onMounted(() =>
     watchEffect((onInvalidate) => {
-      if (!tooltip.value) {
-        return;
-      }
-      if (!reference.value) {
-        return;
-      }
+      const tooltipEl = tooltip.value;
+      const referenceEl = reference.value;
+      const arrowEl = options.arrow?.value;
 
-      const tooltipEl = tooltip.value.el || tooltip.value;
-      const referenceEl = reference.value.el || reference.value;
-      const arrowEl = options.arrow?.value?.el || options.arrow?.value;
-
-      if (!(referenceEl instanceof HTMLElement)) {
-        return;
-      }
-      if (!(tooltipEl instanceof HTMLElement)) {
+      if (
+        tooltipEl == null ||
+        referenceEl == null ||
+        !(tooltipEl instanceof HTMLElement) ||
+        !(referenceEl instanceof HTMLElement)
+      ) {
         return;
       }
 
@@ -92,14 +88,14 @@ export const useFloatingUi = (
         });
       });
       onInvalidate(cleanup);
-    })
+    }),
   );
 
   return [reference, tooltip, placement];
 };
 
 const buildMiddleware = (
-  options: UseFloatingUi & { tooltipEl: HTMLElement; arrowEl: HTMLElement }
+  options: UseFloatingUi & { tooltipEl: HTMLElement; arrowEl?: HTMLElement },
 ): Middleware[] => {
   const middleware: Middleware[] = [];
 
@@ -125,7 +121,7 @@ const buildMiddleware = (
             width: `${rects.reference.width}px`,
           });
         },
-      })
+      }),
     );
   }
 

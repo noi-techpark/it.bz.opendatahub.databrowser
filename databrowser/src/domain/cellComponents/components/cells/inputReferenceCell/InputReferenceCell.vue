@@ -16,6 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     />
     <span v-if="!isWriteable && !isLoading">
       {{ options.find((option) => option.value === value)?.label ?? value }}
+      <small v-if="showid" class="text-2xs">{{ value }}</small>
     </span>
   </div>
 </template>
@@ -43,6 +44,7 @@ const props = withDefaults(
     showEmptyValue?: boolean;
     editable?: boolean;
     readonly?: string | boolean;
+    showid?: boolean;
   }>(),
   {
     value: undefined,
@@ -52,6 +54,7 @@ const props = withDefaults(
     showEmptyValue: false,
     editable: true,
     readonly: false,
+    showid: false,
   }
 );
 
@@ -64,6 +67,7 @@ const {
   showEmptyValue,
   editable,
   readonly,
+  showid,
 } = toRefs(props);
 
 const isWriteable = useWriteable({ editable, readonly });

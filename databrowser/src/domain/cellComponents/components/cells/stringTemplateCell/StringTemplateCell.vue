@@ -31,9 +31,9 @@ const compiledTemplate = Object.keys(props)
   .filter((key) => key != 'stringTemplate')
   .reduce((previous, key, index) => {
     const parameterName = `p${index + 1}`;
-    const value = (props as any)[parameterName];
+    const value = (props as Record<string, unknown>)[parameterName];
 
-    if (value == null) {
+    if (value == null || typeof value !== 'string') {
       return previous;
     }
 
