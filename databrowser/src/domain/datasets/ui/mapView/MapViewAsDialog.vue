@@ -59,6 +59,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :variant="Variant.ghost"
             :size="Size.sm"
             :indicator="true"
+            :disabled="true"
           >
             <IconFilter />
             Filter

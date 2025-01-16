@@ -14,7 +14,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           class="flex bg-[#F4F8F9]"
           :show-confirm-button="false"
         />
-        <ButtonCustom :size="Size.xs" :variant="Variant.ghost" class="p-2">
+        <ButtonCustom
+          :size="Size.xs"
+          :variant="Variant.ghost"
+          class="p-2"
+          :disabled="true"
+        >
           <IconFilter class="size-5 text-green-500" />
         </ButtonCustom>
       </div>
