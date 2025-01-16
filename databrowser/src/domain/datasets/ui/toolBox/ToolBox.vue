@@ -181,6 +181,7 @@ onMounted(() => {
 }
 
 .mobile-toolbox {
-  right: -3rem;
+  right: 0rem;
+  --tw-rotate: 0deg;
 }
 </style>

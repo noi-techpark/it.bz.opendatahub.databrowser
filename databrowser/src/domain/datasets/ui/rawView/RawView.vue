@@ -74,7 +74,7 @@ const { isError, isLoading, data, error, fullPath } = useSingleRecordLoad();
 
 @media screen and (max-width: 767px) {
   .is-toolbox-visible {
-    padding-bottom: 14rem;
+    padding-bottom: 7rem;
   }
 }
 </style>
