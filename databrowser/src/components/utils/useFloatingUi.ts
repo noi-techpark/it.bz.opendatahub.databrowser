@@ -18,7 +18,7 @@ export interface UseFloatingUi {
   matchReferenceWidth?: boolean;
   offset?: number;
   leftOffset?: number;
-  arrow?: Ref<any>;
+  arrow?: Ref<HTMLElement>;
 
 }
 
@@ -77,13 +77,16 @@ export const useFloatingUi = (
               left: 'right',
             }[staticPlacement]!;
 
-            Object.assign(arrowEl.style, {
-              left: arrowX != null ? `${arrowX - leftOffset}px` : '',
-              top: arrowY != null ? `${arrowY}px` : '',
-              right: '',
-              bottom: '',
-              [staticSide]: '-8px',
-            });
+            if(arrowEl){
+              Object.assign(arrowEl.style, {
+                left: arrowX != null ? `${arrowX - leftOffset}px` : '',
+                top: arrowY != null ? `${arrowY}px` : '',
+                right: '',
+                bottom: '',
+                [staticSide]: '-8px',
+              });
+            }
+     
           }
         });
       });
