@@ -82,7 +82,7 @@ const scrollSubCategoriesToTop = () => scrollToTop(container);
 <style scoped>
 @media screen and (max-width: 767px) {
   .is-toolbox-visible {
-    padding-bottom: 10rem;
+    padding-bottom: 14rem;
   }
 }
 </style>
