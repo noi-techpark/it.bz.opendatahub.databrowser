@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div
       v-if="slug !== ''"
       ref="container"
-      class="toolbox-padding flex-1 overflow-y-auto pb-12 md:h-full md:px-20 md:py-3"
+      class="is-toolbox-visible flex-1 overflow-y-auto pb-12 md:h-full md:px-20 md:py-3"
     >
       <EditHint v-if="showEditHint" class="mb-8" />
       <SubCategories
@@ -81,8 +81,8 @@ const scrollSubCategoriesToTop = () => scrollToTop(container);
 
 <style scoped>
 @media screen and (max-width: 767px) {
-  .is-toolbox-visible .toolbox-padding {
-    padding-bottom: 9rem;
+  .is-toolbox-visible {
+    padding-bottom: 10rem;
   }
 }
 </style>

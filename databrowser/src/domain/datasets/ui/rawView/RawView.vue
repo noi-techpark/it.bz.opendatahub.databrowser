@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <LoadingError v-if="isError" :error="error" />
   <template v-else>
-    <div class="toolbox-padding overflow-y-auto md:flex">
+    <div class="is-toolbox-visible overflow-y-auto md:flex">
       <ContentAlignmentX class="overflow-y-auto py-6 md:flex">
         <div v-if="isLoading" class="w-full">
           <LoadingCell v-for="i in 10" :key="i" class="my-3" />
@@ -73,8 +73,8 @@ const { isError, isLoading, data, error, fullPath } = useSingleRecordLoad();
 }
 
 @media screen and (max-width: 767px) {
-  .is-toolbox-visible .toolbox-padding {
-    padding-bottom: 9rem;
+  .is-toolbox-visible {
+    padding-bottom: 10rem;
   }
 }
 </style>

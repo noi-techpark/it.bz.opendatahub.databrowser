@@ -134,6 +134,7 @@ import IconStrokedArrowDown from '../../../../components/svg/IconStrokedArrowDow
 import TabButton from '../../../../components/tab/TabButton.vue';
 import { useToolBoxStore } from './toolBoxStore';
 import { watch } from 'vue';
+import { onMounted } from 'vue';
 
 const { t } = useI18n();
 
@@ -163,6 +164,9 @@ watch(mdAndLarger, (newVal) => {
   if (newVal) return;
 
   toolBoxStore.toggleToolboxVisibility(false);
+});
+onMounted(() => {
+  //
 });
 </script>
 
