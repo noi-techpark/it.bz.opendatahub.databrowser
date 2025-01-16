@@ -14,6 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <ButtonLink
           :to="links.detailLocation"
           :title="t('datasets.listView.viewLinks.detail.title')"
+          target="_blank"
           variant="ghost"
           size="xs"
           class="flex gap-2 px-3 py-1"
@@ -27,6 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           v-if="auth.isAuthenticated"
           :to="links.editLocation"
           :title="t('datasets.listView.viewLinks.edit.title')"
+          target="_blank"
           variant="ghost"
           size="xs"
           class="flex gap-2 px-3 py-1"
@@ -39,6 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <ButtonLink
           :to="links.rawLocation"
           :title="t('datasets.listView.viewLinks.raw.title')"
+          target="_blank"
           variant="ghost"
           size="xs"
           class="flex gap-2 px-3 py-1"
@@ -61,10 +64,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               name: 'OverviewDetailPage',
               params: { id: currentDataset?.id },
             }"
+            target="_blank"
           >
             {{ t('datasets.mapView.recordDetail.toDatasetDetail') }}
           </InternalLink>
-          <InternalLink v-if="links.tableLocation" :to="links.tableLocation">
+          <InternalLink
+            v-if="links.tableLocation"
+            :to="links.tableLocation"
+            target="_blank"
+          >
             {{ t('datasets.mapView.recordDetail.toTableView') }}
           </InternalLink>
         </div>
