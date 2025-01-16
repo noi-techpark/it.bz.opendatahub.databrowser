@@ -8,27 +8,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <header class="flex flex-wrap items-center py-2 text-xs md:py-0">
     <!-- Dataset title -->
     <div
-      class="mb-2 flex w-full items-center justify-between py-3 md:mb-0 md:w-auto"
+      class="flex items-center justify-between"
+      :class="[{ 'w-full md:w-64': hasConfig }]"
     >
-      <span
-        v-if="hasConfig"
-        class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
-      >
-        <DatasetHeaderOverlay :active="selectOpen">
-          <SelectCustom
-            :grouped-options="selectOptions"
-            :value="currentDataset"
-            :show-search-when-at-least-count-options="1"
-            extra-height
-            mobile-full-screen
-            class="mr-1 w-64"
-            no-min-height
-            @change="handleDatasetChange"
-            @open="handleSelectOpen"
-          />
-        </DatasetHeaderOverlay>
-      </span>
-      <span v-else class="mr-3 text-base">
+      <div v-if="hasConfig" class="w-full font-bold text-black">
+        <SelectCustom
+          extra-button-classes="h-9"
+          :grouped-options="selectOptions"
+          :value="currentDataset"
+          :show-search-when-at-least-count-options="1"
+          :size="SelectSize.sm"
+          @change="handleDatasetChange"
+          @open="handleSelectOpen"
+        />
+      </div>
+      <span v-else class="text-base">
         {{ t('datasets.header.noViewConfig') }}
       </span>
     </div>

@@ -23,12 +23,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <SelectCustom
       id="mobile-language-picker"
-      class="h-9 w-16 md:hidden"
+      class="w-16 md:hidden"
+      extra-button-classes="h-9"
       :options="links"
       :value="selected"
-      :size="SelectSize.sm"
+      :size="SelectSize.xs"
       :show-search-when-at-least-count-options="Infinity"
-      extra-height
       @change="selected = $event"
     />
   </div>
