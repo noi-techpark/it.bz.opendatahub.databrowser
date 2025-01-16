@@ -5,30 +5,24 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <header class="flex flex-wrap items-center py-2 text-xs md:py-0">
+  <header class="flex flex-wrap items-center py-2 gap-2">
     <!-- Dataset title -->
     <div
-      class="mb-2 flex w-full items-center justify-between py-3 md:mb-0 md:w-auto"
+      class="flex items-center justify-between"
+      :class="[{ 'w-full md:w-64': hasConfig }]"
     >
-      <span
-        v-if="hasConfig"
-        class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
-      >
-        <DatasetHeaderOverlay :active="selectOpen">
-          <SelectCustom
-            :grouped-options="selectOptions"
-            :value="currentDataset"
-            :show-search-when-at-least-count-options="1"
-            extra-height
-            mobile-full-screen
-            class="mr-1 w-64"
-            no-min-height
-            @change="handleDatasetChange"
-            @open="handleSelectOpen"
-          />
-        </DatasetHeaderOverlay>
-      </span>
-      <span v-else class="mr-3 text-base">
+      <div v-if="hasConfig" class="w-full font-bold text-black">
+        <SelectCustom
+          extra-button-classes="h-9"
+          :grouped-options="selectOptions"
+          :value="currentDataset"
+          :show-search-when-at-least-count-options="1"
+          :size="SelectSize.sm"
+          @change="handleDatasetChange"
+          @open="handleSelectOpen"
+        />
+      </div>
+      <span v-else class="text-base">
         {{ t('datasets.header.noViewConfig') }}
       </span>
     </div>
@@ -41,7 +35,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :picked="source"
       :class="{
         'animate-pulse rounded outline outline-green-500': !hasConfig,
-        'mr-2': true,
       }"
       @picked-change="changeSource($event)"
     />
@@ -71,7 +64,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <TagCustom
       v-if="source === 'generated'"
       :text="t('datasets.header.viewGeneratedConfig')"
-      class="ml-1"
       size="xs"
       type="yellow"
       has-dot
@@ -112,6 +104,7 @@ import InputSearch from '../../../../components/input/InputSearch.vue';
 import SelectCustom from '../../../../components/select/SelectCustom.vue';
 import {
   GroupSelectOption,
+  SelectSize,
   SelectValue,
 } from '../../../../components/select/types';
 import {
