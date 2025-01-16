@@ -5,6 +5,7 @@
 export type SelectValue = string | number | boolean;
 
 export enum SelectSize {
+  xs = 'xs',
   sm = 'sm',
   md = 'md',
 }
