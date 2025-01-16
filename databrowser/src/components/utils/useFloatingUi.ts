@@ -17,7 +17,9 @@ export interface UseFloatingUi {
   placement: Placement;
   matchReferenceWidth?: boolean;
   offset?: number;
+  leftOffset?: number;
   arrow?: Ref<HTMLElement>;
+
 }
 
 export const useFloatingUi = (
@@ -50,8 +52,14 @@ export const useFloatingUi = (
           middleware,
         }).then(({ x, y, placement: currentPlacement, middlewareData }) => {
           // Position tooltip
+          const [staticPlacement, dynamicPlacement] =
+            currentPlacement.split('-');
+
+          const leftOffset =
+            (options.leftOffset || 0) * (dynamicPlacement === 'end' ? 1 : -1);
+
           Object.assign(tooltipEl.style, {
-            left: `${x}px`,
+            left: `${x + leftOffset}px`,
             top: `${y}px`,
           });
 
@@ -61,24 +69,24 @@ export const useFloatingUi = (
           // If arrow element is provided, handle its positioning
           if (middlewareData.arrow != null) {
             const { x: arrowX, y: arrowY } = middlewareData.arrow;
-            const splittedPlacement = currentPlacement.split('-')[0];
 
             const staticSide = {
               top: 'bottom',
               right: 'left',
               bottom: 'top',
               left: 'right',
-            }[splittedPlacement]!;
+            }[staticPlacement]!;
 
-            if (arrowEl != null) {
+            if(arrowEl){
               Object.assign(arrowEl.style, {
-                left: arrowX != null ? `${arrowX}px` : '',
+                left: arrowX != null ? `${arrowX - leftOffset}px` : '',
                 top: arrowY != null ? `${arrowY}px` : '',
                 right: '',
                 bottom: '',
                 [staticSide]: '-8px',
               });
             }
+     
           }
         });
       });
