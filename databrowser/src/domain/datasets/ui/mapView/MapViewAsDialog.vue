@@ -165,7 +165,7 @@ const recordsByDatasetId = useFetchRecords(selectedDatasets);
 // Filter out datasets that have no map source (= no records / not loaded)
 const loadedMapSourcesWithMetaData = computed<MapSourceWithMetaData[]>(() => {
   return selectedDatasets.value
-    .filter((d) => recordsByDatasetId.value[d.dataset.id].mapSource != null)
+    .filter((d) => recordsByDatasetId.value[d.dataset.id]?.mapSource != null)
     .map<MapSourceWithMetaData>((d) => {
       return {
         mapSource: recordsByDatasetId.value[d.dataset.id].mapSource!,
@@ -213,6 +213,7 @@ const closeRecordDetail = () => {
   activeCluster.value = undefined;
 };
 
+// Build map iniiializer function that is passed to the ClusterMap component
 const { initClusterMap } = useMapViewInitializer(
   loadedMapSourcesWithMetaData,
   activeMarker,
@@ -223,6 +224,7 @@ const { initClusterMap } = useMapViewInitializer(
 </script>
 
 <style>
+/* Special class for "cutting" the map marker icons to the right shape with clip-path  */
 .clip-marker-icon-clip {
   clip-path: url(#marker-icon-clip);
 }
