@@ -44,7 +44,12 @@ interface OdhTourismMetaData {
 const metaDataUrl = withOdhBaseUrl('/v1/MetaData?pagesize=1000');
 
 export const useMetaDataQuery = () => {
-  return useApiRead(metaDataUrl, { select, queryKey: [metaDataUrl] });
+  return useApiRead(metaDataUrl, {
+    select,
+    queryKey: [metaDataUrl],
+    // Data is stale after 10 minutes
+    staleTime: 10 * 60 * 1000,
+  });
 };
 
 const select = (
