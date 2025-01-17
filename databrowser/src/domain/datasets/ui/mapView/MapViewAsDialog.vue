@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <ButtonCustom
               :size="Size.xs"
               :variant="Variant.ghost"
-              class="mr-2 border-none md:mr-0"
+              class="flex size-9 items-center justify-center"
               @click="emit('close')"
             >
               <IconClose />
