@@ -3,14 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed, readonly, ref } from 'vue';
-import { ClusterMapLayerTracker } from './types';
-
-export interface LayerId {
-  clusteredId: string;
-  unclusteredId: string;
-}
-
-export type MapLayerTracker = ReturnType<typeof useClusterMapLayerTracker>;
+import { ClusterMapLayerTracker, LayerId } from './types';
 
 /**
  * Keep track of layers on a clustered map.

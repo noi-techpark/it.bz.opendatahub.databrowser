@@ -83,9 +83,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed, ref, toRefs, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import GpsPointMap from '../../../../../components/map/GpsPointMap.vue';
+import GpsPointMap from './GpsPointMap.vue';
 import { LatLngPosition } from '../../../../../components/map/types';
-import { getDefaultCoordinates } from '../../../../../components/map/utils';
 import SubCategoryItem from '../../../../datasets/ui/category/SubCategoryItem.vue';
 import { useEditStore } from '../../../../datasets/ui/editView/store/editStore';
 import { useInjectEditMode } from '../../utils/editList/actions/useEditMode';
@@ -94,6 +93,7 @@ import StringCell from '../stringCell/StringCell.vue';
 import EditGpsPointOverview from './EditGpsPointOverview.vue';
 import { useEditGpsInfoCellStore } from './editGpsInfoCellStore';
 import { GpsInfoEntry } from './types';
+import { mapDefaultCoordinates } from '../../../../../components/map/consts';
 
 const { editable } = useInjectEditMode();
 
@@ -123,7 +123,7 @@ const gpsTypeOptions = computed(() => {
   return editGpsInfoCellStore.sortedPositionOptions;
 });
 
-const fallbackMapCenter = computed(() => getDefaultCoordinates());
+const fallbackMapCenter = computed(() => mapDefaultCoordinates);
 
 const initialState = computed(() => {
   return editStore.initialAsJson;

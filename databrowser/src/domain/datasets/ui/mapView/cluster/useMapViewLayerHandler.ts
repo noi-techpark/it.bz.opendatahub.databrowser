@@ -6,9 +6,9 @@ import { GeoJSONSource, Map, Map as MapLibre } from 'maplibre-gl';
 import { Ref, watch } from 'vue';
 import { MapSourceWithMetaData } from '../types';
 import {
+  ClusterMapLayerTracker,
   LayerId,
-  MapLayerTracker,
-} from '../../../../../components/map/cluster/useClusterMapLayerTracker';
+} from '../../../../../components/map/clusterMap/types';
 
 const buildSourceName = (id: string) => `markers-${id}`;
 
@@ -19,7 +19,7 @@ const buildClusteredId = (source: string) => `clustered-${source}`;
 export const useMapViewLayerHandler = (
   map: Map,
   sources: Ref<MapSourceWithMetaData[]>,
-  mapLayerTracker: MapLayerTracker,
+  mapLayerTracker: ClusterMapLayerTracker,
   onLayerChangesDone: () => void
 ) => {
   const { layerIdsByDatasetId, addLayerId, removeLayerId, hasLayerId } =

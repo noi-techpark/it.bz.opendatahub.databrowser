@@ -57,7 +57,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 import { ref } from 'vue';
 import TableHeaderCell from '../../../../../components/table/TableHeaderCell.vue';
 import TableCell from '../../../../../components/table/TableCell.vue';
-import GpsPointMap from '../../../../../components/map/GpsPointMap.vue';
+import GpsPointMap from './GpsPointMap.vue';
 import EditListTable from '../../utils/editList/table/EditListTable.vue';
 import EditListAddButton from '../../utils/editList/EditListAddButton.vue';
 import { useInjectNavigation } from '../../utils/editList/actions/useNavigation';

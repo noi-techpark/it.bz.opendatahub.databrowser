@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <DialogFullScreen :is-open="isOpen">
+  <DialogFullScreen :is-open="true">
     <div class="flex h-full flex-col overflow-auto">
       <div class="p-2 md:px-6 md:py-3">
         <header class="flex items-center justify-between gap-2">
@@ -109,14 +109,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, defineAsyncComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../components/button/types';
 import DialogFullScreen from '../../../../components/dialog/DialogFullScreen.vue';
 import LanguagePicker from '../../../../components/language/LanguagePicker.vue';
-import ClusterMap from '../../../../components/map/cluster/ClusterMap.vue';
 import IconClose from '../../../../components/svg/IconClose.vue';
 import IconDataset from '../../../../components/svg/IconDataset.vue';
 import IconFilter from '../../../../components/svg/IconFilter.vue';
@@ -129,11 +128,16 @@ import DatasetFilter from './filter/DatasetFilter.vue';
 import { useFilterItems } from './filter/useFilterItems';
 import { ClusterFeature, MapSourceWithMetaData, MarkerFeature } from './types';
 
+// Dynamically import SimpleMap to improve code chunking
+const ClusterMap = defineAsyncComponent(() =>
+  import('../../../../components/map/clusterMap/ClusterMap.vue').then(
+    (exports) => exports.default
+  )
+);
+
 const { t } = useI18n();
 
 const emit = defineEmits<{ (e: 'close'): void }>();
-
-defineProps<{ isOpen: boolean }>();
 
 const zIndexForSubComponents = mapViewBaseZIndex + 1;
 const datasetFilterVisible = ref(false);

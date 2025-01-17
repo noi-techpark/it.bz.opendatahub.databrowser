@@ -55,7 +55,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       >
         {{ t('datasets.editView.map.clickOnTheMapToSetGPSPoint') }}
       </div>
-      <MarkerMap
+      <SimpleMap
         :key="`map_${isFullscreen}`"
         :center="map.center"
         :markers="map.markers"
@@ -74,15 +74,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed, defineAsyncComponent, ref, toRefs, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import ButtonCustom from '../button/ButtonCustom.vue';
-import UseFullscreen from '../fullscreen/UseFullscreen.vue';
-import IconExpanded from '../svg/IconExpanded.vue';
-import IconParser from '../utils/IconParser.vue';
-import { LatLngPosition } from './types';
+import { LatLngPosition } from '../../../../../components/map/types';
+import ButtonCustom from '../../../../../components/button/ButtonCustom.vue';
+import IconParser from '../../../../../components/utils/IconParser.vue';
+import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
+import UseFullscreen from '../../../../../components/fullscreen/UseFullscreen.vue';
 
-// Dynamically import MarkerMap to improve code chunking
-const MarkerMap = defineAsyncComponent(() =>
-  import('./MarkerMap.vue').then((exports) => exports.default)
+// Dynamically import SimpleMap to improve code chunking
+const SimpleMap = defineAsyncComponent(() =>
+  import('../../../../../components/map/simpleMap/SimpleMap.vue').then(
+    (exports) => exports.default
+  )
 );
 
 const { t } = useI18n();

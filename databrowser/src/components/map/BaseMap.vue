@@ -17,15 +17,30 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
+import { Map } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { onMounted, ref } from 'vue';
 import IconCycle from '../svg/IconCycle.vue';
 import { randomId } from '../utils/random';
 
-defineProps<{ mapLoaded: boolean }>();
-const emit = defineEmits<{ (e: 'mapId', id: string): void }>();
+const props = defineProps<{
+  initMap: (mapId: string) => Map;
+}>();
+
+const emit = defineEmits<{ (e: 'mapReady', map: Map): void }>();
 
 const mapId = ref(`map-${randomId()}`);
+const map = ref<Map>();
+const mapLoaded = ref(false);
 
-onMounted(() => emit('mapId', mapId.value));
+onMounted(() => {
+  map.value = props.initMap(mapId.value);
+
+  map.value.on('load', () => {
+    if (map.value?.loaded()) {
+      mapLoaded.value = true;
+      emit('mapReady', map.value);
+    }
+  });
+});
 </script>

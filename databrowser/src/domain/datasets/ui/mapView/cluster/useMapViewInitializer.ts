@@ -4,8 +4,8 @@
 
 import { Map } from 'maplibre-gl';
 import { Ref, watch } from 'vue';
-import { ClusterMapInitializer } from '../../../../../components/map/cluster/types';
-import { useClusterMapLayerTracker } from '../../../../../components/map/cluster/useClusterMapLayerTracker';
+import { ClusterMapInitializer } from '../../../../../components/map/clusterMap/types';
+import { useClusterMapLayerTracker } from '../../../../../components/map/clusterMap/useClusterMapLayerTracker';
 import { ClusterFeature, MapSourceWithMetaData, MarkerFeature } from '../types';
 import { useMapViewMarkerPainting } from './useMapViewMarkerPainting';
 import { useMapViewLayerHandler } from './useMapViewLayerHandler';

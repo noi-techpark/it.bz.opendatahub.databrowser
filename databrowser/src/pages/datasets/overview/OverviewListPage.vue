@@ -213,7 +213,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <PartnersAndContributors />
     </PageGridContent>
 
-    <MapViewAsDialog :is-open="mapVisible" @close="hideMap" />
+    <MapViewAsDialog v-if="mapVisible" @close="hideMap" />
   </AppLayout>
 </template>
 
