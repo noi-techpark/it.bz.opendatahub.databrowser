@@ -52,7 +52,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             @click="datasetFilterVisible = !datasetFilterVisible"
           >
             <IconDataset />
-            Datasets
+            {{ t('datasets.mapView.dataset') }}
           </ButtonCustom>
           <ButtonCustom
             class="flex w-full items-center justify-center gap-2"
@@ -62,7 +62,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :disabled="true"
           >
             <IconFilter />
-            Filter
+            {{ t('datasets.mapView.filter') }}
           </ButtonCustom>
           <LanguagePicker
             class="md:hidden"
@@ -91,7 +91,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         >
           <div
             v-if="showMarkerDetail"
-            class="absolute bottom-0 z-20 h-4/5 w-full max-w-[1000px] overflow-y-auto overflow-x-hidden p-2 md:bottom-auto md:w-[33%]"
+            class="absolute bottom-0 z-20 h-4/5 w-full max-w-[40rem] overflow-y-auto overflow-x-hidden p-2 md:bottom-auto md:w-1/3 md:min-w-[25rem]"
           >
             <RecordDetail
               v-if="showMarkerDetail"
@@ -135,20 +135,19 @@ import { ClusterFeature, MapSourceWithMetaData, MarkerFeature } from './types';
 import RecordDetail from './detail/RecordDetail.vue';
 
 const { t } = useI18n();
+
 const emit = defineEmits<{ (e: 'close'): void }>();
 
 defineProps<{ isOpen: boolean }>();
 
-const router = useRouter();
-
 const zIndexForSubComponents = mapViewBaseZIndex + 1;
+const datasetFilterVisible = ref(false);
 
+const router = useRouter();
 const currentLanguage = computed(() => {
   const language = router.currentRoute.value.query.language;
   return Array.isArray(language) ? language[0] : language;
 });
-
-const datasetFilterVisible = ref(false);
 
 // Fetch datasets
 const { datasets, isLoading: datasetsLoading } = useFetchDatasets();
@@ -162,15 +161,15 @@ const selectedDatasets = computed(() => {
 });
 
 // Fetch records for selected datasets
-const sourceWithState = useFetchRecords(selectedDatasets);
+const recordsByDatasetId = useFetchRecords(selectedDatasets);
 
 // Filter out datasets that have no map source (= no records / not loaded)
 const loadedMapSourcesWithMetaData = computed<MapSourceWithMetaData[]>(() => {
   return selectedDatasets.value
-    .filter((d) => sourceWithState.value[d.dataset.id].mapSource != null)
+    .filter((d) => recordsByDatasetId.value[d.dataset.id].mapSource != null)
     .map<MapSourceWithMetaData>((d) => {
       return {
-        mapSource: sourceWithState.value[d.dataset.id].mapSource!,
+        mapSource: recordsByDatasetId.value[d.dataset.id].mapSource!,
         mapMetaData: d.mapMetaData,
       };
     });
@@ -189,7 +188,7 @@ const recordTotal = computed(() => {
 // Build filter items for the filter component
 const filterItems = useFilterItems(
   datasets,
-  sourceWithState,
+  recordsByDatasetId,
   selectedDatasetIds
 );
 

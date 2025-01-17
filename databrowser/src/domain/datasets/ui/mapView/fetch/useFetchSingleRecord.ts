@@ -2,59 +2,78 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { computed, Ref } from 'vue';
+import { computed, ComputedRef, Ref } from 'vue';
 import { useApiRead } from '../../../../api/useApi';
-import { TourismMetaData } from '../../../../metaDataConfig/tourism/types';
-import { MarkerFeature } from '../types';
+import { ApiType } from '../../../../metaDataConfig/types';
 import { toError } from '../../../../utils/convertError';
 
 export const useFetchSingleRecord = (
-  currentDataset: Ref<TourismMetaData | undefined>,
-  featureProps: Ref<MarkerFeature | undefined>
+  apiType: Ref<ApiType | undefined>,
+  externalLink: Ref<string | undefined>,
+  recordId: Ref<string | undefined>
 ) => {
-  const apiType = computed(() => currentDataset.value?.apiType);
-
-  const recordUrl = computed(() => {
-    const dataset = currentDataset.value;
-
-    if (dataset == null) {
-      return;
-    }
-
-    if (apiType.value === 'unknown' || dataset.externalLink == null) {
-      console.error(
-        'Dataset has no external link, not able to fetch details',
-        dataset
-      );
-      return;
-    }
-
-    try {
-      // Remove all query parameters
-      const url = new URL(dataset.externalLink);
-      for (const key of url.searchParams.keys()) {
-        url.searchParams.delete(key);
-      }
-
-      if (apiType.value === 'content') {
-        return `${url.toString()}/${featureProps.value?.id}`;
-      } else if (apiType.value === 'timeseries') {
-        return `${url.toString()}?scode=${featureProps.value?.id}`;
-      } else {
-        return;
-      }
-    } catch (error) {
-      console.error(toError(error).message, dataset.externalLink);
-      return undefined;
-    }
-  });
+  const recordUrl = useRecordUrl(apiType, externalLink, recordId);
 
   const options = computed(() => ({
     withAuth: true,
     apiType: apiType.value,
   }));
 
-  const recordRead = useApiRead<Record<string, unknown>>(recordUrl, options);
+  const apiReadResult = useApiRead<Record<string, unknown>>(recordUrl, options);
 
-  return { recordUrl, ...recordRead };
+  const recordData = computed(() => {
+    if (apiReadResult.data.value == null) {
+      return {};
+    }
+
+    switch (apiType.value) {
+      case 'unknown':
+        return apiReadResult.data.value;
+      case 'content':
+        return apiReadResult.data.value;
+      case 'timeseries':
+        return Array.isArray(apiReadResult.data.value.data)
+          ? apiReadResult.data.value.data[0]
+          : apiReadResult.data.value;
+      default:
+        return {};
+    }
+  });
+
+  return { recordUrl, recordData, ...apiReadResult };
+};
+
+const useRecordUrl = (
+  apiType: Ref<ApiType | undefined>,
+  externalLink: Ref<string | undefined>,
+  recordId: Ref<string | undefined>
+): ComputedRef<string | undefined> => {
+  return computed(() => {
+    if (apiType.value === 'unknown' || externalLink.value == null) {
+      console.error(
+        'Dataset has no external link, not able to fetch details',
+        externalLink.value
+      );
+      return;
+    }
+
+    try {
+      // Remove all query parameters from API url
+      const url = new URL(externalLink.value);
+      for (const key of url.searchParams.keys()) {
+        url.searchParams.delete(key);
+      }
+
+      if (apiType.value === 'content') {
+        return `${url.toString()}/${recordId.value}`;
+      } else if (apiType.value === 'timeseries') {
+        return `${url.toString()}?scode=${recordId.value}`;
+      }
+    } catch (error) {
+      const errorMessage = toError(error).message;
+      console.error(errorMessage, externalLink.value);
+    }
+
+    return undefined;
+  });
 };

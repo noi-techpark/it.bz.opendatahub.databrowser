@@ -22,12 +22,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <span class="mt-0.5 text-xl">{{ activeMarker.name }}</span>
         </template>
         <template v-if="activeCluster != null">
-          <span class="self-center">{{
-            t('datasets.mapView.recordDetail.clusterHeader', {
-              name: activeCluster.name,
-              count: activeCluster.markers.length,
-            })
-          }}</span>
+          <span class="self-center">
+            {{
+              t('datasets.mapView.recordDetail.clusterHeader', {
+                name: activeCluster.name,
+                count: activeCluster.markers.length,
+              })
+            }}
+          </span>
         </template>
       </div>
 
@@ -56,7 +58,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       />
     </div>
   </div>
-  <div v-else>Feature not found</div>
+  <div v-else>{{ t('datasets.mapView.recordDetail.featureNotFound') }}</div>
 </template>
 
 <script setup lang="ts">

@@ -37,7 +37,9 @@ import IconCycle from '../../../../../components/svg/IconCycle.vue';
 import ErrorPopover from './ErrorPopover.vue';
 import { SelectDatasetItem } from './types';
 
-const emit = defineEmits<{ toggleDataset: [string] }>();
+const emit = defineEmits<{
+  (e: 'toggleDataset', datasetId: string): void;
+}>();
 
 defineProps<{ item: SelectDatasetItem }>();
 </script>

@@ -5,10 +5,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="flex flex-col gap-2 break-words h-full">
+  <div class="flex h-full flex-col gap-2 break-words">
     <InputSearch v-model="searchTerm" :show-confirm-button="false" />
-    <div ref="containterRel" class="h-full relative">
-      <!-- <div class="h-full"></div> -->
+    <div ref="containterRel" class="relative h-full">
       <div class="absolute h-full w-full">
         <div v-bind="containerProps" :style="`height: ${height}px`">
           <div v-bind="wrapperProps">
@@ -42,6 +41,7 @@ import { ClusterDetailLink } from './types';
 import { useCurrentDataset } from './useCurrentDataset';
 import { useLinkSearch } from './useLinkSearch';
 import { useElementSize, useVirtualList } from '@vueuse/core';
+import { getApiDomainFromMetaData } from '../../../../metaDataConfig/utils';
 
 const props = defineProps<{ activeCluster: ClusterFeature }>();
 const { activeCluster } = toRefs(props);
@@ -55,11 +55,7 @@ const allDetailRoutes = computed<ClusterDetailLink[]>(() => {
     return [];
   }
 
-  const domain = currentDataset.value.baseUrl.includes('tourism')
-    ? 'tourism'
-    : currentDataset.value.baseUrl.includes('mobility')
-      ? 'mobility'
-      : 'unknown';
+  const domain = getApiDomainFromMetaData(currentDataset.value);
   const pathSegments = currentDataset.value.pathSegments;
   const query = currentDataset.value.apiFilter;
 
@@ -94,7 +90,5 @@ const {
   list: virtualList,
   containerProps,
   wrapperProps,
-} = useVirtualList(searchResults, {
-  itemHeight: 22,
-});
+} = useVirtualList(searchResults, { itemHeight: 22 });
 </script>

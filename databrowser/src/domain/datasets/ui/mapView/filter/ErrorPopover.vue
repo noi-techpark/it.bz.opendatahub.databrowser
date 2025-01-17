@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <PopoverCustom :z-index="2000">
+  <PopoverCustom :z-index="mapViewBaseZIndex + 1">
     <template #trigger>
       <PopoverCustomButton class="flex items-center rounded">
         <IconWarning class="text-red-500" />
@@ -27,4 +27,5 @@ import PopoverCustom from '../../../../../components/popover/PopoverCustom.vue';
 import PopoverCustomButton from '../../../../../components/popover/PopoverCustomButton.vue';
 import PopoverCustomPanel from '../../../../../components/popover/PopoverCustomPanel.vue';
 import IconWarning from '../../../../../components/svg/IconWarning.vue';
+import { mapViewBaseZIndex } from '../consts';
 </script>

@@ -4,8 +4,13 @@
 
 import { computed, Ref } from 'vue';
 import { useMetaDataForAllDatasets } from '../../../../../pages/datasets/overview/useDatasets';
+import { TourismMetaData } from '../../../../metaDataConfig/tourism/types';
 
-export const useCurrentDataset = (datasetId: Ref<string | undefined>) => {
+export const useCurrentDataset = (
+  datasetId: Ref<string | undefined>
+): {
+  currentDataset: Ref<TourismMetaData | undefined>;
+} => {
   const { metaData, isMetaDataLoading } = useMetaDataForAllDatasets();
 
   const currentDataset = computed(() => {

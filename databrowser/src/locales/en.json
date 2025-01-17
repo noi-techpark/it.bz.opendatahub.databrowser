@@ -243,15 +243,18 @@
       }
     },
     "mapView": {
-      "headerBig": "{recordTotal} Records from {selectedDatasetCount} datasets selected.",
-      "headerSmall": "Total no. of dataset: {datasetTotal}",
       "datasetFilter": {
         "noSearchResult": "Unfortunately we could not find any results for you. Please try to refine your search or set better filters!"
       },
+      "dataset": "Datasets",
+      "filter": "Filter",
+      "headerBig": "{recordTotal} Records from {selectedDatasetCount} datasets selected.",
+      "headerSmall": "Total no. of dataset: {datasetTotal}",
       "note": "Only datasets containing geographical coordinates can be shown on the map.",
       "recordDetail": {
         "clusterHeader": "Cluster for { name } with { count } markers",
         "datasetSpecificInformation": "Dataset-specific information:",
+        "featureNotFound": "Feature not found",
         "recordSpecificInformation": "Record-specific information",
         "toDatasetDetail": "Detailpage of dataset",
         "toTableView": "Table view"
