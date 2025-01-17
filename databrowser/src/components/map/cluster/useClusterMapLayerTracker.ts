@@ -3,14 +3,21 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { computed, readonly, ref } from 'vue';
+import { ClusterMapLayerTracker } from './types';
 
 export interface LayerId {
   clusteredId: string;
   unclusteredId: string;
 }
 
+export type MapLayerTracker = ReturnType<typeof useClusterMapLayerTracker>;
+
 /**
- * Keep track of layers on the map.
+ * Keep track of layers on a clustered map.
+ *
+ * This tracker is useful for clustered maps, where the data to cluster can be
+ * changed dynamically. This tracker keeps track of the layers that are
+ * currently active on the map.
  *
  * @returns {Object} layerIds - The layer ids.
  * @returns {Object} layerIdsByDatasetId - The layer ids by dataset id.
@@ -18,7 +25,7 @@ export interface LayerId {
  * @returns {Function} removeLayerId - Remove a layer id.
  * @returns {Function} hasLayerId - Check if a layer id exists.
  */
-export const useMapLayerTracker = () => {
+export const useClusterMapLayerTracker = (): ClusterMapLayerTracker => {
   const layerIdsByDatasetId = ref<Record<string, LayerId>>({});
 
   const addLayerId = (datasetId: string, layerId: LayerId) => {

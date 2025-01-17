@@ -26,7 +26,7 @@ interface LayerId {
   unclusteredId: string;
 }
 
-export const useClusterMarkerPainting = (
+export const useMapViewMarkerPainting = (
   layerIds: Ref<LayerId[]>,
   activeMarker: Ref<MarkerFeature | undefined>,
   activeCluster: Ref<ClusterFeature | undefined>,

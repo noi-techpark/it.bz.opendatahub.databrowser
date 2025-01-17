@@ -2,11 +2,13 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { GeoJSONSource, Map as MapLibre } from 'maplibre-gl';
+import { GeoJSONSource, Map, Map as MapLibre } from 'maplibre-gl';
 import { Ref, watch } from 'vue';
-import { ClusterFeature, MapSourceWithMetaData, MarkerFeature } from '../types';
-import { useClusterMarkerPainting } from './paintMarkers';
-import { LayerId, useMapLayerTracker } from './useMapLayerTracker';
+import { MapSourceWithMetaData } from '../types';
+import {
+  LayerId,
+  MapLayerTracker,
+} from '../../../../../components/map/cluster/useClusterMapLayerTracker';
 
 const buildSourceName = (id: string) => `markers-${id}`;
 
@@ -14,72 +16,36 @@ const buildUnclusteredId = (source: string) => `unclustered-${source}`;
 
 const buildClusteredId = (source: string) => `clustered-${source}`;
 
-export const useClusterMap = (
-  map: Ref<MapLibre | undefined>,
-  mapLoaded: Ref<boolean>,
+export const useMapViewLayerHandler = (
+  map: Map,
   sources: Ref<MapSourceWithMetaData[]>,
-  activeMarker: Ref<MarkerFeature | undefined>,
-  activeCluster: Ref<ClusterFeature | undefined>,
-  markerClick: (featureProps: MarkerFeature) => void,
-  clusterClick: (feature: ClusterFeature) => void
+  mapLayerTracker: MapLayerTracker,
+  onLayerChangesDone: () => void
 ) => {
-  // Keep track of layers on the map
-  const {
-    layerIds,
-    layerIdsByDatasetId,
-    addLayerId,
-    removeLayerId,
-    hasLayerId,
-  } = useMapLayerTracker();
-
-  // Paint markers on the map
-  const { paintMarkers } = useClusterMarkerPainting(
-    layerIds,
-    activeMarker,
-    activeCluster,
-    markerClick,
-    clusterClick
-  );
+  const { layerIdsByDatasetId, addLayerId, removeLayerId, hasLayerId } =
+    mapLayerTracker;
 
   // Add or remove layers from the map when the sources change
-  watch([sources, mapLoaded], () => {
-    if (mapLoaded.value === true && map.value != null) {
-      const mapValue = map.value;
+  watch([sources], () => {
+    // Remove unused layers from map
+    removeUnusedLayers(map, sources.value, layerIdsByDatasetId, removeLayerId);
 
-      // Remove unused layers from map
-      removeUnusedLayers(
-        mapValue,
-        sources.value,
-        layerIdsByDatasetId,
-        removeLayerId
-      );
+    console.debug('layersAfterCleanup', map.getLayersOrder());
 
-      console.debug('layersAfterCleanup', mapValue.getLayersOrder());
+    // Add new layers to map
+    sources.value
+      // Filter out sources that are already in mapClusters
+      // IMPORTANT: this is a performance optimization with the assumption that
+      // the data delivered by the API does not change.
+      // If the data changes, this must be adapted.
+      .filter(({ mapMetaData }) => !hasLayerId(mapMetaData.datasetId))
+      .forEach((source) => addNewLayers(map, source, addLayerId));
 
-      // Add new layers to map
-      sources.value
-        // Filter out sources that are already in mapClusters
-        // IMPORTANT: this is a performance optimization with the assumption that
-        // the data delivered by the API does not change.
-        // If the data changes, this must be adapted.
-        .filter(({ mapMetaData }) => !hasLayerId(mapMetaData.datasetId))
-        .forEach((source) => addNewLayers(mapValue, source, addLayerId));
+    console.debug('layersAfterAddition', map.getLayersOrder());
 
-      console.debug('layersAfterAddition', mapValue.getLayersOrder());
-
-      // Repaint markers after all layer changes are applied
-      mapValue.once('idle', () => paintMarkers(mapValue));
-    }
+    // Emit event when all layer changes are done
+    map.once('idle', onLayerChangesDone);
   });
-
-  // Repaint markers when the current active marker / cluster changes
-  watch([activeMarker, activeCluster], () => {
-    if (map.value != null) {
-      paintMarkers(map.value);
-    }
-  });
-
-  return { paintMarkers };
 };
 
 const removeUnusedLayers = (
@@ -144,7 +110,7 @@ const addNewLayers = (
     metadata: mapMetaData,
   });
 
-  // Add the layers to bookkeeping
+  // Add the layer IDs to  tracker
   addLayerId(datasetId, {
     clusteredId,
     unclusteredId,

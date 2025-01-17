@@ -101,13 +101,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               @close="closeRecordDetail"
             />
           </div>
-          <ClusterMap
-            :sources="loadedMapSourcesWithMetaData"
-            :active-marker="activeMarker"
-            :active-cluster="activeCluster"
-            @marker-click="markerClick"
-            @cluster-click="clusterClick"
-          />
+          <ClusterMap :init-cluster-map="initClusterMap" />
         </div>
       </div>
     </div>
@@ -122,17 +116,18 @@ import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../components/button/types';
 import DialogFullScreen from '../../../../components/dialog/DialogFullScreen.vue';
 import LanguagePicker from '../../../../components/language/LanguagePicker.vue';
+import ClusterMap from '../../../../components/map/cluster/ClusterMap.vue';
 import IconClose from '../../../../components/svg/IconClose.vue';
 import IconDataset from '../../../../components/svg/IconDataset.vue';
 import IconFilter from '../../../../components/svg/IconFilter.vue';
-import ClusterMap from './cluster/ClusterMap.vue';
+import { useMapViewInitializer } from './cluster/useMapViewInitializer';
 import { mapViewBaseZIndex } from './consts';
+import RecordDetail from './detail/RecordDetail.vue';
 import { useFetchDatasets } from './fetch/useFetchDatasets';
 import { useFetchRecords } from './fetch/useFetchRecords';
 import DatasetFilter from './filter/DatasetFilter.vue';
 import { useFilterItems } from './filter/useFilterItems';
 import { ClusterFeature, MapSourceWithMetaData, MarkerFeature } from './types';
-import RecordDetail from './detail/RecordDetail.vue';
 
 const { t } = useI18n();
 
@@ -213,4 +208,18 @@ const closeRecordDetail = () => {
   activeMarker.value = undefined;
   activeCluster.value = undefined;
 };
+
+const { initClusterMap } = useMapViewInitializer(
+  loadedMapSourcesWithMetaData,
+  activeMarker,
+  activeCluster,
+  markerClick,
+  clusterClick
+);
 </script>
+
+<style>
+.clip-marker-icon-clip {
+  clip-path: url(#marker-icon-clip);
+}
+</style>
