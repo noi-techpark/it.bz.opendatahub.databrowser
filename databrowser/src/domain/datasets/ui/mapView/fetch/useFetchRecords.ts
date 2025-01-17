@@ -94,6 +94,6 @@ const getFetchUrl = (
     case 'content':
       return `${url}?pagesize=1000000&fields=Id,GpsInfo,Shortname`;
     case 'timeseries':
-      return `${url}?limit=10000`;
+      return `${url}?limit=1000000`;
   }
 };
