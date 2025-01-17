@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { useQueries } from '@tanstack/vue-query';
-import { computed, ref, Ref } from 'vue';
+import { useQueries, useQueryClient } from '@tanstack/vue-query';
+import { computed, onUnmounted, ref, Ref } from 'vue';
 import { axiosWithMaybeAuth } from '../../../../api/apiAuth';
 import { unwrapData } from '../../../../api/dataExtraction';
 import { toError } from '../../../../utils/convertError';
@@ -26,12 +26,20 @@ export const useFetchRecords = (
       selectedDatasets.value.map((dataset) => ({
         queryKey: ['mapData', dataset.dataset.id],
         queryFn: async () => await fetchAndBuildMapSource(dataset, result),
-        refetchOnWindowFocus: false,
+        // refetchOnWindowFocus: false,
         // Data is stale after 10 minutes
         staleTime: 10 * 60 * 1000,
         retry: 0,
       }))
     ),
+  });
+
+  onUnmounted(() => {
+    // Invalidate mapData queries when component is unmounted, because
+    // - the data is not shown anymore when the map view is opened again
+    // - the data is not needed anymore
+    const queryClient = useQueryClient();
+    queryClient.invalidateQueries({ queryKey: ['mapData'] });
   });
 
   return result;
