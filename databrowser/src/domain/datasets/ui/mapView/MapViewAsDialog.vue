@@ -29,14 +29,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <div class="relative flex items-center gap-2">
             <LanguagePicker
               class="hidden md:flex"
-              :current-language="currentLanguage"
+              :current-language="languageFromUrl"
               :z-index="zIndexForSubComponents"
             />
             <ButtonCustom
               :size="Size.xs"
               :variant="Variant.ghost"
               class="flex size-9 items-center justify-center"
-              @click="emit('close')"
+              @click="closeMapView"
             >
               <IconClose />
             </ButtonCustom>
@@ -66,7 +66,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           </ButtonCustom>
           <LanguagePicker
             class="md:hidden"
-            :current-language="currentLanguage"
+            :current-language="languageFromUrl"
             :z-index="zIndexForSubComponents"
           />
         </div>
@@ -83,6 +83,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           :filter-items="filterItems"
           :datasets-loading="datasetsLoading"
           @selected-dataset-ids="selectedDatasetIds = $event"
+          @dataset-toggled="toggleDataset"
         />
         <div
           class="relative h-full w-full md:basis-3/4"
@@ -111,7 +112,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed, defineAsyncComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../components/button/types';
 import DialogFullScreen from '../../../../components/dialog/DialogFullScreen.vue';
@@ -127,6 +127,7 @@ import { useFetchRecords } from './fetch/useFetchRecords';
 import DatasetFilter from './filter/DatasetFilter.vue';
 import { useFilterItems } from './filter/useFilterItems';
 import { ClusterFeature, MapSourceWithMetaData, MarkerFeature } from './types';
+import { useMapViewRouting } from './useMapViewRouting';
 
 // Dynamically import SimpleMap to improve code chunking
 const ClusterMap = defineAsyncComponent(() =>
@@ -137,16 +138,12 @@ const ClusterMap = defineAsyncComponent(() =>
 
 const { t } = useI18n();
 
-const emit = defineEmits<{ (e: 'close'): void }>();
+const emit = defineEmits<{
+  (e: 'close'): void;
+}>();
 
 const zIndexForSubComponents = mapViewBaseZIndex + 1;
 const datasetFilterVisible = ref(false);
-
-const router = useRouter();
-const currentLanguage = computed(() => {
-  const language = router.currentRoute.value.query.language;
-  return Array.isArray(language) ? language[0] : language;
-});
 
 // Fetch datasets
 const { datasets, isLoading: datasetsLoading } = useFetchDatasets();
@@ -196,24 +193,27 @@ const activeCluster = ref<ClusterFeature>();
 const showMarkerDetail = ref(false);
 
 const markerClick = (marker: MarkerFeature) => {
+  setUrlParams(marker.datasetId, marker.id);
   activeCluster.value = undefined;
   activeMarker.value = marker;
   showMarkerDetail.value = true;
 };
 
 const clusterClick = (feature: ClusterFeature) => {
+  setUrlParams(feature.datasetId);
   activeMarker.value = undefined;
   activeCluster.value = { ...feature, markers: feature.markers };
   showMarkerDetail.value = true;
 };
 
 const closeRecordDetail = () => {
+  setUrlParams(activeMarker.value?.datasetId);
   showMarkerDetail.value = false;
   activeMarker.value = undefined;
   activeCluster.value = undefined;
 };
 
-// Build map iniiializer function that is passed to the ClusterMap component
+// Build map initializer function that is passed to the ClusterMap component
 const { initClusterMap } = useMapViewInitializer(
   loadedMapSourcesWithMetaData,
   activeMarker,
@@ -221,6 +221,26 @@ const { initClusterMap } = useMapViewInitializer(
   markerClick,
   clusterClick
 );
+
+const closeMapView = () => {
+  setUrlParams();
+  emit('close');
+};
+
+// Handle routing and URL parameters such to make the map view stateful and linkable
+const { languageFromUrl, setUrlParams } = useMapViewRouting(
+  datasets,
+  recordsByDatasetId,
+  selectedDatasetIds,
+  activeMarker,
+  showMarkerDetail
+);
+
+const toggleDataset = (datasetId: string, enabled: boolean) => {
+  if (enabled && showMarkerDetail.value === false) {
+    setUrlParams(datasetId);
+  }
+};
 </script>
 
 <style>

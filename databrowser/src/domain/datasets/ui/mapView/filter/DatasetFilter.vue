@@ -71,6 +71,7 @@ const { t } = useI18n();
 
 const emit = defineEmits<{
   (e: 'selectedDatasetIds', datasetIds: Set<string>): void;
+  (e: 'datasetToggled', datasetId: string, enabled: boolean): void;
 }>();
 
 const props = defineProps<{
@@ -84,6 +85,7 @@ const selectedDatasets = ref<Record<string, boolean>>({});
 const toggleDataset = (id: string) => {
   const selected = !selectedDatasets.value[id];
   selectedDatasets.value = { ...selectedDatasets.value, [id]: selected };
+  emit('datasetToggled', id, selected);
 };
 watch(selectedDatasets, (selectedDatasetsValue) => {
   const selectedDatasetIds = Object.keys(selectedDatasetsValue).filter(
