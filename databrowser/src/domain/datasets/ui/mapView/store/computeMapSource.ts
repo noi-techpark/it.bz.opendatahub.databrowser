@@ -3,7 +3,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { Feature, Point } from 'geojson';
-import { MapDatasetBase, MapRecord, MapSource } from '../types';
+import { KnownApiType } from '../../../../metaDataConfig/types';
+import { MapRecord, MapSourceSpecification } from '../types';
 
 interface ContentApiMarkerCollection {
   Id?: string;
@@ -26,17 +27,15 @@ interface FeatureParams {
   recordName: string;
 }
 
-type DatasetApiType = MapDatasetBase['apiType'];
-
 /**
  * Compute the map source for the given records.
  *
  * The source contains all the information to be used by MapLibre without further processing.
  */
 export const computeMapSource = (
-  apiType: DatasetApiType,
+  apiType: KnownApiType,
   records: unknown[]
-): MapSource => {
+): MapSourceSpecification => {
   // Extract the feature params (e.g. x, y, record ID, ...) from the records
   const featureParams = mapToFeatureParams(
     apiType,
@@ -75,7 +74,7 @@ export const computeMapSource = (
 };
 
 const mapToFeatureParams = (
-  type: DatasetApiType,
+  type: KnownApiType,
   records: ContentApiMarkerCollection[] | TimeseriesApiMarkerCollection[]
 ): Partial<FeatureParams>[] => {
   switch (type) {

@@ -11,7 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { Map } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
 import BaseMap from '../BaseMap.vue';
 import { LatLngPosition } from '../types';
 import { handleMapAttribution, initMap } from '../utils';
@@ -31,13 +31,19 @@ const props = withDefaults(
   }
 );
 
+const { center, zoom } = toRefs(props);
+
 const map = ref<Map>();
 
-const clusterMapInit = (mapId: string) =>
-  initMap(mapId, {
-    center: props.center,
-    zoom: props.zoom,
+const clusterMapInit = (mapId: string) => {
+  console.log('ClusterMap init', mapId);
+  console.log('ClusterMap props', center.value, zoom.value);
+
+  return initMap(mapId, {
+    center: center.value,
+    zoom: zoom.value,
   });
+};
 
 const mapReady = (readyMap: Map) => {
   map.value = readyMap;

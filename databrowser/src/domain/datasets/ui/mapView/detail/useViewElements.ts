@@ -2,23 +2,23 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import { computedAsync } from '@vueuse/core';
 import { computed, Ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { KnownApiType } from '../../../../metaDataConfig/types';
+import { loadDatasetConfig } from '../../../config/load/datasetConfigLoader';
 import { useObjectValueReplacer } from '../../../config/mapping/objectValueReplacer';
 import { useStringReplacer } from '../../../config/mapping/stringReplacer';
+import { DatasetConfig, PropertyConfig } from '../../../config/types';
 import { defaultLanguage } from '../../../language';
 import { stringifyRouteQuery } from '../../../location/stringifyQuery';
-import { ListViewConfigWithType } from '../../../view/types';
-import { computedAsync } from '@vueuse/core';
-import { loadDatasetConfig } from '../../../config/load/datasetConfigLoader';
-import { DatasetConfig, PropertyConfig } from '../../../config/types';
 import { computeDynamicParamsReplacement } from '../../../view/modifiers/dynamicParams/dynamicParamsReplacement';
 import { extractView } from '../../../view/modifiers/extractView/ViewKey';
-import { TourismMetaData } from '../../../../metaDataConfig/tourism/types';
+import { ListViewConfigWithType } from '../../../view/types';
 
 export const useViewElements = (
-  recordUrl: Ref<string | undefined>,
-  currentDataset: Ref<TourismMetaData | undefined>
+  apiType: Ref<KnownApiType | undefined>,
+  recordUrl: Ref<string | undefined>
 ) => {
   const router = useRouter();
   const language = computed(() => {
@@ -30,21 +30,11 @@ export const useViewElements = (
   const objectValueReplacer = useObjectValueReplacer(stringReplacer);
 
   const config = computedAsync<DatasetConfig | undefined>(async () => {
-    if (recordUrl.value == null || currentDataset.value == null) {
+    if (apiType.value == null || recordUrl.value == null) {
       return;
     }
 
-    const apiType = currentDataset.value.apiType;
-
-    if (apiType === 'unknown') {
-      console.error(
-        'Unknown API type, trying to build generated view config',
-        currentDataset.value
-      );
-      return;
-    }
-
-    if (apiType === 'content') {
+    if (apiType.value === 'content') {
       const { pathname } = new URL(recordUrl.value);
       const path = pathname.split('/').filter((part) => part.length > 0);
       // Remove the last part, which is the record ID
@@ -52,7 +42,7 @@ export const useViewElements = (
       return await loadDatasetConfig('embedded', 'tourism', path);
     }
 
-    if (apiType === 'timeseries') {
+    if (apiType.value === 'timeseries') {
       const { pathname } = new URL(recordUrl.value);
       const path = pathname.split('/').filter((part) => part.length > 0);
       return await loadDatasetConfig('embedded', 'mobility', path);
@@ -64,17 +54,7 @@ export const useViewElements = (
       return [];
     }
 
-    const apiType = currentDataset.value?.apiType;
-
-    if (apiType === 'unknown') {
-      console.error(
-        'Unknown API type, trying to build generated view config',
-        currentDataset.value
-      );
-      return [];
-    }
-
-    if (apiType === 'content') {
+    if (apiType.value === 'content') {
       const viewFromDatasetConfig = extractView(config.value?.views, 'table');
       const replacedParams = computeDynamicParamsReplacement(
         'tourism',
@@ -86,7 +66,7 @@ export const useViewElements = (
       return replacedParams.elements ?? [];
     }
 
-    if (apiType === 'timeseries') {
+    if (apiType.value === 'timeseries') {
       return config.value?.views?.table?.elements ?? [];
     }
 

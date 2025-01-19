@@ -5,3 +5,5 @@
 export type ApiDomain = 'tourism' | 'mobility' | 'unknown';
 
 export type ApiType = 'content' | 'timeseries' | 'unknown';
+
+export type KnownApiType = Exclude<ApiType, 'unknown'>;

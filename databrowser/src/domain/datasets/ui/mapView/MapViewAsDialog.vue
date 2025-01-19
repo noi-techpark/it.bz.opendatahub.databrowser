@@ -7,245 +7,74 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <DialogFullScreen :is-open="true">
     <div class="flex h-full flex-col overflow-auto">
-      <div class="p-2 md:px-6 md:py-3">
-        <header class="flex items-center justify-between gap-2">
-          <div>
-            <span class="text-xl">
-              {{
-                t('datasets.mapView.headerBig', {
-                  selectedDatasetCount: selectedDatasets.length,
-                  recordTotal: recordTotal,
-                })
-              }}
-            </span>
-            <span>
-              {{
-                t('datasets.mapView.headerSmall', {
-                  datasetTotal: datasets.length,
-                })
-              }}
-            </span>
-          </div>
-          <div class="relative flex items-center gap-2">
-            <LanguagePicker
-              class="hidden md:flex"
-              :current-language="languageFromUrl"
-              :z-index="zIndexForSubComponents"
-            />
-            <ButtonCustom
-              :size="Size.xs"
-              :variant="Variant.ghost"
-              class="flex size-9 items-center justify-center"
-              @click="closeMapView"
-            >
-              <IconClose />
-            </ButtonCustom>
-          </div>
-        </header>
-
-        <div class="flex justify-between gap-2 md:hidden">
-          <ButtonCustom
-            class="flex w-full items-center justify-center gap-2"
-            :variant="Variant.ghost"
-            :size="Size.sm"
-            :indicator="datasetFilterVisible"
-            @click="datasetFilterVisible = !datasetFilterVisible"
-          >
-            <IconDataset />
-            {{ t('datasets.mapView.dataset') }}
-          </ButtonCustom>
-          <ButtonCustom
-            class="flex w-full items-center justify-center gap-2"
-            :variant="Variant.ghost"
-            :size="Size.sm"
-            :indicator="true"
-            :disabled="true"
-          >
-            <IconFilter />
-            {{ t('datasets.mapView.filter') }}
-          </ButtonCustom>
-          <LanguagePicker
-            class="md:hidden"
-            :current-language="languageFromUrl"
-            :z-index="zIndexForSubComponents"
-          />
-        </div>
-      </div>
-      <div
-        class="flex h-full gap-4 overflow-y-auto overflow-x-hidden md:px-6 md:pb-6"
-      >
-        <DatasetFilter
-          :class="[
-            datasetFilterVisible
-              ? 'basis-11/12 md:basis-1/4'
-              : 'hidden md:basis-1/4',
-          ]"
-          :filter-items="filterItems"
-          :datasets-loading="datasetsLoading"
-          @selected-dataset-ids="selectedDatasetIds = $event"
-          @dataset-toggled="toggleDataset"
-        />
-        <div
-          class="relative h-full w-full md:basis-3/4"
-          :class="[{ 'basis-1/12': datasetFilterVisible }]"
-          @click="datasetFilterVisible = false"
-        >
-          <div
-            v-if="showMarkerDetail"
-            class="absolute bottom-0 z-20 h-4/5 w-full max-w-[40rem] overflow-y-auto overflow-x-hidden p-2 md:bottom-auto md:w-1/3 md:min-w-[25rem]"
-          >
-            <RecordDetail
-              v-if="showMarkerDetail"
-              id="record-detail"
-              :active-marker="activeMarker"
-              :active-cluster="activeCluster"
-              @close="closeRecordDetail"
-            />
-          </div>
-          <ClusterMap :init-cluster-map="initClusterMap" />
-        </div>
-      </div>
+      <MapViewHeader @close="emit('close')" />
+      <MapViewBody />
     </div>
   </DialogFullScreen>
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import ButtonCustom from '../../../../components/button/ButtonCustom.vue';
-import { Size, Variant } from '../../../../components/button/types';
+import { storeToRefs } from 'pinia';
 import DialogFullScreen from '../../../../components/dialog/DialogFullScreen.vue';
-import LanguagePicker from '../../../../components/language/LanguagePicker.vue';
-import IconClose from '../../../../components/svg/IconClose.vue';
-import IconDataset from '../../../../components/svg/IconDataset.vue';
-import IconFilter from '../../../../components/svg/IconFilter.vue';
-import { useMapViewInitializer } from './cluster/useMapViewInitializer';
-import { mapViewBaseZIndex } from './consts';
-import RecordDetail from './detail/RecordDetail.vue';
-import { useFetchDatasets } from './fetch/useFetchDatasets';
-import { useFetchRecords } from './fetch/useFetchRecords';
-import DatasetFilter from './filter/DatasetFilter.vue';
-import { useFilterItems } from './filter/useFilterItems';
-import { ClusterFeature, MapSourceWithMetaData, MarkerFeature } from './types';
-import { useMapViewRouting } from './useMapViewRouting';
+import MapViewBody from './MapViewBody.vue';
+import MapViewHeader from './MapViewHeader.vue';
+import { useMapViewStore } from './store/useMapViewStore';
+import { useMapViewUiStore } from './store/useMapViewUiStore';
+import { MarkerFeature } from './types';
 
-// Dynamically import SimpleMap to improve code chunking
-const ClusterMap = defineAsyncComponent(() =>
-  import('../../../../components/map/clusterMap/ClusterMap.vue').then(
-    (exports) => exports.default
-  )
-);
+const emit = defineEmits<{ (e: 'close'): void }>();
 
-const { t } = useI18n();
+// Handle dataset selection from URL
+const { datasetIds, activeMarker, activeRecord, showMarkerDetail } =
+  storeToRefs(useMapViewUiStore());
 
-const emit = defineEmits<{
-  (e: 'close'): void;
-}>();
+// Initial dataset fetching
+const mapViewStore = useMapViewStore();
 
-const zIndexForSubComponents = mapViewBaseZIndex + 1;
-const datasetFilterVisible = ref(false);
+const { datasets } = storeToRefs(mapViewStore);
 
-// Fetch datasets
-const { datasets, isLoading: datasetsLoading } = useFetchDatasets();
+mapViewStore.fetchDatasets().then(() => {
+  if (datasetIds.value == null) {
+    return;
+  }
+  datasetIds.value
+    .filter((datasetId) => datasets.value[datasetId] != null)
+    .forEach((datasetId) => {
+      datasets.value[datasetId].selected = true;
+      // Note that we don't await here, as we don't want to block the
+      // loading of other datasets
+      mapViewStore.fetchRecordsForDatasetId(datasetId).then((records) => {
+        console.log(`Records for dataset ${datasetId} fetched`);
 
-// Handle datasets selected by the filter component
-const selectedDatasetIds = ref<Set<string>>(new Set());
-const selectedDatasets = computed(() => {
-  return datasets.value.filter((d) =>
-    selectedDatasetIds.value.has(d.dataset.id)
-  );
-});
+        if (activeRecord.value != null) {
+          console.log('Fetch active record:', activeRecord.value);
 
-// Fetch records for selected datasets
-const recordsByDatasetId = useFetchRecords(selectedDatasets);
+          const { datasetId: markerDatasetId, recordId: markerRecordId } =
+            activeRecord.value;
 
-// Filter out datasets that have no map source (= no records / not loaded)
-const loadedMapSourcesWithMetaData = computed<MapSourceWithMetaData[]>(() => {
-  return selectedDatasets.value
-    .filter((d) => recordsByDatasetId.value[d.dataset.id]?.mapSource != null)
-    .map<MapSourceWithMetaData>((d) => {
-      return {
-        mapSource: recordsByDatasetId.value[d.dataset.id].mapSource!,
-        mapMetaData: d.mapMetaData,
-      };
+          const record = records.source.data.features.find(
+            (feature) => feature.properties.recordId === markerRecordId
+          );
+          if (record != null) {
+            mapViewStore
+              .fetchRecordDetails(markerDatasetId, markerRecordId)
+              .then(() => {
+                const dataset = datasets.value[datasetId];
+
+                const marker: MarkerFeature = {
+                  datasetId: markerDatasetId,
+                  recordId: markerRecordId,
+                  name: record.properties.recordName,
+                  abbreviation: dataset.metaData.datasetAbbreviation,
+                  color: dataset.metaData.datasetColor,
+                };
+
+                activeMarker.value = marker;
+                showMarkerDetail.value = true;
+              });
+          }
+        }
+      });
     });
 });
-
-// Calculate the total number of records
-const recordTotal = computed(() => {
-  return Object.values(loadedMapSourcesWithMetaData.value).reduce(
-    (acc, { mapSource }) => {
-      return mapSource == null ? acc : acc + mapSource.data.features.length;
-    },
-    0
-  );
-});
-
-// Build filter items for the filter component
-const filterItems = useFilterItems(
-  datasets,
-  recordsByDatasetId,
-  selectedDatasetIds
-);
-
-const activeMarker = ref<MarkerFeature>();
-const activeCluster = ref<ClusterFeature>();
-const showMarkerDetail = ref(false);
-
-const markerClick = (marker: MarkerFeature) => {
-  setUrlParams(marker.datasetId, marker.id);
-  activeCluster.value = undefined;
-  activeMarker.value = marker;
-  showMarkerDetail.value = true;
-};
-
-const clusterClick = (feature: ClusterFeature) => {
-  setUrlParams(feature.datasetId);
-  activeMarker.value = undefined;
-  activeCluster.value = { ...feature, markers: feature.markers };
-  showMarkerDetail.value = true;
-};
-
-const closeRecordDetail = () => {
-  setUrlParams(activeMarker.value?.datasetId);
-  showMarkerDetail.value = false;
-  activeMarker.value = undefined;
-  activeCluster.value = undefined;
-};
-
-// Build map initializer function that is passed to the ClusterMap component
-const { initClusterMap } = useMapViewInitializer(
-  loadedMapSourcesWithMetaData,
-  activeMarker,
-  activeCluster,
-  markerClick,
-  clusterClick
-);
-
-const closeMapView = () => {
-  setUrlParams();
-  emit('close');
-};
-
-// Handle routing and URL parameters such to make the map view stateful and linkable
-const { languageFromUrl, setUrlParams } = useMapViewRouting(
-  datasets,
-  recordsByDatasetId,
-  selectedDatasetIds,
-  activeMarker,
-  showMarkerDetail
-);
-
-const toggleDataset = (datasetId: string, enabled: boolean) => {
-  if (enabled && showMarkerDetail.value === false) {
-    setUrlParams(datasetId);
-  }
-};
 </script>
-
-<style>
-/* Special class for "cutting" the map marker icons to the right shape with clip-path  */
-.clip-marker-icon-clip {
-  clip-path: url(#marker-icon-clip);
-}
-</style>

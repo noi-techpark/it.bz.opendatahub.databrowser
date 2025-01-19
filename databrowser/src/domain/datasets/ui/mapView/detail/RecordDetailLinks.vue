@@ -62,7 +62,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <InternalLink
             :to="{
               name: 'OverviewDetailPage',
-              params: { id: currentDataset?.id },
+              params: { id: datasetId },
             }"
             target="_blank"
           >
@@ -83,18 +83,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { TourismMetaData } from '../../../../metaDataConfig/tourism/types';
-import { DatasetLocations } from '../../../location/types';
-import { useAuth } from '../../../../auth/store/auth';
 import ButtonLink from '../../../../../components/button/ButtonLink.vue';
 import InternalLink from '../../../../../components/link/InternalLink.vue';
 import IconCode from '../../../../../components/svg/IconCode.vue';
 import IconEdit from '../../../../../components/svg/IconEdit.vue';
 import IconEye from '../../../../../components/svg/IconEye.vue';
+import { useAuth } from '../../../../auth/store/auth';
+import { DatasetLocations } from '../../../location/types';
+import { DatasetId } from '../types';
 
 const { t } = useI18n();
 
-defineProps<{ currentDataset?: TourismMetaData; links?: DatasetLocations }>();
+defineProps<{ datasetId?: DatasetId; links?: DatasetLocations }>();
 
 const auth = useAuth();
 </script>

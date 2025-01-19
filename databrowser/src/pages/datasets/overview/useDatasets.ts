@@ -39,11 +39,25 @@ export const useMetaDataForAllDatasets = () => {
       isMetaDataFromConfigLoading.value || isMetaDataFromOpenApiLoading.value
   );
 
-  const metaDataError = computed(
-    () =>
-      metaDataFromConfigError.value != null ||
-      metaDataFromOpenApiError.value != null
-  );
+  const metaDataError = computed(() => {
+    if (
+      metaDataFromConfigError.value == null &&
+      metaDataFromOpenApiError.value == null
+    ) {
+      return null;
+    }
+
+    const errors = [
+      metaDataFromConfigError.value,
+      metaDataFromOpenApiError.value,
+    ];
+    const errorMessage = errors
+      .filter((e) => e != null)
+      .map((e) => e.message)
+      .join('; ');
+
+    return new Error(errorMessage, { cause: errors });
+  });
 
   return {
     metaDataFromConfig,

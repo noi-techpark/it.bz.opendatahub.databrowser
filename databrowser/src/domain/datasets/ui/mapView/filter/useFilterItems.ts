@@ -2,41 +2,35 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { computed, Ref } from 'vue';
-import { AllInOneDataset, MapSourceWithState } from '../types';
+import { computed } from 'vue';
+import { useMapViewStore } from '../store/useMapViewStore';
 import { SelectDatasetItem } from './types';
+import { MapDataset } from '../types';
 
-export const useFilterItems = (
-  datasets: Ref<AllInOneDataset[]>,
-  sourceWithState: Ref<Record<string, MapSourceWithState>>,
-  selectedDatasets: Ref<Set<string>>
-) => {
-  return computed<SelectDatasetItem[]>(() => {
+export const useFilterItems = () => {
+  const filterItems = computed<SelectDatasetItem[]>(() => {
+    const mapFilterStore = useMapViewStore();
     // Split datasets into parent and child datasets
-    const parentDatasets = datasets.value.filter(
-      (d) => d.dataset.parentId == null
+    const datasets = Object.values(mapFilterStore.datasets);
+
+    const parentDatasets = datasets.filter(
+      (d) => d.metaData.datasetParentId == null
     );
-    const childDatasets = datasets.value.filter(
-      (d) => d.dataset.parentId != null
+    const childDatasets = datasets.filter(
+      (d) => d.metaData.datasetParentId != null
     );
 
-    // Build dataset fetch objects
     const datasetsByParent = parentDatasets.reduce<
       Record<string, SelectDatasetItem>
     >((prev, curr) => {
-      prev[curr.dataset.id] = {
-        ...buildItem(curr, sourceWithState.value, selectedDatasets.value),
+      prev[curr.metaData.datasetId] = {
+        ...buildItem(curr),
         children: childDatasets
           .filter(
-            (childDataset) => childDataset.dataset.parentId === curr.dataset.id
+            (childDataset) =>
+              childDataset.metaData.datasetParentId === curr.metaData.datasetId
           )
-          .map((childDataset) =>
-            buildItem(
-              childDataset,
-              sourceWithState.value,
-              selectedDatasets.value
-            )
-          )
+          .map((childDataset) => buildItem(childDataset))
           .sort((a, b) => a.name.localeCompare(b.name)),
       };
       return prev;
@@ -46,24 +40,20 @@ export const useFilterItems = (
       a.name.localeCompare(b.name)
     );
   });
+
+  return { filterItems };
 };
 
-const buildItem = (
-  dataset: AllInOneDataset,
-  sourceWithState: Record<string, MapSourceWithState>,
-  selectedDatasets: Set<string>
-) => {
-  const id = dataset.dataset.id;
-  const source = sourceWithState[id];
+const buildItem = ({ metaData, records, selected }: MapDataset) => {
   return {
-    id,
-    name: dataset.dataset.name,
-    fetching: source?.fetchState.fetching ?? false,
-    fetched: source?.fetchState.fetched ?? false,
-    error: source?.fetchState.error ?? null,
-    count: source?.mapSource?.data.features.length ?? 0,
-    color: dataset.mapMetaData.datasetColor,
-    selected: selectedDatasets.has(dataset.dataset.id) ?? false,
+    id: metaData.datasetId,
+    name: metaData.datasetName,
+    fetching: records.fetching,
+    fetched: records.fetched,
+    error: records.error,
+    count: records.count,
+    color: metaData.datasetColor,
+    selected,
     children: [],
   };
 };

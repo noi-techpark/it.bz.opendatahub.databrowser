@@ -25,13 +25,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       </div>
       <div class="relative h-full overflow-y-auto overflow-x-hidden">
         <div
-          v-if="datasetsLoading"
+          v-if="mapViewStore.datasetsFetching"
           class="absolute inset-0 flex items-center justify-center transition-all"
         >
           <IconCycle class="animate-spin text-dialog" />
         </div>
 
-        <template v-if="!datasetsLoading">
+        <template v-if="!mapViewStore.datasetsFetching">
           <DatasetSelector
             v-if="searchResults.length > 0"
             :items="searchResults"
@@ -54,7 +54,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ButtonCustom from '../../../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../../../components/button/types';
@@ -63,37 +62,25 @@ import IconCycle from '../../../../../components/svg/IconCycle.vue';
 import IconEyeWithLid from '../../../../../components/svg/IconEyeWithLid.vue';
 import IconFilter from '../../../../../components/svg/IconFilter.vue';
 import MapViewHint from '../MapViewHint.vue';
+import { useMapViewStore } from '../store/useMapViewStore';
 import DatasetSelector from './DatasetSelector.vue';
-import { SelectDatasetItem } from './types';
 import { useDatasetSearch } from './useDatasetSearch';
+import { useFilterItems } from './useFilterItems';
 
 const { t } = useI18n();
 
-const emit = defineEmits<{
-  (e: 'selectedDatasetIds', datasetIds: Set<string>): void;
-  (e: 'datasetToggled', datasetId: string, enabled: boolean): void;
-}>();
+const mapViewStore = useMapViewStore();
 
-const props = defineProps<{
-  filterItems: SelectDatasetItem[];
-  datasetsLoading: boolean;
-}>();
-
-const { filterItems } = toRefs(props);
-
-const selectedDatasets = ref<Record<string, boolean>>({});
-const toggleDataset = (id: string) => {
-  const selected = !selectedDatasets.value[id];
-  selectedDatasets.value = { ...selectedDatasets.value, [id]: selected };
-  emit('datasetToggled', id, selected);
+const toggleDataset = (datasetId: string) => {
+  const selected = mapViewStore.isDatasetSelected(datasetId);
+  if (selected) {
+    mapViewStore.setSelectedDataset(datasetId, false);
+  } else {
+    mapViewStore.setSelectedDataset(datasetId, true);
+    mapViewStore.fetchRecordsForDatasetId(datasetId);
+  }
 };
-watch(selectedDatasets, (selectedDatasetsValue) => {
-  const selectedDatasetIds = Object.keys(selectedDatasetsValue).filter(
-    (id) => selectedDatasetsValue[id] === true
-  );
 
-  emit('selectedDatasetIds', new Set(selectedDatasetIds));
-});
-
+const { filterItems } = useFilterItems();
 const { searchTerm, searchResults } = useDatasetSearch(filterItems);
 </script>

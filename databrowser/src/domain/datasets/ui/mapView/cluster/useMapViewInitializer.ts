@@ -3,15 +3,17 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { Map } from 'maplibre-gl';
-import { Ref, watch } from 'vue';
+import { computed, Ref, watch } from 'vue';
 import { ClusterMapInitializer } from '../../../../../components/map/clusterMap/types';
 import { useClusterMapLayerTracker } from '../../../../../components/map/clusterMap/useClusterMapLayerTracker';
-import { ClusterFeature, MapSourceWithMetaData, MarkerFeature } from '../types';
-import { useMapViewMarkerPainting } from './useMapViewMarkerPainting';
+import { ClusterFeature, MapDataset, MarkerFeature } from '../types';
 import { useMapViewLayerHandler } from './useMapViewLayerHandler';
+import { useMapViewMarkerPainting } from './useMapViewMarkerPainting';
+import { storeToRefs } from 'pinia';
+import { useMapViewUiStore } from '../store/useMapViewUiStore';
 
 export const useMapViewInitializer = (
-  sources: Ref<MapSourceWithMetaData[]>,
+  datasets: Ref<Record<string, MapDataset>>,
   activeMarker: Ref<MarkerFeature | undefined>,
   activeCluster: Ref<ClusterFeature | undefined>,
   markerClick: (feature: MarkerFeature) => void,
@@ -19,17 +21,26 @@ export const useMapViewInitializer = (
 ): {
   initClusterMap: ClusterMapInitializer;
 } => {
+  const { mapCenter, mapZoom } = storeToRefs(useMapViewUiStore());
+
   const initClusterMap = (map: Map) => {
     const clusterMap = useClusterMap(
       map,
-      sources,
+      datasets,
       activeMarker,
       activeCluster,
       markerClick,
       clusterClick
     );
 
-    map.on('moveend', () => clusterMap.paintMarkers(map));
+    map.on('moveend', () => {
+      console.log('moveend', map.getCenter());
+
+      const center = map.getCenter();
+      mapCenter.value = [center.lng, center.lat];
+      mapZoom.value = map.getZoom();
+      clusterMap.paintMarkers(map);
+    });
 
     return clusterMap;
   };
@@ -39,7 +50,7 @@ export const useMapViewInitializer = (
 
 const useClusterMap = (
   map: Map,
-  sources: Ref<MapSourceWithMetaData[]>,
+  datasets: Ref<Record<string, MapDataset>>,
   activeMarker: Ref<MarkerFeature | undefined>,
   activeCluster: Ref<ClusterFeature | undefined>,
   markerClick: (feature: MarkerFeature) => void,
@@ -63,6 +74,10 @@ const useClusterMap = (
       paintMarkers(map);
     }
   };
+
+  const sources = computed<MapDataset[]>(() => {
+    return Object.values(datasets.value);
+  });
 
   useMapViewLayerHandler(map, sources, mapLayerTracker, onLayerChangesDone);
 

@@ -4,11 +4,11 @@
 
 import { GeoJSONSource, Map, Map as MapLibre } from 'maplibre-gl';
 import { Ref, watch } from 'vue';
-import { MapSourceWithMetaData } from '../types';
 import {
   ClusterMapLayerTracker,
   LayerId,
 } from '../../../../../components/map/clusterMap/types';
+import { MapDataset } from '../types';
 
 const buildSourceName = (id: string) => `markers-${id}`;
 
@@ -18,7 +18,7 @@ const buildClusteredId = (source: string) => `clustered-${source}`;
 
 export const useMapViewLayerHandler = (
   map: Map,
-  sources: Ref<MapSourceWithMetaData[]>,
+  sources: Ref<MapDataset[]>,
   mapLayerTracker: ClusterMapLayerTracker,
   onLayerChangesDone: () => void
 ) => {
@@ -35,10 +35,10 @@ export const useMapViewLayerHandler = (
     // Add new layers to map
     sources.value
       // Filter out sources that are already in mapClusters
-      // IMPORTANT: this is a performance optimization with the assumption that
-      // the data delivered by the API does not change.
+      // IMPORTANT: this is a performance optimization based on the
+      // assumption that the data delivered by the API does not change.
       // If the data changes, this must be adapted.
-      .filter(({ mapMetaData }) => !hasLayerId(mapMetaData.datasetId))
+      .filter(({ metaData }) => !hasLayerId(metaData.datasetId))
       .forEach((source) => addNewLayers(map, source, addLayerId));
 
     console.debug('layersAfterAddition', map.getLayersOrder());
@@ -50,19 +50,17 @@ export const useMapViewLayerHandler = (
 
 const removeUnusedLayers = (
   map: MapLibre,
-  sources: MapSourceWithMetaData[],
+  sources: MapDataset[],
   layerIdsByDatasetId: Ref<Record<string, LayerId>>,
   removeLayerId: (datasetId: string) => void
 ) => {
   const newSourceIds = new Set(
-    sources.map((source) => source.mapMetaData.datasetId)
+    sources.map((source) => source.metaData.datasetId)
   );
 
   for (const sourceId of Object.keys(layerIdsByDatasetId.value)) {
     if (!newSourceIds.has(sourceId)) {
-      console.debug(`removing layer ${buildClusteredId(sourceId)}`);
       map.removeLayer(buildClusteredId(sourceId));
-      console.debug(`removing layer ${buildUnclusteredId(sourceId)}`);
       map.removeLayer(buildUnclusteredId(sourceId));
       removeLayerId(sourceId);
     }
@@ -71,43 +69,43 @@ const removeUnusedLayers = (
 
 const addNewLayers = (
   map: MapLibre,
-  source: MapSourceWithMetaData,
+  source: MapDataset,
   addLayerId: (datasetId: string, layerId: LayerId) => void
 ) => {
-  const { mapMetaData, mapSource } = source;
-  const { datasetId } = mapMetaData;
+  const { metaData, records } = source;
+  const { datasetId } = metaData;
   const sourceName = buildSourceName(datasetId);
 
   const sourceOnMap = map.getSource(sourceName) as GeoJSONSource;
 
   if (sourceOnMap == null) {
-    map.addSource(sourceName, mapSource);
+    map.addSource(sourceName, records.source);
   } else {
-    sourceOnMap.setData(mapSource.data);
+    sourceOnMap.setData(records.source.data);
   }
 
   // Add cluster layers
   const clusteredId = buildClusteredId(datasetId);
   const unclusteredId = buildUnclusteredId(datasetId);
 
-  console.debug(`Adding cluster layer ${clusteredId}`);
+  // Add cluster layer
   map.addLayer({
     id: clusteredId,
     type: 'circle',
     source: sourceName,
     filter: ['has', 'point_count'],
     paint: { 'circle-radius': 0 },
-    metadata: mapMetaData,
+    metadata: metaData,
   });
 
-  console.debug(`Adding unclustered layer ${unclusteredId}`);
+  // Add unclustered layer
   map.addLayer({
     id: unclusteredId,
     type: 'circle',
     source: sourceName,
     filter: ['!', ['has', 'point_count']],
     paint: { 'circle-radius': 0 },
-    metadata: mapMetaData,
+    metadata: metaData,
   });
 
   // Add the layer IDs to  tracker

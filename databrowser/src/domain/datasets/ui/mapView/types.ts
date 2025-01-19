@@ -5,8 +5,10 @@
 import { FeatureCollection, Geometry, Point } from 'geojson';
 import { GeoJSONSourceSpecification } from 'maplibre-gl';
 import { TourismMetaData } from '../../../metaDataConfig/tourism/types';
-import { ApiType } from '../../../metaDataConfig/types';
-import { FetchState } from './fetch/types';
+import { KnownApiType } from '../../../metaDataConfig/types';
+
+export type DatasetId = string;
+export type RecordId = string;
 
 export interface ClusterNode {
   type: string;
@@ -15,57 +17,57 @@ export interface ClusterNode {
 }
 
 export interface MarkerFeature {
-  id: string;
+  datasetId: DatasetId;
+  recordId: RecordId;
   name: string;
   abbreviation: string;
-  datasetId: string;
   color: string;
 }
 
-export interface ClusterFeature {
-  id: string;
-  name: string;
+export interface ClusterFeature extends MarkerFeature {
   count: number;
-  datasetId: string;
-  color: string;
   markers: MapRecord[];
 }
 
 export interface MapRecord {
-  recordId: string;
+  recordId: RecordId;
   recordName: string;
 }
 
-export interface MapSource extends GeoJSONSourceSpecification {
-  data: FeatureCollection<Point, MapRecord>;
+export interface MapDatasetApi {
+  apiType: KnownApiType;
+  apiUrl: NonNullable<TourismMetaData['externalLink']>;
 }
 
-export interface MapMetaData {
-  datasetId: string;
+export interface MapDatasetMetaData {
+  datasetId: DatasetId;
   datasetName: string;
   datasetAbbreviation: string;
   datasetColor: string;
+  datasetParentId?: DatasetId;
 }
 
-export interface MapDatasetBase {
-  id: TourismMetaData['id'];
-  name: TourismMetaData['shortname'];
-  apiType: Exclude<ApiType, 'unknown'>;
-  url: NonNullable<TourismMetaData['externalLink']>;
-  parentId?: string;
+export interface MapSourceSpecification extends GeoJSONSourceSpecification {
+  data: FeatureCollection<
+    Point,
+    {
+      recordId: RecordId;
+      recordName: string;
+    }
+  >;
 }
 
-export interface AllInOneDataset {
-  dataset: MapDatasetBase;
-  mapMetaData: MapMetaData;
+export interface DatasetRecords {
+  fetching: boolean;
+  fetched: boolean;
+  error: string | null;
+  count: number;
+  source: MapSourceSpecification;
 }
 
-export interface MapSourceWithState {
-  mapSource?: MapSource;
-  fetchState: FetchState;
-}
-
-export interface MapSourceWithMetaData {
-  mapSource: MapSource;
-  mapMetaData: MapMetaData;
+export interface MapDataset {
+  api: MapDatasetApi;
+  metaData: MapDatasetMetaData;
+  selected: boolean;
+  records: DatasetRecords;
 }

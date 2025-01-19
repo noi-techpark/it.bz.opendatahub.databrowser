@@ -5,25 +5,28 @@
 import { Ref, ref, watch } from 'vue';
 import { useMetaDataForAllDatasets } from '../../../../../pages/datasets/overview/useDatasets';
 import { TourismMetaData } from '../../../../metaDataConfig/tourism/types';
-import { AllInOneDataset } from '../types';
-import { ApiType } from '../../../../metaDataConfig/types';
+import { KnownApiType } from '../../../../metaDataConfig/types';
+import { mapClusterMaxZoom, mapClusterRadius } from '../consts';
+import { MapDataset } from '../types';
 
 type RestrictedMetaData = TourismMetaData & {
-  apiType: Exclude<ApiType, 'unknown'>;
+  apiType: KnownApiType;
   externalLink: string;
 };
 
 export const useFetchDatasets = (): {
-  datasets: Ref<AllInOneDataset[]>;
+  datasets: Ref<MapDataset[]>;
   isLoading: Ref<boolean>;
+  error: Ref<Error | null>;
 } => {
-  const datasets = ref<AllInOneDataset[]>([]);
+  const datasets = ref<MapDataset[]>([]);
 
-  const { metaData, isMetaDataLoading } = useMetaDataForAllDatasets();
+  const { metaData, isMetaDataLoading, metaDataError } =
+    useMetaDataForAllDatasets();
 
   watch(metaData, (metaDataValue) => {
     // Only use valid datasets, i.e. those with a known API type and an external link
-    // TODO: remove all datasets without GPS info
+    // TODO: remove all datasets without GPS info?
     datasets.value = metaDataValue
       .filter((dataset): dataset is RestrictedMetaData => {
         if (dataset.apiType === 'unknown') {
@@ -40,28 +43,44 @@ export const useFetchDatasets = (): {
         }
         return true;
       })
-      .map(buildDataset);
+      .map(buildMapDataset);
   });
 
   return {
     datasets,
     isLoading: isMetaDataLoading,
+    error: metaDataError,
   };
 };
 
-const buildDataset = (dataset: RestrictedMetaData): AllInOneDataset => ({
-  dataset: {
-    id: dataset.id,
-    name: dataset.shortname,
+const buildMapDataset = (dataset: RestrictedMetaData): MapDataset => ({
+  api: {
     apiType: dataset.apiType,
-    url: dataset.externalLink,
-    parentId: dataset.parent?.id,
+    apiUrl: dataset.externalLink,
   },
-  mapMetaData: {
+  metaData: {
     datasetId: dataset.id,
     datasetName: dataset.shortname,
     datasetAbbreviation: dataset.shortname.substring(0, 1).toUpperCase(),
     datasetColor: stringToColor(dataset.id),
+    datasetParentId: dataset.parent?.id,
+  },
+  selected: false,
+  records: {
+    fetching: false,
+    fetched: false,
+    error: null,
+    count: 0,
+    source: {
+      type: 'geojson',
+      cluster: true,
+      clusterMaxZoom: mapClusterMaxZoom,
+      clusterRadius: mapClusterRadius,
+      data: {
+        type: 'FeatureCollection',
+        features: [],
+      },
+    },
   },
 });
 

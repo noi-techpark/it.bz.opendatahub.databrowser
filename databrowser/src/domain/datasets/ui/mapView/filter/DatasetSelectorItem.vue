@@ -20,7 +20,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       {{ item.name.at(0) }}
     </div>
 
-    <ErrorPopover v-if="item.error">{{ item.error }}</ErrorPopover>
+    <ErrorPopover v-if="item.error" class="mt-1">
+      {{ item.error }}
+    </ErrorPopover>
 
     <IconCycle
       v-if="item.fetching"

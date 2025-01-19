@@ -14,17 +14,17 @@ import MarkerIcon from '../MarkerIcon.vue';
 import {
   ClusterFeature,
   ClusterNode,
-  MapMetaData,
+  MapDatasetMetaData,
   MapRecord,
   MarkerFeature,
 } from '../types';
-
-let oldMarkers: Marker[] = [];
 
 interface LayerId {
   clusteredId: string;
   unclusteredId: string;
 }
+
+let oldMarkers: Marker[] = [];
 
 export const useMapViewMarkerPainting = (
   layerIds: Ref<LayerId[]>,
@@ -58,7 +58,7 @@ export const useMapViewMarkerPainting = (
       const feature = geoJsonFeature as unknown as MapGeoJSONFeature & {
         properties: { point_count: number; cluster_id: number };
         geometry: { coordinates: [number, number] };
-        layer: { metadata: MapMetaData };
+        layer: { metadata: MapDatasetMetaData };
       };
       const coordinates = feature.geometry.coordinates;
       const pointCount = feature.properties.point_count;
@@ -71,7 +71,7 @@ export const useMapViewMarkerPainting = (
       );
 
       const isMarkerActive =
-        Number(activeCluster.value?.id) === feature.properties.cluster_id;
+        Number(activeCluster.value?.recordId) === feature.properties.cluster_id;
 
       const marker = renderMarker({
         map,
@@ -97,7 +97,7 @@ export const useMapViewMarkerPainting = (
     // Create custom HTML markers for each cluster
     unclusteredRenderedFeatures.forEach(function (geoJsonFeature) {
       const feature = geoJsonFeature as unknown as Feature<Point, MapRecord> & {
-        layer: { metadata: MapMetaData };
+        layer: { metadata: MapDatasetMetaData };
       };
       const coordinates = feature.geometry.coordinates as [number, number];
 
@@ -109,7 +109,7 @@ export const useMapViewMarkerPainting = (
       );
 
       const isMarkerActive =
-        activeMarker.value?.id === feature.properties.recordId;
+        activeMarker.value?.recordId === feature.properties.recordId;
 
       const marker = renderMarker({
         map,
@@ -205,7 +205,7 @@ const handleClusterClick = async (
   feature: MapGeoJSONFeature & {
     properties: { point_count: number; cluster_id: number };
     geometry: { coordinates: [number, number] };
-    layer: { metadata: MapMetaData };
+    layer: { metadata: MapDatasetMetaData };
   },
   clusterClick: (feature: ClusterFeature) => void
 ) => {
@@ -223,11 +223,12 @@ const handleClusterClick = async (
   console.debug('clusterLeaves', clusterLeaves);
 
   const clusterFeature: ClusterFeature = {
-    id: feature.id as string,
+    recordId: feature.id as string,
     name: feature.layer.metadata.datasetName,
-    count: feature.properties.point_count,
+    abbreviation: feature.layer.metadata.datasetAbbreviation,
     datasetId: feature.layer.metadata.datasetId,
     color: feature.layer.metadata.datasetColor,
+    count: feature.properties.point_count,
     markers:
       clusterLeaves?.map<MapRecord>((feature) => {
         return feature.properties;
@@ -239,12 +240,12 @@ const handleClusterClick = async (
 
 const handleSingleMarkerClick = (
   feature: Feature<Point, MapRecord> & {
-    layer: { metadata: MapMetaData };
+    layer: { metadata: MapDatasetMetaData };
   },
   markerClick: (featureProps: MarkerFeature) => void
 ) => {
   const markerFeature: MarkerFeature = {
-    id: feature.properties.recordId,
+    recordId: feature.properties.recordId,
     name: feature.properties.recordName,
     datasetId: feature.layer.metadata.datasetId,
     abbreviation: feature.layer.metadata.datasetAbbreviation,
