@@ -18,7 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     >
       <div
         v-if="showMarkerDetail"
-        class="absolute bottom-0 z-20 h-4/5 w-full max-w-[40rem] overflow-y-auto overflow-x-hidden p-2 md:bottom-auto md:w-1/3 md:min-w-[25rem]"
+        class="absolute bottom-0 z-30 h-4/5 w-full max-w-[40rem] overflow-y-auto overflow-x-hidden p-2 md:bottom-auto md:w-1/3 md:min-w-[25rem]"
       >
         <RecordDetail
           v-if="showMarkerDetail"

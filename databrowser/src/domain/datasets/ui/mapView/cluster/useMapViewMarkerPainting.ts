@@ -10,6 +10,7 @@ import {
   Marker,
 } from 'maplibre-gl';
 import { h, Ref, render } from 'vue';
+import { LayerId } from '../../../../../components/map/clusterMap/types';
 import MarkerIcon from '../MarkerIcon.vue';
 import {
   ClusterFeature,
@@ -18,11 +19,6 @@ import {
   MapRecord,
   MarkerFeature,
 } from '../types';
-
-interface LayerId {
-  clusteredId: string;
-  unclusteredId: string;
-}
 
 let oldMarkers: Marker[] = [];
 
@@ -39,8 +35,11 @@ export const useMapViewMarkerPainting = (
     for (const marker of oldMarkers) {
       marker.remove();
     }
-
     oldMarkers = [];
+
+    // Get active layer id
+    const activeLayerId =
+      activeMarker.value?.datasetId ?? activeCluster.value?.datasetId;
 
     // Add clustered markers
     const clusteredLayerIds = layerIds.value.map(
@@ -80,6 +79,7 @@ export const useMapViewMarkerPainting = (
         color: markerColor,
         count: pointCount,
         active: isMarkerActive,
+        layerActive: activeLayerId === feature.layer.metadata.datasetId,
         handleClick: () => handleClusterClick(map, feature, clusterClick),
       });
 
@@ -118,6 +118,7 @@ export const useMapViewMarkerPainting = (
         color: markerColor,
         count: 1,
         active: isMarkerActive,
+        layerActive: activeLayerId === feature.layer.metadata.datasetId,
         handleClick: () => handleSingleMarkerClick(feature, markerClick),
       });
 
@@ -157,6 +158,7 @@ const renderMarker = ({
   color,
   count,
   active,
+  layerActive,
   handleClick,
 }: {
   map: MapLibre;
@@ -165,6 +167,7 @@ const renderMarker = ({
   color: string;
   count: number;
   active: boolean;
+  layerActive: boolean;
   handleClick: () => void;
 }) => {
   const element = document.createElement('div');
@@ -173,9 +176,13 @@ const renderMarker = ({
   // click area to the icon shape
   element.classList.add('clip-marker-icon-clip');
 
-  // Set z-index to 10 if the marker is active
-  if (active) {
+  // Set z-index to 10 if the layer is active
+  if (layerActive && !active) {
     element.classList.add('z-10');
+  }
+  // Set z-index to 20 if the marker is active
+  if (active) {
+    element.classList.add('z-20');
   }
 
   const marker = new Marker({ element })

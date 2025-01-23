@@ -15,20 +15,12 @@ export interface LayerId {
 export interface ClusterMapLayerTracker {
   layerIds: Readonly<Ref<LayerId[]>>;
   layerIdsByDatasetId: Readonly<
-    Ref<
-      {
-        readonly [x: string]: {
-          readonly clusteredId: string;
-          readonly unclusteredId: string;
-        };
-      },
-      {
-        readonly [x: string]: {
-          readonly clusteredId: string;
-          readonly unclusteredId: string;
-        };
-      }
-    >
+    Ref<{
+      readonly [x: string]: {
+        readonly clusteredId: string;
+        readonly unclusteredId: string;
+      };
+    }>
   >;
   addLayerId: (datasetId: string, layerId: LayerId) => void;
   removeLayerId: (datasetId: string) => void;
