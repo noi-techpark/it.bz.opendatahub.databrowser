@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <AppLayout>
     <OverviewListPageHero />
 
-    <PageGridContent class="grow gap-3 lg:gap-3">
+    <PageGridContent v-if="!mapVisible" class="grow gap-3 lg:gap-3">
       <div class="flex w-full flex-col items-start gap-2 md:flex-row md:gap-10">
         <!-- Mobile search -->
         <OverviewListSearch
