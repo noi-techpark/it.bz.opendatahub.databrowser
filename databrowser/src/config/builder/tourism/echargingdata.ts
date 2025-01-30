@@ -261,7 +261,7 @@ export const echargingdataCategory = (
           title: 'Pavement',
           component: CellComponent.SelectWithOptionsCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Pavement',
+            value: 'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.Pavement',
           },
           params: {
             value_001: 'apshalt-cement',
