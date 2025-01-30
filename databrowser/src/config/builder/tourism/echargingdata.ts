@@ -333,7 +333,7 @@ export const echargingdataCategory = (
           title: 'Shielding post in front of charging station',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
-            text: 'AdditionalProperties.EchargingDataProperties.ShieldingPostInFrontOfStation',
+            enabled: 'AdditionalProperties.EchargingDataProperties.ShieldingPostInFrontOfStation',
           },
         },
         {
