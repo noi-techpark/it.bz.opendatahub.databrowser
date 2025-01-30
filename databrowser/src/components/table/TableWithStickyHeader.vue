@@ -37,7 +37,7 @@ const isBodyRowsSlotDefined = slots['body-rows'] != null;
 <style scoped>
 @media screen and (max-width: 767px) {
   .is-toolbox-visible-list {
-    padding-bottom: 6rem;
+    padding-bottom: 3.5rem;
   }
 }
 </style>

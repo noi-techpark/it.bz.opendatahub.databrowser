@@ -183,5 +183,12 @@ onMounted(() => {
 .mobile-toolbox {
   right: 0rem;
   --tw-rotate: 0deg;
+  bottom: 1rem;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+#oa-table-with-sticky-header .mobile-toolbox {
+  bottom: 2.9rem !important;
 }
 </style>
