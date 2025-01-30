@@ -11,17 +11,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <InputSearch
           id="search-dataset"
           v-model="searchTerm"
-          class="flex bg-[#F4F8F9]"
+          class="flex w-full bg-[#F4F8F9]"
           :show-confirm-button="false"
         />
-        <ButtonCustom
-          :size="Size.xs"
-          :variant="Variant.ghost"
-          class="p-2"
-          :disabled="true"
-        >
-          <IconFilter class="size-5 text-green-500" />
-        </ButtonCustom>
       </div>
       <div class="relative h-full overflow-y-auto overflow-x-hidden">
         <div
@@ -55,12 +47,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import ButtonCustom from '../../../../../components/button/ButtonCustom.vue';
-import { Size, Variant } from '../../../../../components/button/types';
 import InputSearch from '../../../../../components/input/InputSearch.vue';
 import IconCycle from '../../../../../components/svg/IconCycle.vue';
 import IconEyeWithLid from '../../../../../components/svg/IconEyeWithLid.vue';
-import IconFilter from '../../../../../components/svg/IconFilter.vue';
 import MapViewHint from '../MapViewHint.vue';
 import { useMapViewStore } from '../store/useMapViewStore';
 import DatasetSelector from './DatasetSelector.vue';
