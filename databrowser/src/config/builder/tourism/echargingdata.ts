@@ -221,14 +221,6 @@ export const echargingdataCategory = (
           params: { type: 'number' },
         },
         {
-          title: 'Barrier-free access space signage present',
-          component: CellComponent.ToggleTriStateCell,
-          objectMapping: {
-            enabled:
-              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.ManeuvringSpaceSignagePresent',
-          },
-        },
-        {
           title: 'Barrier-free access space to charging point (monitor/pistol)',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
@@ -236,6 +228,14 @@ export const echargingdataCategory = (
               'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.BarrierFreeAccessSpacetoChargingPoint',
           },
         },
+        {
+          title: 'Barrier-free access space signage present',
+          component: CellComponent.ToggleTriStateCell,
+          objectMapping: {
+            enabled:
+              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.ManeuvringSpaceSignagePresent',
+          },
+        },        
       ],
     },
     {
@@ -301,14 +301,6 @@ export const echargingdataCategory = (
           params: { type: 'number' },
         },
         {
-          title: 'Barrier-free access space signage present',
-          component: CellComponent.ToggleTriStateCell,
-          objectMapping: {
-            enabled:
-              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.ManeuvringSpaceSignagePresent',
-          },
-        },
-        {
           title: 'Barrier-free access space to charging point (monitor/pistol)',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
@@ -316,6 +308,14 @@ export const echargingdataCategory = (
               'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.BarrierFreeAccessSpacetoChargingPoint',
           },
         },
+        {
+          title: 'Barrier-free access space signage present',
+          component: CellComponent.ToggleTriStateCell,
+          objectMapping: {
+            enabled:
+              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.ManeuvringSpaceSignagePresent',
+          },
+        },        
       ],
     },
     {
