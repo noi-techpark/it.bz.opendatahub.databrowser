@@ -221,11 +221,19 @@ export const echargingdataCategory = (
           params: { type: 'number' },
         },
         {
-          title: 'Manoeuvrng space signage present',
+          title: 'Barrier-free access space signage present',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.ManeuvringSpaceSignagePresent',
+          },
+        },
+        {
+          title: 'Barrier-free access space to charging point (monitor/pistol)',
+          component: CellComponent.ToggleTriStateCell,
+          objectMapping: {
+            enabled:
+              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceNextToEachOther.BarrierFreeAccessSpacetoChargingPoint',
           },
         },
       ],
@@ -293,11 +301,19 @@ export const echargingdataCategory = (
           params: { type: 'number' },
         },
         {
-          title: 'Manoeuvrng space signage present',
+          title: 'Barrier-free access space signage present',
           component: CellComponent.ToggleTriStateCell,
           objectMapping: {
             enabled:
               'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.ManeuvringSpaceSignagePresent',
+          },
+        },
+        {
+          title: 'Barrier-free access space to charging point (monitor/pistol)',
+          component: CellComponent.ToggleTriStateCell,
+          objectMapping: {
+            enabled:
+              'AdditionalProperties.EchargingDataProperties.CarParkingSpaceBehindEachOther.BarrierFreeAccessSpacetoChargingPoint',
           },
         },
       ],
