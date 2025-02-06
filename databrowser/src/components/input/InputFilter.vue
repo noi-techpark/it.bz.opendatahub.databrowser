@@ -5,23 +5,26 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <InputCustom
-    :id="id"
-    :model-value="modelValue"
-    :disabled="disabled"
-    input-classes="w-full"
-    :placeholder="t('components.inputFilter.labelPlaceholder')"
-    @update:model-value="emit('update:modelValue', $event)"
-  />
+  <InputWithButton
+    :focus="focus"
+    :label-button="t('components.inputFilter.labelButton')"
+    :label-placeholder="t('components.inputFilter.labelPlaceholder')"
+    @confirmed-value="emit('filter', $event)"
+  >
+    <template #icon>
+      <IconFilter />
+    </template>
+  </InputWithButton>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import InputCustom from './InputCustom.vue';
+import IconFilter from '../svg/IconFilter.vue';
+import InputWithButton from './InputWithButton.vue';
 
 const { t } = useI18n();
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['filter', 'update:modelValue']);
 
 withDefaults(
   defineProps<{

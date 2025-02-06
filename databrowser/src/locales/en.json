@@ -307,7 +307,7 @@
     "cancel": "Cancel",
     "save": "Save",
     "inputFilter": {
-      "labelButton": "Apply Filter",
+      "labelButton": "Filter",
       "labelPlaceholder": "Insert filter value ..."
     },
     "inputSearch": {
