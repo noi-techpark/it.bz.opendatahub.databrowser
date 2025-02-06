@@ -6,6 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <svg
+    class="hover:hover:cursor-pointer"
     width="24"
     height="24"
     fill="none"

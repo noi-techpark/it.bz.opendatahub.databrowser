@@ -9,10 +9,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <div class="sticky top-0 z-[999] w-full">
     <div class="bg-white">
       <ContentAlignmentX
-        class="m-auto flex flex-col gap-x-12 gap-y-2 px-4 pb-2 md:flex-row md:pb-0"
+        class="m-auto flex flex-col gap-x-12 gap-y-2 px-10 md:flex-row md:pb-0 shadow-md md:items-center"
         :class="[isFullWidthNav ? 'w-full' : 'xl:w-default']"
       >
-        <div class="flex items-center md:items-start">
+        <div class="flex items-center py-2">
           <InternalLink
             to="/"
             data-test="link-to-home-page"
@@ -20,7 +20,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           >
             <div class="flex">
               <div
-                class="h-full rounded-b border-x border-b border-black px-2 py-1 text-base font-semibold leading-5 text-black"
+                class="h-full rounded border-x border-y border-black px-2 py-1 text-base font-semibold leading-5 text-black"
                 v-html="t('header.toolBadge')"
               ></div>
               <div class="h-min">
@@ -41,10 +41,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <IconMenu v-else class="ml-auto md:hidden" @click="toggleMenu" />
         </div>
 
+        <div class="hidden md:block w-[1px] h-[35px] bg-gray-400"></div>
+
         <MenuItems
           :class="props.isMenuOpen ? '' : 'hidden'"
-          class="grow border-t border-gray-250 pb-4 pt-2 md:flex md:border-0"
-        />
+          class="grow border-t py-2 border-gray-250 md:flex md:border-0"
+        />        
       </ContentAlignmentX>
     </div>
   </div>
