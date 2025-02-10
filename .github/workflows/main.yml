@@ -16,7 +16,7 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
       - name: REUSE Compliance Check
-        uses: fsfe/reuse-action@v1
+        uses: fsfe/reuse-action@v5
       - name: Test code
         uses: noi-techpark/github-actions/npm-test@v2
         with:
