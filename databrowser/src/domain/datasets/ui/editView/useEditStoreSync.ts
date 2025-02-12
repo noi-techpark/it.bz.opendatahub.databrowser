@@ -7,7 +7,7 @@ import { useEditStore } from './store/editStore';
 import { EditData } from './store/initialState';
 
 export const useEditStoreSync = (
-  data: Ref<any>,
+  data: Ref<unknown>,
   isMutateSuccess: Ref<boolean>,
   mutate: (data?: unknown) => unknown
 ) => {

@@ -22,7 +22,7 @@ import EditRoomBookedCell from '../components/cells/editRoomBookedCell/EditRoomB
 import EditRoomVenueCell from '../components/cells/editRoomVenueCell/EditRoomVenueCell.vue';
 import EditVideoItemsCell from '../components/cells/editVideoItemsCell/EditVideoItemsCell.vue';
 import EventDocumentCell from '../components/cells/eventDocumentCell/EventDocumentCell.vue';
-import GpsPointMap from '../../../components/map/GpsPointMap.vue';
+import GpsPointMap from '../components/cells/editGpsInfoCell/GpsPointMap.vue';
 import GpsPointsCell from '../components/cells/gpsPointsCell/GpsPointsCell.vue';
 import HtmlCell from '../components/cells/htmlCell/HtmlCell.vue';
 import InputReferenceCell from '../components/cells/inputReferenceCell/InputReferenceCell.vue';

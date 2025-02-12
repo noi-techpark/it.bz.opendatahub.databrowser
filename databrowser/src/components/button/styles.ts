@@ -4,7 +4,7 @@
 
 import { Size, Tone, Variant } from './types';
 
-export const variantClass: Record<Variant, Record<Tone, String>> = {
+export const variantClass: Record<Variant, Record<Tone, string>> = {
   [Variant.solid]: {
     [Tone.primary]:
       'border border-transparent bg-green-500 text-white hover:bg-green-700 focus-visible:bg-green-700 focus-visible:outline-none',
@@ -25,7 +25,7 @@ export const variantClass: Record<Variant, Record<Tone, String>> = {
   },
 };
 
-export const sizeClass: Record<Size, String> = {
+export const sizeClass: Record<Size, string> = {
   [Size.xs]: 'rounded leading-tight',
   [Size.xm2col]:
     'gap-3 justify-center pt-1.5 pb-1.5 pr-6 pl-2.5 w-full md:w-fit rounded leading-tight',
@@ -35,7 +35,7 @@ export const sizeClass: Record<Size, String> = {
     'gap-3 justify-center pt-2.5 pb-3 pr-6 pl-2.5 w-full md:w-fit rounded leading-tight',
 };
 
-export const disabledClass: Record<Variant, Record<Tone, String>> = {
+export const disabledClass: Record<Variant, Record<Tone, string>> = {
   [Variant.solid]: {
     [Tone.primary]:
       'border border-transparent bg-green-500 text-white opacity-25',
@@ -64,7 +64,7 @@ export const computeButtonClasses = ({
   tone?: Tone;
   disabled?: boolean;
 }) =>
-  'inline-block ' +
+  'relative inline-block ' +
   (disabled ? disabledClass[variant][tone] : variantClass[variant][tone]) +
   ' ' +
   sizeClass[size];

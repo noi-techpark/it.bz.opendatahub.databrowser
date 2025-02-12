@@ -4,14 +4,14 @@
 
 import { CellComponent } from '../../../domain/cellComponents/types';
 import { ListViewConfig } from '../../../domain/datasets/config/types';
-import { lastChangesTableCell, publishedOnCell } from '../../builder/tourism';
+import { lastChangesTableCell, pushDataTableCell } from '../../builder/tourism';
 
 export const tagListView: ListViewConfig = {
   elements: [
     {
       title: 'Id',
       component: CellComponent.StringCell,
-      class: 'w-60',
+      class: 'w-62',
       objectMapping: { text: 'Id' },
     },
     {
@@ -41,6 +41,6 @@ export const tagListView: ListViewConfig = {
       objectMapping: { text: 'Source' },
     },
     lastChangesTableCell(),
-    publishedOnCell(),
+    pushDataTableCell(),
   ],
 };

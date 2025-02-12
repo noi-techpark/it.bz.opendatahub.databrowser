@@ -12,6 +12,7 @@ import {
   lastChangesTableCell,
   publishedOnTableCell,
   pushDataTableCell,
+  locationTableCellsMinimal,
 } from '../../builder/tourism';
 
 export const venueListView: ListViewConfig = {
@@ -24,14 +25,7 @@ export const venueListView: ListViewConfig = {
       class: 'w-60',
       objectMapping: { text: 'VenueCategory.0.VenueCode' },
     },
-    {
-      title: 'Location',
-      component: CellComponent.StringCell,
-      class: 'w-40',
-      objectMapping: {
-        text: 'LocationInfo.MunicipalityInfo.Name.{language}',
-      },
-    },
+    ...locationTableCellsMinimal(),
     languageTableCell(),
     lastChangesTableCell(),
     sourceTableCell(),

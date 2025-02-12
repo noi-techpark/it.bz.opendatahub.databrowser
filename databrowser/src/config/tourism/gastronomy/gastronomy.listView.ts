@@ -8,7 +8,7 @@ import {
   imageTableCell,
   languageTableCell,
   lastChangesTableCell,
-  locationTableCells,
+  locationTableCellsMinimal,
   odhActiveTableCell,
   sourceTableCell,
   titleTableCell,
@@ -18,7 +18,7 @@ export const gastronomyListView: ListViewConfig = {
   elements: [
     titleTableCell(),
     imageTableCell(),
-    ...locationTableCells(),
+    ...locationTableCellsMinimal(),
     languageTableCell(),
     {
       title: 'Tags',

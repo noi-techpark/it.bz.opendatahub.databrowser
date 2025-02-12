@@ -152,7 +152,7 @@ const getDeprecationAndRequired = (
   // 'Images.0.Url' -> 'Images.[].Url', where 'Images' is the path to the
   // parent and 'Url' is the property name
   const pathToParent =
-    objectMapping != null ? '' : `${arrayMapping?.pathToParent}.[].` ?? '';
+    objectMapping != null ? '' : `${arrayMapping?.pathToParent}.[].`;
 
   return Object.values(efectiveMapping ?? {}).reduce<{
     deprecationInfo: DeprecationInfo[];

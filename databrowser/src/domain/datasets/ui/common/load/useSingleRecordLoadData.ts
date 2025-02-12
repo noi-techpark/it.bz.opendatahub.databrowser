@@ -20,6 +20,7 @@ export const useSingleRecordLoadData = (
   const { data, error, isError, isLoading } = useApiRead(normalizedPath, {
     withAuth: true,
     enabled,
+    queryKey: [normalizedPath],
   });
 
   return {

@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import { VueQueryPlugin } from '@tanstack/vue-query';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import CookieConsent from 'vue-cookieconsent';
@@ -12,8 +13,6 @@ import registerCellComponents from './domain/cellComponents/plugins/registerCell
 import { setupI18n } from './i18n';
 import './index.css';
 import { router } from './routes';
-import { I18n } from 'vue-i18n';
-import { VueQueryPlugin } from '@tanstack/vue-query';
 
 const isProduction = process.env.NODE_ENV !== 'development';
 
@@ -37,7 +36,7 @@ app.use(registerCellComponents);
 app.use(CookieConsent, consentOptions);
 
 // Load i18n translation asynchronously
-const i18nPromise: Promise<I18n> = setupI18n({
+const i18nPromise = setupI18n({
   locale: 'en',
   warnHtmlMessage: false,
 });

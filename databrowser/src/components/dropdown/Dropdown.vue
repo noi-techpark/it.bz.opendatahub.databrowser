@@ -61,7 +61,6 @@ const toggle = () => {
 onClickOutside(target, () => close());
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (e: 'visible', visible: boolean): void;
 }>();
 </script>
