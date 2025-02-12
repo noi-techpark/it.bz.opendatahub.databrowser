@@ -105,7 +105,7 @@ import {
 } from '../filter/filterSelectOptions';
 import { useTableFilterStore } from '../filter/tableFilterStore';
 import InfoFilter from './InfoFilter.vue';
-import {Filter, FilterOperator, FilterValue} from '../filter/types';
+import {FilterOperator, FilterValue} from '../filter/types';
 import IconAdd from '../../../../../components/svg/IconAdd.vue';
 import IconFilter from '../../../../../components/svg/IconFilter.vue';
 
@@ -152,7 +152,7 @@ const updateFilter = (
 };
 
 const updateGlobalFilter = (
-  tableFilters: Filter[],
+  tableFilters: unknown[],
   unconditionallyApplyFilters: boolean
 ) => {
   // Check if any filter operator is 'isnull' or 'isnotnull'

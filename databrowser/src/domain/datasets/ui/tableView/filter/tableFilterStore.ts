@@ -122,8 +122,8 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
   };
 
   const updateFilterValueByAllSelectedTable = (
-    tableFiltersSelected: string[], // Array of strings
-    applyFilter = true
+      tableFiltersSelected: Filter[], // Array of strings
+      applyFilter = true
   ) => {
     // Loop through tableFiltersSelected and update them with operators, values, and property paths
     tableFilters.value = tableFiltersSelected.map((filter) => {
