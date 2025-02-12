@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <TableCustom :id="id" class="is-toolbox-visible-list overflow-y-auto">
+  <TableCustom :id="id" class="overflow-y-auto pb-12 md:pb-0">
     <colgroup v-if="isColgroupColsSlotDefined">
       <slot name="colgroup-cols"></slot>
     </colgroup>
@@ -34,10 +34,4 @@ const isHeaderColsSlotDefined = slots['header-cols'] != null;
 const isBodyRowsSlotDefined = slots['body-rows'] != null;
 </script>
 
-<style scoped>
-@media screen and (max-width: 767px) {
-  .is-toolbox-visible-list {
-    padding-bottom: 3.5rem;
-  }
-}
-</style>
+<style scoped></style>

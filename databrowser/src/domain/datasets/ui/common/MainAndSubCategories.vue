@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div
       v-if="slug !== ''"
       ref="container"
-      class="is-toolbox-visible flex-1 overflow-y-auto pb-12 md:h-full md:px-20 md:py-3"
+      class="flex-1 overflow-y-auto pb-12 md:h-full md:px-20 md:py-3"
     >
       <EditHint v-if="showEditHint" class="mb-8" />
       <SubCategories
@@ -79,14 +79,4 @@ const container = ref<HTMLElement | null>(null);
 const scrollSubCategoriesToTop = () => scrollToTop(container);
 </script>
 
-<style scoped>
-@media screen and (max-width: 767px) {
-  .is-toolbox-visible {
-    padding-bottom: 3rem;
-  }
-
-  .mobile-toolbox {
-    bottom: 1rem !important;
-  }
-}
-</style>
+<style scoped></style>
