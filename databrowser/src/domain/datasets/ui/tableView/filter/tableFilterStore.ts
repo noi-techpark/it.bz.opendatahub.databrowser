@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
-import { Ref, computed, ref, watch } from 'vue';
+import { computed, Ref, ref, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
 import { PropertyPath } from '../../../config/types';
 import { useToolBoxStore } from '../../toolBox/toolBoxStore';
@@ -111,13 +111,35 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
     value: FilterValue,
     applyFilter = true
   ) => {
-    const updatedFilters = tableFilters.value.map((filter, i) =>
+    tableFilters.value = tableFilters.value.map((filter, i) =>
       i === index ? { ...filter, operator, value } : filter
     );
 
-    tableFilters.value = updatedFilters;
-
     // Apply filters to URL such that they take effect
+    if (applyFilter) {
+      datasetFilters.value = tableFilters.value;
+    }
+  };
+
+  const updateFilterValueByAllSelectedTable = (
+    tableFiltersSelected: string[], // Array of strings
+    applyFilter = true
+  ) => {
+    // Loop through tableFiltersSelected and update them with operators, values, and property paths
+    tableFilters.value = tableFiltersSelected.map((filter) => {
+      // Assuming that each filter string contains only one value, propertyPath, operator, or value
+      const propertyPath = filter.propertyPath; // Directly use the propertyPath string
+      const operator = filter.operator; // Directly use the operator string
+      const value = filter.value; // Directly use the value string
+
+      return {
+        propertyPath: propertyPath,
+        operator: operator,
+        value: value,
+      };
+    });
+
+    // Apply filters to the URL if requested
     if (applyFilter) {
       datasetFilters.value = tableFilters.value;
     }
@@ -135,6 +157,7 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
     removeFilterByPropertyPath,
     removeFilterByIndex,
     updateFilterValueByIndex,
+    updateFilterValueByAllSelectedTable,
   };
 });
 
