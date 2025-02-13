@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <!-- Mobile toolBox open button -->
   <ButtonCustom
     v-if="!toolBoxStore.visible"
-    class="mobile-toolbox absolute bottom-16 right-[20px] z-20 flex -rotate-90 items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] md:hidden"
+    class="absolute right-0 bottom-[2.6rem] z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] rounded-r-none sm:block md:hidden rotate-0"
     data-test="mobile-open-toolBox"
     @click="toolBoxStore.toggleToolboxVisibility(!toolBoxStore.visible)"
   >
@@ -134,7 +134,6 @@ import IconStrokedArrowDown from '../../../../components/svg/IconStrokedArrowDow
 import TabButton from '../../../../components/tab/TabButton.vue';
 import { useToolBoxStore } from './toolBoxStore';
 import { watch } from 'vue';
-import { onMounted } from 'vue';
 
 const { t } = useI18n();
 
@@ -165,9 +164,6 @@ watch(mdAndLarger, (newVal) => {
 
   toolBoxStore.toggleToolboxVisibility(false);
 });
-onMounted(() => {
-  //
-});
 </script>
 
 <style scoped>
@@ -178,17 +174,5 @@ onMounted(() => {
 .expand-bt-text {
   writing-mode: vertical-lr;
   text-orientation: mixed;
-}
-
-.mobile-toolbox {
-  right: 0rem;
-  --tw-rotate: 0deg;
-  bottom: 1rem;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-#oa-table-with-sticky-header .mobile-toolbox {
-  bottom: 2.9rem !important;
 }
 </style>

@@ -16,9 +16,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       {{ fileTypesNotAccepted.content }}
     </AlertError>
     <div
-      v-if="!isMobile"
       ref="dropZoneRef"
-      class="flex h-24 w-full items-center justify-center rounded border-2 border-dashed"
+      class="hidden h-24 w-full items-center justify-center rounded border-2 border-dashed md:flex"
       :class="{ 'border-green-400': isOverDropZone, hidden: uploading }"
     >
       {{ uploadText }} or &nbsp;
@@ -26,7 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         browse
       </button>
     </div>
-    <div v-if="isMobile" class="flex w-full justify-center">
+    <div class="flex w-full justify-center md:hidden">
       <button
         type="button"
         class="inline-flex h-9 items-center gap-2 rounded border border-transparent bg-green-500 px-3 py-[0.35rem] text-base leading-tight text-white no-underline hover:bg-green-700 focus-visible:bg-green-700 focus-visible:outline-none md:flex"
@@ -54,7 +53,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, onMounted, onUnmounted } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { toRefs, useDropZone } from '@vueuse/core';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
 import ProgressBar from '../../../../../components/progress/ProgressBar.vue';
@@ -153,19 +152,4 @@ onUploadSuccess((urls: string[]) =>
 );
 
 onUploadError((message: string) => emit('uploadError', message));
-
-const isMobile = ref(false);
-
-onMounted(() => {
-  const updateIsMobile = () => {
-    isMobile.value = window.innerWidth <= 768;
-  };
-
-  updateIsMobile();
-  window.addEventListener('resize', updateIsMobile);
-
-  onUnmounted(() => {
-    window.removeEventListener('resize', updateIsMobile);
-  });
-});
 </script>

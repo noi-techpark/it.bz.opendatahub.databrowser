@@ -82,7 +82,6 @@ import { Size, Variant } from '../../../../../components/button/types';
 import InputFilter from '../../../../../components/input/InputFilter.vue';
 import SelectCustom from '../../../../../components/select/SelectCustom.vue';
 import IconDelete from '../../../../../components/svg/IconDelete.vue';
-//import IconFilter from '../../../../../components/svg/IconFilter.vue';
 import { useDatasetBaseInfoStore } from '../../../config/store/datasetBaseInfoStore';
 import ToolBoxCard from '../../toolBox/ToolBoxCard.vue';
 import ToolBoxCardBody from '../../toolBox/ToolBoxCardBody.vue';
@@ -110,8 +109,6 @@ const filterTypeSelectOptions = computed(() => {
   }
   return [];
 });
-
-//const emit = defineEmits(['filter', 'update:modelValue']);
 
 const { tableFilters, filterColSelectOptions } = storeToRefs(
   useTableFilterStore()

@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <TableCustom :id="id" class="overflow-y-auto pb-12 md:pb-0">
+  <TableCustom :id="id" class="overflow-y-auto pb-[3rem] md:pb-0">
     <colgroup v-if="isColgroupColsSlotDefined">
       <slot name="colgroup-cols"></slot>
     </colgroup>
@@ -33,5 +33,3 @@ const isColgroupColsSlotDefined = slots['colgroup-cols'] != null;
 const isHeaderColsSlotDefined = slots['header-cols'] != null;
 const isBodyRowsSlotDefined = slots['body-rows'] != null;
 </script>
-
-<style scoped></style>

@@ -7,7 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <template>
   <section class="flex flex-1 flex-col justify-start overflow-y-auto">
     <TableFilterHint />
-    <div id="oa-table-with-sticky-header" class="flex h-full overflow-y-auto">
+    <div class="flex h-full overflow-y-auto">
       <div v-if="isError" class="grow">
         <LoadingError>{{ error }}</LoadingError>
       </div>
