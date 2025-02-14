@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
   <!-- Mobile toolBox open button -->
   <ButtonCustom
     v-if="!toolBoxStore.visible"
-    class="absolute right-0 bottom-[2.6rem] z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] rounded-r-none sm:block md:hidden rotate-0"
+    class="absolute right-0 bottom-10 z-20 flex items-center justify-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.4)] rounded-r-none sm:block md:hidden rotate-0"
     data-test="mobile-open-toolBox"
     @click="toolBoxStore.toggleToolboxVisibility(!toolBoxStore.visible)"
   >

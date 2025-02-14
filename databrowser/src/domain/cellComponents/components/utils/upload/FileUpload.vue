@@ -28,7 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <div class="flex w-full justify-center md:hidden">
       <button
         type="button"
-        class="inline-flex h-9 items-center gap-2 rounded border border-transparent bg-green-500 px-3 py-[0.35rem] text-base leading-tight text-white no-underline hover:bg-green-700 focus-visible:bg-green-700 focus-visible:outline-none md:flex"
+        class="inline-flex h-9 items-center gap-2 rounded border border-transparent bg-green-500 px-3 py-1 text-base leading-tight text-white no-underline hover:bg-green-700 focus-visible:bg-green-700 focus-visible:outline-none md:flex"
         @click="open()"
       >
         Add files
