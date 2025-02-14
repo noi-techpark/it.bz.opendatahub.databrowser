@@ -7,10 +7,17 @@ import { MapDatasetApi } from '../types';
 
 export const getDatasetUrl = ({ apiType, apiUrl }: MapDatasetApi): string => {
   switch (apiType) {
-    case 'content':
-      return `${apiUrl}?pagesize=1000000&fields=Id,GpsInfo,Shortname`;
-    case 'timeseries':
-      return `${apiUrl}?limit=1000000`;
+    case 'content': {
+      const url = new URL(apiUrl);
+      url.searchParams.set('pagesize', '1000000');
+      url.searchParams.set('fields', 'Id,GpsInfo,Shortname');
+      return url.toString();
+    }
+    case 'timeseries': {
+      const url = new URL(apiUrl);
+      url.searchParams.set('limit', '1000000');
+      return url.toString();
+    }
   }
 };
 
