@@ -8,6 +8,7 @@ import { RouteLocationRaw, Router, useRouter } from 'vue-router';
 import { DatasetDomain, DatasetPath, DatasetQuery } from '../config/types';
 import { computeDatasetViewLocations } from './datasetViewLocation';
 import { DatasetLocationRouteLink } from './types';
+import { RecordId } from '../types';
 
 const toRouteLink = (
   location: RouteLocationRaw | undefined,
@@ -27,7 +28,7 @@ export const useDatasetRouteLinks = (
   datasetDomain: MaybeRef<DatasetDomain | undefined>,
   datasetPath: MaybeRef<DatasetPath | undefined>,
   datasetQuery: MaybeRef<DatasetQuery | undefined>,
-  record?: MaybeRef<any>
+  recordId?: MaybeRef<RecordId | undefined>
 ) => {
   const router = useRouter();
 
@@ -36,7 +37,7 @@ export const useDatasetRouteLinks = (
       toValue(datasetDomain),
       toValue(datasetPath) as DatasetPath,
       toValue(datasetQuery)?.raw as DatasetQuery['raw'],
-      toValue(record)
+      toValue(recordId)
     );
 
     return {

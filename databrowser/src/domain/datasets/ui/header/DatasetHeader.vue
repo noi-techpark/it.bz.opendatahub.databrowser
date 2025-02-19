@@ -5,30 +5,24 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <header class="flex flex-wrap items-center py-2 text-xs md:py-0">
+  <header class="flex flex-wrap items-center py-2 gap-2">
     <!-- Dataset title -->
     <div
-      class="mb-2 flex w-full items-center justify-between py-3 md:mb-0 md:w-auto"
+      class="flex items-center justify-between"
+      :class="[{ 'w-full md:w-64': hasConfig }]"
     >
-      <span
-        v-if="hasConfig"
-        class="mr-1 text-sm font-bold text-black md:w-auto md:text-base"
-      >
-        <DatasetHeaderOverlay :active="selectOpen">
-          <SelectCustom
-            :grouped-options="selectOptions"
-            :value="currentDataset"
-            :show-search-when-at-least-count-options="1"
-            extra-height
-            mobile-full-screen
-            class="mr-1 w-64"
-            no-min-height
-            @change="handleDatasetChange"
-            @open="handleSelectOpen"
-          />
-        </DatasetHeaderOverlay>
-      </span>
-      <span v-else class="mr-3 text-base">
+      <div v-if="hasConfig" class="w-full font-bold text-black">
+        <SelectCustom
+          extra-button-classes="h-9"
+          :grouped-options="selectOptions"
+          :value="currentDataset"
+          :show-search-when-at-least-count-options="1"
+          :size="SelectSize.sm"
+          @change="handleDatasetChange"
+          @open="handleSelectOpen"
+        />
+      </div>
+      <span v-else class="text-base">
         {{ t('datasets.header.noViewConfig') }}
       </span>
     </div>
@@ -41,7 +35,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       :picked="source"
       :class="{
         'animate-pulse rounded outline outline-green-500': !hasConfig,
-        'mr-2': true,
       }"
       @picked-change="changeSource($event)"
     />
@@ -61,6 +54,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <InputSearch
         v-if="isTableView"
         id="search-dataset"
+        class="md:w-80"
+        :show-confirm-button="true"
         :class="[inputSearchOpen ? 'flex' : 'hidden md:flex']"
         :model-value="searchfilter"
         @search="search"
@@ -71,7 +66,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <TagCustom
       v-if="source === 'generated'"
       :text="t('datasets.header.viewGeneratedConfig')"
-      class="ml-1"
       size="xs"
       type="yellow"
       has-dot
@@ -112,12 +106,10 @@ import InputSearch from '../../../../components/input/InputSearch.vue';
 import SelectCustom from '../../../../components/select/SelectCustom.vue';
 import {
   GroupSelectOption,
+  SelectSize,
   SelectValue,
 } from '../../../../components/select/types';
-import {
-  useMetaDataDatasets,
-  useOtherDatasets,
-} from '../../../../pages/datasets/overview/useDatasets';
+import { useMetaDataForAllDatasets } from '../../../../pages/datasets/overview/useDatasets';
 import { LocationQuery, useRoute, useRouter } from 'vue-router';
 import { computeTableLocation } from '../../location/datasetViewLocation';
 import { TourismMetaData } from '../../../metaDataConfig/tourism/types';
@@ -125,7 +117,7 @@ import { useDatasetViewStore } from '../../view/store/datasetViewStore';
 import { useSessionStorage } from '@vueuse/core';
 import { computeRouteDomain } from '../../location/routeDomain';
 import { computeRoutePath } from '../../location/routePath';
-import { getApiDomain } from '../../../../domain/datasets/utils';
+import { getApiDomainFromMetaData } from '../../../metaDataConfig/utils';
 
 const { view, isTableView } = storeToRefs(useDatasetViewStore());
 
@@ -135,18 +127,11 @@ const router = useRouter();
 const route = useRoute();
 const SESSION_DATASET_KEY = 'currentDataset';
 
-// Data fetch
-const { metaDataDatasets } = useMetaDataDatasets();
-
-const { tourismDatasets } = useOtherDatasets(metaDataDatasets);
-
 const { datasetDomain, hasConfig, source } = storeToRefs(
   useDatasetBaseInfoStore()
 );
 
-const allDatasets = computed(() => {
-  return [...metaDataDatasets.value, ...tourismDatasets.value];
-});
+const { metaData } = useMetaDataForAllDatasets();
 
 const relatedDatasetsValues = computed(() => {
   const _view = view.value;
@@ -169,7 +154,7 @@ const relatedDatasetsValues = computed(() => {
 const allDatasetsOptions = computed<GroupSelectOption>(() => {
   return {
     name: 'All datasets',
-    options: allDatasets.value.map((item) => ({
+    options: metaData.value.map((item) => ({
       label: item.shortname,
       value: getDatasetSelectValue(item),
     })),
@@ -211,7 +196,7 @@ const handleSelectOpen = (state: boolean) => {
 };
 
 const handleDatasetChange = (value: string) => {
-  const dataset = allDatasets.value.find(
+  const dataset = metaData.value.find(
     (item) => getDatasetSelectValue(item) === value
   );
 
@@ -219,16 +204,10 @@ const handleDatasetChange = (value: string) => {
 
   const { pathSegments, apiFilter } = dataset;
 
-  const domain = getDomainOfDataset(dataset);
+  const domain = getApiDomainFromMetaData(dataset);
 
   router.push(computeTableLocation(domain, pathSegments, apiFilter));
   setCurrentDataset(getDatasetSelectValue(dataset));
-};
-
-const getDomainOfDataset = (dataset: TourismMetaData) => {
-  // TODO: fix this as referenced in OverviewLinkTable
-  //return dataset.baseUrl.includes('tourism') ? 'tourism' : 'mobility';
-  return getApiDomain(dataset) ?? 'mobility';
 };
 
 const currentDataset = ref<SelectValue>('');
@@ -253,7 +232,7 @@ const changeSource = (value: DatasetConfigSource) => {
 const showLanguagePicker = computed(() => datasetDomain.value === 'tourism');
 
 const getDatasetSelectValue = (dataset: TourismMetaData) => {
-  const domain = getDomainOfDataset(dataset);
+  const domain = getApiDomainFromMetaData(dataset);
   const { pathSegments, apiFilter } = dataset;
 
   return getSelectValue(domain, pathSegments, apiFilter);
@@ -336,8 +315,8 @@ watch(
 
     // NOTE: this is a provisional solution to handle url change and at least refresh the dataset when its base name its changed. See issue #602 for more details
     if (currentSessionDataset.value) {
-      let [currentDatasetPath] = currentSessionDataset.value.split('?');
-      let [foundDatasetPath] = dataset.split('?');
+      const [currentDatasetPath] = currentSessionDataset.value.split('?');
+      const [foundDatasetPath] = dataset.split('?');
 
       if (currentDatasetPath === foundDatasetPath) {
         sessionDataset = currentSessionDataset.value;

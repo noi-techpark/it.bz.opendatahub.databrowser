@@ -17,33 +17,30 @@ export interface UseFloatingUi {
   placement: Placement;
   matchReferenceWidth?: boolean;
   offset?: number;
-  arrow?: Ref<any>;
+  leftOffset?: number;
+  arrow?: Ref<HTMLElement>;
+
 }
 
 export const useFloatingUi = (
-  options: UseFloatingUi
-): [Ref<any>, Ref<any>, Ref<Placement>] => {
-  const reference = ref<any>(null);
-  const tooltip = ref<any>(null);
+  options: UseFloatingUi,
+): [Ref<HTMLElement | null>, Ref<HTMLElement | null>, Ref<Placement>] => {
+  const reference = ref<HTMLElement | null>(null);
+  const tooltip = ref<HTMLElement | null>(null);
   const placement = ref<Placement>(options.placement);
 
   onMounted(() =>
     watchEffect((onInvalidate) => {
-      if (!tooltip.value) {
-        return;
-      }
-      if (!reference.value) {
-        return;
-      }
+      const tooltipEl = tooltip.value;
+      const referenceEl = reference.value;
+      const arrowEl = options.arrow?.value;
 
-      const tooltipEl = tooltip.value.el || tooltip.value;
-      const referenceEl = reference.value.el || reference.value;
-      const arrowEl = options.arrow?.value?.el || options.arrow?.value;
-
-      if (!(referenceEl instanceof HTMLElement)) {
-        return;
-      }
-      if (!(tooltipEl instanceof HTMLElement)) {
+      if (
+        tooltipEl == null ||
+        referenceEl == null ||
+        !(tooltipEl instanceof HTMLElement) ||
+        !(referenceEl instanceof HTMLElement)
+      ) {
         return;
       }
 
@@ -55,8 +52,14 @@ export const useFloatingUi = (
           middleware,
         }).then(({ x, y, placement: currentPlacement, middlewareData }) => {
           // Position tooltip
+          const [staticPlacement, dynamicPlacement] =
+            currentPlacement.split('-');
+
+          const leftOffset =
+            (options.leftOffset || 0) * (dynamicPlacement === 'end' ? 1 : -1);
+
           Object.assign(tooltipEl.style, {
-            left: `${x}px`,
+            left: `${x + leftOffset}px`,
             top: `${y}px`,
           });
 
@@ -66,34 +69,36 @@ export const useFloatingUi = (
           // If arrow element is provided, handle its positioning
           if (middlewareData.arrow != null) {
             const { x: arrowX, y: arrowY } = middlewareData.arrow;
-            const splittedPlacement = currentPlacement.split('-')[0];
 
             const staticSide = {
               top: 'bottom',
               right: 'left',
               bottom: 'top',
               left: 'right',
-            }[splittedPlacement]!;
+            }[staticPlacement]!;
 
-            Object.assign(arrowEl.style, {
-              left: arrowX != null ? `${arrowX}px` : '',
-              top: arrowY != null ? `${arrowY}px` : '',
-              right: '',
-              bottom: '',
-              [staticSide]: '-8px',
-            });
+            if(arrowEl){
+              Object.assign(arrowEl.style, {
+                left: arrowX != null ? `${arrowX - leftOffset}px` : '',
+                top: arrowY != null ? `${arrowY}px` : '',
+                right: '',
+                bottom: '',
+                [staticSide]: '-8px',
+              });
+            }
+     
           }
         });
       });
       onInvalidate(cleanup);
-    })
+    }),
   );
 
   return [reference, tooltip, placement];
 };
 
 const buildMiddleware = (
-  options: UseFloatingUi & { tooltipEl: HTMLElement; arrowEl: HTMLElement }
+  options: UseFloatingUi & { tooltipEl: HTMLElement; arrowEl?: HTMLElement },
 ): Middleware[] => {
   const middleware: Middleware[] = [];
 
@@ -119,7 +124,7 @@ const buildMiddleware = (
             width: `${rects.reference.width}px`,
           });
         },
-      })
+      }),
     );
   }
 

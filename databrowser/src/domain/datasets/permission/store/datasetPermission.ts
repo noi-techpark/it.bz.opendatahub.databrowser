@@ -7,13 +7,13 @@ import { reactiveComputed } from '@vueuse/core';
 import { Operations, ToMaybeRefs } from '../../config/types';
 import { useAuth } from '../../../auth/store/auth';
 
-interface ComputeDatasetPermission {
+export interface ComputeDatasetPermission {
   addRecordSupported: boolean;
   editRecordSupported: boolean;
   deleteRecordSupported: boolean;
 }
 
-interface ComputeDatasetPermissionParams {
+export interface ComputeDatasetPermissionParams {
   hasEditView: boolean;
   hasNewView: boolean;
   isEmbeddedSource: boolean;

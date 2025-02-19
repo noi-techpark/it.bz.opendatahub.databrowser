@@ -33,7 +33,7 @@ import { skiAreaConfig } from './skiArea/skiArea.config';
 import { skiRegionConfig } from './skiRegion/skiRegion.config';
 import { snowReportConfig } from './snowReport/snowReport.config';
 import { sourceConfig } from './source/source.config';
-import { tourismAssociationListConfig } from './tourismAssociationList/tourismAssociationList.config';
+import { tourismAssociationConfig } from './tourismAssociation/tourismAssociation.config';
 import { venueConfig } from './venue/venue.config';
 import { venuev2Config } from './venuev2/venuev2.config';
 import { weatherConfig } from './weather/weather.config';
@@ -62,7 +62,7 @@ export const tourismEmbeddedDatasetConfigs = [
   districtConfig,
   regionConfig,
   metaRegionConfig,
-  tourismAssociationListConfig,
+  tourismAssociationConfig,
   skiRegionConfig,
   skiAreaConfig,
   sourceConfig,

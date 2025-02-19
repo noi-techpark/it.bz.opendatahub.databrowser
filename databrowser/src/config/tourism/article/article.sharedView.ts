@@ -126,7 +126,7 @@ export const articleSharedView = (): DetailViewConfig | EditViewConfig => ({
                 keySelector: 'Id',
                 labelSelector: 'TagName.{language}',
               },
-            },
+            },            
           ],
         },
       ],

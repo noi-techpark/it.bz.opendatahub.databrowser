@@ -45,6 +45,5 @@ withDefaults(
   }
 );
 
-// eslint-disable-next-line no-unused-vars
 const emits = defineEmits<{ (e: 'changeSelectedItem', item: string): void }>();
 </script>

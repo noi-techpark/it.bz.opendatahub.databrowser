@@ -28,7 +28,8 @@ export const useFetchArticleTypes = (
   isWritable: Ref<boolean>
 ) => {
   const { data, error, isLoading, isSuccess, isError } = useApiRead(lookupUrl, {
-    enabled: isWritable,
+    enabled: isWritable.value,
+    queryKey: [lookupUrl],
   });
 
   const articleTypesHierarchy = computed(() => {
