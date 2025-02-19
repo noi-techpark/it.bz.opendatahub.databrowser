@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { Switch } from '@headlessui/vue';
 
 const emit = defineEmits(['update:modelValue']);
@@ -32,14 +32,18 @@ const props = withDefaults(
     activeBgClass?: string;
     inactiveBorderClass?: string;
     inactiveBgClass?: string;
+    filterKey?: string;
+    filterSelected?: { key: string; value: string }[];
   }>(),
   {
     modelValue: true,
     disabled: false,
+    filterKey: '',
     activeBorderClass: 'border-green-400',
     activeBgClass: 'bg-green-400',
     inactiveBorderClass: 'border-red-400',
     inactiveBgClass: 'bg-red-400',
+    filterSelected: () => [],
   }
 );
 
@@ -48,21 +52,29 @@ const turnedOn = computed({
   set: (value) => emit('update:modelValue', value),
 });
 
+watch(
+  () => props.filterSelected,
+  (newFilterSelected) => {
+    turnedOn.value = newFilterSelected.some(
+      (filter) => filter.key === props.filterKey
+    );
+  },
+  { immediate: true }
+);
+
 const switchColorClass = computed(() => {
-  if (props.disabled === true) {
+  if (props.disabled) {
     return 'border-gray-400';
   }
 
-  return turnedOn.value === true
-    ? props.activeBorderClass
-    : props.inactiveBorderClass;
+  return turnedOn.value ? props.activeBorderClass : props.inactiveBorderClass;
 });
 
 const spanColorClass = computed(() => {
-  if (props.disabled === true) {
+  if (props.disabled) {
     return 'bg-gray-400';
   }
 
-  return turnedOn.value === true ? props.activeBgClass : props.inactiveBgClass;
+  return turnedOn.value ? props.activeBgClass : props.inactiveBgClass;
 });
 </script>

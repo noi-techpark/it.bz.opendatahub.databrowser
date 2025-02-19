@@ -25,6 +25,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             :placeholder="t('overview.listPage.searchDataset')"
             type="search"
             input-classes="w-full md:w-64"
+            @input="updateURL(updatedFilters, filters.searchVal)"
           />
         </div>
       </div>
@@ -91,6 +92,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               <ToggleCustom
                 ref="metadataToggle"
                 v-model="_inputModels.hasNoMetadata"
+                :filter-key="'hasNoMetadata'"
+                :filter-selected="filterSelectedForComponent"
                 class="mr-2"
               />
               {{ t('overview.listPage.noMetadataAvailable') }}
@@ -99,13 +102,20 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
               @click="toggleFilter('deprecated')"
             >
-              <ToggleCustom v-model="_inputModels.deprecated" class="mr-2" />
+              <ToggleCustom
+                v-model="_inputModels.deprecated"
+                class="mr-2"
+                :filter-key="'deprecated'"
+                :filter-selected="filterSelectedForComponent"
+              />
               {{ t('overview.listPage.deprecated') }}
             </button>
             <Accordion
               v-for="filter in dynamicFilters"
               :key="filter.id"
               :text="filter.name"
+              :accordion-id="filter.id"
+              :filter-selected="filterSelectedForComponent"
               button-class="font-semibold text-gray-900 pb-2 px-4"
               :badge-value="getActiveFiltersCountOfGroup(filter.id as TourismMetaDataIndexes)"
               class="border-t border-gray-300 pt-2 text-dialog"
@@ -118,8 +128,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 <CheckboxCustom
                   v-model="_inputModels[getInputModelId(filter.id as TourismMetaDataIndexes, option.value)]"
                   class="mr-2"
+                  :filter-key="filter.id"
                   :label="option.value"
-                  @input="toggleFilter(filter.id, option.key)"
+                  :filter-selected="filterSelectedForComponent"
+                  @input="toggleFilter(filter.id, option.value)"
                 />
                 <InfoPopover v-if="filter.id === 'singleDataset'" class="ml-2">
                   <PopoverCustomPanel>
@@ -180,9 +192,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-const { t } = useI18n();
-
+import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Accordion from '../../../components/accordion/Accordion.vue';
 import CardDivider from '../../../components/card/CardDivider.vue';
@@ -204,6 +214,9 @@ import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import { useMetaDataDatasets, useOtherDatasets } from './useDatasets';
 import OverviewListPageHero from './OverviewListPageHero.vue';
+import { filtersStore } from '../../../domain/homepage/store/filterStore';
+
+const { t } = useI18n();
 
 type TourismMetaDataIndexes =
   | 'dataSpace'
@@ -309,12 +322,53 @@ const hideFilters = () => {
   isFiltersModalVisible.value = false;
 };
 
+const filterSelectedForComponent = ref<{ key: string; value: string }[]>([]);
+
+const initializeFiltersAndSearch = () => {
+  const params = getStartedParams();
+  const rawfilter = params.get('rawfilter');
+  const searchQuery = params.get('search');
+
+  if (searchQuery) {
+    filters.value.searchVal = searchQuery;
+    if (!rawfilter) updateURL([], searchQuery);
+  }
+
+  if (rawfilter) {
+    filterSelectedForComponent.value = decodeURIComponent(rawfilter)
+      .split('&')
+      .map((filter) => {
+        let [key, ...valueParts] = filter.split('-');
+        let value =
+          key === 'hasNoMetadata' || key === 'deprecated'
+            ? ''
+            : valueParts.join('-');
+
+        toggleFilter(key, value);
+        return { key, value };
+      });
+  }
+};
+
+onMounted(() => {
+  initializeFiltersAndSearch();
+});
+
 const resetFilters = () => {
+  const url = new URL(window.location.href);
+  url.search = '';
+
+  history.replaceState(null, '', url.toString());
+
+  updateURL([], '');
   filters.value = structuredClone(defaultFilters);
+  filterSelectedForComponent.value = [];
+  filtersStore.lastFilters = '';
 
   for (const [key] of Object.entries(_inputModels.value)) {
     _inputModels.value[key] = false;
   }
+
   hideFilters();
 };
 
@@ -323,12 +377,68 @@ const isFilterEnabled = (key: string, value?: string) => {
   return filters.value.applied[filterFullKey] !== undefined;
 };
 
+const updatedFilters = ref<string[]>([]);
+
+const createStringFilter = (key: string, value?: string) => {
+  return key === 'hasNoMetadata' || key === 'deprecated'
+    ? `${key}-true`
+    : `${key}-${value}`;
+};
+
+const getParams = (params: URLSearchParams): string[] => {
+  const rawfilter = params.get('rawfilter');
+  return rawfilter ? rawfilter.split('&') : [];
+};
+
+const getStartedParams = () => {
+  return filtersStore.lastFilters !== '' && filtersStore.lastFilters !== '?'
+    ? new URLSearchParams(filtersStore.lastFilters)
+    : new URLSearchParams(window.location.search);
+};
+
 const toggleFilter = (key: string, value?: string) => {
+  const params = getStartedParams();
+
+  const filterString = createStringFilter(key, value);
+
+  const currentFilters: string[] = getParams(params);
   if (isFilterEnabled(key, value)) {
+    if (currentFilters.includes(filterString)) {
+      updatedFilters.value = currentFilters.filter(
+        (filter) => filter !== filterString
+      );
+    }
     unsetFilter(key, value);
   } else {
+    updatedFilters.value = [...currentFilters, filterString].filter(
+      (filter, index, self) => self.findIndex((f) => f === filter) === index
+    );
+
     setFilter(key, value);
   }
+
+  updateURL(updatedFilters.value, filters.value.searchVal);
+};
+
+const updateURL = (filters: string[] = [], searchQuery: string = '') => {
+  const params = getStartedParams();
+
+  if (filters.length > 0) {
+    params.set('rawfilter', filters.join('&'));
+  } else {
+    params.delete('rawfilter');
+  }
+
+  if (searchQuery !== '' && searchQuery !== null) {
+    params.set('search', searchQuery);
+  } else {
+    params.delete('search');
+  }
+
+  const finalUrl = '?' + params.toString();
+  window.history.pushState({}, '', window.location.pathname + finalUrl);
+  filtersStore.lastFilters = '';
+  filtersStore.lastFilters = finalUrl;
 };
 
 const setFilter = (key: string, value?: string) => {
@@ -478,7 +588,6 @@ const allDatasets = computed(() => {
 
 const visibleDatasets = computed(() => {
   let datasets = allDatasets.value;
-
   if (filters.value.searchVal) {
     datasets = datasets.filter((dataset) =>
       dataset.shortname
@@ -498,13 +607,20 @@ const visibleDatasets = computed(() => {
   }
 
   for (const [key, acceptedValues] of Object.entries(filterGroups)) {
+    const parsedAcceptedValues = acceptedValues.map((value) => {
+      if (value === 'true' || value === 'false') {
+        return JSON.parse(value);
+      }
+      return value;
+    });
+
     switch (key) {
       case 'hasNoMetadata':
       case 'deprecated':
       case 'dataSpace':
       case 'access':
         datasets = datasets.filter((dataset) =>
-          acceptedValues.includes(
+          parsedAcceptedValues.includes(
             dataset[key as TourismMetaDataIndexes] as string | boolean
           )
         );
@@ -520,7 +636,7 @@ const visibleDatasets = computed(() => {
           ]! as string[];
           if (filtrableValues?.length) {
             return filtrableValues.find((value) =>
-              acceptedValues.includes(value)
+              parsedAcceptedValues.includes(value)
             );
           }
         });
@@ -528,12 +644,12 @@ const visibleDatasets = computed(() => {
 
       case 'singleDataset':
         if (
-          !acceptedValues.includes('aggregated') ||
-          !acceptedValues.includes('single')
+          !parsedAcceptedValues.includes('aggregated') ||
+          !parsedAcceptedValues.includes('single')
         ) {
           datasets = datasets.filter((dataset) => {
             let matchPref = true;
-            if (acceptedValues.includes('aggregated')) {
+            if (parsedAcceptedValues.includes('aggregated')) {
               matchPref = false;
             }
             return (
@@ -545,8 +661,8 @@ const visibleDatasets = computed(() => {
 
       case 'datasetConfigurations':
         if (
-          !acceptedValues.includes('with') ||
-          !acceptedValues.includes('without')
+          !parsedAcceptedValues.includes('with') ||
+          !parsedAcceptedValues.includes('without')
         ) {
           datasets = datasets.filter((dataset) => {
             const datasetPath = dataset.pathSegments.join('/');
@@ -559,7 +675,9 @@ const visibleDatasets = computed(() => {
                 (dataset) =>
                   dataset.route.pathSegments.join('/') === datasetPath
               ) !== undefined;
-            return acceptedValues.includes('with') ? hasConfig : !hasConfig;
+            return parsedAcceptedValues.includes('with')
+              ? hasConfig
+              : !hasConfig;
           });
         }
         break;

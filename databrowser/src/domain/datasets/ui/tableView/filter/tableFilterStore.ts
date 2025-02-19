@@ -111,11 +111,9 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
     value: FilterValue,
     applyFilter = true
   ) => {
-    const updatedFilters = tableFilters.value.map((filter, i) =>
+    tableFilters.value = tableFilters.value.map((filter, i) =>
       i === index ? { ...filter, operator, value } : filter
     );
-
-    tableFilters.value = updatedFilters;
 
     // Apply filters to URL such that they take effect
     if (applyFilter) {

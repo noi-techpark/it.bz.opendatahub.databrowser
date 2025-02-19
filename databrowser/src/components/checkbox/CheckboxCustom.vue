@@ -29,20 +29,27 @@ const emit = defineEmits(['click', 'update:modelValue']);
 
 const props = withDefaults(
   defineProps<{
+    filterKey: string;
     modelValue: boolean;
     label?: string;
     tabbable?: boolean;
     disabled?: boolean;
+    filterSelected?: { key: string; value: string }[];
   }>(),
   {
     label: undefined,
     tabbable: true,
     disabled: false,
+    filterSelected: () => [],
   }
 );
-
 const checked = computed({
-  get: () => props.modelValue,
+  get: () =>
+    props.filterSelected.some(
+      ({ key, value }) =>
+        props.label?.toLowerCase() === value?.toLowerCase() &&
+        props.filterKey?.toLowerCase() === key?.toLowerCase()
+    ) || props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
 </script>
