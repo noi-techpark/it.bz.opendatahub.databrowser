@@ -61,7 +61,7 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
     if (propertyPath != null) {
       tableFilters.value = [
         ...tableFilters.value,
-        { propertyPath, title, operator: 'eq', value: '' },
+        { propertyPath, title, operator: 'like', value: '' },
       ];
       // Show toolbox
       useToolBoxStore().visible = true;
@@ -126,18 +126,10 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
       applyFilter = true
   ) => {
     // Loop through tableFiltersSelected and update them with operators, values, and property paths
-    tableFilters.value = tableFiltersSelected.map((filter) => {
-      // Assuming that each filter string contains only one value, propertyPath, operator, or value
-      const propertyPath = filter.propertyPath; // Directly use the propertyPath string
-      const operator = filter.operator; // Directly use the operator string
-      const value = filter.value; // Directly use the value string
+    tableFilters.value = tableFiltersSelected.map(filter => ({
+      ...filter
+    }));
 
-      return {
-        propertyPath: propertyPath,
-        operator: operator,
-        value: value,
-      };
-    });
 
     // Apply filters to the URL if requested
     if (applyFilter) {
