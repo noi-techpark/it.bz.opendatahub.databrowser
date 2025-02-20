@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import {filtersStore} from "./store/filterStore.ts";
 
 export function updateURL(filters: string[] = [], searchQuery: string = '') {
