@@ -27,7 +27,6 @@ const props = defineProps<{
   data: string[];
 }>();
 
-// eslint-disable-next-line no-unused-vars
 const emits = defineEmits<{ (e: 'selectedChange', item: string): void }>();
 
 const selected = ref<number>(props.data.indexOf(props.initialSelected));

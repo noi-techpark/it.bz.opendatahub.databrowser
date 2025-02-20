@@ -144,7 +144,7 @@ export interface EditViewConfig extends BaseViewConfig {
 export interface NewViewConfig extends BaseViewConfig {
   elements: EditElements[];
 }
-export interface RawViewConfig extends BaseViewConfig {}
+export type RawViewConfig = BaseViewConfig
 
 export type ViewConfig =
   | ListViewConfig
@@ -234,6 +234,6 @@ export interface RouteLocation {
   routeName: RouteName;
 }
 
-export type ToMaybeRefs<T = any> = {
+export type ToMaybeRefs<T = unknown> = {
   [K in keyof T]: MaybeRef<T[K]>;
 };

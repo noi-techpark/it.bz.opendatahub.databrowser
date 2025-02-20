@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { initialState } from './initialState';
 

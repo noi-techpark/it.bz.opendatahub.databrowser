@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div class="z-9 relative flex items-center">
+  <div class="relative flex items-center">
     <ButtonLink
       v-for="link in links"
       :key="link.value"
@@ -23,11 +23,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     <SelectCustom
       id="mobile-language-picker"
-      class="h-9 w-16 md:hidden"
+      class="w-16 md:hidden"
+      extra-button-classes="h-9"
       :options="links"
       :value="selected"
-      :size="SelectSize.sm"
+      :size="SelectSize.xs"
       :show-search-when-at-least-count-options="Infinity"
+      :z-index="zIndex"
       extra-height
       @change="selected = $event"
     />
@@ -46,9 +48,13 @@ import SelectCustom from '../select/SelectCustom.vue';
 import { SelectSize } from '../select/types';
 
 const props = withDefaults(
-  defineProps<{ currentLanguage: string | null | undefined }>(),
+  defineProps<{
+    currentLanguage: string | null | undefined;
+    zIndex?: number;
+  }>(),
   {
     currentLanguage: defaultLanguage,
+    zIndex: undefined,
   }
 );
 

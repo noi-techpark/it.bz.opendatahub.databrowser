@@ -10,7 +10,7 @@ import {
   isSingleRecordViewConfig,
 } from '../../../view/types';
 
-interface ComputeSingleRecordCategories {
+export interface ComputeSingleRecordCategories {
   name: string;
   slug: string;
   visible: boolean;

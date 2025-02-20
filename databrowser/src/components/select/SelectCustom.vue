@@ -5,20 +5,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-  <div :class="{ 'max-md:w-full': selectOpen && mobileFullScreen }">
+  <div>
     <Listbox v-slot="{ open }" v-model="valueInternal">
       <div ref="trigger">
         <SelectButton
           :id="id"
           :class="[
             !open ? 'rounded' : isBottomPlacement ? 'rounded-t' : 'rounded-b',
-            {
-              'max-md:!rounded-none max-md:border-none':
-                selectOpen && mobileFullScreen,
-            },
-            { 'min-h-full': noMinHeight },
             buttonClassNames,
-            extraHeight ? 'h-9 min-h-0 text-base' : '',
           ]"
           :label="selectedLabel"
           :data-test="`${id}-select-button`"
@@ -48,11 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   !searchResultsGroupedOptions ? searchResults : undefined
                 "
                 :search-results-grouped-options="searchResultsGroupedOptions"
-                :class="[
-                  { hidden: !open },
-                  optionsClassNames,
-                  { 'fixed inset-x-0 md:static': mobileFullScreen },
-                ]"
+                :class="[{ hidden: !open }, optionsClassNames]"
                 :data-test="`${id}-select-options-box`"
               />
             </transition>
@@ -64,8 +54,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, toRefs, watch } from 'vue';
 import { Listbox } from '@headlessui/vue';
+import { computed, ref, toRefs, watch } from 'vue';
+import { randomId } from '../utils/random';
+import { useFloatingUi } from '../utils/useFloatingUi';
+import SelectButton from './SelectButton.vue';
+import SelectOptionsBox from './SelectOptionsBox.vue';
+import { selectButtonSizeStyles, selectOptionsSizeStyles } from './styles';
 import {
   GroupSelectOption,
   SelectOption,
@@ -74,14 +69,9 @@ import {
   SelectValue,
 } from './types';
 import { useSearch } from './useSearch';
-import { selectButtonSizeStyles, selectOptionsSizeStyles } from './styles';
-import SelectButton from './SelectButton.vue';
-import SelectOptionsBox from './SelectOptionsBox.vue';
-import { randomId } from '../utils/random';
-import { useFloatingUi } from '../utils/useFloatingUi';
 import {
-  emptyValueOption,
   addNewValueOption,
+  emptyValueOption,
   unknownValueLabel,
 } from './utils';
 
@@ -103,9 +93,7 @@ const props = withDefaults(
     showAddNewValue?: boolean;
     showValueAsLabelFallback?: boolean;
     zIndex?: number;
-    extraHeight?: boolean;
-    mobileFullScreen?: boolean;
-    noMinHeight?: boolean;
+    extraButtonClasses?: string;
   }>(),
   {
     options: () => [],
@@ -118,7 +106,7 @@ const props = withDefaults(
     showAddNewValue: false,
     showValueAsLabelFallback: false,
     zIndex: undefined,
-    extraHeight: false,
+    extraButtonClasses: undefined,
   }
 );
 const {
@@ -133,8 +121,6 @@ const {
 } = toRefs(props);
 
 const valueInternal = ref(value.value);
-const observer = ref();
-const selectOpen = ref();
 
 watch(value, (v) => (valueInternal.value = v));
 watch(valueInternal, (v) => {
@@ -144,25 +130,10 @@ watch(valueInternal, (v) => {
   }
 });
 
-onMounted(() => {
-  const target = document.getElementById(props.id);
-  observer.value = new MutationObserver((mutationList) => {
-    const target = mutationList[0].target;
-    if (target instanceof HTMLElement) {
-      const open = !!target.dataset.headlessuiState;
-      selectOpen.value = open;
-      emit('open', open);
-    }
-  });
-  observer.value.observe(target, { attributes: true });
-});
-
-onUnmounted(() => observer.value.disconnect());
-
 // Compute internal options array. If showEmptyValue is set,
 // then a "no value" option is added to the front of the list
 const optionsInternal = computed<SelectOption[]>(() => {
-  let data = [];
+  const data = [];
 
   if (showAddNewValue.value) {
     data.push(addNewValueOption());
@@ -232,7 +203,13 @@ const optionsPlacement = computed<SelectOptionsPlacement>(() =>
 );
 
 // Compute CSS classes based on size and option placement
-const buttonClassNames = computed(() => selectButtonSizeStyles[size.value]);
+const buttonClassNames = computed(() => {
+  const classes = [selectButtonSizeStyles[size.value]];
+  if (props.extraButtonClasses != null) {
+    classes.push(props.extraButtonClasses);
+  }
+  return classes.join(' ');
+});
 const optionsClassNames = computed(
   () => selectOptionsSizeStyles[size.value][optionsPlacement.value]
 );
