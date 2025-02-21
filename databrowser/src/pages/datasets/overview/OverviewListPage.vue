@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <AppLayout>
-    <OverviewListPageHero/>
+    <OverviewListPageHero />
 
     <PageGridContent v-if="!mapVisible" class="grow gap-3 lg:gap-3">
       <div class="flex w-full flex-col items-start gap-2 md:flex-row md:gap-10">
@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             class="flex items-center justify-center gap-2 uppercase md:hidden"
             @click="showMap()"
         >
-          <IconLocationOn/>
+          <IconLocationOn />
           {{ t('overview.listPage.showOnMap') }}
         </ButtonCustom>
 
@@ -42,7 +42,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           >
             {{ appliedFiltersNum }}
           </div>
-          <IconFilter class="mr-2 size-3"/>
+          <IconFilter class="mr-2 size-3" />
         </button>
 
         <div class="flex flex-col gap-3">
@@ -55,7 +55,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 :size="Size.xm2col"
                 @click="showMap()"
             >
-              <IconLocationOn/>
+              <IconLocationOn />
               {{ t('overview.listPage.showOnMap') }}
             </ButtonCustom>
           </div>
@@ -91,7 +91,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   class="mr-3 flex size-6 items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
                   @click="hideFilters"
               >
-                <IconClose class="size-4"/>
+                <IconClose class="size-4" />
               </button>
             </div>
 
@@ -178,12 +178,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 >
                   <CheckboxCustom
                       v-model="
-                  _inputModels[
-                      getInputModelId(
+                      _inputModels[
+                        getInputModelId(
                           filter.id as TourismMetaDataIndexes,
                           option.value
-                          )
-                          ]"
+                        )
+                      ]
+                    "
                       class="mr-2"
                       :label="option.value"
                       @input="toggleFilter(filter.id, option.key)"
@@ -251,19 +252,19 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
       </div>
 
-      <CardDivider/>
+      <CardDivider />
 
-      <PartnersAndContributors/>
+      <PartnersAndContributors />
     </PageGridContent>
 
-    <MapViewAsDialog v-if="mapVisible" @close="hideMap"/>
+    <MapViewAsDialog v-if="mapVisible" @close="hideMap" />
   </AppLayout>
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from 'vue';
-import {useI18n} from 'vue-i18n';
-import {useRouter} from 'vue-router';
+import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import Accordion from '../../../components/accordion/Accordion.vue';
 import ButtonCustom from '../../../components/button/ButtonCustom.vue';
 import CardDivider from '../../../components/card/CardDivider.vue';
@@ -277,30 +278,30 @@ import IconClose from '../../../components/svg/IconClose.vue';
 import IconFilter from '../../../components/svg/IconFilter.vue';
 import IconLocationOn from '../../../components/svg/IconLocationOn.vue';
 import ToggleCustom from '../../../components/toggle/ToggleCustom.vue';
-import {embeddedDatasetConfigs} from '../../../config/config';
-import {DatasetConfig} from '../../../domain/datasets/config/types';
+import { embeddedDatasetConfigs } from '../../../config/config';
+import { DatasetConfig } from '../../../domain/datasets/config/types';
 import MapViewAsDialog from '../../../domain/datasets/ui/mapView/MapViewAsDialog.vue';
 import ResetAllFilters from '../../../domain/datasets/ui/tableView/filter/ResetAllFilters.vue';
-import {TourismMetaData} from '../../../domain/metaDataConfig/tourism/types';
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import OverviewListPageHero from './OverviewListPageHero.vue';
-import {Size, Variant} from '../../../components/button/types';
+import { Size, Variant } from '../../../components/button/types';
 import ButtonExternalLink from '../../../components/button/ButtonExternalLink.vue';
 import PopoverContentHeader from '../../../components/popover/PopoverContentHeader.vue';
 import OverviewListSearch from './OverviewListSearch.vue';
-import {useMetaDataForAllDatasets} from './useDatasets';
+import { useMetaDataForAllDatasets } from './useDatasets';
 
-const {t} = useI18n();
+const { t } = useI18n();
 
 const router = useRouter();
 
 const showMap = () =>
-    router.push({query: {...router.currentRoute.value.query, map: 'true'}});
+    router.push({ query: { ...router.currentRoute.value.query, map: 'true' } });
 
 const hideMap = () =>
     router.push({
-      query: {...router.currentRoute.value.query, map: undefined},
+      query: { ...router.currentRoute.value.query, map: undefined },
     });
 
 const mapVisible = computed(
@@ -574,7 +575,7 @@ const dynamicFilters = computed(
         ] as DynamicFilter[]
 );
 
-const {metaData, isMetaDataLoading} = useMetaDataForAllDatasets();
+const { metaData, isMetaDataLoading } = useMetaDataForAllDatasets();
 
 const visibleDatasets = computed(() => {
   let datasets = [...metaData.value];
