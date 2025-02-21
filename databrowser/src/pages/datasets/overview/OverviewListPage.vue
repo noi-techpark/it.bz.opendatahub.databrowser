@@ -473,27 +473,6 @@ const toggleFilter = (key: string, value?: string) => {
   updateURL(updatedFilters.value, filters.value.searchVal);
 };
 
-// const updateURL = (filters: string[] = [], searchQuery: string = '') => {
-//   const params = getStartedParams();
-//
-//   if (filters.length > 0) {
-//     params.set('rawfilter', filters.join('&'));
-//   } else {
-//     params.delete('rawfilter');
-//   }
-//
-//   if (searchQuery !== '' && searchQuery !== null) {
-//     params.set('search', searchQuery);
-//   } else {
-//     params.delete('search');
-//   }
-//
-//   const finalUrl = '?' + params.toString();
-//   window.history.pushState({}, '', window.location.pathname + finalUrl);
-//   filtersStore.lastFilters = '';
-//   filtersStore.lastFilters = finalUrl;
-// };
-
 const setFilter = (key: string, value?: string) => {
   const filterFullKey = getFilterFullKey(key, value);
   filters.value.applied[filterFullKey] = getFilterObject(key, value);
