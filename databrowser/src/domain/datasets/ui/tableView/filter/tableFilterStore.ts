@@ -129,11 +129,7 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
       tableFiltersSelected: Filter[], // Array of strings
       applyFilter = true
   ) => {
-    // Loop through tableFiltersSelected and update them with operators, values, and property paths
-    tableFilters.value = tableFiltersSelected.map(filter => ({
-      ...filter
-    }));
-
+      tableFilters.value = tableFiltersSelected
 
     // Apply filters to the URL if requested
     if (applyFilter) {
