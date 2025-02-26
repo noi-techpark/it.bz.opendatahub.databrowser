@@ -24,7 +24,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         :placeholder="t('overview.listPage.searchDataset')"
         type="search"
         input-classes="w-full md:w-64"
-        @input="updateURL(props.updatedFilters,searchTerm)"
+        @input="updateURL(router,updatedFilters,searchTerm)"
     />
   </div>
 </template>
@@ -34,10 +34,12 @@ import {useI18n} from 'vue-i18n';
 import InputCustom from '../../../components/input/InputCustom.vue';
 import {TourismMetaData} from '../../../domain/metaDataConfig/tourism/types';
 import {updateURL} from "../../../domain/homepage/utils.ts";
+import {useRouter} from "vue-router";
 
 const {t} = useI18n();
+const router = useRouter();
 
-const props = defineProps<{
+defineProps<{
   isOtherDatasetsLoading: boolean;
   updatedFilters: string[];
   visibleDatasets: TourismMetaData[];

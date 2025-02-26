@@ -6,142 +6,145 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <template>
   <AppLayout>
-    <OverviewListPageHero />
+    <OverviewListPageHero/>
 
     <PageGridContent v-if="!mapVisible" class="grow gap-3 lg:gap-3">
       <div class="flex w-full flex-col items-start gap-2 md:flex-row md:gap-10">
         <!-- Mobile search -->
         <OverviewListSearch
-          v-model:search-term="filters.searchVal"
-          :updated-filters="updatedFilters"
-          class="md:hidden"
-          :is-other-datasets-loading="isMetaDataLoading"
-          :visible-datasets="visibleDatasets"
+            v-model:search-term="filters.searchVal"
+            :updated-filters="updatedFilters"
+            class="md:hidden"
+            :is-other-datasets-loading="isMetaDataLoading"
+            :visible-datasets="visibleDatasets"
         />
 
         <!-- Mobile map button -->
         <ButtonCustom
-          :size="Size.xm2col"
-          class="flex items-center justify-center gap-2 uppercase md:hidden"
-          @click="showMap()"
+            :size="Size.xm2col"
+            class="flex items-center justify-center gap-2 uppercase md:hidden"
+            @click="showMap()"
         >
-          <IconLocationOn />
+          <IconLocationOn/>
           {{ t('overview.listPage.showOnMap') }}
         </ButtonCustom>
 
         <!-- Mobile filters button -->
         <button
-          class="flex w-full shrink-0 items-center gap-2 rounded border border-gray-300 px-3 py-2 font-semibold text-green-400 md:hidden"
-          @click="showFilters"
+            class="flex w-full shrink-0 items-center gap-2 rounded border border-gray-300 px-3 py-2 font-semibold text-green-400 md:hidden"
+            @click="showFilters"
         >
           <div class="grow">
             {{ t('overview.listPage.showFilters') }}
           </div>
           <div
-            v-if="appliedFiltersNum"
-            class="rounded bg-gray-200 px-2 text-sm text-gray-900"
+              v-if="appliedFiltersNum"
+              class="rounded bg-gray-200 px-2 text-sm text-gray-900"
           >
             {{ appliedFiltersNum }}
           </div>
-          <IconFilter class="mr-2 size-3" />
+          <IconFilter class="mr-2 size-3"/>
         </button>
 
         <div class="flex flex-col gap-3">
           <!-- Desktop map button -->
           <div
-            class="hidden shrink-0 items-center justify-center bg-auto md:flex md:w-64 md:bg-[url('/map-black-white.jpg')]"
+              class="hidden shrink-0 items-center justify-center bg-auto md:flex md:w-64 md:bg-[url('/map-black-white.jpg')]"
           >
             <ButtonCustom
-              class="flex items-center justify-center gap-2 uppercase md:my-16"
-              :size="Size.xm2col"
-              @click="showMap()"
+                class="flex items-center justify-center gap-2 uppercase md:my-16"
+                :size="Size.xm2col"
+                @click="showMap()"
             >
-              <IconLocationOn />
+              <IconLocationOn/>
               {{ t('overview.listPage.showOnMap') }}
             </ButtonCustom>
           </div>
 
           <!-- Filters -->
           <div
-            class="fixed inset-0 w-full shrink-0 rounded border border-gray-300 bg-white pb-3 md:relative md:block md:w-64"
-            :class="{
+              class="fixed inset-0 w-full shrink-0 rounded border border-gray-300 bg-white pb-3 md:relative md:block md:w-64"
+              :class="{
               hidden: !isFiltersModalVisible,
             }"
           >
             <!-- Title -->
             <div
-              class="fixed top-0 z-10 flex w-full items-center gap-1 bg-white md:relative"
+                class="fixed top-0 z-10 flex w-full items-center gap-1 bg-white md:relative"
             >
               <h3
-                class="flex grow items-center gap-2 px-3 py-2 text-2xl font-semibold text-gray-900"
+                  class="flex grow items-center gap-2 px-3 py-2 text-2xl font-semibold text-gray-900"
               >
                 {{ t('overview.listPage.filter') }}
                 <div
-                  v-if="appliedFiltersNum"
-                  class="rounded bg-gray-200 px-2 text-sm text-gray-900"
+                    v-if="appliedFiltersNum"
+                    class="rounded bg-gray-200 px-2 text-sm text-gray-900"
                 >
                   {{ appliedFiltersNum }}
                 </div>
               </h3>
 
               <ResetAllFilters
-                class="mr-3 text-xs"
-                @reset-all-filters="resetFilters"
+                  class="mr-3 text-xs"
+                  @reset-all-filters="resetFilters"
               />
               <button
-                class="mr-3 flex size-6 items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
-                @click="hideFilters"
+                  class="mr-3 flex size-6 items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
+                  @click="hideFilters"
               >
-                <IconClose class="size-4" />
+                <IconClose class="size-4"/>
               </button>
             </div>
 
             <!-- Filters list -->
             <div class="h-full overflow-y-auto py-14 md:h-auto md:p-0">
               <button
-                class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
-                @click="toggleFilter('hasNoMetadata')"
+                  class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
+                  @click="toggleFilter('hasNoMetadata')"
               >
-                <ToggleCustom
-                  ref="metadataToggle"
-                  v-model="_inputModels.hasNoMetadata"
-                  :filter-key="'hasNoMetadata'"
-                  :filter-selected="filterSelectedForComponent"
-                  class="mr-2"
+                <ToggleCustomHomePage
+                    ref="metadataToggle"
+                    v-model="_inputModels.hasNoMetadata"
+                    :filter-key="'hasNoMetadata'"
+                    :filter-selected="filterSelectedForComponent"
+                    class="mr-2"
                 />
                 {{ t('overview.listPage.noMetadataAvailable') }}
               </button>
               <button
-                class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
-                @click="toggleFilter('deprecated')"
+                  class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
+                  @click="toggleFilter('deprecated')"
               >
-                <ToggleCustom v-model="_inputModels.deprecated"
-                              :filter-key="'deprecated'"
-                              :filter-selected="filterSelectedForComponent"
-                              class="mr-2" />
+                <ToggleCustomHomePage
+                    v-model="_inputModels.deprecated"
+                    :filter-key="'deprecated'"
+                    :filter-selected="filterSelectedForComponent"
+                    class="mr-2"
+                />
                 {{ t('overview.listPage.deprecated') }}
               </button>
+
               <Accordion
-                v-for="filter in dynamicFilters"
-                :key="filter.id"
-                :text="filter.name"
-                :accordion-id="filter.id"
-                :filter-selected="filterSelectedForComponent"
-                button-class="font-semibold text-gray-900 pb-2 px-4"
-                :badge-value="
+                  v-for="filter in dynamicFilters"
+                  :key="filter.id"
+                  :text="filter.name"
+                  :accordion-id="filter.id"
+                  :filter-selected="filterSelectedForComponent"
+                  button-class="font-semibold text-gray-900 pb-2 px-4"
+                  :badge-value="
                   getActiveFiltersCountOfGroup(
                     filter.id as TourismMetaDataIndexes
                   )
                 "
-                class="border-t border-gray-300 pt-2 text-dialog"
+                  class="border-t border-gray-300 pt-2 text-dialog"
               >
                 <div
-                  v-for="option in filter.data"
-                  :key="option.key"
-                  class="flex items-center border-t border-gray-300 px-4 py-2"
+                    v-for="option in filter.data"
+                    :key="option.key"
+                    class="flex items-center border-t border-gray-300 px-4 py-2"
                 >
-                  <CheckboxCustom
-                    v-model="
+                  <CheckboxCustomHomePage
+                      v-model="
                       _inputModels[
                         getInputModelId(
                           filter.id as TourismMetaDataIndexes,
@@ -149,15 +152,18 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         )
                       ]
                     "
-                    class="mr-2"
-                    :filter-key="filter.id"
-                    :label="option.value"
-                    :filter-selected="filterSelectedForComponent"
-                    @input="toggleFilter(filter.id, option.key)"
-                  />
+                      class="mr-2"
+                      :filter-key="filter.id"
+                      :filter-label="option.key"
+                      :label="option.value"
+                      :key="option.key"
+                      :filter-selected="filterSelectedForComponent"
+                      @input="toggleFilter(filter.id, option.key)"
+                  >
+                  </CheckboxCustomHomePage>
                   <InfoPopover
-                    v-if="filter.id === 'singleDataset'"
-                    class="ml-2"
+                      v-if="filter.id === 'singleDataset'"
+                      class="ml-2"
                   >
                     <PopoverCustomPanel>
                       <PopoverContent>
@@ -229,14 +235,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import Accordion from '../../../components/accordion/Accordion.vue';
 import ButtonCustom from '../../../components/button/ButtonCustom.vue';
 import { Size } from '../../../components/button/types';
 import CardDivider from '../../../components/card/CardDivider.vue';
-import CheckboxCustom from '../../../components/checkbox/CheckboxCustom.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
 import PartnersAndContributors from '../../../components/partners/PartnersAndContributors.vue';
 import InfoPopover from '../../../components/popover/InfoPopover.vue';
@@ -245,7 +250,6 @@ import PopoverCustomPanel from '../../../components/popover/PopoverCustomPanel.v
 import IconClose from '../../../components/svg/IconClose.vue';
 import IconFilter from '../../../components/svg/IconFilter.vue';
 import IconLocationOn from '../../../components/svg/IconLocationOn.vue';
-import ToggleCustom from '../../../components/toggle/ToggleCustom.vue';
 import { embeddedDatasetConfigs } from '../../../config/config';
 import { DatasetConfig } from '../../../domain/datasets/config/types';
 import MapViewAsDialog from '../../../domain/datasets/ui/mapView/MapViewAsDialog.vue';
@@ -254,26 +258,27 @@ import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import OverviewListPageHero from './OverviewListPageHero.vue';
-import { filtersStore } from '../../../domain/homepage/store/filterStore';
 
 import OverviewListSearch from './OverviewListSearch.vue';
 import { useMetaDataForAllDatasets } from './useDatasets';
-import {getStartedParams, updateURL} from "../../../domain/homepage/utils.ts";
+import { getStartedQuery, updateURL } from "../../../domain/homepage/utils.ts";
+import CheckboxCustomHomePage from "../../../components/checkbox/CheckboxCustomHomePage.vue";
+import ToggleCustomHomePage from "../../../components/toggle/ToggleCustomHomePage.vue";
 
 const { t } = useI18n();
 
 const router = useRouter();
 
 const showMap = () =>
-  router.push({ query: { ...router.currentRoute.value.query, map: 'true' } });
+  router.push({ query: {...router.currentRoute.value.query, map: 'true' } });
 
 const hideMap = () =>
-  router.push({
-    query: { ...router.currentRoute.value.query, map: undefined },
-  });
+    router.push({
+      query: {...router.currentRoute.value.query, map: undefined},
+    });
 
 const mapVisible = computed(
-  () => router.currentRoute.value.query.map === 'true'
+    () => router.currentRoute.value.query.map === 'true'
 );
 
 type TourismMetaDataIndexes =
@@ -383,45 +388,47 @@ const hideFilters = () => {
 const filterSelectedForComponent = ref<{ key: string; value: string }[]>([]);
 
 const initializeFiltersAndSearch = () => {
-  const params = getStartedParams();
-  const rawfilter = params.get('rawfilter');
-  const searchQuery = params.get('search');
+  const {rawfilter, searchQuery} = getStartedQuery();
 
-  if (searchQuery) {
-    filters.value.searchVal = searchQuery;
-    if (!rawfilter) updateURL([], searchQuery);
+  if (!searchQuery && !rawfilter) {
+    return;
   }
 
+  if (searchQuery && searchQuery !== '') {
+    filters.value.searchVal = (searchQuery as string) || '';
+    if (!rawfilter) updateURL(router, [], searchQuery);
+  }
   if (rawfilter) {
-    filterSelectedForComponent.value = decodeURIComponent(rawfilter)
-      .split('&')
-      .map((filter) => {
-        const [key, ...valueParts] = filter.split('-');
-        const value =
-          key === 'hasNoMetadata' || key === 'deprecated'
-            ? ''
-            : valueParts.join('-');
+    filterSelectedForComponent.value =
+        decodeURIComponent(rawfilter)
+            .split('&')
+            .map((filter) => {
+              const [key, ...valueParts] = filter.split('-');
+              const value =
+                  key === 'hasNoMetadata' || key === 'deprecated'
+                      ? ''
+                      : valueParts.join('-');
 
-        toggleFilter(key, value);
-        return { key, value };
-      });
+              toggleFilter(key, value);
+              return {key, value};
+            });
   }
 };
 
-onMounted(() => {
-  initializeFiltersAndSearch();
+onBeforeMount(() => {
+  return initializeFiltersAndSearch();
 });
 
 const resetFilters = () => {
-  const url = new URL(window.location.href);
-  url.search = '';
+  updateURL(router, [], '');
 
-  history.replaceState(null, '', url.toString());
+  router.replace({
+    path: router.currentRoute.value.path,
+    query: { reset: 'true' }
+  });
 
-  updateURL([], '');
   filters.value = structuredClone(defaultFilters);
   filterSelectedForComponent.value = [];
-  filtersStore.lastFilters = '';
 
   for (const [key] of Object.entries(_inputModels.value)) {
     _inputModels.value[key] = false;
@@ -439,38 +446,36 @@ const updatedFilters = ref<string[]>([]);
 
 const createStringFilter = (key: string, value?: string) => {
   return key === 'hasNoMetadata' || key === 'deprecated'
-    ? `${key}-true`
-    : `${key}-${value}`;
+      ? `${key}-true`
+      : `${key}-${value}`;
 };
 
-const getParams = (params: URLSearchParams): string[] => {
-  const rawfilter = params.get('rawfilter');
-  return rawfilter ? rawfilter.split('&') : [];
-};
+const getParams = (): string[] => {
+  const query = router.currentRoute.value.query;
+  const rawfilter = query['rawfilter'] ? query['rawfilter'] : [];
 
+  return typeof rawfilter === 'string' ? rawfilter.split('&') : [];
+};
 
 const toggleFilter = (key: string, value?: string) => {
-  const params = getStartedParams();
-
   const filterString = createStringFilter(key, value);
-
-  const currentFilters: string[] = getParams(params);
+  const currentFilters: string[] = getParams();
   if (isFilterEnabled(key, value)) {
     if (currentFilters.includes(filterString)) {
       updatedFilters.value = currentFilters.filter(
-        (filter) => filter !== filterString
+          (filter) => filter !== filterString
       );
     }
     unsetFilter(key, value);
   } else {
     updatedFilters.value = [...currentFilters, filterString].filter(
-      (filter, index, self) => self.findIndex((f) => f === filter) === index
+        (filter, index, self) => self.findIndex((f) => f === filter) === index
     );
 
     setFilter(key, value);
   }
 
-  updateURL(updatedFilters.value, filters.value.searchVal);
+  updateURL(router, updatedFilters.value, filters.value.searchVal);
 };
 
 const setFilter = (key: string, value?: string) => {

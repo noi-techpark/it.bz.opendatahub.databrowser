@@ -2,35 +2,36 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {filtersStore} from "./store/filterStore.ts";
+import {Router} from "vue-router";
+import {useQueryStore} from "./filterStore.ts";
+import {useRouteQuery} from "@vueuse/router";
 
-export function updateURL(filters: string[] = [], searchQuery: string = '') {
-    const params = getStartedParams();
+const queryStore = useQueryStore();
 
-    if (filters.length > 0) {
-        params.set('rawfilter', filters.join('&'));
-    } else {
-        params.delete('rawfilter');
-    }
+export function updateURL(router: Router, filters: string[] = [], searchQuery: string = '') {
+    const currentQuery = router.currentRoute.value.query;
+    const newQuery: Record<string, string> = {};
 
-    if (searchQuery !== '' && searchQuery !== null) {
-        params.set('search', searchQuery);
-    } else {
-        params.delete('search');
-    }
+    if (filters.length) newQuery['rawfilter'] = filters.join('&');
+    if (searchQuery) newQuery['search'] = searchQuery;
 
-    const finalUrl = '?' + params.toString();
+    queryStore.setLastQuery(newQuery);
+    if (JSON.stringify(currentQuery) === JSON.stringify(newQuery)) return;
 
-    if (params.toString() !== null && params.toString() !== '') {
-        window.history.pushState({}, '', window.location.pathname + finalUrl);
-    } else {
-        window.history.pushState({}, '', window.location.pathname);
-    }
-    filtersStore.lastFilters = finalUrl; // Only set it once
+    return router.push({query: newQuery});
 }
 
-export function getStartedParams() {
-    return filtersStore.lastFilters !== '' && filtersStore.lastFilters !== '?'
-        ? new URLSearchParams(filtersStore.lastFilters)
-        : new URLSearchParams(window.location.search);
+export function getStartedQuery() {
+    const rawfilter = useRouteQuery<string[] | string | null>('rawfilter').value;
+    const search = useRouteQuery<string[] | string | null>('search').value;
+
+    return {
+        rawfilter: Array.isArray(rawfilter)
+            ? rawfilter.join('&')
+            : rawfilter ?? '',
+
+        searchQuery: Array.isArray(search)
+            ? search.join(' ')
+            : search ?? ''
+    };
 }

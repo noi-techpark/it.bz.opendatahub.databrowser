@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { Switch } from '@headlessui/vue';
 
 const emit = defineEmits(['update:modelValue']);
@@ -51,16 +51,6 @@ const turnedOn = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
-
-watch(
-  () => props.filterSelected,
-  (newFilterSelected) => {
-    turnedOn.value = newFilterSelected.some(
-      (filter) => filter.key === props.filterKey
-    );
-  },
-  { immediate: true }
-);
 
 const switchColorClass = computed(() => {
   if (props.disabled) {
