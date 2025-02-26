@@ -105,7 +105,7 @@ import {
 } from '../filter/filterSelectOptions';
 import { useTableFilterStore } from '../filter/tableFilterStore';
 import InfoFilter from './InfoFilter.vue';
-import {Filter, FilterOperator, FilterValue} from '../filter/types';
+import { Filter, FilterOperator, FilterValue } from '../filter/types';
 import IconAdd from '../../../../../components/svg/IconAdd.vue';
 import IconFilter from '../../../../../components/svg/IconFilter.vue';
 
@@ -127,7 +127,6 @@ const emit = defineEmits(['filter', 'update:modelValue']);
 const { tableFilters, filterColSelectOptions } = storeToRefs(
   useTableFilterStore()
 );
-
 const {
   addEmptyFilter,
   removeAllFilters,

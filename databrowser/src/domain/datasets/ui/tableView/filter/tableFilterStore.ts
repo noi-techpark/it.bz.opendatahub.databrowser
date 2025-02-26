@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia';
-import { computed, Ref, ref, watch } from 'vue';
+import { Ref, computed, ref, watch } from 'vue';
 import { SelectOption } from '../../../../../components/select/types';
 import { PropertyPath } from '../../../config/types';
 import { useToolBoxStore } from '../../toolBox/toolBoxStore';
