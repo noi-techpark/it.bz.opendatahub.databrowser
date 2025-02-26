@@ -88,8 +88,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 @reset-all-filters="resetFilters"
               />
               <button
-                  class="mr-3 flex size-6 items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
-                  @click="hideFilters"
+                class="mr-3 flex size-6 items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
+                @click="hideFilters"
               >
                 <IconClose class="size-4" />
               </button>
@@ -482,8 +482,8 @@ const getDynamicFilterObject = (
 };
 
 const getFilterSectionItemObject = (
-    key: string,
-    value: string
+  key: string,
+  value: string
 ): FilterSelectItem => {
   return {
     key,
@@ -583,8 +583,8 @@ const visibleDatasets = computed(() => {
   if (filters.value.searchVal) {
     datasets = datasets.filter((dataset) =>
       dataset.shortname
-         .toLowerCase()
-         .includes(filters.value.searchVal.toLowerCase())
+        .toLowerCase()
+        .includes(filters.value.searchVal.toLowerCase())
     );
   }
 
@@ -605,9 +605,9 @@ const visibleDatasets = computed(() => {
       case 'dataSpace':
       case 'access':
         datasets = datasets.filter((dataset) =>
-           acceptedValues.includes(
-             dataset[key as TourismMetaDataIndexes] as string | boolean
-           )
+          acceptedValues.includes(
+            dataset[key as TourismMetaDataIndexes] as string | boolean
+          )
         );
         break;
 
@@ -618,7 +618,7 @@ const visibleDatasets = computed(() => {
         datasets = datasets.filter((dataset) => {
           const filtrableValues = dataset[
             key as TourismMetaDataIndexes
-            ]! as string[];
+          ]! as string[];
           if (filtrableValues?.length) {
             return filtrableValues.find((value) =>
               acceptedValues.includes(value)
@@ -646,8 +646,8 @@ const visibleDatasets = computed(() => {
 
       case 'datasetConfigurations':
         if (
-            !acceptedValues.includes('with') ||
-            !acceptedValues.includes('without')
+          !acceptedValues.includes('with') ||
+          !acceptedValues.includes('without')
         ) {
           datasets = datasets.filter((dataset) => {
             const datasetPath = dataset.pathSegments.join('/');
@@ -657,8 +657,8 @@ const visibleDatasets = computed(() => {
 
             const hasConfig =
               allDatasetConfigs.value.find(
-                  (dataset) =>
-                      dataset.route.pathSegments.join('/') === datasetPath
+                 (dataset) =>
+                   dataset.route.pathSegments.join('/') === datasetPath
               ) !== undefined;
             return acceptedValues.includes('with') ? hasConfig : !hasConfig;
           });
