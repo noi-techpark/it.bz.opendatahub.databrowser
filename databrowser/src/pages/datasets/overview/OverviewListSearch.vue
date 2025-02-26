@@ -10,33 +10,33 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       {{ isOtherDatasetsLoading ? '...' : visibleDatasets?.length }}
       {{
         !isOtherDatasetsLoading && visibleDatasets?.length === 1
-            ? t('overview.listPage.datasetFound')
-            : t('overview.listPage.datasetsFound')
+          ? t('overview.listPage.datasetFound')
+          : t('overview.listPage.datasetsFound')
       }}
       {{
         searchTerm != null && searchTerm.length !== 0
-            ? t('overview.listPage.filtered')
-            : ''
+          ? t('overview.listPage.filtered')
+          : ''
       }}
     </span>
     <InputCustom
-        v-model="searchTerm"
-        :placeholder="t('overview.listPage.searchDataset')"
-        type="search"
-        input-classes="w-full md:w-64"
-        @input="updateURL(router,updatedFilters,searchTerm)"
+       v-model="searchTerm"
+       :placeholder="t('overview.listPage.searchDataset')"
+       type="search"
+       input-classes="w-full md:w-64"
+       @input="updateURL(router,updatedFilters,searchTerm)"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import {useI18n} from 'vue-i18n';
+import { useI18n } from 'vue-i18n';
 import InputCustom from '../../../components/input/InputCustom.vue';
-import {TourismMetaData} from '../../../domain/metaDataConfig/tourism/types';
-import {updateURL} from "../../../domain/homepage/utils.ts";
-import {useRouter} from "vue-router";
+import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
+import { updateURL } from "../../../domain/homepage/utils.ts";
+import { useRouter } from "vue-router";
 
-const {t} = useI18n();
+const { t } = useI18n();
 const router = useRouter();
 
 defineProps<{
@@ -44,7 +44,6 @@ defineProps<{
   updatedFilters: string[];
   visibleDatasets: TourismMetaData[];
 }>();
-
 
 const searchTerm = defineModel<string>('searchTerm');
 </script>

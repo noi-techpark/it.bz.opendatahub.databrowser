@@ -28,17 +28,17 @@ import { computed } from 'vue';
 const emit = defineEmits(['click', 'update:modelValue']);
 
 const props = withDefaults(
-    defineProps<{
-      modelValue: boolean;
-      label?: string;
-      tabbable?: boolean;
-      disabled?: boolean;
-    }>(),
-    {
-      label: undefined,
-      tabbable: true,
-      disabled: false,
-    }
+  defineProps<{
+    modelValue: boolean;
+    label?: string;
+    tabbable?: boolean;
+    disabled?: boolean;
+  }>(),
+  {
+   label: undefined,
+   tabbable: true,
+   disabled: false,
+  }
 );
 
 const checked = computed({
