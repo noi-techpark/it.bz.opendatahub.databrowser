@@ -29,8 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           class="flex size-12 items-center justify-center bg-white p-2"
           @click="toggleEditMode()"
         >
-          <IconParser
-            name="IconPencil"
+          <IconPencil
             :class="
               enableSetMarker
                 ? 'h-6 w-6 rounded-[3px] border-[1.5px] border-green-400 bg-hint-calm-secondary p-[2px]'
@@ -44,7 +43,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           class="flex size-12 items-center justify-center bg-white p-2"
           @click="toggle()"
         >
-          <IconParser name="IconClose" class="cursor-pointer text-green-400" />
+          <IconClose class="cursor-pointer text-green-400" />
         </ButtonCustom>
       </div>
       <div
@@ -74,11 +73,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script setup lang="ts">
 import { computed, defineAsyncComponent, ref, toRefs, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { LatLngPosition } from '../../../../../components/map/types';
 import ButtonCustom from '../../../../../components/button/ButtonCustom.vue';
-import IconParser from '../../../../../components/utils/IconParser.vue';
-import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
 import UseFullscreen from '../../../../../components/fullscreen/UseFullscreen.vue';
+import { LatLngPosition } from '../../../../../components/map/types';
+import IconClose from '../../../../../components/svg/IconClose.vue';
+import IconExpanded from '../../../../../components/svg/IconExpanded.vue';
+import IconPencil from '../../../../../components/svg/IconPencil.vue';
 
 // Dynamically import SimpleMap to improve code chunking
 const SimpleMap = defineAsyncComponent(() =>
@@ -176,7 +176,7 @@ const hideTooltip = () => {
 };
 
 const onContainerClick = (isFullscreen: boolean) => {
-  if (isFullscreen || props.editable || !props.fullscreenOnClick) {
+  if (isFullscreen || !props.fullscreenOnClick) {
     return;
   }
 
