@@ -52,7 +52,6 @@ const props = defineProps<{
   badgeValue?: string | number;
   filterSelected?: { key: string; value: string }[];
 }>();
-
 const { text, buttonClass, buttonLabelClass } = toRefs(props);
 
 const show = ref(false);
