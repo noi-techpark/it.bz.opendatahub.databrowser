@@ -137,15 +137,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             )
                           }}
                           <ButtonExternalLink
-                              class="flex items-center justify-center p-2"
-                              target="_blank"
-                              :href="
+                            class="flex items-center justify-center p-2"
+                            target="_blank"
+                            :href="
                             t(
                               'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.linkHref'
                             )
                           "
-                              :size="Size.xs"
-                              :variant="Variant.ghost"
+                            :size="Size.xs"
+                            :variant="Variant.ghost"
                           >
                             {{
                               t(
@@ -657,8 +657,8 @@ const visibleDatasets = computed(() => {
 
             const hasConfig =
               allDatasetConfigs.value.find(
-                 (dataset) =>
-                   dataset.route.pathSegments.join('/') === datasetPath
+                (dataset) =>
+                  dataset.route.pathSegments.join('/') === datasetPath
               ) !== undefined;
             return acceptedValues.includes('with') ? hasConfig : !hasConfig;
           });
