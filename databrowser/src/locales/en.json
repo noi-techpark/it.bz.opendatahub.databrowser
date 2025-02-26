@@ -478,6 +478,7 @@
       "datasetFound": "Dataset found",
       "datasetsFound": "Datasets found",
       "filter": "Filter",
+      "filtered": "(filtered)",
       "resetFilters": "Reset Filters",
       "noMetadataAvailable": "No metadata available",
       "deprecated": "Deprecated",
