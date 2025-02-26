@@ -10,12 +10,16 @@ import { useToolBoxStore } from '../../toolBox/toolBoxStore';
 import { useTableViewColsStore } from '../tableViewColsStore';
 import { useDatasetFilterStore } from './datasetFilterStore';
 import { Filter, FilterOperator, FilterValue } from './types';
+import {useDatasetBaseInfoStore} from "../../../config/store/datasetBaseInfoStore.ts";
 
 export const useTableFilterStore = defineStore('tableFilterStore', () => {
   const tableFilters = ref<Filter[]>([]);
 
   // Access datasetFilters from URL
   const { datasetFilters } = storeToRefs(useDatasetFilterStore());
+
+  //Access datasetDomain
+  const { datasetDomain } = storeToRefs(useDatasetBaseInfoStore());
 
   // Check if any filter is active
   const areFiltersActive = computed(() => datasetFilters.value.length > 0);
@@ -61,7 +65,7 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
     if (propertyPath != null) {
       tableFilters.value = [
         ...tableFilters.value,
-        { propertyPath, title, operator: 'like', value: '' },
+        { propertyPath, title, operator: datasetDomain.value === 'tourism' ? 'like' :'eq', value: '' },
       ];
       // Show toolbox
       useToolBoxStore().visible = true;
