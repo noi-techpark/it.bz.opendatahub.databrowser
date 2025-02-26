@@ -56,7 +56,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               :size="Size.xm2col"
               @click="showMap()"
             >
-              <IconLocationOn/>
+              <IconLocationOn />
               {{ t('overview.listPage.showOnMap') }}
             </ButtonCustom>
           </div>
@@ -64,7 +64,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           <!-- Filters -->
           <div
             class="fixed inset-0 w-full shrink-0 rounded border border-gray-300 bg-white pb-3 md:relative md:block md:w-64"
-              :class="{
+            :class="{
               hidden: !isFiltersModalVisible,
             }"
           >

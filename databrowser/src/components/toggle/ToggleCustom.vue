@@ -53,18 +53,20 @@ const turnedOn = computed({
 });
 
 const switchColorClass = computed(() => {
-  if (props.disabled) {
+  if (props.disabled === true) {
     return 'border-gray-400';
   }
 
-  return turnedOn.value ? props.activeBorderClass : props.inactiveBorderClass;
+  return turnedOn.value === true
+      ? props.activeBorderClass
+      : props.inactiveBorderClass;
 });
 
 const spanColorClass = computed(() => {
-  if (props.disabled) {
+  if (props.disabled === true) {
     return 'bg-gray-400';
   }
 
-  return turnedOn.value ? props.activeBgClass : props.inactiveBgClass;
+  return turnedOn.value === true ? props.activeBgClass : props.inactiveBgClass;
 });
 </script>

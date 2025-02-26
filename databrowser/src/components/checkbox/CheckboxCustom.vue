@@ -35,9 +35,9 @@ const props = withDefaults(
     disabled?: boolean;
   }>(),
   {
-   label: undefined,
-   tabbable: true,
-   disabled: false,
+    label: undefined,
+    tabbable: true,
+    disabled: false,
   }
 );
 
