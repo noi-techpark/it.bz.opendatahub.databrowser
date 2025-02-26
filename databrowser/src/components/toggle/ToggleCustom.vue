@@ -58,8 +58,8 @@ const switchColorClass = computed(() => {
   }
 
   return turnedOn.value === true
-      ? props.activeBorderClass
-      : props.inactiveBorderClass;
+    ? props.activeBorderClass
+    : props.inactiveBorderClass;
 });
 
 const spanColorClass = computed(() => {
