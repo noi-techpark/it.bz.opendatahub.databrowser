@@ -32,7 +32,6 @@ const props = withDefaults(
     activeBgClass?: string;
     inactiveBorderClass?: string;
     inactiveBgClass?: string;
-
   }>(),
   {
     modelValue: true,
