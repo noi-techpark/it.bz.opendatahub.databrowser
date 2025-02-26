@@ -12,17 +12,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
       <div class="flex w-full flex-col items-start gap-2 md:flex-row md:gap-10">
         <!-- Mobile search -->
         <OverviewListSearch
-            v-model:search-term="filters.searchVal"
-            class="md:hidden"
-            :is-other-datasets-loading="isMetaDataLoading"
-            :visible-datasets="visibleDatasets"
+          v-model:search-term="filters.searchVal"
+          class="md:hidden"
+          :is-other-datasets-loading="isMetaDataLoading"
+          :visible-datasets="visibleDatasets"
         />
 
         <!-- Mobile map button -->
         <ButtonCustom
-            :size="Size.xm2col"
-            class="flex items-center justify-center gap-2 uppercase md:hidden"
-            @click="showMap()"
+          :size="Size.xm2col"
+          class="flex items-center justify-center gap-2 uppercase md:hidden"
+          @click="showMap()"
         >
           <IconLocationOn />
           {{ t('overview.listPage.showOnMap') }}
@@ -30,15 +30,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
         <!-- Mobile filters button -->
         <button
-            class="flex w-full shrink-0 items-center gap-2 rounded border border-gray-300 px-3 py-2 font-semibold text-green-400 md:hidden"
-            @click="showFilters"
+          class="flex w-full shrink-0 items-center gap-2 rounded border border-gray-300 px-3 py-2 font-semibold text-green-400 md:hidden"
+          @click="showFilters"
         >
           <div class="grow">
             {{ t('overview.listPage.showFilters') }}
           </div>
           <div
-              v-if="appliedFiltersNum"
-              class="rounded bg-gray-200 px-2 text-sm text-gray-900"
+            v-if="appliedFiltersNum"
+            class="rounded bg-gray-200 px-2 text-sm text-gray-900"
           >
             {{ appliedFiltersNum }}
           </div>
@@ -48,12 +48,12 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <div class="flex flex-col gap-3">
           <!-- Desktop map button -->
           <div
-              class="hidden shrink-0 items-center justify-center bg-auto md:flex md:w-64 md:bg-[url('/map-black-white.jpg')]"
+            class="hidden shrink-0 items-center justify-center bg-auto md:flex md:w-64 md:bg-[url('/map-black-white.jpg')]"
           >
             <ButtonCustom
-                class="flex items-center justify-center gap-2 uppercase md:my-16"
-                :size="Size.xm2col"
-                @click="showMap()"
+              class="flex items-center justify-center gap-2 uppercase md:my-16"
+              :size="Size.xm2col"
+              @click="showMap()"
             >
               <IconLocationOn />
               {{ t('overview.listPage.showOnMap') }}
@@ -62,30 +62,30 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
           <!-- Filters -->
           <div
-              class="fixed inset-0 w-full shrink-0 rounded border border-gray-300 bg-white pb-3 md:relative md:block md:w-64"
-              :class="{
+            class="fixed inset-0 w-full shrink-0 rounded border border-gray-300 bg-white pb-3 md:relative md:block md:w-64"
+            :class="{
               hidden: !isFiltersModalVisible,
             }"
           >
             <!-- Title -->
             <div
-                class="fixed top-0 z-10 flex w-full items-center gap-1 bg-white md:relative"
+              class="fixed top-0 z-10 flex w-full items-center gap-1 bg-white md:relative"
             >
               <h3
-                  class="flex grow items-center gap-2 px-3 py-2 text-2xl font-semibold text-gray-900"
+                class="flex grow items-center gap-2 px-3 py-2 text-2xl font-semibold text-gray-900"
               >
                 {{ t('overview.listPage.filter') }}
                 <div
-                    v-if="appliedFiltersNum"
-                    class="rounded bg-gray-200 px-2 text-sm text-gray-900"
+                  v-if="appliedFiltersNum"
+                  class="rounded bg-gray-200 px-2 text-sm text-gray-900"
                 >
                   {{ appliedFiltersNum }}
                 </div>
               </h3>
 
               <ResetAllFilters
-                  class="mr-3 text-xs"
-                  @reset-all-filters="resetFilters"
+                class="mr-3 text-xs"
+                @reset-all-filters="resetFilters"
               />
               <button
                   class="mr-3 flex size-6 items-center justify-center rounded border border-gray-300 text-green-400 md:hidden"
@@ -98,25 +98,25 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <!-- Filters list -->
             <div class="h-full overflow-y-auto py-14 md:h-auto md:p-0">
               <button
-                  class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
-                  @click="toggleFilter('hasNoMetadata')"
+                class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
+                @click="toggleFilter('hasNoMetadata')"
               >
                 <ToggleCustom
-                    ref="metadataToggle"
-                    v-model="_inputModels.hasNoMetadata"
-                    class="mr-2"
+                  ref="metadataToggle"
+                  v-model="_inputModels.hasNoMetadata"
+                  class="mr-2"
                 />
                 {{ t('overview.listPage.noMetadataAvailable') }}
               </button>
               <button
-                  class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
-                  @click="toggleFilter('deprecated')"
+                class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
+                @click="toggleFilter('deprecated')"
               >
                 <div class="flex items-center gap-2">
                   <div>
                     <ToggleCustom
-                        v-model="_inputModels.deprecated"
-                        class="mr-2"
+                      v-model="_inputModels.deprecated"
+                      class="mr-2"
                     />
                     {{ t('overview.listPage.deprecated') }}
                   </div>
@@ -160,24 +160,24 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 </div>
               </button>
               <Accordion
-                  v-for="filter in dynamicFilters"
-                  :key="filter.id"
-                  :text="filter.name"
-                  button-class="font-semibold text-gray-900 pb-2 px-4"
-                  :badge-value="
+                v-for="filter in dynamicFilters"
+                :key="filter.id"
+                :text="filter.name"
+                button-class="font-semibold text-gray-900 pb-2 px-4"
+                :badge-value="
                   getActiveFiltersCountOfGroup(
                     filter.id as TourismMetaDataIndexes
                   )
                 "
-                  class="border-t border-gray-300 pt-2 text-dialog"
+                class="border-t border-gray-300 pt-2 text-dialog"
               >
                 <div
-                    v-for="option in filter.data"
-                    :key="option.key"
-                    class="flex items-center border-t border-gray-300 px-4 py-2"
+                  v-for="option in filter.data"
+                  :key="option.key"
+                  class="flex items-center border-t border-gray-300 px-4 py-2"
                 >
                   <CheckboxCustom
-                      v-model="
+                    v-model="
                       _inputModels[
                         getInputModelId(
                           filter.id as TourismMetaDataIndexes,
@@ -185,13 +185,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         )
                       ]
                     "
-                      class="mr-2"
-                      :label="option.value"
-                      @input="toggleFilter(filter.id, option.key)"
+                    class="mr-2"
+                    :label="option.value"
+                    @input="toggleFilter(filter.id, option.key)"
                   />
                   <InfoPopover
-                      v-if="filter.id === 'singleDataset'"
-                      class="ml-2"
+                    v-if="filter.id === 'singleDataset'"
+                    class="ml-2"
                   >
                     <PopoverCustomPanel>
                       <PopoverContent>
@@ -205,15 +205,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
             <!-- Action buttons -->
             <div
-                class="fixed bottom-0 flex w-full gap-3 border-t border-gray-300 bg-white px-3 py-4 md:relative md:w-auto md:py-3 md:pb-0"
+              class="fixed bottom-0 flex w-full gap-3 border-t border-gray-300 bg-white px-3 py-4 md:relative md:w-auto md:py-3 md:pb-0"
             >
               <ResetAllFilters
-                  class="flex flex-1 items-center justify-center text-sm"
-                  @reset-all-filters="resetFilters"
+                class="flex flex-1 items-center justify-center text-sm"
+                @reset-all-filters="resetFilters"
               />
               <button
-                  class="flex flex-1 cursor-pointer select-none items-center justify-center gap-1 rounded border border-gray-300 bg-green-400 py-1 text-sm text-white md:hidden"
-                  @click="hideFilters"
+                class="flex flex-1 cursor-pointer select-none items-center justify-center gap-1 rounded border border-gray-300 bg-green-400 py-1 text-sm text-white md:hidden"
+                @click="hideFilters"
               >
                 {{ t('overview.listPage.applyFilters') }}
               </button>
@@ -223,10 +223,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
         <div class="w-full">
           <OverviewListSearch
-              v-model:search-term="filters.searchVal"
-              class="mb-3 hidden md:flex"
-              :is-other-datasets-loading="isMetaDataLoading"
-              :visible-datasets="visibleDatasets"
+            v-model:search-term="filters.searchVal"
+            class="mb-3 hidden md:flex"
+            :is-other-datasets-loading="isMetaDataLoading"
+            :visible-datasets="visibleDatasets"
           />
           <!-- Results -->
           <div class="flex min-h-screen flex-col gap-4">
@@ -235,15 +235,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             </div>
             <template v-else>
               <OverviewCardItem
-                  v-for="(dataset, index) in visibleDatasets"
-                  :key="index"
-                  :dataset="dataset"
-                  :data-test="`dataset-card-${dataset.id}`"
-                  class="break-words"
+                v-for="(dataset, index) in visibleDatasets"
+                :key="index"
+                :dataset="dataset"
+                :data-test="`dataset-card-${dataset.id}`"
+                class="break-words"
               />
               <div
-                  v-if="!visibleDatasets.length"
-                  class="flex items-center justify-center rounded border border-gray-300 p-3"
+                v-if="!visibleDatasets.length"
+                class="flex items-center justify-center rounded border border-gray-300 p-3"
               >
                 {{ t('overview.listPage.noDatasetFoundWithSelectedFilters') }}
               </div>
@@ -297,26 +297,26 @@ const { t } = useI18n();
 const router = useRouter();
 
 const showMap = () =>
-    router.push({ query: { ...router.currentRoute.value.query, map: 'true' } });
+  router.push({ query: { ...router.currentRoute.value.query, map: 'true' } });
 
 const hideMap = () =>
-    router.push({
-      query: { ...router.currentRoute.value.query, map: undefined },
-    });
+  router.push({
+    query: { ...router.currentRoute.value.query, map: undefined },
+  });
 
 const mapVisible = computed(
-    () => router.currentRoute.value.query.map === 'true'
+  () => router.currentRoute.value.query.map === 'true'
 );
 
 type TourismMetaDataIndexes =
-    | 'dataSpace'
-    | 'categories'
-    | 'tags'
-    | 'datasetConfigurations'
-    | 'access'
-    | 'sources'
-    | 'dataProviders'
-    | 'singleDataset';
+  | 'dataSpace'
+  | 'categories'
+  | 'tags'
+  | 'datasetConfigurations'
+  | 'access'
+  | 'sources'
+  | 'dataProviders'
+  | 'singleDataset';
 
 interface Filters {
   searchVal: string;
@@ -353,17 +353,17 @@ const filters = ref(structuredClone(defaultFilters) as Filters);
 
 // Methods
 const setInputModelKeyValue = (
-    key: TourismMetaDataIndexes,
-    propName: string
+  key: TourismMetaDataIndexes,
+  propName: string
 ) => {
   // NOTE: defining the object key here it's necessary to properly reset the object programmatically with the reset button. Using the filters array to handle component's v-model will lead into too much code complexity.
   _inputModels.value[getInputModelId(key as TourismMetaDataIndexes, propName)] =
-      false;
+    false;
 };
 
 const mapDatasetsKeyArrayToFilterItems = (
-    datasets: TourismMetaData[],
-    key: TourismMetaDataIndexes
+  datasets: TourismMetaData[],
+  key: TourismMetaDataIndexes
 ) => {
   const addedProps: Record<string, boolean> = {};
   const finalList: FilterSelectItem[] = [];
@@ -384,8 +384,8 @@ const mapDatasetsKeyArrayToFilterItems = (
 };
 
 const mapDatasetsKeyStringToFilterItems = (
-    datasets: TourismMetaData[],
-    key: TourismMetaDataIndexes
+  datasets: TourismMetaData[],
+  key: TourismMetaDataIndexes
 ) => {
   const addedProps = {} as Record<string, boolean>;
   const finalList: FilterSelectItem[] = [];
@@ -470,9 +470,9 @@ const getInputModelId = (matchType: TourismMetaDataIndexes, match: string) => {
 };
 
 const getDynamicFilterObject = (
-    id: string,
-    name: string,
-    data: FilterSelectItem[]
+  id: string,
+  name: string,
+  data: FilterSelectItem[]
 ): DynamicFilter => {
   return {
     id,
@@ -530,49 +530,49 @@ const allDatasetConfigs = computed(() => {
 });
 
 const dynamicFilters = computed(
-    () =>
-        [
-          getDynamicFilterObject(
-              'dataSpace',
-              t('overview.listPage.dataSpace'),
-              availableDataSpaces.value
-          ),
-          getDynamicFilterObject(
-              'categories',
-              t('overview.listPage.categories'),
-              availableCategories.value
-          ),
-          getDynamicFilterObject(
-              'tags',
-              t('overview.listPage.tags'),
-              availableTags.value
-          ),
-          getDynamicFilterObject(
-              'datasetConfigurations',
-              t('overview.listPage.datasetConfigurations'),
-              availableDatasetConfigurations.value
-          ),
-          getDynamicFilterObject(
-              'access',
-              t('overview.listPage.accessType'),
-              availableAccessTypes.value
-          ),
-          getDynamicFilterObject(
-              'dataProviders',
-              t('overview.listPage.dataProvider'),
-              availableDataProviders.value
-          ),
-          getDynamicFilterObject(
-              'sources',
-              t('overview.listPage.source'),
-              availableSources.value
-          ),
-          getDynamicFilterObject(
-              'singleDataset',
-              t('overview.listPage.dataset'),
-              availableDatasetFilters.value
-          ),
-        ] as DynamicFilter[]
+  () =>
+    [
+      getDynamicFilterObject(
+        'dataSpace',
+        t('overview.listPage.dataSpace'),
+        availableDataSpaces.value
+      ),
+      getDynamicFilterObject(
+        'categories',
+        t('overview.listPage.categories'),
+        availableCategories.value
+      ),
+      getDynamicFilterObject(
+        'tags',
+        t('overview.listPage.tags'),
+        availableTags.value
+      ),
+      getDynamicFilterObject(
+        'datasetConfigurations',
+        t('overview.listPage.datasetConfigurations'),
+        availableDatasetConfigurations.value
+      ),
+      getDynamicFilterObject(
+        'access',
+        t('overview.listPage.accessType'),
+        availableAccessTypes.value
+      ),
+      getDynamicFilterObject(
+        'dataProviders',
+        t('overview.listPage.dataProvider'),
+        availableDataProviders.value
+      ),
+      getDynamicFilterObject(
+        'sources',
+        t('overview.listPage.source'),
+        availableSources.value
+      ),
+      getDynamicFilterObject(
+        'singleDataset',
+        t('overview.listPage.dataset'),
+        availableDatasetFilters.value
+      ),
+    ] as DynamicFilter[]
 );
 
 const { metaData, isMetaDataLoading } = useMetaDataForAllDatasets();
@@ -582,9 +582,9 @@ const visibleDatasets = computed(() => {
 
   if (filters.value.searchVal) {
     datasets = datasets.filter((dataset) =>
-        dataset.shortname
-            .toLowerCase()
-            .includes(filters.value.searchVal.toLowerCase())
+      dataset.shortname
+         .toLowerCase()
+         .includes(filters.value.searchVal.toLowerCase())
     );
   }
 
@@ -605,9 +605,9 @@ const visibleDatasets = computed(() => {
       case 'dataSpace':
       case 'access':
         datasets = datasets.filter((dataset) =>
-            acceptedValues.includes(
-                dataset[key as TourismMetaDataIndexes] as string | boolean
-            )
+           acceptedValues.includes(
+             dataset[key as TourismMetaDataIndexes] as string | boolean
+           )
         );
         break;
 
@@ -617,11 +617,11 @@ const visibleDatasets = computed(() => {
       case 'dataProviders':
         datasets = datasets.filter((dataset) => {
           const filtrableValues = dataset[
-              key as TourismMetaDataIndexes
-              ]! as string[];
+            key as TourismMetaDataIndexes
+            ]! as string[];
           if (filtrableValues?.length) {
             return filtrableValues.find((value) =>
-                acceptedValues.includes(value)
+              acceptedValues.includes(value)
             );
           }
         });
@@ -629,8 +629,8 @@ const visibleDatasets = computed(() => {
 
       case 'singleDataset':
         if (
-            !acceptedValues.includes('aggregated') ||
-            !acceptedValues.includes('single')
+          !acceptedValues.includes('aggregated') ||
+          !acceptedValues.includes('single')
         ) {
           datasets = datasets.filter((dataset) => {
             let matchPref = true;
@@ -638,7 +638,7 @@ const visibleDatasets = computed(() => {
               matchPref = false;
             }
             return (
-                (dataset[key as TourismMetaDataIndexes]! as boolean) === matchPref
+              (dataset[key as TourismMetaDataIndexes]! as boolean) === matchPref
             );
           });
         }
@@ -656,10 +656,10 @@ const visibleDatasets = computed(() => {
             }
 
             const hasConfig =
-                allDatasetConfigs.value.find(
-                    (dataset) =>
-                        dataset.route.pathSegments.join('/') === datasetPath
-                ) !== undefined;
+              allDatasetConfigs.value.find(
+                  (dataset) =>
+                      dataset.route.pathSegments.join('/') === datasetPath
+              ) !== undefined;
             return acceptedValues.includes('with') ? hasConfig : !hasConfig;
           });
         }
@@ -710,12 +710,12 @@ const availableDatasetFilters = computed(() => {
 const availableDatasetConfigurations = computed(() => {
   const filters = [
     getFilterSectionItemObject(
-        'with',
-        t('overview.listPage.withConfiguration')
+      'with',
+      t('overview.listPage.withConfiguration')
     ),
     getFilterSectionItemObject(
-        'without',
-        t('overview.listPage.withoutConfiguration')
+      'without',
+      t('overview.listPage.withoutConfiguration')
     ),
   ];
 
