@@ -15,10 +15,13 @@ export function updateURL(router: Router, filters: string[] = [], searchQuery: s
     if (filters.length) newQuery['rawfilter'] = filters.join('&');
     if (searchQuery) newQuery['search'] = searchQuery;
 
+    if (currentQuery.datasetIds) newQuery['datasetIds'] = <string>currentQuery.datasetIds;
+    if (currentQuery.map) newQuery['map'] = <string>currentQuery.map;
+
     queryStore.setLastQuery(newQuery);
     if (JSON.stringify(currentQuery) === JSON.stringify(newQuery)) return;
 
-    return router.push({query: newQuery});
+    return router.push({ query: newQuery });
 }
 
 export function getStartedQuery() {
