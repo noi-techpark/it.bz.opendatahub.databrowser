@@ -10,7 +10,7 @@ import { useToolBoxStore } from '../../toolBox/toolBoxStore';
 import { useTableViewColsStore } from '../tableViewColsStore';
 import { useDatasetFilterStore } from './datasetFilterStore';
 import { Filter, FilterOperator, FilterValue } from './types';
-import {useDatasetBaseInfoStore} from "../../../config/store/datasetBaseInfoStore.ts";
+import { useDatasetBaseInfoStore } from '../../../config/store/datasetBaseInfoStore.ts';
 
 export const useTableFilterStore = defineStore('tableFilterStore', () => {
   const tableFilters = ref<Filter[]>([]);
@@ -65,7 +65,12 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
     if (propertyPath != null) {
       tableFilters.value = [
         ...tableFilters.value,
-        { propertyPath, title, operator: datasetDomain.value === 'tourism' ? 'like' :'eq', value: '' },
+        {
+          propertyPath,
+          title,
+          operator: datasetDomain.value === 'tourism' ? 'like' : 'eq',
+          value: '',
+        },
       ];
       // Show toolbox
       useToolBoxStore().visible = true;
@@ -126,10 +131,10 @@ export const useTableFilterStore = defineStore('tableFilterStore', () => {
   };
 
   const updateFilterValueByAllSelectedTable = (
-      tableFiltersSelected: Filter[], // Array of strings
-      applyFilter = true
+    tableFiltersSelected: Filter[], // Array of strings
+    applyFilter = true
   ) => {
-      tableFilters.value = tableFiltersSelected
+    tableFilters.value = tableFiltersSelected;
 
     // Apply filters to the URL if requested
     if (applyFilter) {
