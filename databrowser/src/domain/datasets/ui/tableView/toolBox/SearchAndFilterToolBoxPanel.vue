@@ -59,8 +59,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           class="flex items-center gap-2 p-2 py-1"
           :size="Size.xs"
           :variant="Variant.solid"
-          @confirmed-value="emit('filter', $event)"
-          @update:model-value="emit('update:modelValue', $event)"
           @click="updateGlobalFilter(tableFilters, true)"
         >
           <IconFilter />
@@ -121,8 +119,6 @@ const filterTypeSelectOptions = computed(() => {
   }
   return [];
 });
-
-const emit = defineEmits(['filter', 'update:modelValue']);
 
 const { tableFilters, filterColSelectOptions } = storeToRefs(
   useTableFilterStore()
