@@ -420,11 +420,6 @@ onBeforeMount(() => {
 const resetFilters = () => {
   updateURL(router, [], '');
 
-  router.replace({
-    path: router.currentRoute.value.path,
-    query: { reset: 'true' }
-  });
-
   filters.value = structuredClone(defaultFilters);
   filterSelectedForComponent.value = [];
 

@@ -80,17 +80,6 @@ const isFullWidthNav = computed(() => {
   return currentRoute.value.path.startsWith('/dataset/');
 });
 
-const router = useRouter()
-
-router.beforeEach((to, from, next) => {
-  // todo clear the url when resetting
-  if (to.name === 'OverviewListPage' && from.name === 'OverviewListPage' && from.fullPath.startsWith('/?') && Object.keys(to.query).length === 0) {
-    next(from.fullPath);
-  } else {
-    next();
-  }
-});
-
 function toggleMenu() {
   emit('toggleMenu', !props.isMenuOpen);
 }
