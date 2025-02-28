@@ -13,6 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <!-- Mobile search -->
         <OverviewListSearch
           v-model:search-term="filters.searchVal"
+          :updated-filters="updatedFilters"
           class="md:hidden"
           :is-other-datasets-loading="isMetaDataLoading"
           :visible-datasets="visibleDatasets"
@@ -101,9 +102,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
                 @click="toggleFilter('hasNoMetadata')"
               >
-                <ToggleCustom
+                <ToggleCustomHomePage
                   ref="metadataToggle"
                   v-model="_inputModels.hasNoMetadata"
+                  :filter-key="'hasNoMetadata'"
+                  :filter-selected="filterSelectedForComponent"
                   class="mr-2"
                 />
                 {{ t('overview.listPage.noMetadataAvailable') }}
@@ -114,8 +117,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               >
                 <div class="flex items-center gap-2">
                   <div>
-                    <ToggleCustom
+                    <ToggleCustomHomePage
                       v-model="_inputModels.deprecated"
+                      :filter-key="'deprecated'"
+                      :filter-selected="filterSelectedForComponent"
                       class="mr-2"
                     />
                     {{ t('overview.listPage.deprecated') }}
@@ -165,6 +170,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 v-for="filter in dynamicFilters"
                 :key="filter.id"
                 :text="filter.name"
+                :accordion-id="filter.id"
+                :filter-selected="filterSelectedForComponent"
                 button-class="font-semibold text-gray-900 pb-2 px-4"
                 :badge-value="
                   getActiveFiltersCountOfGroup(
@@ -178,7 +185,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                   :key="option.key"
                   class="flex items-center border-t border-gray-300 px-4 py-2"
                 >
-                  <CheckboxCustom
+                  <CheckboxCustomHomePage
                     v-model="
                       _inputModels[
                         getInputModelId(
@@ -188,7 +195,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                       ]
                     "
                     class="mr-2"
+                    :filter-key="filter.id?.toLowerCase()"
+                    :filter-label="option.key?.toLowerCase()"
                     :label="option.value"
+                    :key="option.key"
+                    :filter-selected="filterSelectedForComponent"
                     @input="toggleFilter(filter.id, option.key)"
                   />
                   <InfoPopover
@@ -226,6 +237,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <div class="w-full">
           <OverviewListSearch
             v-model:search-term="filters.searchVal"
+            :updated-filters="updatedFilters"
             class="mb-3 hidden md:flex"
             :is-other-datasets-loading="isMetaDataLoading"
             :visible-datasets="visibleDatasets"
@@ -264,14 +276,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import Accordion from '../../../components/accordion/Accordion.vue';
 import ButtonCustom from '../../../components/button/ButtonCustom.vue';
 import { Size, Variant } from '../../../components/button/types';
 import CardDivider from '../../../components/card/CardDivider.vue';
-import CheckboxCustom from '../../../components/checkbox/CheckboxCustom.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
 import PartnersAndContributors from '../../../components/partners/PartnersAndContributors.vue';
 import InfoPopover from '../../../components/popover/InfoPopover.vue';
@@ -280,7 +291,6 @@ import PopoverCustomPanel from '../../../components/popover/PopoverCustomPanel.v
 import IconClose from '../../../components/svg/IconClose.vue';
 import IconFilter from '../../../components/svg/IconFilter.vue';
 import IconLocationOn from '../../../components/svg/IconLocationOn.vue';
-import ToggleCustom from '../../../components/toggle/ToggleCustom.vue';
 import { embeddedDatasetConfigs } from '../../../config/config';
 import { DatasetConfig } from '../../../domain/datasets/config/types';
 import MapViewAsDialog from '../../../domain/datasets/ui/mapView/MapViewAsDialog.vue';
@@ -293,6 +303,12 @@ import ButtonExternalLink from '../../../components/button/ButtonExternalLink.vu
 import PopoverContentHeader from '../../../components/popover/PopoverContentHeader.vue';
 import OverviewListSearch from './OverviewListSearch.vue';
 import { useMetaDataForAllDatasets } from './useDatasets';
+import {
+  getStartedQuery,
+  useUpdateURL,
+} from '../../../domain/homepage/utils.ts';
+import CheckboxCustomHomePage from '../../../components/checkbox/CheckboxCustomHomePage.vue';
+import ToggleCustomHomePage from '../../../components/toggle/ToggleCustomHomePage.vue';
 
 const { t } = useI18n();
 
@@ -414,8 +430,47 @@ const hideFilters = () => {
   isFiltersModalVisible.value = false;
 };
 
+const filterSelectedForComponent = ref<{ key: string; value: string }[]>([]);
+
+const initializeFiltersAndSearch = () => {
+  const { filterQuery, searchQuery } = getStartedQuery();
+  if (
+    !searchQuery &&
+    searchQuery !== '' &&
+    !filterQuery &&
+    filterQuery.length === 0
+  ) {
+    return;
+  }
+  if (searchQuery) {
+    filters.value.searchVal = searchQuery;
+    if (!filterQuery && filterQuery.length === 0)
+      useUpdateURL(router, [], searchQuery);
+  }
+  if (filterQuery && filterQuery.length > 0) {
+    filterSelectedForComponent.value = decodeURIComponent(filterQuery)
+      .split('&')
+      .map((filter) => {
+        const [key, ...valueParts] = filter.split('-');
+        const value =
+          key === 'hasNoMetadata' || key === 'deprecated'
+            ? ''
+            : valueParts.join('-');
+        toggleFilter(key, value);
+        return { key, value };
+      });
+  }
+};
+
+onBeforeMount(() => {
+  return initializeFiltersAndSearch();
+});
+
 const resetFilters = () => {
+  useUpdateURL(router, [], '');
+
   filters.value = structuredClone(defaultFilters);
+  filterSelectedForComponent.value = [];
 
   for (const [key] of Object.entries(_inputModels.value)) {
     _inputModels.value[key] = false;
@@ -428,12 +483,40 @@ const isFilterEnabled = (key: string, value?: string) => {
   return filters.value.applied[filterFullKey] !== undefined;
 };
 
+const updatedFilters = ref<string[]>([]);
+
+const createStringFilter = (key: string, value?: string) => {
+  return key === 'hasNoMetadata' || key === 'deprecated'
+    ? `${key}-true`
+    : `${key}-${value}`;
+};
+
+const getParams = (): string[] => {
+  const query = router.currentRoute.value.query;
+  const filterQuery = query['filterQuery'] ? query['filterQuery'] : [];
+
+  return typeof filterQuery === 'string' ? filterQuery.split('&') : [];
+};
+
 const toggleFilter = (key: string, value?: string) => {
+  const filterString = createStringFilter(key, value);
+  const currentFilters: string[] = getParams();
   if (isFilterEnabled(key, value)) {
+    if (currentFilters.includes(filterString)) {
+      updatedFilters.value = currentFilters.filter(
+        (filter) => filter !== filterString
+      );
+    }
     unsetFilter(key, value);
   } else {
+    updatedFilters.value = [...currentFilters, filterString].filter(
+      (filter, index, self) => self.findIndex((f) => f === filter) === index
+    );
+
     setFilter(key, value);
   }
+
+  useUpdateURL(router, updatedFilters.value, filters.value.searchVal);
 };
 
 const setFilter = (key: string, value?: string) => {
@@ -601,13 +684,20 @@ const visibleDatasets = computed(() => {
   }
 
   for (const [key, acceptedValues] of Object.entries(filterGroups)) {
+    const parsedAcceptedValues = acceptedValues.map((value) => {
+      if (value === 'true' || value === 'false') {
+        return JSON.parse(value);
+      }
+      return value;
+    });
+
     switch (key) {
       case 'hasNoMetadata':
       case 'deprecated':
       case 'dataSpace':
       case 'access':
         datasets = datasets.filter((dataset) =>
-          acceptedValues.includes(
+          parsedAcceptedValues.includes(
             dataset[key as TourismMetaDataIndexes] as string | boolean
           )
         );
@@ -623,7 +713,7 @@ const visibleDatasets = computed(() => {
           ]! as string[];
           if (filtrableValues?.length) {
             return filtrableValues.find((value) =>
-              acceptedValues.includes(value)
+              parsedAcceptedValues.includes(value)
             );
           }
         });
@@ -631,12 +721,12 @@ const visibleDatasets = computed(() => {
 
       case 'singleDataset':
         if (
-          !acceptedValues.includes('aggregated') ||
-          !acceptedValues.includes('single')
+          !parsedAcceptedValues.includes('aggregated') ||
+          !parsedAcceptedValues.includes('single')
         ) {
           datasets = datasets.filter((dataset) => {
             let matchPref = true;
-            if (acceptedValues.includes('aggregated')) {
+            if (parsedAcceptedValues.includes('aggregated')) {
               matchPref = false;
             }
             return (
@@ -648,8 +738,8 @@ const visibleDatasets = computed(() => {
 
       case 'datasetConfigurations':
         if (
-          !acceptedValues.includes('with') ||
-          !acceptedValues.includes('without')
+          !parsedAcceptedValues.includes('with') ||
+          !parsedAcceptedValues.includes('without')
         ) {
           datasets = datasets.filter((dataset) => {
             const datasetPath = dataset.pathSegments.join('/');
@@ -662,7 +752,9 @@ const visibleDatasets = computed(() => {
                 (dataset) =>
                   dataset.route.pathSegments.join('/') === datasetPath
               ) !== undefined;
-            return acceptedValues.includes('with') ? hasConfig : !hasConfig;
+            return parsedAcceptedValues.includes('with')
+              ? hasConfig
+              : !hasConfig;
           });
         }
         break;
