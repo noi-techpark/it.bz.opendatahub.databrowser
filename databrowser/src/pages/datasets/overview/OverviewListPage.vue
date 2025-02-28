@@ -112,8 +112,54 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 class="w-full truncate border-t border-gray-300 px-3 py-2 text-left text-dialog"
                 @click="toggleFilter('deprecated')"
               >
-                <ToggleCustom v-model="_inputModels.deprecated" class="mr-2" />
-                {{ t('overview.listPage.deprecated') }}
+                <div class="flex items-center gap-2">
+                  <div>
+                    <ToggleCustom
+                      v-model="_inputModels.deprecated"
+                      class="mr-2"
+                    />
+                    {{ t('overview.listPage.deprecated') }}
+                  </div>
+                  <div>
+                    <InfoPopover>
+                      <PopoverCustomPanel>
+                        <PopoverContentHeader class="pb-0">
+                          {{
+                            t(
+                              'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.header'
+                            )
+                          }}
+                        </PopoverContentHeader>
+                        <PopoverContent
+                          class="flex max-w-sm flex-col gap-3 pt-2"
+                        >
+                          {{
+                            t(
+                              'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.body'
+                            )
+                          }}
+                          <ButtonExternalLink
+                            class="flex items-center justify-center p-2"
+                            target="_blank"
+                            :href="
+                              t(
+                                'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.linkHref'
+                              )
+                            "
+                            :size="Size.xs"
+                            :variant="Variant.ghost"
+                          >
+                            {{
+                              t(
+                                'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.linkText'
+                              )
+                            }}
+                          </ButtonExternalLink>
+                        </PopoverContent>
+                      </PopoverCustomPanel>
+                    </InfoPopover>
+                  </div>
+                </div>
               </button>
               <Accordion
                 v-for="filter in dynamicFilters"
@@ -223,7 +269,7 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import Accordion from '../../../components/accordion/Accordion.vue';
 import ButtonCustom from '../../../components/button/ButtonCustom.vue';
-import { Size } from '../../../components/button/types';
+import { Size, Variant } from '../../../components/button/types';
 import CardDivider from '../../../components/card/CardDivider.vue';
 import CheckboxCustom from '../../../components/checkbox/CheckboxCustom.vue';
 import PageGridContent from '../../../components/content/PageGridContent.vue';
@@ -243,6 +289,8 @@ import { TourismMetaData } from '../../../domain/metaDataConfig/tourism/types';
 import AppLayout from '../../../layouts/AppLayout.vue';
 import OverviewCardItem from './OverviewCardItem.vue';
 import OverviewListPageHero from './OverviewListPageHero.vue';
+import ButtonExternalLink from '../../../components/button/ButtonExternalLink.vue';
+import PopoverContentHeader from '../../../components/popover/PopoverContentHeader.vue';
 import OverviewListSearch from './OverviewListSearch.vue';
 import { useMetaDataForAllDatasets } from './useDatasets';
 
