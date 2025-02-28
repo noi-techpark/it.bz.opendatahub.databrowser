@@ -54,7 +54,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
           @filter="updateFilter(index, filter.operator, $event, true)"
         />
       </ToolBoxCardBody>
-      <ToolBoxCardBody class="flex justify-between">
+      <ToolBoxCardBody>
         <ButtonCustom
           class="flex items-center gap-2 p-2 py-1"
           :size="Size.xs"

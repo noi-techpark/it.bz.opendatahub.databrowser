@@ -114,10 +114,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               >
                 <div class="flex items-center gap-2">
                   <div>
-                    <ToggleCustom
-                      v-model="_inputModels.deprecated"
-                      class="mr-2"
-                    />
+                    <ToggleCustom v-model="_inputModels.deprecated" class="mr-2"/>
                     {{ t('overview.listPage.deprecated') }}
                   </div>
                   <div>
