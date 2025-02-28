@@ -114,7 +114,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
               >
                 <div class="flex items-center gap-2">
                   <div>
-                    <ToggleCustom v-model="_inputModels.deprecated" class="mr-2"/>
+                    <ToggleCustom
+                      v-model="_inputModels.deprecated"
+                      class="mr-2"
+                    />
                     {{ t('overview.listPage.deprecated') }}
                   </div>
                   <div>
@@ -123,30 +126,32 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         <PopoverContentHeader class="pb-0">
                           {{
                             t(
-                                'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.header'
+                              'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.header'
                             )
                           }}
                         </PopoverContentHeader>
-                        <PopoverContent class="flex max-w-sm flex-col gap-3 pt-2">
+                        <PopoverContent
+                          class="flex max-w-sm flex-col gap-3 pt-2"
+                        >
                           {{
                             t(
-                                'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.body'
+                              'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.body'
                             )
                           }}
                           <ButtonExternalLink
                             class="flex items-center justify-center p-2"
                             target="_blank"
                             :href="
-                            t(
-                              'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.linkHref'
-                            )
-                          "
+                              t(
+                                'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.linkHref'
+                              )
+                            "
                             :size="Size.xs"
                             :variant="Variant.ghost"
                           >
                             {{
                               t(
-                                  'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.linkText'
+                                'datasets.listView.toolBox.deprecatedInfoTooltip.deprecatedInfo.infoPopup.linkText'
                               )
                             }}
                           </ButtonExternalLink>

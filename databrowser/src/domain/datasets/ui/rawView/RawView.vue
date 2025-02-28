@@ -14,7 +14,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </div>
         <VueJsonPretty
           v-else
-          :data="(data as any)"
+          :data="data as any"
           :deep="3"
           show-length
           class="flex-1"
