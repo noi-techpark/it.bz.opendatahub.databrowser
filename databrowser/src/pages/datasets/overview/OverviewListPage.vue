@@ -123,7 +123,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                 />
                 {{ t('overview.listPage.deprecated') }}
               </button>
-
               <Accordion
                 v-for="filter in dynamicFilters"
                 :key="filter.id"
@@ -153,8 +152,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                       ]
                     "
                     class="mr-2"
-                    :filter-key="filter.id"
-                    :filter-label="option.key"
+                    :filter-key="filter.id?.toLowerCase()"
+                    :filter-label="option.key?.toLowerCase()"
                     :label="option.value"
                     :key="option.key"
                     :filter-selected="filterSelectedForComponent"
@@ -259,9 +258,9 @@ import OverviewCardItem from './OverviewCardItem.vue';
 import OverviewListPageHero from './OverviewListPageHero.vue';
 import OverviewListSearch from './OverviewListSearch.vue';
 import { useMetaDataForAllDatasets } from './useDatasets';
-import { getStartedQuery, updateURL } from "../../../domain/homepage/utils.ts";
-import CheckboxCustomHomePage from "../../../components/checkbox/CheckboxCustomHomePage.vue";
-import ToggleCustomHomePage from "../../../components/toggle/ToggleCustomHomePage.vue";
+import { getStartedQuery, useUpdateURL } from '../../../domain/homepage/utils.ts';
+import CheckboxCustomHomePage from '../../../components/checkbox/CheckboxCustomHomePage.vue';
+import ToggleCustomHomePage from '../../../components/toggle/ToggleCustomHomePage.vue';
 
 const { t } = useI18n();
 
@@ -386,30 +385,27 @@ const hideFilters = () => {
 const filterSelectedForComponent = ref<{ key: string; value: string }[]>([]);
 
 const initializeFiltersAndSearch = () => {
-  const {rawfilter, searchQuery} = getStartedQuery();
-
-  if (!searchQuery && !rawfilter) {
+  const { filterQuery, searchQuery } = getStartedQuery();
+  if (!searchQuery && searchQuery !== '' && !filterQuery && filterQuery.length === 0) {
     return;
   }
-
-  if (searchQuery && searchQuery !== '') {
-    filters.value.searchVal = (searchQuery as string) || '';
-    if (!rawfilter) updateURL(router, [], searchQuery);
+  if (searchQuery) {
+    filters.value.searchVal = searchQuery;
+    if (!filterQuery && filterQuery.length === 0)
+      useUpdateURL(router, [], searchQuery);
   }
-  if (rawfilter) {
-    filterSelectedForComponent.value =
-        decodeURIComponent(rawfilter)
-            .split('&')
-            .map((filter) => {
-              const [key, ...valueParts] = filter.split('-');
-              const value =
-                  key === 'hasNoMetadata' || key === 'deprecated'
-                      ? ''
-                      : valueParts.join('-');
-
-              toggleFilter(key, value);
-              return {key, value};
-            });
+  if (filterQuery && filterQuery.length > 0) {
+    filterSelectedForComponent.value = decodeURIComponent(filterQuery)
+      .split('&')
+      .map((filter) => {
+        const [key, ...valueParts] = filter.split('-');
+        const value =
+          key === 'hasNoMetadata' || key === 'deprecated'
+            ? ''
+            : valueParts.join('-');
+        toggleFilter(key, value);
+        return { key, value };
+      });
   }
 };
 
@@ -418,7 +414,7 @@ onBeforeMount(() => {
 });
 
 const resetFilters = () => {
-  updateURL(router, [], '');
+  useUpdateURL(router, [], '');
 
   filters.value = structuredClone(defaultFilters);
   filterSelectedForComponent.value = [];
@@ -439,15 +435,15 @@ const updatedFilters = ref<string[]>([]);
 
 const createStringFilter = (key: string, value?: string) => {
   return key === 'hasNoMetadata' || key === 'deprecated'
-      ? `${key}-true`
-      : `${key}-${value}`;
+    ? `${key}-true`
+    : `${key}-${value}`;
 };
 
 const getParams = (): string[] => {
   const query = router.currentRoute.value.query;
-  const rawfilter = query['rawfilter'] ? query['rawfilter'] : [];
+  const filterQuery = query['filterQuery'] ? query['filterQuery'] : [];
 
-  return typeof rawfilter === 'string' ? rawfilter.split('&') : [];
+  return typeof filterQuery === 'string' ? filterQuery.split('&') : [];
 };
 
 const toggleFilter = (key: string, value?: string) => {
@@ -456,19 +452,19 @@ const toggleFilter = (key: string, value?: string) => {
   if (isFilterEnabled(key, value)) {
     if (currentFilters.includes(filterString)) {
       updatedFilters.value = currentFilters.filter(
-          (filter) => filter !== filterString
+        (filter) => filter !== filterString
       );
     }
     unsetFilter(key, value);
   } else {
     updatedFilters.value = [...currentFilters, filterString].filter(
-        (filter, index, self) => self.findIndex((f) => f === filter) === index
+      (filter, index, self) => self.findIndex((f) => f === filter) === index
     );
 
     setFilter(key, value);
   }
 
-  updateURL(router, updatedFilters.value, filters.value.searchVal);
+  useUpdateURL(router, updatedFilters.value, filters.value.searchVal);
 };
 
 const setFilter = (key: string, value?: string) => {

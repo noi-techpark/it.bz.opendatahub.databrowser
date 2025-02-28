@@ -2,39 +2,46 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {Router} from "vue-router";
-import {useQueryStore} from "./filterStore.ts";
-import {useRouteQuery} from "@vueuse/router";
+import { LocationQueryValue, Router } from 'vue-router';
+import { useRouteQuery } from '@vueuse/router';
 
-const queryStore = useQueryStore();
+import * as R from 'ramda';
 
-export function updateURL(router: Router, filters: string[] = [], searchQuery: string = '') {
-    const currentQuery = router.currentRoute.value.query;
-    const newQuery: Record<string, string> = {};
+export function useUpdateURL(router: Router, filters: string[] = [], searchQuery: string = '') {
+  const currentQuery = router.currentRoute.value.query;
+  const newQuery: { [key: string]: string | LocationQueryValue[] | null } = {
+    ...currentQuery,
+  };
+  if (!filters || filters.length > 0) {
+    newQuery['filterQuery'] = filters.join('&');
+  } else {
+    delete newQuery['filterQuery'];
+  }
 
-    if (filters.length) newQuery['rawfilter'] = filters.join('&');
-    if (searchQuery) newQuery['search'] = searchQuery;
+  if (searchQuery !== '') {
+    newQuery['search'] = searchQuery;
+  } else {
+    delete newQuery['search'];
+  }
 
-    if (currentQuery.datasetIds) newQuery['datasetIds'] = <string>currentQuery.datasetIds;
-    if (currentQuery.map) newQuery['map'] = <string>currentQuery.map;
-
-    queryStore.setLastQuery(newQuery);
-    if (JSON.stringify(currentQuery) === JSON.stringify(newQuery)) return;
-
+  if (!R.equals(newQuery, currentQuery)) {
     return router.push({ query: newQuery });
+  }
+
+  return;
 }
 
 export function getStartedQuery() {
-    const rawfilter = useRouteQuery<string[] | string | null>('rawfilter').value;
-    const search = useRouteQuery<string[] | string | null>('search').value;
+  const filterQuery = useRouteQuery<string[] | string | null>(
+    'filterQuery'
+  ).value;
+  const search = useRouteQuery<string | null>('search').value;
 
-    return {
-        rawfilter: Array.isArray(rawfilter)
-            ? rawfilter.join('&')
-            : rawfilter ?? '',
+  return {
+    filterQuery: Array.isArray(filterQuery)
+      ? filterQuery.join('&')
+      : (filterQuery ?? ''),
 
-        searchQuery: Array.isArray(search)
-            ? search.join(' ')
-            : search ?? ''
-    };
+    searchQuery: search,
+  };
 }
