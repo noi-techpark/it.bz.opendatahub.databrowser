@@ -5,28 +5,28 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-    <ToggleCustom v-model="turnedOn"/>
+  <ToggleCustom v-model="turnedOn" />
 </template>
 
 <script setup lang="ts">
 import { computed, watch } from 'vue';
-import ToggleCustom from "./ToggleCustom.vue";
+import ToggleCustom from './ToggleCustom.vue';
 
 const emit = defineEmits(['update:modelValue']);
 
 const props = withDefaults(
-    defineProps<{
-      modelValue?: boolean;
-      disabled?: boolean;
-      filterKey?: string;
-      filterSelected?: { key: string; value: string }[];
-    }>(),
-    {
-      modelValue: true,
-      disabled: false,
-      filterKey: '',
-      filterSelected: () => [],
-    }
+  defineProps<{
+    modelValue?: boolean;
+    disabled?: boolean;
+    filterKey?: string;
+    filterSelected?: { key: string; value: string }[];
+  }>(),
+  {
+    modelValue: true,
+    disabled: false,
+    filterKey: '',
+    filterSelected: () => [],
+  }
 );
 
 const turnedOn = computed({
@@ -35,12 +35,12 @@ const turnedOn = computed({
 });
 
 watch(
-    () => props.filterSelected,
-    (newFilterSelected) => {
-      turnedOn.value = newFilterSelected.some(
-          (filter) => filter.key === props.filterKey
-      );
-    },
-    { immediate: true }
+  () => props.filterSelected,
+  (newFilterSelected) => {
+    turnedOn.value = newFilterSelected.some(
+      (filter) => filter.key === props.filterKey
+    );
+  },
+  { immediate: true }
 );
 </script>

@@ -12,7 +12,7 @@ export function useUpdateURL(router: Router, filters: string[] = [], searchQuery
   const newQuery: { [key: string]: string | LocationQueryValue[] | null } = {
     ...currentQuery,
   };
-  if (!filters || filters.length > 0) {
+  if (filters.length > 0) {
     newQuery['filterQuery'] = filters.join('&');
   } else {
     delete newQuery['filterQuery'];
@@ -27,8 +27,6 @@ export function useUpdateURL(router: Router, filters: string[] = [], searchQuery
   if (!R.equals(newQuery, currentQuery)) {
     return router.push({ query: newQuery });
   }
-
-  return;
 }
 
 export function getStartedQuery() {
