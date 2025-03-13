@@ -17,6 +17,7 @@ import {
   locationCategory,
   logoWithMainImageCells,
   odhTagCategory,
+  tagCategory,
   seasonCategory,
   shortnameCell,
   sourceSubCategoryWithDistinct,
@@ -82,6 +83,7 @@ export const odhActivityPoiSharedView = ():
     locationCategory(),
     gpsDataCategory(),
     odhTagCategory('odhactivitypoi'),
+    tagCategory('odhactivitypoi'),
     {
       name: 'Ratings',
       slug: 'ratings',
