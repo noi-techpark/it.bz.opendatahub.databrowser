@@ -64,7 +64,7 @@ export const computeButtonClasses = ({
   tone?: Tone;
   disabled?: boolean;
 }) =>
-  'relative inline-block ' +
+  'inline-block ' +
   (disabled ? disabledClass[variant][tone] : variantClass[variant][tone]) +
   ' ' +
   sizeClass[size];
