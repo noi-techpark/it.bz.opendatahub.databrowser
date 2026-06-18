@@ -10,9 +10,13 @@ export const handleDataLoading = (
 ) => {
   // While loading show a table with empty rows
   if (isLoading) {
-    return [...Array(25).keys().map(()=>{
-      return {}
-    })];
+    return [
+      ...Array(25)
+        .keys()
+        .map(() => {
+          return {};
+        }),
+    ];
   }
 
   // If the data is null / undefined (e.g. because of an error),

@@ -2,12 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import {
-  AttributionControl,
-  LngLatBounds,
-  LngLatLike,
-  Map,
-} from 'maplibre-gl';
+import { AttributionControl, LngLatBounds, LngLatLike, Map } from 'maplibre-gl';
 import { MaybeRef, toValue, watch } from 'vue';
 import { LineString, MultiLineString } from 'geojson';
 import {

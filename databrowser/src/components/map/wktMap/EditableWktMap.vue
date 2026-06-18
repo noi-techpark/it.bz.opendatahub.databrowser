@@ -98,7 +98,11 @@ const initializeDraw = (mapInstance: Map) => {
       {
         id: 'gl-draw-line',
         type: 'line',
-        filter: ['all', ['==', '$type', 'LineString'], ['!=', 'mode', 'static']],
+        filter: [
+          'all',
+          ['==', '$type', 'LineString'],
+          ['!=', 'mode', 'static'],
+        ],
         paint: {
           'line-color': '#476929',
           'line-width': 3,
@@ -202,7 +206,7 @@ const handleDrawUpdate = () => {
  * Display existing WKT geometry (not in draw mode)
  */
 const displayWktGeometry = (wktString: string) => {
-    if (!map.value || !wktString) return;
+  if (!map.value || !wktString) return;
 
   try {
     const geometry = parseWKT(wktString);
@@ -234,9 +238,10 @@ const displayWktGeometry = (wktString: string) => {
         draw.value.deleteAll();
 
         // MapboxDraw doesn't support GeometryCollection — decompose into individual features
-        const geometries = geometry.type === 'GeometryCollection'
-          ? geometry.geometries
-          : [geometry];
+        const geometries =
+          geometry.type === 'GeometryCollection'
+            ? geometry.geometries
+            : [geometry];
 
         for (const geom of geometries) {
           // Points inside a collection get markers, others go to draw

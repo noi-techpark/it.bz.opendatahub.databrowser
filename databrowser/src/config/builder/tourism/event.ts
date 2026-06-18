@@ -7,7 +7,11 @@ import {
   DetailElements,
   PropertyConfig,
 } from '../../../domain/datasets/config/types';
-import { DEFAULT_DATE_FORMAT, DEFAULT_DATE_TIME_FORMAT, withOdhBaseUrl } from '../../utils';
+import {
+  DEFAULT_DATE_FORMAT,
+  DEFAULT_DATE_TIME_FORMAT,
+  withOdhBaseUrl,
+} from '../../utils';
 
 export const eventDocumentCell = (): PropertyConfig => ({
   title: 'PDFs',
@@ -265,7 +269,7 @@ export const eventAdditionalCategory = (): DetailElements => ({
 export const eventDateCategory = (): DetailElements => ({
   name: 'Event Details',
   slug: 'Event-details',
-  subcategories: [    
+  subcategories: [
     {
       name: 'Time and date of the Event',
       properties: [
@@ -287,18 +291,18 @@ export const eventDateCategory = (): DetailElements => ({
       name: 'Event Venue',
       properties: [
         {
-            title: '',
-            component: CellComponent.ArrayLookupCell,
-            objectMapping: { items: 'VenueIds' },
-            params: {
-              lookupUrl: withOdhBaseUrl('/v1/Venue?source=noi,nobis,eurac'),
-              labelSelector: 'Detail.{language}.Title',
-              keySelector: 'Id',
-              unique: 'true',
-              addLabel: 'Add new venue',
-              showUrl: 'false',
-            },
-        }
+          title: '',
+          component: CellComponent.ArrayLookupCell,
+          objectMapping: { items: 'VenueIds' },
+          params: {
+            lookupUrl: withOdhBaseUrl('/v1/Venue?source=noi,nobis,eurac'),
+            labelSelector: 'Detail.{language}.Title',
+            keySelector: 'Id',
+            unique: 'true',
+            addLabel: 'Add new venue',
+            showUrl: 'false',
+          },
+        },
       ],
     },
     // {
@@ -382,7 +386,7 @@ export const eventDateCategory = (): DetailElements => ({
             ],
           },
         },
-      ]     
-    },    
+      ],
+    },
   ],
 });
