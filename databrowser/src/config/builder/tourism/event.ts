@@ -267,19 +267,27 @@ export const eventDateCategory = (): DetailElements => ({
   slug: 'Event-details',
   subcategories: [    
     {
-      name: 'Time and date of the Event',
+      name: 'Time and date of the Event (readonly, calculated out of Event Dates)',
       properties: [
         {
           title: 'Date Begin',
           component: CellComponent.DateCell,
           objectMapping: { date: 'DateBegin' },
-          params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
+          params: {
+            type: 'datetime',
+            format: DEFAULT_DATE_TIME_FORMAT,
+            readonly: 'true',
+          },
         },
         {
           title: 'Date End',
           component: CellComponent.DateCell,
           objectMapping: { date: 'DateEnd' },
-          params: { type: 'datetime', format: DEFAULT_DATE_TIME_FORMAT },
+          params: {
+            type: 'datetime',
+            format: DEFAULT_DATE_TIME_FORMAT,
+            readonly: 'true',
+          },
         },
       ],
     },
