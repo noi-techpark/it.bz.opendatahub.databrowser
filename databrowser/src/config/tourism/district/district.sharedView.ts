@@ -39,22 +39,18 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
           properties: [
             ...idAndCustomIdCells(),
             {
-              title: 'Siag ID',
+              title: 'Municipality Id',
               component: CellComponent.StringCell,
-              objectMapping: { text: 'SiagId' },
-            },
-            {
-              title: 'HGV ID',
-              component: CellComponent.StringCell,
-              objectMapping: { text: 'hgv.id' },
-            },
+              objectMapping: { text: 'MunicipalityId' },
+              class: 'break-all',
+            },            
             {
               title: 'Tourismverein Id',
               component: CellComponent.StringCell,
               objectMapping: { text: 'TourismvereinId' },
               class: 'break-all',
             },
-            regionIdCell('RegionId'),
+            regionIdCell('RegionId'),            
           ],
         },
         {
@@ -87,6 +83,27 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
     odhTagCategory(),
     licenseInfoCategory(),
     mappingCategory(),
+    {
+      name: 'Other',
+      slug: 'other',
+      subcategories: [
+        {
+          name: 'Various Ids',
+          properties: [
+            {
+              title: 'Siag ID',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'SiagId' },
+            },
+            {
+              title: 'HGV ID',
+              component: CellComponent.StringCell,
+              objectMapping: { text: 'hgv.id' },
+            },
+          ],
+        },
+      ],
+    },
     updatehistoryCategory(),
   ],
 });
