@@ -10,7 +10,8 @@ import {
 import {
   dataStatesWithInsertsSubCategory,
   gpsDataCategory,
-  idAndCustomIdCells,
+  idReadOnlyCell,
+  customIdCell,
   imageGalleryCategory,
   locationCategoryDistrict,
   odhTagCategory,
@@ -37,7 +38,7 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: 'IDs',
           properties: [
-            ...idAndCustomIdCells(),
+            idReadOnlyCell(),
             {
               title: 'Municipality Id',
               component: CellComponent.StringCell,
@@ -90,6 +91,7 @@ export const districtSharedView = (): DetailViewConfig | EditViewConfig => ({
         {
           name: 'Various Ids',
           properties: [
+            customIdCell(),
             {
               title: 'Siag ID',
               component: CellComponent.StringCell,

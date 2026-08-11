@@ -267,7 +267,7 @@ export const eventDateCategory = (): DetailElements => ({
   slug: 'Event-details',
   subcategories: [    
     {
-      name: 'Time and date of the Event (readonly, calculated out of Event Dates)',
+      name: 'Time and date of the Event (readonly, calculated of Event Dates min/max)',
       properties: [
         {
           title: 'Date Begin',
@@ -296,15 +296,30 @@ export const eventDateCategory = (): DetailElements => ({
       properties: [
         {
             title: '',
-            component: CellComponent.ArrayLookupCell,
+            component: CellComponent.ArrayLookupCellSourceFiltered,
             objectMapping: { items: 'VenueIds' },
             params: {
-              lookupUrl: withOdhBaseUrl('/v1/Venue?source=noi,nobis,eurac'),
+              lookupUrl: withOdhBaseUrl('/v1/Venue?pagesize=-1&fields=Id,Detail'),  //active=true lets add it when api side is ready
               labelSelector: 'Detail.{language}.Title',
               keySelector: 'Id',
               unique: 'true',
               addLabel: 'Add new venue',
               showUrl: 'false',
+              noOptionsAvailableLabel: 'No venue assignment possible',
+              disabledLabel:
+                'No venue assignment possible, choose a source first',
+              sourceOverrideFrom_001: 'noi',
+              sourceOverrideTo_001: 'noi,nobis,eurac',
+              sourceOverrideFrom_002: 'ebms',
+              sourceOverrideTo_002: 'noi,nobis,eurac',
+              sourceOverrideFrom_003: 'momentus',
+              sourceOverrideTo_003: 'noi,nobis,eurac',
+              sourceOverrideFrom_004: 'wnet',
+              sourceOverrideTo_004: 'noi,nobis,eurac,lts',
+              sourceOverrideFrom_005: 'studiopink',
+              sourceOverrideTo_005: 'noi,nobis,eurac,lts',
+              sourceOverrideFrom_006: 'retealfemminile',
+              sourceOverrideTo_006: 'noi,nobis,eurac,lts',
             },
         }
       ],
