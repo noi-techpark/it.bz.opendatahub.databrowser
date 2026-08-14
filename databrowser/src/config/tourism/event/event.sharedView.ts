@@ -124,7 +124,17 @@ export const eventSharedView = (): DetailViewConfig | EditViewConfig => ({
     additionalPropertiesCategory(),
     locationCategory(),
     gpsDataCategory(),
-    tagCategory('event', { withSourceFilter: true }),
+    tagCategory('event', {
+      withSourceFilter: true,
+      sourceOverrides: {
+        noi: 'noi,nobis,eurac',
+        ebms: 'noi,nobis,eurac',
+        momentus: 'noi,nobis,eurac',
+        wnet: 'wnet,noi,studipink,retealfemminile',
+        studiopink: 'wnet,noi,studipink,retealfemminile',
+        retealfemminile: 'wnet,noi,studipink,retealfemminile',
+      },
+    }),
     videoItemsCategory(),
     eventDocumentCategory(),
     licenseInfoCategory(),
